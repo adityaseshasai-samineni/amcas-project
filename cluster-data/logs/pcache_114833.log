@@ -1,0 +1,41 @@
+==========================================
+SLURM_JOB_ID = 114833
+SLURM_NODELIST = node01
+SLURM_JOB_GPUS = 
+==========================================
+1818:        {"--prompt-cache"}, "FNAME",
+1825:        {"--prompt-cache-all"},
+1832:        {"--prompt-cache-ro"},
+-rw-rw-r-- 1 adityaseshasai.s adityaseshasai.s 187249 Nov  2 18:06 /home/adityaseshasai.s/amcas-pro/results/traces/pcache_test/session.bin
+NATIVE SAVE: the sunshine with her friends. One day, Lily and her friends decided
+NATIVE LOAD: the sunshine with her friends. One day, Lily and her friends decided
+0.00.067.316 I llama_completion: session file has exact match for prompt!
+0.00.074.560 I llama_completion: replayed last token from session
+0.00.119.198 I common_perf_print: prompt eval time =       0.00 ms /     1 tokens (    0.00 ms per token,      inf token
+0.00.119.203 I common_perf_print: unaccounted time =       0.97 ms /   1.8 %      (total - sampling - prompt eval - eval
+
+real	41m47.684s
+user	41m41.161s
+sys	0m0.182s
+gem5 exit=0
+GEM5:  the sunshine with her friends. One day, Lily and her friends decided
+event	work_id	tick	insts
+begin	0	356713129134	0
+end	0	372695349915	68383617
+begin	1	373706637615	71004889
+end	1	389714248980	139441021
+begin	2	390601933740	141687444
+end	2	406632858435	210209030
+begin	3	407520102636	212450121
+end	3	423581730264	281075790
+begin	4	424468980126	283317232
+end	4	440547182496	352039747
+begin	5	441436560894	354287728
+end	5	457553580741	423094277
+begin	6	458443099332	425342360
+end	6	474577892388	494233449
+begin	7	475466223834	496477527
+end	7	491630078799	565451345
+begin	8	492517212777	567690891
+end	8	508695443352	636739181
+load insts=449652710

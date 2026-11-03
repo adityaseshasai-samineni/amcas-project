@@ -1,0 +1,141 @@
+{
+ "records": 8122548,
+ "roi_records": 2796084,
+ "roi_reads": 2735924,
+ "roi_writes": 60160,
+ "phases": [
+  {
+   "id": 1,
+   "begin": 665233818948,
+   "end": 779004335880,
+   "insts": 390178010,
+   "trace_reads": 670642,
+   "trace_writes": 19729,
+   "stat_readReqs": 670642.0,
+   "stat_writeReqs": 19729.0,
+   "row_hit_rate": 0.8793126685612676,
+   "mpki": 1.7693744452692246,
+   "read_lat_ns": 28499.41
+  },
+  {
+   "id": 2,
+   "begin": 779910729246,
+   "end": 893518431156,
+   "insts": 390274527,
+   "trace_reads": 670175,
+   "trace_writes": 13487,
+   "stat_readReqs": 670175.0,
+   "stat_writeReqs": 13487.0,
+   "row_hit_rate": 0.882178210577915,
+   "mpki": 1.7517464059344052,
+   "read_lat_ns": 28513.11
+  },
+  {
+   "id": 3,
+   "begin": 894428933076,
+   "end": 1008619210161,
+   "insts": 390362506,
+   "trace_reads": 670916,
+   "trace_writes": 13466,
+   "stat_readReqs": 670916.0,
+   "stat_writeReqs": 13466.0,
+   "row_hit_rate": 0.8816373605651797,
+   "mpki": 1.7531960408103333,
+   "read_lat_ns": 28460.58
+  },
+  {
+   "id": 4,
+   "begin": 1009527805323,
+   "end": 1123496542170,
+   "insts": 390507385,
+   "trace_reads": 670290,
+   "trace_writes": 13469,
+   "stat_readReqs": 670290.0,
+   "stat_writeReqs": 13469.0,
+   "row_hit_rate": 0.8820228746837795,
+   "mpki": 1.750950241312338,
+   "read_lat_ns": 28511.23
+  }
+ ],
+ "attribution": {
+  "kv_cache": {
+   "reads": 1791252,
+   "writes": 432,
+   "footprint_mib": 27.0322265625
+  },
+  "weights": {
+   "reads": 823735,
+   "writes": 0,
+   "footprint_mib": 12.5587158203125
+  },
+  "activation": {
+   "reads": 18660,
+   "writes": 13828,
+   "footprint_mib": 0.1497802734375
+  },
+  "unattributed": {
+   "reads": 102277,
+   "writes": 45900
+  }
+ },
+ "stride": {
+  "+1 line": 0.42564795108013603,
+  "-1 line": 0.0006906089697623426,
+  "within 16 lines": 0.0771532890833355,
+  "within 8 KiB row": 0.011939202090925055,
+  "beyond": 0.48456894877584106
+ },
+ "offline_row_hit": {
+  "SE first-touch": {
+   "RoRaBaCoCh": {
+    "hit": 0.9352326324960194,
+    "empty": 1.1444577487657738e-05,
+    "conflict": 0.0647559229264929
+   },
+   "RoCoRaBaCh": {
+    "hit": 0.32635679042546645,
+    "empty": 1.1444577487657738e-05,
+    "conflict": 0.6736317649970459
+   },
+   "XOR-bank": {
+    "hit": 0.9312044988634104,
+    "empty": 1.1444577487657738e-05,
+    "conflict": 0.06878405655910194
+   }
+  },
+  "THP 2MiB shuffled": {
+   "RoRaBaCoCh": {
+    "hit": 0.9352326324960194,
+    "empty": 1.1444577487657738e-05,
+    "conflict": 0.0647559229264929
+   },
+   "RoCoRaBaCh": {
+    "hit": 0.32635679042546645,
+    "empty": 1.1444577487657738e-05,
+    "conflict": 0.6736317649970459
+   },
+   "XOR-bank": {
+    "hit": 0.9160640381333321,
+    "empty": 1.1444577487657738e-05,
+    "conflict": 0.08392451728918016
+   }
+  },
+  "4KiB shuffled": {
+   "RoRaBaCoCh": {
+    "hit": 0.9032185728325759,
+    "empty": 1.1444577487657738e-05,
+    "conflict": 0.09676998258993649
+   },
+   "RoCoRaBaCh": {
+    "hit": 0.14877378505080677,
+    "empty": 1.1444577487657738e-05,
+    "conflict": 0.8512147703717056
+   },
+   "XOR-bank": {
+    "hit": 0.9038884382586503,
+    "empty": 1.1444577487657738e-05,
+    "conflict": 0.09610011716386203
+   }
+  }
+ }
+}

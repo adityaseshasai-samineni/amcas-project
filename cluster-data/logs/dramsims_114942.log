@@ -1,0 +1,37 @@
+==========================================
+SLURM_JOB_ID = 114942
+SLURM_NODELIST = node01
+SLURM_JOB_GPUS = 
+==========================================
+=== DRAMsim3
+-- Build files have been written to: /home/adityaseshasai.s/amcas-pro/tracing/DRAMsim3/build
+[100%] Built target dramsim3main
+trace: READ=2735924 WRITE=60160 
+mapping        policy           reads   writes    hit  rd_lat       act
+rochrababgco   CLOSE_PAGE     2735924    60160  0.000   491.4   2801215
+rochrababgco   OPEN_PAGE      2735925    60160  0.902    37.4    272977
+rocorababgch   CLOSE_PAGE     2735925    60160  0.000    51.7   2801287
+rocorababgch   OPEN_PAGE      2735925    60160  0.241    54.4   2125470
+=== Ramulator2
+-- Build files have been written to: /home/adityaseshasai.s/amcas-pro/tracing/ramulator2/build
+[100%] Built target _ramulator_test
+[[[[Ramulator::LoadStoreTraceRamulator::LoadStoreTrace] [[32minfo[0m] ] [[32minfo[0m] Ramulator::LoadStoreTraceLoading trace file /home/adityaseshasai.s/amcas-pro/results/traces/s15_c4096_l3-2m/dram.ramulator.trc ...Ramulator::LoadStoreTraceLoading trace file /home/adityaseshasai.s/amcas-pro/results/traces/s15_c4096_l3-2m/dram.ramulator.trc ...] [[32minfo[0m] 
+] [[32minfo[0m] 
+Loading trace file /home/adityaseshasai.s/amcas-pro/results/traces/s15_c4096_l3-2m/dram.ramulator.trc ...Loading trace file /home/adityaseshasai.s/amcas-pro/results/traces/s15_c4096_l3-2m/dram.ramulator.trc ...
+
+[[Ramulator::LoadStoreTrace] [[32minfo[0m] Loading trace file /home/adityaseshasai.s/amcas-pro/results/traces/s15_c4096_l3-2m/dram.ramulator.trc ...
+Ramulator::LoadStoreTrace] [[32minfo[0m] Loading trace file /home/adityaseshasai.s/amcas-pro/results/traces/s15_c4096_l3-2m/dram.ramulator.trc ...
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loaded 2796084 lines.
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loaded 2796084 lines.
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loaded 2796084 lines.
+[[Ramulator::LoadStoreTrace] [[32minfo[0m] Ramulator::LoadStoreTraceLoaded 2796084 lines.] [[32minfo[0m] 
+Loaded 2796084 lines.
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loaded 2796084 lines.
+mapper      policy          reads   writes    hit  conflict  rd_lat  Mcycles
+RoBaRaCoCh  Open          2735924    60160  0.945     0.039   186.0     13.9
+RoBaRaCoCh  ClosedCAP     2735924    60160  0.772     0.026   232.7     17.7
+MOP4CLXOR   Open          2735924    60160  0.470     0.420   194.9     12.0
+MOP4CLXOR   ClosedCAP     2735924    60160  0.400     0.404   201.6     12.0
+ChRaBaRoCo  Open          2735924    60160  0.945     0.054   303.0     24.1
+ChRaBaRoCo  ClosedCAP     2735924    60160  0.773     0.038   517.9     42.3
+ramulator exit=0

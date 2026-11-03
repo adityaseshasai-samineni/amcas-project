@@ -1,0 +1,22 @@
+==========================================
+SLURM_JOB_ID = 114756
+SLURM_NODELIST = node01
+SLURM_JOB_GPUS = 
+==========================================
+already patched: /home/adityaseshasai.s/amcas-pro/tracing/gem5/src/proto/packet.proto
+already patched: /home/adityaseshasai.s/amcas-pro/tracing/gem5/src/sim/probe/mem.hh
+already patched: /home/adityaseshasai.s/amcas-pro/tracing/gem5/src/sim/probe/mem.hh
+already patched: /home/adityaseshasai.s/amcas-pro/tracing/gem5/src/mem/probes/mem_trace.cc
+already patched: /home/adityaseshasai.s/amcas-pro/tracing/llama.cpp/src/llama-context.cpp
+already patched: /home/adityaseshasai.s/amcas-pro/tracing/llama.cpp/src/llama-context.cpp
+RANLIB build/x86/out/libm5.a
+scons: done building targets.
+-rw-rw-r-- 1 adityaseshasai.s adityaseshasai.s 11418 Nov  2 14:59 /home/adityaseshasai.s/amcas-pro/tracing/gem5/util/m5/build/x86/out/libm5.a
+-- Build files have been written to: /home/adityaseshasai.s/amcas-pro/tracing/llama.cpp/build-native
+[100%] Built target llama-completion
+-- Build files have been written to: /home/adityaseshasai.s/amcas-pro/tracing/llama.cpp/build-gem5
+[100%] Built target llama-completion
+build-native/bin/llama-completion: ELF 64-bit LSB executable, x86-64, version 1 (GNU/Linux), statically linked, for GNU/
+native: AVX instructions=2424 SSSE3+ instructions=233
+build-gem5/bin/llama-completion: ELF 64-bit LSB executable, x86-64, version 1 (GNU/Linux), statically linked, for GNU/Li
+gem5: AVX instructions=2424 SSSE3+ instructions=233

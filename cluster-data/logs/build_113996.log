@@ -1,0 +1,32 @@
+==========================================
+SLURM_JOB_ID = 113996
+SLURM_NODELIST = node01
+SLURM_JOB_GPUS = 
+==========================================
+sha256:e945f037188b9 2550
+sha256:f2b4ef06ff01a 29765758
+curl: (92) HTTP/2 stream 0 was not closed cleanly: PROTOCOL_ERROR (err 1)
+sha256:296a5cd91ca79 556689424
+curl: (92) HTTP/2 stream 0 was not closed cleanly: PROTOCOL_ERROR (err 1)
+curl: (28) Operation timed out after 599684 milliseconds with 48686748 out of 535717904 bytes received
+curl: (92) HTTP/2 stream 0 was not closed cleanly: PROTOCOL_ERROR (err 1)
+curl: (92) HTTP/2 stream 0 was not closed cleanly: PROTOCOL_ERROR (err 1)
+curl: (92) HTTP/2 stream 0 was not closed cleanly: PROTOCOL_ERROR (err 1)
+OK 2 layers
+INFO:    Creating SIF file...
+INFO:    Build complete: gem5-deps.sif
+-rwxr-xr-x 1 adityaseshasai.s adityaseshasai.s 553668608 Nov  1 01:18 gem5-deps.sif
+=== llama.cpp SSE static
+INFO:    /etc/singularity/ exists; cleanup by system administrator is not complete (see https://apptainer.org/docs/admin/latest/singularity_migration.html)
+INFO   : A system administrator may need to enable user namespaces, install
+INFO   :   apptainer-suid, or compile with ./mconfig --with-suid
+[91mERROR  : Failed to create user namespace: maximum number of user namespaces exceeded, check /proc/sys/user/max_user_namespaces
+[0m=== native baseline
+=== gem5
+e97d8fb 2026-10-18
+INFO:    /etc/singularity/ exists; cleanup by system administrator is not complete (see https://apptainer.org/docs/admin/latest/singularity_migration.html)
+INFO   : A system administrator may need to enable user namespaces, install
+INFO   :   apptainer-suid, or compile with ./mconfig --with-suid
+[91mERROR  : Failed to create user namespace: maximum number of user namespaces exceeded, check /proc/sys/user/max_user_namespaces
+[0m
+ls: cannot access 'build/X86/gem5.opt': No such file or directory

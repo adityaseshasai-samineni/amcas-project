@@ -1,0 +1,59 @@
+==========================================
+SLURM_JOB_ID = 114757
+SLURM_NODELIST = node06
+SLURM_JOB_GPUS = 
+==========================================
+### stories15M n=1 ctx=512
+0.00.162.187 I common_perf_print:        load time =      75.71 ms
+0.00.162.189 I common_perf_print: prompt eval time =      75.43 ms /    28 tokens (    2.69 ms per token,   37
+0.00.162.195 I common_perf_print:        eval time =       0.00 ms /     1 runs   (    0.00 ms per token,     
+1573622775,,instructions:u,137186623,100.00,3.67,insn per cycle
+429301573,,cycles:u,137186623,100.00,,
+255680,,cache-misses:u,137186623,100.00,16.719,of all cache refs
+1529259,,cache-references:u,137186623,100.00,,
+output:  Once upon a time there was a little girl named Lily. She loved to play outside in the sunshine with her friends. One  
+### stories15M n=9 ctx=512
+0.00.168.992 I common_perf_print:        load time =      72.11 ms
+0.00.168.994 I common_perf_print: prompt eval time =      71.85 ms /    28 tokens (    2.57 ms per token,   38
+0.00.168.995 I common_perf_print:        eval time =      38.44 ms /     8 runs   (    4.80 ms per token,   20
+2128066897,,instructions:u,173906126,100.00,3.72,insn per cycle
+572062420,,cycles:u,173906126,100.00,,
+613678,,cache-misses:u,173906126,100.00,18.144,of all cache refs
+3382210,,cache-references:u,173906126,100.00,,
+output:  Once upon a time there was a little girl named Lily. She loved to play outside in the sunshine with her friends. One day, Lily and her friends decided  
+### tinymoe4 n=1 ctx=256
+0.08.625.071 I common_perf_print:        load time =    8056.05 ms
+0.08.625.073 I common_perf_print: prompt eval time =    8055.81 ms /    28 tokens (  287.71 ms per token,     
+0.08.625.074 I common_perf_print:        eval time =       0.00 ms /     1 runs   (    0.00 ms per token,     
+112341779645,,instructions:u,8614094331,100.00,3.89,insn per cycle
+28879126130,,cycles:u,8614094331,100.00,,
+16859495,,cache-misses:u,8614094331,100.00,27.310,of all cache refs
+61734866,,cache-references:u,8614094331,100.00,,
+output:  Once upon a time there was a little girl named Lily. She loved to play outside in the sunshine with her friends. One  
+### tinymoe4 n=9 ctx=256
+0.11.456.158 I common_perf_print:        load time =    8080.87 ms
+0.11.456.160 I common_perf_print: prompt eval time =    8080.63 ms /    28 tokens (  288.59 ms per token,     
+0.11.456.162 I common_perf_print:        eval time =    2809.24 ms /     8 runs   (  351.16 ms per token,     
+147068523539,,instructions:u,11444077399,100.00,3.78,insn per cycle
+38867515411,,cycles:u,11444077399,100.00,,
+81258741,,cache-misses:u,11444077399,100.00,27.293,of all cache refs
+297721955,,cache-references:u,11444077399,100.00,,
+output:  Once upon a time there was a little girl named Lily. She loved to play outside in the sunshine with her friends. One day, as she was playing, she  
+### qwen25-05b-q4_0 n=1 ctx=256
+0.07.964.678 I common_perf_print:        load time =    3480.57 ms
+0.07.964.680 I common_perf_print: prompt eval time =    3480.35 ms /    24 tokens (  145.01 ms per token,     
+0.07.964.681 I common_perf_print:        eval time =       0.00 ms /     1 runs   (    0.00 ms per token,     
+60227051808,,instructions:u,4001596071,100.00,4.49,insn per cycle
+13424919542,,cycles:u,4001596071,100.00,,
+5542374,,cache-misses:u,4001596071,100.00,25.379,of all cache refs
+21838227,,cache-references:u,4001596071,100.00,,
+output: Once upon a time there was a little girl named Lily. She loved to play outside in the sunshine with her friends. She  
+### qwen25-05b-q4_0 n=9 ctx=256
+0.05.365.644 I common_perf_print:        load time =    3482.46 ms
+0.05.365.646 I common_perf_print: prompt eval time =    3482.23 ms /    24 tokens (  145.09 ms per token,     
+0.05.365.647 I common_perf_print:        eval time =    1420.21 ms /     8 runs   (  177.53 ms per token,     
+82914968644,,instructions:u,5385602999,100.00,4.48,insn per cycle
+18497085901,,cycles:u,5385602999,100.00,,
+17072122,,cache-misses:u,5385602999,100.00,25.593,of all cache refs
+66705138,,cache-references:u,5385602999,100.00,,
+output: Once upon a time there was a little girl named Lily. She loved to play outside in the sunshine with her friends. She loved to read books and learn new things  

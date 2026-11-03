@@ -1,0 +1,324 @@
+==========================================
+SLURM_JOB_ID = 113977
+SLURM_NODELIST = node01
+SLURM_JOB_GPUS = 
+==========================================
++ source /etc/profile.d/modules.sh
+++ '[' -n /bin/bash ']'
+++ '[' bash = sh ']'
+++ shell=bash
+++ '[' -f /usr/share/Modules/init/bash ']'
+++ . /usr/share/Modules/init/bash
++++ unset _mlshdbg
++++ '[' 0 = 1 ']'
++++ export 'MODULES_RUN_QUARANTINE=LD_LIBRARY_PATH LD_PRELOAD'
++++ MODULES_RUN_QUARANTINE='LD_LIBRARY_PATH LD_PRELOAD'
++++ unset _mlre _mlIFS
++++ '[' -n x ']'
++++ _mlIFS=' 	
+'
++++ IFS=' '
++++ for _mlv in ${MODULES_RUN_QUARANTINE:-}
++++ '[' LD_LIBRARY_PATH = LD_LIBRARY_PATH -a LD_LIBRARY_PATH = LD_LIBRARY_PATH ']'
+++++ eval 'echo ${LD_LIBRARY_PATH+x}'
++++++ echo
++++ '[' -n '' ']'
++++ _mlrv=MODULES_RUNENV_LD_LIBRARY_PATH
+++++ eval 'echo ${MODULES_RUNENV_LD_LIBRARY_PATH:-}'
++++++ echo
++++ _mlre='LD_LIBRARY_PATH='\'''\'' '
++++ for _mlv in ${MODULES_RUN_QUARANTINE:-}
++++ '[' LD_PRELOAD = LD_PRELOAD -a LD_PRELOAD = LD_PRELOAD ']'
+++++ eval 'echo ${LD_PRELOAD+x}'
++++++ echo
++++ '[' -n '' ']'
++++ _mlrv=MODULES_RUNENV_LD_PRELOAD
+++++ eval 'echo ${MODULES_RUNENV_LD_PRELOAD:-}'
++++++ echo
++++ _mlre='LD_LIBRARY_PATH='\'''\'' LD_PRELOAD='\'''\'' '
++++ '[' -n 'LD_LIBRARY_PATH='\'''\'' LD_PRELOAD='\'''\'' ' ']'
++++ _mlre='eval LD_LIBRARY_PATH='\'''\'' LD_PRELOAD='\'''\'' '
+++++ eval 'LD_LIBRARY_PATH='\'''\''' 'LD_PRELOAD='\'''\''' /usr/bin/tclsh /usr/share/Modules/libexec/modulecmd.tcl bash autoinit
++++++ LD_LIBRARY_PATH=
++++++ LD_PRELOAD=
++++++ /usr/bin/tclsh /usr/share/Modules/libexec/modulecmd.tcl bash autoinit
++++ _mlcode='module() {
+   unset _mlshdbg;
+   if [ "${MODULES_SILENT_SHELL_DEBUG:-0}" = '\''1'\'' ]; then
+      case "$-" in
+         *v*x*) set +vx; _mlshdbg='\''vx'\'' ;;
+         *v*) set +v; _mlshdbg='\''v'\'' ;;
+         *x*) set +x; _mlshdbg='\''x'\'' ;;
+         *) _mlshdbg='\'''\'' ;;
+      esac;
+   fi;
+   unset _mlre _mlIFS;
+   if [ -n "${IFS+x}" ]; then
+      _mlIFS=$IFS;
+   fi;
+   IFS='\'' '\'';
+   for _mlv in ${MODULES_RUN_QUARANTINE:-}; do
+      if [ "${_mlv}" = "${_mlv##*[!A-Za-z0-9_]}" -a "${_mlv}" = "${_mlv#[0-9]}" ]; then
+         if [ -n "`eval '\''echo ${'\''$_mlv'\''+x}'\''`" ]; then
+            _mlre="${_mlre:-}${_mlv}_modquar='\''`eval '\''echo ${'\''$_mlv'\''}'\''`'\'' ";
+         fi;
+         _mlrv="MODULES_RUNENV_${_mlv}";
+         _mlre="${_mlre:-}${_mlv}='\''`eval '\''echo ${'\''$_mlrv'\'':-}'\''`'\'' ";
+      fi;
+   done;
+   if [ -n "${_mlre:-}" ]; then
+      eval `eval ${_mlre} /usr/bin/tclsh /usr/share/Modules/libexec/modulecmd.tcl bash '\''"$@"'\''`;
+   else
+      eval `/usr/bin/tclsh /usr/share/Modules/libexec/modulecmd.tcl bash "$@"`;
+   fi;
+   _mlstatus=$?;
+   if [ -n "${_mlIFS+x}" ]; then
+      IFS=$_mlIFS;
+   else
+      unset IFS;
+   fi;
+   unset _mlre _mlv _mlrv _mlIFS;
+   if [ -n "${_mlshdbg:-}" ]; then
+      set -$_mlshdbg;
+   fi;
+   unset _mlshdbg;
+   return $_mlstatus;
+};
+ml() { module ml "$@"; };
+MODULES_CMD=/usr/share/Modules/libexec/modulecmd.tcl; export MODULES_CMD;
+MODULESHOME=/usr/share/Modules; export MODULESHOME;
+test 0;'
++++ _mlret=0
++++ '[' -n x ']'
++++ IFS=' 	
+'
++++ unset _mlIFS
++++ unset _mlre _mlv _mlrv
++++ '[' 0 -eq 0 ']'
++++ eval 'module() {
+   unset _mlshdbg;
+   if [ "${MODULES_SILENT_SHELL_DEBUG:-0}" = '\''1'\'' ]; then
+      case "$-" in
+         *v*x*) set +vx; _mlshdbg='\''vx'\'' ;;
+         *v*) set +v; _mlshdbg='\''v'\'' ;;
+         *x*) set +x; _mlshdbg='\''x'\'' ;;
+         *) _mlshdbg='\'''\'' ;;
+      esac;
+   fi;
+   unset _mlre _mlIFS;
+   if [ -n "${IFS+x}" ]; then
+      _mlIFS=$IFS;
+   fi;
+   IFS='\'' '\'';
+   for _mlv in ${MODULES_RUN_QUARANTINE:-}; do
+      if [ "${_mlv}" = "${_mlv##*[!A-Za-z0-9_]}" -a "${_mlv}" = "${_mlv#[0-9]}" ]; then
+         if [ -n "`eval '\''echo ${'\''$_mlv'\''+x}'\''`" ]; then
+            _mlre="${_mlre:-}${_mlv}_modquar='\''`eval '\''echo ${'\''$_mlv'\''}'\''`'\'' ";
+         fi;
+         _mlrv="MODULES_RUNENV_${_mlv}";
+         _mlre="${_mlre:-}${_mlv}='\''`eval '\''echo ${'\''$_mlrv'\'':-}'\''`'\'' ";
+      fi;
+   done;
+   if [ -n "${_mlre:-}" ]; then
+      eval `eval ${_mlre} /usr/bin/tclsh /usr/share/Modules/libexec/modulecmd.tcl bash '\''"$@"'\''`;
+   else
+      eval `/usr/bin/tclsh /usr/share/Modules/libexec/modulecmd.tcl bash "$@"`;
+   fi;
+   _mlstatus=$?;
+   if [ -n "${_mlIFS+x}" ]; then
+      IFS=$_mlIFS;
+   else
+      unset IFS;
+   fi;
+   unset _mlre _mlv _mlrv _mlIFS;
+   if [ -n "${_mlshdbg:-}" ]; then
+      set -$_mlshdbg;
+   fi;
+   unset _mlshdbg;
+   return $_mlstatus;
+};
+ml() { module ml "$@"; };
+MODULES_CMD=/usr/share/Modules/libexec/modulecmd.tcl; export MODULES_CMD;
+MODULESHOME=/usr/share/Modules; export MODULESHOME;
+test 0;'
+++++ MODULES_CMD=/usr/share/Modules/libexec/modulecmd.tcl
+++++ export MODULES_CMD
+++++ MODULESHOME=/usr/share/Modules
+++++ export MODULESHOME
+++++ test 0
++++ '[' 0 = 1 ']'
++++ '[' -t 2 ']'
++++ export -f module
+++++ type -t ml
++++ '[' function = function ']'
++++ export -f ml
++++ export -f switchml
++++ '[' 4 -ge 3 ']'
++++ [[ hxB =~ i ]]
++++ [[ ! :/home/adityaseshasai.s/.local/bin:/home/adityaseshasai.s/bin:/usr/share/Modules/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin: =~ :/usr/share/Modules/bin: ]]
++++ '[' '!' -n x ']'
+++++ manpath
++++ [[ ! :/usr/local/share/man:/usr/share/man:: =~ :/usr/share/man: ]]
++++ unset _mlcode _mlret
++++ '[' -n '' ']'
++ module load cmake/3.20.3
++ unset _mlshdbg
++ '[' 0 = 1 ']'
++ unset _mlre _mlIFS
++ '[' -n x ']'
++ _mlIFS=' 	
+'
++ IFS=' '
++ for _mlv in ${MODULES_RUN_QUARANTINE:-}
++ '[' LD_LIBRARY_PATH = LD_LIBRARY_PATH -a LD_LIBRARY_PATH = LD_LIBRARY_PATH ']'
+++ eval 'echo ${LD_LIBRARY_PATH+x}'
++++ echo
++ '[' -n '' ']'
++ _mlrv=MODULES_RUNENV_LD_LIBRARY_PATH
+++ eval 'echo ${MODULES_RUNENV_LD_LIBRARY_PATH:-}'
++++ echo
++ _mlre='LD_LIBRARY_PATH='\'''\'' '
++ for _mlv in ${MODULES_RUN_QUARANTINE:-}
++ '[' LD_PRELOAD = LD_PRELOAD -a LD_PRELOAD = LD_PRELOAD ']'
+++ eval 'echo ${LD_PRELOAD+x}'
++++ echo
++ '[' -n '' ']'
++ _mlrv=MODULES_RUNENV_LD_PRELOAD
+++ eval 'echo ${MODULES_RUNENV_LD_PRELOAD:-}'
++++ echo
++ _mlre='LD_LIBRARY_PATH='\'''\'' LD_PRELOAD='\'''\'' '
++ '[' -n 'LD_LIBRARY_PATH='\'''\'' LD_PRELOAD='\'''\'' ' ']'
+++ eval 'LD_LIBRARY_PATH='\'''\''' 'LD_PRELOAD='\'''\''' /usr/bin/tclsh /usr/share/Modules/libexec/modulecmd.tcl bash '"$@"'
++++ LD_LIBRARY_PATH=
++++ LD_PRELOAD=
++++ /usr/bin/tclsh /usr/share/Modules/libexec/modulecmd.tcl bash load cmake/3.20.3
++ eval '_LMFILES__modshare=/usr/share/Modules/modulefiles/cmake/3.20.3:1;' export '_LMFILES__modshare;
+LOADEDMODULES_modshare=cmake/3.20.3:1;' export 'LOADEDMODULES_modshare;
+MANPATH=/usr/local/apps/cmake-3.20.3-linux-x86_64/man::;' export 'MANPATH;
+PATH=/usr/local/apps/cmake-3.20.3-linux-x86_64/bin:/home/adityaseshasai.s/.local/bin:/home/adityaseshasai.s/bin:/usr/share/Modules/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin;' export 'PATH;
+_LMFILES_=/usr/share/Modules/modulefiles/cmake/3.20.3;' export '_LMFILES_;
+LOADEDMODULES=cmake/3.20.3;' export 'LOADEDMODULES;
+MANPATH_modshare=:1:/usr/local/apps/cmake-3.20.3-linux-x86_64/man:1;' export 'MANPATH_modshare;
+PATH_modshare=/usr/local/apps/cmake-3.20.3-linux-x86_64/bin:1:/usr/sbin:1:/home/adityaseshasai.s/.local/bin:1:/home/adityaseshasai.s/bin:1:/usr/bin:1:/usr/local/sbin:1:/usr/share/Modules/bin:1:/usr/local/bin:1;' export 'PATH_modshare;
+test' '0;'
+++ _LMFILES__modshare=/usr/share/Modules/modulefiles/cmake/3.20.3:1
+++ export _LMFILES__modshare
+++ LOADEDMODULES_modshare=cmake/3.20.3:1
+++ export LOADEDMODULES_modshare
+++ MANPATH=/usr/local/apps/cmake-3.20.3-linux-x86_64/man::
+++ export MANPATH
+++ PATH=/usr/local/apps/cmake-3.20.3-linux-x86_64/bin:/home/adityaseshasai.s/.local/bin:/home/adityaseshasai.s/bin:/usr/share/Modules/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin
+++ export PATH
+++ _LMFILES_=/usr/share/Modules/modulefiles/cmake/3.20.3
+++ export _LMFILES_
+++ LOADEDMODULES=cmake/3.20.3
+++ export LOADEDMODULES
+++ MANPATH_modshare=:1:/usr/local/apps/cmake-3.20.3-linux-x86_64/man:1
+++ export MANPATH_modshare
+++ PATH_modshare=/usr/local/apps/cmake-3.20.3-linux-x86_64/bin:1:/usr/sbin:1:/home/adityaseshasai.s/.local/bin:1:/home/adityaseshasai.s/bin:1:/usr/bin:1:/usr/local/sbin:1:/usr/share/Modules/bin:1:/usr/local/bin:1
+++ export PATH_modshare
+++ test 0
++ _mlstatus=0
++ '[' -n x ']'
++ IFS=' 	
+'
++ unset _mlre _mlv _mlrv _mlIFS
++ '[' -n '' ']'
++ unset _mlshdbg
++ return 0
++ source /opt/rh/gcc-toolset-13/enable
+++ export PATH=/opt/rh/gcc-toolset-13/root/usr/bin:/usr/local/apps/cmake-3.20.3-linux-x86_64/bin:/home/adityaseshasai.s/.local/bin:/home/adityaseshasai.s/bin:/usr/share/Modules/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin
+++ PATH=/opt/rh/gcc-toolset-13/root/usr/bin:/usr/local/apps/cmake-3.20.3-linux-x86_64/bin:/home/adityaseshasai.s/.local/bin:/home/adityaseshasai.s/bin:/usr/share/Modules/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin
+++ export MANPATH=/opt/rh/gcc-toolset-13/root/usr/share/man:/usr/local/apps/cmake-3.20.3-linux-x86_64/man::
+++ MANPATH=/opt/rh/gcc-toolset-13/root/usr/share/man:/usr/local/apps/cmake-3.20.3-linux-x86_64/man::
+++ export INFOPATH=/opt/rh/gcc-toolset-13/root/usr/share/info
+++ INFOPATH=/opt/rh/gcc-toolset-13/root/usr/share/info
+++ export PCP_DIR=/opt/rh/gcc-toolset-13/root
+++ PCP_DIR=/opt/rh/gcc-toolset-13/root
++++ rpm --eval '%{_libdir}'
+++ rpmlibdir=/usr/lib64
+++ '[' /usr/lib64 '!=' /usr/ ']'
+++ rpmlibdir32=:/opt/rh/gcc-toolset-13/root/usr/lib
+++ rpmlibdir64=
+++ export LD_LIBRARY_PATH=/opt/rh/gcc-toolset-13/root/usr/lib64:/opt/rh/gcc-toolset-13/root/usr/lib
+++ LD_LIBRARY_PATH=/opt/rh/gcc-toolset-13/root/usr/lib64:/opt/rh/gcc-toolset-13/root/usr/lib
+++ export PKG_CONFIG_PATH=/opt/rh/gcc-toolset-13/root/usr/lib64/pkgconfig
+++ PKG_CONFIG_PATH=/opt/rh/gcc-toolset-13/root/usr/lib64/pkgconfig
++ head -1
++ cmake --version
+cmake version 3.20.3
++ W=/home/adityaseshasai.s/amcas-pro/tracing
++ mkdir -p /home/adityaseshasai.s/amcas-pro/tracing/models
++ cd /home/adityaseshasai.s/amcas-pro/tracing
++ '[' -d llama.cpp ']'
++ cd llama.cpp
++ git log -1 '--format=%h %ad' --date=short
+0ec4027 2026-10-30
++ cmake -B build-probe -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=OFF -DGGML_NATIVE=OFF -DGGML_AVX2=ON -DGGML_FMA=ON -DGGML_F16C=ON -DGGML_OPENMP=OFF -DLLAMA_CURL=OFF -DLLAMA_BUILD_SERVER=OFF
+CMAKE_BUILD_TYPE=Release
++ cmake --build build-probe -j8 --target llama-completion
++ tail -3
+[100%] Building CXX object tools/completion/CMakeFiles/llama-completion.dir/main.cpp.o
+[100%] Linking CXX executable ../../bin/llama-completion
+[100%] Built target llama-completion
++ ls build-probe/bin
+llama-completion
++ cd /home/adityaseshasai.s/amcas-pro/tracing/models
++ '[' -f stories15M.gguf ']'
++ ls -la
+total 18640
+drwxrwxr-x 2 adityaseshasai.s adityaseshasai.s     4096 Oct 31 21:50 .
+drwxrwxr-x 4 adityaseshasai.s adityaseshasai.s     4096 Oct 31 21:50 ..
+-rw-rw-r-- 1 adityaseshasai.s adityaseshasai.s 19077344 Oct 31 21:50 stories15M.gguf
++ BIN=/home/adityaseshasai.s/amcas-pro/tracing/llama.cpp/build-probe/bin/llama-completion
++ '[' -x /home/adityaseshasai.s/amcas-pro/tracing/llama.cpp/build-probe/bin/llama-completion ']'
++ '[' -f tinymix.gguf ']'
++ curl -sSL -o tinymix.gguf https://huggingface.co/DavidAU/Tiny-llamix_2x1B-Q8_0-GGUF/resolve/main/tiny-llamix_2x1b.Q8_0.gguf
++ ls -la
+total 18644
+drwxrwxr-x 2 adityaseshasai.s adityaseshasai.s     4096 Oct 31 21:53 .
+drwxrwxr-x 4 adityaseshasai.s adityaseshasai.s     4096 Oct 31 21:50 ..
+-rw-rw-r-- 1 adityaseshasai.s adityaseshasai.s 19077344 Oct 31 21:50 stories15M.gguf
+-rw-rw-r-- 1 adityaseshasai.s adityaseshasai.s       29 Oct 31 21:53 tinymix.gguf
++ for m in stories15M tinymix
++ for n in 1 9
++ echo '### stories15M n=1'
+### stories15M n=1
++ grep -E 'instructions|cycles|cache-|eval time|load time|error|n_expert|arch  |model size|model params'
++ timeout 600 perf stat -x, -e instructions:u,cycles:u,cache-misses:u,cache-references:u -- /home/adityaseshasai.s/amcas-pro/tracing/llama.cpp/build-probe/bin/llama-completion -m stories15M.gguf -t 1 -p 'Once upon a time' -n 1 -no-cnv --no-mmap --seed 1
+error: invalid argument: --no-mmap
+8910122,,instructions:u,3625077,100.00,1.28,insn per cycle
+6977352,,cycles:u,3625077,100.00,,
+26431,,cache-misses:u,3625077,100.00,58.702,of all cache refs
+45026,,cache-references:u,3625077,100.00,,
++ for n in 1 9
++ echo '### stories15M n=9'
+### stories15M n=9
++ grep -E 'instructions|cycles|cache-|eval time|load time|error|n_expert|arch  |model size|model params'
++ timeout 600 perf stat -x, -e instructions:u,cycles:u,cache-misses:u,cache-references:u -- /home/adityaseshasai.s/amcas-pro/tracing/llama.cpp/build-probe/bin/llama-completion -m stories15M.gguf -t 1 -p 'Once upon a time' -n 9 -no-cnv --no-mmap --seed 1
+error: invalid argument: --no-mmap
+8908135,,instructions:u,3483175,100.00,1.26,insn per cycle
+7049616,,cycles:u,3483175,100.00,,
+25990,,cache-misses:u,3483175,100.00,58.981,of all cache refs
+44065,,cache-references:u,3483175,100.00,,
++ for m in stories15M tinymix
++ for n in 1 9
++ echo '### tinymix n=1'
+### tinymix n=1
++ grep -E 'instructions|cycles|cache-|eval time|load time|error|n_expert|arch  |model size|model params'
++ timeout 600 perf stat -x, -e instructions:u,cycles:u,cache-misses:u,cache-references:u -- /home/adityaseshasai.s/amcas-pro/tracing/llama.cpp/build-probe/bin/llama-completion -m tinymix.gguf -t 1 -p 'Once upon a time' -n 1 -no-cnv --no-mmap --seed 1
+error: invalid argument: --no-mmap
+8908126,,instructions:u,3514289,100.00,1.27,insn per cycle
+7040464,,cycles:u,3514289,100.00,,
+26003,,cache-misses:u,3514289,100.00,58.354,of all cache refs
+44561,,cache-references:u,3514289,100.00,,
++ for n in 1 9
++ echo '### tinymix n=9'
+### tinymix n=9
++ grep -E 'instructions|cycles|cache-|eval time|load time|error|n_expert|arch  |model size|model params'
++ timeout 600 perf stat -x, -e instructions:u,cycles:u,cache-misses:u,cache-references:u -- /home/adityaseshasai.s/amcas-pro/tracing/llama.cpp/build-probe/bin/llama-completion -m tinymix.gguf -t 1 -p 'Once upon a time' -n 9 -no-cnv --no-mmap --seed 1
+error: invalid argument: --no-mmap
+8908106,,instructions:u,3452754,100.00,1.27,insn per cycle
+7031040,,cycles:u,3452754,100.00,,
+26146,,cache-misses:u,3452754,100.00,59.612,of all cache refs
+43860,,cache-references:u,3452754,100.00,,

@@ -1,0 +1,16 @@
+==========================================
+SLURM_JOB_ID = 114784
+SLURM_NODELIST = node01
+SLURM_JOB_GPUS = 
+==========================================
+
+ [  RANLIB]  -> X86/ext/softfloat/libsoftfloat.a
+ [     CXX] src/base/date.cc -> X86/base/date.fo
+ [    LINK]  -> X86/gem5.fast
+scons: done building targets.
+*** Summary of Warnings ***
+Warning: Couldn't find HDF5 1.10 or newer C++ libraries. Disabling HDF5 support.
+Warning: Capstone 4.0 or newer was not found.
+         Disabling Capstone disassembly support.
+-rwxrwxr-x 1 adityaseshasai.s adityaseshasai.s 63032408 Nov  2 16:11 build/X86/gem5.fast
+	libtcmalloc_minimal.so.4 => /home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/lib/libtcmalloc_minimal.so.4 (0x0000153528d57000)

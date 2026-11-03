@@ -1,0 +1,57 @@
+==========================================
+SLURM_JOB_ID = 113976
+SLURM_NODELIST = node01
+SLURM_JOB_GPUS = 
+==========================================
++ source /opt/rh/gcc-toolset-13/enable
+++ export PATH=/opt/rh/gcc-toolset-13/root/usr/bin:/home/adityaseshasai.s/.local/bin:/home/adityaseshasai.s/bin:/usr/share/Modules/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin
+++ PATH=/opt/rh/gcc-toolset-13/root/usr/bin:/home/adityaseshasai.s/.local/bin:/home/adityaseshasai.s/bin:/usr/share/Modules/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin
+++ export MANPATH=/opt/rh/gcc-toolset-13/root/usr/share/man::
+++ MANPATH=/opt/rh/gcc-toolset-13/root/usr/share/man::
+++ export INFOPATH=/opt/rh/gcc-toolset-13/root/usr/share/info
+++ INFOPATH=/opt/rh/gcc-toolset-13/root/usr/share/info
+++ export PCP_DIR=/opt/rh/gcc-toolset-13/root
+++ PCP_DIR=/opt/rh/gcc-toolset-13/root
++++ rpm --eval '%{_libdir}'
+++ rpmlibdir=/usr/lib64
+++ '[' /usr/lib64 '!=' /usr/ ']'
+++ rpmlibdir32=:/opt/rh/gcc-toolset-13/root/usr/lib
+++ rpmlibdir64=
+++ export LD_LIBRARY_PATH=/opt/rh/gcc-toolset-13/root/usr/lib64:/opt/rh/gcc-toolset-13/root/usr/lib
+++ LD_LIBRARY_PATH=/opt/rh/gcc-toolset-13/root/usr/lib64:/opt/rh/gcc-toolset-13/root/usr/lib
+++ export PKG_CONFIG_PATH=/opt/rh/gcc-toolset-13/root/usr/lib64/pkgconfig
+++ PKG_CONFIG_PATH=/opt/rh/gcc-toolset-13/root/usr/lib64/pkgconfig
++ W=/home/adityaseshasai.s/amcas-pro/tracing
++ mkdir -p /home/adityaseshasai.s/amcas-pro/tracing/models
++ cd /home/adityaseshasai.s/amcas-pro/tracing
++ '[' -d llama.cpp ']'
++ git clone --depth 1 https://github.com/ggml-org/llama.cpp
+Cloning into 'llama.cpp'...
+Updating files:  10% (437/4001)Updating files:  11% (441/4001)Updating files:  12% (481/4001)Updating files:  13% (521/4001)Updating files:  14% (561/4001)Updating files:  15% (601/4001)Updating files:  16% (641/4001)Updating files:  17% (681/4001)Updating files:  18% (721/4001)Updating files:  19% (761/4001)Updating files:  20% (801/4001)Updating files:  21% (841/4001)Updating files:  22% (881/4001)Updating files:  23% (921/4001)Updating files:  23% (951/4001)Updating files:  24% (961/4001)Updating files:  25% (1001/4001)Updating files:  26% (1041/4001)Updating files:  27% (1081/4001)Updating files:  28% (1121/4001)Updating files:  29% (1161/4001)Updating files:  30% (1201/4001)Updating files:  31% (1241/4001)Updating files:  32% (1281/4001)Updating files:  33% (1321/4001)Updating files:  34% (1361/4001)Updating files:  35% (1401/4001)Updating files:  36% (1441/4001)Updating files:  37% (1481/4001)Updating files:  38% (1521/4001)Updating files:  39% (1561/4001)Updating files:  40% (1601/4001)Updating files:  41% (1641/4001)Updating files:  42% (1681/4001)Updating files:  43% (1721/4001)Updating files:  44% (1761/4001)Updating files:  45% (1801/4001)Updating files:  46% (1841/4001)Updating files:  47% (1881/4001)Updating files:  48% (1921/4001)Updating files:  49% (1961/4001)Updating files:  49% (1975/4001)Updating files:  50% (2001/4001)Updating files:  51% (2041/4001)Updating files:  52% (2081/4001)Updating files:  53% (2121/4001)Updating files:  54% (2161/4001)Updating files:  55% (2201/4001)Updating files:  56% (2241/4001)Updating files:  56% (2275/4001)Updating files:  57% (2281/4001)Updating files:  58% (2321/4001)Updating files:  59% (2361/4001)Updating files:  60% (2401/4001)Updating files:  61% (2441/4001)Updating files:  62% (2481/4001)Updating files:  63% (2521/4001)Updating files:  64% (2561/4001)Updating files:  65% (2601/4001)Updating files:  66% (2641/4001)Updating files:  67% (2681/4001)Updating files:  68% (2721/4001)Updating files:  69% (2761/4001)Updating files:  70% (2801/4001)Updating files:  71% (2841/4001)Updating files:  72% (2881/4001)Updating files:  73% (2921/4001)Updating files:  74% (2961/4001)Updating files:  74% (2984/4001)Updating files:  75% (3001/4001)Updating files:  76% (3041/4001)Updating files:  77% (3081/4001)Updating files:  78% (3121/4001)Updating files:  79% (3161/4001)Updating files:  80% (3201/4001)Updating files:  81% (3241/4001)Updating files:  82% (3281/4001)Updating files:  83% (3321/4001)Updating files:  84% (3361/4001)Updating files:  85% (3401/4001)Updating files:  86% (3441/4001)Updating files:  87% (3481/4001)Updating files:  88% (3521/4001)Updating files:  89% (3561/4001)Updating files:  90% (3601/4001)Updating files:  91% (3641/4001)Updating files:  92% (3681/4001)Updating files:  93% (3721/4001)Updating files:  94% (3761/4001)Updating files:  95% (3801/4001)Updating files:  96% (3841/4001)Updating files:  97% (3881/4001)Updating files:  98% (3921/4001)Updating files:  99% (3961/4001)Updating files: 100% (4001/4001)Updating files: 100% (4001/4001), done.
++ cd llama.cpp
++ git log -1 '--format=%h %ad' --date=short
+0ec4027 2026-10-30
++ cmake -B build-probe -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=OFF -DGGML_NATIVE=OFF -DGGML_AVX2=ON -DGGML_FMA=ON -DGGML_F16C=ON -DGGML_OPENMP=OFF -DLLAMA_CURL=OFF -DLLAMA_BUILD_SERVER=OFF
+/var/spool/slurmd/job113976/slurm_script: line 14: cmake: command not found
++ cmake --build build-probe -j8 --target llama-completion llama-cli
++ tail -3
+/var/spool/slurmd/job113976/slurm_script: line 15: cmake: command not found
++ ls build-probe/bin
+ls: cannot access 'build-probe/bin': No such file or directory
++ cd /home/adityaseshasai.s/amcas-pro/tracing/models
++ '[' -f stories15M.gguf ']'
++ curl -sSL -o stories15M.gguf https://huggingface.co/ggml-org/models/resolve/main/tinyllamas/stories15M-q4_0.gguf
++ ls -la
+total 18640
+drwxrwxr-x 2 adityaseshasai.s adityaseshasai.s     4096 Oct 31 21:50 .
+drwxrwxr-x 4 adityaseshasai.s adityaseshasai.s     4096 Oct 31 21:50 ..
+-rw-rw-r-- 1 adityaseshasai.s adityaseshasai.s 19077344 Oct 31 21:50 stories15M.gguf
++ BIN=/home/adityaseshasai.s/amcas-pro/tracing/llama.cpp/build-probe/bin/llama-completion
++ '[' -x /home/adityaseshasai.s/amcas-pro/tracing/llama.cpp/build-probe/bin/llama-completion ']'
++ BIN=/home/adityaseshasai.s/amcas-pro/tracing/llama.cpp/build-probe/bin/llama-cli
++ for n in 1 17
++ grep -E 'instructions|cycles|cache-|eval time|load time|error'
++ perf stat -x, -e instructions:u,cycles:u,cache-misses:u,cache-references:u -- /home/adityaseshasai.s/amcas-pro/tracing/llama.cpp/build-probe/bin/llama-cli -m stories15M.gguf -t 1 -p 'Once upon a time' -n 1 -no-cnv --no-mmap --seed 1
++ for n in 1 17
++ grep -E 'instructions|cycles|cache-|eval time|load time|error'
++ perf stat -x, -e instructions:u,cycles:u,cache-misses:u,cache-references:u -- /home/adityaseshasai.s/amcas-pro/tracing/llama.cpp/build-probe/bin/llama-cli -m stories15M.gguf -t 1 -p 'Once upon a time' -n 17 -no-cnv --no-mmap --seed 1

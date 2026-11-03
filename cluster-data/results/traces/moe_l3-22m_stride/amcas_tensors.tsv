@@ -1,0 +1,2732 @@
+0	0	dst	GET_ROWS	embd	0x7fff7aceb840	229376	
+0	0	src	NONE	token_embd.weight	0x7fff7fbcd040	69632000	
+0	0	src	NONE	inp_tokens	0x7fff7a8c9040	112	
+0	1	dst	GET_ROWS	node_1	0x7fff7aeeb840	229376	
+0	1	src	NONE	token_embd.weight	0x7fff7fbcd040	69632000	
+0	1	src	NONE	inp_mixed_tokens	0x7fff7a8c9440	112	
+0	2	dst	DUP	node_2	0x7fff7b0eb840	229376	
+0	2	src	NONE	inp_mixed_embd	0x7fff7aaca040	229376	
+0	3	dst	SET_ROWS	 (view)	0x7fff7b0eb840	229376	node_2
+0	3	src	GET_ROWS	node_1	0x7fff7aeeb840	229376	
+0	3	src	NONE	inp_mixed_slots	0x7fff7aac9840	224	
+0	3	src	DUP	node_2	0x7fff7b0eb840	229376	
+0	4	dst	RMS_NORM	norm-0	0x7fff7aeeb840	229376	
+0	4	src	GET_ROWS	embd	0x7fff7aceb840	229376	
+0	5	dst	MUL	attn_norm-0	0x7fff7aeeb840	229376	
+0	5	src	RMS_NORM	norm-0	0x7fff7aeeb840	229376	
+0	5	src	NONE	blk.0.attn_norm.weight	0x7fff8809f040	8192	
+0	6	dst	MUL_MAT	Qcur-0	0x7fff7aac9840	229376	
+0	6	src	NONE	blk.0.attn_q.weight	0x7fff880a1040	4456448	
+0	6	src	MUL	attn_norm-0	0x7fff7aeeb840	229376	
+0	7	dst	RESHAPE	Qcur-0	0x7fff7aac9840	229376	Qcur-0
+0	7	src	MUL_MAT	Qcur-0	0x7fff7aac9840	229376	
+0	8	dst	ROPE	Qcur-0	0x7fff7b2eb840	229376	
+0	8	src	RESHAPE	Qcur-0	0x7fff7aac9840	229376	Qcur-0
+0	8	src	NONE	inp_pos	0x7fff7acca040	112	
+0	9	dst	MUL_MAT	Vcur-0	0x7fff7aac9840	28672	
+0	9	src	NONE	blk.0.attn_v.weight	0x7fff88569040	557056	
+0	9	src	MUL	attn_norm-0	0x7fff7aeeb840	229376	
+0	10	dst	RESHAPE	Vcur-0	0x7fff7aac9840	28672	Vcur-0
+0	10	src	MUL_MAT	Vcur-0	0x7fff7aac9840	28672	
+0	11	dst	MUL_MAT	Kcur-0	0x7fff7ab09840	28672	
+0	11	src	NONE	blk.0.attn_k.weight	0x7fff884e1040	557056	
+0	11	src	MUL	attn_norm-0	0x7fff7aeeb840	229376	
+0	12	dst	RESHAPE	Kcur-0	0x7fff7ab09840	28672	Kcur-0
+0	12	src	MUL_MAT	Kcur-0	0x7fff7ab09840	28672	
+0	13	dst	ROPE	Kcur-0	0x7fff7ab49840	28672	
+0	13	src	RESHAPE	Kcur-0	0x7fff7ab09840	28672	Kcur-0
+0	13	src	NONE	inp_pos	0x7fff7acca040	112	
+0	14	dst	VIEW	Kcur-0 (view)	0x7fff7ab49840	28672	Kcur-0
+0	14	src	ROPE	Kcur-0	0x7fff7ab49840	28672	
+0	15	dst	SET_ROWS	cache_k_l0 (view)	0x7fff7f64c040	131072	cache_k_l0
+0	15	src	VIEW	Kcur-0 (view)	0x7fff7ab49840	28672	Kcur-0
+0	15	src	NONE	attn_inp_k_idxs	0x7fff7acca440	224	
+0	15	src	NONE	cache_k_l0	0x7fff7f64c040	131072	
+0	16	dst	VIEW	Vcur-0 (view)	0x7fff7aac9840	28672	Vcur-0
+0	16	src	RESHAPE	Vcur-0	0x7fff7aac9840	28672	Vcur-0
+0	17	dst	SET_ROWS	cache_v_l0 (view)	0x7fff7f66c040	131072	cache_v_l0
+0	17	src	VIEW	Vcur-0 (view)	0x7fff7aac9840	28672	Vcur-0
+0	17	src	NONE	attn_inp_v_idxs	0x7fff7accac40	224	
+0	17	src	NONE	cache_v_l0	0x7fff7f66c040	131072	
+0	18	dst	VIEW	Qcur-0 (view)	0x7fff7b2eb840	229376	Qcur-0
+0	18	src	ROPE	Qcur-0	0x7fff7b2eb840	229376	
+0	19	dst	PERMUTE	Qcur-0 (view) (permuted)	0x7fff7b2eb840	229376	Qcur-0
+0	19	src	VIEW	Qcur-0 (view)	0x7fff7b2eb840	229376	Qcur-0
+0	20	dst	VIEW	cache_k_l0 (view)	0x7fff7f64c040	131072	cache_k_l0
+0	20	src	NONE	cache_k_l0	0x7fff7f64c040	131072	
+0	21	dst	PERMUTE	cache_k_l0 (view) (permuted)	0x7fff7f64c040	131072	cache_k_l0
+0	21	src	VIEW	cache_k_l0 (view)	0x7fff7f64c040	131072	cache_k_l0
+0	22	dst	VIEW	cache_v_l0 (view)	0x7fff7f66c040	131072	cache_v_l0
+0	22	src	NONE	cache_v_l0	0x7fff7f66c040	131072	
+0	23	dst	PERMUTE	cache_v_l0 (view) (permuted)	0x7fff7f66c040	131072	cache_v_l0
+0	23	src	VIEW	cache_v_l0 (view)	0x7fff7f66c040	131072	cache_v_l0
+0	24	dst	FLASH_ATTN_EXT	node_24	0x7fff7aeeb840	229376	
+0	24	src	PERMUTE	Qcur-0 (view) (permuted)	0x7fff7b2eb840	229376	Qcur-0
+0	24	src	PERMUTE	cache_k_l0 (view) (permuted)	0x7fff7f64c040	131072	cache_k_l0
+0	24	src	PERMUTE	cache_v_l0 (view) (permuted)	0x7fff7f66c040	131072	cache_v_l0
+0	24	src	NONE	attn_inp_kq_mask	0x7fff7accb440	14336	
+0	25	dst	RESHAPE	kqv_out-0	0x7fff7aeeb840	229376	node_24
+0	25	src	FLASH_ATTN_EXT	node_24	0x7fff7aeeb840	229376	
+0	26	dst	MUL_MAT	attn_out-0	0x7fff7aac9840	229376	
+0	26	src	NONE	blk.0.attn_output.weight	0x7fff885f1040	4456448	
+0	26	src	RESHAPE	kqv_out-0	0x7fff7aeeb840	229376	node_24
+0	27	dst	ADD	ffn_inp-0	0x7fff7aac9840	229376	
+0	27	src	MUL_MAT	attn_out-0	0x7fff7aac9840	229376	
+0	27	src	GET_ROWS	embd	0x7fff7aceb840	229376	
+0	28	dst	RMS_NORM	norm-0	0x7fff7aceb840	229376	
+0	28	src	ADD	ffn_inp-0	0x7fff7aac9840	229376	
+0	29	dst	MUL	ffn_norm-0	0x7fff7aceb840	229376	
+0	29	src	RMS_NORM	norm-0	0x7fff7aceb840	229376	
+0	29	src	NONE	blk.0.ffn_norm.weight	0x7fff88a31040	8192	
+0	30	dst	MUL_MAT	ffn_moe_logits-0	0x7fff7acc9840	224	
+0	30	src	NONE	blk.0.ffn_gate_inp.weight	0x7fff88a33040	16384	
+0	30	src	MUL	ffn_norm-0	0x7fff7aceb840	229376	
+0	31	dst	SOFT_MAX	ffn_moe_probs-0	0x7fff7acc9840	224	
+0	31	src	MUL_MAT	ffn_moe_logits-0	0x7fff7acc9840	224	
+0	32	dst	RESHAPE	ffn_moe_probs-0 (reshaped)	0x7fff7acc9840	224	ffn_moe_probs-0
+0	32	src	SOFT_MAX	ffn_moe_probs-0	0x7fff7acc9840	224	
+0	33	dst	ARGSORT	ffn_moe_argsort-0	0x7fff7a8c9040	224	
+0	33	src	SOFT_MAX	ffn_moe_probs-0	0x7fff7acc9840	224	
+0	34	dst	VIEW	ffn_moe_topk-0	0x7fff7a8c9040	224	ffn_moe_argsort-0
+0	34	src	ARGSORT	ffn_moe_argsort-0	0x7fff7a8c9040	224	
+0	35	dst	GET_ROWS	ffn_moe_weights-0	0x7fff7aeeb840	224	
+0	35	src	RESHAPE	ffn_moe_probs-0 (reshaped)	0x7fff7acc9840	224	ffn_moe_probs-0
+0	35	src	VIEW	ffn_moe_topk-0	0x7fff7a8c9040	224	ffn_moe_argsort-0
+0	36	dst	RESHAPE	ffn_moe_weights-0 (reshaped)	0x7fff7aeeb840	224	ffn_moe_weights-0
+0	36	src	GET_ROWS	ffn_moe_weights-0	0x7fff7aeeb840	224	
+0	37	dst	SUM_ROWS	ffn_moe_weights_sum-0	0x7fff7acc9840	112	
+0	37	src	RESHAPE	ffn_moe_weights-0 (reshaped)	0x7fff7aeeb840	224	ffn_moe_weights-0
+0	38	dst	CLAMP	ffn_moe_weights_sum_clamped-0	0x7fff7acc9840	112	
+0	38	src	SUM_ROWS	ffn_moe_weights_sum-0	0x7fff7acc9840	112	
+0	39	dst	DIV	ffn_moe_weights_norm-0	0x7fff7aeec040	224	
+0	39	src	RESHAPE	ffn_moe_weights-0 (reshaped)	0x7fff7aeeb840	224	ffn_moe_weights-0
+0	39	src	CLAMP	ffn_moe_weights_sum_clamped-0	0x7fff7acc9840	112	
+0	40	dst	RESHAPE	ffn_moe_weights_norm-0 (reshaped)	0x7fff7aeec040	224	ffn_moe_weights_norm-0
+0	40	src	DIV	ffn_moe_weights_norm-0	0x7fff7aeec040	224	
+0	41	dst	RESHAPE	ffn_norm-0 (reshaped)	0x7fff7aceb840	229376	ffn_norm-0
+0	41	src	MUL	ffn_norm-0	0x7fff7aceb840	229376	
+0	42	dst	MUL_MAT_ID	ffn_moe_gate-0	0x7fff7b2eb840	1261568	
+0	42	src	NONE	blk.0.ffn_gate_exps.weight	0x7fff88a37040	24510464	
+0	42	src	RESHAPE	ffn_norm-0 (reshaped)	0x7fff7aceb840	229376	ffn_norm-0
+0	42	src	VIEW	ffn_moe_topk-0	0x7fff7a8c9040	224	ffn_moe_argsort-0
+0	43	dst	MUL_MAT_ID	ffn_moe_up-0	0x7fff7bdeb840	1261568	
+0	43	src	NONE	blk.0.ffn_up_exps.weight	0x7fff8b8f7040	24510464	
+0	43	src	RESHAPE	ffn_norm-0 (reshaped)	0x7fff7aceb840	229376	ffn_norm-0
+0	43	src	VIEW	ffn_moe_topk-0	0x7fff7a8c9040	224	ffn_moe_argsort-0
+0	44	dst	GLU	ffn_moe_swiglu-0	0x7fff7c8eb840	1261568	
+0	44	src	MUL_MAT_ID	ffn_moe_gate-0	0x7fff7b2eb840	1261568	
+0	44	src	MUL_MAT_ID	ffn_moe_up-0	0x7fff7bdeb840	1261568	
+0	45	dst	MUL_MAT_ID	ffn_moe_down-0	0x7fff7b2eb840	458752	
+0	45	src	NONE	blk.0.ffn_down_exps.weight	0x7fff8a197040	24510464	
+0	45	src	GLU	ffn_moe_swiglu-0	0x7fff7c8eb840	1261568	
+0	45	src	VIEW	ffn_moe_topk-0	0x7fff7a8c9040	224	ffn_moe_argsort-0
+0	46	dst	MUL	ffn_moe_weighted-0	0x7fff7b2eb840	458752	
+0	46	src	MUL_MAT_ID	ffn_moe_down-0	0x7fff7b2eb840	458752	
+0	46	src	RESHAPE	ffn_moe_weights_norm-0 (reshaped)	0x7fff7aeec040	224	ffn_moe_weights_norm-0
+0	47	dst	VIEW	ffn_moe_weighted-0 (view)	0x7fff7b2eb840	450560	ffn_moe_weighted-0
+0	47	src	MUL	ffn_moe_weighted-0	0x7fff7b2eb840	458752	
+0	48	dst	VIEW	ffn_moe_weighted-0 (view)	0x7fff7b2ed840	450560	ffn_moe_weighted-0
+0	48	src	MUL	ffn_moe_weighted-0	0x7fff7b2eb840	458752	
+0	49	dst	ADD	ffn_moe_out-0	0x7fff7aceb840	229376	
+0	49	src	VIEW	ffn_moe_weighted-0 (view)	0x7fff7b2eb840	450560	ffn_moe_weighted-0
+0	49	src	VIEW	ffn_moe_weighted-0 (view)	0x7fff7b2ed840	450560	ffn_moe_weighted-0
+0	50	dst	ADD	l_out-0	0x7fff7aceb840	229376	
+0	50	src	ADD	ffn_moe_out-0	0x7fff7aceb840	229376	
+0	50	src	ADD	ffn_inp-0	0x7fff7aac9840	229376	
+0	51	dst	RMS_NORM	norm-1	0x7fff7aeeb840	229376	
+0	51	src	ADD	l_out-0	0x7fff7aceb840	229376	
+0	52	dst	MUL	attn_norm-1	0x7fff7aeeb840	229376	
+0	52	src	RMS_NORM	norm-1	0x7fff7aeeb840	229376	
+0	52	src	NONE	blk.1.attn_norm.weight	0x7fff8d057040	8192	
+0	53	dst	MUL_MAT	Qcur-1	0x7fff7aac9840	229376	
+0	53	src	NONE	blk.1.attn_q.weight	0x7fff8d059040	4456448	
+0	53	src	MUL	attn_norm-1	0x7fff7aeeb840	229376	
+0	54	dst	RESHAPE	Qcur-1	0x7fff7aac9840	229376	Qcur-1
+0	54	src	MUL_MAT	Qcur-1	0x7fff7aac9840	229376	
+0	55	dst	ROPE	Qcur-1	0x7fff7b2eb840	229376	
+0	55	src	RESHAPE	Qcur-1	0x7fff7aac9840	229376	Qcur-1
+0	55	src	NONE	inp_pos	0x7fff7acca040	112	
+0	56	dst	MUL_MAT	Vcur-1	0x7fff7aac9840	28672	
+0	56	src	NONE	blk.1.attn_v.weight	0x7fff8d521040	557056	
+0	56	src	MUL	attn_norm-1	0x7fff7aeeb840	229376	
+0	57	dst	RESHAPE	Vcur-1	0x7fff7aac9840	28672	Vcur-1
+0	57	src	MUL_MAT	Vcur-1	0x7fff7aac9840	28672	
+0	58	dst	MUL_MAT	Kcur-1	0x7fff7ab09840	28672	
+0	58	src	NONE	blk.1.attn_k.weight	0x7fff8d499040	557056	
+0	58	src	MUL	attn_norm-1	0x7fff7aeeb840	229376	
+0	59	dst	RESHAPE	Kcur-1	0x7fff7ab09840	28672	Kcur-1
+0	59	src	MUL_MAT	Kcur-1	0x7fff7ab09840	28672	
+0	60	dst	ROPE	Kcur-1	0x7fff7ab49840	28672	
+0	60	src	RESHAPE	Kcur-1	0x7fff7ab09840	28672	Kcur-1
+0	60	src	NONE	inp_pos	0x7fff7acca040	112	
+0	61	dst	VIEW	Kcur-1 (view)	0x7fff7ab49840	28672	Kcur-1
+0	61	src	ROPE	Kcur-1	0x7fff7ab49840	28672	
+0	62	dst	SET_ROWS	cache_k_l1 (view)	0x7fff7f68c040	131072	cache_k_l1
+0	62	src	VIEW	Kcur-1 (view)	0x7fff7ab49840	28672	Kcur-1
+0	62	src	NONE	attn_inp_k_idxs	0x7fff7acca440	224	
+0	62	src	NONE	cache_k_l1	0x7fff7f68c040	131072	
+0	63	dst	VIEW	Vcur-1 (view)	0x7fff7aac9840	28672	Vcur-1
+0	63	src	RESHAPE	Vcur-1	0x7fff7aac9840	28672	Vcur-1
+0	64	dst	SET_ROWS	cache_v_l1 (view)	0x7fff7f6ac040	131072	cache_v_l1
+0	64	src	VIEW	Vcur-1 (view)	0x7fff7aac9840	28672	Vcur-1
+0	64	src	NONE	attn_inp_v_idxs	0x7fff7accac40	224	
+0	64	src	NONE	cache_v_l1	0x7fff7f6ac040	131072	
+0	65	dst	VIEW	Qcur-1 (view)	0x7fff7b2eb840	229376	Qcur-1
+0	65	src	ROPE	Qcur-1	0x7fff7b2eb840	229376	
+0	66	dst	PERMUTE	Qcur-1 (view) (permuted)	0x7fff7b2eb840	229376	Qcur-1
+0	66	src	VIEW	Qcur-1 (view)	0x7fff7b2eb840	229376	Qcur-1
+0	67	dst	VIEW	cache_k_l1 (view)	0x7fff7f68c040	131072	cache_k_l1
+0	67	src	NONE	cache_k_l1	0x7fff7f68c040	131072	
+0	68	dst	PERMUTE	cache_k_l1 (view) (permuted)	0x7fff7f68c040	131072	cache_k_l1
+0	68	src	VIEW	cache_k_l1 (view)	0x7fff7f68c040	131072	cache_k_l1
+0	69	dst	VIEW	cache_v_l1 (view)	0x7fff7f6ac040	131072	cache_v_l1
+0	69	src	NONE	cache_v_l1	0x7fff7f6ac040	131072	
+0	70	dst	PERMUTE	cache_v_l1 (view) (permuted)	0x7fff7f6ac040	131072	cache_v_l1
+0	70	src	VIEW	cache_v_l1 (view)	0x7fff7f6ac040	131072	cache_v_l1
+0	71	dst	FLASH_ATTN_EXT	node_71	0x7fff7aeeb840	229376	
+0	71	src	PERMUTE	Qcur-1 (view) (permuted)	0x7fff7b2eb840	229376	Qcur-1
+0	71	src	PERMUTE	cache_k_l1 (view) (permuted)	0x7fff7f68c040	131072	cache_k_l1
+0	71	src	PERMUTE	cache_v_l1 (view) (permuted)	0x7fff7f6ac040	131072	cache_v_l1
+0	71	src	NONE	attn_inp_kq_mask	0x7fff7accb440	14336	
+0	72	dst	RESHAPE	kqv_out-1	0x7fff7aeeb840	229376	node_71
+0	72	src	FLASH_ATTN_EXT	node_71	0x7fff7aeeb840	229376	
+0	73	dst	MUL_MAT	attn_out-1	0x7fff7aac9840	229376	
+0	73	src	NONE	blk.1.attn_output.weight	0x7fff8d5a9040	4456448	
+0	73	src	RESHAPE	kqv_out-1	0x7fff7aeeb840	229376	node_71
+0	74	dst	ADD	ffn_inp-1	0x7fff7aac9840	229376	
+0	74	src	MUL_MAT	attn_out-1	0x7fff7aac9840	229376	
+0	74	src	ADD	l_out-0	0x7fff7aceb840	229376	
+0	75	dst	RMS_NORM	norm-1	0x7fff7aceb840	229376	
+0	75	src	ADD	ffn_inp-1	0x7fff7aac9840	229376	
+0	76	dst	MUL	ffn_norm-1	0x7fff7aceb840	229376	
+0	76	src	RMS_NORM	norm-1	0x7fff7aceb840	229376	
+0	76	src	NONE	blk.1.ffn_norm.weight	0x7fff8d9e9040	8192	
+0	77	dst	MUL_MAT	ffn_moe_logits-1	0x7fff7acc9840	224	
+0	77	src	NONE	blk.1.ffn_gate_inp.weight	0x7fff8d9eb040	16384	
+0	77	src	MUL	ffn_norm-1	0x7fff7aceb840	229376	
+0	78	dst	SOFT_MAX	ffn_moe_probs-1	0x7fff7acc9840	224	
+0	78	src	MUL_MAT	ffn_moe_logits-1	0x7fff7acc9840	224	
+0	79	dst	RESHAPE	ffn_moe_probs-1 (reshaped)	0x7fff7acc9840	224	ffn_moe_probs-1
+0	79	src	SOFT_MAX	ffn_moe_probs-1	0x7fff7acc9840	224	
+0	80	dst	ARGSORT	ffn_moe_argsort-1	0x7fff7a8c9040	224	
+0	80	src	SOFT_MAX	ffn_moe_probs-1	0x7fff7acc9840	224	
+0	81	dst	VIEW	ffn_moe_topk-1	0x7fff7a8c9040	224	ffn_moe_argsort-1
+0	81	src	ARGSORT	ffn_moe_argsort-1	0x7fff7a8c9040	224	
+0	82	dst	GET_ROWS	ffn_moe_weights-1	0x7fff7aeeb840	224	
+0	82	src	RESHAPE	ffn_moe_probs-1 (reshaped)	0x7fff7acc9840	224	ffn_moe_probs-1
+0	82	src	VIEW	ffn_moe_topk-1	0x7fff7a8c9040	224	ffn_moe_argsort-1
+0	83	dst	RESHAPE	ffn_moe_weights-1 (reshaped)	0x7fff7aeeb840	224	ffn_moe_weights-1
+0	83	src	GET_ROWS	ffn_moe_weights-1	0x7fff7aeeb840	224	
+0	84	dst	SUM_ROWS	ffn_moe_weights_sum-1	0x7fff7acc9840	112	
+0	84	src	RESHAPE	ffn_moe_weights-1 (reshaped)	0x7fff7aeeb840	224	ffn_moe_weights-1
+0	85	dst	CLAMP	ffn_moe_weights_sum_clamped-1	0x7fff7acc9840	112	
+0	85	src	SUM_ROWS	ffn_moe_weights_sum-1	0x7fff7acc9840	112	
+0	86	dst	DIV	ffn_moe_weights_norm-1	0x7fff7aeec040	224	
+0	86	src	RESHAPE	ffn_moe_weights-1 (reshaped)	0x7fff7aeeb840	224	ffn_moe_weights-1
+0	86	src	CLAMP	ffn_moe_weights_sum_clamped-1	0x7fff7acc9840	112	
+0	87	dst	RESHAPE	ffn_moe_weights_norm-1 (reshaped)	0x7fff7aeec040	224	ffn_moe_weights_norm-1
+0	87	src	DIV	ffn_moe_weights_norm-1	0x7fff7aeec040	224	
+0	88	dst	RESHAPE	ffn_norm-1 (reshaped)	0x7fff7aceb840	229376	ffn_norm-1
+0	88	src	MUL	ffn_norm-1	0x7fff7aceb840	229376	
+0	89	dst	MUL_MAT_ID	ffn_moe_gate-1	0x7fff7b2eb840	1261568	
+0	89	src	NONE	blk.1.ffn_gate_exps.weight	0x7fff8d9ef040	24510464	
+0	89	src	RESHAPE	ffn_norm-1 (reshaped)	0x7fff7aceb840	229376	ffn_norm-1
+0	89	src	VIEW	ffn_moe_topk-1	0x7fff7a8c9040	224	ffn_moe_argsort-1
+0	90	dst	MUL_MAT_ID	ffn_moe_up-1	0x7fff7bdeb840	1261568	
+0	90	src	NONE	blk.1.ffn_up_exps.weight	0x7fff908af040	24510464	
+0	90	src	RESHAPE	ffn_norm-1 (reshaped)	0x7fff7aceb840	229376	ffn_norm-1
+0	90	src	VIEW	ffn_moe_topk-1	0x7fff7a8c9040	224	ffn_moe_argsort-1
+0	91	dst	GLU	ffn_moe_swiglu-1	0x7fff7c8eb840	1261568	
+0	91	src	MUL_MAT_ID	ffn_moe_gate-1	0x7fff7b2eb840	1261568	
+0	91	src	MUL_MAT_ID	ffn_moe_up-1	0x7fff7bdeb840	1261568	
+0	92	dst	MUL_MAT_ID	ffn_moe_down-1	0x7fff7b2eb840	458752	
+0	92	src	NONE	blk.1.ffn_down_exps.weight	0x7fff8f14f040	24510464	
+0	92	src	GLU	ffn_moe_swiglu-1	0x7fff7c8eb840	1261568	
+0	92	src	VIEW	ffn_moe_topk-1	0x7fff7a8c9040	224	ffn_moe_argsort-1
+0	93	dst	MUL	ffn_moe_weighted-1	0x7fff7b2eb840	458752	
+0	93	src	MUL_MAT_ID	ffn_moe_down-1	0x7fff7b2eb840	458752	
+0	93	src	RESHAPE	ffn_moe_weights_norm-1 (reshaped)	0x7fff7aeec040	224	ffn_moe_weights_norm-1
+0	94	dst	VIEW	ffn_moe_weighted-1 (view)	0x7fff7b2eb840	450560	ffn_moe_weighted-1
+0	94	src	MUL	ffn_moe_weighted-1	0x7fff7b2eb840	458752	
+0	95	dst	VIEW	ffn_moe_weighted-1 (view)	0x7fff7b2ed840	450560	ffn_moe_weighted-1
+0	95	src	MUL	ffn_moe_weighted-1	0x7fff7b2eb840	458752	
+0	96	dst	ADD	ffn_moe_out-1	0x7fff7aceb840	229376	
+0	96	src	VIEW	ffn_moe_weighted-1 (view)	0x7fff7b2eb840	450560	ffn_moe_weighted-1
+0	96	src	VIEW	ffn_moe_weighted-1 (view)	0x7fff7b2ed840	450560	ffn_moe_weighted-1
+0	97	dst	ADD	l_out-1	0x7fff7aceb840	229376	
+0	97	src	ADD	ffn_moe_out-1	0x7fff7aceb840	229376	
+0	97	src	ADD	ffn_inp-1	0x7fff7aac9840	229376	
+0	98	dst	RMS_NORM	norm-2	0x7fff7aeeb840	229376	
+0	98	src	ADD	l_out-1	0x7fff7aceb840	229376	
+0	99	dst	MUL	attn_norm-2	0x7fff7aeeb840	229376	
+0	99	src	RMS_NORM	norm-2	0x7fff7aeeb840	229376	
+0	99	src	NONE	blk.2.attn_norm.weight	0x7fff9200f040	8192	
+0	100	dst	MUL_MAT	Qcur-2	0x7fff7aac9840	229376	
+0	100	src	NONE	blk.2.attn_q.weight	0x7fff92011040	4456448	
+0	100	src	MUL	attn_norm-2	0x7fff7aeeb840	229376	
+0	101	dst	RESHAPE	Qcur-2	0x7fff7aac9840	229376	Qcur-2
+0	101	src	MUL_MAT	Qcur-2	0x7fff7aac9840	229376	
+0	102	dst	ROPE	Qcur-2	0x7fff7b2eb840	229376	
+0	102	src	RESHAPE	Qcur-2	0x7fff7aac9840	229376	Qcur-2
+0	102	src	NONE	inp_pos	0x7fff7acca040	112	
+0	103	dst	MUL_MAT	Vcur-2	0x7fff7aac9840	28672	
+0	103	src	NONE	blk.2.attn_v.weight	0x7fff924d9040	557056	
+0	103	src	MUL	attn_norm-2	0x7fff7aeeb840	229376	
+0	104	dst	RESHAPE	Vcur-2	0x7fff7aac9840	28672	Vcur-2
+0	104	src	MUL_MAT	Vcur-2	0x7fff7aac9840	28672	
+0	105	dst	MUL_MAT	Kcur-2	0x7fff7ab09840	28672	
+0	105	src	NONE	blk.2.attn_k.weight	0x7fff92451040	557056	
+0	105	src	MUL	attn_norm-2	0x7fff7aeeb840	229376	
+0	106	dst	RESHAPE	Kcur-2	0x7fff7ab09840	28672	Kcur-2
+0	106	src	MUL_MAT	Kcur-2	0x7fff7ab09840	28672	
+0	107	dst	ROPE	Kcur-2	0x7fff7ab49840	28672	
+0	107	src	RESHAPE	Kcur-2	0x7fff7ab09840	28672	Kcur-2
+0	107	src	NONE	inp_pos	0x7fff7acca040	112	
+0	108	dst	VIEW	Kcur-2 (view)	0x7fff7ab49840	28672	Kcur-2
+0	108	src	ROPE	Kcur-2	0x7fff7ab49840	28672	
+0	109	dst	SET_ROWS	cache_k_l2 (view)	0x7fff7f6cc040	131072	cache_k_l2
+0	109	src	VIEW	Kcur-2 (view)	0x7fff7ab49840	28672	Kcur-2
+0	109	src	NONE	attn_inp_k_idxs	0x7fff7acca440	224	
+0	109	src	NONE	cache_k_l2	0x7fff7f6cc040	131072	
+0	110	dst	VIEW	Vcur-2 (view)	0x7fff7aac9840	28672	Vcur-2
+0	110	src	RESHAPE	Vcur-2	0x7fff7aac9840	28672	Vcur-2
+0	111	dst	SET_ROWS	cache_v_l2 (view)	0x7fff7f6ec040	131072	cache_v_l2
+0	111	src	VIEW	Vcur-2 (view)	0x7fff7aac9840	28672	Vcur-2
+0	111	src	NONE	attn_inp_v_idxs	0x7fff7accac40	224	
+0	111	src	NONE	cache_v_l2	0x7fff7f6ec040	131072	
+0	112	dst	VIEW	Qcur-2 (view)	0x7fff7b2eb840	229376	Qcur-2
+0	112	src	ROPE	Qcur-2	0x7fff7b2eb840	229376	
+0	113	dst	PERMUTE	Qcur-2 (view) (permuted)	0x7fff7b2eb840	229376	Qcur-2
+0	113	src	VIEW	Qcur-2 (view)	0x7fff7b2eb840	229376	Qcur-2
+0	114	dst	VIEW	cache_k_l2 (view)	0x7fff7f6cc040	131072	cache_k_l2
+0	114	src	NONE	cache_k_l2	0x7fff7f6cc040	131072	
+0	115	dst	PERMUTE	cache_k_l2 (view) (permuted)	0x7fff7f6cc040	131072	cache_k_l2
+0	115	src	VIEW	cache_k_l2 (view)	0x7fff7f6cc040	131072	cache_k_l2
+0	116	dst	VIEW	cache_v_l2 (view)	0x7fff7f6ec040	131072	cache_v_l2
+0	116	src	NONE	cache_v_l2	0x7fff7f6ec040	131072	
+0	117	dst	PERMUTE	cache_v_l2 (view) (permuted)	0x7fff7f6ec040	131072	cache_v_l2
+0	117	src	VIEW	cache_v_l2 (view)	0x7fff7f6ec040	131072	cache_v_l2
+0	118	dst	FLASH_ATTN_EXT	node_118	0x7fff7aeeb840	229376	
+0	118	src	PERMUTE	Qcur-2 (view) (permuted)	0x7fff7b2eb840	229376	Qcur-2
+0	118	src	PERMUTE	cache_k_l2 (view) (permuted)	0x7fff7f6cc040	131072	cache_k_l2
+0	118	src	PERMUTE	cache_v_l2 (view) (permuted)	0x7fff7f6ec040	131072	cache_v_l2
+0	118	src	NONE	attn_inp_kq_mask	0x7fff7accb440	14336	
+0	119	dst	RESHAPE	kqv_out-2	0x7fff7aeeb840	229376	node_118
+0	119	src	FLASH_ATTN_EXT	node_118	0x7fff7aeeb840	229376	
+0	120	dst	MUL_MAT	attn_out-2	0x7fff7aac9840	229376	
+0	120	src	NONE	blk.2.attn_output.weight	0x7fff92561040	4456448	
+0	120	src	RESHAPE	kqv_out-2	0x7fff7aeeb840	229376	node_118
+0	121	dst	ADD	ffn_inp-2	0x7fff7aac9840	229376	
+0	121	src	MUL_MAT	attn_out-2	0x7fff7aac9840	229376	
+0	121	src	ADD	l_out-1	0x7fff7aceb840	229376	
+0	122	dst	RMS_NORM	norm-2	0x7fff7aceb840	229376	
+0	122	src	ADD	ffn_inp-2	0x7fff7aac9840	229376	
+0	123	dst	MUL	ffn_norm-2	0x7fff7aceb840	229376	
+0	123	src	RMS_NORM	norm-2	0x7fff7aceb840	229376	
+0	123	src	NONE	blk.2.ffn_norm.weight	0x7fff929a1040	8192	
+0	124	dst	MUL_MAT	ffn_moe_logits-2	0x7fff7acc9840	224	
+0	124	src	NONE	blk.2.ffn_gate_inp.weight	0x7fff929a3040	16384	
+0	124	src	MUL	ffn_norm-2	0x7fff7aceb840	229376	
+0	125	dst	SOFT_MAX	ffn_moe_probs-2	0x7fff7acc9840	224	
+0	125	src	MUL_MAT	ffn_moe_logits-2	0x7fff7acc9840	224	
+0	126	dst	RESHAPE	ffn_moe_probs-2 (reshaped)	0x7fff7acc9840	224	ffn_moe_probs-2
+0	126	src	SOFT_MAX	ffn_moe_probs-2	0x7fff7acc9840	224	
+0	127	dst	ARGSORT	ffn_moe_argsort-2	0x7fff7a8c9040	224	
+0	127	src	SOFT_MAX	ffn_moe_probs-2	0x7fff7acc9840	224	
+0	128	dst	VIEW	ffn_moe_topk-2	0x7fff7a8c9040	224	ffn_moe_argsort-2
+0	128	src	ARGSORT	ffn_moe_argsort-2	0x7fff7a8c9040	224	
+0	129	dst	GET_ROWS	ffn_moe_weights-2	0x7fff7aeeb840	224	
+0	129	src	RESHAPE	ffn_moe_probs-2 (reshaped)	0x7fff7acc9840	224	ffn_moe_probs-2
+0	129	src	VIEW	ffn_moe_topk-2	0x7fff7a8c9040	224	ffn_moe_argsort-2
+0	130	dst	RESHAPE	ffn_moe_weights-2 (reshaped)	0x7fff7aeeb840	224	ffn_moe_weights-2
+0	130	src	GET_ROWS	ffn_moe_weights-2	0x7fff7aeeb840	224	
+0	131	dst	SUM_ROWS	ffn_moe_weights_sum-2	0x7fff7acc9840	112	
+0	131	src	RESHAPE	ffn_moe_weights-2 (reshaped)	0x7fff7aeeb840	224	ffn_moe_weights-2
+0	132	dst	CLAMP	ffn_moe_weights_sum_clamped-2	0x7fff7acc9840	112	
+0	132	src	SUM_ROWS	ffn_moe_weights_sum-2	0x7fff7acc9840	112	
+0	133	dst	DIV	ffn_moe_weights_norm-2	0x7fff7aeec040	224	
+0	133	src	RESHAPE	ffn_moe_weights-2 (reshaped)	0x7fff7aeeb840	224	ffn_moe_weights-2
+0	133	src	CLAMP	ffn_moe_weights_sum_clamped-2	0x7fff7acc9840	112	
+0	134	dst	RESHAPE	ffn_moe_weights_norm-2 (reshaped)	0x7fff7aeec040	224	ffn_moe_weights_norm-2
+0	134	src	DIV	ffn_moe_weights_norm-2	0x7fff7aeec040	224	
+0	135	dst	RESHAPE	ffn_norm-2 (reshaped)	0x7fff7aceb840	229376	ffn_norm-2
+0	135	src	MUL	ffn_norm-2	0x7fff7aceb840	229376	
+0	136	dst	MUL_MAT_ID	ffn_moe_gate-2	0x7fff7b2eb840	1261568	
+0	136	src	NONE	blk.2.ffn_gate_exps.weight	0x7fff929a7040	24510464	
+0	136	src	RESHAPE	ffn_norm-2 (reshaped)	0x7fff7aceb840	229376	ffn_norm-2
+0	136	src	VIEW	ffn_moe_topk-2	0x7fff7a8c9040	224	ffn_moe_argsort-2
+0	137	dst	MUL_MAT_ID	ffn_moe_up-2	0x7fff7bdeb840	1261568	
+0	137	src	NONE	blk.2.ffn_up_exps.weight	0x7fff95867040	24510464	
+0	137	src	RESHAPE	ffn_norm-2 (reshaped)	0x7fff7aceb840	229376	ffn_norm-2
+0	137	src	VIEW	ffn_moe_topk-2	0x7fff7a8c9040	224	ffn_moe_argsort-2
+0	138	dst	GLU	ffn_moe_swiglu-2	0x7fff7c8eb840	1261568	
+0	138	src	MUL_MAT_ID	ffn_moe_gate-2	0x7fff7b2eb840	1261568	
+0	138	src	MUL_MAT_ID	ffn_moe_up-2	0x7fff7bdeb840	1261568	
+0	139	dst	MUL_MAT_ID	ffn_moe_down-2	0x7fff7b2eb840	458752	
+0	139	src	NONE	blk.2.ffn_down_exps.weight	0x7fff94107040	24510464	
+0	139	src	GLU	ffn_moe_swiglu-2	0x7fff7c8eb840	1261568	
+0	139	src	VIEW	ffn_moe_topk-2	0x7fff7a8c9040	224	ffn_moe_argsort-2
+0	140	dst	MUL	ffn_moe_weighted-2	0x7fff7b2eb840	458752	
+0	140	src	MUL_MAT_ID	ffn_moe_down-2	0x7fff7b2eb840	458752	
+0	140	src	RESHAPE	ffn_moe_weights_norm-2 (reshaped)	0x7fff7aeec040	224	ffn_moe_weights_norm-2
+0	141	dst	VIEW	ffn_moe_weighted-2 (view)	0x7fff7b2eb840	450560	ffn_moe_weighted-2
+0	141	src	MUL	ffn_moe_weighted-2	0x7fff7b2eb840	458752	
+0	142	dst	VIEW	ffn_moe_weighted-2 (view)	0x7fff7b2ed840	450560	ffn_moe_weighted-2
+0	142	src	MUL	ffn_moe_weighted-2	0x7fff7b2eb840	458752	
+0	143	dst	ADD	ffn_moe_out-2	0x7fff7aceb840	229376	
+0	143	src	VIEW	ffn_moe_weighted-2 (view)	0x7fff7b2eb840	450560	ffn_moe_weighted-2
+0	143	src	VIEW	ffn_moe_weighted-2 (view)	0x7fff7b2ed840	450560	ffn_moe_weighted-2
+0	144	dst	ADD	l_out-2	0x7fff7aceb840	229376	
+0	144	src	ADD	ffn_moe_out-2	0x7fff7aceb840	229376	
+0	144	src	ADD	ffn_inp-2	0x7fff7aac9840	229376	
+0	145	dst	RMS_NORM	norm-3	0x7fff7aeeb840	229376	
+0	145	src	ADD	l_out-2	0x7fff7aceb840	229376	
+0	146	dst	MUL	attn_norm-3	0x7fff7aeeb840	229376	
+0	146	src	RMS_NORM	norm-3	0x7fff7aeeb840	229376	
+0	146	src	NONE	blk.3.attn_norm.weight	0x7fff96fc7040	8192	
+0	147	dst	MUL_MAT	Qcur-3	0x7fff7aac9840	229376	
+0	147	src	NONE	blk.3.attn_q.weight	0x7fff96fc9040	4456448	
+0	147	src	MUL	attn_norm-3	0x7fff7aeeb840	229376	
+0	148	dst	RESHAPE	Qcur-3	0x7fff7aac9840	229376	Qcur-3
+0	148	src	MUL_MAT	Qcur-3	0x7fff7aac9840	229376	
+0	149	dst	ROPE	Qcur-3	0x7fff7b2eb840	229376	
+0	149	src	RESHAPE	Qcur-3	0x7fff7aac9840	229376	Qcur-3
+0	149	src	NONE	inp_pos	0x7fff7acca040	112	
+0	150	dst	MUL_MAT	Vcur-3	0x7fff7aac9840	28672	
+0	150	src	NONE	blk.3.attn_v.weight	0x7fff97491040	557056	
+0	150	src	MUL	attn_norm-3	0x7fff7aeeb840	229376	
+0	151	dst	RESHAPE	Vcur-3	0x7fff7aac9840	28672	Vcur-3
+0	151	src	MUL_MAT	Vcur-3	0x7fff7aac9840	28672	
+0	152	dst	MUL_MAT	Kcur-3	0x7fff7ab09840	28672	
+0	152	src	NONE	blk.3.attn_k.weight	0x7fff97409040	557056	
+0	152	src	MUL	attn_norm-3	0x7fff7aeeb840	229376	
+0	153	dst	RESHAPE	Kcur-3	0x7fff7ab09840	28672	Kcur-3
+0	153	src	MUL_MAT	Kcur-3	0x7fff7ab09840	28672	
+0	154	dst	ROPE	Kcur-3	0x7fff7ab49840	28672	
+0	154	src	RESHAPE	Kcur-3	0x7fff7ab09840	28672	Kcur-3
+0	154	src	NONE	inp_pos	0x7fff7acca040	112	
+0	155	dst	VIEW	Kcur-3 (view)	0x7fff7ab49840	28672	Kcur-3
+0	155	src	ROPE	Kcur-3	0x7fff7ab49840	28672	
+0	156	dst	SET_ROWS	cache_k_l3 (view)	0x7fff7f70c040	131072	cache_k_l3
+0	156	src	VIEW	Kcur-3 (view)	0x7fff7ab49840	28672	Kcur-3
+0	156	src	NONE	attn_inp_k_idxs	0x7fff7acca440	224	
+0	156	src	NONE	cache_k_l3	0x7fff7f70c040	131072	
+0	157	dst	VIEW	Vcur-3 (view)	0x7fff7aac9840	28672	Vcur-3
+0	157	src	RESHAPE	Vcur-3	0x7fff7aac9840	28672	Vcur-3
+0	158	dst	SET_ROWS	cache_v_l3 (view)	0x7fff7f72c040	131072	cache_v_l3
+0	158	src	VIEW	Vcur-3 (view)	0x7fff7aac9840	28672	Vcur-3
+0	158	src	NONE	attn_inp_v_idxs	0x7fff7accac40	224	
+0	158	src	NONE	cache_v_l3	0x7fff7f72c040	131072	
+0	159	dst	VIEW	Qcur-3 (view)	0x7fff7b2eb840	229376	Qcur-3
+0	159	src	ROPE	Qcur-3	0x7fff7b2eb840	229376	
+0	160	dst	PERMUTE	Qcur-3 (view) (permuted)	0x7fff7b2eb840	229376	Qcur-3
+0	160	src	VIEW	Qcur-3 (view)	0x7fff7b2eb840	229376	Qcur-3
+0	161	dst	VIEW	cache_k_l3 (view)	0x7fff7f70c040	131072	cache_k_l3
+0	161	src	NONE	cache_k_l3	0x7fff7f70c040	131072	
+0	162	dst	PERMUTE	cache_k_l3 (view) (permuted)	0x7fff7f70c040	131072	cache_k_l3
+0	162	src	VIEW	cache_k_l3 (view)	0x7fff7f70c040	131072	cache_k_l3
+0	163	dst	VIEW	cache_v_l3 (view)	0x7fff7f72c040	131072	cache_v_l3
+0	163	src	NONE	cache_v_l3	0x7fff7f72c040	131072	
+0	164	dst	PERMUTE	cache_v_l3 (view) (permuted)	0x7fff7f72c040	131072	cache_v_l3
+0	164	src	VIEW	cache_v_l3 (view)	0x7fff7f72c040	131072	cache_v_l3
+0	165	dst	FLASH_ATTN_EXT	node_165	0x7fff7aeeb840	229376	
+0	165	src	PERMUTE	Qcur-3 (view) (permuted)	0x7fff7b2eb840	229376	Qcur-3
+0	165	src	PERMUTE	cache_k_l3 (view) (permuted)	0x7fff7f70c040	131072	cache_k_l3
+0	165	src	PERMUTE	cache_v_l3 (view) (permuted)	0x7fff7f72c040	131072	cache_v_l3
+0	165	src	NONE	attn_inp_kq_mask	0x7fff7accb440	14336	
+0	166	dst	RESHAPE	kqv_out-3	0x7fff7aeeb840	229376	node_165
+0	166	src	FLASH_ATTN_EXT	node_165	0x7fff7aeeb840	229376	
+0	167	dst	MUL_MAT	attn_out-3	0x7fff7aac9840	229376	
+0	167	src	NONE	blk.3.attn_output.weight	0x7fff97519040	4456448	
+0	167	src	RESHAPE	kqv_out-3	0x7fff7aeeb840	229376	node_165
+0	168	dst	ADD	ffn_inp-3	0x7fff7aac9840	229376	
+0	168	src	MUL_MAT	attn_out-3	0x7fff7aac9840	229376	
+0	168	src	ADD	l_out-2	0x7fff7aceb840	229376	
+0	169	dst	RMS_NORM	norm-3	0x7fff7aceb840	229376	
+0	169	src	ADD	ffn_inp-3	0x7fff7aac9840	229376	
+0	170	dst	MUL	ffn_norm-3	0x7fff7aceb840	229376	
+0	170	src	RMS_NORM	norm-3	0x7fff7aceb840	229376	
+0	170	src	NONE	blk.3.ffn_norm.weight	0x7fff97959040	8192	
+0	171	dst	MUL_MAT	ffn_moe_logits-3	0x7fff7acc9840	224	
+0	171	src	NONE	blk.3.ffn_gate_inp.weight	0x7fff9795b040	16384	
+0	171	src	MUL	ffn_norm-3	0x7fff7aceb840	229376	
+0	172	dst	SOFT_MAX	ffn_moe_probs-3	0x7fff7acc9840	224	
+0	172	src	MUL_MAT	ffn_moe_logits-3	0x7fff7acc9840	224	
+0	173	dst	RESHAPE	ffn_moe_probs-3 (reshaped)	0x7fff7acc9840	224	ffn_moe_probs-3
+0	173	src	SOFT_MAX	ffn_moe_probs-3	0x7fff7acc9840	224	
+0	174	dst	ARGSORT	ffn_moe_argsort-3	0x7fff7a8c9040	224	
+0	174	src	SOFT_MAX	ffn_moe_probs-3	0x7fff7acc9840	224	
+0	175	dst	VIEW	ffn_moe_topk-3	0x7fff7a8c9040	224	ffn_moe_argsort-3
+0	175	src	ARGSORT	ffn_moe_argsort-3	0x7fff7a8c9040	224	
+0	176	dst	GET_ROWS	ffn_moe_weights-3	0x7fff7aeeb840	224	
+0	176	src	RESHAPE	ffn_moe_probs-3 (reshaped)	0x7fff7acc9840	224	ffn_moe_probs-3
+0	176	src	VIEW	ffn_moe_topk-3	0x7fff7a8c9040	224	ffn_moe_argsort-3
+0	177	dst	RESHAPE	ffn_moe_weights-3 (reshaped)	0x7fff7aeeb840	224	ffn_moe_weights-3
+0	177	src	GET_ROWS	ffn_moe_weights-3	0x7fff7aeeb840	224	
+0	178	dst	SUM_ROWS	ffn_moe_weights_sum-3	0x7fff7acc9840	112	
+0	178	src	RESHAPE	ffn_moe_weights-3 (reshaped)	0x7fff7aeeb840	224	ffn_moe_weights-3
+0	179	dst	CLAMP	ffn_moe_weights_sum_clamped-3	0x7fff7acc9840	112	
+0	179	src	SUM_ROWS	ffn_moe_weights_sum-3	0x7fff7acc9840	112	
+0	180	dst	DIV	ffn_moe_weights_norm-3	0x7fff7aeec040	224	
+0	180	src	RESHAPE	ffn_moe_weights-3 (reshaped)	0x7fff7aeeb840	224	ffn_moe_weights-3
+0	180	src	CLAMP	ffn_moe_weights_sum_clamped-3	0x7fff7acc9840	112	
+0	181	dst	RESHAPE	ffn_moe_weights_norm-3 (reshaped)	0x7fff7aeec040	224	ffn_moe_weights_norm-3
+0	181	src	DIV	ffn_moe_weights_norm-3	0x7fff7aeec040	224	
+0	182	dst	RESHAPE	ffn_norm-3 (reshaped)	0x7fff7aceb840	229376	ffn_norm-3
+0	182	src	MUL	ffn_norm-3	0x7fff7aceb840	229376	
+0	183	dst	MUL_MAT_ID	ffn_moe_gate-3	0x7fff7b2eb840	1261568	
+0	183	src	NONE	blk.3.ffn_gate_exps.weight	0x7fff9795f040	24510464	
+0	183	src	RESHAPE	ffn_norm-3 (reshaped)	0x7fff7aceb840	229376	ffn_norm-3
+0	183	src	VIEW	ffn_moe_topk-3	0x7fff7a8c9040	224	ffn_moe_argsort-3
+0	184	dst	MUL_MAT_ID	ffn_moe_up-3	0x7fff7bdeb840	1261568	
+0	184	src	NONE	blk.3.ffn_up_exps.weight	0x7fff9a81f040	24510464	
+0	184	src	RESHAPE	ffn_norm-3 (reshaped)	0x7fff7aceb840	229376	ffn_norm-3
+0	184	src	VIEW	ffn_moe_topk-3	0x7fff7a8c9040	224	ffn_moe_argsort-3
+0	185	dst	GLU	ffn_moe_swiglu-3	0x7fff7c8eb840	1261568	
+0	185	src	MUL_MAT_ID	ffn_moe_gate-3	0x7fff7b2eb840	1261568	
+0	185	src	MUL_MAT_ID	ffn_moe_up-3	0x7fff7bdeb840	1261568	
+0	186	dst	MUL_MAT_ID	ffn_moe_down-3	0x7fff7b2eb840	458752	
+0	186	src	NONE	blk.3.ffn_down_exps.weight	0x7fff990bf040	24510464	
+0	186	src	GLU	ffn_moe_swiglu-3	0x7fff7c8eb840	1261568	
+0	186	src	VIEW	ffn_moe_topk-3	0x7fff7a8c9040	224	ffn_moe_argsort-3
+0	187	dst	MUL	ffn_moe_weighted-3	0x7fff7b2eb840	458752	
+0	187	src	MUL_MAT_ID	ffn_moe_down-3	0x7fff7b2eb840	458752	
+0	187	src	RESHAPE	ffn_moe_weights_norm-3 (reshaped)	0x7fff7aeec040	224	ffn_moe_weights_norm-3
+0	188	dst	VIEW	ffn_moe_weighted-3 (view)	0x7fff7b2eb840	450560	ffn_moe_weighted-3
+0	188	src	MUL	ffn_moe_weighted-3	0x7fff7b2eb840	458752	
+0	189	dst	VIEW	ffn_moe_weighted-3 (view)	0x7fff7b2ed840	450560	ffn_moe_weighted-3
+0	189	src	MUL	ffn_moe_weighted-3	0x7fff7b2eb840	458752	
+0	190	dst	ADD	ffn_moe_out-3	0x7fff7aceb840	229376	
+0	190	src	VIEW	ffn_moe_weighted-3 (view)	0x7fff7b2eb840	450560	ffn_moe_weighted-3
+0	190	src	VIEW	ffn_moe_weighted-3 (view)	0x7fff7b2ed840	450560	ffn_moe_weighted-3
+0	191	dst	ADD	l_out-3	0x7fff7aceb840	229376	
+0	191	src	ADD	ffn_moe_out-3	0x7fff7aceb840	229376	
+0	191	src	ADD	ffn_inp-3	0x7fff7aac9840	229376	
+0	192	dst	RMS_NORM	norm-4	0x7fff7aeeb840	229376	
+0	192	src	ADD	l_out-3	0x7fff7aceb840	229376	
+0	193	dst	MUL	attn_norm-4	0x7fff7aeeb840	229376	
+0	193	src	RMS_NORM	norm-4	0x7fff7aeeb840	229376	
+0	193	src	NONE	blk.4.attn_norm.weight	0x7fff9bf7f040	8192	
+0	194	dst	MUL_MAT	Qcur-4	0x7fff7aac9840	229376	
+0	194	src	NONE	blk.4.attn_q.weight	0x7fff9bf81040	4456448	
+0	194	src	MUL	attn_norm-4	0x7fff7aeeb840	229376	
+0	195	dst	RESHAPE	Qcur-4	0x7fff7aac9840	229376	Qcur-4
+0	195	src	MUL_MAT	Qcur-4	0x7fff7aac9840	229376	
+0	196	dst	ROPE	Qcur-4	0x7fff7b2eb840	229376	
+0	196	src	RESHAPE	Qcur-4	0x7fff7aac9840	229376	Qcur-4
+0	196	src	NONE	inp_pos	0x7fff7acca040	112	
+0	197	dst	MUL_MAT	Vcur-4	0x7fff7aac9840	28672	
+0	197	src	NONE	blk.4.attn_v.weight	0x7fff9c449040	557056	
+0	197	src	MUL	attn_norm-4	0x7fff7aeeb840	229376	
+0	198	dst	RESHAPE	Vcur-4	0x7fff7aac9840	28672	Vcur-4
+0	198	src	MUL_MAT	Vcur-4	0x7fff7aac9840	28672	
+0	199	dst	MUL_MAT	Kcur-4	0x7fff7ab09840	28672	
+0	199	src	NONE	blk.4.attn_k.weight	0x7fff9c3c1040	557056	
+0	199	src	MUL	attn_norm-4	0x7fff7aeeb840	229376	
+0	200	dst	RESHAPE	Kcur-4	0x7fff7ab09840	28672	Kcur-4
+0	200	src	MUL_MAT	Kcur-4	0x7fff7ab09840	28672	
+0	201	dst	ROPE	Kcur-4	0x7fff7ab49840	28672	
+0	201	src	RESHAPE	Kcur-4	0x7fff7ab09840	28672	Kcur-4
+0	201	src	NONE	inp_pos	0x7fff7acca040	112	
+0	202	dst	VIEW	Kcur-4 (view)	0x7fff7ab49840	28672	Kcur-4
+0	202	src	ROPE	Kcur-4	0x7fff7ab49840	28672	
+0	203	dst	SET_ROWS	cache_k_l4 (view)	0x7fff7f74c040	131072	cache_k_l4
+0	203	src	VIEW	Kcur-4 (view)	0x7fff7ab49840	28672	Kcur-4
+0	203	src	NONE	attn_inp_k_idxs	0x7fff7acca440	224	
+0	203	src	NONE	cache_k_l4	0x7fff7f74c040	131072	
+0	204	dst	VIEW	Vcur-4 (view)	0x7fff7aac9840	28672	Vcur-4
+0	204	src	RESHAPE	Vcur-4	0x7fff7aac9840	28672	Vcur-4
+0	205	dst	SET_ROWS	cache_v_l4 (view)	0x7fff7f76c040	131072	cache_v_l4
+0	205	src	VIEW	Vcur-4 (view)	0x7fff7aac9840	28672	Vcur-4
+0	205	src	NONE	attn_inp_v_idxs	0x7fff7accac40	224	
+0	205	src	NONE	cache_v_l4	0x7fff7f76c040	131072	
+0	206	dst	VIEW	Qcur-4 (view)	0x7fff7b2eb840	229376	Qcur-4
+0	206	src	ROPE	Qcur-4	0x7fff7b2eb840	229376	
+0	207	dst	PERMUTE	Qcur-4 (view) (permuted)	0x7fff7b2eb840	229376	Qcur-4
+0	207	src	VIEW	Qcur-4 (view)	0x7fff7b2eb840	229376	Qcur-4
+0	208	dst	VIEW	cache_k_l4 (view)	0x7fff7f74c040	131072	cache_k_l4
+0	208	src	NONE	cache_k_l4	0x7fff7f74c040	131072	
+0	209	dst	PERMUTE	cache_k_l4 (view) (permuted)	0x7fff7f74c040	131072	cache_k_l4
+0	209	src	VIEW	cache_k_l4 (view)	0x7fff7f74c040	131072	cache_k_l4
+0	210	dst	VIEW	cache_v_l4 (view)	0x7fff7f76c040	131072	cache_v_l4
+0	210	src	NONE	cache_v_l4	0x7fff7f76c040	131072	
+0	211	dst	PERMUTE	cache_v_l4 (view) (permuted)	0x7fff7f76c040	131072	cache_v_l4
+0	211	src	VIEW	cache_v_l4 (view)	0x7fff7f76c040	131072	cache_v_l4
+0	212	dst	FLASH_ATTN_EXT	node_212	0x7fff7aeeb840	229376	
+0	212	src	PERMUTE	Qcur-4 (view) (permuted)	0x7fff7b2eb840	229376	Qcur-4
+0	212	src	PERMUTE	cache_k_l4 (view) (permuted)	0x7fff7f74c040	131072	cache_k_l4
+0	212	src	PERMUTE	cache_v_l4 (view) (permuted)	0x7fff7f76c040	131072	cache_v_l4
+0	212	src	NONE	attn_inp_kq_mask	0x7fff7accb440	14336	
+0	213	dst	RESHAPE	kqv_out-4	0x7fff7aeeb840	229376	node_212
+0	213	src	FLASH_ATTN_EXT	node_212	0x7fff7aeeb840	229376	
+0	214	dst	MUL_MAT	attn_out-4	0x7fff7aac9840	229376	
+0	214	src	NONE	blk.4.attn_output.weight	0x7fff9c4d1040	4456448	
+0	214	src	RESHAPE	kqv_out-4	0x7fff7aeeb840	229376	node_212
+0	215	dst	ADD	ffn_inp-4	0x7fff7aac9840	229376	
+0	215	src	MUL_MAT	attn_out-4	0x7fff7aac9840	229376	
+0	215	src	ADD	l_out-3	0x7fff7aceb840	229376	
+0	216	dst	RMS_NORM	norm-4	0x7fff7aceb840	229376	
+0	216	src	ADD	ffn_inp-4	0x7fff7aac9840	229376	
+0	217	dst	MUL	ffn_norm-4	0x7fff7aceb840	229376	
+0	217	src	RMS_NORM	norm-4	0x7fff7aceb840	229376	
+0	217	src	NONE	blk.4.ffn_norm.weight	0x7fff9c911040	8192	
+0	218	dst	MUL_MAT	ffn_moe_logits-4	0x7fff7acc9840	224	
+0	218	src	NONE	blk.4.ffn_gate_inp.weight	0x7fff9c913040	16384	
+0	218	src	MUL	ffn_norm-4	0x7fff7aceb840	229376	
+0	219	dst	SOFT_MAX	ffn_moe_probs-4	0x7fff7acc9840	224	
+0	219	src	MUL_MAT	ffn_moe_logits-4	0x7fff7acc9840	224	
+0	220	dst	RESHAPE	ffn_moe_probs-4 (reshaped)	0x7fff7acc9840	224	ffn_moe_probs-4
+0	220	src	SOFT_MAX	ffn_moe_probs-4	0x7fff7acc9840	224	
+0	221	dst	ARGSORT	ffn_moe_argsort-4	0x7fff7a8c9040	224	
+0	221	src	SOFT_MAX	ffn_moe_probs-4	0x7fff7acc9840	224	
+0	222	dst	VIEW	ffn_moe_topk-4	0x7fff7a8c9040	224	ffn_moe_argsort-4
+0	222	src	ARGSORT	ffn_moe_argsort-4	0x7fff7a8c9040	224	
+0	223	dst	GET_ROWS	ffn_moe_weights-4	0x7fff7aeeb840	224	
+0	223	src	RESHAPE	ffn_moe_probs-4 (reshaped)	0x7fff7acc9840	224	ffn_moe_probs-4
+0	223	src	VIEW	ffn_moe_topk-4	0x7fff7a8c9040	224	ffn_moe_argsort-4
+0	224	dst	RESHAPE	ffn_moe_weights-4 (reshaped)	0x7fff7aeeb840	224	ffn_moe_weights-4
+0	224	src	GET_ROWS	ffn_moe_weights-4	0x7fff7aeeb840	224	
+0	225	dst	SUM_ROWS	ffn_moe_weights_sum-4	0x7fff7acc9840	112	
+0	225	src	RESHAPE	ffn_moe_weights-4 (reshaped)	0x7fff7aeeb840	224	ffn_moe_weights-4
+0	226	dst	CLAMP	ffn_moe_weights_sum_clamped-4	0x7fff7acc9840	112	
+0	226	src	SUM_ROWS	ffn_moe_weights_sum-4	0x7fff7acc9840	112	
+0	227	dst	DIV	ffn_moe_weights_norm-4	0x7fff7aeec040	224	
+0	227	src	RESHAPE	ffn_moe_weights-4 (reshaped)	0x7fff7aeeb840	224	ffn_moe_weights-4
+0	227	src	CLAMP	ffn_moe_weights_sum_clamped-4	0x7fff7acc9840	112	
+0	228	dst	RESHAPE	ffn_moe_weights_norm-4 (reshaped)	0x7fff7aeec040	224	ffn_moe_weights_norm-4
+0	228	src	DIV	ffn_moe_weights_norm-4	0x7fff7aeec040	224	
+0	229	dst	RESHAPE	ffn_norm-4 (reshaped)	0x7fff7aceb840	229376	ffn_norm-4
+0	229	src	MUL	ffn_norm-4	0x7fff7aceb840	229376	
+0	230	dst	MUL_MAT_ID	ffn_moe_gate-4	0x7fff7b2eb840	1261568	
+0	230	src	NONE	blk.4.ffn_gate_exps.weight	0x7fff9c917040	24510464	
+0	230	src	RESHAPE	ffn_norm-4 (reshaped)	0x7fff7aceb840	229376	ffn_norm-4
+0	230	src	VIEW	ffn_moe_topk-4	0x7fff7a8c9040	224	ffn_moe_argsort-4
+0	231	dst	MUL_MAT_ID	ffn_moe_up-4	0x7fff7bdeb840	1261568	
+0	231	src	NONE	blk.4.ffn_up_exps.weight	0x7fff9f7d7040	24510464	
+0	231	src	RESHAPE	ffn_norm-4 (reshaped)	0x7fff7aceb840	229376	ffn_norm-4
+0	231	src	VIEW	ffn_moe_topk-4	0x7fff7a8c9040	224	ffn_moe_argsort-4
+0	232	dst	GLU	ffn_moe_swiglu-4	0x7fff7c8eb840	1261568	
+0	232	src	MUL_MAT_ID	ffn_moe_gate-4	0x7fff7b2eb840	1261568	
+0	232	src	MUL_MAT_ID	ffn_moe_up-4	0x7fff7bdeb840	1261568	
+0	233	dst	MUL_MAT_ID	ffn_moe_down-4	0x7fff7b2eb840	458752	
+0	233	src	NONE	blk.4.ffn_down_exps.weight	0x7fff9e077040	24510464	
+0	233	src	GLU	ffn_moe_swiglu-4	0x7fff7c8eb840	1261568	
+0	233	src	VIEW	ffn_moe_topk-4	0x7fff7a8c9040	224	ffn_moe_argsort-4
+0	234	dst	MUL	ffn_moe_weighted-4	0x7fff7b2eb840	458752	
+0	234	src	MUL_MAT_ID	ffn_moe_down-4	0x7fff7b2eb840	458752	
+0	234	src	RESHAPE	ffn_moe_weights_norm-4 (reshaped)	0x7fff7aeec040	224	ffn_moe_weights_norm-4
+0	235	dst	VIEW	ffn_moe_weighted-4 (view)	0x7fff7b2eb840	450560	ffn_moe_weighted-4
+0	235	src	MUL	ffn_moe_weighted-4	0x7fff7b2eb840	458752	
+0	236	dst	VIEW	ffn_moe_weighted-4 (view)	0x7fff7b2ed840	450560	ffn_moe_weighted-4
+0	236	src	MUL	ffn_moe_weighted-4	0x7fff7b2eb840	458752	
+0	237	dst	ADD	ffn_moe_out-4	0x7fff7aceb840	229376	
+0	237	src	VIEW	ffn_moe_weighted-4 (view)	0x7fff7b2eb840	450560	ffn_moe_weighted-4
+0	237	src	VIEW	ffn_moe_weighted-4 (view)	0x7fff7b2ed840	450560	ffn_moe_weighted-4
+0	238	dst	ADD	l_out-4	0x7fff7aceb840	229376	
+0	238	src	ADD	ffn_moe_out-4	0x7fff7aceb840	229376	
+0	238	src	ADD	ffn_inp-4	0x7fff7aac9840	229376	
+0	239	dst	RMS_NORM	norm-5	0x7fff7aeeb840	229376	
+0	239	src	ADD	l_out-4	0x7fff7aceb840	229376	
+0	240	dst	MUL	attn_norm-5	0x7fff7aeeb840	229376	
+0	240	src	RMS_NORM	norm-5	0x7fff7aeeb840	229376	
+0	240	src	NONE	blk.5.attn_norm.weight	0x7fffa0f37040	8192	
+0	241	dst	MUL_MAT	Qcur-5	0x7fff7aac9840	229376	
+0	241	src	NONE	blk.5.attn_q.weight	0x7fffa0f39040	4456448	
+0	241	src	MUL	attn_norm-5	0x7fff7aeeb840	229376	
+0	242	dst	RESHAPE	Qcur-5	0x7fff7aac9840	229376	Qcur-5
+0	242	src	MUL_MAT	Qcur-5	0x7fff7aac9840	229376	
+0	243	dst	ROPE	Qcur-5	0x7fff7b2eb840	229376	
+0	243	src	RESHAPE	Qcur-5	0x7fff7aac9840	229376	Qcur-5
+0	243	src	NONE	inp_pos	0x7fff7acca040	112	
+0	244	dst	MUL_MAT	Vcur-5	0x7fff7aac9840	28672	
+0	244	src	NONE	blk.5.attn_v.weight	0x7fffa1401040	557056	
+0	244	src	MUL	attn_norm-5	0x7fff7aeeb840	229376	
+0	245	dst	RESHAPE	Vcur-5	0x7fff7aac9840	28672	Vcur-5
+0	245	src	MUL_MAT	Vcur-5	0x7fff7aac9840	28672	
+0	246	dst	MUL_MAT	Kcur-5	0x7fff7ab09840	28672	
+0	246	src	NONE	blk.5.attn_k.weight	0x7fffa1379040	557056	
+0	246	src	MUL	attn_norm-5	0x7fff7aeeb840	229376	
+0	247	dst	RESHAPE	Kcur-5	0x7fff7ab09840	28672	Kcur-5
+0	247	src	MUL_MAT	Kcur-5	0x7fff7ab09840	28672	
+0	248	dst	ROPE	Kcur-5	0x7fff7ab49840	28672	
+0	248	src	RESHAPE	Kcur-5	0x7fff7ab09840	28672	Kcur-5
+0	248	src	NONE	inp_pos	0x7fff7acca040	112	
+0	249	dst	VIEW	Kcur-5 (view)	0x7fff7ab49840	28672	Kcur-5
+0	249	src	ROPE	Kcur-5	0x7fff7ab49840	28672	
+0	250	dst	SET_ROWS	cache_k_l5 (view)	0x7fff7f78c040	131072	cache_k_l5
+0	250	src	VIEW	Kcur-5 (view)	0x7fff7ab49840	28672	Kcur-5
+0	250	src	NONE	attn_inp_k_idxs	0x7fff7acca440	224	
+0	250	src	NONE	cache_k_l5	0x7fff7f78c040	131072	
+0	251	dst	VIEW	Vcur-5 (view)	0x7fff7aac9840	28672	Vcur-5
+0	251	src	RESHAPE	Vcur-5	0x7fff7aac9840	28672	Vcur-5
+0	252	dst	SET_ROWS	cache_v_l5 (view)	0x7fff7f7ac040	131072	cache_v_l5
+0	252	src	VIEW	Vcur-5 (view)	0x7fff7aac9840	28672	Vcur-5
+0	252	src	NONE	attn_inp_v_idxs	0x7fff7accac40	224	
+0	252	src	NONE	cache_v_l5	0x7fff7f7ac040	131072	
+0	253	dst	VIEW	Qcur-5 (view)	0x7fff7b2eb840	229376	Qcur-5
+0	253	src	ROPE	Qcur-5	0x7fff7b2eb840	229376	
+0	254	dst	PERMUTE	Qcur-5 (view) (permuted)	0x7fff7b2eb840	229376	Qcur-5
+0	254	src	VIEW	Qcur-5 (view)	0x7fff7b2eb840	229376	Qcur-5
+0	255	dst	VIEW	cache_k_l5 (view)	0x7fff7f78c040	131072	cache_k_l5
+0	255	src	NONE	cache_k_l5	0x7fff7f78c040	131072	
+0	256	dst	PERMUTE	cache_k_l5 (view) (permuted)	0x7fff7f78c040	131072	cache_k_l5
+0	256	src	VIEW	cache_k_l5 (view)	0x7fff7f78c040	131072	cache_k_l5
+0	257	dst	VIEW	cache_v_l5 (view)	0x7fff7f7ac040	131072	cache_v_l5
+0	257	src	NONE	cache_v_l5	0x7fff7f7ac040	131072	
+0	258	dst	PERMUTE	cache_v_l5 (view) (permuted)	0x7fff7f7ac040	131072	cache_v_l5
+0	258	src	VIEW	cache_v_l5 (view)	0x7fff7f7ac040	131072	cache_v_l5
+0	259	dst	FLASH_ATTN_EXT	node_259	0x7fff7aeeb840	229376	
+0	259	src	PERMUTE	Qcur-5 (view) (permuted)	0x7fff7b2eb840	229376	Qcur-5
+0	259	src	PERMUTE	cache_k_l5 (view) (permuted)	0x7fff7f78c040	131072	cache_k_l5
+0	259	src	PERMUTE	cache_v_l5 (view) (permuted)	0x7fff7f7ac040	131072	cache_v_l5
+0	259	src	NONE	attn_inp_kq_mask	0x7fff7accb440	14336	
+0	260	dst	RESHAPE	kqv_out-5	0x7fff7aeeb840	229376	node_259
+0	260	src	FLASH_ATTN_EXT	node_259	0x7fff7aeeb840	229376	
+0	261	dst	MUL_MAT	attn_out-5	0x7fff7aac9840	229376	
+0	261	src	NONE	blk.5.attn_output.weight	0x7fffa1489040	4456448	
+0	261	src	RESHAPE	kqv_out-5	0x7fff7aeeb840	229376	node_259
+0	262	dst	ADD	ffn_inp-5	0x7fff7aac9840	229376	
+0	262	src	MUL_MAT	attn_out-5	0x7fff7aac9840	229376	
+0	262	src	ADD	l_out-4	0x7fff7aceb840	229376	
+0	263	dst	RMS_NORM	norm-5	0x7fff7aceb840	229376	
+0	263	src	ADD	ffn_inp-5	0x7fff7aac9840	229376	
+0	264	dst	MUL	ffn_norm-5	0x7fff7aceb840	229376	
+0	264	src	RMS_NORM	norm-5	0x7fff7aceb840	229376	
+0	264	src	NONE	blk.5.ffn_norm.weight	0x7fffa18c9040	8192	
+0	265	dst	MUL_MAT	ffn_moe_logits-5	0x7fff7acc9840	224	
+0	265	src	NONE	blk.5.ffn_gate_inp.weight	0x7fffa18cb040	16384	
+0	265	src	MUL	ffn_norm-5	0x7fff7aceb840	229376	
+0	266	dst	SOFT_MAX	ffn_moe_probs-5	0x7fff7acc9840	224	
+0	266	src	MUL_MAT	ffn_moe_logits-5	0x7fff7acc9840	224	
+0	267	dst	RESHAPE	ffn_moe_probs-5 (reshaped)	0x7fff7acc9840	224	ffn_moe_probs-5
+0	267	src	SOFT_MAX	ffn_moe_probs-5	0x7fff7acc9840	224	
+0	268	dst	ARGSORT	ffn_moe_argsort-5	0x7fff7a8c9040	224	
+0	268	src	SOFT_MAX	ffn_moe_probs-5	0x7fff7acc9840	224	
+0	269	dst	VIEW	ffn_moe_topk-5	0x7fff7a8c9040	224	ffn_moe_argsort-5
+0	269	src	ARGSORT	ffn_moe_argsort-5	0x7fff7a8c9040	224	
+0	270	dst	GET_ROWS	ffn_moe_weights-5	0x7fff7aeeb840	224	
+0	270	src	RESHAPE	ffn_moe_probs-5 (reshaped)	0x7fff7acc9840	224	ffn_moe_probs-5
+0	270	src	VIEW	ffn_moe_topk-5	0x7fff7a8c9040	224	ffn_moe_argsort-5
+0	271	dst	RESHAPE	ffn_moe_weights-5 (reshaped)	0x7fff7aeeb840	224	ffn_moe_weights-5
+0	271	src	GET_ROWS	ffn_moe_weights-5	0x7fff7aeeb840	224	
+0	272	dst	SUM_ROWS	ffn_moe_weights_sum-5	0x7fff7acc9840	112	
+0	272	src	RESHAPE	ffn_moe_weights-5 (reshaped)	0x7fff7aeeb840	224	ffn_moe_weights-5
+0	273	dst	CLAMP	ffn_moe_weights_sum_clamped-5	0x7fff7acc9840	112	
+0	273	src	SUM_ROWS	ffn_moe_weights_sum-5	0x7fff7acc9840	112	
+0	274	dst	DIV	ffn_moe_weights_norm-5	0x7fff7aeec040	224	
+0	274	src	RESHAPE	ffn_moe_weights-5 (reshaped)	0x7fff7aeeb840	224	ffn_moe_weights-5
+0	274	src	CLAMP	ffn_moe_weights_sum_clamped-5	0x7fff7acc9840	112	
+0	275	dst	RESHAPE	ffn_moe_weights_norm-5 (reshaped)	0x7fff7aeec040	224	ffn_moe_weights_norm-5
+0	275	src	DIV	ffn_moe_weights_norm-5	0x7fff7aeec040	224	
+0	276	dst	RESHAPE	ffn_norm-5 (reshaped)	0x7fff7aceb840	229376	ffn_norm-5
+0	276	src	MUL	ffn_norm-5	0x7fff7aceb840	229376	
+0	277	dst	MUL_MAT_ID	ffn_moe_gate-5	0x7fff7b2eb840	1261568	
+0	277	src	NONE	blk.5.ffn_gate_exps.weight	0x7fffa18cf040	24510464	
+0	277	src	RESHAPE	ffn_norm-5 (reshaped)	0x7fff7aceb840	229376	ffn_norm-5
+0	277	src	VIEW	ffn_moe_topk-5	0x7fff7a8c9040	224	ffn_moe_argsort-5
+0	278	dst	MUL_MAT_ID	ffn_moe_up-5	0x7fff7bdeb840	1261568	
+0	278	src	NONE	blk.5.ffn_up_exps.weight	0x7fffa478f040	24510464	
+0	278	src	RESHAPE	ffn_norm-5 (reshaped)	0x7fff7aceb840	229376	ffn_norm-5
+0	278	src	VIEW	ffn_moe_topk-5	0x7fff7a8c9040	224	ffn_moe_argsort-5
+0	279	dst	GLU	ffn_moe_swiglu-5	0x7fff7c8eb840	1261568	
+0	279	src	MUL_MAT_ID	ffn_moe_gate-5	0x7fff7b2eb840	1261568	
+0	279	src	MUL_MAT_ID	ffn_moe_up-5	0x7fff7bdeb840	1261568	
+0	280	dst	MUL_MAT_ID	ffn_moe_down-5	0x7fff7b2eb840	458752	
+0	280	src	NONE	blk.5.ffn_down_exps.weight	0x7fffa302f040	24510464	
+0	280	src	GLU	ffn_moe_swiglu-5	0x7fff7c8eb840	1261568	
+0	280	src	VIEW	ffn_moe_topk-5	0x7fff7a8c9040	224	ffn_moe_argsort-5
+0	281	dst	MUL	ffn_moe_weighted-5	0x7fff7b2eb840	458752	
+0	281	src	MUL_MAT_ID	ffn_moe_down-5	0x7fff7b2eb840	458752	
+0	281	src	RESHAPE	ffn_moe_weights_norm-5 (reshaped)	0x7fff7aeec040	224	ffn_moe_weights_norm-5
+0	282	dst	VIEW	ffn_moe_weighted-5 (view)	0x7fff7b2eb840	450560	ffn_moe_weighted-5
+0	282	src	MUL	ffn_moe_weighted-5	0x7fff7b2eb840	458752	
+0	283	dst	VIEW	ffn_moe_weighted-5 (view)	0x7fff7b2ed840	450560	ffn_moe_weighted-5
+0	283	src	MUL	ffn_moe_weighted-5	0x7fff7b2eb840	458752	
+0	284	dst	ADD	ffn_moe_out-5	0x7fff7aceb840	229376	
+0	284	src	VIEW	ffn_moe_weighted-5 (view)	0x7fff7b2eb840	450560	ffn_moe_weighted-5
+0	284	src	VIEW	ffn_moe_weighted-5 (view)	0x7fff7b2ed840	450560	ffn_moe_weighted-5
+0	285	dst	ADD	l_out-5	0x7fff7aceb840	229376	
+0	285	src	ADD	ffn_moe_out-5	0x7fff7aceb840	229376	
+0	285	src	ADD	ffn_inp-5	0x7fff7aac9840	229376	
+0	286	dst	RMS_NORM	norm-6	0x7fff7aeeb840	229376	
+0	286	src	ADD	l_out-5	0x7fff7aceb840	229376	
+0	287	dst	MUL	attn_norm-6	0x7fff7aeeb840	229376	
+0	287	src	RMS_NORM	norm-6	0x7fff7aeeb840	229376	
+0	287	src	NONE	blk.6.attn_norm.weight	0x7fffa5eef040	8192	
+0	288	dst	MUL_MAT	Qcur-6	0x7fff7aac9840	229376	
+0	288	src	NONE	blk.6.attn_q.weight	0x7fffa5ef1040	4456448	
+0	288	src	MUL	attn_norm-6	0x7fff7aeeb840	229376	
+0	289	dst	RESHAPE	Qcur-6	0x7fff7aac9840	229376	Qcur-6
+0	289	src	MUL_MAT	Qcur-6	0x7fff7aac9840	229376	
+0	290	dst	ROPE	Qcur-6	0x7fff7b2eb840	229376	
+0	290	src	RESHAPE	Qcur-6	0x7fff7aac9840	229376	Qcur-6
+0	290	src	NONE	inp_pos	0x7fff7acca040	112	
+0	291	dst	MUL_MAT	Vcur-6	0x7fff7aac9840	28672	
+0	291	src	NONE	blk.6.attn_v.weight	0x7fffa63b9040	557056	
+0	291	src	MUL	attn_norm-6	0x7fff7aeeb840	229376	
+0	292	dst	RESHAPE	Vcur-6	0x7fff7aac9840	28672	Vcur-6
+0	292	src	MUL_MAT	Vcur-6	0x7fff7aac9840	28672	
+0	293	dst	MUL_MAT	Kcur-6	0x7fff7ab09840	28672	
+0	293	src	NONE	blk.6.attn_k.weight	0x7fffa6331040	557056	
+0	293	src	MUL	attn_norm-6	0x7fff7aeeb840	229376	
+0	294	dst	RESHAPE	Kcur-6	0x7fff7ab09840	28672	Kcur-6
+0	294	src	MUL_MAT	Kcur-6	0x7fff7ab09840	28672	
+0	295	dst	ROPE	Kcur-6	0x7fff7ab49840	28672	
+0	295	src	RESHAPE	Kcur-6	0x7fff7ab09840	28672	Kcur-6
+0	295	src	NONE	inp_pos	0x7fff7acca040	112	
+0	296	dst	VIEW	Kcur-6 (view)	0x7fff7ab49840	28672	Kcur-6
+0	296	src	ROPE	Kcur-6	0x7fff7ab49840	28672	
+0	297	dst	SET_ROWS	cache_k_l6 (view)	0x7fff7f7cc040	131072	cache_k_l6
+0	297	src	VIEW	Kcur-6 (view)	0x7fff7ab49840	28672	Kcur-6
+0	297	src	NONE	attn_inp_k_idxs	0x7fff7acca440	224	
+0	297	src	NONE	cache_k_l6	0x7fff7f7cc040	131072	
+0	298	dst	VIEW	Vcur-6 (view)	0x7fff7aac9840	28672	Vcur-6
+0	298	src	RESHAPE	Vcur-6	0x7fff7aac9840	28672	Vcur-6
+0	299	dst	SET_ROWS	cache_v_l6 (view)	0x7fff7f7ec040	131072	cache_v_l6
+0	299	src	VIEW	Vcur-6 (view)	0x7fff7aac9840	28672	Vcur-6
+0	299	src	NONE	attn_inp_v_idxs	0x7fff7accac40	224	
+0	299	src	NONE	cache_v_l6	0x7fff7f7ec040	131072	
+0	300	dst	VIEW	Qcur-6 (view)	0x7fff7b2eb840	229376	Qcur-6
+0	300	src	ROPE	Qcur-6	0x7fff7b2eb840	229376	
+0	301	dst	PERMUTE	Qcur-6 (view) (permuted)	0x7fff7b2eb840	229376	Qcur-6
+0	301	src	VIEW	Qcur-6 (view)	0x7fff7b2eb840	229376	Qcur-6
+0	302	dst	VIEW	cache_k_l6 (view)	0x7fff7f7cc040	131072	cache_k_l6
+0	302	src	NONE	cache_k_l6	0x7fff7f7cc040	131072	
+0	303	dst	PERMUTE	cache_k_l6 (view) (permuted)	0x7fff7f7cc040	131072	cache_k_l6
+0	303	src	VIEW	cache_k_l6 (view)	0x7fff7f7cc040	131072	cache_k_l6
+0	304	dst	VIEW	cache_v_l6 (view)	0x7fff7f7ec040	131072	cache_v_l6
+0	304	src	NONE	cache_v_l6	0x7fff7f7ec040	131072	
+0	305	dst	PERMUTE	cache_v_l6 (view) (permuted)	0x7fff7f7ec040	131072	cache_v_l6
+0	305	src	VIEW	cache_v_l6 (view)	0x7fff7f7ec040	131072	cache_v_l6
+0	306	dst	FLASH_ATTN_EXT	node_306	0x7fff7aeeb840	229376	
+0	306	src	PERMUTE	Qcur-6 (view) (permuted)	0x7fff7b2eb840	229376	Qcur-6
+0	306	src	PERMUTE	cache_k_l6 (view) (permuted)	0x7fff7f7cc040	131072	cache_k_l6
+0	306	src	PERMUTE	cache_v_l6 (view) (permuted)	0x7fff7f7ec040	131072	cache_v_l6
+0	306	src	NONE	attn_inp_kq_mask	0x7fff7accb440	14336	
+0	307	dst	RESHAPE	kqv_out-6	0x7fff7aeeb840	229376	node_306
+0	307	src	FLASH_ATTN_EXT	node_306	0x7fff7aeeb840	229376	
+0	308	dst	MUL_MAT	attn_out-6	0x7fff7aac9840	229376	
+0	308	src	NONE	blk.6.attn_output.weight	0x7fffa6441040	4456448	
+0	308	src	RESHAPE	kqv_out-6	0x7fff7aeeb840	229376	node_306
+0	309	dst	ADD	ffn_inp-6	0x7fff7aac9840	229376	
+0	309	src	MUL_MAT	attn_out-6	0x7fff7aac9840	229376	
+0	309	src	ADD	l_out-5	0x7fff7aceb840	229376	
+0	310	dst	RMS_NORM	norm-6	0x7fff7aceb840	229376	
+0	310	src	ADD	ffn_inp-6	0x7fff7aac9840	229376	
+0	311	dst	MUL	ffn_norm-6	0x7fff7aceb840	229376	
+0	311	src	RMS_NORM	norm-6	0x7fff7aceb840	229376	
+0	311	src	NONE	blk.6.ffn_norm.weight	0x7fffa6881040	8192	
+0	312	dst	MUL_MAT	ffn_moe_logits-6	0x7fff7acc9840	224	
+0	312	src	NONE	blk.6.ffn_gate_inp.weight	0x7fffa6883040	16384	
+0	312	src	MUL	ffn_norm-6	0x7fff7aceb840	229376	
+0	313	dst	SOFT_MAX	ffn_moe_probs-6	0x7fff7acc9840	224	
+0	313	src	MUL_MAT	ffn_moe_logits-6	0x7fff7acc9840	224	
+0	314	dst	RESHAPE	ffn_moe_probs-6 (reshaped)	0x7fff7acc9840	224	ffn_moe_probs-6
+0	314	src	SOFT_MAX	ffn_moe_probs-6	0x7fff7acc9840	224	
+0	315	dst	ARGSORT	ffn_moe_argsort-6	0x7fff7a8c9040	224	
+0	315	src	SOFT_MAX	ffn_moe_probs-6	0x7fff7acc9840	224	
+0	316	dst	VIEW	ffn_moe_topk-6	0x7fff7a8c9040	224	ffn_moe_argsort-6
+0	316	src	ARGSORT	ffn_moe_argsort-6	0x7fff7a8c9040	224	
+0	317	dst	GET_ROWS	ffn_moe_weights-6	0x7fff7aeeb840	224	
+0	317	src	RESHAPE	ffn_moe_probs-6 (reshaped)	0x7fff7acc9840	224	ffn_moe_probs-6
+0	317	src	VIEW	ffn_moe_topk-6	0x7fff7a8c9040	224	ffn_moe_argsort-6
+0	318	dst	RESHAPE	ffn_moe_weights-6 (reshaped)	0x7fff7aeeb840	224	ffn_moe_weights-6
+0	318	src	GET_ROWS	ffn_moe_weights-6	0x7fff7aeeb840	224	
+0	319	dst	SUM_ROWS	ffn_moe_weights_sum-6	0x7fff7acc9840	112	
+0	319	src	RESHAPE	ffn_moe_weights-6 (reshaped)	0x7fff7aeeb840	224	ffn_moe_weights-6
+0	320	dst	CLAMP	ffn_moe_weights_sum_clamped-6	0x7fff7acc9840	112	
+0	320	src	SUM_ROWS	ffn_moe_weights_sum-6	0x7fff7acc9840	112	
+0	321	dst	DIV	ffn_moe_weights_norm-6	0x7fff7aeec040	224	
+0	321	src	RESHAPE	ffn_moe_weights-6 (reshaped)	0x7fff7aeeb840	224	ffn_moe_weights-6
+0	321	src	CLAMP	ffn_moe_weights_sum_clamped-6	0x7fff7acc9840	112	
+0	322	dst	RESHAPE	ffn_moe_weights_norm-6 (reshaped)	0x7fff7aeec040	224	ffn_moe_weights_norm-6
+0	322	src	DIV	ffn_moe_weights_norm-6	0x7fff7aeec040	224	
+0	323	dst	RESHAPE	ffn_norm-6 (reshaped)	0x7fff7aceb840	229376	ffn_norm-6
+0	323	src	MUL	ffn_norm-6	0x7fff7aceb840	229376	
+0	324	dst	MUL_MAT_ID	ffn_moe_gate-6	0x7fff7b2eb840	1261568	
+0	324	src	NONE	blk.6.ffn_gate_exps.weight	0x7fffa6887040	24510464	
+0	324	src	RESHAPE	ffn_norm-6 (reshaped)	0x7fff7aceb840	229376	ffn_norm-6
+0	324	src	VIEW	ffn_moe_topk-6	0x7fff7a8c9040	224	ffn_moe_argsort-6
+0	325	dst	MUL_MAT_ID	ffn_moe_up-6	0x7fff7bdeb840	1261568	
+0	325	src	NONE	blk.6.ffn_up_exps.weight	0x7fffa9747040	24510464	
+0	325	src	RESHAPE	ffn_norm-6 (reshaped)	0x7fff7aceb840	229376	ffn_norm-6
+0	325	src	VIEW	ffn_moe_topk-6	0x7fff7a8c9040	224	ffn_moe_argsort-6
+0	326	dst	GLU	ffn_moe_swiglu-6	0x7fff7c8eb840	1261568	
+0	326	src	MUL_MAT_ID	ffn_moe_gate-6	0x7fff7b2eb840	1261568	
+0	326	src	MUL_MAT_ID	ffn_moe_up-6	0x7fff7bdeb840	1261568	
+0	327	dst	MUL_MAT_ID	ffn_moe_down-6	0x7fff7b2eb840	458752	
+0	327	src	NONE	blk.6.ffn_down_exps.weight	0x7fffa7fe7040	24510464	
+0	327	src	GLU	ffn_moe_swiglu-6	0x7fff7c8eb840	1261568	
+0	327	src	VIEW	ffn_moe_topk-6	0x7fff7a8c9040	224	ffn_moe_argsort-6
+0	328	dst	MUL	ffn_moe_weighted-6	0x7fff7b2eb840	458752	
+0	328	src	MUL_MAT_ID	ffn_moe_down-6	0x7fff7b2eb840	458752	
+0	328	src	RESHAPE	ffn_moe_weights_norm-6 (reshaped)	0x7fff7aeec040	224	ffn_moe_weights_norm-6
+0	329	dst	VIEW	ffn_moe_weighted-6 (view)	0x7fff7b2eb840	450560	ffn_moe_weighted-6
+0	329	src	MUL	ffn_moe_weighted-6	0x7fff7b2eb840	458752	
+0	330	dst	VIEW	ffn_moe_weighted-6 (view)	0x7fff7b2ed840	450560	ffn_moe_weighted-6
+0	330	src	MUL	ffn_moe_weighted-6	0x7fff7b2eb840	458752	
+0	331	dst	ADD	ffn_moe_out-6	0x7fff7aceb840	229376	
+0	331	src	VIEW	ffn_moe_weighted-6 (view)	0x7fff7b2eb840	450560	ffn_moe_weighted-6
+0	331	src	VIEW	ffn_moe_weighted-6 (view)	0x7fff7b2ed840	450560	ffn_moe_weighted-6
+0	332	dst	ADD	l_out-6	0x7fff7aceb840	229376	
+0	332	src	ADD	ffn_moe_out-6	0x7fff7aceb840	229376	
+0	332	src	ADD	ffn_inp-6	0x7fff7aac9840	229376	
+0	333	dst	RMS_NORM	norm-7	0x7fff7aeeb840	229376	
+0	333	src	ADD	l_out-6	0x7fff7aceb840	229376	
+0	334	dst	MUL	attn_norm-7	0x7fff7aeeb840	229376	
+0	334	src	RMS_NORM	norm-7	0x7fff7aeeb840	229376	
+0	334	src	NONE	blk.7.attn_norm.weight	0x7fffaaea7040	8192	
+0	335	dst	MUL_MAT	Qcur-7	0x7fff7aac9840	229376	
+0	335	src	NONE	blk.7.attn_q.weight	0x7fffaaea9040	4456448	
+0	335	src	MUL	attn_norm-7	0x7fff7aeeb840	229376	
+0	336	dst	RESHAPE	Qcur-7	0x7fff7aac9840	229376	Qcur-7
+0	336	src	MUL_MAT	Qcur-7	0x7fff7aac9840	229376	
+0	337	dst	ROPE	Qcur-7	0x7fff7b2eb840	229376	
+0	337	src	RESHAPE	Qcur-7	0x7fff7aac9840	229376	Qcur-7
+0	337	src	NONE	inp_pos	0x7fff7acca040	112	
+0	338	dst	MUL_MAT	Vcur-7	0x7fff7aac9840	28672	
+0	338	src	NONE	blk.7.attn_v.weight	0x7fffab371040	557056	
+0	338	src	MUL	attn_norm-7	0x7fff7aeeb840	229376	
+0	339	dst	RESHAPE	Vcur-7	0x7fff7aac9840	28672	Vcur-7
+0	339	src	MUL_MAT	Vcur-7	0x7fff7aac9840	28672	
+0	340	dst	MUL_MAT	Kcur-7	0x7fff7ab09840	28672	
+0	340	src	NONE	blk.7.attn_k.weight	0x7fffab2e9040	557056	
+0	340	src	MUL	attn_norm-7	0x7fff7aeeb840	229376	
+0	341	dst	RESHAPE	Kcur-7	0x7fff7ab09840	28672	Kcur-7
+0	341	src	MUL_MAT	Kcur-7	0x7fff7ab09840	28672	
+0	342	dst	ROPE	Kcur-7	0x7fff7ab49840	28672	
+0	342	src	RESHAPE	Kcur-7	0x7fff7ab09840	28672	Kcur-7
+0	342	src	NONE	inp_pos	0x7fff7acca040	112	
+0	343	dst	VIEW	Kcur-7 (view)	0x7fff7ab49840	28672	Kcur-7
+0	343	src	ROPE	Kcur-7	0x7fff7ab49840	28672	
+0	344	dst	SET_ROWS	cache_k_l7 (view)	0x7fff7f80c040	131072	cache_k_l7
+0	344	src	VIEW	Kcur-7 (view)	0x7fff7ab49840	28672	Kcur-7
+0	344	src	NONE	attn_inp_k_idxs	0x7fff7acca440	224	
+0	344	src	NONE	cache_k_l7	0x7fff7f80c040	131072	
+0	345	dst	VIEW	Vcur-7 (view)	0x7fff7aac9840	28672	Vcur-7
+0	345	src	RESHAPE	Vcur-7	0x7fff7aac9840	28672	Vcur-7
+0	346	dst	SET_ROWS	cache_v_l7 (view)	0x7fff7f82c040	131072	cache_v_l7
+0	346	src	VIEW	Vcur-7 (view)	0x7fff7aac9840	28672	Vcur-7
+0	346	src	NONE	attn_inp_v_idxs	0x7fff7accac40	224	
+0	346	src	NONE	cache_v_l7	0x7fff7f82c040	131072	
+0	347	dst	VIEW	Qcur-7 (view)	0x7fff7b2eb840	229376	Qcur-7
+0	347	src	ROPE	Qcur-7	0x7fff7b2eb840	229376	
+0	348	dst	PERMUTE	Qcur-7 (view) (permuted)	0x7fff7b2eb840	229376	Qcur-7
+0	348	src	VIEW	Qcur-7 (view)	0x7fff7b2eb840	229376	Qcur-7
+0	349	dst	VIEW	cache_k_l7 (view)	0x7fff7f80c040	131072	cache_k_l7
+0	349	src	NONE	cache_k_l7	0x7fff7f80c040	131072	
+0	350	dst	PERMUTE	cache_k_l7 (view) (permuted)	0x7fff7f80c040	131072	cache_k_l7
+0	350	src	VIEW	cache_k_l7 (view)	0x7fff7f80c040	131072	cache_k_l7
+0	351	dst	VIEW	cache_v_l7 (view)	0x7fff7f82c040	131072	cache_v_l7
+0	351	src	NONE	cache_v_l7	0x7fff7f82c040	131072	
+0	352	dst	PERMUTE	cache_v_l7 (view) (permuted)	0x7fff7f82c040	131072	cache_v_l7
+0	352	src	VIEW	cache_v_l7 (view)	0x7fff7f82c040	131072	cache_v_l7
+0	353	dst	FLASH_ATTN_EXT	node_353	0x7fff7aeeb840	229376	
+0	353	src	PERMUTE	Qcur-7 (view) (permuted)	0x7fff7b2eb840	229376	Qcur-7
+0	353	src	PERMUTE	cache_k_l7 (view) (permuted)	0x7fff7f80c040	131072	cache_k_l7
+0	353	src	PERMUTE	cache_v_l7 (view) (permuted)	0x7fff7f82c040	131072	cache_v_l7
+0	353	src	NONE	attn_inp_kq_mask	0x7fff7accb440	14336	
+0	354	dst	RESHAPE	kqv_out-7	0x7fff7aeeb840	229376	node_353
+0	354	src	FLASH_ATTN_EXT	node_353	0x7fff7aeeb840	229376	
+0	355	dst	MUL_MAT	attn_out-7	0x7fff7aac9840	229376	
+0	355	src	NONE	blk.7.attn_output.weight	0x7fffab3f9040	4456448	
+0	355	src	RESHAPE	kqv_out-7	0x7fff7aeeb840	229376	node_353
+0	356	dst	ADD	ffn_inp-7	0x7fff7aac9840	229376	
+0	356	src	MUL_MAT	attn_out-7	0x7fff7aac9840	229376	
+0	356	src	ADD	l_out-6	0x7fff7aceb840	229376	
+0	357	dst	RMS_NORM	norm-7	0x7fff7aceb840	229376	
+0	357	src	ADD	ffn_inp-7	0x7fff7aac9840	229376	
+0	358	dst	MUL	ffn_norm-7	0x7fff7aceb840	229376	
+0	358	src	RMS_NORM	norm-7	0x7fff7aceb840	229376	
+0	358	src	NONE	blk.7.ffn_norm.weight	0x7fffab839040	8192	
+0	359	dst	MUL_MAT	ffn_moe_logits-7	0x7fff7acc9840	224	
+0	359	src	NONE	blk.7.ffn_gate_inp.weight	0x7fffab83b040	16384	
+0	359	src	MUL	ffn_norm-7	0x7fff7aceb840	229376	
+0	360	dst	SOFT_MAX	ffn_moe_probs-7	0x7fff7acc9840	224	
+0	360	src	MUL_MAT	ffn_moe_logits-7	0x7fff7acc9840	224	
+0	361	dst	RESHAPE	ffn_moe_probs-7 (reshaped)	0x7fff7acc9840	224	ffn_moe_probs-7
+0	361	src	SOFT_MAX	ffn_moe_probs-7	0x7fff7acc9840	224	
+0	362	dst	ARGSORT	ffn_moe_argsort-7	0x7fff7a8c9040	224	
+0	362	src	SOFT_MAX	ffn_moe_probs-7	0x7fff7acc9840	224	
+0	363	dst	VIEW	ffn_moe_topk-7	0x7fff7a8c9040	224	ffn_moe_argsort-7
+0	363	src	ARGSORT	ffn_moe_argsort-7	0x7fff7a8c9040	224	
+0	364	dst	GET_ROWS	ffn_moe_weights-7	0x7fff7aeeb840	224	
+0	364	src	RESHAPE	ffn_moe_probs-7 (reshaped)	0x7fff7acc9840	224	ffn_moe_probs-7
+0	364	src	VIEW	ffn_moe_topk-7	0x7fff7a8c9040	224	ffn_moe_argsort-7
+0	365	dst	RESHAPE	ffn_moe_weights-7 (reshaped)	0x7fff7aeeb840	224	ffn_moe_weights-7
+0	365	src	GET_ROWS	ffn_moe_weights-7	0x7fff7aeeb840	224	
+0	366	dst	SUM_ROWS	ffn_moe_weights_sum-7	0x7fff7acc9840	112	
+0	366	src	RESHAPE	ffn_moe_weights-7 (reshaped)	0x7fff7aeeb840	224	ffn_moe_weights-7
+0	367	dst	CLAMP	ffn_moe_weights_sum_clamped-7	0x7fff7acc9840	112	
+0	367	src	SUM_ROWS	ffn_moe_weights_sum-7	0x7fff7acc9840	112	
+0	368	dst	DIV	ffn_moe_weights_norm-7	0x7fff7aeec040	224	
+0	368	src	RESHAPE	ffn_moe_weights-7 (reshaped)	0x7fff7aeeb840	224	ffn_moe_weights-7
+0	368	src	CLAMP	ffn_moe_weights_sum_clamped-7	0x7fff7acc9840	112	
+0	369	dst	RESHAPE	ffn_moe_weights_norm-7 (reshaped)	0x7fff7aeec040	224	ffn_moe_weights_norm-7
+0	369	src	DIV	ffn_moe_weights_norm-7	0x7fff7aeec040	224	
+0	370	dst	RESHAPE	ffn_norm-7 (reshaped)	0x7fff7aceb840	229376	ffn_norm-7
+0	370	src	MUL	ffn_norm-7	0x7fff7aceb840	229376	
+0	371	dst	MUL_MAT_ID	ffn_moe_gate-7	0x7fff7b2eb840	1261568	
+0	371	src	NONE	blk.7.ffn_gate_exps.weight	0x7fffab83f040	24510464	
+0	371	src	RESHAPE	ffn_norm-7 (reshaped)	0x7fff7aceb840	229376	ffn_norm-7
+0	371	src	VIEW	ffn_moe_topk-7	0x7fff7a8c9040	224	ffn_moe_argsort-7
+0	372	dst	MUL_MAT_ID	ffn_moe_up-7	0x7fff7bdeb840	1261568	
+0	372	src	NONE	blk.7.ffn_up_exps.weight	0x7fffae6ff040	24510464	
+0	372	src	RESHAPE	ffn_norm-7 (reshaped)	0x7fff7aceb840	229376	ffn_norm-7
+0	372	src	VIEW	ffn_moe_topk-7	0x7fff7a8c9040	224	ffn_moe_argsort-7
+0	373	dst	GLU	ffn_moe_swiglu-7	0x7fff7c8eb840	1261568	
+0	373	src	MUL_MAT_ID	ffn_moe_gate-7	0x7fff7b2eb840	1261568	
+0	373	src	MUL_MAT_ID	ffn_moe_up-7	0x7fff7bdeb840	1261568	
+0	374	dst	MUL_MAT_ID	ffn_moe_down-7	0x7fff7b2eb840	458752	
+0	374	src	NONE	blk.7.ffn_down_exps.weight	0x7fffacf9f040	24510464	
+0	374	src	GLU	ffn_moe_swiglu-7	0x7fff7c8eb840	1261568	
+0	374	src	VIEW	ffn_moe_topk-7	0x7fff7a8c9040	224	ffn_moe_argsort-7
+0	375	dst	MUL	ffn_moe_weighted-7	0x7fff7b2eb840	458752	
+0	375	src	MUL_MAT_ID	ffn_moe_down-7	0x7fff7b2eb840	458752	
+0	375	src	RESHAPE	ffn_moe_weights_norm-7 (reshaped)	0x7fff7aeec040	224	ffn_moe_weights_norm-7
+0	376	dst	VIEW	ffn_moe_weighted-7 (view)	0x7fff7b2eb840	450560	ffn_moe_weighted-7
+0	376	src	MUL	ffn_moe_weighted-7	0x7fff7b2eb840	458752	
+0	377	dst	VIEW	ffn_moe_weighted-7 (view)	0x7fff7b2ed840	450560	ffn_moe_weighted-7
+0	377	src	MUL	ffn_moe_weighted-7	0x7fff7b2eb840	458752	
+0	378	dst	ADD	ffn_moe_out-7	0x7fff7aceb840	229376	
+0	378	src	VIEW	ffn_moe_weighted-7 (view)	0x7fff7b2eb840	450560	ffn_moe_weighted-7
+0	378	src	VIEW	ffn_moe_weighted-7 (view)	0x7fff7b2ed840	450560	ffn_moe_weighted-7
+0	379	dst	ADD	l_out-7	0x7fff7aceb840	229376	
+0	379	src	ADD	ffn_moe_out-7	0x7fff7aceb840	229376	
+0	379	src	ADD	ffn_inp-7	0x7fff7aac9840	229376	
+0	380	dst	RMS_NORM	norm-8	0x7fff7aeeb840	229376	
+0	380	src	ADD	l_out-7	0x7fff7aceb840	229376	
+0	381	dst	MUL	attn_norm-8	0x7fff7aeeb840	229376	
+0	381	src	RMS_NORM	norm-8	0x7fff7aeeb840	229376	
+0	381	src	NONE	blk.8.attn_norm.weight	0x7fffafe5f040	8192	
+0	382	dst	MUL_MAT	Qcur-8	0x7fff7aac9840	229376	
+0	382	src	NONE	blk.8.attn_q.weight	0x7fffafe61040	4456448	
+0	382	src	MUL	attn_norm-8	0x7fff7aeeb840	229376	
+0	383	dst	RESHAPE	Qcur-8	0x7fff7aac9840	229376	Qcur-8
+0	383	src	MUL_MAT	Qcur-8	0x7fff7aac9840	229376	
+0	384	dst	ROPE	Qcur-8	0x7fff7b2eb840	229376	
+0	384	src	RESHAPE	Qcur-8	0x7fff7aac9840	229376	Qcur-8
+0	384	src	NONE	inp_pos	0x7fff7acca040	112	
+0	385	dst	MUL_MAT	Vcur-8	0x7fff7aac9840	28672	
+0	385	src	NONE	blk.8.attn_v.weight	0x7fffb0329040	557056	
+0	385	src	MUL	attn_norm-8	0x7fff7aeeb840	229376	
+0	386	dst	RESHAPE	Vcur-8	0x7fff7aac9840	28672	Vcur-8
+0	386	src	MUL_MAT	Vcur-8	0x7fff7aac9840	28672	
+0	387	dst	MUL_MAT	Kcur-8	0x7fff7ab09840	28672	
+0	387	src	NONE	blk.8.attn_k.weight	0x7fffb02a1040	557056	
+0	387	src	MUL	attn_norm-8	0x7fff7aeeb840	229376	
+0	388	dst	RESHAPE	Kcur-8	0x7fff7ab09840	28672	Kcur-8
+0	388	src	MUL_MAT	Kcur-8	0x7fff7ab09840	28672	
+0	389	dst	ROPE	Kcur-8	0x7fff7ab49840	28672	
+0	389	src	RESHAPE	Kcur-8	0x7fff7ab09840	28672	Kcur-8
+0	389	src	NONE	inp_pos	0x7fff7acca040	112	
+0	390	dst	VIEW	Kcur-8 (view)	0x7fff7ab49840	28672	Kcur-8
+0	390	src	ROPE	Kcur-8	0x7fff7ab49840	28672	
+0	391	dst	SET_ROWS	cache_k_l8 (view)	0x7fff7f84c040	131072	cache_k_l8
+0	391	src	VIEW	Kcur-8 (view)	0x7fff7ab49840	28672	Kcur-8
+0	391	src	NONE	attn_inp_k_idxs	0x7fff7acca440	224	
+0	391	src	NONE	cache_k_l8	0x7fff7f84c040	131072	
+0	392	dst	VIEW	Vcur-8 (view)	0x7fff7aac9840	28672	Vcur-8
+0	392	src	RESHAPE	Vcur-8	0x7fff7aac9840	28672	Vcur-8
+0	393	dst	SET_ROWS	cache_v_l8 (view)	0x7fff7f86c040	131072	cache_v_l8
+0	393	src	VIEW	Vcur-8 (view)	0x7fff7aac9840	28672	Vcur-8
+0	393	src	NONE	attn_inp_v_idxs	0x7fff7accac40	224	
+0	393	src	NONE	cache_v_l8	0x7fff7f86c040	131072	
+0	394	dst	VIEW	Qcur-8 (view)	0x7fff7b2eb840	229376	Qcur-8
+0	394	src	ROPE	Qcur-8	0x7fff7b2eb840	229376	
+0	395	dst	PERMUTE	Qcur-8 (view) (permuted)	0x7fff7b2eb840	229376	Qcur-8
+0	395	src	VIEW	Qcur-8 (view)	0x7fff7b2eb840	229376	Qcur-8
+0	396	dst	VIEW	cache_k_l8 (view)	0x7fff7f84c040	131072	cache_k_l8
+0	396	src	NONE	cache_k_l8	0x7fff7f84c040	131072	
+0	397	dst	PERMUTE	cache_k_l8 (view) (permuted)	0x7fff7f84c040	131072	cache_k_l8
+0	397	src	VIEW	cache_k_l8 (view)	0x7fff7f84c040	131072	cache_k_l8
+0	398	dst	VIEW	cache_v_l8 (view)	0x7fff7f86c040	131072	cache_v_l8
+0	398	src	NONE	cache_v_l8	0x7fff7f86c040	131072	
+0	399	dst	PERMUTE	cache_v_l8 (view) (permuted)	0x7fff7f86c040	131072	cache_v_l8
+0	399	src	VIEW	cache_v_l8 (view)	0x7fff7f86c040	131072	cache_v_l8
+0	400	dst	FLASH_ATTN_EXT	node_400	0x7fff7aeeb840	229376	
+0	400	src	PERMUTE	Qcur-8 (view) (permuted)	0x7fff7b2eb840	229376	Qcur-8
+0	400	src	PERMUTE	cache_k_l8 (view) (permuted)	0x7fff7f84c040	131072	cache_k_l8
+0	400	src	PERMUTE	cache_v_l8 (view) (permuted)	0x7fff7f86c040	131072	cache_v_l8
+0	400	src	NONE	attn_inp_kq_mask	0x7fff7accb440	14336	
+0	401	dst	RESHAPE	kqv_out-8	0x7fff7aeeb840	229376	node_400
+0	401	src	FLASH_ATTN_EXT	node_400	0x7fff7aeeb840	229376	
+0	402	dst	MUL_MAT	attn_out-8	0x7fff7aac9840	229376	
+0	402	src	NONE	blk.8.attn_output.weight	0x7fffb03b1040	4456448	
+0	402	src	RESHAPE	kqv_out-8	0x7fff7aeeb840	229376	node_400
+0	403	dst	ADD	ffn_inp-8	0x7fff7aac9840	229376	
+0	403	src	MUL_MAT	attn_out-8	0x7fff7aac9840	229376	
+0	403	src	ADD	l_out-7	0x7fff7aceb840	229376	
+0	404	dst	RMS_NORM	norm-8	0x7fff7aceb840	229376	
+0	404	src	ADD	ffn_inp-8	0x7fff7aac9840	229376	
+0	405	dst	MUL	ffn_norm-8	0x7fff7aceb840	229376	
+0	405	src	RMS_NORM	norm-8	0x7fff7aceb840	229376	
+0	405	src	NONE	blk.8.ffn_norm.weight	0x7fffb07f1040	8192	
+0	406	dst	MUL_MAT	ffn_moe_logits-8	0x7fff7acc9840	224	
+0	406	src	NONE	blk.8.ffn_gate_inp.weight	0x7fffb07f3040	16384	
+0	406	src	MUL	ffn_norm-8	0x7fff7aceb840	229376	
+0	407	dst	SOFT_MAX	ffn_moe_probs-8	0x7fff7acc9840	224	
+0	407	src	MUL_MAT	ffn_moe_logits-8	0x7fff7acc9840	224	
+0	408	dst	RESHAPE	ffn_moe_probs-8 (reshaped)	0x7fff7acc9840	224	ffn_moe_probs-8
+0	408	src	SOFT_MAX	ffn_moe_probs-8	0x7fff7acc9840	224	
+0	409	dst	ARGSORT	ffn_moe_argsort-8	0x7fff7a8c9040	224	
+0	409	src	SOFT_MAX	ffn_moe_probs-8	0x7fff7acc9840	224	
+0	410	dst	VIEW	ffn_moe_topk-8	0x7fff7a8c9040	224	ffn_moe_argsort-8
+0	410	src	ARGSORT	ffn_moe_argsort-8	0x7fff7a8c9040	224	
+0	411	dst	GET_ROWS	ffn_moe_weights-8	0x7fff7aeeb840	224	
+0	411	src	RESHAPE	ffn_moe_probs-8 (reshaped)	0x7fff7acc9840	224	ffn_moe_probs-8
+0	411	src	VIEW	ffn_moe_topk-8	0x7fff7a8c9040	224	ffn_moe_argsort-8
+0	412	dst	RESHAPE	ffn_moe_weights-8 (reshaped)	0x7fff7aeeb840	224	ffn_moe_weights-8
+0	412	src	GET_ROWS	ffn_moe_weights-8	0x7fff7aeeb840	224	
+0	413	dst	SUM_ROWS	ffn_moe_weights_sum-8	0x7fff7acc9840	112	
+0	413	src	RESHAPE	ffn_moe_weights-8 (reshaped)	0x7fff7aeeb840	224	ffn_moe_weights-8
+0	414	dst	CLAMP	ffn_moe_weights_sum_clamped-8	0x7fff7acc9840	112	
+0	414	src	SUM_ROWS	ffn_moe_weights_sum-8	0x7fff7acc9840	112	
+0	415	dst	DIV	ffn_moe_weights_norm-8	0x7fff7aeec040	224	
+0	415	src	RESHAPE	ffn_moe_weights-8 (reshaped)	0x7fff7aeeb840	224	ffn_moe_weights-8
+0	415	src	CLAMP	ffn_moe_weights_sum_clamped-8	0x7fff7acc9840	112	
+0	416	dst	RESHAPE	ffn_moe_weights_norm-8 (reshaped)	0x7fff7aeec040	224	ffn_moe_weights_norm-8
+0	416	src	DIV	ffn_moe_weights_norm-8	0x7fff7aeec040	224	
+0	417	dst	RESHAPE	ffn_norm-8 (reshaped)	0x7fff7aceb840	229376	ffn_norm-8
+0	417	src	MUL	ffn_norm-8	0x7fff7aceb840	229376	
+0	418	dst	MUL_MAT_ID	ffn_moe_gate-8	0x7fff7b2eb840	1261568	
+0	418	src	NONE	blk.8.ffn_gate_exps.weight	0x7fffb07f7040	24510464	
+0	418	src	RESHAPE	ffn_norm-8 (reshaped)	0x7fff7aceb840	229376	ffn_norm-8
+0	418	src	VIEW	ffn_moe_topk-8	0x7fff7a8c9040	224	ffn_moe_argsort-8
+0	419	dst	MUL_MAT_ID	ffn_moe_up-8	0x7fff7bdeb840	1261568	
+0	419	src	NONE	blk.8.ffn_up_exps.weight	0x7fffb36b7040	24510464	
+0	419	src	RESHAPE	ffn_norm-8 (reshaped)	0x7fff7aceb840	229376	ffn_norm-8
+0	419	src	VIEW	ffn_moe_topk-8	0x7fff7a8c9040	224	ffn_moe_argsort-8
+0	420	dst	GLU	ffn_moe_swiglu-8	0x7fff7c8eb840	1261568	
+0	420	src	MUL_MAT_ID	ffn_moe_gate-8	0x7fff7b2eb840	1261568	
+0	420	src	MUL_MAT_ID	ffn_moe_up-8	0x7fff7bdeb840	1261568	
+0	421	dst	MUL_MAT_ID	ffn_moe_down-8	0x7fff7b2eb840	458752	
+0	421	src	NONE	blk.8.ffn_down_exps.weight	0x7fffb1f57040	24510464	
+0	421	src	GLU	ffn_moe_swiglu-8	0x7fff7c8eb840	1261568	
+0	421	src	VIEW	ffn_moe_topk-8	0x7fff7a8c9040	224	ffn_moe_argsort-8
+0	422	dst	MUL	ffn_moe_weighted-8	0x7fff7b2eb840	458752	
+0	422	src	MUL_MAT_ID	ffn_moe_down-8	0x7fff7b2eb840	458752	
+0	422	src	RESHAPE	ffn_moe_weights_norm-8 (reshaped)	0x7fff7aeec040	224	ffn_moe_weights_norm-8
+0	423	dst	VIEW	ffn_moe_weighted-8 (view)	0x7fff7b2eb840	450560	ffn_moe_weighted-8
+0	423	src	MUL	ffn_moe_weighted-8	0x7fff7b2eb840	458752	
+0	424	dst	VIEW	ffn_moe_weighted-8 (view)	0x7fff7b2ed840	450560	ffn_moe_weighted-8
+0	424	src	MUL	ffn_moe_weighted-8	0x7fff7b2eb840	458752	
+0	425	dst	ADD	ffn_moe_out-8	0x7fff7aceb840	229376	
+0	425	src	VIEW	ffn_moe_weighted-8 (view)	0x7fff7b2eb840	450560	ffn_moe_weighted-8
+0	425	src	VIEW	ffn_moe_weighted-8 (view)	0x7fff7b2ed840	450560	ffn_moe_weighted-8
+0	426	dst	ADD	l_out-8	0x7fff7aceb840	229376	
+0	426	src	ADD	ffn_moe_out-8	0x7fff7aceb840	229376	
+0	426	src	ADD	ffn_inp-8	0x7fff7aac9840	229376	
+0	427	dst	RMS_NORM	norm-9	0x7fff7aeeb840	229376	
+0	427	src	ADD	l_out-8	0x7fff7aceb840	229376	
+0	428	dst	MUL	attn_norm-9	0x7fff7aeeb840	229376	
+0	428	src	RMS_NORM	norm-9	0x7fff7aeeb840	229376	
+0	428	src	NONE	blk.9.attn_norm.weight	0x7fffb4e17040	8192	
+0	429	dst	MUL_MAT	Qcur-9	0x7fff7aac9840	229376	
+0	429	src	NONE	blk.9.attn_q.weight	0x7fffb4e19040	4456448	
+0	429	src	MUL	attn_norm-9	0x7fff7aeeb840	229376	
+0	430	dst	RESHAPE	Qcur-9	0x7fff7aac9840	229376	Qcur-9
+0	430	src	MUL_MAT	Qcur-9	0x7fff7aac9840	229376	
+0	431	dst	ROPE	Qcur-9	0x7fff7b2eb840	229376	
+0	431	src	RESHAPE	Qcur-9	0x7fff7aac9840	229376	Qcur-9
+0	431	src	NONE	inp_pos	0x7fff7acca040	112	
+0	432	dst	MUL_MAT	Vcur-9	0x7fff7aac9840	28672	
+0	432	src	NONE	blk.9.attn_v.weight	0x7fffb52e1040	557056	
+0	432	src	MUL	attn_norm-9	0x7fff7aeeb840	229376	
+0	433	dst	RESHAPE	Vcur-9	0x7fff7aac9840	28672	Vcur-9
+0	433	src	MUL_MAT	Vcur-9	0x7fff7aac9840	28672	
+0	434	dst	MUL_MAT	Kcur-9	0x7fff7ab09840	28672	
+0	434	src	NONE	blk.9.attn_k.weight	0x7fffb5259040	557056	
+0	434	src	MUL	attn_norm-9	0x7fff7aeeb840	229376	
+0	435	dst	RESHAPE	Kcur-9	0x7fff7ab09840	28672	Kcur-9
+0	435	src	MUL_MAT	Kcur-9	0x7fff7ab09840	28672	
+0	436	dst	ROPE	Kcur-9	0x7fff7ab49840	28672	
+0	436	src	RESHAPE	Kcur-9	0x7fff7ab09840	28672	Kcur-9
+0	436	src	NONE	inp_pos	0x7fff7acca040	112	
+0	437	dst	VIEW	Kcur-9 (view)	0x7fff7ab49840	28672	Kcur-9
+0	437	src	ROPE	Kcur-9	0x7fff7ab49840	28672	
+0	438	dst	SET_ROWS	cache_k_l9 (view)	0x7fff7f88c040	131072	cache_k_l9
+0	438	src	VIEW	Kcur-9 (view)	0x7fff7ab49840	28672	Kcur-9
+0	438	src	NONE	attn_inp_k_idxs	0x7fff7acca440	224	
+0	438	src	NONE	cache_k_l9	0x7fff7f88c040	131072	
+0	439	dst	VIEW	Vcur-9 (view)	0x7fff7aac9840	28672	Vcur-9
+0	439	src	RESHAPE	Vcur-9	0x7fff7aac9840	28672	Vcur-9
+0	440	dst	SET_ROWS	cache_v_l9 (view)	0x7fff7f8ac040	131072	cache_v_l9
+0	440	src	VIEW	Vcur-9 (view)	0x7fff7aac9840	28672	Vcur-9
+0	440	src	NONE	attn_inp_v_idxs	0x7fff7accac40	224	
+0	440	src	NONE	cache_v_l9	0x7fff7f8ac040	131072	
+0	441	dst	VIEW	Qcur-9 (view)	0x7fff7b2eb840	229376	Qcur-9
+0	441	src	ROPE	Qcur-9	0x7fff7b2eb840	229376	
+0	442	dst	PERMUTE	Qcur-9 (view) (permuted)	0x7fff7b2eb840	229376	Qcur-9
+0	442	src	VIEW	Qcur-9 (view)	0x7fff7b2eb840	229376	Qcur-9
+0	443	dst	VIEW	cache_k_l9 (view)	0x7fff7f88c040	131072	cache_k_l9
+0	443	src	NONE	cache_k_l9	0x7fff7f88c040	131072	
+0	444	dst	PERMUTE	cache_k_l9 (view) (permuted)	0x7fff7f88c040	131072	cache_k_l9
+0	444	src	VIEW	cache_k_l9 (view)	0x7fff7f88c040	131072	cache_k_l9
+0	445	dst	VIEW	cache_v_l9 (view)	0x7fff7f8ac040	131072	cache_v_l9
+0	445	src	NONE	cache_v_l9	0x7fff7f8ac040	131072	
+0	446	dst	PERMUTE	cache_v_l9 (view) (permuted)	0x7fff7f8ac040	131072	cache_v_l9
+0	446	src	VIEW	cache_v_l9 (view)	0x7fff7f8ac040	131072	cache_v_l9
+0	447	dst	FLASH_ATTN_EXT	node_447	0x7fff7aeeb840	229376	
+0	447	src	PERMUTE	Qcur-9 (view) (permuted)	0x7fff7b2eb840	229376	Qcur-9
+0	447	src	PERMUTE	cache_k_l9 (view) (permuted)	0x7fff7f88c040	131072	cache_k_l9
+0	447	src	PERMUTE	cache_v_l9 (view) (permuted)	0x7fff7f8ac040	131072	cache_v_l9
+0	447	src	NONE	attn_inp_kq_mask	0x7fff7accb440	14336	
+0	448	dst	RESHAPE	kqv_out-9	0x7fff7aeeb840	229376	node_447
+0	448	src	FLASH_ATTN_EXT	node_447	0x7fff7aeeb840	229376	
+0	449	dst	MUL_MAT	attn_out-9	0x7fff7aac9840	229376	
+0	449	src	NONE	blk.9.attn_output.weight	0x7fffb5369040	4456448	
+0	449	src	RESHAPE	kqv_out-9	0x7fff7aeeb840	229376	node_447
+0	450	dst	ADD	ffn_inp-9	0x7fff7aac9840	229376	
+0	450	src	MUL_MAT	attn_out-9	0x7fff7aac9840	229376	
+0	450	src	ADD	l_out-8	0x7fff7aceb840	229376	
+0	451	dst	RMS_NORM	norm-9	0x7fff7aceb840	229376	
+0	451	src	ADD	ffn_inp-9	0x7fff7aac9840	229376	
+0	452	dst	MUL	ffn_norm-9	0x7fff7aceb840	229376	
+0	452	src	RMS_NORM	norm-9	0x7fff7aceb840	229376	
+0	452	src	NONE	blk.9.ffn_norm.weight	0x7fffb57a9040	8192	
+0	453	dst	MUL_MAT	ffn_moe_logits-9	0x7fff7acc9840	224	
+0	453	src	NONE	blk.9.ffn_gate_inp.weight	0x7fffb57ab040	16384	
+0	453	src	MUL	ffn_norm-9	0x7fff7aceb840	229376	
+0	454	dst	SOFT_MAX	ffn_moe_probs-9	0x7fff7acc9840	224	
+0	454	src	MUL_MAT	ffn_moe_logits-9	0x7fff7acc9840	224	
+0	455	dst	RESHAPE	ffn_moe_probs-9 (reshaped)	0x7fff7acc9840	224	ffn_moe_probs-9
+0	455	src	SOFT_MAX	ffn_moe_probs-9	0x7fff7acc9840	224	
+0	456	dst	ARGSORT	ffn_moe_argsort-9	0x7fff7a8c9040	224	
+0	456	src	SOFT_MAX	ffn_moe_probs-9	0x7fff7acc9840	224	
+0	457	dst	VIEW	ffn_moe_topk-9	0x7fff7a8c9040	224	ffn_moe_argsort-9
+0	457	src	ARGSORT	ffn_moe_argsort-9	0x7fff7a8c9040	224	
+0	458	dst	GET_ROWS	ffn_moe_weights-9	0x7fff7aeeb840	224	
+0	458	src	RESHAPE	ffn_moe_probs-9 (reshaped)	0x7fff7acc9840	224	ffn_moe_probs-9
+0	458	src	VIEW	ffn_moe_topk-9	0x7fff7a8c9040	224	ffn_moe_argsort-9
+0	459	dst	RESHAPE	ffn_moe_weights-9 (reshaped)	0x7fff7aeeb840	224	ffn_moe_weights-9
+0	459	src	GET_ROWS	ffn_moe_weights-9	0x7fff7aeeb840	224	
+0	460	dst	SUM_ROWS	ffn_moe_weights_sum-9	0x7fff7acc9840	112	
+0	460	src	RESHAPE	ffn_moe_weights-9 (reshaped)	0x7fff7aeeb840	224	ffn_moe_weights-9
+0	461	dst	CLAMP	ffn_moe_weights_sum_clamped-9	0x7fff7acc9840	112	
+0	461	src	SUM_ROWS	ffn_moe_weights_sum-9	0x7fff7acc9840	112	
+0	462	dst	DIV	ffn_moe_weights_norm-9	0x7fff7aeec040	224	
+0	462	src	RESHAPE	ffn_moe_weights-9 (reshaped)	0x7fff7aeeb840	224	ffn_moe_weights-9
+0	462	src	CLAMP	ffn_moe_weights_sum_clamped-9	0x7fff7acc9840	112	
+0	463	dst	RESHAPE	ffn_moe_weights_norm-9 (reshaped)	0x7fff7aeec040	224	ffn_moe_weights_norm-9
+0	463	src	DIV	ffn_moe_weights_norm-9	0x7fff7aeec040	224	
+0	464	dst	RESHAPE	ffn_norm-9 (reshaped)	0x7fff7aceb840	229376	ffn_norm-9
+0	464	src	MUL	ffn_norm-9	0x7fff7aceb840	229376	
+0	465	dst	MUL_MAT_ID	ffn_moe_gate-9	0x7fff7b2eb840	1261568	
+0	465	src	NONE	blk.9.ffn_gate_exps.weight	0x7fffb57af040	24510464	
+0	465	src	RESHAPE	ffn_norm-9 (reshaped)	0x7fff7aceb840	229376	ffn_norm-9
+0	465	src	VIEW	ffn_moe_topk-9	0x7fff7a8c9040	224	ffn_moe_argsort-9
+0	466	dst	MUL_MAT_ID	ffn_moe_up-9	0x7fff7bdeb840	1261568	
+0	466	src	NONE	blk.9.ffn_up_exps.weight	0x7fffb866f040	24510464	
+0	466	src	RESHAPE	ffn_norm-9 (reshaped)	0x7fff7aceb840	229376	ffn_norm-9
+0	466	src	VIEW	ffn_moe_topk-9	0x7fff7a8c9040	224	ffn_moe_argsort-9
+0	467	dst	GLU	ffn_moe_swiglu-9	0x7fff7c8eb840	1261568	
+0	467	src	MUL_MAT_ID	ffn_moe_gate-9	0x7fff7b2eb840	1261568	
+0	467	src	MUL_MAT_ID	ffn_moe_up-9	0x7fff7bdeb840	1261568	
+0	468	dst	MUL_MAT_ID	ffn_moe_down-9	0x7fff7b2eb840	458752	
+0	468	src	NONE	blk.9.ffn_down_exps.weight	0x7fffb6f0f040	24510464	
+0	468	src	GLU	ffn_moe_swiglu-9	0x7fff7c8eb840	1261568	
+0	468	src	VIEW	ffn_moe_topk-9	0x7fff7a8c9040	224	ffn_moe_argsort-9
+0	469	dst	MUL	ffn_moe_weighted-9	0x7fff7b2eb840	458752	
+0	469	src	MUL_MAT_ID	ffn_moe_down-9	0x7fff7b2eb840	458752	
+0	469	src	RESHAPE	ffn_moe_weights_norm-9 (reshaped)	0x7fff7aeec040	224	ffn_moe_weights_norm-9
+0	470	dst	VIEW	ffn_moe_weighted-9 (view)	0x7fff7b2eb840	450560	ffn_moe_weighted-9
+0	470	src	MUL	ffn_moe_weighted-9	0x7fff7b2eb840	458752	
+0	471	dst	VIEW	ffn_moe_weighted-9 (view)	0x7fff7b2ed840	450560	ffn_moe_weighted-9
+0	471	src	MUL	ffn_moe_weighted-9	0x7fff7b2eb840	458752	
+0	472	dst	ADD	ffn_moe_out-9	0x7fff7aceb840	229376	
+0	472	src	VIEW	ffn_moe_weighted-9 (view)	0x7fff7b2eb840	450560	ffn_moe_weighted-9
+0	472	src	VIEW	ffn_moe_weighted-9 (view)	0x7fff7b2ed840	450560	ffn_moe_weighted-9
+0	473	dst	ADD	l_out-9	0x7fff7aceb840	229376	
+0	473	src	ADD	ffn_moe_out-9	0x7fff7aceb840	229376	
+0	473	src	ADD	ffn_inp-9	0x7fff7aac9840	229376	
+0	474	dst	RMS_NORM	norm-10	0x7fff7aeeb840	229376	
+0	474	src	ADD	l_out-9	0x7fff7aceb840	229376	
+0	475	dst	MUL	attn_norm-10	0x7fff7aeeb840	229376	
+0	475	src	RMS_NORM	norm-10	0x7fff7aeeb840	229376	
+0	475	src	NONE	blk.10.attn_norm.weight	0x7fffb9dcf040	8192	
+0	476	dst	MUL_MAT	Qcur-10	0x7fff7aac9840	229376	
+0	476	src	NONE	blk.10.attn_q.weight	0x7fffb9dd1040	4456448	
+0	476	src	MUL	attn_norm-10	0x7fff7aeeb840	229376	
+0	477	dst	RESHAPE	Qcur-10	0x7fff7aac9840	229376	Qcur-10
+0	477	src	MUL_MAT	Qcur-10	0x7fff7aac9840	229376	
+0	478	dst	ROPE	Qcur-10	0x7fff7b2eb840	229376	
+0	478	src	RESHAPE	Qcur-10	0x7fff7aac9840	229376	Qcur-10
+0	478	src	NONE	inp_pos	0x7fff7acca040	112	
+0	479	dst	MUL_MAT	Vcur-10	0x7fff7aac9840	28672	
+0	479	src	NONE	blk.10.attn_v.weight	0x7fffba299040	557056	
+0	479	src	MUL	attn_norm-10	0x7fff7aeeb840	229376	
+0	480	dst	RESHAPE	Vcur-10	0x7fff7aac9840	28672	Vcur-10
+0	480	src	MUL_MAT	Vcur-10	0x7fff7aac9840	28672	
+0	481	dst	MUL_MAT	Kcur-10	0x7fff7ab09840	28672	
+0	481	src	NONE	blk.10.attn_k.weight	0x7fffba211040	557056	
+0	481	src	MUL	attn_norm-10	0x7fff7aeeb840	229376	
+0	482	dst	RESHAPE	Kcur-10	0x7fff7ab09840	28672	Kcur-10
+0	482	src	MUL_MAT	Kcur-10	0x7fff7ab09840	28672	
+0	483	dst	ROPE	Kcur-10	0x7fff7ab49840	28672	
+0	483	src	RESHAPE	Kcur-10	0x7fff7ab09840	28672	Kcur-10
+0	483	src	NONE	inp_pos	0x7fff7acca040	112	
+0	484	dst	VIEW	Kcur-10 (view)	0x7fff7ab49840	28672	Kcur-10
+0	484	src	ROPE	Kcur-10	0x7fff7ab49840	28672	
+0	485	dst	SET_ROWS	cache_k_l10 (view)	0x7fff7f8cc040	131072	cache_k_l10
+0	485	src	VIEW	Kcur-10 (view)	0x7fff7ab49840	28672	Kcur-10
+0	485	src	NONE	attn_inp_k_idxs	0x7fff7acca440	224	
+0	485	src	NONE	cache_k_l10	0x7fff7f8cc040	131072	
+0	486	dst	VIEW	Vcur-10 (view)	0x7fff7aac9840	28672	Vcur-10
+0	486	src	RESHAPE	Vcur-10	0x7fff7aac9840	28672	Vcur-10
+0	487	dst	SET_ROWS	cache_v_l10 (view)	0x7fff7f8ec040	131072	cache_v_l10
+0	487	src	VIEW	Vcur-10 (view)	0x7fff7aac9840	28672	Vcur-10
+0	487	src	NONE	attn_inp_v_idxs	0x7fff7accac40	224	
+0	487	src	NONE	cache_v_l10	0x7fff7f8ec040	131072	
+0	488	dst	VIEW	Qcur-10 (view)	0x7fff7b2eb840	229376	Qcur-10
+0	488	src	ROPE	Qcur-10	0x7fff7b2eb840	229376	
+0	489	dst	PERMUTE	Qcur-10 (view) (permuted)	0x7fff7b2eb840	229376	Qcur-10
+0	489	src	VIEW	Qcur-10 (view)	0x7fff7b2eb840	229376	Qcur-10
+0	490	dst	VIEW	cache_k_l10 (view)	0x7fff7f8cc040	131072	cache_k_l10
+0	490	src	NONE	cache_k_l10	0x7fff7f8cc040	131072	
+0	491	dst	PERMUTE	cache_k_l10 (view) (permuted)	0x7fff7f8cc040	131072	cache_k_l10
+0	491	src	VIEW	cache_k_l10 (view)	0x7fff7f8cc040	131072	cache_k_l10
+0	492	dst	VIEW	cache_v_l10 (view)	0x7fff7f8ec040	131072	cache_v_l10
+0	492	src	NONE	cache_v_l10	0x7fff7f8ec040	131072	
+0	493	dst	PERMUTE	cache_v_l10 (view) (permuted)	0x7fff7f8ec040	131072	cache_v_l10
+0	493	src	VIEW	cache_v_l10 (view)	0x7fff7f8ec040	131072	cache_v_l10
+0	494	dst	FLASH_ATTN_EXT	node_494	0x7fff7aeeb840	229376	
+0	494	src	PERMUTE	Qcur-10 (view) (permuted)	0x7fff7b2eb840	229376	Qcur-10
+0	494	src	PERMUTE	cache_k_l10 (view) (permuted)	0x7fff7f8cc040	131072	cache_k_l10
+0	494	src	PERMUTE	cache_v_l10 (view) (permuted)	0x7fff7f8ec040	131072	cache_v_l10
+0	494	src	NONE	attn_inp_kq_mask	0x7fff7accb440	14336	
+0	495	dst	RESHAPE	kqv_out-10	0x7fff7aeeb840	229376	node_494
+0	495	src	FLASH_ATTN_EXT	node_494	0x7fff7aeeb840	229376	
+0	496	dst	MUL_MAT	attn_out-10	0x7fff7aac9840	229376	
+0	496	src	NONE	blk.10.attn_output.weight	0x7fffba321040	4456448	
+0	496	src	RESHAPE	kqv_out-10	0x7fff7aeeb840	229376	node_494
+0	497	dst	ADD	ffn_inp-10	0x7fff7aac9840	229376	
+0	497	src	MUL_MAT	attn_out-10	0x7fff7aac9840	229376	
+0	497	src	ADD	l_out-9	0x7fff7aceb840	229376	
+0	498	dst	RMS_NORM	norm-10	0x7fff7aceb840	229376	
+0	498	src	ADD	ffn_inp-10	0x7fff7aac9840	229376	
+0	499	dst	MUL	ffn_norm-10	0x7fff7aceb840	229376	
+0	499	src	RMS_NORM	norm-10	0x7fff7aceb840	229376	
+0	499	src	NONE	blk.10.ffn_norm.weight	0x7fffba761040	8192	
+0	500	dst	MUL_MAT	ffn_moe_logits-10	0x7fff7acc9840	224	
+0	500	src	NONE	blk.10.ffn_gate_inp.weight	0x7fffba763040	16384	
+0	500	src	MUL	ffn_norm-10	0x7fff7aceb840	229376	
+0	501	dst	SOFT_MAX	ffn_moe_probs-10	0x7fff7acc9840	224	
+0	501	src	MUL_MAT	ffn_moe_logits-10	0x7fff7acc9840	224	
+0	502	dst	RESHAPE	ffn_moe_probs-10 (reshaped)	0x7fff7acc9840	224	ffn_moe_probs-10
+0	502	src	SOFT_MAX	ffn_moe_probs-10	0x7fff7acc9840	224	
+0	503	dst	ARGSORT	ffn_moe_argsort-10	0x7fff7a8c9040	224	
+0	503	src	SOFT_MAX	ffn_moe_probs-10	0x7fff7acc9840	224	
+0	504	dst	VIEW	ffn_moe_topk-10	0x7fff7a8c9040	224	ffn_moe_argsort-10
+0	504	src	ARGSORT	ffn_moe_argsort-10	0x7fff7a8c9040	224	
+0	505	dst	GET_ROWS	ffn_moe_weights-10	0x7fff7aeeb840	224	
+0	505	src	RESHAPE	ffn_moe_probs-10 (reshaped)	0x7fff7acc9840	224	ffn_moe_probs-10
+0	505	src	VIEW	ffn_moe_topk-10	0x7fff7a8c9040	224	ffn_moe_argsort-10
+0	506	dst	RESHAPE	ffn_moe_weights-10 (reshaped)	0x7fff7aeeb840	224	ffn_moe_weights-10
+0	506	src	GET_ROWS	ffn_moe_weights-10	0x7fff7aeeb840	224	
+0	507	dst	SUM_ROWS	ffn_moe_weights_sum-10	0x7fff7acc9840	112	
+0	507	src	RESHAPE	ffn_moe_weights-10 (reshaped)	0x7fff7aeeb840	224	ffn_moe_weights-10
+0	508	dst	CLAMP	ffn_moe_weights_sum_clamped-10	0x7fff7acc9840	112	
+0	508	src	SUM_ROWS	ffn_moe_weights_sum-10	0x7fff7acc9840	112	
+0	509	dst	DIV	ffn_moe_weights_norm-10	0x7fff7aeec040	224	
+0	509	src	RESHAPE	ffn_moe_weights-10 (reshaped)	0x7fff7aeeb840	224	ffn_moe_weights-10
+0	509	src	CLAMP	ffn_moe_weights_sum_clamped-10	0x7fff7acc9840	112	
+0	510	dst	RESHAPE	ffn_moe_weights_norm-10 (reshaped)	0x7fff7aeec040	224	ffn_moe_weights_norm-10
+0	510	src	DIV	ffn_moe_weights_norm-10	0x7fff7aeec040	224	
+0	511	dst	RESHAPE	ffn_norm-10 (reshaped)	0x7fff7aceb840	229376	ffn_norm-10
+0	511	src	MUL	ffn_norm-10	0x7fff7aceb840	229376	
+0	512	dst	MUL_MAT_ID	ffn_moe_gate-10	0x7fff7b2eb840	1261568	
+0	512	src	NONE	blk.10.ffn_gate_exps.weight	0x7fffba767040	24510464	
+0	512	src	RESHAPE	ffn_norm-10 (reshaped)	0x7fff7aceb840	229376	ffn_norm-10
+0	512	src	VIEW	ffn_moe_topk-10	0x7fff7a8c9040	224	ffn_moe_argsort-10
+0	513	dst	MUL_MAT_ID	ffn_moe_up-10	0x7fff7bdeb840	1261568	
+0	513	src	NONE	blk.10.ffn_up_exps.weight	0x7fffbd627040	24510464	
+0	513	src	RESHAPE	ffn_norm-10 (reshaped)	0x7fff7aceb840	229376	ffn_norm-10
+0	513	src	VIEW	ffn_moe_topk-10	0x7fff7a8c9040	224	ffn_moe_argsort-10
+0	514	dst	GLU	ffn_moe_swiglu-10	0x7fff7c8eb840	1261568	
+0	514	src	MUL_MAT_ID	ffn_moe_gate-10	0x7fff7b2eb840	1261568	
+0	514	src	MUL_MAT_ID	ffn_moe_up-10	0x7fff7bdeb840	1261568	
+0	515	dst	MUL_MAT_ID	ffn_moe_down-10	0x7fff7b2eb840	458752	
+0	515	src	NONE	blk.10.ffn_down_exps.weight	0x7fffbbec7040	24510464	
+0	515	src	GLU	ffn_moe_swiglu-10	0x7fff7c8eb840	1261568	
+0	515	src	VIEW	ffn_moe_topk-10	0x7fff7a8c9040	224	ffn_moe_argsort-10
+0	516	dst	MUL	ffn_moe_weighted-10	0x7fff7b2eb840	458752	
+0	516	src	MUL_MAT_ID	ffn_moe_down-10	0x7fff7b2eb840	458752	
+0	516	src	RESHAPE	ffn_moe_weights_norm-10 (reshaped)	0x7fff7aeec040	224	ffn_moe_weights_norm-10
+0	517	dst	VIEW	ffn_moe_weighted-10 (view)	0x7fff7b2eb840	450560	ffn_moe_weighted-10
+0	517	src	MUL	ffn_moe_weighted-10	0x7fff7b2eb840	458752	
+0	518	dst	VIEW	ffn_moe_weighted-10 (view)	0x7fff7b2ed840	450560	ffn_moe_weighted-10
+0	518	src	MUL	ffn_moe_weighted-10	0x7fff7b2eb840	458752	
+0	519	dst	ADD	ffn_moe_out-10	0x7fff7aceb840	229376	
+0	519	src	VIEW	ffn_moe_weighted-10 (view)	0x7fff7b2eb840	450560	ffn_moe_weighted-10
+0	519	src	VIEW	ffn_moe_weighted-10 (view)	0x7fff7b2ed840	450560	ffn_moe_weighted-10
+0	520	dst	ADD	l_out-10	0x7fff7aceb840	229376	
+0	520	src	ADD	ffn_moe_out-10	0x7fff7aceb840	229376	
+0	520	src	ADD	ffn_inp-10	0x7fff7aac9840	229376	
+0	521	dst	RMS_NORM	norm-11	0x7fff7aeeb840	229376	
+0	521	src	ADD	l_out-10	0x7fff7aceb840	229376	
+0	522	dst	MUL	attn_norm-11	0x7fff7aeeb840	229376	
+0	522	src	RMS_NORM	norm-11	0x7fff7aeeb840	229376	
+0	522	src	NONE	blk.11.attn_norm.weight	0x7fffbed87040	8192	
+0	523	dst	MUL_MAT	Qcur-11	0x7fff7aac9840	229376	
+0	523	src	NONE	blk.11.attn_q.weight	0x7fffbed89040	4456448	
+0	523	src	MUL	attn_norm-11	0x7fff7aeeb840	229376	
+0	524	dst	RESHAPE	Qcur-11	0x7fff7aac9840	229376	Qcur-11
+0	524	src	MUL_MAT	Qcur-11	0x7fff7aac9840	229376	
+0	525	dst	ROPE	Qcur-11	0x7fff7b2eb840	229376	
+0	525	src	RESHAPE	Qcur-11	0x7fff7aac9840	229376	Qcur-11
+0	525	src	NONE	inp_pos	0x7fff7acca040	112	
+0	526	dst	MUL_MAT	Vcur-11	0x7fff7aac9840	28672	
+0	526	src	NONE	blk.11.attn_v.weight	0x7fffbf251040	557056	
+0	526	src	MUL	attn_norm-11	0x7fff7aeeb840	229376	
+0	527	dst	RESHAPE	Vcur-11	0x7fff7aac9840	28672	Vcur-11
+0	527	src	MUL_MAT	Vcur-11	0x7fff7aac9840	28672	
+0	528	dst	MUL_MAT	Kcur-11	0x7fff7ab09840	28672	
+0	528	src	NONE	blk.11.attn_k.weight	0x7fffbf1c9040	557056	
+0	528	src	MUL	attn_norm-11	0x7fff7aeeb840	229376	
+0	529	dst	RESHAPE	Kcur-11	0x7fff7ab09840	28672	Kcur-11
+0	529	src	MUL_MAT	Kcur-11	0x7fff7ab09840	28672	
+0	530	dst	ROPE	Kcur-11	0x7fff7ab49840	28672	
+0	530	src	RESHAPE	Kcur-11	0x7fff7ab09840	28672	Kcur-11
+0	530	src	NONE	inp_pos	0x7fff7acca040	112	
+0	531	dst	VIEW	Kcur-11 (view)	0x7fff7ab49840	28672	Kcur-11
+0	531	src	ROPE	Kcur-11	0x7fff7ab49840	28672	
+0	532	dst	SET_ROWS	cache_k_l11 (view)	0x7fff7f90c040	131072	cache_k_l11
+0	532	src	VIEW	Kcur-11 (view)	0x7fff7ab49840	28672	Kcur-11
+0	532	src	NONE	attn_inp_k_idxs	0x7fff7acca440	224	
+0	532	src	NONE	cache_k_l11	0x7fff7f90c040	131072	
+0	533	dst	VIEW	Vcur-11 (view)	0x7fff7aac9840	28672	Vcur-11
+0	533	src	RESHAPE	Vcur-11	0x7fff7aac9840	28672	Vcur-11
+0	534	dst	SET_ROWS	cache_v_l11 (view)	0x7fff7f92c040	131072	cache_v_l11
+0	534	src	VIEW	Vcur-11 (view)	0x7fff7aac9840	28672	Vcur-11
+0	534	src	NONE	attn_inp_v_idxs	0x7fff7accac40	224	
+0	534	src	NONE	cache_v_l11	0x7fff7f92c040	131072	
+0	535	dst	VIEW	Qcur-11 (view)	0x7fff7b2eb840	229376	Qcur-11
+0	535	src	ROPE	Qcur-11	0x7fff7b2eb840	229376	
+0	536	dst	PERMUTE	Qcur-11 (view) (permuted)	0x7fff7b2eb840	229376	Qcur-11
+0	536	src	VIEW	Qcur-11 (view)	0x7fff7b2eb840	229376	Qcur-11
+0	537	dst	VIEW	cache_k_l11 (view)	0x7fff7f90c040	131072	cache_k_l11
+0	537	src	NONE	cache_k_l11	0x7fff7f90c040	131072	
+0	538	dst	PERMUTE	cache_k_l11 (view) (permuted)	0x7fff7f90c040	131072	cache_k_l11
+0	538	src	VIEW	cache_k_l11 (view)	0x7fff7f90c040	131072	cache_k_l11
+0	539	dst	VIEW	cache_v_l11 (view)	0x7fff7f92c040	131072	cache_v_l11
+0	539	src	NONE	cache_v_l11	0x7fff7f92c040	131072	
+0	540	dst	PERMUTE	cache_v_l11 (view) (permuted)	0x7fff7f92c040	131072	cache_v_l11
+0	540	src	VIEW	cache_v_l11 (view)	0x7fff7f92c040	131072	cache_v_l11
+0	541	dst	FLASH_ATTN_EXT	node_541	0x7fff7aeeb840	229376	
+0	541	src	PERMUTE	Qcur-11 (view) (permuted)	0x7fff7b2eb840	229376	Qcur-11
+0	541	src	PERMUTE	cache_k_l11 (view) (permuted)	0x7fff7f90c040	131072	cache_k_l11
+0	541	src	PERMUTE	cache_v_l11 (view) (permuted)	0x7fff7f92c040	131072	cache_v_l11
+0	541	src	NONE	attn_inp_kq_mask	0x7fff7accb440	14336	
+0	542	dst	RESHAPE	kqv_out-11	0x7fff7aeeb840	229376	node_541
+0	542	src	FLASH_ATTN_EXT	node_541	0x7fff7aeeb840	229376	
+0	543	dst	MUL_MAT	attn_out-11	0x7fff7aac9840	229376	
+0	543	src	NONE	blk.11.attn_output.weight	0x7fffbf2d9040	4456448	
+0	543	src	RESHAPE	kqv_out-11	0x7fff7aeeb840	229376	node_541
+0	544	dst	ADD	ffn_inp-11	0x7fff7aac9840	229376	
+0	544	src	MUL_MAT	attn_out-11	0x7fff7aac9840	229376	
+0	544	src	ADD	l_out-10	0x7fff7aceb840	229376	
+0	545	dst	RMS_NORM	norm-11	0x7fff7aceb840	229376	
+0	545	src	ADD	ffn_inp-11	0x7fff7aac9840	229376	
+0	546	dst	MUL	ffn_norm-11	0x7fff7aceb840	229376	
+0	546	src	RMS_NORM	norm-11	0x7fff7aceb840	229376	
+0	546	src	NONE	blk.11.ffn_norm.weight	0x7fffbf719040	8192	
+0	547	dst	MUL_MAT	ffn_moe_logits-11	0x7fff7acc9840	224	
+0	547	src	NONE	blk.11.ffn_gate_inp.weight	0x7fffbf71b040	16384	
+0	547	src	MUL	ffn_norm-11	0x7fff7aceb840	229376	
+0	548	dst	SOFT_MAX	ffn_moe_probs-11	0x7fff7acc9840	224	
+0	548	src	MUL_MAT	ffn_moe_logits-11	0x7fff7acc9840	224	
+0	549	dst	RESHAPE	ffn_moe_probs-11 (reshaped)	0x7fff7acc9840	224	ffn_moe_probs-11
+0	549	src	SOFT_MAX	ffn_moe_probs-11	0x7fff7acc9840	224	
+0	550	dst	ARGSORT	ffn_moe_argsort-11	0x7fff7a8c9040	224	
+0	550	src	SOFT_MAX	ffn_moe_probs-11	0x7fff7acc9840	224	
+0	551	dst	VIEW	ffn_moe_topk-11	0x7fff7a8c9040	224	ffn_moe_argsort-11
+0	551	src	ARGSORT	ffn_moe_argsort-11	0x7fff7a8c9040	224	
+0	552	dst	GET_ROWS	ffn_moe_weights-11	0x7fff7aeeb840	224	
+0	552	src	RESHAPE	ffn_moe_probs-11 (reshaped)	0x7fff7acc9840	224	ffn_moe_probs-11
+0	552	src	VIEW	ffn_moe_topk-11	0x7fff7a8c9040	224	ffn_moe_argsort-11
+0	553	dst	RESHAPE	ffn_moe_weights-11 (reshaped)	0x7fff7aeeb840	224	ffn_moe_weights-11
+0	553	src	GET_ROWS	ffn_moe_weights-11	0x7fff7aeeb840	224	
+0	554	dst	SUM_ROWS	ffn_moe_weights_sum-11	0x7fff7acc9840	112	
+0	554	src	RESHAPE	ffn_moe_weights-11 (reshaped)	0x7fff7aeeb840	224	ffn_moe_weights-11
+0	555	dst	CLAMP	ffn_moe_weights_sum_clamped-11	0x7fff7acc9840	112	
+0	555	src	SUM_ROWS	ffn_moe_weights_sum-11	0x7fff7acc9840	112	
+0	556	dst	DIV	ffn_moe_weights_norm-11	0x7fff7aeec040	224	
+0	556	src	RESHAPE	ffn_moe_weights-11 (reshaped)	0x7fff7aeeb840	224	ffn_moe_weights-11
+0	556	src	CLAMP	ffn_moe_weights_sum_clamped-11	0x7fff7acc9840	112	
+0	557	dst	RESHAPE	ffn_moe_weights_norm-11 (reshaped)	0x7fff7aeec040	224	ffn_moe_weights_norm-11
+0	557	src	DIV	ffn_moe_weights_norm-11	0x7fff7aeec040	224	
+0	558	dst	RESHAPE	ffn_norm-11 (reshaped)	0x7fff7aceb840	229376	ffn_norm-11
+0	558	src	MUL	ffn_norm-11	0x7fff7aceb840	229376	
+0	559	dst	MUL_MAT_ID	ffn_moe_gate-11	0x7fff7b2eb840	1261568	
+0	559	src	NONE	blk.11.ffn_gate_exps.weight	0x7fffbf71f040	24510464	
+0	559	src	RESHAPE	ffn_norm-11 (reshaped)	0x7fff7aceb840	229376	ffn_norm-11
+0	559	src	VIEW	ffn_moe_topk-11	0x7fff7a8c9040	224	ffn_moe_argsort-11
+0	560	dst	MUL_MAT_ID	ffn_moe_up-11	0x7fff7bdeb840	1261568	
+0	560	src	NONE	blk.11.ffn_up_exps.weight	0x7fffc25df040	24510464	
+0	560	src	RESHAPE	ffn_norm-11 (reshaped)	0x7fff7aceb840	229376	ffn_norm-11
+0	560	src	VIEW	ffn_moe_topk-11	0x7fff7a8c9040	224	ffn_moe_argsort-11
+0	561	dst	GLU	ffn_moe_swiglu-11	0x7fff7c8eb840	1261568	
+0	561	src	MUL_MAT_ID	ffn_moe_gate-11	0x7fff7b2eb840	1261568	
+0	561	src	MUL_MAT_ID	ffn_moe_up-11	0x7fff7bdeb840	1261568	
+0	562	dst	MUL_MAT_ID	ffn_moe_down-11	0x7fff7b2eb840	458752	
+0	562	src	NONE	blk.11.ffn_down_exps.weight	0x7fffc0e7f040	24510464	
+0	562	src	GLU	ffn_moe_swiglu-11	0x7fff7c8eb840	1261568	
+0	562	src	VIEW	ffn_moe_topk-11	0x7fff7a8c9040	224	ffn_moe_argsort-11
+0	563	dst	MUL	ffn_moe_weighted-11	0x7fff7b2eb840	458752	
+0	563	src	MUL_MAT_ID	ffn_moe_down-11	0x7fff7b2eb840	458752	
+0	563	src	RESHAPE	ffn_moe_weights_norm-11 (reshaped)	0x7fff7aeec040	224	ffn_moe_weights_norm-11
+0	564	dst	VIEW	ffn_moe_weighted-11 (view)	0x7fff7b2eb840	450560	ffn_moe_weighted-11
+0	564	src	MUL	ffn_moe_weighted-11	0x7fff7b2eb840	458752	
+0	565	dst	VIEW	ffn_moe_weighted-11 (view)	0x7fff7b2ed840	450560	ffn_moe_weighted-11
+0	565	src	MUL	ffn_moe_weighted-11	0x7fff7b2eb840	458752	
+0	566	dst	ADD	ffn_moe_out-11	0x7fff7aceb840	229376	
+0	566	src	VIEW	ffn_moe_weighted-11 (view)	0x7fff7b2eb840	450560	ffn_moe_weighted-11
+0	566	src	VIEW	ffn_moe_weighted-11 (view)	0x7fff7b2ed840	450560	ffn_moe_weighted-11
+0	567	dst	ADD	l_out-11	0x7fff7aceb840	229376	
+0	567	src	ADD	ffn_moe_out-11	0x7fff7aceb840	229376	
+0	567	src	ADD	ffn_inp-11	0x7fff7aac9840	229376	
+0	568	dst	RMS_NORM	norm-12	0x7fff7aeeb840	229376	
+0	568	src	ADD	l_out-11	0x7fff7aceb840	229376	
+0	569	dst	MUL	attn_norm-12	0x7fff7aeeb840	229376	
+0	569	src	RMS_NORM	norm-12	0x7fff7aeeb840	229376	
+0	569	src	NONE	blk.12.attn_norm.weight	0x7fffc3d3f040	8192	
+0	570	dst	MUL_MAT	Qcur-12	0x7fff7aac9840	229376	
+0	570	src	NONE	blk.12.attn_q.weight	0x7fffc3d41040	4456448	
+0	570	src	MUL	attn_norm-12	0x7fff7aeeb840	229376	
+0	571	dst	RESHAPE	Qcur-12	0x7fff7aac9840	229376	Qcur-12
+0	571	src	MUL_MAT	Qcur-12	0x7fff7aac9840	229376	
+0	572	dst	ROPE	Qcur-12	0x7fff7b2eb840	229376	
+0	572	src	RESHAPE	Qcur-12	0x7fff7aac9840	229376	Qcur-12
+0	572	src	NONE	inp_pos	0x7fff7acca040	112	
+0	573	dst	MUL_MAT	Vcur-12	0x7fff7aac9840	28672	
+0	573	src	NONE	blk.12.attn_v.weight	0x7fffc4209040	557056	
+0	573	src	MUL	attn_norm-12	0x7fff7aeeb840	229376	
+0	574	dst	RESHAPE	Vcur-12	0x7fff7aac9840	28672	Vcur-12
+0	574	src	MUL_MAT	Vcur-12	0x7fff7aac9840	28672	
+0	575	dst	MUL_MAT	Kcur-12	0x7fff7ab09840	28672	
+0	575	src	NONE	blk.12.attn_k.weight	0x7fffc4181040	557056	
+0	575	src	MUL	attn_norm-12	0x7fff7aeeb840	229376	
+0	576	dst	RESHAPE	Kcur-12	0x7fff7ab09840	28672	Kcur-12
+0	576	src	MUL_MAT	Kcur-12	0x7fff7ab09840	28672	
+0	577	dst	ROPE	Kcur-12	0x7fff7ab49840	28672	
+0	577	src	RESHAPE	Kcur-12	0x7fff7ab09840	28672	Kcur-12
+0	577	src	NONE	inp_pos	0x7fff7acca040	112	
+0	578	dst	VIEW	Kcur-12 (view)	0x7fff7ab49840	28672	Kcur-12
+0	578	src	ROPE	Kcur-12	0x7fff7ab49840	28672	
+0	579	dst	SET_ROWS	cache_k_l12 (view)	0x7fff7f94c040	131072	cache_k_l12
+0	579	src	VIEW	Kcur-12 (view)	0x7fff7ab49840	28672	Kcur-12
+0	579	src	NONE	attn_inp_k_idxs	0x7fff7acca440	224	
+0	579	src	NONE	cache_k_l12	0x7fff7f94c040	131072	
+0	580	dst	VIEW	Vcur-12 (view)	0x7fff7aac9840	28672	Vcur-12
+0	580	src	RESHAPE	Vcur-12	0x7fff7aac9840	28672	Vcur-12
+0	581	dst	SET_ROWS	cache_v_l12 (view)	0x7fff7f96c040	131072	cache_v_l12
+0	581	src	VIEW	Vcur-12 (view)	0x7fff7aac9840	28672	Vcur-12
+0	581	src	NONE	attn_inp_v_idxs	0x7fff7accac40	224	
+0	581	src	NONE	cache_v_l12	0x7fff7f96c040	131072	
+0	582	dst	VIEW	Qcur-12 (view)	0x7fff7b2eb840	229376	Qcur-12
+0	582	src	ROPE	Qcur-12	0x7fff7b2eb840	229376	
+0	583	dst	PERMUTE	Qcur-12 (view) (permuted)	0x7fff7b2eb840	229376	Qcur-12
+0	583	src	VIEW	Qcur-12 (view)	0x7fff7b2eb840	229376	Qcur-12
+0	584	dst	VIEW	cache_k_l12 (view)	0x7fff7f94c040	131072	cache_k_l12
+0	584	src	NONE	cache_k_l12	0x7fff7f94c040	131072	
+0	585	dst	PERMUTE	cache_k_l12 (view) (permuted)	0x7fff7f94c040	131072	cache_k_l12
+0	585	src	VIEW	cache_k_l12 (view)	0x7fff7f94c040	131072	cache_k_l12
+0	586	dst	VIEW	cache_v_l12 (view)	0x7fff7f96c040	131072	cache_v_l12
+0	586	src	NONE	cache_v_l12	0x7fff7f96c040	131072	
+0	587	dst	PERMUTE	cache_v_l12 (view) (permuted)	0x7fff7f96c040	131072	cache_v_l12
+0	587	src	VIEW	cache_v_l12 (view)	0x7fff7f96c040	131072	cache_v_l12
+0	588	dst	FLASH_ATTN_EXT	node_588	0x7fff7aeeb840	229376	
+0	588	src	PERMUTE	Qcur-12 (view) (permuted)	0x7fff7b2eb840	229376	Qcur-12
+0	588	src	PERMUTE	cache_k_l12 (view) (permuted)	0x7fff7f94c040	131072	cache_k_l12
+0	588	src	PERMUTE	cache_v_l12 (view) (permuted)	0x7fff7f96c040	131072	cache_v_l12
+0	588	src	NONE	attn_inp_kq_mask	0x7fff7accb440	14336	
+0	589	dst	RESHAPE	kqv_out-12	0x7fff7aeeb840	229376	node_588
+0	589	src	FLASH_ATTN_EXT	node_588	0x7fff7aeeb840	229376	
+0	590	dst	MUL_MAT	attn_out-12	0x7fff7aac9840	229376	
+0	590	src	NONE	blk.12.attn_output.weight	0x7fffc4291040	4456448	
+0	590	src	RESHAPE	kqv_out-12	0x7fff7aeeb840	229376	node_588
+0	591	dst	ADD	ffn_inp-12	0x7fff7aac9840	229376	
+0	591	src	MUL_MAT	attn_out-12	0x7fff7aac9840	229376	
+0	591	src	ADD	l_out-11	0x7fff7aceb840	229376	
+0	592	dst	RMS_NORM	norm-12	0x7fff7aceb840	229376	
+0	592	src	ADD	ffn_inp-12	0x7fff7aac9840	229376	
+0	593	dst	MUL	ffn_norm-12	0x7fff7aceb840	229376	
+0	593	src	RMS_NORM	norm-12	0x7fff7aceb840	229376	
+0	593	src	NONE	blk.12.ffn_norm.weight	0x7fffc46d1040	8192	
+0	594	dst	MUL_MAT	ffn_moe_logits-12	0x7fff7acc9840	224	
+0	594	src	NONE	blk.12.ffn_gate_inp.weight	0x7fffc46d3040	16384	
+0	594	src	MUL	ffn_norm-12	0x7fff7aceb840	229376	
+0	595	dst	SOFT_MAX	ffn_moe_probs-12	0x7fff7acc9840	224	
+0	595	src	MUL_MAT	ffn_moe_logits-12	0x7fff7acc9840	224	
+0	596	dst	RESHAPE	ffn_moe_probs-12 (reshaped)	0x7fff7acc9840	224	ffn_moe_probs-12
+0	596	src	SOFT_MAX	ffn_moe_probs-12	0x7fff7acc9840	224	
+0	597	dst	ARGSORT	ffn_moe_argsort-12	0x7fff7a8c9040	224	
+0	597	src	SOFT_MAX	ffn_moe_probs-12	0x7fff7acc9840	224	
+0	598	dst	VIEW	ffn_moe_topk-12	0x7fff7a8c9040	224	ffn_moe_argsort-12
+0	598	src	ARGSORT	ffn_moe_argsort-12	0x7fff7a8c9040	224	
+0	599	dst	GET_ROWS	ffn_moe_weights-12	0x7fff7aeeb840	224	
+0	599	src	RESHAPE	ffn_moe_probs-12 (reshaped)	0x7fff7acc9840	224	ffn_moe_probs-12
+0	599	src	VIEW	ffn_moe_topk-12	0x7fff7a8c9040	224	ffn_moe_argsort-12
+0	600	dst	RESHAPE	ffn_moe_weights-12 (reshaped)	0x7fff7aeeb840	224	ffn_moe_weights-12
+0	600	src	GET_ROWS	ffn_moe_weights-12	0x7fff7aeeb840	224	
+0	601	dst	SUM_ROWS	ffn_moe_weights_sum-12	0x7fff7acc9840	112	
+0	601	src	RESHAPE	ffn_moe_weights-12 (reshaped)	0x7fff7aeeb840	224	ffn_moe_weights-12
+0	602	dst	CLAMP	ffn_moe_weights_sum_clamped-12	0x7fff7acc9840	112	
+0	602	src	SUM_ROWS	ffn_moe_weights_sum-12	0x7fff7acc9840	112	
+0	603	dst	DIV	ffn_moe_weights_norm-12	0x7fff7aeec040	224	
+0	603	src	RESHAPE	ffn_moe_weights-12 (reshaped)	0x7fff7aeeb840	224	ffn_moe_weights-12
+0	603	src	CLAMP	ffn_moe_weights_sum_clamped-12	0x7fff7acc9840	112	
+0	604	dst	RESHAPE	ffn_moe_weights_norm-12 (reshaped)	0x7fff7aeec040	224	ffn_moe_weights_norm-12
+0	604	src	DIV	ffn_moe_weights_norm-12	0x7fff7aeec040	224	
+0	605	dst	RESHAPE	ffn_norm-12 (reshaped)	0x7fff7aceb840	229376	ffn_norm-12
+0	605	src	MUL	ffn_norm-12	0x7fff7aceb840	229376	
+0	606	dst	MUL_MAT_ID	ffn_moe_gate-12	0x7fff7b2eb840	1261568	
+0	606	src	NONE	blk.12.ffn_gate_exps.weight	0x7fffc46d7040	24510464	
+0	606	src	RESHAPE	ffn_norm-12 (reshaped)	0x7fff7aceb840	229376	ffn_norm-12
+0	606	src	VIEW	ffn_moe_topk-12	0x7fff7a8c9040	224	ffn_moe_argsort-12
+0	607	dst	MUL_MAT_ID	ffn_moe_up-12	0x7fff7bdeb840	1261568	
+0	607	src	NONE	blk.12.ffn_up_exps.weight	0x7fffc7597040	24510464	
+0	607	src	RESHAPE	ffn_norm-12 (reshaped)	0x7fff7aceb840	229376	ffn_norm-12
+0	607	src	VIEW	ffn_moe_topk-12	0x7fff7a8c9040	224	ffn_moe_argsort-12
+0	608	dst	GLU	ffn_moe_swiglu-12	0x7fff7c8eb840	1261568	
+0	608	src	MUL_MAT_ID	ffn_moe_gate-12	0x7fff7b2eb840	1261568	
+0	608	src	MUL_MAT_ID	ffn_moe_up-12	0x7fff7bdeb840	1261568	
+0	609	dst	MUL_MAT_ID	ffn_moe_down-12	0x7fff7b2eb840	458752	
+0	609	src	NONE	blk.12.ffn_down_exps.weight	0x7fffc5e37040	24510464	
+0	609	src	GLU	ffn_moe_swiglu-12	0x7fff7c8eb840	1261568	
+0	609	src	VIEW	ffn_moe_topk-12	0x7fff7a8c9040	224	ffn_moe_argsort-12
+0	610	dst	MUL	ffn_moe_weighted-12	0x7fff7b2eb840	458752	
+0	610	src	MUL_MAT_ID	ffn_moe_down-12	0x7fff7b2eb840	458752	
+0	610	src	RESHAPE	ffn_moe_weights_norm-12 (reshaped)	0x7fff7aeec040	224	ffn_moe_weights_norm-12
+0	611	dst	VIEW	ffn_moe_weighted-12 (view)	0x7fff7b2eb840	450560	ffn_moe_weighted-12
+0	611	src	MUL	ffn_moe_weighted-12	0x7fff7b2eb840	458752	
+0	612	dst	VIEW	ffn_moe_weighted-12 (view)	0x7fff7b2ed840	450560	ffn_moe_weighted-12
+0	612	src	MUL	ffn_moe_weighted-12	0x7fff7b2eb840	458752	
+0	613	dst	ADD	ffn_moe_out-12	0x7fff7aceb840	229376	
+0	613	src	VIEW	ffn_moe_weighted-12 (view)	0x7fff7b2eb840	450560	ffn_moe_weighted-12
+0	613	src	VIEW	ffn_moe_weighted-12 (view)	0x7fff7b2ed840	450560	ffn_moe_weighted-12
+0	614	dst	ADD	l_out-12	0x7fff7aceb840	229376	
+0	614	src	ADD	ffn_moe_out-12	0x7fff7aceb840	229376	
+0	614	src	ADD	ffn_inp-12	0x7fff7aac9840	229376	
+0	615	dst	RMS_NORM	norm-13	0x7fff7aeeb840	229376	
+0	615	src	ADD	l_out-12	0x7fff7aceb840	229376	
+0	616	dst	MUL	attn_norm-13	0x7fff7aeeb840	229376	
+0	616	src	RMS_NORM	norm-13	0x7fff7aeeb840	229376	
+0	616	src	NONE	blk.13.attn_norm.weight	0x7fffc8cf7040	8192	
+0	617	dst	MUL_MAT	Qcur-13	0x7fff7aac9840	229376	
+0	617	src	NONE	blk.13.attn_q.weight	0x7fffc8cf9040	4456448	
+0	617	src	MUL	attn_norm-13	0x7fff7aeeb840	229376	
+0	618	dst	RESHAPE	Qcur-13	0x7fff7aac9840	229376	Qcur-13
+0	618	src	MUL_MAT	Qcur-13	0x7fff7aac9840	229376	
+0	619	dst	ROPE	Qcur-13	0x7fff7b2eb840	229376	
+0	619	src	RESHAPE	Qcur-13	0x7fff7aac9840	229376	Qcur-13
+0	619	src	NONE	inp_pos	0x7fff7acca040	112	
+0	620	dst	MUL_MAT	Vcur-13	0x7fff7aac9840	28672	
+0	620	src	NONE	blk.13.attn_v.weight	0x7fffc91c1040	557056	
+0	620	src	MUL	attn_norm-13	0x7fff7aeeb840	229376	
+0	621	dst	RESHAPE	Vcur-13	0x7fff7aac9840	28672	Vcur-13
+0	621	src	MUL_MAT	Vcur-13	0x7fff7aac9840	28672	
+0	622	dst	MUL_MAT	Kcur-13	0x7fff7ab09840	28672	
+0	622	src	NONE	blk.13.attn_k.weight	0x7fffc9139040	557056	
+0	622	src	MUL	attn_norm-13	0x7fff7aeeb840	229376	
+0	623	dst	RESHAPE	Kcur-13	0x7fff7ab09840	28672	Kcur-13
+0	623	src	MUL_MAT	Kcur-13	0x7fff7ab09840	28672	
+0	624	dst	ROPE	Kcur-13	0x7fff7ab49840	28672	
+0	624	src	RESHAPE	Kcur-13	0x7fff7ab09840	28672	Kcur-13
+0	624	src	NONE	inp_pos	0x7fff7acca040	112	
+0	625	dst	VIEW	Kcur-13 (view)	0x7fff7ab49840	28672	Kcur-13
+0	625	src	ROPE	Kcur-13	0x7fff7ab49840	28672	
+0	626	dst	SET_ROWS	cache_k_l13 (view)	0x7fff7f98c040	131072	cache_k_l13
+0	626	src	VIEW	Kcur-13 (view)	0x7fff7ab49840	28672	Kcur-13
+0	626	src	NONE	attn_inp_k_idxs	0x7fff7acca440	224	
+0	626	src	NONE	cache_k_l13	0x7fff7f98c040	131072	
+0	627	dst	VIEW	Vcur-13 (view)	0x7fff7aac9840	28672	Vcur-13
+0	627	src	RESHAPE	Vcur-13	0x7fff7aac9840	28672	Vcur-13
+0	628	dst	SET_ROWS	cache_v_l13 (view)	0x7fff7f9ac040	131072	cache_v_l13
+0	628	src	VIEW	Vcur-13 (view)	0x7fff7aac9840	28672	Vcur-13
+0	628	src	NONE	attn_inp_v_idxs	0x7fff7accac40	224	
+0	628	src	NONE	cache_v_l13	0x7fff7f9ac040	131072	
+0	629	dst	VIEW	Qcur-13 (view)	0x7fff7b2eb840	229376	Qcur-13
+0	629	src	ROPE	Qcur-13	0x7fff7b2eb840	229376	
+0	630	dst	PERMUTE	Qcur-13 (view) (permuted)	0x7fff7b2eb840	229376	Qcur-13
+0	630	src	VIEW	Qcur-13 (view)	0x7fff7b2eb840	229376	Qcur-13
+0	631	dst	VIEW	cache_k_l13 (view)	0x7fff7f98c040	131072	cache_k_l13
+0	631	src	NONE	cache_k_l13	0x7fff7f98c040	131072	
+0	632	dst	PERMUTE	cache_k_l13 (view) (permuted)	0x7fff7f98c040	131072	cache_k_l13
+0	632	src	VIEW	cache_k_l13 (view)	0x7fff7f98c040	131072	cache_k_l13
+0	633	dst	VIEW	cache_v_l13 (view)	0x7fff7f9ac040	131072	cache_v_l13
+0	633	src	NONE	cache_v_l13	0x7fff7f9ac040	131072	
+0	634	dst	PERMUTE	cache_v_l13 (view) (permuted)	0x7fff7f9ac040	131072	cache_v_l13
+0	634	src	VIEW	cache_v_l13 (view)	0x7fff7f9ac040	131072	cache_v_l13
+0	635	dst	FLASH_ATTN_EXT	node_635	0x7fff7aeeb840	229376	
+0	635	src	PERMUTE	Qcur-13 (view) (permuted)	0x7fff7b2eb840	229376	Qcur-13
+0	635	src	PERMUTE	cache_k_l13 (view) (permuted)	0x7fff7f98c040	131072	cache_k_l13
+0	635	src	PERMUTE	cache_v_l13 (view) (permuted)	0x7fff7f9ac040	131072	cache_v_l13
+0	635	src	NONE	attn_inp_kq_mask	0x7fff7accb440	14336	
+0	636	dst	RESHAPE	kqv_out-13	0x7fff7aeeb840	229376	node_635
+0	636	src	FLASH_ATTN_EXT	node_635	0x7fff7aeeb840	229376	
+0	637	dst	MUL_MAT	attn_out-13	0x7fff7aac9840	229376	
+0	637	src	NONE	blk.13.attn_output.weight	0x7fffc9249040	4456448	
+0	637	src	RESHAPE	kqv_out-13	0x7fff7aeeb840	229376	node_635
+0	638	dst	ADD	ffn_inp-13	0x7fff7aac9840	229376	
+0	638	src	MUL_MAT	attn_out-13	0x7fff7aac9840	229376	
+0	638	src	ADD	l_out-12	0x7fff7aceb840	229376	
+0	639	dst	RMS_NORM	norm-13	0x7fff7aceb840	229376	
+0	639	src	ADD	ffn_inp-13	0x7fff7aac9840	229376	
+0	640	dst	MUL	ffn_norm-13	0x7fff7aceb840	229376	
+0	640	src	RMS_NORM	norm-13	0x7fff7aceb840	229376	
+0	640	src	NONE	blk.13.ffn_norm.weight	0x7fffc9689040	8192	
+0	641	dst	MUL_MAT	ffn_moe_logits-13	0x7fff7acc9840	224	
+0	641	src	NONE	blk.13.ffn_gate_inp.weight	0x7fffc968b040	16384	
+0	641	src	MUL	ffn_norm-13	0x7fff7aceb840	229376	
+0	642	dst	SOFT_MAX	ffn_moe_probs-13	0x7fff7acc9840	224	
+0	642	src	MUL_MAT	ffn_moe_logits-13	0x7fff7acc9840	224	
+0	643	dst	RESHAPE	ffn_moe_probs-13 (reshaped)	0x7fff7acc9840	224	ffn_moe_probs-13
+0	643	src	SOFT_MAX	ffn_moe_probs-13	0x7fff7acc9840	224	
+0	644	dst	ARGSORT	ffn_moe_argsort-13	0x7fff7a8c9040	224	
+0	644	src	SOFT_MAX	ffn_moe_probs-13	0x7fff7acc9840	224	
+0	645	dst	VIEW	ffn_moe_topk-13	0x7fff7a8c9040	224	ffn_moe_argsort-13
+0	645	src	ARGSORT	ffn_moe_argsort-13	0x7fff7a8c9040	224	
+0	646	dst	GET_ROWS	ffn_moe_weights-13	0x7fff7aeeb840	224	
+0	646	src	RESHAPE	ffn_moe_probs-13 (reshaped)	0x7fff7acc9840	224	ffn_moe_probs-13
+0	646	src	VIEW	ffn_moe_topk-13	0x7fff7a8c9040	224	ffn_moe_argsort-13
+0	647	dst	RESHAPE	ffn_moe_weights-13 (reshaped)	0x7fff7aeeb840	224	ffn_moe_weights-13
+0	647	src	GET_ROWS	ffn_moe_weights-13	0x7fff7aeeb840	224	
+0	648	dst	SUM_ROWS	ffn_moe_weights_sum-13	0x7fff7acc9840	112	
+0	648	src	RESHAPE	ffn_moe_weights-13 (reshaped)	0x7fff7aeeb840	224	ffn_moe_weights-13
+0	649	dst	CLAMP	ffn_moe_weights_sum_clamped-13	0x7fff7acc9840	112	
+0	649	src	SUM_ROWS	ffn_moe_weights_sum-13	0x7fff7acc9840	112	
+0	650	dst	DIV	ffn_moe_weights_norm-13	0x7fff7aeec040	224	
+0	650	src	RESHAPE	ffn_moe_weights-13 (reshaped)	0x7fff7aeeb840	224	ffn_moe_weights-13
+0	650	src	CLAMP	ffn_moe_weights_sum_clamped-13	0x7fff7acc9840	112	
+0	651	dst	RESHAPE	ffn_moe_weights_norm-13 (reshaped)	0x7fff7aeec040	224	ffn_moe_weights_norm-13
+0	651	src	DIV	ffn_moe_weights_norm-13	0x7fff7aeec040	224	
+0	652	dst	RESHAPE	ffn_norm-13 (reshaped)	0x7fff7aceb840	229376	ffn_norm-13
+0	652	src	MUL	ffn_norm-13	0x7fff7aceb840	229376	
+0	653	dst	MUL_MAT_ID	ffn_moe_gate-13	0x7fff7b2eb840	1261568	
+0	653	src	NONE	blk.13.ffn_gate_exps.weight	0x7fffc968f040	24510464	
+0	653	src	RESHAPE	ffn_norm-13 (reshaped)	0x7fff7aceb840	229376	ffn_norm-13
+0	653	src	VIEW	ffn_moe_topk-13	0x7fff7a8c9040	224	ffn_moe_argsort-13
+0	654	dst	MUL_MAT_ID	ffn_moe_up-13	0x7fff7bdeb840	1261568	
+0	654	src	NONE	blk.13.ffn_up_exps.weight	0x7fffcc54f040	24510464	
+0	654	src	RESHAPE	ffn_norm-13 (reshaped)	0x7fff7aceb840	229376	ffn_norm-13
+0	654	src	VIEW	ffn_moe_topk-13	0x7fff7a8c9040	224	ffn_moe_argsort-13
+0	655	dst	GLU	ffn_moe_swiglu-13	0x7fff7c8eb840	1261568	
+0	655	src	MUL_MAT_ID	ffn_moe_gate-13	0x7fff7b2eb840	1261568	
+0	655	src	MUL_MAT_ID	ffn_moe_up-13	0x7fff7bdeb840	1261568	
+0	656	dst	MUL_MAT_ID	ffn_moe_down-13	0x7fff7b2eb840	458752	
+0	656	src	NONE	blk.13.ffn_down_exps.weight	0x7fffcadef040	24510464	
+0	656	src	GLU	ffn_moe_swiglu-13	0x7fff7c8eb840	1261568	
+0	656	src	VIEW	ffn_moe_topk-13	0x7fff7a8c9040	224	ffn_moe_argsort-13
+0	657	dst	MUL	ffn_moe_weighted-13	0x7fff7b2eb840	458752	
+0	657	src	MUL_MAT_ID	ffn_moe_down-13	0x7fff7b2eb840	458752	
+0	657	src	RESHAPE	ffn_moe_weights_norm-13 (reshaped)	0x7fff7aeec040	224	ffn_moe_weights_norm-13
+0	658	dst	VIEW	ffn_moe_weighted-13 (view)	0x7fff7b2eb840	450560	ffn_moe_weighted-13
+0	658	src	MUL	ffn_moe_weighted-13	0x7fff7b2eb840	458752	
+0	659	dst	VIEW	ffn_moe_weighted-13 (view)	0x7fff7b2ed840	450560	ffn_moe_weighted-13
+0	659	src	MUL	ffn_moe_weighted-13	0x7fff7b2eb840	458752	
+0	660	dst	ADD	ffn_moe_out-13	0x7fff7aceb840	229376	
+0	660	src	VIEW	ffn_moe_weighted-13 (view)	0x7fff7b2eb840	450560	ffn_moe_weighted-13
+0	660	src	VIEW	ffn_moe_weighted-13 (view)	0x7fff7b2ed840	450560	ffn_moe_weighted-13
+0	661	dst	ADD	l_out-13	0x7fff7aceb840	229376	
+0	661	src	ADD	ffn_moe_out-13	0x7fff7aceb840	229376	
+0	661	src	ADD	ffn_inp-13	0x7fff7aac9840	229376	
+0	662	dst	RMS_NORM	norm-14	0x7fff7aeeb840	229376	
+0	662	src	ADD	l_out-13	0x7fff7aceb840	229376	
+0	663	dst	MUL	attn_norm-14	0x7fff7aeeb840	229376	
+0	663	src	RMS_NORM	norm-14	0x7fff7aeeb840	229376	
+0	663	src	NONE	blk.14.attn_norm.weight	0x7fffcdcaf040	8192	
+0	664	dst	MUL_MAT	Qcur-14	0x7fff7aac9840	229376	
+0	664	src	NONE	blk.14.attn_q.weight	0x7fffcdcb1040	4456448	
+0	664	src	MUL	attn_norm-14	0x7fff7aeeb840	229376	
+0	665	dst	RESHAPE	Qcur-14	0x7fff7aac9840	229376	Qcur-14
+0	665	src	MUL_MAT	Qcur-14	0x7fff7aac9840	229376	
+0	666	dst	ROPE	Qcur-14	0x7fff7b2eb840	229376	
+0	666	src	RESHAPE	Qcur-14	0x7fff7aac9840	229376	Qcur-14
+0	666	src	NONE	inp_pos	0x7fff7acca040	112	
+0	667	dst	MUL_MAT	Vcur-14	0x7fff7aac9840	28672	
+0	667	src	NONE	blk.14.attn_v.weight	0x7fffce179040	557056	
+0	667	src	MUL	attn_norm-14	0x7fff7aeeb840	229376	
+0	668	dst	RESHAPE	Vcur-14	0x7fff7aac9840	28672	Vcur-14
+0	668	src	MUL_MAT	Vcur-14	0x7fff7aac9840	28672	
+0	669	dst	MUL_MAT	Kcur-14	0x7fff7ab09840	28672	
+0	669	src	NONE	blk.14.attn_k.weight	0x7fffce0f1040	557056	
+0	669	src	MUL	attn_norm-14	0x7fff7aeeb840	229376	
+0	670	dst	RESHAPE	Kcur-14	0x7fff7ab09840	28672	Kcur-14
+0	670	src	MUL_MAT	Kcur-14	0x7fff7ab09840	28672	
+0	671	dst	ROPE	Kcur-14	0x7fff7ab49840	28672	
+0	671	src	RESHAPE	Kcur-14	0x7fff7ab09840	28672	Kcur-14
+0	671	src	NONE	inp_pos	0x7fff7acca040	112	
+0	672	dst	VIEW	Kcur-14 (view)	0x7fff7ab49840	28672	Kcur-14
+0	672	src	ROPE	Kcur-14	0x7fff7ab49840	28672	
+0	673	dst	SET_ROWS	cache_k_l14 (view)	0x7fff7f9cc040	131072	cache_k_l14
+0	673	src	VIEW	Kcur-14 (view)	0x7fff7ab49840	28672	Kcur-14
+0	673	src	NONE	attn_inp_k_idxs	0x7fff7acca440	224	
+0	673	src	NONE	cache_k_l14	0x7fff7f9cc040	131072	
+0	674	dst	VIEW	Vcur-14 (view)	0x7fff7aac9840	28672	Vcur-14
+0	674	src	RESHAPE	Vcur-14	0x7fff7aac9840	28672	Vcur-14
+0	675	dst	SET_ROWS	cache_v_l14 (view)	0x7fff7f9ec040	131072	cache_v_l14
+0	675	src	VIEW	Vcur-14 (view)	0x7fff7aac9840	28672	Vcur-14
+0	675	src	NONE	attn_inp_v_idxs	0x7fff7accac40	224	
+0	675	src	NONE	cache_v_l14	0x7fff7f9ec040	131072	
+0	676	dst	VIEW	Qcur-14 (view)	0x7fff7b2eb840	229376	Qcur-14
+0	676	src	ROPE	Qcur-14	0x7fff7b2eb840	229376	
+0	677	dst	PERMUTE	Qcur-14 (view) (permuted)	0x7fff7b2eb840	229376	Qcur-14
+0	677	src	VIEW	Qcur-14 (view)	0x7fff7b2eb840	229376	Qcur-14
+0	678	dst	VIEW	cache_k_l14 (view)	0x7fff7f9cc040	131072	cache_k_l14
+0	678	src	NONE	cache_k_l14	0x7fff7f9cc040	131072	
+0	679	dst	PERMUTE	cache_k_l14 (view) (permuted)	0x7fff7f9cc040	131072	cache_k_l14
+0	679	src	VIEW	cache_k_l14 (view)	0x7fff7f9cc040	131072	cache_k_l14
+0	680	dst	VIEW	cache_v_l14 (view)	0x7fff7f9ec040	131072	cache_v_l14
+0	680	src	NONE	cache_v_l14	0x7fff7f9ec040	131072	
+0	681	dst	PERMUTE	cache_v_l14 (view) (permuted)	0x7fff7f9ec040	131072	cache_v_l14
+0	681	src	VIEW	cache_v_l14 (view)	0x7fff7f9ec040	131072	cache_v_l14
+0	682	dst	FLASH_ATTN_EXT	node_682	0x7fff7aeeb840	229376	
+0	682	src	PERMUTE	Qcur-14 (view) (permuted)	0x7fff7b2eb840	229376	Qcur-14
+0	682	src	PERMUTE	cache_k_l14 (view) (permuted)	0x7fff7f9cc040	131072	cache_k_l14
+0	682	src	PERMUTE	cache_v_l14 (view) (permuted)	0x7fff7f9ec040	131072	cache_v_l14
+0	682	src	NONE	attn_inp_kq_mask	0x7fff7accb440	14336	
+0	683	dst	RESHAPE	kqv_out-14	0x7fff7aeeb840	229376	node_682
+0	683	src	FLASH_ATTN_EXT	node_682	0x7fff7aeeb840	229376	
+0	684	dst	MUL_MAT	attn_out-14	0x7fff7aac9840	229376	
+0	684	src	NONE	blk.14.attn_output.weight	0x7fffce201040	4456448	
+0	684	src	RESHAPE	kqv_out-14	0x7fff7aeeb840	229376	node_682
+0	685	dst	ADD	ffn_inp-14	0x7fff7aac9840	229376	
+0	685	src	MUL_MAT	attn_out-14	0x7fff7aac9840	229376	
+0	685	src	ADD	l_out-13	0x7fff7aceb840	229376	
+0	686	dst	RMS_NORM	norm-14	0x7fff7aceb840	229376	
+0	686	src	ADD	ffn_inp-14	0x7fff7aac9840	229376	
+0	687	dst	MUL	ffn_norm-14	0x7fff7aceb840	229376	
+0	687	src	RMS_NORM	norm-14	0x7fff7aceb840	229376	
+0	687	src	NONE	blk.14.ffn_norm.weight	0x7fffce641040	8192	
+0	688	dst	MUL_MAT	ffn_moe_logits-14	0x7fff7acc9840	224	
+0	688	src	NONE	blk.14.ffn_gate_inp.weight	0x7fffce643040	16384	
+0	688	src	MUL	ffn_norm-14	0x7fff7aceb840	229376	
+0	689	dst	SOFT_MAX	ffn_moe_probs-14	0x7fff7acc9840	224	
+0	689	src	MUL_MAT	ffn_moe_logits-14	0x7fff7acc9840	224	
+0	690	dst	RESHAPE	ffn_moe_probs-14 (reshaped)	0x7fff7acc9840	224	ffn_moe_probs-14
+0	690	src	SOFT_MAX	ffn_moe_probs-14	0x7fff7acc9840	224	
+0	691	dst	ARGSORT	ffn_moe_argsort-14	0x7fff7a8c9040	224	
+0	691	src	SOFT_MAX	ffn_moe_probs-14	0x7fff7acc9840	224	
+0	692	dst	VIEW	ffn_moe_topk-14	0x7fff7a8c9040	224	ffn_moe_argsort-14
+0	692	src	ARGSORT	ffn_moe_argsort-14	0x7fff7a8c9040	224	
+0	693	dst	GET_ROWS	ffn_moe_weights-14	0x7fff7aeeb840	224	
+0	693	src	RESHAPE	ffn_moe_probs-14 (reshaped)	0x7fff7acc9840	224	ffn_moe_probs-14
+0	693	src	VIEW	ffn_moe_topk-14	0x7fff7a8c9040	224	ffn_moe_argsort-14
+0	694	dst	RESHAPE	ffn_moe_weights-14 (reshaped)	0x7fff7aeeb840	224	ffn_moe_weights-14
+0	694	src	GET_ROWS	ffn_moe_weights-14	0x7fff7aeeb840	224	
+0	695	dst	SUM_ROWS	ffn_moe_weights_sum-14	0x7fff7acc9840	112	
+0	695	src	RESHAPE	ffn_moe_weights-14 (reshaped)	0x7fff7aeeb840	224	ffn_moe_weights-14
+0	696	dst	CLAMP	ffn_moe_weights_sum_clamped-14	0x7fff7acc9840	112	
+0	696	src	SUM_ROWS	ffn_moe_weights_sum-14	0x7fff7acc9840	112	
+0	697	dst	DIV	ffn_moe_weights_norm-14	0x7fff7aeec040	224	
+0	697	src	RESHAPE	ffn_moe_weights-14 (reshaped)	0x7fff7aeeb840	224	ffn_moe_weights-14
+0	697	src	CLAMP	ffn_moe_weights_sum_clamped-14	0x7fff7acc9840	112	
+0	698	dst	RESHAPE	ffn_moe_weights_norm-14 (reshaped)	0x7fff7aeec040	224	ffn_moe_weights_norm-14
+0	698	src	DIV	ffn_moe_weights_norm-14	0x7fff7aeec040	224	
+0	699	dst	RESHAPE	ffn_norm-14 (reshaped)	0x7fff7aceb840	229376	ffn_norm-14
+0	699	src	MUL	ffn_norm-14	0x7fff7aceb840	229376	
+0	700	dst	MUL_MAT_ID	ffn_moe_gate-14	0x7fff7b2eb840	1261568	
+0	700	src	NONE	blk.14.ffn_gate_exps.weight	0x7fffce647040	24510464	
+0	700	src	RESHAPE	ffn_norm-14 (reshaped)	0x7fff7aceb840	229376	ffn_norm-14
+0	700	src	VIEW	ffn_moe_topk-14	0x7fff7a8c9040	224	ffn_moe_argsort-14
+0	701	dst	MUL_MAT_ID	ffn_moe_up-14	0x7fff7bdeb840	1261568	
+0	701	src	NONE	blk.14.ffn_up_exps.weight	0x7fffd1507040	24510464	
+0	701	src	RESHAPE	ffn_norm-14 (reshaped)	0x7fff7aceb840	229376	ffn_norm-14
+0	701	src	VIEW	ffn_moe_topk-14	0x7fff7a8c9040	224	ffn_moe_argsort-14
+0	702	dst	GLU	ffn_moe_swiglu-14	0x7fff7c8eb840	1261568	
+0	702	src	MUL_MAT_ID	ffn_moe_gate-14	0x7fff7b2eb840	1261568	
+0	702	src	MUL_MAT_ID	ffn_moe_up-14	0x7fff7bdeb840	1261568	
+0	703	dst	MUL_MAT_ID	ffn_moe_down-14	0x7fff7b2eb840	458752	
+0	703	src	NONE	blk.14.ffn_down_exps.weight	0x7fffcfda7040	24510464	
+0	703	src	GLU	ffn_moe_swiglu-14	0x7fff7c8eb840	1261568	
+0	703	src	VIEW	ffn_moe_topk-14	0x7fff7a8c9040	224	ffn_moe_argsort-14
+0	704	dst	MUL	ffn_moe_weighted-14	0x7fff7b2eb840	458752	
+0	704	src	MUL_MAT_ID	ffn_moe_down-14	0x7fff7b2eb840	458752	
+0	704	src	RESHAPE	ffn_moe_weights_norm-14 (reshaped)	0x7fff7aeec040	224	ffn_moe_weights_norm-14
+0	705	dst	VIEW	ffn_moe_weighted-14 (view)	0x7fff7b2eb840	450560	ffn_moe_weighted-14
+0	705	src	MUL	ffn_moe_weighted-14	0x7fff7b2eb840	458752	
+0	706	dst	VIEW	ffn_moe_weighted-14 (view)	0x7fff7b2ed840	450560	ffn_moe_weighted-14
+0	706	src	MUL	ffn_moe_weighted-14	0x7fff7b2eb840	458752	
+0	707	dst	ADD	ffn_moe_out-14	0x7fff7aceb840	229376	
+0	707	src	VIEW	ffn_moe_weighted-14 (view)	0x7fff7b2eb840	450560	ffn_moe_weighted-14
+0	707	src	VIEW	ffn_moe_weighted-14 (view)	0x7fff7b2ed840	450560	ffn_moe_weighted-14
+0	708	dst	ADD	l_out-14	0x7fff7aceb840	229376	
+0	708	src	ADD	ffn_moe_out-14	0x7fff7aceb840	229376	
+0	708	src	ADD	ffn_inp-14	0x7fff7aac9840	229376	
+0	709	dst	RMS_NORM	norm-15	0x7fff7aeeb840	229376	
+0	709	src	ADD	l_out-14	0x7fff7aceb840	229376	
+0	710	dst	MUL	attn_norm-15	0x7fff7aeeb840	229376	
+0	710	src	RMS_NORM	norm-15	0x7fff7aeeb840	229376	
+0	710	src	NONE	blk.15.attn_norm.weight	0x7fffd2c67040	8192	
+0	711	dst	MUL_MAT	Qcur-15	0x7fff7aac9840	229376	
+0	711	src	NONE	blk.15.attn_q.weight	0x7fffd2c69040	4456448	
+0	711	src	MUL	attn_norm-15	0x7fff7aeeb840	229376	
+0	712	dst	RESHAPE	Qcur-15	0x7fff7aac9840	229376	Qcur-15
+0	712	src	MUL_MAT	Qcur-15	0x7fff7aac9840	229376	
+0	713	dst	ROPE	Qcur-15	0x7fff7b2eb840	229376	
+0	713	src	RESHAPE	Qcur-15	0x7fff7aac9840	229376	Qcur-15
+0	713	src	NONE	inp_pos	0x7fff7acca040	112	
+0	714	dst	MUL_MAT	Vcur-15	0x7fff7aac9840	28672	
+0	714	src	NONE	blk.15.attn_v.weight	0x7fffd3131040	557056	
+0	714	src	MUL	attn_norm-15	0x7fff7aeeb840	229376	
+0	715	dst	RESHAPE	Vcur-15	0x7fff7aac9840	28672	Vcur-15
+0	715	src	MUL_MAT	Vcur-15	0x7fff7aac9840	28672	
+0	716	dst	MUL_MAT	Kcur-15	0x7fff7ab09840	28672	
+0	716	src	NONE	blk.15.attn_k.weight	0x7fffd30a9040	557056	
+0	716	src	MUL	attn_norm-15	0x7fff7aeeb840	229376	
+0	717	dst	RESHAPE	Kcur-15	0x7fff7ab09840	28672	Kcur-15
+0	717	src	MUL_MAT	Kcur-15	0x7fff7ab09840	28672	
+0	718	dst	ROPE	Kcur-15	0x7fff7ab49840	28672	
+0	718	src	RESHAPE	Kcur-15	0x7fff7ab09840	28672	Kcur-15
+0	718	src	NONE	inp_pos	0x7fff7acca040	112	
+0	719	dst	VIEW	Kcur-15 (view)	0x7fff7ab49840	28672	Kcur-15
+0	719	src	ROPE	Kcur-15	0x7fff7ab49840	28672	
+0	720	dst	SET_ROWS	cache_k_l15 (view)	0x7fff7fa0c040	131072	cache_k_l15
+0	720	src	VIEW	Kcur-15 (view)	0x7fff7ab49840	28672	Kcur-15
+0	720	src	NONE	attn_inp_k_idxs	0x7fff7acca440	224	
+0	720	src	NONE	cache_k_l15	0x7fff7fa0c040	131072	
+0	721	dst	VIEW	Vcur-15 (view)	0x7fff7aac9840	28672	Vcur-15
+0	721	src	RESHAPE	Vcur-15	0x7fff7aac9840	28672	Vcur-15
+0	722	dst	SET_ROWS	cache_v_l15 (view)	0x7fff7fa2c040	131072	cache_v_l15
+0	722	src	VIEW	Vcur-15 (view)	0x7fff7aac9840	28672	Vcur-15
+0	722	src	NONE	attn_inp_v_idxs	0x7fff7accac40	224	
+0	722	src	NONE	cache_v_l15	0x7fff7fa2c040	131072	
+0	723	dst	VIEW	Qcur-15 (view)	0x7fff7b2eb840	229376	Qcur-15
+0	723	src	ROPE	Qcur-15	0x7fff7b2eb840	229376	
+0	724	dst	PERMUTE	Qcur-15 (view) (permuted)	0x7fff7b2eb840	229376	Qcur-15
+0	724	src	VIEW	Qcur-15 (view)	0x7fff7b2eb840	229376	Qcur-15
+0	725	dst	VIEW	cache_k_l15 (view)	0x7fff7fa0c040	131072	cache_k_l15
+0	725	src	NONE	cache_k_l15	0x7fff7fa0c040	131072	
+0	726	dst	PERMUTE	cache_k_l15 (view) (permuted)	0x7fff7fa0c040	131072	cache_k_l15
+0	726	src	VIEW	cache_k_l15 (view)	0x7fff7fa0c040	131072	cache_k_l15
+0	727	dst	VIEW	cache_v_l15 (view)	0x7fff7fa2c040	131072	cache_v_l15
+0	727	src	NONE	cache_v_l15	0x7fff7fa2c040	131072	
+0	728	dst	PERMUTE	cache_v_l15 (view) (permuted)	0x7fff7fa2c040	131072	cache_v_l15
+0	728	src	VIEW	cache_v_l15 (view)	0x7fff7fa2c040	131072	cache_v_l15
+0	729	dst	FLASH_ATTN_EXT	node_729	0x7fff7aeeb840	229376	
+0	729	src	PERMUTE	Qcur-15 (view) (permuted)	0x7fff7b2eb840	229376	Qcur-15
+0	729	src	PERMUTE	cache_k_l15 (view) (permuted)	0x7fff7fa0c040	131072	cache_k_l15
+0	729	src	PERMUTE	cache_v_l15 (view) (permuted)	0x7fff7fa2c040	131072	cache_v_l15
+0	729	src	NONE	attn_inp_kq_mask	0x7fff7accb440	14336	
+0	730	dst	RESHAPE	kqv_out-15	0x7fff7aeeb840	229376	node_729
+0	730	src	FLASH_ATTN_EXT	node_729	0x7fff7aeeb840	229376	
+0	731	dst	MUL_MAT	attn_out-15	0x7fff7aac9840	229376	
+0	731	src	NONE	blk.15.attn_output.weight	0x7fffd31b9040	4456448	
+0	731	src	RESHAPE	kqv_out-15	0x7fff7aeeb840	229376	node_729
+0	732	dst	ADD	ffn_inp-15	0x7fff7aac9840	229376	
+0	732	src	MUL_MAT	attn_out-15	0x7fff7aac9840	229376	
+0	732	src	ADD	l_out-14	0x7fff7aceb840	229376	
+0	733	dst	RMS_NORM	norm-15	0x7fff7aceb840	229376	
+0	733	src	ADD	ffn_inp-15	0x7fff7aac9840	229376	
+0	734	dst	MUL	ffn_norm-15	0x7fff7aceb840	229376	
+0	734	src	RMS_NORM	norm-15	0x7fff7aceb840	229376	
+0	734	src	NONE	blk.15.ffn_norm.weight	0x7fffd35f9040	8192	
+0	735	dst	MUL_MAT	ffn_moe_logits-15	0x7fff7acc9840	224	
+0	735	src	NONE	blk.15.ffn_gate_inp.weight	0x7fffd35fb040	16384	
+0	735	src	MUL	ffn_norm-15	0x7fff7aceb840	229376	
+0	736	dst	SOFT_MAX	ffn_moe_probs-15	0x7fff7acc9840	224	
+0	736	src	MUL_MAT	ffn_moe_logits-15	0x7fff7acc9840	224	
+0	737	dst	RESHAPE	ffn_moe_probs-15 (reshaped)	0x7fff7acc9840	224	ffn_moe_probs-15
+0	737	src	SOFT_MAX	ffn_moe_probs-15	0x7fff7acc9840	224	
+0	738	dst	ARGSORT	ffn_moe_argsort-15	0x7fff7a8c9040	224	
+0	738	src	SOFT_MAX	ffn_moe_probs-15	0x7fff7acc9840	224	
+0	739	dst	VIEW	ffn_moe_topk-15	0x7fff7a8c9040	224	ffn_moe_argsort-15
+0	739	src	ARGSORT	ffn_moe_argsort-15	0x7fff7a8c9040	224	
+0	740	dst	GET_ROWS	ffn_moe_weights-15	0x7fff7aeeb840	224	
+0	740	src	RESHAPE	ffn_moe_probs-15 (reshaped)	0x7fff7acc9840	224	ffn_moe_probs-15
+0	740	src	VIEW	ffn_moe_topk-15	0x7fff7a8c9040	224	ffn_moe_argsort-15
+0	741	dst	RESHAPE	ffn_moe_weights-15 (reshaped)	0x7fff7aeeb840	224	ffn_moe_weights-15
+0	741	src	GET_ROWS	ffn_moe_weights-15	0x7fff7aeeb840	224	
+0	742	dst	SUM_ROWS	ffn_moe_weights_sum-15	0x7fff7acc9840	112	
+0	742	src	RESHAPE	ffn_moe_weights-15 (reshaped)	0x7fff7aeeb840	224	ffn_moe_weights-15
+0	743	dst	CLAMP	ffn_moe_weights_sum_clamped-15	0x7fff7acc9840	112	
+0	743	src	SUM_ROWS	ffn_moe_weights_sum-15	0x7fff7acc9840	112	
+0	744	dst	DIV	ffn_moe_weights_norm-15	0x7fff7aeec040	224	
+0	744	src	RESHAPE	ffn_moe_weights-15 (reshaped)	0x7fff7aeeb840	224	ffn_moe_weights-15
+0	744	src	CLAMP	ffn_moe_weights_sum_clamped-15	0x7fff7acc9840	112	
+0	745	dst	RESHAPE	ffn_moe_weights_norm-15 (reshaped)	0x7fff7aeec040	224	ffn_moe_weights_norm-15
+0	745	src	DIV	ffn_moe_weights_norm-15	0x7fff7aeec040	224	
+0	746	dst	RESHAPE	ffn_norm-15 (reshaped)	0x7fff7aceb840	229376	ffn_norm-15
+0	746	src	MUL	ffn_norm-15	0x7fff7aceb840	229376	
+0	747	dst	MUL_MAT_ID	ffn_moe_gate-15	0x7fff7b2eb840	1261568	
+0	747	src	NONE	blk.15.ffn_gate_exps.weight	0x7fffd35ff040	24510464	
+0	747	src	RESHAPE	ffn_norm-15 (reshaped)	0x7fff7aceb840	229376	ffn_norm-15
+0	747	src	VIEW	ffn_moe_topk-15	0x7fff7a8c9040	224	ffn_moe_argsort-15
+0	748	dst	MUL_MAT_ID	ffn_moe_up-15	0x7fff7bdeb840	1261568	
+0	748	src	NONE	blk.15.ffn_up_exps.weight	0x7fffd64bf040	24510464	
+0	748	src	RESHAPE	ffn_norm-15 (reshaped)	0x7fff7aceb840	229376	ffn_norm-15
+0	748	src	VIEW	ffn_moe_topk-15	0x7fff7a8c9040	224	ffn_moe_argsort-15
+0	749	dst	GLU	ffn_moe_swiglu-15	0x7fff7c8eb840	1261568	
+0	749	src	MUL_MAT_ID	ffn_moe_gate-15	0x7fff7b2eb840	1261568	
+0	749	src	MUL_MAT_ID	ffn_moe_up-15	0x7fff7bdeb840	1261568	
+0	750	dst	MUL_MAT_ID	ffn_moe_down-15	0x7fff7b2eb840	458752	
+0	750	src	NONE	blk.15.ffn_down_exps.weight	0x7fffd4d5f040	24510464	
+0	750	src	GLU	ffn_moe_swiglu-15	0x7fff7c8eb840	1261568	
+0	750	src	VIEW	ffn_moe_topk-15	0x7fff7a8c9040	224	ffn_moe_argsort-15
+0	751	dst	MUL	ffn_moe_weighted-15	0x7fff7b2eb840	458752	
+0	751	src	MUL_MAT_ID	ffn_moe_down-15	0x7fff7b2eb840	458752	
+0	751	src	RESHAPE	ffn_moe_weights_norm-15 (reshaped)	0x7fff7aeec040	224	ffn_moe_weights_norm-15
+0	752	dst	VIEW	ffn_moe_weighted-15 (view)	0x7fff7b2eb840	450560	ffn_moe_weighted-15
+0	752	src	MUL	ffn_moe_weighted-15	0x7fff7b2eb840	458752	
+0	753	dst	VIEW	ffn_moe_weighted-15 (view)	0x7fff7b2ed840	450560	ffn_moe_weighted-15
+0	753	src	MUL	ffn_moe_weighted-15	0x7fff7b2eb840	458752	
+0	754	dst	ADD	ffn_moe_out-15	0x7fff7aceb840	229376	
+0	754	src	VIEW	ffn_moe_weighted-15 (view)	0x7fff7b2eb840	450560	ffn_moe_weighted-15
+0	754	src	VIEW	ffn_moe_weighted-15 (view)	0x7fff7b2ed840	450560	ffn_moe_weighted-15
+0	755	dst	ADD	l_out-15	0x7fff7aceb840	229376	
+0	755	src	ADD	ffn_moe_out-15	0x7fff7aceb840	229376	
+0	755	src	ADD	ffn_inp-15	0x7fff7aac9840	229376	
+0	756	dst	RMS_NORM	norm-16	0x7fff7aeeb840	229376	
+0	756	src	ADD	l_out-15	0x7fff7aceb840	229376	
+0	757	dst	MUL	attn_norm-16	0x7fff7aeeb840	229376	
+0	757	src	RMS_NORM	norm-16	0x7fff7aeeb840	229376	
+0	757	src	NONE	blk.16.attn_norm.weight	0x7fffd7c1f040	8192	
+0	758	dst	MUL_MAT	Qcur-16	0x7fff7aac9840	229376	
+0	758	src	NONE	blk.16.attn_q.weight	0x7fffd7c21040	4456448	
+0	758	src	MUL	attn_norm-16	0x7fff7aeeb840	229376	
+0	759	dst	RESHAPE	Qcur-16	0x7fff7aac9840	229376	Qcur-16
+0	759	src	MUL_MAT	Qcur-16	0x7fff7aac9840	229376	
+0	760	dst	ROPE	Qcur-16	0x7fff7b2eb840	229376	
+0	760	src	RESHAPE	Qcur-16	0x7fff7aac9840	229376	Qcur-16
+0	760	src	NONE	inp_pos	0x7fff7acca040	112	
+0	761	dst	MUL_MAT	Vcur-16	0x7fff7aac9840	28672	
+0	761	src	NONE	blk.16.attn_v.weight	0x7fffd80e9040	557056	
+0	761	src	MUL	attn_norm-16	0x7fff7aeeb840	229376	
+0	762	dst	RESHAPE	Vcur-16	0x7fff7aac9840	28672	Vcur-16
+0	762	src	MUL_MAT	Vcur-16	0x7fff7aac9840	28672	
+0	763	dst	MUL_MAT	Kcur-16	0x7fff7ab09840	28672	
+0	763	src	NONE	blk.16.attn_k.weight	0x7fffd8061040	557056	
+0	763	src	MUL	attn_norm-16	0x7fff7aeeb840	229376	
+0	764	dst	RESHAPE	Kcur-16	0x7fff7ab09840	28672	Kcur-16
+0	764	src	MUL_MAT	Kcur-16	0x7fff7ab09840	28672	
+0	765	dst	ROPE	Kcur-16	0x7fff7ab49840	28672	
+0	765	src	RESHAPE	Kcur-16	0x7fff7ab09840	28672	Kcur-16
+0	765	src	NONE	inp_pos	0x7fff7acca040	112	
+0	766	dst	VIEW	Kcur-16 (view)	0x7fff7ab49840	28672	Kcur-16
+0	766	src	ROPE	Kcur-16	0x7fff7ab49840	28672	
+0	767	dst	SET_ROWS	cache_k_l16 (view)	0x7fff7fa4c040	131072	cache_k_l16
+0	767	src	VIEW	Kcur-16 (view)	0x7fff7ab49840	28672	Kcur-16
+0	767	src	NONE	attn_inp_k_idxs	0x7fff7acca440	224	
+0	767	src	NONE	cache_k_l16	0x7fff7fa4c040	131072	
+0	768	dst	VIEW	Vcur-16 (view)	0x7fff7aac9840	28672	Vcur-16
+0	768	src	RESHAPE	Vcur-16	0x7fff7aac9840	28672	Vcur-16
+0	769	dst	SET_ROWS	cache_v_l16 (view)	0x7fff7fa6c040	131072	cache_v_l16
+0	769	src	VIEW	Vcur-16 (view)	0x7fff7aac9840	28672	Vcur-16
+0	769	src	NONE	attn_inp_v_idxs	0x7fff7accac40	224	
+0	769	src	NONE	cache_v_l16	0x7fff7fa6c040	131072	
+0	770	dst	VIEW	Qcur-16 (view)	0x7fff7b2eb840	229376	Qcur-16
+0	770	src	ROPE	Qcur-16	0x7fff7b2eb840	229376	
+0	771	dst	PERMUTE	Qcur-16 (view) (permuted)	0x7fff7b2eb840	229376	Qcur-16
+0	771	src	VIEW	Qcur-16 (view)	0x7fff7b2eb840	229376	Qcur-16
+0	772	dst	VIEW	cache_k_l16 (view)	0x7fff7fa4c040	131072	cache_k_l16
+0	772	src	NONE	cache_k_l16	0x7fff7fa4c040	131072	
+0	773	dst	PERMUTE	cache_k_l16 (view) (permuted)	0x7fff7fa4c040	131072	cache_k_l16
+0	773	src	VIEW	cache_k_l16 (view)	0x7fff7fa4c040	131072	cache_k_l16
+0	774	dst	VIEW	cache_v_l16 (view)	0x7fff7fa6c040	131072	cache_v_l16
+0	774	src	NONE	cache_v_l16	0x7fff7fa6c040	131072	
+0	775	dst	PERMUTE	cache_v_l16 (view) (permuted)	0x7fff7fa6c040	131072	cache_v_l16
+0	775	src	VIEW	cache_v_l16 (view)	0x7fff7fa6c040	131072	cache_v_l16
+0	776	dst	FLASH_ATTN_EXT	node_776	0x7fff7aeeb840	229376	
+0	776	src	PERMUTE	Qcur-16 (view) (permuted)	0x7fff7b2eb840	229376	Qcur-16
+0	776	src	PERMUTE	cache_k_l16 (view) (permuted)	0x7fff7fa4c040	131072	cache_k_l16
+0	776	src	PERMUTE	cache_v_l16 (view) (permuted)	0x7fff7fa6c040	131072	cache_v_l16
+0	776	src	NONE	attn_inp_kq_mask	0x7fff7accb440	14336	
+0	777	dst	RESHAPE	kqv_out-16	0x7fff7aeeb840	229376	node_776
+0	777	src	FLASH_ATTN_EXT	node_776	0x7fff7aeeb840	229376	
+0	778	dst	MUL_MAT	attn_out-16	0x7fff7aac9840	229376	
+0	778	src	NONE	blk.16.attn_output.weight	0x7fffd8171040	4456448	
+0	778	src	RESHAPE	kqv_out-16	0x7fff7aeeb840	229376	node_776
+0	779	dst	ADD	ffn_inp-16	0x7fff7aac9840	229376	
+0	779	src	MUL_MAT	attn_out-16	0x7fff7aac9840	229376	
+0	779	src	ADD	l_out-15	0x7fff7aceb840	229376	
+0	780	dst	RMS_NORM	norm-16	0x7fff7aceb840	229376	
+0	780	src	ADD	ffn_inp-16	0x7fff7aac9840	229376	
+0	781	dst	MUL	ffn_norm-16	0x7fff7aceb840	229376	
+0	781	src	RMS_NORM	norm-16	0x7fff7aceb840	229376	
+0	781	src	NONE	blk.16.ffn_norm.weight	0x7fffd85b1040	8192	
+0	782	dst	MUL_MAT	ffn_moe_logits-16	0x7fff7acc9840	224	
+0	782	src	NONE	blk.16.ffn_gate_inp.weight	0x7fffd85b3040	16384	
+0	782	src	MUL	ffn_norm-16	0x7fff7aceb840	229376	
+0	783	dst	SOFT_MAX	ffn_moe_probs-16	0x7fff7acc9840	224	
+0	783	src	MUL_MAT	ffn_moe_logits-16	0x7fff7acc9840	224	
+0	784	dst	RESHAPE	ffn_moe_probs-16 (reshaped)	0x7fff7acc9840	224	ffn_moe_probs-16
+0	784	src	SOFT_MAX	ffn_moe_probs-16	0x7fff7acc9840	224	
+0	785	dst	ARGSORT	ffn_moe_argsort-16	0x7fff7a8c9040	224	
+0	785	src	SOFT_MAX	ffn_moe_probs-16	0x7fff7acc9840	224	
+0	786	dst	VIEW	ffn_moe_topk-16	0x7fff7a8c9040	224	ffn_moe_argsort-16
+0	786	src	ARGSORT	ffn_moe_argsort-16	0x7fff7a8c9040	224	
+0	787	dst	GET_ROWS	ffn_moe_weights-16	0x7fff7aeeb840	224	
+0	787	src	RESHAPE	ffn_moe_probs-16 (reshaped)	0x7fff7acc9840	224	ffn_moe_probs-16
+0	787	src	VIEW	ffn_moe_topk-16	0x7fff7a8c9040	224	ffn_moe_argsort-16
+0	788	dst	RESHAPE	ffn_moe_weights-16 (reshaped)	0x7fff7aeeb840	224	ffn_moe_weights-16
+0	788	src	GET_ROWS	ffn_moe_weights-16	0x7fff7aeeb840	224	
+0	789	dst	SUM_ROWS	ffn_moe_weights_sum-16	0x7fff7acc9840	112	
+0	789	src	RESHAPE	ffn_moe_weights-16 (reshaped)	0x7fff7aeeb840	224	ffn_moe_weights-16
+0	790	dst	CLAMP	ffn_moe_weights_sum_clamped-16	0x7fff7acc9840	112	
+0	790	src	SUM_ROWS	ffn_moe_weights_sum-16	0x7fff7acc9840	112	
+0	791	dst	DIV	ffn_moe_weights_norm-16	0x7fff7aeec040	224	
+0	791	src	RESHAPE	ffn_moe_weights-16 (reshaped)	0x7fff7aeeb840	224	ffn_moe_weights-16
+0	791	src	CLAMP	ffn_moe_weights_sum_clamped-16	0x7fff7acc9840	112	
+0	792	dst	RESHAPE	ffn_moe_weights_norm-16 (reshaped)	0x7fff7aeec040	224	ffn_moe_weights_norm-16
+0	792	src	DIV	ffn_moe_weights_norm-16	0x7fff7aeec040	224	
+0	793	dst	RESHAPE	ffn_norm-16 (reshaped)	0x7fff7aceb840	229376	ffn_norm-16
+0	793	src	MUL	ffn_norm-16	0x7fff7aceb840	229376	
+0	794	dst	MUL_MAT_ID	ffn_moe_gate-16	0x7fff7b2eb840	1261568	
+0	794	src	NONE	blk.16.ffn_gate_exps.weight	0x7fffd85b7040	24510464	
+0	794	src	RESHAPE	ffn_norm-16 (reshaped)	0x7fff7aceb840	229376	ffn_norm-16
+0	794	src	VIEW	ffn_moe_topk-16	0x7fff7a8c9040	224	ffn_moe_argsort-16
+0	795	dst	MUL_MAT_ID	ffn_moe_up-16	0x7fff7bdeb840	1261568	
+0	795	src	NONE	blk.16.ffn_up_exps.weight	0x7fffdb477040	24510464	
+0	795	src	RESHAPE	ffn_norm-16 (reshaped)	0x7fff7aceb840	229376	ffn_norm-16
+0	795	src	VIEW	ffn_moe_topk-16	0x7fff7a8c9040	224	ffn_moe_argsort-16
+0	796	dst	GLU	ffn_moe_swiglu-16	0x7fff7c8eb840	1261568	
+0	796	src	MUL_MAT_ID	ffn_moe_gate-16	0x7fff7b2eb840	1261568	
+0	796	src	MUL_MAT_ID	ffn_moe_up-16	0x7fff7bdeb840	1261568	
+0	797	dst	MUL_MAT_ID	ffn_moe_down-16	0x7fff7b2eb840	458752	
+0	797	src	NONE	blk.16.ffn_down_exps.weight	0x7fffd9d17040	24510464	
+0	797	src	GLU	ffn_moe_swiglu-16	0x7fff7c8eb840	1261568	
+0	797	src	VIEW	ffn_moe_topk-16	0x7fff7a8c9040	224	ffn_moe_argsort-16
+0	798	dst	MUL	ffn_moe_weighted-16	0x7fff7b2eb840	458752	
+0	798	src	MUL_MAT_ID	ffn_moe_down-16	0x7fff7b2eb840	458752	
+0	798	src	RESHAPE	ffn_moe_weights_norm-16 (reshaped)	0x7fff7aeec040	224	ffn_moe_weights_norm-16
+0	799	dst	VIEW	ffn_moe_weighted-16 (view)	0x7fff7b2eb840	450560	ffn_moe_weighted-16
+0	799	src	MUL	ffn_moe_weighted-16	0x7fff7b2eb840	458752	
+0	800	dst	VIEW	ffn_moe_weighted-16 (view)	0x7fff7b2ed840	450560	ffn_moe_weighted-16
+0	800	src	MUL	ffn_moe_weighted-16	0x7fff7b2eb840	458752	
+0	801	dst	ADD	ffn_moe_out-16	0x7fff7aceb840	229376	
+0	801	src	VIEW	ffn_moe_weighted-16 (view)	0x7fff7b2eb840	450560	ffn_moe_weighted-16
+0	801	src	VIEW	ffn_moe_weighted-16 (view)	0x7fff7b2ed840	450560	ffn_moe_weighted-16
+0	802	dst	ADD	l_out-16	0x7fff7aceb840	229376	
+0	802	src	ADD	ffn_moe_out-16	0x7fff7aceb840	229376	
+0	802	src	ADD	ffn_inp-16	0x7fff7aac9840	229376	
+0	803	dst	RMS_NORM	norm-17	0x7fff7aeeb840	229376	
+0	803	src	ADD	l_out-16	0x7fff7aceb840	229376	
+0	804	dst	MUL	attn_norm-17	0x7fff7aeeb840	229376	
+0	804	src	RMS_NORM	norm-17	0x7fff7aeeb840	229376	
+0	804	src	NONE	blk.17.attn_norm.weight	0x7fffdcbd7040	8192	
+0	805	dst	MUL_MAT	Qcur-17	0x7fff7aac9840	229376	
+0	805	src	NONE	blk.17.attn_q.weight	0x7fffdcbd9040	4456448	
+0	805	src	MUL	attn_norm-17	0x7fff7aeeb840	229376	
+0	806	dst	RESHAPE	Qcur-17	0x7fff7aac9840	229376	Qcur-17
+0	806	src	MUL_MAT	Qcur-17	0x7fff7aac9840	229376	
+0	807	dst	ROPE	Qcur-17	0x7fff7b2eb840	229376	
+0	807	src	RESHAPE	Qcur-17	0x7fff7aac9840	229376	Qcur-17
+0	807	src	NONE	inp_pos	0x7fff7acca040	112	
+0	808	dst	MUL_MAT	Vcur-17	0x7fff7aac9840	28672	
+0	808	src	NONE	blk.17.attn_v.weight	0x7fffdd0a1040	557056	
+0	808	src	MUL	attn_norm-17	0x7fff7aeeb840	229376	
+0	809	dst	RESHAPE	Vcur-17	0x7fff7aac9840	28672	Vcur-17
+0	809	src	MUL_MAT	Vcur-17	0x7fff7aac9840	28672	
+0	810	dst	MUL_MAT	Kcur-17	0x7fff7ab09840	28672	
+0	810	src	NONE	blk.17.attn_k.weight	0x7fffdd019040	557056	
+0	810	src	MUL	attn_norm-17	0x7fff7aeeb840	229376	
+0	811	dst	RESHAPE	Kcur-17	0x7fff7ab09840	28672	Kcur-17
+0	811	src	MUL_MAT	Kcur-17	0x7fff7ab09840	28672	
+0	812	dst	ROPE	Kcur-17	0x7fff7ab49840	28672	
+0	812	src	RESHAPE	Kcur-17	0x7fff7ab09840	28672	Kcur-17
+0	812	src	NONE	inp_pos	0x7fff7acca040	112	
+0	813	dst	VIEW	Kcur-17 (view)	0x7fff7ab49840	28672	Kcur-17
+0	813	src	ROPE	Kcur-17	0x7fff7ab49840	28672	
+0	814	dst	SET_ROWS	cache_k_l17 (view)	0x7fff7fa8c040	131072	cache_k_l17
+0	814	src	VIEW	Kcur-17 (view)	0x7fff7ab49840	28672	Kcur-17
+0	814	src	NONE	attn_inp_k_idxs	0x7fff7acca440	224	
+0	814	src	NONE	cache_k_l17	0x7fff7fa8c040	131072	
+0	815	dst	VIEW	Vcur-17 (view)	0x7fff7aac9840	28672	Vcur-17
+0	815	src	RESHAPE	Vcur-17	0x7fff7aac9840	28672	Vcur-17
+0	816	dst	SET_ROWS	cache_v_l17 (view)	0x7fff7faac040	131072	cache_v_l17
+0	816	src	VIEW	Vcur-17 (view)	0x7fff7aac9840	28672	Vcur-17
+0	816	src	NONE	attn_inp_v_idxs	0x7fff7accac40	224	
+0	816	src	NONE	cache_v_l17	0x7fff7faac040	131072	
+0	817	dst	VIEW	Qcur-17 (view)	0x7fff7b2eb840	229376	Qcur-17
+0	817	src	ROPE	Qcur-17	0x7fff7b2eb840	229376	
+0	818	dst	PERMUTE	Qcur-17 (view) (permuted)	0x7fff7b2eb840	229376	Qcur-17
+0	818	src	VIEW	Qcur-17 (view)	0x7fff7b2eb840	229376	Qcur-17
+0	819	dst	VIEW	cache_k_l17 (view)	0x7fff7fa8c040	131072	cache_k_l17
+0	819	src	NONE	cache_k_l17	0x7fff7fa8c040	131072	
+0	820	dst	PERMUTE	cache_k_l17 (view) (permuted)	0x7fff7fa8c040	131072	cache_k_l17
+0	820	src	VIEW	cache_k_l17 (view)	0x7fff7fa8c040	131072	cache_k_l17
+0	821	dst	VIEW	cache_v_l17 (view)	0x7fff7faac040	131072	cache_v_l17
+0	821	src	NONE	cache_v_l17	0x7fff7faac040	131072	
+0	822	dst	PERMUTE	cache_v_l17 (view) (permuted)	0x7fff7faac040	131072	cache_v_l17
+0	822	src	VIEW	cache_v_l17 (view)	0x7fff7faac040	131072	cache_v_l17
+0	823	dst	FLASH_ATTN_EXT	node_823	0x7fff7aeeb840	229376	
+0	823	src	PERMUTE	Qcur-17 (view) (permuted)	0x7fff7b2eb840	229376	Qcur-17
+0	823	src	PERMUTE	cache_k_l17 (view) (permuted)	0x7fff7fa8c040	131072	cache_k_l17
+0	823	src	PERMUTE	cache_v_l17 (view) (permuted)	0x7fff7faac040	131072	cache_v_l17
+0	823	src	NONE	attn_inp_kq_mask	0x7fff7accb440	14336	
+0	824	dst	RESHAPE	kqv_out-17	0x7fff7aeeb840	229376	node_823
+0	824	src	FLASH_ATTN_EXT	node_823	0x7fff7aeeb840	229376	
+0	825	dst	MUL_MAT	attn_out-17	0x7fff7aac9840	229376	
+0	825	src	NONE	blk.17.attn_output.weight	0x7fffdd129040	4456448	
+0	825	src	RESHAPE	kqv_out-17	0x7fff7aeeb840	229376	node_823
+0	826	dst	ADD	ffn_inp-17	0x7fff7aac9840	229376	
+0	826	src	MUL_MAT	attn_out-17	0x7fff7aac9840	229376	
+0	826	src	ADD	l_out-16	0x7fff7aceb840	229376	
+0	827	dst	RMS_NORM	norm-17	0x7fff7aceb840	229376	
+0	827	src	ADD	ffn_inp-17	0x7fff7aac9840	229376	
+0	828	dst	MUL	ffn_norm-17	0x7fff7aceb840	229376	
+0	828	src	RMS_NORM	norm-17	0x7fff7aceb840	229376	
+0	828	src	NONE	blk.17.ffn_norm.weight	0x7fffdd569040	8192	
+0	829	dst	MUL_MAT	ffn_moe_logits-17	0x7fff7acc9840	224	
+0	829	src	NONE	blk.17.ffn_gate_inp.weight	0x7fffdd56b040	16384	
+0	829	src	MUL	ffn_norm-17	0x7fff7aceb840	229376	
+0	830	dst	SOFT_MAX	ffn_moe_probs-17	0x7fff7acc9840	224	
+0	830	src	MUL_MAT	ffn_moe_logits-17	0x7fff7acc9840	224	
+0	831	dst	RESHAPE	ffn_moe_probs-17 (reshaped)	0x7fff7acc9840	224	ffn_moe_probs-17
+0	831	src	SOFT_MAX	ffn_moe_probs-17	0x7fff7acc9840	224	
+0	832	dst	ARGSORT	ffn_moe_argsort-17	0x7fff7a8c9040	224	
+0	832	src	SOFT_MAX	ffn_moe_probs-17	0x7fff7acc9840	224	
+0	833	dst	VIEW	ffn_moe_topk-17	0x7fff7a8c9040	224	ffn_moe_argsort-17
+0	833	src	ARGSORT	ffn_moe_argsort-17	0x7fff7a8c9040	224	
+0	834	dst	GET_ROWS	ffn_moe_weights-17	0x7fff7aeeb840	224	
+0	834	src	RESHAPE	ffn_moe_probs-17 (reshaped)	0x7fff7acc9840	224	ffn_moe_probs-17
+0	834	src	VIEW	ffn_moe_topk-17	0x7fff7a8c9040	224	ffn_moe_argsort-17
+0	835	dst	RESHAPE	ffn_moe_weights-17 (reshaped)	0x7fff7aeeb840	224	ffn_moe_weights-17
+0	835	src	GET_ROWS	ffn_moe_weights-17	0x7fff7aeeb840	224	
+0	836	dst	SUM_ROWS	ffn_moe_weights_sum-17	0x7fff7acc9840	112	
+0	836	src	RESHAPE	ffn_moe_weights-17 (reshaped)	0x7fff7aeeb840	224	ffn_moe_weights-17
+0	837	dst	CLAMP	ffn_moe_weights_sum_clamped-17	0x7fff7acc9840	112	
+0	837	src	SUM_ROWS	ffn_moe_weights_sum-17	0x7fff7acc9840	112	
+0	838	dst	DIV	ffn_moe_weights_norm-17	0x7fff7aeec040	224	
+0	838	src	RESHAPE	ffn_moe_weights-17 (reshaped)	0x7fff7aeeb840	224	ffn_moe_weights-17
+0	838	src	CLAMP	ffn_moe_weights_sum_clamped-17	0x7fff7acc9840	112	
+0	839	dst	RESHAPE	ffn_moe_weights_norm-17 (reshaped)	0x7fff7aeec040	224	ffn_moe_weights_norm-17
+0	839	src	DIV	ffn_moe_weights_norm-17	0x7fff7aeec040	224	
+0	840	dst	RESHAPE	ffn_norm-17 (reshaped)	0x7fff7aceb840	229376	ffn_norm-17
+0	840	src	MUL	ffn_norm-17	0x7fff7aceb840	229376	
+0	841	dst	MUL_MAT_ID	ffn_moe_gate-17	0x7fff7b2eb840	1261568	
+0	841	src	NONE	blk.17.ffn_gate_exps.weight	0x7fffdd56f040	24510464	
+0	841	src	RESHAPE	ffn_norm-17 (reshaped)	0x7fff7aceb840	229376	ffn_norm-17
+0	841	src	VIEW	ffn_moe_topk-17	0x7fff7a8c9040	224	ffn_moe_argsort-17
+0	842	dst	MUL_MAT_ID	ffn_moe_up-17	0x7fff7bdeb840	1261568	
+0	842	src	NONE	blk.17.ffn_up_exps.weight	0x7fffe042f040	24510464	
+0	842	src	RESHAPE	ffn_norm-17 (reshaped)	0x7fff7aceb840	229376	ffn_norm-17
+0	842	src	VIEW	ffn_moe_topk-17	0x7fff7a8c9040	224	ffn_moe_argsort-17
+0	843	dst	GLU	ffn_moe_swiglu-17	0x7fff7c8eb840	1261568	
+0	843	src	MUL_MAT_ID	ffn_moe_gate-17	0x7fff7b2eb840	1261568	
+0	843	src	MUL_MAT_ID	ffn_moe_up-17	0x7fff7bdeb840	1261568	
+0	844	dst	MUL_MAT_ID	ffn_moe_down-17	0x7fff7b2eb840	458752	
+0	844	src	NONE	blk.17.ffn_down_exps.weight	0x7fffdeccf040	24510464	
+0	844	src	GLU	ffn_moe_swiglu-17	0x7fff7c8eb840	1261568	
+0	844	src	VIEW	ffn_moe_topk-17	0x7fff7a8c9040	224	ffn_moe_argsort-17
+0	845	dst	MUL	ffn_moe_weighted-17	0x7fff7b2eb840	458752	
+0	845	src	MUL_MAT_ID	ffn_moe_down-17	0x7fff7b2eb840	458752	
+0	845	src	RESHAPE	ffn_moe_weights_norm-17 (reshaped)	0x7fff7aeec040	224	ffn_moe_weights_norm-17
+0	846	dst	VIEW	ffn_moe_weighted-17 (view)	0x7fff7b2eb840	450560	ffn_moe_weighted-17
+0	846	src	MUL	ffn_moe_weighted-17	0x7fff7b2eb840	458752	
+0	847	dst	VIEW	ffn_moe_weighted-17 (view)	0x7fff7b2ed840	450560	ffn_moe_weighted-17
+0	847	src	MUL	ffn_moe_weighted-17	0x7fff7b2eb840	458752	
+0	848	dst	ADD	ffn_moe_out-17	0x7fff7aceb840	229376	
+0	848	src	VIEW	ffn_moe_weighted-17 (view)	0x7fff7b2eb840	450560	ffn_moe_weighted-17
+0	848	src	VIEW	ffn_moe_weighted-17 (view)	0x7fff7b2ed840	450560	ffn_moe_weighted-17
+0	849	dst	ADD	l_out-17	0x7fff7aceb840	229376	
+0	849	src	ADD	ffn_moe_out-17	0x7fff7aceb840	229376	
+0	849	src	ADD	ffn_inp-17	0x7fff7aac9840	229376	
+0	850	dst	RMS_NORM	norm-18	0x7fff7aeeb840	229376	
+0	850	src	ADD	l_out-17	0x7fff7aceb840	229376	
+0	851	dst	MUL	attn_norm-18	0x7fff7aeeb840	229376	
+0	851	src	RMS_NORM	norm-18	0x7fff7aeeb840	229376	
+0	851	src	NONE	blk.18.attn_norm.weight	0x7fffe1b8f040	8192	
+0	852	dst	MUL_MAT	Qcur-18	0x7fff7aac9840	229376	
+0	852	src	NONE	blk.18.attn_q.weight	0x7fffe1b91040	4456448	
+0	852	src	MUL	attn_norm-18	0x7fff7aeeb840	229376	
+0	853	dst	RESHAPE	Qcur-18	0x7fff7aac9840	229376	Qcur-18
+0	853	src	MUL_MAT	Qcur-18	0x7fff7aac9840	229376	
+0	854	dst	ROPE	Qcur-18	0x7fff7b2eb840	229376	
+0	854	src	RESHAPE	Qcur-18	0x7fff7aac9840	229376	Qcur-18
+0	854	src	NONE	inp_pos	0x7fff7acca040	112	
+0	855	dst	MUL_MAT	Vcur-18	0x7fff7aac9840	28672	
+0	855	src	NONE	blk.18.attn_v.weight	0x7fffe2059040	557056	
+0	855	src	MUL	attn_norm-18	0x7fff7aeeb840	229376	
+0	856	dst	RESHAPE	Vcur-18	0x7fff7aac9840	28672	Vcur-18
+0	856	src	MUL_MAT	Vcur-18	0x7fff7aac9840	28672	
+0	857	dst	MUL_MAT	Kcur-18	0x7fff7ab09840	28672	
+0	857	src	NONE	blk.18.attn_k.weight	0x7fffe1fd1040	557056	
+0	857	src	MUL	attn_norm-18	0x7fff7aeeb840	229376	
+0	858	dst	RESHAPE	Kcur-18	0x7fff7ab09840	28672	Kcur-18
+0	858	src	MUL_MAT	Kcur-18	0x7fff7ab09840	28672	
+0	859	dst	ROPE	Kcur-18	0x7fff7ab49840	28672	
+0	859	src	RESHAPE	Kcur-18	0x7fff7ab09840	28672	Kcur-18
+0	859	src	NONE	inp_pos	0x7fff7acca040	112	
+0	860	dst	VIEW	Kcur-18 (view)	0x7fff7ab49840	28672	Kcur-18
+0	860	src	ROPE	Kcur-18	0x7fff7ab49840	28672	
+0	861	dst	SET_ROWS	cache_k_l18 (view)	0x7fff7facc040	131072	cache_k_l18
+0	861	src	VIEW	Kcur-18 (view)	0x7fff7ab49840	28672	Kcur-18
+0	861	src	NONE	attn_inp_k_idxs	0x7fff7acca440	224	
+0	861	src	NONE	cache_k_l18	0x7fff7facc040	131072	
+0	862	dst	VIEW	Vcur-18 (view)	0x7fff7aac9840	28672	Vcur-18
+0	862	src	RESHAPE	Vcur-18	0x7fff7aac9840	28672	Vcur-18
+0	863	dst	SET_ROWS	cache_v_l18 (view)	0x7fff7faec040	131072	cache_v_l18
+0	863	src	VIEW	Vcur-18 (view)	0x7fff7aac9840	28672	Vcur-18
+0	863	src	NONE	attn_inp_v_idxs	0x7fff7accac40	224	
+0	863	src	NONE	cache_v_l18	0x7fff7faec040	131072	
+0	864	dst	VIEW	Qcur-18 (view)	0x7fff7b2eb840	229376	Qcur-18
+0	864	src	ROPE	Qcur-18	0x7fff7b2eb840	229376	
+0	865	dst	PERMUTE	Qcur-18 (view) (permuted)	0x7fff7b2eb840	229376	Qcur-18
+0	865	src	VIEW	Qcur-18 (view)	0x7fff7b2eb840	229376	Qcur-18
+0	866	dst	VIEW	cache_k_l18 (view)	0x7fff7facc040	131072	cache_k_l18
+0	866	src	NONE	cache_k_l18	0x7fff7facc040	131072	
+0	867	dst	PERMUTE	cache_k_l18 (view) (permuted)	0x7fff7facc040	131072	cache_k_l18
+0	867	src	VIEW	cache_k_l18 (view)	0x7fff7facc040	131072	cache_k_l18
+0	868	dst	VIEW	cache_v_l18 (view)	0x7fff7faec040	131072	cache_v_l18
+0	868	src	NONE	cache_v_l18	0x7fff7faec040	131072	
+0	869	dst	PERMUTE	cache_v_l18 (view) (permuted)	0x7fff7faec040	131072	cache_v_l18
+0	869	src	VIEW	cache_v_l18 (view)	0x7fff7faec040	131072	cache_v_l18
+0	870	dst	FLASH_ATTN_EXT	node_870	0x7fff7aeeb840	229376	
+0	870	src	PERMUTE	Qcur-18 (view) (permuted)	0x7fff7b2eb840	229376	Qcur-18
+0	870	src	PERMUTE	cache_k_l18 (view) (permuted)	0x7fff7facc040	131072	cache_k_l18
+0	870	src	PERMUTE	cache_v_l18 (view) (permuted)	0x7fff7faec040	131072	cache_v_l18
+0	870	src	NONE	attn_inp_kq_mask	0x7fff7accb440	14336	
+0	871	dst	RESHAPE	kqv_out-18	0x7fff7aeeb840	229376	node_870
+0	871	src	FLASH_ATTN_EXT	node_870	0x7fff7aeeb840	229376	
+0	872	dst	MUL_MAT	attn_out-18	0x7fff7aac9840	229376	
+0	872	src	NONE	blk.18.attn_output.weight	0x7fffe20e1040	4456448	
+0	872	src	RESHAPE	kqv_out-18	0x7fff7aeeb840	229376	node_870
+0	873	dst	ADD	ffn_inp-18	0x7fff7aac9840	229376	
+0	873	src	MUL_MAT	attn_out-18	0x7fff7aac9840	229376	
+0	873	src	ADD	l_out-17	0x7fff7aceb840	229376	
+0	874	dst	RMS_NORM	norm-18	0x7fff7aceb840	229376	
+0	874	src	ADD	ffn_inp-18	0x7fff7aac9840	229376	
+0	875	dst	MUL	ffn_norm-18	0x7fff7aceb840	229376	
+0	875	src	RMS_NORM	norm-18	0x7fff7aceb840	229376	
+0	875	src	NONE	blk.18.ffn_norm.weight	0x7fffe2521040	8192	
+0	876	dst	MUL_MAT	ffn_moe_logits-18	0x7fff7acc9840	224	
+0	876	src	NONE	blk.18.ffn_gate_inp.weight	0x7fffe2523040	16384	
+0	876	src	MUL	ffn_norm-18	0x7fff7aceb840	229376	
+0	877	dst	SOFT_MAX	ffn_moe_probs-18	0x7fff7acc9840	224	
+0	877	src	MUL_MAT	ffn_moe_logits-18	0x7fff7acc9840	224	
+0	878	dst	RESHAPE	ffn_moe_probs-18 (reshaped)	0x7fff7acc9840	224	ffn_moe_probs-18
+0	878	src	SOFT_MAX	ffn_moe_probs-18	0x7fff7acc9840	224	
+0	879	dst	ARGSORT	ffn_moe_argsort-18	0x7fff7a8c9040	224	
+0	879	src	SOFT_MAX	ffn_moe_probs-18	0x7fff7acc9840	224	
+0	880	dst	VIEW	ffn_moe_topk-18	0x7fff7a8c9040	224	ffn_moe_argsort-18
+0	880	src	ARGSORT	ffn_moe_argsort-18	0x7fff7a8c9040	224	
+0	881	dst	GET_ROWS	ffn_moe_weights-18	0x7fff7aeeb840	224	
+0	881	src	RESHAPE	ffn_moe_probs-18 (reshaped)	0x7fff7acc9840	224	ffn_moe_probs-18
+0	881	src	VIEW	ffn_moe_topk-18	0x7fff7a8c9040	224	ffn_moe_argsort-18
+0	882	dst	RESHAPE	ffn_moe_weights-18 (reshaped)	0x7fff7aeeb840	224	ffn_moe_weights-18
+0	882	src	GET_ROWS	ffn_moe_weights-18	0x7fff7aeeb840	224	
+0	883	dst	SUM_ROWS	ffn_moe_weights_sum-18	0x7fff7acc9840	112	
+0	883	src	RESHAPE	ffn_moe_weights-18 (reshaped)	0x7fff7aeeb840	224	ffn_moe_weights-18
+0	884	dst	CLAMP	ffn_moe_weights_sum_clamped-18	0x7fff7acc9840	112	
+0	884	src	SUM_ROWS	ffn_moe_weights_sum-18	0x7fff7acc9840	112	
+0	885	dst	DIV	ffn_moe_weights_norm-18	0x7fff7aeec040	224	
+0	885	src	RESHAPE	ffn_moe_weights-18 (reshaped)	0x7fff7aeeb840	224	ffn_moe_weights-18
+0	885	src	CLAMP	ffn_moe_weights_sum_clamped-18	0x7fff7acc9840	112	
+0	886	dst	RESHAPE	ffn_moe_weights_norm-18 (reshaped)	0x7fff7aeec040	224	ffn_moe_weights_norm-18
+0	886	src	DIV	ffn_moe_weights_norm-18	0x7fff7aeec040	224	
+0	887	dst	RESHAPE	ffn_norm-18 (reshaped)	0x7fff7aceb840	229376	ffn_norm-18
+0	887	src	MUL	ffn_norm-18	0x7fff7aceb840	229376	
+0	888	dst	MUL_MAT_ID	ffn_moe_gate-18	0x7fff7b2eb840	1261568	
+0	888	src	NONE	blk.18.ffn_gate_exps.weight	0x7fffe2527040	24510464	
+0	888	src	RESHAPE	ffn_norm-18 (reshaped)	0x7fff7aceb840	229376	ffn_norm-18
+0	888	src	VIEW	ffn_moe_topk-18	0x7fff7a8c9040	224	ffn_moe_argsort-18
+0	889	dst	MUL_MAT_ID	ffn_moe_up-18	0x7fff7bdeb840	1261568	
+0	889	src	NONE	blk.18.ffn_up_exps.weight	0x7fffe53e7040	24510464	
+0	889	src	RESHAPE	ffn_norm-18 (reshaped)	0x7fff7aceb840	229376	ffn_norm-18
+0	889	src	VIEW	ffn_moe_topk-18	0x7fff7a8c9040	224	ffn_moe_argsort-18
+0	890	dst	GLU	ffn_moe_swiglu-18	0x7fff7c8eb840	1261568	
+0	890	src	MUL_MAT_ID	ffn_moe_gate-18	0x7fff7b2eb840	1261568	
+0	890	src	MUL_MAT_ID	ffn_moe_up-18	0x7fff7bdeb840	1261568	
+0	891	dst	MUL_MAT_ID	ffn_moe_down-18	0x7fff7b2eb840	458752	
+0	891	src	NONE	blk.18.ffn_down_exps.weight	0x7fffe3c87040	24510464	
+0	891	src	GLU	ffn_moe_swiglu-18	0x7fff7c8eb840	1261568	
+0	891	src	VIEW	ffn_moe_topk-18	0x7fff7a8c9040	224	ffn_moe_argsort-18
+0	892	dst	MUL	ffn_moe_weighted-18	0x7fff7b2eb840	458752	
+0	892	src	MUL_MAT_ID	ffn_moe_down-18	0x7fff7b2eb840	458752	
+0	892	src	RESHAPE	ffn_moe_weights_norm-18 (reshaped)	0x7fff7aeec040	224	ffn_moe_weights_norm-18
+0	893	dst	VIEW	ffn_moe_weighted-18 (view)	0x7fff7b2eb840	450560	ffn_moe_weighted-18
+0	893	src	MUL	ffn_moe_weighted-18	0x7fff7b2eb840	458752	
+0	894	dst	VIEW	ffn_moe_weighted-18 (view)	0x7fff7b2ed840	450560	ffn_moe_weighted-18
+0	894	src	MUL	ffn_moe_weighted-18	0x7fff7b2eb840	458752	
+0	895	dst	ADD	ffn_moe_out-18	0x7fff7aceb840	229376	
+0	895	src	VIEW	ffn_moe_weighted-18 (view)	0x7fff7b2eb840	450560	ffn_moe_weighted-18
+0	895	src	VIEW	ffn_moe_weighted-18 (view)	0x7fff7b2ed840	450560	ffn_moe_weighted-18
+0	896	dst	ADD	l_out-18	0x7fff7aceb840	229376	
+0	896	src	ADD	ffn_moe_out-18	0x7fff7aceb840	229376	
+0	896	src	ADD	ffn_inp-18	0x7fff7aac9840	229376	
+0	897	dst	RMS_NORM	norm-19	0x7fff7aeeb840	229376	
+0	897	src	ADD	l_out-18	0x7fff7aceb840	229376	
+0	898	dst	MUL	attn_norm-19	0x7fff7aeeb840	229376	
+0	898	src	RMS_NORM	norm-19	0x7fff7aeeb840	229376	
+0	898	src	NONE	blk.19.attn_norm.weight	0x7fffe6b47040	8192	
+0	899	dst	MUL_MAT	Qcur-19	0x7fff7aac9840	229376	
+0	899	src	NONE	blk.19.attn_q.weight	0x7fffe6b49040	4456448	
+0	899	src	MUL	attn_norm-19	0x7fff7aeeb840	229376	
+0	900	dst	RESHAPE	Qcur-19	0x7fff7aac9840	229376	Qcur-19
+0	900	src	MUL_MAT	Qcur-19	0x7fff7aac9840	229376	
+0	901	dst	ROPE	Qcur-19	0x7fff7b2eb840	229376	
+0	901	src	RESHAPE	Qcur-19	0x7fff7aac9840	229376	Qcur-19
+0	901	src	NONE	inp_pos	0x7fff7acca040	112	
+0	902	dst	MUL_MAT	Vcur-19	0x7fff7aac9840	28672	
+0	902	src	NONE	blk.19.attn_v.weight	0x7fffe7011040	557056	
+0	902	src	MUL	attn_norm-19	0x7fff7aeeb840	229376	
+0	903	dst	RESHAPE	Vcur-19	0x7fff7aac9840	28672	Vcur-19
+0	903	src	MUL_MAT	Vcur-19	0x7fff7aac9840	28672	
+0	904	dst	MUL_MAT	Kcur-19	0x7fff7ab09840	28672	
+0	904	src	NONE	blk.19.attn_k.weight	0x7fffe6f89040	557056	
+0	904	src	MUL	attn_norm-19	0x7fff7aeeb840	229376	
+0	905	dst	RESHAPE	Kcur-19	0x7fff7ab09840	28672	Kcur-19
+0	905	src	MUL_MAT	Kcur-19	0x7fff7ab09840	28672	
+0	906	dst	ROPE	Kcur-19	0x7fff7ab49840	28672	
+0	906	src	RESHAPE	Kcur-19	0x7fff7ab09840	28672	Kcur-19
+0	906	src	NONE	inp_pos	0x7fff7acca040	112	
+0	907	dst	VIEW	Kcur-19 (view)	0x7fff7ab49840	28672	Kcur-19
+0	907	src	ROPE	Kcur-19	0x7fff7ab49840	28672	
+0	908	dst	SET_ROWS	cache_k_l19 (view)	0x7fff7fb0c040	131072	cache_k_l19
+0	908	src	VIEW	Kcur-19 (view)	0x7fff7ab49840	28672	Kcur-19
+0	908	src	NONE	attn_inp_k_idxs	0x7fff7acca440	224	
+0	908	src	NONE	cache_k_l19	0x7fff7fb0c040	131072	
+0	909	dst	VIEW	Vcur-19 (view)	0x7fff7aac9840	28672	Vcur-19
+0	909	src	RESHAPE	Vcur-19	0x7fff7aac9840	28672	Vcur-19
+0	910	dst	SET_ROWS	cache_v_l19 (view)	0x7fff7fb2c040	131072	cache_v_l19
+0	910	src	VIEW	Vcur-19 (view)	0x7fff7aac9840	28672	Vcur-19
+0	910	src	NONE	attn_inp_v_idxs	0x7fff7accac40	224	
+0	910	src	NONE	cache_v_l19	0x7fff7fb2c040	131072	
+0	911	dst	VIEW	Qcur-19 (view)	0x7fff7b2eb840	229376	Qcur-19
+0	911	src	ROPE	Qcur-19	0x7fff7b2eb840	229376	
+0	912	dst	PERMUTE	Qcur-19 (view) (permuted)	0x7fff7b2eb840	229376	Qcur-19
+0	912	src	VIEW	Qcur-19 (view)	0x7fff7b2eb840	229376	Qcur-19
+0	913	dst	VIEW	cache_k_l19 (view)	0x7fff7fb0c040	131072	cache_k_l19
+0	913	src	NONE	cache_k_l19	0x7fff7fb0c040	131072	
+0	914	dst	PERMUTE	cache_k_l19 (view) (permuted)	0x7fff7fb0c040	131072	cache_k_l19
+0	914	src	VIEW	cache_k_l19 (view)	0x7fff7fb0c040	131072	cache_k_l19
+0	915	dst	VIEW	cache_v_l19 (view)	0x7fff7fb2c040	131072	cache_v_l19
+0	915	src	NONE	cache_v_l19	0x7fff7fb2c040	131072	
+0	916	dst	PERMUTE	cache_v_l19 (view) (permuted)	0x7fff7fb2c040	131072	cache_v_l19
+0	916	src	VIEW	cache_v_l19 (view)	0x7fff7fb2c040	131072	cache_v_l19
+0	917	dst	FLASH_ATTN_EXT	node_917	0x7fff7aeeb840	229376	
+0	917	src	PERMUTE	Qcur-19 (view) (permuted)	0x7fff7b2eb840	229376	Qcur-19
+0	917	src	PERMUTE	cache_k_l19 (view) (permuted)	0x7fff7fb0c040	131072	cache_k_l19
+0	917	src	PERMUTE	cache_v_l19 (view) (permuted)	0x7fff7fb2c040	131072	cache_v_l19
+0	917	src	NONE	attn_inp_kq_mask	0x7fff7accb440	14336	
+0	918	dst	RESHAPE	kqv_out-19	0x7fff7aeeb840	229376	node_917
+0	918	src	FLASH_ATTN_EXT	node_917	0x7fff7aeeb840	229376	
+0	919	dst	MUL_MAT	attn_out-19	0x7fff7aac9840	229376	
+0	919	src	NONE	blk.19.attn_output.weight	0x7fffe7099040	4456448	
+0	919	src	RESHAPE	kqv_out-19	0x7fff7aeeb840	229376	node_917
+0	920	dst	ADD	ffn_inp-19	0x7fff7aac9840	229376	
+0	920	src	MUL_MAT	attn_out-19	0x7fff7aac9840	229376	
+0	920	src	ADD	l_out-18	0x7fff7aceb840	229376	
+0	921	dst	RMS_NORM	norm-19	0x7fff7aceb840	229376	
+0	921	src	ADD	ffn_inp-19	0x7fff7aac9840	229376	
+0	922	dst	MUL	ffn_norm-19	0x7fff7aceb840	229376	
+0	922	src	RMS_NORM	norm-19	0x7fff7aceb840	229376	
+0	922	src	NONE	blk.19.ffn_norm.weight	0x7fffe74d9040	8192	
+0	923	dst	MUL_MAT	ffn_moe_logits-19	0x7fff7acc9840	224	
+0	923	src	NONE	blk.19.ffn_gate_inp.weight	0x7fffe74db040	16384	
+0	923	src	MUL	ffn_norm-19	0x7fff7aceb840	229376	
+0	924	dst	SOFT_MAX	ffn_moe_probs-19	0x7fff7acc9840	224	
+0	924	src	MUL_MAT	ffn_moe_logits-19	0x7fff7acc9840	224	
+0	925	dst	RESHAPE	ffn_moe_probs-19 (reshaped)	0x7fff7acc9840	224	ffn_moe_probs-19
+0	925	src	SOFT_MAX	ffn_moe_probs-19	0x7fff7acc9840	224	
+0	926	dst	ARGSORT	ffn_moe_argsort-19	0x7fff7a8c9040	224	
+0	926	src	SOFT_MAX	ffn_moe_probs-19	0x7fff7acc9840	224	
+0	927	dst	VIEW	ffn_moe_topk-19	0x7fff7a8c9040	224	ffn_moe_argsort-19
+0	927	src	ARGSORT	ffn_moe_argsort-19	0x7fff7a8c9040	224	
+0	928	dst	GET_ROWS	ffn_moe_weights-19	0x7fff7aeeb840	224	
+0	928	src	RESHAPE	ffn_moe_probs-19 (reshaped)	0x7fff7acc9840	224	ffn_moe_probs-19
+0	928	src	VIEW	ffn_moe_topk-19	0x7fff7a8c9040	224	ffn_moe_argsort-19
+0	929	dst	RESHAPE	ffn_moe_weights-19 (reshaped)	0x7fff7aeeb840	224	ffn_moe_weights-19
+0	929	src	GET_ROWS	ffn_moe_weights-19	0x7fff7aeeb840	224	
+0	930	dst	SUM_ROWS	ffn_moe_weights_sum-19	0x7fff7acc9840	112	
+0	930	src	RESHAPE	ffn_moe_weights-19 (reshaped)	0x7fff7aeeb840	224	ffn_moe_weights-19
+0	931	dst	CLAMP	ffn_moe_weights_sum_clamped-19	0x7fff7acc9840	112	
+0	931	src	SUM_ROWS	ffn_moe_weights_sum-19	0x7fff7acc9840	112	
+0	932	dst	DIV	ffn_moe_weights_norm-19	0x7fff7aeec040	224	
+0	932	src	RESHAPE	ffn_moe_weights-19 (reshaped)	0x7fff7aeeb840	224	ffn_moe_weights-19
+0	932	src	CLAMP	ffn_moe_weights_sum_clamped-19	0x7fff7acc9840	112	
+0	933	dst	RESHAPE	ffn_moe_weights_norm-19 (reshaped)	0x7fff7aeec040	224	ffn_moe_weights_norm-19
+0	933	src	DIV	ffn_moe_weights_norm-19	0x7fff7aeec040	224	
+0	934	dst	RESHAPE	ffn_norm-19 (reshaped)	0x7fff7aceb840	229376	ffn_norm-19
+0	934	src	MUL	ffn_norm-19	0x7fff7aceb840	229376	
+0	935	dst	MUL_MAT_ID	ffn_moe_gate-19	0x7fff7b2eb840	1261568	
+0	935	src	NONE	blk.19.ffn_gate_exps.weight	0x7fffe74df040	24510464	
+0	935	src	RESHAPE	ffn_norm-19 (reshaped)	0x7fff7aceb840	229376	ffn_norm-19
+0	935	src	VIEW	ffn_moe_topk-19	0x7fff7a8c9040	224	ffn_moe_argsort-19
+0	936	dst	MUL_MAT_ID	ffn_moe_up-19	0x7fff7bdeb840	1261568	
+0	936	src	NONE	blk.19.ffn_up_exps.weight	0x7fffea39f040	24510464	
+0	936	src	RESHAPE	ffn_norm-19 (reshaped)	0x7fff7aceb840	229376	ffn_norm-19
+0	936	src	VIEW	ffn_moe_topk-19	0x7fff7a8c9040	224	ffn_moe_argsort-19
+0	937	dst	GLU	ffn_moe_swiglu-19	0x7fff7c8eb840	1261568	
+0	937	src	MUL_MAT_ID	ffn_moe_gate-19	0x7fff7b2eb840	1261568	
+0	937	src	MUL_MAT_ID	ffn_moe_up-19	0x7fff7bdeb840	1261568	
+0	938	dst	MUL_MAT_ID	ffn_moe_down-19	0x7fff7b2eb840	458752	
+0	938	src	NONE	blk.19.ffn_down_exps.weight	0x7fffe8c3f040	24510464	
+0	938	src	GLU	ffn_moe_swiglu-19	0x7fff7c8eb840	1261568	
+0	938	src	VIEW	ffn_moe_topk-19	0x7fff7a8c9040	224	ffn_moe_argsort-19
+0	939	dst	MUL	ffn_moe_weighted-19	0x7fff7b2eb840	458752	
+0	939	src	MUL_MAT_ID	ffn_moe_down-19	0x7fff7b2eb840	458752	
+0	939	src	RESHAPE	ffn_moe_weights_norm-19 (reshaped)	0x7fff7aeec040	224	ffn_moe_weights_norm-19
+0	940	dst	VIEW	ffn_moe_weighted-19 (view)	0x7fff7b2eb840	450560	ffn_moe_weighted-19
+0	940	src	MUL	ffn_moe_weighted-19	0x7fff7b2eb840	458752	
+0	941	dst	VIEW	ffn_moe_weighted-19 (view)	0x7fff7b2ed840	450560	ffn_moe_weighted-19
+0	941	src	MUL	ffn_moe_weighted-19	0x7fff7b2eb840	458752	
+0	942	dst	ADD	ffn_moe_out-19	0x7fff7aceb840	229376	
+0	942	src	VIEW	ffn_moe_weighted-19 (view)	0x7fff7b2eb840	450560	ffn_moe_weighted-19
+0	942	src	VIEW	ffn_moe_weighted-19 (view)	0x7fff7b2ed840	450560	ffn_moe_weighted-19
+0	943	dst	ADD	l_out-19	0x7fff7aceb840	229376	
+0	943	src	ADD	ffn_moe_out-19	0x7fff7aceb840	229376	
+0	943	src	ADD	ffn_inp-19	0x7fff7aac9840	229376	
+0	944	dst	RMS_NORM	norm-20	0x7fff7aeeb840	229376	
+0	944	src	ADD	l_out-19	0x7fff7aceb840	229376	
+0	945	dst	MUL	attn_norm-20	0x7fff7aeeb840	229376	
+0	945	src	RMS_NORM	norm-20	0x7fff7aeeb840	229376	
+0	945	src	NONE	blk.20.attn_norm.weight	0x7fffebaff040	8192	
+0	946	dst	MUL_MAT	Qcur-20	0x7fff7aac9840	229376	
+0	946	src	NONE	blk.20.attn_q.weight	0x7fffebb01040	4456448	
+0	946	src	MUL	attn_norm-20	0x7fff7aeeb840	229376	
+0	947	dst	RESHAPE	Qcur-20	0x7fff7aac9840	229376	Qcur-20
+0	947	src	MUL_MAT	Qcur-20	0x7fff7aac9840	229376	
+0	948	dst	ROPE	Qcur-20	0x7fff7b2eb840	229376	
+0	948	src	RESHAPE	Qcur-20	0x7fff7aac9840	229376	Qcur-20
+0	948	src	NONE	inp_pos	0x7fff7acca040	112	
+0	949	dst	MUL_MAT	Vcur-20	0x7fff7aac9840	28672	
+0	949	src	NONE	blk.20.attn_v.weight	0x7fffebfc9040	557056	
+0	949	src	MUL	attn_norm-20	0x7fff7aeeb840	229376	
+0	950	dst	RESHAPE	Vcur-20	0x7fff7aac9840	28672	Vcur-20
+0	950	src	MUL_MAT	Vcur-20	0x7fff7aac9840	28672	
+0	951	dst	MUL_MAT	Kcur-20	0x7fff7ab09840	28672	
+0	951	src	NONE	blk.20.attn_k.weight	0x7fffebf41040	557056	
+0	951	src	MUL	attn_norm-20	0x7fff7aeeb840	229376	
+0	952	dst	RESHAPE	Kcur-20	0x7fff7ab09840	28672	Kcur-20
+0	952	src	MUL_MAT	Kcur-20	0x7fff7ab09840	28672	
+0	953	dst	ROPE	Kcur-20	0x7fff7ab49840	28672	
+0	953	src	RESHAPE	Kcur-20	0x7fff7ab09840	28672	Kcur-20
+0	953	src	NONE	inp_pos	0x7fff7acca040	112	
+0	954	dst	VIEW	Kcur-20 (view)	0x7fff7ab49840	28672	Kcur-20
+0	954	src	ROPE	Kcur-20	0x7fff7ab49840	28672	
+0	955	dst	SET_ROWS	cache_k_l20 (view)	0x7fff7fb4c040	131072	cache_k_l20
+0	955	src	VIEW	Kcur-20 (view)	0x7fff7ab49840	28672	Kcur-20
+0	955	src	NONE	attn_inp_k_idxs	0x7fff7acca440	224	
+0	955	src	NONE	cache_k_l20	0x7fff7fb4c040	131072	
+0	956	dst	VIEW	Vcur-20 (view)	0x7fff7aac9840	28672	Vcur-20
+0	956	src	RESHAPE	Vcur-20	0x7fff7aac9840	28672	Vcur-20
+0	957	dst	SET_ROWS	cache_v_l20 (view)	0x7fff7fb6c040	131072	cache_v_l20
+0	957	src	VIEW	Vcur-20 (view)	0x7fff7aac9840	28672	Vcur-20
+0	957	src	NONE	attn_inp_v_idxs	0x7fff7accac40	224	
+0	957	src	NONE	cache_v_l20	0x7fff7fb6c040	131072	
+0	958	dst	VIEW	Qcur-20 (view)	0x7fff7b2eb840	229376	Qcur-20
+0	958	src	ROPE	Qcur-20	0x7fff7b2eb840	229376	
+0	959	dst	PERMUTE	Qcur-20 (view) (permuted)	0x7fff7b2eb840	229376	Qcur-20
+0	959	src	VIEW	Qcur-20 (view)	0x7fff7b2eb840	229376	Qcur-20
+0	960	dst	VIEW	cache_k_l20 (view)	0x7fff7fb4c040	131072	cache_k_l20
+0	960	src	NONE	cache_k_l20	0x7fff7fb4c040	131072	
+0	961	dst	PERMUTE	cache_k_l20 (view) (permuted)	0x7fff7fb4c040	131072	cache_k_l20
+0	961	src	VIEW	cache_k_l20 (view)	0x7fff7fb4c040	131072	cache_k_l20
+0	962	dst	VIEW	cache_v_l20 (view)	0x7fff7fb6c040	131072	cache_v_l20
+0	962	src	NONE	cache_v_l20	0x7fff7fb6c040	131072	
+0	963	dst	PERMUTE	cache_v_l20 (view) (permuted)	0x7fff7fb6c040	131072	cache_v_l20
+0	963	src	VIEW	cache_v_l20 (view)	0x7fff7fb6c040	131072	cache_v_l20
+0	964	dst	FLASH_ATTN_EXT	node_964	0x7fff7aeeb840	229376	
+0	964	src	PERMUTE	Qcur-20 (view) (permuted)	0x7fff7b2eb840	229376	Qcur-20
+0	964	src	PERMUTE	cache_k_l20 (view) (permuted)	0x7fff7fb4c040	131072	cache_k_l20
+0	964	src	PERMUTE	cache_v_l20 (view) (permuted)	0x7fff7fb6c040	131072	cache_v_l20
+0	964	src	NONE	attn_inp_kq_mask	0x7fff7accb440	14336	
+0	965	dst	RESHAPE	kqv_out-20	0x7fff7aeeb840	229376	node_964
+0	965	src	FLASH_ATTN_EXT	node_964	0x7fff7aeeb840	229376	
+0	966	dst	MUL_MAT	attn_out-20	0x7fff7aac9840	229376	
+0	966	src	NONE	blk.20.attn_output.weight	0x7fffec051040	4456448	
+0	966	src	RESHAPE	kqv_out-20	0x7fff7aeeb840	229376	node_964
+0	967	dst	ADD	ffn_inp-20	0x7fff7aac9840	229376	
+0	967	src	MUL_MAT	attn_out-20	0x7fff7aac9840	229376	
+0	967	src	ADD	l_out-19	0x7fff7aceb840	229376	
+0	968	dst	RMS_NORM	norm-20	0x7fff7aceb840	229376	
+0	968	src	ADD	ffn_inp-20	0x7fff7aac9840	229376	
+0	969	dst	MUL	ffn_norm-20	0x7fff7aceb840	229376	
+0	969	src	RMS_NORM	norm-20	0x7fff7aceb840	229376	
+0	969	src	NONE	blk.20.ffn_norm.weight	0x7fffec491040	8192	
+0	970	dst	MUL_MAT	ffn_moe_logits-20	0x7fff7acc9840	224	
+0	970	src	NONE	blk.20.ffn_gate_inp.weight	0x7fffec493040	16384	
+0	970	src	MUL	ffn_norm-20	0x7fff7aceb840	229376	
+0	971	dst	SOFT_MAX	ffn_moe_probs-20	0x7fff7acc9840	224	
+0	971	src	MUL_MAT	ffn_moe_logits-20	0x7fff7acc9840	224	
+0	972	dst	RESHAPE	ffn_moe_probs-20 (reshaped)	0x7fff7acc9840	224	ffn_moe_probs-20
+0	972	src	SOFT_MAX	ffn_moe_probs-20	0x7fff7acc9840	224	
+0	973	dst	ARGSORT	ffn_moe_argsort-20	0x7fff7a8c9040	224	
+0	973	src	SOFT_MAX	ffn_moe_probs-20	0x7fff7acc9840	224	
+0	974	dst	VIEW	ffn_moe_topk-20	0x7fff7a8c9040	224	ffn_moe_argsort-20
+0	974	src	ARGSORT	ffn_moe_argsort-20	0x7fff7a8c9040	224	
+0	975	dst	GET_ROWS	ffn_moe_weights-20	0x7fff7aeeb840	224	
+0	975	src	RESHAPE	ffn_moe_probs-20 (reshaped)	0x7fff7acc9840	224	ffn_moe_probs-20
+0	975	src	VIEW	ffn_moe_topk-20	0x7fff7a8c9040	224	ffn_moe_argsort-20
+0	976	dst	RESHAPE	ffn_moe_weights-20 (reshaped)	0x7fff7aeeb840	224	ffn_moe_weights-20
+0	976	src	GET_ROWS	ffn_moe_weights-20	0x7fff7aeeb840	224	
+0	977	dst	SUM_ROWS	ffn_moe_weights_sum-20	0x7fff7acc9840	112	
+0	977	src	RESHAPE	ffn_moe_weights-20 (reshaped)	0x7fff7aeeb840	224	ffn_moe_weights-20
+0	978	dst	CLAMP	ffn_moe_weights_sum_clamped-20	0x7fff7acc9840	112	
+0	978	src	SUM_ROWS	ffn_moe_weights_sum-20	0x7fff7acc9840	112	
+0	979	dst	DIV	ffn_moe_weights_norm-20	0x7fff7aeec040	224	
+0	979	src	RESHAPE	ffn_moe_weights-20 (reshaped)	0x7fff7aeeb840	224	ffn_moe_weights-20
+0	979	src	CLAMP	ffn_moe_weights_sum_clamped-20	0x7fff7acc9840	112	
+0	980	dst	RESHAPE	ffn_moe_weights_norm-20 (reshaped)	0x7fff7aeec040	224	ffn_moe_weights_norm-20
+0	980	src	DIV	ffn_moe_weights_norm-20	0x7fff7aeec040	224	
+0	981	dst	RESHAPE	ffn_norm-20 (reshaped)	0x7fff7aceb840	229376	ffn_norm-20
+0	981	src	MUL	ffn_norm-20	0x7fff7aceb840	229376	
+0	982	dst	MUL_MAT_ID	ffn_moe_gate-20	0x7fff7b2eb840	1261568	
+0	982	src	NONE	blk.20.ffn_gate_exps.weight	0x7fffec497040	24510464	
+0	982	src	RESHAPE	ffn_norm-20 (reshaped)	0x7fff7aceb840	229376	ffn_norm-20
+0	982	src	VIEW	ffn_moe_topk-20	0x7fff7a8c9040	224	ffn_moe_argsort-20
+0	983	dst	MUL_MAT_ID	ffn_moe_up-20	0x7fff7bdeb840	1261568	
+0	983	src	NONE	blk.20.ffn_up_exps.weight	0x7fffef357040	24510464	
+0	983	src	RESHAPE	ffn_norm-20 (reshaped)	0x7fff7aceb840	229376	ffn_norm-20
+0	983	src	VIEW	ffn_moe_topk-20	0x7fff7a8c9040	224	ffn_moe_argsort-20
+0	984	dst	GLU	ffn_moe_swiglu-20	0x7fff7c8eb840	1261568	
+0	984	src	MUL_MAT_ID	ffn_moe_gate-20	0x7fff7b2eb840	1261568	
+0	984	src	MUL_MAT_ID	ffn_moe_up-20	0x7fff7bdeb840	1261568	
+0	985	dst	MUL_MAT_ID	ffn_moe_down-20	0x7fff7b2eb840	458752	
+0	985	src	NONE	blk.20.ffn_down_exps.weight	0x7fffedbf7040	24510464	
+0	985	src	GLU	ffn_moe_swiglu-20	0x7fff7c8eb840	1261568	
+0	985	src	VIEW	ffn_moe_topk-20	0x7fff7a8c9040	224	ffn_moe_argsort-20
+0	986	dst	MUL	ffn_moe_weighted-20	0x7fff7b2eb840	458752	
+0	986	src	MUL_MAT_ID	ffn_moe_down-20	0x7fff7b2eb840	458752	
+0	986	src	RESHAPE	ffn_moe_weights_norm-20 (reshaped)	0x7fff7aeec040	224	ffn_moe_weights_norm-20
+0	987	dst	VIEW	ffn_moe_weighted-20 (view)	0x7fff7b2eb840	450560	ffn_moe_weighted-20
+0	987	src	MUL	ffn_moe_weighted-20	0x7fff7b2eb840	458752	
+0	988	dst	VIEW	ffn_moe_weighted-20 (view)	0x7fff7b2ed840	450560	ffn_moe_weighted-20
+0	988	src	MUL	ffn_moe_weighted-20	0x7fff7b2eb840	458752	
+0	989	dst	ADD	ffn_moe_out-20	0x7fff7aceb840	229376	
+0	989	src	VIEW	ffn_moe_weighted-20 (view)	0x7fff7b2eb840	450560	ffn_moe_weighted-20
+0	989	src	VIEW	ffn_moe_weighted-20 (view)	0x7fff7b2ed840	450560	ffn_moe_weighted-20
+0	990	dst	ADD	l_out-20	0x7fff7aceb840	229376	
+0	990	src	ADD	ffn_moe_out-20	0x7fff7aceb840	229376	
+0	990	src	ADD	ffn_inp-20	0x7fff7aac9840	229376	
+0	991	dst	RMS_NORM	norm-21	0x7fff7aeeb840	229376	
+0	991	src	ADD	l_out-20	0x7fff7aceb840	229376	
+0	992	dst	MUL	attn_norm-21	0x7fff7aeeb840	229376	
+0	992	src	RMS_NORM	norm-21	0x7fff7aeeb840	229376	
+0	992	src	NONE	blk.21.attn_norm.weight	0x7ffff0ab7040	8192	
+0	993	dst	MUL_MAT	Qcur-21	0x7fff7aac9840	229376	
+0	993	src	NONE	blk.21.attn_q.weight	0x7ffff0ab9040	4456448	
+0	993	src	MUL	attn_norm-21	0x7fff7aeeb840	229376	
+0	994	dst	RESHAPE	Qcur-21	0x7fff7aac9840	229376	Qcur-21
+0	994	src	MUL_MAT	Qcur-21	0x7fff7aac9840	229376	
+0	995	dst	ROPE	Qcur-21	0x7fff7b2eb840	229376	
+0	995	src	RESHAPE	Qcur-21	0x7fff7aac9840	229376	Qcur-21
+0	995	src	NONE	inp_pos	0x7fff7acca040	112	
+0	996	dst	MUL_MAT	Vcur-21	0x7fff7aac9840	28672	
+0	996	src	NONE	blk.21.attn_v.weight	0x7ffff0f81040	557056	
+0	996	src	MUL	attn_norm-21	0x7fff7aeeb840	229376	
+0	997	dst	RESHAPE	Vcur-21	0x7fff7aac9840	28672	Vcur-21
+0	997	src	MUL_MAT	Vcur-21	0x7fff7aac9840	28672	
+0	998	dst	MUL_MAT	Kcur-21	0x7fff7ab09840	28672	
+0	998	src	NONE	blk.21.attn_k.weight	0x7ffff0ef9040	557056	
+0	998	src	MUL	attn_norm-21	0x7fff7aeeb840	229376	
+0	999	dst	RESHAPE	Kcur-21	0x7fff7ab09840	28672	Kcur-21
+0	999	src	MUL_MAT	Kcur-21	0x7fff7ab09840	28672	
+0	1000	dst	ROPE	Kcur-21	0x7fff7ab49840	28672	
+0	1000	src	RESHAPE	Kcur-21	0x7fff7ab09840	28672	Kcur-21
+0	1000	src	NONE	inp_pos	0x7fff7acca040	112	
+0	1001	dst	VIEW	Kcur-21 (view)	0x7fff7ab49840	28672	Kcur-21
+0	1001	src	ROPE	Kcur-21	0x7fff7ab49840	28672	
+0	1002	dst	SET_ROWS	cache_k_l21 (view)	0x7fff7fb8c040	131072	cache_k_l21
+0	1002	src	VIEW	Kcur-21 (view)	0x7fff7ab49840	28672	Kcur-21
+0	1002	src	NONE	attn_inp_k_idxs	0x7fff7acca440	224	
+0	1002	src	NONE	cache_k_l21	0x7fff7fb8c040	131072	
+0	1003	dst	VIEW	Vcur-21 (view)	0x7fff7aac9840	28672	Vcur-21
+0	1003	src	RESHAPE	Vcur-21	0x7fff7aac9840	28672	Vcur-21
+0	1004	dst	SET_ROWS	cache_v_l21 (view)	0x7fff7fbac040	131072	cache_v_l21
+0	1004	src	VIEW	Vcur-21 (view)	0x7fff7aac9840	28672	Vcur-21
+0	1004	src	NONE	attn_inp_v_idxs	0x7fff7accac40	224	
+0	1004	src	NONE	cache_v_l21	0x7fff7fbac040	131072	
+0	1005	dst	VIEW	Qcur-21 (view)	0x7fff7b2eb840	229376	Qcur-21
+0	1005	src	ROPE	Qcur-21	0x7fff7b2eb840	229376	
+0	1006	dst	PERMUTE	Qcur-21 (view) (permuted)	0x7fff7b2eb840	229376	Qcur-21
+0	1006	src	VIEW	Qcur-21 (view)	0x7fff7b2eb840	229376	Qcur-21
+0	1007	dst	VIEW	cache_k_l21 (view)	0x7fff7fb8c040	131072	cache_k_l21
+0	1007	src	NONE	cache_k_l21	0x7fff7fb8c040	131072	
+0	1008	dst	PERMUTE	cache_k_l21 (view) (permuted)	0x7fff7fb8c040	131072	cache_k_l21
+0	1008	src	VIEW	cache_k_l21 (view)	0x7fff7fb8c040	131072	cache_k_l21
+0	1009	dst	VIEW	cache_v_l21 (view)	0x7fff7fbac040	131072	cache_v_l21
+0	1009	src	NONE	cache_v_l21	0x7fff7fbac040	131072	
+0	1010	dst	PERMUTE	cache_v_l21 (view) (permuted)	0x7fff7fbac040	131072	cache_v_l21
+0	1010	src	VIEW	cache_v_l21 (view)	0x7fff7fbac040	131072	cache_v_l21
+0	1011	dst	FLASH_ATTN_EXT	node_1011	0x7fff7aeeb840	229376	
+0	1011	src	PERMUTE	Qcur-21 (view) (permuted)	0x7fff7b2eb840	229376	Qcur-21
+0	1011	src	PERMUTE	cache_k_l21 (view) (permuted)	0x7fff7fb8c040	131072	cache_k_l21
+0	1011	src	PERMUTE	cache_v_l21 (view) (permuted)	0x7fff7fbac040	131072	cache_v_l21
+0	1011	src	NONE	attn_inp_kq_mask	0x7fff7accb440	14336	
+0	1012	dst	RESHAPE	kqv_out-21	0x7fff7aeeb840	229376	node_1011
+0	1012	src	FLASH_ATTN_EXT	node_1011	0x7fff7aeeb840	229376	
+0	1013	dst	MUL_MAT	attn_out-21	0x7fff7aac9840	229376	
+0	1013	src	NONE	blk.21.attn_output.weight	0x7ffff1009040	4456448	
+0	1013	src	RESHAPE	kqv_out-21	0x7fff7aeeb840	229376	node_1011
+0	1014	dst	GET_ROWS	node_1014	0x7fff7aeeb840	8192	
+0	1014	src	MUL_MAT	attn_out-21	0x7fff7aac9840	229376	
+0	1014	src	NONE	out_ids	0x7fff7aceb440	4	
+0	1015	dst	GET_ROWS	node_1015	0x7fff7aac9840	8192	
+0	1015	src	ADD	l_out-20	0x7fff7aceb840	229376	
+0	1015	src	NONE	out_ids	0x7fff7aceb440	4	
+0	1016	dst	ADD	ffn_inp-21	0x7fff7aeeb840	8192	
+0	1016	src	GET_ROWS	node_1014	0x7fff7aeeb840	8192	
+0	1016	src	GET_ROWS	node_1015	0x7fff7aac9840	8192	
+0	1017	dst	RMS_NORM	norm-21	0x7fff7aac9840	8192	
+0	1017	src	ADD	ffn_inp-21	0x7fff7aeeb840	8192	
+0	1018	dst	MUL	ffn_norm-21	0x7fff7aac9840	8192	
+0	1018	src	RMS_NORM	norm-21	0x7fff7aac9840	8192	
+0	1018	src	NONE	blk.21.ffn_norm.weight	0x7ffff1449040	8192	
+0	1019	dst	MUL_MAT	ffn_moe_logits-21	0x7fff7a8c9040	8	
+0	1019	src	NONE	blk.21.ffn_gate_inp.weight	0x7ffff144b040	16384	
+0	1019	src	MUL	ffn_norm-21	0x7fff7aac9840	8192	
+0	1020	dst	SOFT_MAX	ffn_moe_probs-21	0x7fff7a8c9040	8	
+0	1020	src	MUL_MAT	ffn_moe_logits-21	0x7fff7a8c9040	8	
+0	1021	dst	RESHAPE	ffn_moe_probs-21 (reshaped)	0x7fff7a8c9040	8	ffn_moe_probs-21
+0	1021	src	SOFT_MAX	ffn_moe_probs-21	0x7fff7a8c9040	8	
+0	1022	dst	ARGSORT	ffn_moe_argsort-21	0x7fff7acc9840	8	
+0	1022	src	SOFT_MAX	ffn_moe_probs-21	0x7fff7a8c9040	8	
+0	1023	dst	VIEW	ffn_moe_topk-21	0x7fff7acc9840	8	ffn_moe_argsort-21
+0	1023	src	ARGSORT	ffn_moe_argsort-21	0x7fff7acc9840	8	
+0	1024	dst	GET_ROWS	ffn_moe_weights-21	0x7fff7acca040	8	
+0	1024	src	RESHAPE	ffn_moe_probs-21 (reshaped)	0x7fff7a8c9040	8	ffn_moe_probs-21
+0	1024	src	VIEW	ffn_moe_topk-21	0x7fff7acc9840	8	ffn_moe_argsort-21
+0	1025	dst	RESHAPE	ffn_moe_weights-21 (reshaped)	0x7fff7acca040	8	ffn_moe_weights-21
+0	1025	src	GET_ROWS	ffn_moe_weights-21	0x7fff7acca040	8	
+0	1026	dst	SUM_ROWS	ffn_moe_weights_sum-21	0x7fff7a8c9040	4	
+0	1026	src	RESHAPE	ffn_moe_weights-21 (reshaped)	0x7fff7acca040	8	ffn_moe_weights-21
+0	1027	dst	CLAMP	ffn_moe_weights_sum_clamped-21	0x7fff7a8c9040	4	
+0	1027	src	SUM_ROWS	ffn_moe_weights_sum-21	0x7fff7a8c9040	4	
+0	1028	dst	DIV	ffn_moe_weights_norm-21	0x7fff7acca840	8	
+0	1028	src	RESHAPE	ffn_moe_weights-21 (reshaped)	0x7fff7acca040	8	ffn_moe_weights-21
+0	1028	src	CLAMP	ffn_moe_weights_sum_clamped-21	0x7fff7a8c9040	4	
+0	1029	dst	RESHAPE	ffn_moe_weights_norm-21 (reshaped)	0x7fff7acca840	8	ffn_moe_weights_norm-21
+0	1029	src	DIV	ffn_moe_weights_norm-21	0x7fff7acca840	8	
+0	1030	dst	RESHAPE	ffn_norm-21 (reshaped)	0x7fff7aac9840	8192	ffn_norm-21
+0	1030	src	MUL	ffn_norm-21	0x7fff7aac9840	8192	
+0	1031	dst	MUL_MAT_ID	ffn_moe_gate-21	0x7fff7b2eb840	45056	
+0	1031	src	NONE	blk.21.ffn_gate_exps.weight	0x7ffff144f040	24510464	
+0	1031	src	RESHAPE	ffn_norm-21 (reshaped)	0x7fff7aac9840	8192	ffn_norm-21
+0	1031	src	VIEW	ffn_moe_topk-21	0x7fff7acc9840	8	ffn_moe_argsort-21
+0	1032	dst	MUL_MAT_ID	ffn_moe_up-21	0x7fff7bdeb840	45056	
+0	1032	src	NONE	blk.21.ffn_up_exps.weight	0x7ffff430f040	24510464	
+0	1032	src	RESHAPE	ffn_norm-21 (reshaped)	0x7fff7aac9840	8192	ffn_norm-21
+0	1032	src	VIEW	ffn_moe_topk-21	0x7fff7acc9840	8	ffn_moe_argsort-21
+0	1033	dst	GLU	ffn_moe_swiglu-21	0x7fff7c8eb840	45056	
+0	1033	src	MUL_MAT_ID	ffn_moe_gate-21	0x7fff7b2eb840	45056	
+0	1033	src	MUL_MAT_ID	ffn_moe_up-21	0x7fff7bdeb840	45056	
+0	1034	dst	MUL_MAT_ID	ffn_moe_down-21	0x7fff7b2eb840	16384	
+0	1034	src	NONE	blk.21.ffn_down_exps.weight	0x7ffff2baf040	24510464	
+0	1034	src	GLU	ffn_moe_swiglu-21	0x7fff7c8eb840	45056	
+0	1034	src	VIEW	ffn_moe_topk-21	0x7fff7acc9840	8	ffn_moe_argsort-21
+0	1035	dst	MUL	ffn_moe_weighted-21	0x7fff7b2eb840	16384	
+0	1035	src	MUL_MAT_ID	ffn_moe_down-21	0x7fff7b2eb840	16384	
+0	1035	src	RESHAPE	ffn_moe_weights_norm-21 (reshaped)	0x7fff7acca840	8	ffn_moe_weights_norm-21
+0	1036	dst	VIEW	ffn_moe_weighted-21 (view)	0x7fff7b2eb840	8192	ffn_moe_weighted-21
+0	1036	src	MUL	ffn_moe_weighted-21	0x7fff7b2eb840	16384	
+0	1037	dst	VIEW	ffn_moe_weighted-21 (view)	0x7fff7b2ed840	8192	ffn_moe_weighted-21
+0	1037	src	MUL	ffn_moe_weighted-21	0x7fff7b2eb840	16384	
+0	1038	dst	ADD	ffn_moe_out-21	0x7fff7aac9840	8192	
+0	1038	src	VIEW	ffn_moe_weighted-21 (view)	0x7fff7b2eb840	8192	ffn_moe_weighted-21
+0	1038	src	VIEW	ffn_moe_weighted-21 (view)	0x7fff7b2ed840	8192	ffn_moe_weighted-21
+0	1039	dst	ADD	l_out-21	0x7fff7aac9840	8192	
+0	1039	src	ADD	ffn_moe_out-21	0x7fff7aac9840	8192	
+0	1039	src	ADD	ffn_inp-21	0x7fff7aeeb840	8192	
+0	1040	dst	RMS_NORM	norm	0x7fff7aac9840	8192	
+0	1040	src	ADD	l_out-21	0x7fff7aac9840	8192	
+0	1041	dst	MUL	result_norm	0x7fff7aac9840	8192	
+0	1041	src	RMS_NORM	norm	0x7fff7aac9840	8192	
+0	1041	src	NONE	output_norm.weight	0x7fff83e35040	8192	
+0	1042	dst	MUL_MAT	result_output	0x7fff7b2eb840	128000	
+0	1042	src	NONE	output.weight	0x7fff83e37040	69632000	
+0	1042	src	MUL	result_norm	0x7fff7aac9840	8192	

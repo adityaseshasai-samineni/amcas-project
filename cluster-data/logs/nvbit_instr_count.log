@@ -1,0 +1,20 @@
+------------- NVBit (NVidia Binary Instrumentation Tool v1.8.1) Loaded --------------
+NVBit core environment variables (mostly for nvbit-devs):
+ACK_CTX_INIT_LIMITATION = 0 - if set, no warning will be printed for nvbit_at_ctx_init()
+            NVDISASM = /usr/local/cuda-13.1/bin/nvdisasm - override default nvdisasm found in PATH
+            NOBANNER = 0 - if set, does not print this banner
+       NO_EAGER_LOAD = 1 - lazy module loading is now turned on by default. If you see deadlocks in your tool, set NO_EAGER_LOAD to 0
+---------------------------------------------------------------------------------
+         INSTR_BEGIN = 0 - Beginning of the instruction interval where to apply instrumentation
+           INSTR_END = 4294967295 - End of the instruction interval where to apply instrumentation
+      START_GRID_NUM = 0 - Beginning of the kernel gird launch interval where to apply instrumentation
+        END_GRID_NUM = 4294967295 - End of the kernel launch interval where to apply instrumentation
+    COUNT_WARP_LEVEL = 1 - Count warp level or thread level instructions
+    EXCLUDE_PRED_OFF = 0 - Exclude predicated off instruction from count
+   ACTIVE_FROM_START = 1 - Start instruction counting from start or wait for cuProfilerStart and cuProfilerStop
+       MANGLED_NAMES = 1 - Print kernel names mangled or not
+        TOOL_VERBOSE = 0 - Enable verbosity inside the tool
+WARNING: Do not call CUDA memory allocation in nvbit_at_ctx_init(). It will cause deadlocks. Do them in nvbit_tool_init(). If you encounter deadlocks, remove CUDA API calls to debug.
+cuobjdump info    : No ELF file found to extract from '/tmp/nvbit_tool_tmpdir.hIaHjp/instr_count.so'. You may try with -all option.
+----------------------------------------------------------------------------------------------------
+ASSERT FAIL: ./src/function.cpp:808:void Function::gen_new_code(std::unordered_map<std::__cxx11::basic_string<char>, Function*>&): FAIL !(instr_func_map.find(c.instr_func_name) != instr_func_map.end()) MSG: instrumentation function count_instrs not found in binary!

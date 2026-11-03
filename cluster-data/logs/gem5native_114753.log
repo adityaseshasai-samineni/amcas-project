@@ -1,0 +1,48 @@
+==========================================
+SLURM_JOB_ID = 114753
+SLURM_NODELIST = node06
+SLURM_JOB_GPUS = 
+==========================================
+
+    micromamba run -n gem5 mycommand
+
+=== toolchain
+/home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/bin/gcc
+/home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/bin/g++
+/home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/bin/scons
+/home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/bin/protoc
+/home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/bin/python3-config
+gcc (conda-forge gcc 13.4.0-20) 13.4.0
+libprotoc 3.21.12
+Python 3.12.16
+/home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/x86_64-conda-linux-gnu/sysroot/usr/lib64/libc.a
+/home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/lib/gcc/x86_64-conda-linux-gnu/13.4.0/libstdc++.a
+ [      AR]  -> X86/ext/libfdt/libfdt.a
+ [   SHCXX] ext/nomali/lib/gpublock.cc -> X86/ext/nomali/lib/gpublock.os
+ [  RANLIB]  -> X86/ext/libfdt/libfdt.a
+ [   SHCXX] ext/nomali/lib/gpucontrol.cc -> X86/ext/nomali/lib/gpucontrol.os
+ [   SHCXX] ext/nomali/lib/jobcontrol.cc -> X86/ext/nomali/lib/jobcontrol.os
+ [   SHCXX] ext/nomali/lib/jobslot.cc -> X86/ext/nomali/lib/jobslot.os
+ [   SHCXX] ext/nomali/lib/mali_midgard.cc -> X86/ext/nomali/lib/mali_midgard.os
+ [   SHCXX] ext/nomali/lib/mali_t6xx.cc -> X86/ext/nomali/lib/mali_t6xx.os
+ [   SHCXX] ext/nomali/lib/mali_t7xx.cc -> X86/ext/nomali/lib/mali_t7xx.os
+ [   SHCXX] ext/nomali/lib/addrspace.cc -> X86/ext/nomali/lib/addrspace.os
+ [   SHCXX] ext/nomali/lib/mmu.cc -> X86/ext/nomali/lib/mmu.os
+ [   SHCXX] ext/nomali/lib/nomali_api.cc -> X86/ext/nomali/lib/nomali_api.os
+ [      AR]  -> X86/ext/nomali/libnomali.a
+ [  RANLIB]  -> X86/ext/nomali/libnomali.a
+ [      AR]  -> X86/ext/amba_tlm/libarmtlmchi.a
+ [  RANLIB]  -> X86/ext/amba_tlm/libarmtlmchi.a
+ [     CXX] src/base/date.cc -> X86/base/date.o
+ [    LINK]  -> X86/gem5.opt
+scons: done building targets.
+*** Summary of Warnings ***
+Warning: You can get a 12% performance improvement by installing tcmalloc
+         (libgoogle-perftools-dev package on Ubuntu or RedHat).
+Warning: Couldn't find HDF5 1.10 or newer C++ libraries. Disabling HDF5 support.
+Warning: Capstone 4.0 or newer was not found.
+         Disabling Capstone disassembly support.
+-rwxrwxr-x 1 adityaseshasai.s adityaseshasai.s 1022954680 Nov  2 15:15 build/X86/gem5.opt
+Usage
+=====
+  gem5.opt [gem5 options] script.py [script options]

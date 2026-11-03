@@ -1,0 +1,14 @@
+Global frequency set at 1000000000000 ticks per second
+Redirecting stdout to /home/adityaseshasai.s/amcas-pro/results/traces/moe_l3-22m_stride/simout.txt
+Redirecting stderr to /home/adityaseshasai.s/amcas-pro/results/traces/moe_l3-22m_stride/simerr.txt
+gem5 Simulator System.  https://www.gem5.org
+gem5 is copyrighted software; use the --copyright option for details.
+
+gem5 version 26.0.0.0
+gem5 compiled Nov  2 2026 16:11:12
+gem5 started Nov  2 2026 16:30:35
+gem5 executing on node06.local, pid 2820674
+command line: /home/adityaseshasai.s/amcas-pro/tracing/gem5/build/X86/gem5.fast --outdir=/home/adityaseshasai.s/amcas-pro/results/traces/moe_l3-22m_stride --redirect-stdout --redirect-stderr /home/adityaseshasai.s/amcas-pro/configs/llm_trace.py --cmd '/home/adityaseshasai.s/amcas-pro/tracing/llama.cpp/build-gem5/bin/llama-completion -m /home/adityaseshasai.s/amcas-pro/tracing/models/tinymoe4.gguf -t 1 -c 256 -b 512 -p '"'"'Once upon a time there was a little girl named Lily. She loved to play outside in the sunshine with her friends.'"'"' -n 9 --ignore-eos -no-cnv -lm none --no-warmup --temp 0 --seed 1' --cwd /home/adityaseshasai.s/amcas-pro/results/traces/moe_l3-22m_stride --detail-from 1 --max-work-items 2 --l3 22MiB --l3-assoc 11 --prefetch stride
+
+info: Standard input is not a terminal, disabling listeners.
+ Once upon a time there was a little girl named Lily. She loved to play outside in the sunshine with her friends.

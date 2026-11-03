@@ -1,0 +1,55 @@
+==========================================
+SLURM_JOB_ID = 113986
+SLURM_NODELIST = node01
+SLURM_JOB_GPUS = 
+==========================================
+=== llama.cpp SSE static
+CMake Error at /usr/local/apps/cmake-3.20.3-linux-x86_64/share/cmake-3.20/Modules/CMakeTestCCompiler.cmake:66 (message):
+  The C compiler
+
+    "/opt/rh/gcc-toolset-13/root/usr/bin/cc"
+
+  is not able to compile a simple test program.
+
+  It fails with the following output:
+
+    Change Dir: /home/adityaseshasai.s/amcas-pro/tracing/llama.cpp/build-sse/CMakeFiles/CMakeTmp
+    
+    Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_a9c51/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_a9c51.dir/build.make CMakeFiles/cmTC_a9c51.dir/build
+    gmake[1]: Entering directory '/home/adityaseshasai.s/amcas-pro/tracing/llama.cpp/build-sse/CMakeFiles/CMakeTmp'
+    Building C object CMakeFiles/cmTC_a9c51.dir/testCCompiler.c.o
+    /opt/rh/gcc-toolset-13/root/usr/bin/cc    -o CMakeFiles/cmTC_a9c51.dir/testCCompiler.c.o -c /home/adityaseshasai.s/amcas-pro/tracing/llama.cpp/build-sse/CMakeFiles/CMakeTmp/testCCompiler.c
+    Linking C executable cmTC_a9c51
+    /usr/local/apps/cmake-3.20.3-linux-x86_64/bin/cmake -E cmake_link_script CMakeFiles/cmTC_a9c51.dir/link.txt --verbose=1
+    /opt/rh/gcc-toolset-13/root/usr/bin/cc -static  CMakeFiles/cmTC_a9c51.dir/testCCompiler.c.o -o cmTC_a9c51 
+    /opt/rh/gcc-toolset-13/root/usr/libexec/gcc/x86_64-redhat-linux/13/ld: cannot find -lc: No such file or directory
+    collect2: error: ld returned 1 exit status
+    gmake[1]: *** [CMakeFiles/cmTC_a9c51.dir/build.make:99: cmTC_a9c51] Error 1
+    gmake[1]: Leaving directory '/home/adityaseshasai.s/amcas-pro/tracing/llama.cpp/build-sse/CMakeFiles/CMakeTmp'
+    gmake: *** [Makefile:127: cmTC_a9c51/fast] Error 2
+    
+    
+
+  
+
+  CMake will not be able to correctly generate this project.
+Call Stack (most recent call first):
+  CMakeLists.txt:2 (project)
+
+
+gmake: Makefile: No such file or directory
+gmake: *** No rule to make target 'Makefile'.  Stop.
+build-sse/bin/llama-completion: cannot open `build-sse/bin/llama-completion' (No such file or directory)
+objdump: 'build-sse/bin/llama-completion': No such file
+0
+-rw-rw-r-- 1 adityaseshasai.s adityaseshasai.s 428730208 Oct 31 22:14 qwen25-05b-q4_0.gguf
+=== native baseline
+=== gem5
+INFO:    Fetching OCI image...
+FATAL:   While making image from oci registry: error fetching image to cache: while building SIF from layers: conveyor failed to get: error writing layer: stream error: stream ID 1; PROTOCOL_ERROR; received from peer
+Cloning into 'gem5'...
+Updating files:   7% (866/11081)Updating files:   8% (887/11081)Updating files:   9% (998/11081)Updating files:  10% (1109/11081)Updating files:  11% (1219/11081)Updating files:  12% (1330/11081)Updating files:  13% (1441/11081)Updating files:  14% (1552/11081)Updating files:  15% (1663/11081)Updating files:  15% (1760/11081)Updating files:  16% (1773/11081)Updating files:  17% (1884/11081)Updating files:  18% (1995/11081)Updating files:  19% (2106/11081)Updating files:  20% (2217/11081)Updating files:  21% (2328/11081)Updating files:  22% (2438/11081)Updating files:  23% (2549/11081)Updating files:  23% (2630/11081)Updating files:  24% (2660/11081)Updating files:  25% (2771/11081)Updating files:  26% (2882/11081)Updating files:  27% (2992/11081)Updating files:  28% (3103/11081)Updating files:  29% (3214/11081)Updating files:  30% (3325/11081)Updating files:  31% (3436/11081)Updating files:  31% (3458/11081)Updating files:  32% (3546/11081)Updating files:  33% (3657/11081)Updating files:  34% (3768/11081)Updating files:  35% (3879/11081)Updating files:  36% (3990/11081)Updating files:  37% (4100/11081)Updating files:  38% (4211/11081)Updating files:  39% (4322/11081)Updating files:  39% (4334/11081)Updating files:  40% (4433/11081)Updating files:  41% (4544/11081)Updating files:  42% (4655/11081)Updating files:  43% (4765/11081)Updating files:  44% (4876/11081)Updating files:  45% (4987/11081)Updating files:  46% (5098/11081)Updating files:  47% (5209/11081)Updating files:  47% (5226/11081)Updating files:  48% (5319/11081)Updating files:  49% (5430/11081)Updating files:  50% (5541/11081)Updating files:  51% (5652/11081)Updating files:  52% (5763/11081)Updating files:  53% (5873/11081)Updating files:  54% (5984/11081)Updating files:  55% (6095/11081)Updating files:  55% (6115/11081)Updating files:  56% (6206/11081)Updating files:  57% (6317/11081)Updating files:  58% (6427/11081)Updating files:  59% (6538/11081)Updating files:  60% (6649/11081)Updating files:  61% (6760/11081)Updating files:  61% (6797/11081)Updating files:  62% (6871/11081)Updating files:  63% (6982/11081)Updating files:  64% (7092/11081)Updating files:  65% (7203/11081)Updating files:  66% (7314/11081)Updating files:  66% (7388/11081)Updating files:  67% (7425/11081)Updating files:  68% (7536/11081)Updating files:  69% (7646/11081)Updating files:  70% (7757/11081)Updating files:  71% (7868/11081)Updating files:  72% (7979/11081)Updating files:  73% (8090/11081)Updating files:  74% (8200/11081)Updating files:  74% (8202/11081)Updating files:  75% (8311/11081)Updating files:  76% (8422/11081)Updating files:  77% (8533/11081)Updating files:  78% (8644/11081)Updating files:  79% (8754/11081)Updating files:  80% (8865/11081)Updating files:  81% (8976/11081)Updating files:  82% (9087/11081)Updating files:  82% (9112/11081)Updating files:  83% (9198/11081)Updating files:  84% (9309/11081)Updating files:  85% (9419/11081)Updating files:  86% (9530/11081)Updating files:  87% (9641/11081)Updating files:  88% (9752/11081)Updating files:  89% (9863/11081)Updating files:  89% (9958/11081)Updating files:  90% (9973/11081)Updating files:  91% (10084/11081)Updating files:  92% (10195/11081)Updating files:  93% (10306/11081)Updating files:  94% (10417/11081)Updating files:  95% (10527/11081)Updating files:  96% (10638/11081)Updating files:  96% (10643/11081)Updating files:  97% (10749/11081)Updating files:  98% (10860/11081)Updating files:  99% (10971/11081)Updating files: 100% (11081/11081)Updating files: 100% (11081/11081), done.
+e97d8fb 2026-10-18
+INFO:    /etc/singularity/ exists; cleanup by system administrator is not complete (see https://apptainer.org/docs/admin/latest/singularity_migration.html)
+FATAL:   While checking container encryption: could not open image /home/adityaseshasai.s/amcas-pro/tracing/gem5-deps.sif: failed to retrieve path for /home/adityaseshasai.s/amcas-pro/tracing/gem5-deps.sif: lstat /home/adityaseshasai.s/amcas-pro/tracing/gem5-deps.sif: no such file or directory
+ls: cannot access 'build/X86/gem5.opt': No such file or directory

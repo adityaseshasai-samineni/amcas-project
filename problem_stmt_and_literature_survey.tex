@@ -1,0 +1,110 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{hyperref}
+
+\title{Literature Survey - AMCAS}
+\author{
+    Aditya Samineni \\
+    \small Roll No: 2026701023
+    \and
+    Prasanna N R \\
+    \small Roll No: 2024102056
+}
+\date{October 2026}
+
+\begin{document}
+
+\maketitle
+
+\section{Problem Statement and Description}
+
+\textbf{Address-Mapping and Row-Buffer Policy Optimization for Transformer Attention Access Patterns}
+
+Attention and MoE (mixture-of-experts) workloads produce access patterns very different from classical HPC (irregular gather over KV-cache, expert-routing indirection). Using DRAMSim/Ramulator, characterize row-buffer hit rates for representative traces and propose an address-interleaving or row-buffer management policy tuned for this access class. Deliverable: Trace-driven simulation study, proposed mapping policy, hit-rate/latency improvement numbers.
+
+
+\section{Literature Survey}
+
+We explored this domain in the following avenues.
+\begin{enumerate}
+    \item What is address mapping and address interleaving
+    \item What is row buffer policy and where has it been used before?
+    \item Work regarding Attention and MoE based memory workloads\
+    \item Possible direction for this work?
+\end{enumerate}
+
+\subsection{Address-Mapping and Address-Interleaving}
+Address Mapping is the process of mapping a physical address into a physical location on the DRAM.
+
+This work \cite{shao2005bit} proposes a bit-reversal SDRAM address mapping technique that improves row hit rate from 43\% to 66\% by distributing memory accesses across independent banks. It reduces average memory access latency by 26–29\% and total execution time by 11.7–13.5\% compared with conventional mapping techniques. 
+
+Rotaru et al. propose an XOR-based application-specific DRAM address mapping framework using Binary Integer Matrices over GF(2) to minimize row misses while constraining hardware complexity. The approach reduces the mapping design space through subspace selection and supports probabilistic memory access models for optimizing DRAM performance \cite{rotaru2026mathematical}.
+
+Yuan proposes HSRAI, a permutation-preserving address interleaving technique that uses GF(2) affine mappings and the Chinese Remainder Theorem to distribute memory traffic uniformly across hierarchical interconnects. The approach preserves address invertibility while reducing intermediate-level hotspots and access starvation through hierarchical balance metrics \cite{yuan2026hsraipermutationpreservingaddressinterleaving}.
+
+
+\subsection{Row Buffer Policies}
+Row buffer policies, such as open-page, close-page, and adaptive hybrid policies, determine whether a DRAM row remains open or is closed after an access to minimize memory latency based on access patterns.
+
+Ghasempour et al. propose HAPPY, an address-based encoding technique that reduces the hardware overhead of hybrid DRAM page-closure predictors while maintaining prediction accuracy. Their approach reduces hardware overhead by up to 5× for 64 GB memory and 40× for 512 GB memory compared with the evaluated state-of-the-art technique \cite{ghasempour2016happy}.
+
+
+
+\subsection{Attention-MoE and Memory}
+Characterizes memory access patterns of CPU-based LLM inference using Qwen 2.5-0.5B and Llama.cpp. The methodology collects memory traces and evaluates cache prefetchers and replacement policies using ChampSim. The analysis examines memory access frequencies and stride patterns during inference, focusing on the decoding phase. Results show that Bingo achieves the lowest L1 data-cache miss rate (3.176\%), while DRRIP reduces the last-level cache (LLC) miss rate from 0.065\% to 0.018\% \cite{banasik2025memoryaccesscharacterizationlarge}. This work is done for cache and not specific to DRAM, this is one of the few papers that we found related to this problem statement.
+
+\subsection{Gap Identification}
+
+Existing works have explored different approaches to DRAM address mapping, address interleaving, and row-buffer management. The bit-reversal mapping \cite{shao2005bit} and XOR-based mapping schemes \cite{rotaru2026mathematical} investigate improving memory performance through better address distribution, while HAPPY \cite{ghasempour2016happy} focuses on reducing the hardware overhead of hybrid page-closure prediction. However, these works do not, by themselves, establish how such techniques perform for the specific Transformer attention and MoE access patterns considered in this project.
+
+The work by Banasik \cite{banasik2025memoryaccesscharacterizationlarge} characterizes memory accesses during LLM inference, but focuses on CPU cache behavior rather than DRAM row-buffer performance. Based on the literature surveyed so far, there is scope to investigate the DRAM row-buffer behavior of Transformer attention and MoE workloads and evaluate existing address-mapping techniques for these access patterns.
+
+\subsection{Proposed Novelty and Scope for Improvement}
+
+We propose to characterize the memory access patterns of representative Transformer attention and MoE workloads using trace-driven simulation. We intend to investigate generating memory traces from small LLM and MoE workloads using gem5 or a suitable tracing setup and analyze them using a DRAM simulator such as Ramulator or DRAMSim.
+
+Using these traces, we plan to evaluate existing address-mapping and row-buffer policies based on metrics such as row-buffer hit rate, memory access latency, and throughput. Based on the observed behavior, we will explore a workload-aware address-mapping or row-buffer management policy suited to these access patterns. The proposed approach will be compared against baseline configurations to determine whether it improves DRAM performance and under what conditions the improvements are observed.
+\subsection{Possible Direction}
+
+We feel that we should use gem5 to run a small llm and a moe model to get the traces to be plugged into one of the tools (ramulator/dramsim).
+
+
+\begin{thebibliography}{99}
+
+\bibitem{shao2005bit}
+J. Shao and B. T. Davis,
+``The bit-reversal SDRAM address mapping,''
+in \textit{Proceedings of the 2005 Workshop on Software and Compilers
+for Embedded Systems (SCOPES '05)}, pp. 62--71.
+ACM, New York, NY, USA, 2005.
+doi: 10.1145/1140389.1140396.
+
+\bibitem{rotaru2026mathematical}
+A. Rotaru, O. Bachtler, L. Steiner, M. Jung, S. O. Krumke, and N. Wehn,
+``A Mathematical Model for XOR-Based Application Specific DRAM Address Mapping Schemes,``
+in \textit{Proceedings of the International Symposium on Memory Systems (MemSys '25)},
+pp. 105--120, ACM, New York, NY, USA, 2026.
+doi: 10.1145/3767110.3767117.
+
+\bibitem{yuan2026hsraipermutationpreservingaddressinterleaving}
+X. Yuan,
+``HSRAI: Permutation-Preserving Address Interleaving with Hierarchical Balance Metrics,''
+arXiv preprint arXiv:2608.00016, 2026.
+Available: \url{https://arxiv.org/abs/2608.00016}.
+
+\bibitem{ghasempour2016happy}
+M. Ghasempour, A. Jaleel, J. D. Garside, and M. Luján,
+``HAPPY: Hybrid Address-based Page Policy in DRAMs,''
+in \textit{Proceedings of the Second International Symposium on Memory Systems (MEMSYS '16)},
+pp. 311--321, ACM, New York, NY, USA, 2016.
+doi: 10.1145/2989081.2989101.
+
+\bibitem{banasik2025memoryaccesscharacterizationlarge}
+S. Banasik,
+``Memory Access Characterization of Large Language Models in CPU Environment and its Potential Impacts,''
+arXiv preprint arXiv:2506.01827, 2025.
+Available: \url{https://arxiv.org/abs/2506.01827}.
+
+\end{thebibliography}
+
+\end{document}

@@ -1,0 +1,18 @@
+==========================================
+SLURM_JOB_ID = 114832
+SLURM_NODELIST = node06
+SLURM_JOB_GPUS = 
+==========================================
+=== DRAMsim3
+-- Build files have been written to: /home/adityaseshasai.s/amcas-pro/tracing/DRAMsim3/build
+[100%] Built target dramsim3main
+dramsim3epoch.json
+dramsim3.json
+dramsim3.txt
+Traceback (most recent call last):
+  File "<stdin>", line 4, in <module>
+AttributeError: 'list' object has no attribute 'items'
+=== Ramulator2
+-- Build files have been written to: /home/adityaseshasai.s/amcas-pro/tracing/ramulator2/build
+[100%] Linking CXX shared module /home/adityaseshasai.s/amcas-pro/tracing/ramulator2/python/ramulator/_ramulator_test.cpython-312-x86_64-lin
+[100%] Built target _ramulator_test

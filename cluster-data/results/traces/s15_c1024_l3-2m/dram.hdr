@@ -1,0 +1,14 @@
+tick_freq	1000000000000
+requestor	0	writebacks
+requestor	1	functional
+requestor	2	interrupt
+requestor	3	cpu.mmu.dtb.walker
+requestor	4	cpu.mmu.itb.walker
+requestor	5	cpu.inst
+requestor	6	cpu.data
+requestor	7	detailed.mmu.dtb.walker
+requestor	8	detailed.mmu.itb.walker
+requestor	9	detailed.inst
+requestor	10	detailed.data
+requestor	11	l2cache.prefetcher
+records	3832613

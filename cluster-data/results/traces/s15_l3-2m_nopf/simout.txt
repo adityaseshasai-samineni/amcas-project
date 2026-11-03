@@ -1,0 +1,17 @@
+Global frequency set at 1000000000000 ticks per second
+Redirecting stdout to /home/adityaseshasai.s/amcas-pro/results/traces/s15_l3-2m_nopf/simout.txt
+Redirecting stderr to /home/adityaseshasai.s/amcas-pro/results/traces/s15_l3-2m_nopf/simerr.txt
+gem5 Simulator System.  https://www.gem5.org
+gem5 is copyrighted software; use the --copyright option for details.
+
+gem5 version 26.0.0.0
+gem5 compiled Nov  2 2026 15:13:32
+gem5 started Nov  2 2026 15:59:33
+gem5 executing on node06.local, pid 2818629
+command line: /home/adityaseshasai.s/amcas-pro/tracing/gem5/build/X86/gem5.opt --outdir=/home/adityaseshasai.s/amcas-pro/results/traces/s15_l3-2m_nopf --redirect-stdout --redirect-stderr /home/adityaseshasai.s/amcas-pro/configs/llm_trace.py --cmd '/home/adityaseshasai.s/amcas-pro/tracing/llama.cpp/build-gem5/bin/llama-completion -m /home/adityaseshasai.s/amcas-pro/tracing/models/stories15M.gguf -t 1 -c 512 -b 512 -p '"'"'Once upon a time there was a little girl named Lily. She loved to play outside in the sunshine with her friends.'"'"' -n 9 --ignore-eos -no-cnv -lm none --no-warmup --temp 0 --seed 1' --cwd /home/adityaseshasai.s/amcas-pro/results/traces/s15_l3-2m_nopf --l3 2MiB --l3-assoc 16 --prefetch none
+
+info: Standard input is not a terminal, disabling listeners.
+ Once upon a time there was a little girl named Lily. She loved to play outside in the sunshine with her friends.switching cpus
+ One day, Lily and her friends decided
+
+Exiting @ tick 869208752169 because exiting with last active thread context (code 0)

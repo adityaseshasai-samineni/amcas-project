@@ -1,0 +1,42 @@
+==========================================
+SLURM_JOB_ID = 113979
+SLURM_NODELIST = node06
+SLURM_JOB_GPUS = 
+==========================================
+total 1951280
+drwxrwxr-x 2 adityaseshasai.s adityaseshasai.s       4096 Oct 31 21:54 .
+drwxrwxr-x 4 adityaseshasai.s adityaseshasai.s       4096 Oct 31 21:50 ..
+-rw-rw-r-- 1 adityaseshasai.s adityaseshasai.s   19077344 Oct 31 21:50 stories15M.gguf
+-rw-rw-r-- 1 adityaseshasai.s adityaseshasai.s 1979016640 Oct 31 22:00 tinymoe4.gguf
+### stories15M n=1
+0.00.263.636 I common_perf_print:        load time =     186.33 ms
+0.00.263.638 I common_perf_print: prompt eval time =       2.07 ms /     5 tokens (    0.41 ms per token,  2417.79 tokens per second)
+0.00.263.639 I common_perf_print:        eval time =       0.00 ms /     1 runs   (    0.00 ms per token,      inf tokens per second)
+474219077,,instructions:u,70142640,100.00,2.43,insn per cycle
+194761862,,cycles:u,70142640,100.00,,
+293294,,cache-misses:u,70142640,100.00,16.676,of all cache refs
+1758730,,cache-references:u,70142640,100.00,,
+### stories15M n=9
+0.00.080.290 I common_perf_print:        load time =      26.22 ms
+0.00.080.292 I common_perf_print: prompt eval time =       2.00 ms /     5 tokens (    0.40 ms per token,  2493.77 tokens per second)
+0.00.080.293 I common_perf_print:        eval time =       8.00 ms /     8 runs   (    1.00 ms per token,   999.88 tokens per second)
+556242493,,instructions:u,73464901,100.00,2.49,insn per cycle
+222988773,,cycles:u,73464901,100.00,,
+460196,,cache-misses:u,73464901,100.00,12.613,of all cache refs
+3648478,,cache-references:u,73464901,100.00,,
+### tinymoe4 n=1
+0.01.210.652 I common_perf_print:        load time =     738.95 ms
+0.01.210.654 I common_perf_print: prompt eval time =     422.20 ms /     5 tokens (   84.44 ms per token,    11.84 tokens per second)
+0.01.210.655 I common_perf_print:        eval time =       0.00 ms /     1 runs   (    0.00 ms per token,      inf tokens per second)
+6844929014,,instructions:u,1206377851,100.00,2.73,insn per cycle
+2504580181,,cycles:u,1206377851,100.00,,
+19194899,,cache-misses:u,1206377851,100.00,28.667,of all cache refs
+66958093,,cache-references:u,1206377851,100.00,,
+### tinymoe4 n=9
+0.02.410.617 I common_perf_print:        load time =     795.98 ms
+0.02.410.619 I common_perf_print: prompt eval time =     421.53 ms /     5 tokens (   84.31 ms per token,    11.86 tokens per second)
+0.02.410.620 I common_perf_print:        eval time =    1155.25 ms /     8 runs   (  144.41 ms per token,     6.92 tokens per second)
+14843506296,,instructions:u,2418990402,100.00,2.25,insn per cycle
+6605533043,,cycles:u,2418990402,100.00,,
+81178353,,cache-misses:u,2418990402,100.00,26.272,of all cache refs
+308993612,,cache-references:u,2418990402,100.00,,

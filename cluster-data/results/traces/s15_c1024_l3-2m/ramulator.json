@@ -1,0 +1,74 @@
+[
+ {
+  "mapper": "RoBaRaCoCh",
+  "policy": "Open",
+  "reads": 1351044,
+  "writes": 54465,
+  "cycles": 7969041,
+  "row_hits": 1344834,
+  "row_misses": 20904,
+  "row_conflicts": 39680,
+  "hit_rate": 0.9568925401553132,
+  "avg_read_latency": 210.627319
+ },
+ {
+  "mapper": "RoBaRaCoCh",
+  "policy": "ClosedCAP",
+  "reads": 1351044,
+  "writes": 54465,
+  "cycles": 11592690,
+  "row_hits": 1093200,
+  "row_misses": 285777,
+  "row_conflicts": 26440,
+  "hit_rate": 0.7778474289125576,
+  "avg_read_latency": 299.265991
+ },
+ {
+  "mapper": "MOP4CLXOR",
+  "policy": "Open",
+  "reads": 1351044,
+  "writes": 54465,
+  "cycles": 6046913,
+  "row_hits": 925332,
+  "row_misses": 96178,
+  "row_conflicts": 383918,
+  "hit_rate": 0.6583987226666894,
+  "avg_read_latency": 184.18045
+ },
+ {
+  "mapper": "MOP4CLXOR",
+  "policy": "ClosedCAP",
+  "reads": 1351044,
+  "writes": 54465,
+  "cycles": 6036406,
+  "row_hits": 754295,
+  "row_misses": 297224,
+  "row_conflicts": 353902,
+  "hit_rate": 0.5367039484965714,
+  "avg_read_latency": 196.104523
+ },
+ {
+  "mapper": "ChRaBaRoCo",
+  "policy": "Open",
+  "reads": 1351044,
+  "writes": 54465,
+  "cycles": 11690898,
+  "row_hits": 1342065,
+  "row_misses": 1155,
+  "row_conflicts": 62199,
+  "hit_rate": 0.9549216283542488,
+  "avg_read_latency": 297.508606
+ },
+ {
+  "mapper": "ChRaBaRoCo",
+  "policy": "ClosedCAP",
+  "reads": 1351044,
+  "writes": 54465,
+  "cycles": 21180937,
+  "row_hits": 1091052,
+  "row_misses": 267315,
+  "row_conflicts": 47051,
+  "hit_rate": 0.7763185045303248,
+  "avg_read_latency": 525.213867
+ }
+]

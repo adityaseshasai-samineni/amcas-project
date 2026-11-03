@@ -1,0 +1,15 @@
+
+# Android
+
+## Build GUI binding using Android Studio
+
+Import the `examples/llama.android` directory into Android Studio, then perform a Gradle sync and build the project.
+![Project imported into Android Studio](./android/imported-into-android-studio.jpg)
+
+This Android binding supports hardware acceleration up to `SME2` for **Arm** and `AMX` for **x86-64** CPUs on Android and ChromeOS devices.
+It automatically detects the host's hardware to load compatible kernels. As a result, it runs seamlessly on both the latest premium devices and older devices that may lack modern CPU features or have limited RAM, without requiring any manual configuration.
+
+A minimal Android app frontend is included to showcase the binding’s core functionalities:
+1.	**Parse GGUF metadata** via `GgufMetadataReader` from either a `ContentResolver` provided `Uri` from shared storage, or a local `File` from your app's private storage.
+2.	**Obtain a `InferenceEngine`** instance through the `AiChat` facade and load your selected model via its app-private file path.
+3.	**Send a raw user prompt** for automatic template formatting, prefill, and batch decoding. Then 
