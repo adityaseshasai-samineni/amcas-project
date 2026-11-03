@@ -55,3 +55,5 @@ src/sim/mem_state.cc:443: info: Increasing stack size by one page.
 0.00.415.241 I sampler chain: logits -> logit-bias -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> min-p -> ?xtc -> temp-ext -> greedy 
 0.00.415.246 I generate: n_ctx = 256, n_batch = 512, n_predict = 9, n_keep = 1
 0.00.415.249 I 
+src/sim/power_state.cc:118: warn: PowerState: More than one power state change request encountered within the same simulation tick
+src/sim/power_state.cc:105: warn: PowerState: Already in the requested power state, request ignored

@@ -1,0 +1,34 @@
+==========================================
+SLURM_JOB_ID = 115476
+SLURM_NODELIST = node01
+SLURM_JOB_GPUS = 
+==========================================
+-- Generating done (1.4s)
+-- Build files have been written to: /home/adityaseshasai.s/amcas-pro/tracing/llama.cpp/build-fast
+[100%] Linking CXX executable ../../bin/llama-batched-bench
+[100%] Built target llama-batched-bench
+libggml-base.so
+libggml-base.so.0
+libggml-base.so.0.28.0
+libggml-cpu.so
+libggml-cpu.so.0
+libggml-cpu.so.0.28.0
+libggml.so
+libggml.so.0
+libggml.so.0.28.0
+libllama-batched-bench-impl.so
+libllama-bench-impl.so
+libllama-common.so
+libllama-common.so.0
+libllama-common.so.0.8.0
+libllama-completion-impl.so
+libllama.so
+libllama.so.0
+libllama.so.0.8.0
+llama-batched-bench
+llama-bench
+llama-completion
+0.00.106.735 I system_info: n_threads = 8 (n_threads_batch = 8) / 64 | CPU : SSE3 = 1 | SSSE3 = 1 | AVX = 1 | AVX2 = 1 | F16C = 1 | FMA = 1 | BMI2 = 1 | AVX512 = 1 | AVX512_VNNI = 1 | LLAMAFILE = 1 | 
+0.00.111.841 I common_perf_print: prompt eval time =       0.97 ms /     5 tokens (    0.20 ms per token,  5128.21 tokens per second)
+0.00.111.843 I common_perf_print:        eval time =       2.86 ms /     7 runs   (    0.41 ms per token,  2444.13 tokens per second)
+publish: no token at /home/adityaseshasai.s/.config/amcas/gh_token; results stay on the cluster
