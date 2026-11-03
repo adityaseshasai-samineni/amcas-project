@@ -286,7 +286,12 @@ nmcli connection modify iiit ipv4.never-default no ipv6.never-default no ipv4.ro
 
 ## Where things are
 
-**Backup:** private GitHub repo `adityaseshasai-samineni/amcas-project` holds the code, this file, logs and small results (`cluster-data/`). Raw `dram.trc.gz` traces are only in local `cluster-data/` and on the cluster, ignored by git. Not copied: `tracing/` (rebuildable), `dram.bin` and exports (regenerated from the traces).
+**Backup:** private GitHub repo `adityaseshasai-samineni/amcas-project` holds the code, this file, logs and small results (`cluster-data/`). Raw traces are in release `traces-2026-11-03`, one `<run>.dram.trc.gz` per finished run plus `SHA256SUMS`; `moe_l3-22m_stride` is not included because it was still running. They were uploaded from the cluster by `scripts/09_upload_traces.sh`, which reads a repo-scoped token from stdin. Git ignores `*.trc.gz`. Not backed up: `tracing/` (rebuildable), `dram.bin` and exports (regenerated from the traces).
+
+```bash
+gh release download traces-2026-11-03 -R adityaseshasai-samineni/amcas-project -D cluster-data/release
+cd cluster-data/release && sha256sum -c SHA256SUMS
+```
 
 **Local:** `trace-pipeline/`
 
@@ -297,6 +302,7 @@ nmcli connection modify iiit ipv4.never-default no ipv6.never-default no ipv4.ro
 | `tools/pkt2bin.c` | trace decoder |
 | `tools/analyze.py` | validation, attribution, offline mappings, export |
 | `tools/ramulator_replay.py` | Ramulator 2.1 replay over mappers and row policies |
+| `scripts/09_upload_traces.sh` | upload raw traces from the cluster to a GitHub release |
 | `scripts/01`–`08` | environment build, llama build, native baseline, capture (`SESSION=` restores a prompt), `gem5.fast`, DRAM simulators, prompt-cache test, long-context sessions and native cost |
 
 **Cluster:** `~/amcas-pro/`
