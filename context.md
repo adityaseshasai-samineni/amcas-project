@@ -1,6 +1,6 @@
 # AMCAS project context
 
-Last updated: 2026-11-02, about 19:20 IST. Authors: Aditya Samineni, Prasanna N R.
+Last updated: 2026-11-03, about 08:30 IST. Authors: Aditya Samineni, Prasanna N R.
 
 ## Problem statement
 
@@ -61,19 +61,22 @@ Scripts: `01_env_and_gem5.sh`, `02_build_llama.sh`, `05_build_fast.sh`. Patches:
 - Three stories15M traces captured and validated.
 - Exported to DRAMsim3 and Ramulator text formats. Both simulators replay the `s15_l3-2m_stride` export with every request accounted for (114852).
 - Prompt restore works inside gem5 (114833): a session saved natively gives text identical to native on stories15M.
+- Long-context stories15M traces (1024 and 4096 tokens) captured, validated and replayed in both DRAM simulators.
+- Qwen at short context and at 1024 tokens, and MoE at 1024 tokens, captured and validated (2 detailed tokens each).
+- **Found:** `tinymoe4` has only 2 experts and routes to both on every token, so it has no routing sparsity. A real MoE model is needed.
 
 ### Cluster jobs: last known state
 
-Jobs keep running without the VPN, and the state below may be out of date. Native run 114857 and the long-context captures were submitted at about 19:15 IST.
+Jobs keep running without the VPN, and the state below may be out of date. Last checked 2026-11-03 at about 08:10 IST.
 
 | Job | Last known state |
 |---|---|
-| `qwen_l3-22m_stride` (114797) | fast-forwarding the prompt; detailed for 2 tokens afterwards |
-| `moe_l3-22m_stride` (114798) | fast-forwarding the prompt; detailed for 2 tokens afterwards |
+| `qwen_l3-22m_stride` (114797) | completed in 14h 49m and validated |
+| `moe_l3-22m_stride` (114798) | still fast-forwarding the prompt at 08:06 on 2026-11-03, after 15.5 hours |
 | `long-ctx-native` (114857) | completed; sessions for all three models are in `results/sessions/` |
 | `s15_c1024_l3-2m` (114858) | completed and validated |
 | `s15_c4096_l3-2m` (114859), `s15_c4096_l3-22m` (114860) | completed and validated |
-| `qwen_c1024_l3-22m`, `moe_c1024_l3-22m` | submitted about 20:10 IST; restored prompt, 2 detailed tokens; estimated 10 and 15 hours |
+| `qwen_c1024_l3-22m` (114897), `moe_c1024_l3-22m` (114898) | completed in 6h 58m and 11h 25m, and validated |
 
 Check with:
 
@@ -84,7 +87,9 @@ cat ~/amcas-pro/logs/longctx_114857.log
 tail ~/amcas-pro/results/traces/{qwen,moe}_l3-22m_stride/phases.tsv
 ```
 
-## Results so far (stories15M only)
+## Results
+
+### stories15M
 
 Run: 28-token prompt plus 8 generated tokens, one DDR4-2400 channel.
 
@@ -206,6 +211,33 @@ All runs finished the trace with every request accounted for. Short context is `
 - Row-interleaved close page is poor for this workload in every run. At 4096 tokens, close page with line interleaving (51.7) slightly beats open page with line interleaving (54.4), but not open page with row interleaving (37.4).
 - These stories15M traces do not yet show a mapping that beats `rochrababgco` at real load. MOP4CLXOR has not been replayed with trace timing, because Ramulator's frontend has no timestamps.
 
+### Qwen 0.5B and tinymoe4
+
+All with a 22 MiB LLC, stride prefetcher, 2 detailed tokens.
+
+**Validation:** in all three runs the gem5 text is a prefix of the native text (gem5 stops after 2 tokens), and trace counts equal gem5's counters in every detailed phase. Instructions per token match native: Qwen at 1024 tokens 3,799M against 3,801M, MoE 6,353M against 6,353M.
+
+| Measure | Qwen, short | Qwen, 1024 | MoE, 1024 |
+|---|---|---|---|
+| Run | `qwen_l3-22m_stride` | `qwen_c1024_l3-22m` | `moe_c1024_l3-22m` |
+| Minsts per token | 2,831 | 3,799 | 6,353 |
+| DRAM reads per token | about 5.43M | about 5.63M | about 30.3M |
+| MPKI | 1.94 | 1.50 | 4.79 |
+| gem5 row-hit rate | 0.923 | 0.921 | 0.933 |
+| KV share of reads | 0.1% | 3.5% | 1.2% |
+| Weights share of reads | 99.0% | 95.6% | 15.0% dense + 83.3% experts |
+| Footprint (MiB) | weights 330, KV 0.3 | weights 330, KV 12.1 | experts 1,543, dense 278, KV 22.1 |
+| +1-line strides | 41% | 41% | 94% |
+| Offline RoRaBaCoCh, first-touch | 0.983 | 0.983 | 0.988 |
+| Offline RoCoRaBaCh, first-touch | 0.964 | 0.937 | 0.974 |
+| Offline XOR-bank, first-touch | 0.989 | 0.989 | 0.990 |
+
+- **Weights dominate real models.** On Qwen, KV is only 3.5% of reads at 1024 tokens, against 32.9% on stories15M at the same context. Qwen streams its 330 MiB of weights every token, while its KV stays small (12 MiB at 1024 tokens). The large KV shares on stories15M come from its tiny 12.6 MiB of weights, and do not carry over. KV becomes significant on Qwen only at much longer contexts or batch sizes, which is not yet measured.
+- **`tinymoe4` is not a useful MoE workload.** Its router outputs 2 logits per token and top-k keeps 2 (`ffn_moe_logits` and `ffn_moe_topk` are 8 bytes per token; `ffn_gate_inp` is 2048 x 2). Both experts run every token, so it reads almost the whole 1.98 GB model per token, with 94% +1-line strides and no routing irregularity. The expert-routing part of the study needs a model with many experts and a small top-k. Candidates to check for size and llama.cpp support: OLMoE-1B-7B (64 experts, top-8), granite-3.0-1b-a400m (32 experts, top-8), Qwen1.5-MoE-A2.7B (60 experts, top-4).
+- **Row-buffer locality is already high** on all three, at 0.92–0.93 in gem5 and 0.98–0.99 offline, because the traffic is mostly sequential weight scans. The room for a better mapping on these workloads looks small. Bank parallelism and ACT energy are more promising angles than hit rate.
+- **Restored prompts save most of the run:** `qwen_l3-22m_stride` spent about 14 hours fast-forwarding a 24-token prompt (about 58G instructions). The restored 1024-token run finished in under 7 hours.
+- DRAM simulator replay of these traces is not done yet. Their exports have 11.0M (Qwen short), 11.4M (Qwen 1024) and 60.9M (MoE) requests.
+
 **Native cost per generated token with a restored prompt** (`(insts[n=5] - insts[n=1]) / 4`)
 
 | Model | Prompt tokens | Minsts/token | Session size |
@@ -226,17 +258,19 @@ O3 ran at about 0.26 MIPS in the prompt-cache test, so a Qwen token takes roughl
 - **SE-mode page placement:** first-touch and contiguous, not a real Linux allocator. Syscalls and kernel work are invisible; weights are loaded by emulated `read()`.
 - **One core, one thread, one channel.** Multi-thread interleaving is not captured.
 - **Stride prefetcher** is an approximation of real hardware prefetchers.
-- **Short contexts** so far under-represent KV traffic.
+- **Short contexts** under-represent KV traffic. Even at 1024 tokens, KV is small on Qwen, and longer contexts are not yet captured for real models.
+- **`tinymoe4` has 2 experts, both used every token**, so no trace yet has MoE routing behaviour.
 - **Trace timing** reflects gem5's DDR4 model, so replay in another DRAM configuration is not closed-loop.
 
 ## Next steps
 
-1. Find a way to test hashed mappings such as MOP4CLXOR at the trace's real timing: a timed Ramulator frontend, or a hashed mapping added to DRAMsim3.
-2. Re-run `tools/analyze.py` on any earlier `--detail-from 1` run before replaying it. `s15_c1024_l3-2m` is already done.
-3. Collect the Qwen and MoE traces, then run validation and `tools/analyze.py`. Confirm MoE expert weights are labelled correctly.
-4. Run `scripts/06_dram_sims.sh RUN` on each trace. Its cycle budget is now twice the trace length; drop any DRAMsim3 run that still does not finish.
-5. Propose a policy using latency, completion time and ACT count as well as hit rate.
-6. If placement turns out to matter, use full-system gem5 with KVM (`/dev/kvm` is usable on the nodes checked).
+1. **Get a real MoE model** with many experts and a small top-k, check llama.cpp support and native cost, and capture it with a restored prompt. Without this, the MoE part of the study has no data.
+2. Decide whether to keep `moe_l3-22m_stride` (114798). It uses the same 2-expert model, so it adds little beyond a short-context comparison.
+3. Run `scripts/06_dram_sims.sh RUN` on the Qwen and MoE traces. They are 8 to 40 times larger than the stories15M traces, so check run time and memory first.
+4. Measure Qwen at longer context (4096 or more) to see when KV traffic becomes significant on a real model.
+5. Find a way to test hashed mappings such as MOP4CLXOR at the trace's real timing: a timed Ramulator frontend, or a hashed mapping added to DRAMsim3.
+6. Propose a policy using latency, completion time and ACT count as well as hit rate. On weight-dominated traffic, bank parallelism and ACT energy look more promising than hit rate.
+7. If placement turns out to matter, use full-system gem5 with KVM (`/dev/kvm` is usable on the nodes checked).
 
 ## Environment
 
@@ -285,5 +319,5 @@ sbatch --export=ALL,GEM5=gem5.fast -J NAME -o logs/trace/NAME_%j.log scripts/04_
 ## Earlier cluster work
 
 - NVBit GPU trace of `vectoradd` (`traces/vectoradd_memtrace.log`): not DRAM traffic.
-- Models in `tracing/models/`: `stories15M`, `qwen25-05b-q4_0`, `tinymoe4`.
+- Models in `tracing/models/`: `stories15M`, `qwen25-05b-q4_0`, `tinymoe4` (2 experts, top-2, 1.98 GB).
 - `gem5-deps.sif` and `build.sh` are obsolete, because containers cannot run.

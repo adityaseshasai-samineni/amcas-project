@@ -1,0 +1,28 @@
+==========================================
+SLURM_JOB_ID = 115296
+SLURM_NODELIST = node06
+SLURM_JOB_GPUS = 
+==========================================
+records 93,934,282  phases 2  stat dumps 3
+cmd histogram: {7: 159719, 26: 8391, 29: 60682696}
+
+ ph    Minsts      reads       stat    writes      stat   MPKI  rowhit
+  1    6353.0 30,333,556 30,333,556    84,952    84,952   4.79   0.933
+  2    6355.0 30,335,628 30,335,628    74,766    74,766   4.79   0.933
+
+region            reads%   writes%  footprint_MiB
+kv_cache            1.2      0.4         22.1
+weights.experts    83.3      0.0       1542.8
+weights            15.0      0.0        277.5
+activation          0.3     75.1          0.2
+unattributed        0.3     24.4
+
+stride distribution: {'+1 line': 0.939, '-1 line': 0.0, 'within 16 lines': 0.047, 'within 8 KiB row': 0.001, 'beyond': 0.014}
+
+offline in-order open-page row hit rate (DDR4 8 KiB row, 2 ranks x 16 banks)
+placement              RoRaBaCoCh   RoCoRaBaCh     XOR-bank
+SE first-touch              0.988        0.974        0.990
+THP 2MiB shuffled           0.988        0.974        0.990
+4KiB shuffled               0.982        0.489        0.982
+
+wrote results/traces/moe_c1024_l3-22m/dram.dramsim3.trc and dram.ramulator.trc (60,850,806 requests)
