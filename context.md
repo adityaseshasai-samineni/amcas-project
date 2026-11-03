@@ -258,19 +258,24 @@ O3 ran at about 0.26 MIPS in the prompt-cache test, so a Qwen token takes roughl
 - **SE-mode page placement:** first-touch and contiguous, not a real Linux allocator. Syscalls and kernel work are invisible; weights are loaded by emulated `read()`.
 - **One core, one thread, one channel.** Multi-thread interleaving is not captured.
 - **Stride prefetcher** is an approximation of real hardware prefetchers.
+- **Bandwidth regime:** replayed traces use only 1–1.8% of one DDR4 channel, so mapping effects at real timing are understated (`ANALYSIS.md`, F5).
 - **Short contexts** under-represent KV traffic. Even at 1024 tokens, KV is small on Qwen, and longer contexts are not yet captured for real models.
 - **`tinymoe4` has 2 experts, both used every token**, so no trace yet has MoE routing behaviour.
 - **Trace timing** reflects gem5's DDR4 model, so replay in another DRAM configuration is not closed-loop.
 
 ## Next steps
 
-1. **Get a real MoE model** with many experts and a small top-k, check llama.cpp support and native cost, and capture it with a restored prompt. Without this, the MoE part of the study has no data.
-2. Decide whether to keep `moe_l3-22m_stride` (114798). It uses the same 2-expert model, so it adds little beyond a short-context comparison.
-3. Run `scripts/06_dram_sims.sh RUN` on the Qwen and MoE traces. They are 8 to 40 times larger than the stories15M traces, so check run time and memory first.
-4. Measure Qwen at longer context (4096 or more) to see when KV traffic becomes significant on a real model.
-5. Find a way to test hashed mappings such as MOP4CLXOR at the trace's real timing: a timed Ramulator frontend, or a hashed mapping added to DRAMsim3.
-6. Propose a policy using latency, completion time and ACT count as well as hit rate. On weight-dominated traffic, bank parallelism and ACT energy look more promising than hit rate.
-7. If placement turns out to matter, use full-system gem5 with KVM (`/dev/kvm` is usable on the nodes checked).
+The complete analysis of all experiments so far is in `ANALYSIS.md`, with generated tables and figures in `analysis/` (`tools/report.py`). The direction is now a full-scale study of application-grade models (Qwen2.5-7B dense, a Qwen MoE with real routing), aimed at publication. The plan and its reasoning are in `ANALYSIS.md`, section "Plan for the full-scale study". In order:
+
+1. Choose the MoE model (Qwen3-30B-A3B or Qwen1.5-MoE-A2.7B); check llama.cpp support, memory and native speed on the cluster.
+2. Confirm DynamoRIO `drmemtrace` works on the cluster CPUs with an AVX2 multi-threaded llama.cpp build.
+3. Build the trace route: cache-model filter, physical placement model, closed-loop Ramulator CPU-trace replay. Validate it against the gem5 Qwen2.5-0.5B trace.
+4. Capture full-scale scenarios: contexts 1k, 8k and 32k; batch 1, 4 and 16; prefill separately; 8-channel DDR5-4800 as the primary memory system.
+5. Characterize the baselines, including an application-specific XOR mapping in the style of Rotaru et al.
+6. Implement and evaluate a region-aware mapping and page policy.
+7. Search 2023–2026 related work before claiming novelty.
+
+Housekeeping: cancel `moe_l3-22m_stride` (114798); revoke the trace-upload token.
 
 ## Environment
 
