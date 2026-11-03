@@ -23,3 +23,11 @@ rocorababgch   OPEN_PAGE     60691088   159719  0.888    38.7   6811431
 [Ramulator::LoadStoreTrace] [[32minfo[0m] Loaded 60850806 lines.
 [Ramulator::LoadStoreTrace] [[32minfo[0m] Loaded 60850806 lines.
 [Ramulator::LoadStoreTrace] [[32minfo[0m] Loaded 60850806 lines.
+mapper      policy          reads   writes    hit  conflict  rd_lat  Mcycles
+RoBaRaCoCh  Open         60691087   159719  0.989     0.001   222.6    383.9
+RoBaRaCoCh  ClosedCAP    60691087   159719  0.794     0.001   353.8    626.7
+MOP4CLXOR   Open         60691087   159719  0.934     0.041   161.1    258.5
+MOP4CLXOR   ClosedCAP    60691087   159719  0.730     0.020   181.9    258.3
+ChRaBaRoCo  Open         60691087   159719  0.989     0.010   234.1    405.7
+ChRaBaRoCo  ClosedCAP    60691087   159719  0.795     0.009   466.2    839.9
+ramulator exit=0

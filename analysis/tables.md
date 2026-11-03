@@ -130,6 +130,12 @@ Latency in DRAM cycles (tCK 0.83 ns). Energy from DRAMsim3's model, in its units
 | `qwen_c1024_l3-22m` | MOP4CLXOR | ClosedCAP | 0.708 | 0.046 | 183.2 | 48.6 | 0.67 |
 | `qwen_c1024_l3-22m` | ChRaBaRoCo | Open | 0.987 | 0.012 | 240.3 | 77.8 | 1.07 |
 | `qwen_c1024_l3-22m` | ChRaBaRoCo | ClosedCAP | 0.794 | 0.011 | 474.6 | 159.5 | 2.20 |
+| `moe_c1024_l3-22m` | RoBaRaCoCh | Open | 0.989 | 0.001 | 222.6 | 383.9 | 1.00 |
+| `moe_c1024_l3-22m` | RoBaRaCoCh | ClosedCAP | 0.794 | 0.001 | 353.8 | 626.7 | 1.63 |
+| `moe_c1024_l3-22m` | MOP4CLXOR | Open | 0.934 | 0.041 | 161.1 | 258.5 | 0.67 |
+| `moe_c1024_l3-22m` | MOP4CLXOR | ClosedCAP | 0.730 | 0.020 | 181.9 | 258.3 | 0.67 |
+| `moe_c1024_l3-22m` | ChRaBaRoCo | Open | 0.989 | 0.010 | 234.1 | 405.7 | 1.06 |
+| `moe_c1024_l3-22m` | ChRaBaRoCo | ClosedCAP | 0.795 | 0.009 | 466.2 | 839.9 | 2.19 |
 | `moe_l3-22m_stride` | RoBaRaCoCh | Open | 0.990 | 0.001 | 222.6 | 379.4 | 1.00 |
 | `moe_l3-22m_stride` | RoBaRaCoCh | ClosedCAP | 0.795 | 0.000 | 355.1 | 621.9 | 1.64 |
 | `moe_l3-22m_stride` | MOP4CLXOR | Open | 0.941 | 0.035 | 160.7 | 255.4 | 0.67 |
