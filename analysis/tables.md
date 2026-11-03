@@ -77,6 +77,13 @@ Latency in DRAM cycles (tCK 0.83 ns). Energy from DRAMsim3's model, in its units
 | `qwen_l3-22m_stride` | `rochrababgco` | open | yes | 0.971 | 44.7 | 320,095 | 121 | 288,871 | 0.24 | 1.2% |
 | `qwen_l3-22m_stride` | `rocorababgch` | close | yes | 0.000 | 56.0 | 11,061,099 | 4,166 | 280,571 | 0.24 | 1.2% |
 | `qwen_l3-22m_stride` | `rocorababgch` | open | yes | 0.572 | 45.2 | 4,735,360 | 1,783 | 300,398 | 0.24 | 1.2% |
+| `qwen_c1024_l3-22m` | `rochrababgco` | close | yes | 0.000 | 898.2 | 11,443,327 | 4,165 | 351,046 | 0.19 | 1.0% |
+| `qwen_c1024_l3-22m` | `rochrababgco` | open | yes | 0.968 | 44.4 | 360,191 | 131 | 360,176 | 0.19 | 1.0% |
+| `qwen_c1024_l3-22m` | `rocorababgch` | close | yes | 0.000 | 55.8 | 11,445,733 | 4,166 | 350,743 | 0.19 | 1.0% |
+| `qwen_c1024_l3-22m` | `rocorababgch` | open | yes | 0.553 | 45.7 | 5,111,470 | 1,860 | 371,752 | 0.19 | 1.0% |
+| `moe_l3-22m_stride` | `rochrababgco` | open | yes | 0.988 | 40.8 | 739,435 | 51 | 49,329 | 1.48 | 7.7% |
+| `moe_l3-22m_stride` | `rocorababgch` | close | yes | 0.000 | 54.4 | 60,238,070 | 4,164 | 52,262 | 1.48 | 7.7% |
+| `moe_l3-22m_stride` | `rocorababgch` | open | yes | 0.897 | 38.5 | 6,219,307 | 430 | 51,424 | 1.48 | 7.7% |
 
 ## Ramulator 2.1, saturated (no timestamps)
 
@@ -112,3 +119,9 @@ Latency in DRAM cycles (tCK 0.83 ns). Energy from DRAMsim3's model, in its units
 | `qwen_l3-22m_stride` | MOP4CLXOR | ClosedCAP | 0.720 | 0.031 | 182.8 | 46.9 | 0.67 |
 | `qwen_l3-22m_stride` | ChRaBaRoCo | Open | 0.988 | 0.011 | 238.8 | 74.6 | 1.07 |
 | `qwen_l3-22m_stride` | ChRaBaRoCo | ClosedCAP | 0.794 | 0.010 | 474.2 | 154.0 | 2.20 |
+| `qwen_c1024_l3-22m` | RoBaRaCoCh | Open | 0.989 | 0.002 | 225.0 | 72.4 | 1.00 |
+| `qwen_c1024_l3-22m` | RoBaRaCoCh | ClosedCAP | 0.794 | 0.001 | 354.9 | 117.2 | 1.62 |
+| `qwen_c1024_l3-22m` | MOP4CLXOR | Open | 0.906 | 0.063 | 163.9 | 48.6 | 0.67 |
+| `qwen_c1024_l3-22m` | MOP4CLXOR | ClosedCAP | 0.708 | 0.046 | 183.2 | 48.6 | 0.67 |
+| `qwen_c1024_l3-22m` | ChRaBaRoCo | Open | 0.987 | 0.012 | 240.3 | 77.8 | 1.07 |
+| `qwen_c1024_l3-22m` | ChRaBaRoCo | ClosedCAP | 0.794 | 0.011 | 474.6 | 159.5 | 2.20 |
