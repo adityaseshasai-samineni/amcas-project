@@ -1,0 +1,12 @@
+==========================================
+SLURM_JOB_ID = 115478
+SLURM_NODELIST = node01
+SLURM_JOB_GPUS = 
+==========================================
+### qwen05b (409M)
+"avg_ts": 20.954286 "avg_ts": 100.529970 "avg_ts": 117.861151 "avg_ts": 119.290003 
+### qwen7b (3.8G)
+"avg_ts": 1.771646 "avg_ts": 9.176357 "avg_ts": 12.441513 "avg_ts": 13.551948 
+### qwen30ba3b (18G)
+"avg_ts": 3.839828 "avg_ts": 15.775135 "avg_ts": 19.789716 "avg_ts": 22.013675 
+llama-bench has no --n-depth; depth sweep skipped
