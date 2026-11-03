@@ -332,3 +332,94 @@ sbatch --export=ALL,GEM5=gem5.fast -J NAME -o logs/trace/NAME_%j.log scripts/04_
 - NVBit GPU trace of `vectoradd` (`traces/vectoradd_memtrace.log`): not DRAM traffic.
 - Models in `tracing/models/`: `stories15M`, `qwen25-05b-q4_0`, `tinymoe4` (2 experts, top-2, 1.98 GB).
 - `gem5-deps.sif` and `build.sh` are obsolete, because containers cannot run.
+
+## Explanation sessions and decisions (2026-11-03)
+
+This section records the walkthrough given in chat on 2026-11-03 and the decisions taken at the end of it. Nothing above was changed; the full analysis is in `ANALYSIS.md`.
+
+### Part 1: the problem statement
+
+- DRAM is organized as banks, each a grid of rows. To read data, the controller opens a whole row (8 KiB here) into that bank's row buffer, then reads the 64-byte line it needs.
+- A **row hit** is a request to the row that is already open: fast. A **row conflict** is a request to a different row in the same bank: the open row must be closed and the new one opened, which is slow and costs activation energy.
+- **Address mapping** decides which address bits select rank, bank, row and column. **Row-buffer policy** decides whether a row stays open after an access (open page) or closes at once (close page).
+- The problem statement claims attention (KV-cache gathers) and MoE (expert routing) access memory differently from classic HPC. The task is to trace LLM memory traffic, replay it in DRAMsim3 and Ramulator, measure row-buffer behaviour, propose a better mapping or policy, and show the improvement.
+
+### Address mapping, worked through
+
+Our simulated DDR4 has 2 ranks x 16 banks (4 bank groups x 4 banks), 65,536 rows per bank and 8 KiB rows, so a physical address uses 34 bits: 6 line offset, 7 column, 4 bank group and bank, 1 rank, 16 row.
+
+- **Row-interleaved** (`rochrababgco`): `[row 16][rank 1][bank 2][bank group 2][column 7][offset 6]`. Consecutive lines stay in one row: good locality, but a sequential stream keeps one bank busy at a time.
+- **Line-interleaved** (`rocorababgch`): `[row 16][column 7][rank 1][bank 2][bank group 2][offset 6]`. Consecutive lines rotate across all 32 banks: good parallelism, but each bank sees one line per visit and loses its hit if anything else touches it.
+- **XOR hashing**: bank bits XOR some row bits. Keeps sequential runs together, but scatters arrays that align on power-of-two boundaries, which would otherwise collide in one bank with different rows (row ping-pong). Ramulator's `MOP4CLXOR` also switches bank every 4 lines.
+- The core trade-off is **locality against parallelism**.
+
+Worked example (bank shown as one number 0-31 combining rank, bank and bank group):
+
+| Addresses | Row-interleaved | Line-interleaved | XOR (bank ^ low row bits) |
+|---|---|---|---|
+| Bytes 1,000,000 to 1,000,010 | all bank 26, row 3, column 9 | all bank 9, row 3, column 104 | all bank 25 |
+| Lines 1,000,000 + 64k, k = 0..10 | bank 26, row 3, columns 9 to 19 | banks 9 to 19, row 3, column 104 | bank 25 |
+| 1,000,000 + 262,144k, k = 0..3 | bank 26, rows 3, 4, 5, 6 (conflicts) | not shown | banks 25, 30, 31, 28 |
+
+- Bytes inside one 64-byte line never differ to DRAM: the cache fetches the whole line.
+- Consecutive lines show the trade-off: row-interleaved keeps one row open in one bank, line-interleaved spreads across banks.
+- Same column in successive rows shows XOR's purpose: four rows that would ping-pong in bank 26 spread over four banks.
+
+### Part 2: how the traces were captured
+
+- A trace lists every request reaching DRAM, with time, address and read or write. It is captured by a `CommMonitor` between the memory bus and the DRAM controller, so it holds exactly what the controller sees: LLC misses, writebacks and prefetches. Our gem5 patch adds the virtual address, which lets each request be attributed to weights, KV cache or other data.
+- The real cluster cannot provide this: NVBit on the GPU sees pre-cache accesses, and `perf`/PEBS needs root for physical addresses. So gem5 simulates a whole computer running real llama.cpp.
+- llama.cpp changes: SSE2-only build (gem5's x86 model gets some newer vector instructions wrong), static binary (SE mode cannot load shared libraries reliably), and phase markers around each token's computation.
+- Speed: gem5's O3 CPU runs at about 0.26 MIPS, about 4 hours per Qwen 0.5B token. Model loading is fast-forwarded on a simple CPU that warms the caches; long prompts are evaluated natively, saved as a session and restored inside gem5.
+- Validation: every run generates the same text as native, and trace counts equal the controller's counters.
+
+### Part 3: what the traces showed
+
+- **Each token reads the whole model.** Qwen 0.5B at 1,024 context reads about 360 MB per token against 330 MB of weights; the 22 MiB LLC saves almost nothing.
+- **KV share depends on model size.** stories15M: 1.6% short, 33% at 1,024, 66% at 4,096 (its weights are 12.6 MB). Qwen 0.5B at 1,024: 3.5%. KV catches up with weights at batch x context of about W/k: about 28k tokens for Qwen 0.5B, about 77k for Qwen 7B (derived estimates). KV gather matters for long-context or multi-user serving.
+- **`tinymoe4` is not a real MoE workload** (2 experts, both used every token).
+- Asked which mapping gives the higher hit rate on sequential weight scans: **row-interleaved**, correctly (Qwen 0.983 against 0.937 offline; stories15M at 4,096 in DRAMsim3 0.902 against 0.241).
+- **The DRAM was 1-1.8% busy** in timed replay, because one SSE2 thread issues requests slowly. At that load mapping barely changes latency (43.6 against 44.3 cycles on the short trace).
+- **Under saturation the "worse" mapping wins:** XOR hashing (`MOP4CLXOR`) finishes 33%, 24% and 13% faster than row-interleaved on short, 1,024 and 4,096 traces, despite hit rates of 0.80, 0.66 and 0.47. Keeping all banks busy matters more than avoiding row opens when memory is the bottleneck. The gap shrinks as KV grows, hinting that weights and KV want different mappings: the seed of a region-aware mapping.
+
+### How many tokens were simulated
+
+42 token steps in detail across the analysed runs: 3 short stories15M runs x 8, 3 long-context stories15M runs x 4, and 3 Qwen and MoE runs x 2. Each restored-prompt run also generated one atomic warm-up token, excluded from analysis; the prompt-cache test simulated 9 more for validation only. Decode is very repetitive (Qwen's two tokens differed by 26 reads in 5.6M), so this is enough for dense decode, but a real MoE varies per token with expert choice and needs tens to hundreds of tokens per run, and a paper should report variance across tokens and prompts.
+
+### Part 4: why gem5 cannot scale, and the plan
+
+- Three walls: speed (Qwen 7B at roughly 50G instructions per token would take about 2 days per token), instructions (gem5 x86 lacks AVX, so traces have the right addresses but the wrong pace), and one core with one channel (real servers run 16-64 threads on 8-12 channels).
+- Plan: run llama.cpp natively (AVX2, multi-threaded), record memory accesses with DynamoRIO (no root), filter through a model of the server's caches, assign physical addresses with a huge-page placement model, and replay closed-loop in Ramulator.
+- Open-loop replays are wrong in opposite directions: timestamped replay cannot show a speedup, saturated replay ignores that loads depend on earlier loads. Closed-loop replay stalls each core on outstanding misses, so the headline result becomes tokens per second under each mapping.
+- Validation of the new route: run Qwen 0.5B SSE2 single-threaded through it and reproduce the gem5 trace (reads per token, region shares, strides).
+
+### Decisions taken
+
+- **Models:** Qwen3-30B-A3B (MoE, 128 experts, 8 active), Qwen2.5-7B (dense), Qwen2.5-0.5B (cross-validation with gem5).
+- **Automation:** every full-scale script publishes its results to GitHub when it finishes, and regenerates and publishes the analysis.
+- **This file:** add to it; do not delete existing content.
+
+### Full-scale phase: setup and first jobs (2026-11-03, about 22:15 IST)
+
+Cluster facts found:
+- **node01**: 2x Xeon Gold 6226R (Cascade Lake), 32 cores, 384 GB RAM, AVX-512 VNNI, 22 MiB L3 per socket. node03: 4x Gold 6226 (48 cores). node06: 2x Gold 5317 (Ice Lake, 24 cores). All have AVX-512 VNNI.
+- `/scratch` is local to each node: 650 GB free on node01, 724 GB on node03, 75 GB on node06. Home has a **100 GB quota** (28 GB used before the new models).
+- The llama.cpp checkout (`0ec4027`, 2026-10-30) supports `LLM_ARCH_QWEN3MOE`.
+- Model files: `Qwen3-30B-A3B-Q4_K_M.gguf` (18.56 GB) from `Qwen/Qwen3-30B-A3B-GGUF`; `qwen2.5-7b-instruct-q4_k_m-0000{1,2}-of-00002.gguf` (3.99 + 0.69 GB) from `Qwen/Qwen2.5-7B-Instruct-GGUF`. Qwen2.5-0.5B reuses `qwen25-05b-q4_0.gguf`.
+- `moe_l3-22m_stride` (114798) completed after 26h 58m; not yet analysed.
+- A separate micromamba environment `analysis` (Python 3.12, numpy, matplotlib) runs `report.py` on the cluster, leaving the gem5 environment untouched. numpy on the login node needs `OPENBLAS_NUM_THREADS=1`.
+
+New scripts (all end by calling `tools/publish.sh`):
+
+| Script | Job | What it does |
+|---|---|---|
+| `10_fetch_models.sh` | 115475 | downloads the two new models with resume, checks SHA-256 against Hugging Face |
+| `11_build_llama_fast.sh` | 115476 | builds `build-fast` on node01: native SIMD (AVX-512), OpenMP; `llama-completion`, `llama-bench`, `llama-batched-bench` |
+| `13_dynamorio_check.sh` | 115477, after 115476 | installs DynamoRIO, traces 2 tokens of Qwen 0.5B on 4 threads into node01 `/scratch`, reports slowdown, trace size and a cache simulation |
+| `12_native_fullscale.sh` | 115478, after all three | node01 exclusive: decode speed against threads (1, 8, 16, 32) and context depth (0, 1k, 8k, 32k); batched decode with 1, 4, 16 sequences at 1k and 8k prompts; JSON in `results/fullscale/native/` |
+
+`tools/publish.sh` (automatic GitHub upload):
+- Copies results and logs under 50 MB into a clone at `~/amcas-repo/cluster-data/`, regenerates `analysis/` with `report.py`, commits and pushes; large traces named as arguments go to release `traces-2026-11-03`.
+- Scripts and tools are not copied back from the cluster, so newer laptop edits are never overwritten. Sync scripts laptop to cluster before submitting.
+- One publisher at a time (lock directory `~/.config/amcas/publish.lock`).
+- Needs a fine-grained token, this repository only, Contents read and write, at `~/.config/amcas/gh_token` mode 600. Without it, jobs skip publishing and results stay on the cluster. The token reaches git through a credential helper and curl through stdin, never a command line.
