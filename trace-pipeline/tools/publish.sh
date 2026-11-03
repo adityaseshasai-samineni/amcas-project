@@ -23,6 +23,8 @@ export OPENBLAS_NUM_THREADS=1
 
 # One publisher at a time: several jobs can finish together on a shared home.
 L=$HOME/.config/amcas/publish.lock
+# A job killed mid-publish leaves its lock behind; treat one older than 2 hours as stale.
+[ -d "$L" ] && [ -n "$(find "$L" -maxdepth 0 -mmin +120)" ] && rmdir "$L" && echo "publish: removed stale lock"
 for i in $(seq 1 120); do mkdir "$L" 2>/dev/null && break; sleep 30; done
 [ -d "$L" ] || { echo "publish: could not get the lock"; exit 1; }
 trap 'rmdir "$L"' EXIT

@@ -2,8 +2,8 @@
 #SBATCH -J dram-sims
 #SBATCH -n 1
 #SBATCH -c 8
-#SBATCH --mem=32G
-#SBATCH --time=04:00:00
+#SBATCH --mem=64G
+#SBATCH --time=12:00:00
 #SBATCH --exclude=node04,node05
 #SBATCH -o /home/adityaseshasai.s/amcas-pro/logs/dramsims_%j.log
 # Build DRAMsim3 and Ramulator2 and replay one captured trace through each, for a
@@ -17,7 +17,9 @@ cd $W
 [ -d ramulator2 ] || git clone -q --depth 1 https://github.com/CMU-SAFARI/ramulator2
 
 echo "=== DRAMsim3"
-(cd DRAMsim3 && cmake -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_POLICY_VERSION_MINIMUM=3.5 2>&1 | tail -1 | cut -c1-120 \
+# Build only when missing: several sweeps can run at once and must not rebuild
+# the same tree concurrently.
+[ -x DRAMsim3/build/dramsim3main ] || (cd DRAMsim3 && cmake -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_POLICY_VERSION_MINIMUM=3.5 2>&1 | tail -1 | cut -c1-120 \
   && cmake --build build -j8 2>&1 | tail -1 | cut -c1-120)
 LAST=$(tail -1 $T/dram.dramsim3.trc | cut -d' ' -f3)
 echo "trace: $(awk '{c[$2]++} END{for(k in c)printf "%s=%d ",k,c[k]}' $T/dram.dramsim3.trc)"
@@ -41,8 +43,9 @@ for f in sorted(glob.glob("$T/dramsim3/*/dramsim3.json")):
 P
 
 echo "=== Ramulator2"
-(cd ramulator2 && cmake -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_POLICY_VERSION_MINIMUM=3.5 2>&1 | tail -1 | cut -c1-120 \
+ls ramulator2/python/ramulator/_ramulator.*.so >/dev/null 2>&1 || (cd ramulator2 && cmake -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_POLICY_VERSION_MINIMUM=3.5 2>&1 | tail -1 | cut -c1-120 \
   && cmake --build build -j8 2>&1 | tail -1 | cut -c1-140)
 LD_LIBRARY_PATH=$W/ramulator2:$E/lib PYTHONPATH=$W/ramulator2/python \
   $E/bin/python $HOME/amcas-pro/tools/ramulator_replay.py $T/dram.ramulator.trc $T/ramulator.json
 echo "ramulator exit=$?"
+bash $HOME/amcas-pro/tools/publish.sh "DRAM sweep of ${1:-s15_l3-2m_stride} (job $SLURM_JOB_ID)"

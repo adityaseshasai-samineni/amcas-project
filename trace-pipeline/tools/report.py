@@ -32,6 +32,7 @@ RUNS = [
     dict(run="qwen_l3-22m_stride", model="Qwen2.5-0.5B", ctx="short", llc="22 MiB", pf="stride", native="native/qwen25-05b-q4_0.n9.out"),
     dict(run="qwen_c1024_l3-22m", model="Qwen2.5-0.5B", ctx="1024", llc="22 MiB", pf="stride", native="sessions/qwen25-05b-q4_0.1024.n5.out", prompt="sessions/qwen25-05b-q4_0.1024.prompt"),
     dict(run="moe_c1024_l3-22m", model="tinymoe4", ctx="1024", llc="22 MiB", pf="stride", native="sessions/tinymoe4.1024.n5.out", prompt="sessions/tinymoe4.1024.prompt"),
+    dict(run="moe_l3-22m_stride", model="tinymoe4", ctx="short", llc="22 MiB", pf="stride", native="native/tinymoe4.n9.out"),
 ]
 # Traces replayed in both DRAM simulators, short to long context.
 REPLAYED = ["s15_l3-2m_stride", "s15_c1024_l3-2m", "s15_c4096_l3-2m", "s15_c4096_l3-22m"]
@@ -192,7 +193,8 @@ def main():
     md += ["## Runs and validation", "",
            "| Run | Model | Context | LLC | Prefetch | Detailed tokens | Counts match | Text matches native | Minsts/token | DRAM reads/token | DRAM writes/token | MPKI | gem5 row-hit | gem5 read latency (ns) |",
            "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
-    for r in RUNS:
+    present = [r for r in RUNS if os.path.exists(f"{d}/traces/{r['run']}/summary.json")]
+    for r in present:
         s, counts_ok, text_ok, g = validate(d, r)
         ph = s["phases"]
         tok = [p for p in ph if p["id"] > 0] or ph  # phase 0 of a short-prompt run is the prompt
@@ -229,25 +231,29 @@ def main():
     ds, ram = {}, {}
     md += ["", "## DRAMsim3, at trace timing", "", "Latency in DRAM cycles (tCK 0.83 ns). Energy from DRAMsim3's model, in its units, per request.", "",
            "| Trace | Mapping | Policy | Finished | Row-hit | Read latency | ACTs | ACT energy / request | Total energy / request | Avg bandwidth (GB/s) | Utilisation of 19.2 GB/s |", "|---|---|---|---|---|---|---|---|---|---|---|"]
-    for run in REPLAYED:
+    # Every analysed run with DRAM replays, stories15M first; the figures stay on stories15M.
+    dram_runs = [r["run"] for r in present if os.path.isdir(f"{d}/traces/{r['run']}/dramsim3")]
+    name = lambda run: LABEL.get(run, f"`{run}`")
+    for run in dram_runs:
         s = json.load(open(f"{d}/traces/{run}/summary.json"))
         ds[run] = dramsim3(d, run, s["roi_reads"])
         for cfg, v in ds[run].items():
             m, p = cfg.split("_", 1)
-            md.append(f"| {LABEL[run]} | `{m}` | {p.replace('_PAGE', '').lower()} | {'yes' if v['complete'] else 'NO'} | {v['hit']:.3f} | {v['rd_lat']:.1f} | {v['act']:,} | {v['act_energy'] / v['requests']:,.0f} | {v['total_energy'] / v['requests']:,.0f} | {v['bw']:.2f} | {100 * v['bw'] / 19.2:.1f}% |")
-        ram[run] = json.load(open(f"{d}/traces/{run}/ramulator.json"))
+            md.append(f"| {name(run)} | `{m}` | {p.replace('_PAGE', '').lower()} | {'yes' if v['complete'] else 'NO'} | {v['hit']:.3f} | {v['rd_lat']:.1f} | {v['act']:,} | {v['act_energy'] / v['requests']:,.0f} | {v['total_energy'] / v['requests']:,.0f} | {v['bw']:.2f} | {100 * v['bw'] / 19.2:.1f}% |")
+        if os.path.exists(f"{d}/traces/{run}/ramulator.json"):
+            ram[run] = json.load(open(f"{d}/traces/{run}/ramulator.json"))
     md += ["", "## Ramulator 2.1, saturated (no timestamps)", "", "| Trace | Mapper | Policy | Row-hit | Conflict | Read latency | Mcycles | Cycles vs RoBaRaCoCh open |", "|---|---|---|---|---|---|---|---|"]
-    for run in REPLAYED:
+    for run in [r for r in dram_runs if r in ram]:
         by = {(x["mapper"], x["policy"]): x for x in ram[run]}
         base = by[("RoBaRaCoCh", "Open")]["cycles"]
         for x in ram[run]:
             n = max(x["row_hits"] + x["row_misses"] + x["row_conflicts"], 1)
-            md.append(f"| {LABEL[run]} | {x['mapper']} | {x['policy']} | {x['hit_rate']:.3f} | {x['row_conflicts'] / n:.3f} | {x['avg_read_latency']:.1f} | {x['cycles'] / 1e6:.1f} | {x['cycles'] / base:.2f} |")
+            md.append(f"| {name(run)} | {x['mapper']} | {x['policy']} | {x['hit_rate']:.3f} | {x['row_conflicts'] / n:.3f} | {x['avg_read_latency']:.1f} | {x['cycles'] / 1e6:.1f} | {x['cycles'] / base:.2f} |")
     fig_mapping(ds, f"{out}/fig_dramsim3_mapping.png")
     fig_saturated(ram, f"{out}/fig_ramulator_saturated.png")
 
     open(f"{out}/tables.md", "w").write("\n".join(md) + "\n")
-    bad = [r["run"] for r in RUNS if not validate(d, r)[1] or not validate(d, r)[2]]
+    bad = [r["run"] for r in present if not validate(d, r)[1] or not validate(d, r)[2]]
     print(f"wrote {out}/tables.md and 3 figures; validation failures: {bad or 'none'}")
 
 

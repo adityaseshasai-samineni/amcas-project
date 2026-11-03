@@ -423,3 +423,31 @@ New scripts (all end by calling `tools/publish.sh`):
 - Scripts and tools are not copied back from the cluster, so newer laptop edits are never overwritten. Sync scripts laptop to cluster before submitting.
 - One publisher at a time (lock directory `~/.config/amcas/publish.lock`).
 - Needs a fine-grained token, this repository only, Contents read and write, at `~/.config/amcas/gh_token` mode 600. Without it, jobs skip publishing and results stay on the cluster. The token reaches git through a credential helper and curl through stdin, never a command line.
+
+### Overnight run, 2026-11-03 to 2026-11-04 (handoff written about 22:25 IST)
+
+Everything below runs on the cluster and publishes itself; the laptop can be off. GitHub publishing is set up: a fine-grained token (this repo, Contents read and write) is at `~/.config/amcas/gh_token` on the cluster, checked to have push access, and a test publish pushed `8cbbc5c`. A clone used for publishing lives at `~/amcas-repo` on the cluster. `publish.sh` now clears a lock older than 2 hours.
+
+| Job | What | Node | Waits for | Publishes |
+|---|---|---|---|---|
+| 115475 `fetch-models` | Qwen2.5-7B Q4_K_M (done and verified by 22:18), then Qwen3-30B-A3B Q4_K_M (18.6 GB) | node06 | - | yes |
+| 115482 `dynamorio-check` | installs DynamoRIO, traces Qwen 0.5B on 4 threads, reports slowdown, trace size, cache simulation | node01 | - | yes |
+| 115478 `native-fullscale` | all three models, node01 exclusive: threads, depth, batch | node01 | fetch and build | yes |
+| 115490 `an_moe_l3` | `analyze.py` on `moe_l3-22m_stride` | not node01 | - | yes |
+| 115495, 115496, 115497 | DRAM sweep (`06_dram_sims.sh`) of `qwen_l3-22m_stride`, `qwen_c1024_l3-22m`, `moe_c1024_l3-22m` | not node01 | - | yes |
+| 115498 | DRAM sweep of `moe_l3-22m_stride` | not node01 | 115490 | yes |
+
+- `115477`, the first DynamoRIO attempt, failed because GitHub's API rate limit (60 an hour per address, shared behind the cluster's NAT) refused the release list. `13_dynamorio_check.sh` now retries for up to an hour.
+- `06_dram_sims.sh` now builds DRAMsim3 and Ramulator only when they are missing, so parallel sweeps do not rebuild the same tree; it has 64 GB and 12 hours, and publishes at the end. The first submission (115491-115494) was cancelled before starting and resubmitted with this version.
+- The sweeps run on traces captured at about 1-2% DRAM utilization (`ANALYSIS.md`, F5), so they extend the characterization to Qwen and the 2-expert MoE; they are not the full-scale bandwidth-bound results.
+- `report.py` now includes every analysed run and every run with DRAM replays in its tables; figures stay on stories15M.
+- Home quota: 34 GB of 100 GB used at 22:20, before the 18.6 GB MoE model and the sweep exports (a few GB). Watch it.
+
+In the morning:
+
+```bash
+git pull                                   # laptop: brings in everything the jobs published
+ssh adityaseshasai.s@rce.iiit.ac.in 'squeue -u $USER; sacct -X --starttime=2026-11-03T22:00 --format=JobID,JobName%22,State,ExitCode,Elapsed'
+```
+
+Then read `cluster-data/logs/drcheck_115482.log` first: whether DynamoRIO works decides the full-scale trace route. Next, `cluster-data/results/fullscale/native/` for tokens per second and the bandwidth real inference needs, and `analysis/tables.md` for the Qwen and MoE DRAM sweeps.
