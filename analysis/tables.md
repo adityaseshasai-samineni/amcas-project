@@ -81,6 +81,11 @@ Latency in DRAM cycles (tCK 0.83 ns). Energy from DRAMsim3's model, in its units
 | `qwen_c1024_l3-22m` | `rochrababgco` | open | yes | 0.968 | 44.4 | 360,191 | 131 | 360,176 | 0.19 | 1.0% |
 | `qwen_c1024_l3-22m` | `rocorababgch` | close | yes | 0.000 | 55.8 | 11,445,733 | 4,166 | 350,743 | 0.19 | 1.0% |
 | `qwen_c1024_l3-22m` | `rocorababgch` | open | yes | 0.553 | 45.7 | 5,111,470 | 1,860 | 371,752 | 0.19 | 1.0% |
+| `moe_c1024_l3-22m` | `rochrababgco` | close | yes | 0.000 | 1756.8 | 60,972,570 | 4,165 | 84,087 | 0.85 | 4.5% |
+| `moe_c1024_l3-22m` | `rochrababgco` | open | yes | 0.986 | 40.8 | 854,410 | 58 | 81,777 | 0.85 | 4.5% |
+| `moe_c1024_l3-22m` | `rocorababgch` | close | yes | 0.000 | 54.4 | 60,961,249 | 4,164 | 83,971 | 0.85 | 4.5% |
+| `moe_c1024_l3-22m` | `rocorababgch` | open | yes | 0.888 | 38.7 | 6,811,431 | 465 | 83,907 | 0.85 | 4.5% |
+| `moe_l3-22m_stride` | `rochrababgco` | close | yes | 0.000 | 1770.8 | 60,249,726 | 4,165 | 52,382 | 1.48 | 7.7% |
 | `moe_l3-22m_stride` | `rochrababgco` | open | yes | 0.988 | 40.8 | 739,435 | 51 | 49,329 | 1.48 | 7.7% |
 | `moe_l3-22m_stride` | `rocorababgch` | close | yes | 0.000 | 54.4 | 60,238,070 | 4,164 | 52,262 | 1.48 | 7.7% |
 | `moe_l3-22m_stride` | `rocorababgch` | open | yes | 0.897 | 38.5 | 6,219,307 | 430 | 51,424 | 1.48 | 7.7% |
@@ -125,3 +130,9 @@ Latency in DRAM cycles (tCK 0.83 ns). Energy from DRAMsim3's model, in its units
 | `qwen_c1024_l3-22m` | MOP4CLXOR | ClosedCAP | 0.708 | 0.046 | 183.2 | 48.6 | 0.67 |
 | `qwen_c1024_l3-22m` | ChRaBaRoCo | Open | 0.987 | 0.012 | 240.3 | 77.8 | 1.07 |
 | `qwen_c1024_l3-22m` | ChRaBaRoCo | ClosedCAP | 0.794 | 0.011 | 474.6 | 159.5 | 2.20 |
+| `moe_l3-22m_stride` | RoBaRaCoCh | Open | 0.990 | 0.001 | 222.6 | 379.4 | 1.00 |
+| `moe_l3-22m_stride` | RoBaRaCoCh | ClosedCAP | 0.795 | 0.000 | 355.1 | 621.9 | 1.64 |
+| `moe_l3-22m_stride` | MOP4CLXOR | Open | 0.941 | 0.035 | 160.7 | 255.4 | 0.67 |
+| `moe_l3-22m_stride` | MOP4CLXOR | ClosedCAP | 0.735 | 0.014 | 181.8 | 255.2 | 0.67 |
+| `moe_l3-22m_stride` | ChRaBaRoCo | Open | 0.990 | 0.009 | 232.9 | 398.7 | 1.05 |
+| `moe_l3-22m_stride` | ChRaBaRoCo | ClosedCAP | 0.795 | 0.008 | 465.5 | 828.8 | 2.18 |

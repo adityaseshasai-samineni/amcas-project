@@ -5,3 +5,29 @@ SLURM_JOB_GPUS =
 ==========================================
 === DRAMsim3
 trace: READ=59972180 WRITE=156809 
+mapping        policy           reads   writes    hit  rd_lat       act
+rochrababgco   CLOSE_PAGE    59972181   156809  0.000  1770.8  60249726
+rochrababgco   OPEN_PAGE     59972181   156809  0.988    40.8    739435
+rocorababgch   CLOSE_PAGE    59972181   156809  0.000    54.4  60238070
+rocorababgch   OPEN_PAGE     59972181   156809  0.897    38.5   6219307
+=== Ramulator2
+[[Ramulator::LoadStoreTrace] [[32minfo[0m] Loading trace file /home/adityaseshasai.s/amcas-pro/results/traces/moe_l3-22m_stride/dram.ramulator.trc ...
+Ramulator::LoadStoreTrace] [[32minfo[0m] Loading trace file /home/adityaseshasai.s/amcas-pro/results/traces/moe_l3-22m_stride/dram.ramulator.trc ...
+[[[[Ramulator::LoadStoreTraceRamulator::LoadStoreTrace] [[32minfo[0m] ] [[32minfo[0m] Loading trace file /home/adityaseshasai.s/amcas-pro/results/traces/moe_l3-22m_stride/dram.ramulator.trc ...Loading trace file /home/adityaseshasai.s/amcas-pro/results/traces/moe_l3-22m_stride/dram.ramulator.trc ...Ramulator::LoadStoreTraceRamulator::LoadStoreTrace
+
+] [[32minfo[0m] ] [[32minfo[0m] Loading trace file /home/adityaseshasai.s/amcas-pro/results/traces/moe_l3-22m_stride/dram.ramulator.trc ...Loading trace file /home/adityaseshasai.s/amcas-pro/results/traces/moe_l3-22m_stride/dram.ramulator.trc ...
+
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loaded 60128989 lines.
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loaded 60128989 lines.
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loaded 60128989 lines.
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loaded 60128989 lines.
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loaded 60128989 lines.
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loaded 60128989 lines.
+mapper      policy          reads   writes    hit  conflict  rd_lat  Mcycles
+RoBaRaCoCh  Open         59972180   156809  0.990     0.001   222.6    379.4
+RoBaRaCoCh  ClosedCAP    59972180   156809  0.795     0.000   355.1    621.9
+MOP4CLXOR   Open         59972180   156809  0.941     0.035   160.7    255.4
+MOP4CLXOR   ClosedCAP    59972180   156809  0.735     0.014   181.8    255.2
+ChRaBaRoCo  Open         59972180   156809  0.990     0.009   232.9    398.7
+ChRaBaRoCo  ClosedCAP    59972180   156809  0.795     0.008   465.5    828.8
+ramulator exit=0

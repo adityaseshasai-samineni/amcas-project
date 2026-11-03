@@ -5,3 +5,21 @@ SLURM_JOB_GPUS =
 ==========================================
 === DRAMsim3
 trace: READ=60691087 WRITE=159719 
+mapping        policy           reads   writes    hit  rd_lat       act
+rochrababgco   CLOSE_PAGE    60691088   159719  0.000  1756.8  60972570
+rochrababgco   OPEN_PAGE     60691088   159719  0.986    40.8    854410
+rocorababgch   CLOSE_PAGE    60691088   159719  0.000    54.4  60961249
+rocorababgch   OPEN_PAGE     60691088   159719  0.888    38.7   6811431
+=== Ramulator2
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loading trace file /home/adityaseshasai.s/amcas-pro/results/traces/moe_c1024_l3-22m/dram.ramulator.trc ...
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loading trace file /home/adityaseshasai.s/amcas-pro/results/traces/moe_c1024_l3-22m/dram.ramulator.trc ...
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loading trace file /home/adityaseshasai.s/amcas-pro/results/traces/moe_c1024_l3-22m/dram.ramulator.trc ...
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loading trace file /home/adityaseshasai.s/amcas-pro/results/traces/moe_c1024_l3-22m/dram.ramulator.trc ...
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loading trace file /home/adityaseshasai.s/amcas-pro/results/traces/moe_c1024_l3-22m/dram.ramulator.trc ...
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loading trace file /home/adityaseshasai.s/amcas-pro/results/traces/moe_c1024_l3-22m/dram.ramulator.trc ...
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loaded 60850806 lines.
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loaded 60850806 lines.
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loaded 60850806 lines.
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loaded 60850806 lines.
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loaded 60850806 lines.
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loaded 60850806 lines.
