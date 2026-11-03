@@ -73,6 +73,10 @@ Latency in DRAM cycles (tCK 0.83 ns). Energy from DRAMsim3's model, in its units
 | 4096, 22 MiB | `rochrababgco` | open | yes | 0.919 | 37.0 | 219,287 | 336 | 368,841 | 0.19 | 1.0% |
 | 4096, 22 MiB | `rocorababgch` | close | yes | 0.000 | 51.6 | 2,719,485 | 4,165 | 344,403 | 0.19 | 1.0% |
 | 4096, 22 MiB | `rocorababgch` | open | yes | 0.248 | 54.1 | 2,044,731 | 3,131 | 373,773 | 0.19 | 1.0% |
+| `qwen_l3-22m_stride` | `rochrababgco` | close | yes | 0.000 | 933.4 | 11,058,378 | 4,165 | 280,883 | 0.24 | 1.2% |
+| `qwen_l3-22m_stride` | `rochrababgco` | open | yes | 0.971 | 44.7 | 320,095 | 121 | 288,871 | 0.24 | 1.2% |
+| `qwen_l3-22m_stride` | `rocorababgch` | close | yes | 0.000 | 56.0 | 11,061,099 | 4,166 | 280,571 | 0.24 | 1.2% |
+| `qwen_l3-22m_stride` | `rocorababgch` | open | yes | 0.572 | 45.2 | 4,735,360 | 1,783 | 300,398 | 0.24 | 1.2% |
 
 ## Ramulator 2.1, saturated (no timestamps)
 
@@ -102,3 +106,9 @@ Latency in DRAM cycles (tCK 0.83 ns). Energy from DRAMsim3's model, in its units
 | 4096, 22 MiB | MOP4CLXOR | ClosedCAP | 0.412 | 0.389 | 200.8 | 11.7 | 0.87 |
 | 4096, 22 MiB | ChRaBaRoCo | Open | 0.958 | 0.041 | 279.4 | 21.5 | 1.60 |
 | 4096, 22 MiB | ChRaBaRoCo | ClosedCAP | 0.784 | 0.023 | 497.1 | 39.4 | 2.92 |
+| `qwen_l3-22m_stride` | RoBaRaCoCh | Open | 0.989 | 0.002 | 225.1 | 70.0 | 1.00 |
+| `qwen_l3-22m_stride` | RoBaRaCoCh | ClosedCAP | 0.795 | 0.001 | 358.9 | 114.6 | 1.64 |
+| `qwen_l3-22m_stride` | MOP4CLXOR | Open | 0.923 | 0.048 | 162.9 | 47.0 | 0.67 |
+| `qwen_l3-22m_stride` | MOP4CLXOR | ClosedCAP | 0.720 | 0.031 | 182.8 | 46.9 | 0.67 |
+| `qwen_l3-22m_stride` | ChRaBaRoCo | Open | 0.988 | 0.011 | 238.8 | 74.6 | 1.07 |
+| `qwen_l3-22m_stride` | ChRaBaRoCo | ClosedCAP | 0.794 | 0.010 | 474.2 | 154.0 | 2.20 |
