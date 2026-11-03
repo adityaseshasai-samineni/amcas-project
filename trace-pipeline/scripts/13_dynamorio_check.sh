@@ -14,12 +14,17 @@ set -uo pipefail
 W=$HOME/amcas-pro/tracing; E=$W/mamba/envs/gem5; export LD_LIBRARY_PATH=$E/lib
 D=$W/dynamorio
 if [ ! -x $D/bin64/drrun ]; then
+  # The GitHub API allows 60 unauthenticated requests an hour per address, shared
+  # by everyone behind the cluster's NAT, so retry if it refuses.
+  for i in $(seq 1 12); do
   url=$(curl -s "https://api.github.com/repos/DynamoRIO/dynamorio/releases?per_page=30" | $E/bin/python -c '
 import sys, json, re
 for rel in json.load(sys.stdin):
     for a in rel["assets"]:
         if re.fullmatch(r"DynamoRIO-Linux-[0-9.]+\.tar\.gz", a["name"]):
-            print(a["browser_download_url"]); sys.exit()')
+            print(a["browser_download_url"]); sys.exit()' 2>/dev/null)
+  [ -n "$url" ] && break; echo "release list unavailable, retrying"; sleep 300
+  done
   echo "release: $url"
   mkdir -p $D.tmp && curl -sL "$url" | tar -xz -C $D.tmp --strip-components=1 && mv $D.tmp $D || { echo "install failed"; exit 1; }
 fi
