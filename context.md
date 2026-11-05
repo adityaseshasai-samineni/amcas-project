@@ -510,3 +510,18 @@ Prefill: about 150-200 tokens per second for 7B and 30B-A3B, 1,150-2,000 for 0.5
 - On the login node, `drrun` aborts with "Out of memory", because the login node limits virtual memory (`ulimit -v` 8192000 KB). On node01 (no limit), both `drrun -- /bin/ls` and `-t drcachesim` work. Run DynamoRIO only on compute nodes.
 - `13_dynamorio_check.sh` was resubmitted as job 116659. It skips the install because `bin64/drrun` now exists, and publishes when it finishes.
 - `CLAUDE.md` was added at the project root, to guide future Claude Code sessions.
+
+### DynamoRIO check results and rerun (2026-11-05, about 18:00 IST)
+
+Job 116659 (node01, 18 min, published `ab89944`):
+- Tracing works. The traced run's text is identical to the native run's. 0.97 s native against 30.2 s traced (about 31× slowdown); max RSS 1.09 to 1.12 GB.
+- Raw trace size: 4.4 GB for the prompt plus 2 tokens of Qwen 0.5B on 4 threads. Scaled up, one 7B token at full detail would be a few hundred GB, so the full-scale route needs sampled windows or an online cache filter.
+- The offline cache simulation failed during conversion: `raw2trace failed: Failed to process file for thread 2484037: Failed to close prior component`, after 18 minutes.
+
+Rerun, job 116729 (`13_dynamorio_check.sh` revised):
+- Traces `llama-completion` directly, without the `bash -c` wrapper.
+- Runs `tools/bin64/drraw2trace -jobs 8 -verbose 1` as a separate step. Its log goes to `results/fullscale/drcheck/`.
+- Then runs drcachesim on the converted trace.
+- If conversion fails, it retraces once with `--no-mmap`.
+- Time limit raised to 4 h.
+- In the 11.3.0 release tarball, the tools are in `tools/bin64/`, not `clients/bin64/`.
