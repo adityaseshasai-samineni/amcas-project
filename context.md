@@ -525,3 +525,14 @@ Rerun, job 116729 (`13_dynamorio_check.sh` revised):
 - If conversion fails, it retraces once with `--no-mmap`.
 - Time limit raised to 4 h.
 - In the 11.3.0 release tarball, the tools are in `tools/bin64/`, not `clients/bin64/`.
+
+### DynamoRIO rerun results and third attempt (2026-11-05, about 22:50 IST)
+
+Job 116729 (node01, 19 min, published `d41235f`):
+- Tracing `llama-completion` directly: same text as native; 0.77 s native against 28.8 s traced; 4.4 GB raw again.
+- Conversion still failed, after 1,094 s: `Worker 2 hit error Failed to process file for thread 2823677: Failed to close prior component`. The failure came right after chunk #215 of the main thread (10M instructions per chunk). Writing the default zip output, it fails while closing a component, which points to zip's 4 GB limit. The `bash` wrapper was not the cause.
+- The `--no-mmap` fallback was invalid. This llama.cpp rejects the flag (`error: invalid argument: --no-mmap`), so that "trace" covered only argument parsing (15M instructions), and its cache-simulation numbers are meaningless. Here mmap is turned off with `-lm none` (`--load-mode`).
+
+Third attempt, job 116898 (`REUSE=1`):
+- Reuses the 4.4 GB raw trace still on node01 `/scratch` and only redoes conversion, with `-compress gzip`, then the cache simulation.
+- The fallback is now `-lm none`. An attempt stops if its text differs from native.
