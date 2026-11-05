@@ -1,0 +1,94 @@
+==========================================
+SLURM_JOB_ID = 116729
+SLURM_NODELIST = node01
+SLURM_JOB_GPUS = 
+==========================================
+drrun version 11.3.0 -- build 1
+=== native
+native 0.77 s, max RSS 1091220 KB
+=== traced (mmap)
+0.27.629.716 I common_perf_print:   graph reallocs =          0    /     0        (same size) / (changed size)
+traced 28.75 s, max RSS 1124912 KB
+same text: yes
+4.4G	/scratch/adityaseshasai.s/drcheck/mmap/drmemtrace.llama-completion.2823677.7414.dir/raw
+=== raw2trace (mmap)
+[drmemtrace]: Creating new chunk #205 for thread 2823677
+[drmemtrace]: Creating new chunk #206 for thread 2823677
+[drmemtrace]: Creating new chunk #207 for thread 2823677
+[drmemtrace]: Creating new chunk #208 for thread 2823677
+[drmemtrace]: Creating new chunk #209 for thread 2823677
+[drmemtrace]: Creating new chunk #210 for thread 2823677
+[drmemtrace]: Creating new chunk #211 for thread 2823677
+[drmemtrace]: Creating new chunk #212 for thread 2823677
+[drmemtrace]: Creating new chunk #213 for thread 2823677
+[drmemtrace]: Creating new chunk #214 for thread 2823677
+[drmemtrace]: Creating new chunk #215 for thread 2823677
+[drmemtrace]: Worker 2 hit error Failed to process file for thread 2823677: Failed to close prior component on trace thread 2
+ERROR: Conversion failed: Failed to process file for thread 2823677: Failed to close prior component
+Command exited with non-zero status 1
+raw2trace 1094.02 s
+raw2trace exit=1
+=== traced (nommap)
+Command exited with non-zero status 1
+traced 1.21 s, max RSS 26824 KB
+same text: NO
+6.8M	/scratch/adityaseshasai.s/drcheck/nommap/drmemtrace.llama-completion.3018109.6909.dir/raw
+=== raw2trace (nommap)
+[drmemtrace]: Omitted 0 duplicate system calls.
+[drmemtrace]: Omitted 0 false system calls.
+[drmemtrace]: Reconstructed 1420824 elided addresses.
+[drmemtrace]: Adjusted 0 rseq aborts.
+[drmemtrace]: Adjusted 0 rseq side exits.
+[drmemtrace]: Trace duration 1.165s.
+[drmemtrace]: Final trace instr count: 15086163.
+[drmemtrace]: Kernel instr count 0
+[drmemtrace]: System call PT traces converted 0
+[drmemtrace]: System call PT traces conversion failed 0
+[drmemtrace]: System call PT trace conversion decode errors 0
+[drmemtrace]: System call PT trace conversion found empty trace 0
+[drmemtrace]: System call traces injected from template 0
+[drmemtrace]: Successfully converted 3 thread files
+raw2trace 6.10 s
+raw2trace exit=0
+12M	/scratch/adityaseshasai.s/drcheck/nommap/drmemtrace.llama-completion.3018109.6909.dir/trace
+=== cache simulation (nommap, node01-like LLC, 4 cores)
+    Hits:                            6,122
+    Misses:                            238
+    Compulsory misses:                 238
+    Invalidations:                       0
+    Miss rate:                        3.74%
+  L1D1 (size=32768, assoc=8, block=64, LRU) stats:
+    Hits:                            2,206
+    Misses:                            211
+    Compulsory misses:                 376
+    Invalidations:                       0
+    Prefetch hits:                      37
+    Prefetch misses:                   174
+    Miss rate:                        8.73%
+Core #2 (traced CPU(s): #2)
+  L1I2 (size=32768, assoc=8, block=64, LRU) stats:
+    Hits:                              303
+    Misses:                             41
+    Compulsory misses:                  41
+    Invalidations:                       0
+    Miss rate:                       11.92%
+  L1D2 (size=32768, assoc=8, block=64, LRU) stats:
+    Hits:                              135
+    Misses:                             31
+    Compulsory misses:                  56
+    Invalidations:                       0
+    Prefetch hits:                       6
+    Prefetch misses:                    25
+    Miss rate:                       18.67%
+Core #3 (traced CPU(s): )
+LL (size=23068672, assoc=11, block=64, LRU) stats:
+    Hits:                           61,348
+    Misses:                         31,096
+    Compulsory misses:              53,246
+    Invalidations:                       0
+    Prefetch hits:                  43,901
+    Prefetch misses:                22,150
+    Local miss rate:                 33.64%
+    Child hits:                 20,985,855
+    Total miss rate:                  0.15%
+simulated 10.02 s
