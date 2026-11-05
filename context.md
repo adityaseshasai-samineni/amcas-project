@@ -451,3 +451,55 @@ ssh adityaseshasai.s@rce.iiit.ac.in 'squeue -u $USER; sacct -X --starttime=2026-
 ```
 
 Then read `cluster-data/logs/drcheck_115482.log` first: whether DynamoRIO works decides the full-scale trace route. Next, `cluster-data/results/fullscale/native/` for tokens per second and the bandwidth real inference needs, and `analysis/tables.md` for the Qwen and MoE DRAM sweeps.
+
+### Overnight results (read 2026-11-05, about 11:30 IST)
+
+All jobs published themselves (`2995d47` to `042c79e`). Home quota: 54 GB of 100 GB used.
+
+| Job | Result |
+|---|---|
+| 115475 `fetch-models` | done in 1h 41m; both models verified against Hugging Face SHA-256 |
+| 115478 `native-fullscale` | done in 57m; depth sweep skipped because this `llama-bench` has no `--n-depth`; batched runs cover context instead |
+| 115490 `an_moe_l3` | `moe_l3-22m_stride` validated (counts and text match) |
+| 115495-115498 | all four DRAM sweeps finished; every DRAMsim3 run completed its trace |
+| 115482 `dynamorio-check` | **failed**: GitHub's API refused the release list for the whole hour of retries (shared rate limit) |
+
+**Native full-scale decode on node01** (2x Xeon Gold 6226R, 32 cores, 4 memory controllers, 16 unbuffered DDR4 DIMMs; speed not readable without root). Bandwidth is weight bytes per token times tokens per second; for Qwen3-30B-A3B it uses the active parameters (3.3B of 30.5B), an estimate.
+
+| Model (size) | 1 thread | 8 | 16 | 32 | Weight traffic at 32 threads |
+|---|---|---|---|---|---|
+| Qwen2.5-0.5B Q4_0 (0.42 GB) | 20.95 tok/s | 100.5 | 117.9 | 119.3 | about 50 GB/s |
+| Qwen2.5-7B Q4_K_M (4.68 GB) | 1.77 | 9.18 | 12.44 | 13.55 | about 63 GB/s |
+| Qwen3-30B-A3B Q4_K_M (18.55 GB) | 3.84 | 15.78 | 19.79 | 22.01 | about 44 GB/s (estimate) |
+
+- Speed flattens from 16 to 32 threads on all three: decode is memory-bound on this node.
+- **Real inference drives about 260 times the DRAM bandwidth of our gem5 traces** (63 GB/s against 0.19-0.24 GB/s for Qwen), and even one native thread drives about 35 times more (8.3 GB/s). This quantifies `ANALYSIS.md` F5's limitation and confirms the full-scale trace route is needed.
+- 63 GB/s is likely well below node01's peak (two sockets of six-channel DDR4). The model is probably placed on one NUMA node by first touch; a run with `--numa distribute` or `numactl --interleave=all` would check that. Not yet done.
+
+**Batched decode, 32 threads** (total decode tokens per second across sequences, and per sequence):
+
+| Model | 1k x 1 | 1k x 4 | 1k x 16 | 8k x 1 | 8k x 4 | 8k x 16 |
+|---|---|---|---|---|---|---|
+| Qwen2.5-0.5B | 82.4 | 236.8 (59.2) | 479.6 (30.0) | 63.8 | 85.7 (21.4) | 127.3 (8.0) |
+| Qwen2.5-7B | 11.9 | 39.0 (9.7) | 91.1 (5.7) | 10.5 | 15.1 (3.8) | 17.1 (1.1) |
+| Qwen3-30B-A3B | 16.4 | 29.8 (7.5) | 61.4 (3.8) | 11.8 | 10.0 (2.5) | 9.1 (0.6) |
+
+Prefill: about 150-200 tokens per second for 7B and 30B-A3B, 1,150-2,000 for 0.5B.
+
+- **Batching pays at short context, not at long.** At 1k, 16 sequences give Qwen 7B 7.7 times the throughput of one, because they share each weight read. At 8k, 16 sequences give only 1.6 times: KV traffic (131k tokens x 56 KiB, about 7.4 GB per step, more than the 4.7 GB of weights) takes over. Batch x context there is 131k, above the predicted crossover of about 77k (`ANALYSIS.md`, F2), consistent with the crossover model; not yet a direct measurement of KV traffic.
+- **The MoE batches much worse than the dense model.** At 1k, 16 sequences give Qwen3-30B-A3B only 3.8 times one sequence (dense 7B: 7.7 times). Different sequences route to different experts, so a batched step reads the union of their experts. At 8k, adding sequences lowers total throughput (11.8 to 9.1). This is the expert-routing effect the problem statement is about, visible at full scale for the first time; it needs traces to measure directly.
+
+**DRAM sweeps of the Qwen and 2-expert MoE gem5 traces** (`analysis/tables.md`):
+
+| Trace | Utilization | Row-interleaved open: hit, read latency | Line-interleaved open: hit, read latency | Row-interleaved close: read latency | MOP4CLXOR saturated cycles vs RoBaRaCoCh |
+|---|---|---|---|---|---|
+| Qwen, short | 1.2% | 0.971, 44.7 | 0.572, 45.2 | 933.4 | 0.67 |
+| Qwen, 1024 | 1.0% | 0.968, 44.4 | 0.553, 45.7 | 898.2 | 0.67 |
+| tinymoe4, 1024 | 4.5% | 0.986, 40.8 | 0.888, 38.7 | 1756.8 | 0.67 |
+| tinymoe4, short | 7.7% | 0.988, 40.8 | 0.897, 38.5 | 1770.8 | 0.67 |
+
+- Weight-dominated traces keep row-interleaved hit rates near 0.97-0.99. At their low load, line interleaving costs almost no latency despite a much lower hit rate (on the MoE traces it is even slightly faster), but needs 11 to 14 times the ACTs on Qwen and 8 times on tinymoe4.
+- Row-interleaved close page serializes badly on every trace (900-1,770 cycles).
+- Under saturation, the XOR mapping finishes in 0.67 of RoBaRaCoCh's cycles on all four traces. On weight streams the advantage does not shrink as it did with stories15M's KV-heavy traces (0.87 at 4096 tokens), supporting different mappings for weights and KV.
+
+**DynamoRIO, not yet installed.** The latest GitHub release is a nightly build that needs glibc 2.34; the cluster has glibc 2.28. The newest stable release, `release_11.3.0-1` (`DynamoRIO-Linux-11.3.0.tar.gz`), is the next to try. Installing it and test-tracing `/bin/ls` was blocked by the session's permission check (downloading and running a third-party binary on the cluster), pending the user's decision. Building from source with the conda toolchain (sysroot 2.28) is the fallback if the stable release also needs a newer glibc.
