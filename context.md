@@ -503,3 +503,10 @@ Prefill: about 150-200 tokens per second for 7B and 30B-A3B, 1,150-2,000 for 0.5
 - Under saturation, the XOR mapping finishes in 0.67 of RoBaRaCoCh's cycles on all four traces. On weight streams the advantage does not shrink as it did with stories15M's KV-heavy traces (0.87 at 4096 tokens), supporting different mappings for weights and KV.
 
 **DynamoRIO, not yet installed.** The latest GitHub release is a nightly build that needs glibc 2.34; the cluster has glibc 2.28. The newest stable release, `release_11.3.0-1` (`DynamoRIO-Linux-11.3.0.tar.gz`), is the next to try. Installing it and test-tracing `/bin/ls` was blocked by the session's permission check (downloading and running a third-party binary on the cluster), pending the user's decision. Building from source with the conda toolchain (sysroot 2.28) is the fallback if the stable release also needs a newer glibc.
+
+### DynamoRIO installed (2026-11-05)
+
+- The user approved installing the stable release `release_11.3.0-1` (`DynamoRIO-Linux-11.3.0.tar.gz`) into `~/amcas-pro/tracing/dynamorio`. It runs under the cluster's glibc 2.28. The cronbuilds need 2.34 and do not run.
+- On the login node, `drrun` aborts with "Out of memory", because the login node limits virtual memory (`ulimit -v` 8192000 KB). On node01 (no limit), both `drrun -- /bin/ls` and `-t drcachesim` work. Run DynamoRIO only on compute nodes.
+- `13_dynamorio_check.sh` was resubmitted as job 116659. It skips the install because `bin64/drrun` now exists, and publishes when it finishes.
+- `CLAUDE.md` was added at the project root, to guide future Claude Code sessions.
