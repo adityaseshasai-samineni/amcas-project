@@ -1,0 +1,19 @@
+==========================================
+SLURM_JOB_ID = 116659
+SLURM_NODELIST = node01
+SLURM_JOB_GPUS = 
+==========================================
+drrun version 11.3.0 -- build 1
+=== native
+native 0.97 s, max RSS 1091312 KB
+=== traced
+0.28.489.646 I common_perf_print:    graphs reused =          0
+0.28.490.103 I common_perf_print:   graph reallocs =          0    /     0        (same size) / (changed size)
+traced 30.17 s, max RSS 1122728 KB
+same text: yes
+1.9M	/scratch/adityaseshasai.s/drcheck/drmemtrace.bash.2484037.1764.dir
+4.4G	/scratch/adityaseshasai.s/drcheck/drmemtrace.llama-completion.2484037.5327.dir
+=== cache simulation (node01-like LLC, 4 cores)
+ERROR: failed to initialize analyzer: raw2trace failed: Failed to process file for thread 2484037: Failed to close prior component
+Command exited with non-zero status 1
+simulated 1082.51 s
