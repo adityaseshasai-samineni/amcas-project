@@ -1,0 +1,78 @@
+==========================================
+SLURM_JOB_ID = 116898
+SLURM_NODELIST = node01
+SLURM_JOB_GPUS = 
+==========================================
+drrun version 11.3.0 -- build 1
+=== reusing raw trace (mmap)
+same text: yes
+4.4G	/scratch/adityaseshasai.s/drcheck/mmap/drmemtrace.llama-completion.2823677.7414.dir/raw
+=== raw2trace (mmap)
+[drmemtrace]: Omitted 0 duplicate system calls.
+[drmemtrace]: Omitted 0 false system calls.
+[drmemtrace]: Reconstructed 346626564 elided addresses.
+[drmemtrace]: Adjusted 0 rseq aborts.
+[drmemtrace]: Adjusted 0 rseq side exits.
+[drmemtrace]: Trace duration 28.693s.
+[drmemtrace]: Final trace instr count: 3756890369.
+[drmemtrace]: Kernel instr count 0
+[drmemtrace]: System call PT traces converted 0
+[drmemtrace]: System call PT traces conversion failed 0
+[drmemtrace]: System call PT trace conversion decode errors 0
+[drmemtrace]: System call PT trace conversion found empty trace 0
+[drmemtrace]: System call traces injected from template 0
+[drmemtrace]: Successfully converted 6 thread files
+raw2trace 1220.89 s
+raw2trace exit=0
+3.5G	/scratch/adityaseshasai.s/drcheck/mmap/drmemtrace.llama-completion.2823677.7414.dir/trace
+total 3572576
+drwxrwxr-x 2 adityaseshasai.s adityaseshasai.s       4096 Nov  5 22:48 .
+drwxrwx--- 4 adityaseshasai.s adityaseshasai.s       4096 Nov  5 22:48 ..
+-rw-rw-r-- 1 adityaseshasai.s adityaseshasai.s         22 Nov  5 23:08 cpu_schedule.bin.zip
+-rw-rw-r-- 1 adityaseshasai.s adityaseshasai.s 3155313935 Nov  5 23:08 drmemtrace.llama-completion.2823677.5445.trace.gz
+-rw-rw-r-- 1 adityaseshasai.s adityaseshasai.s      24902 Nov  5 23:08 drmemtrace.llama-completion.2823678.7670.trace.gz
+-rw-rw-r-- 1 adityaseshasai.s adityaseshasai.s     251484 Nov  5 23:08 drmemtrace.llama-completion.2823679.9342.trace.gz
+-rw-rw-r-- 1 adityaseshasai.s adityaseshasai.s  165353749 Nov  5 23:08 drmemtrace.llama-completion.2824338.9383.trace.gz
+-rw-rw-r-- 1 adityaseshasai.s adityaseshasai.s  164151061 Nov  5 23:08 drmemtrace.llama-completion.2824340.9519.trace.gz
+-rw-rw-r-- 1 adityaseshasai.s adityaseshasai.s  173175807 Nov  5 23:08 drmemtrace.llama-completion.2824341.4560.trace.gz
+=== cache simulation (mmap, node01-like LLC, 4 cores)
+  L1I2 (size=32768, assoc=8, block=64, LRU) stats:
+    Hits:                      378,494,520
+    Misses:                          7,076
+    Compulsory misses:               1,040
+    Invalidations:                       0
+    Miss rate:                        0.00%
+  L1D2 (size=32768, assoc=8, block=64, LRU) stats:
+    Hits:                       70,204,779
+    Misses:                      3,784,161
+    Compulsory misses:           2,778,496
+    Invalidations:                       0
+    Prefetch hits:                 280,360
+    Prefetch misses:             3,503,801
+    Miss rate:                        5.11%
+Core #3 (traced CPU(s): #3)
+  L1I3 (size=32768, assoc=8, block=64, LRU) stats:
+    Hits:                      381,348,326
+    Misses:                          7,445
+    Compulsory misses:                 752
+    Invalidations:                       0
+    Miss rate:                        0.00%
+  L1D3 (size=32768, assoc=8, block=64, LRU) stats:
+    Hits:                       70,748,807
+    Misses:                      3,819,871
+    Compulsory misses:           2,866,218
+    Invalidations:                       0
+    Prefetch hits:                 285,083
+    Prefetch misses:             3,534,788
+    Miss rate:                        5.12%
+LL (size=23068672, assoc=11, block=64, LRU) stats:
+    Hits:                       14,977,089
+    Misses:                     20,437,365
+    Compulsory misses:          15,887,358
+    Invalidations:                       0
+    Prefetch hits:              11,845,269
+    Prefetch misses:            19,578,193
+    Local miss rate:                 57.71%
+    Child hits:              6,023,084,664
+    Total miss rate:                  0.34%
+simulated 2632.22 s
