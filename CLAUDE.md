@@ -20,7 +20,8 @@ There is no test suite, linter or local build. All computation runs on the RCE S
 - **Results flow cluster → GitHub → laptop.** Jobs end by calling `tools/publish.sh "msg" [RUN...]`. It rsyncs files under 50 MB into a clone at `~/amcas-repo/cluster-data/`, reruns `report.py`, commits and pushes. Named runs' raw `dram.trc.gz` go to release `traces-2026-11-03` via `scripts/09_upload_traces.sh`. The cluster commits to `main` on its own, so **`git pull --rebase` before editing locally.**
 - The GitHub token lives at `~/.config/amcas/gh_token` (mode 600). Pass it only through stdin or a credential helper, never on a command line or in output.
 - Python environments: `~/amcas-pro/tracing/mamba/envs/gem5` (gem5 toolchain, no matplotlib) and `.../envs/analysis` (report generation). The login node's system Python is 3.6. numpy there needs `OPENBLAS_NUM_THREADS=1`.
-- Jobs exclude GPU nodes `node04,node05`. Full-scale native work runs on `node01` (2× Xeon Gold 6226R, AVX-512, 384 GB RAM, node-local `/scratch`). Home quota is 100 GB, so large traces go to `/scratch`.
+- Jobs exclude GPU nodes `node04,node05`. Full-scale native work runs on `node01` (2× Xeon Gold 6226R, AVX-512, 384 GB RAM, node-local `/scratch`). `node03` (Xeon Gold 6226, the same AVX-512 flags) also runs `build-fast`. When node01 is full, move a pending job with `scontrol update JobId=N ReqNodeList=node03`. Home quota is 100 GB, so large traces go to `/scratch`, which is node-local: a later job that reuses a trace must run on the same node.
+- Before a long job, test the unfamiliar steps in a minute-long `srun -w node01 ...` on a small input (such as `/bin/ls`). Tool output formats and flags have been wrong more than once.
 - Check jobs with `squeue -u $USER` and `sacct -X --starttime=... --format=JobID,JobName%22,State,ExitCode,Elapsed`.
 
 ## Pipeline architecture (`trace-pipeline/`)
@@ -48,8 +49,20 @@ Scripts are numbered in dependency order. Two eras share them:
 
 **Full-scale (Qwen2.5-0.5B, Qwen2.5-7B, Qwen3-30B-A3B)**
 - `10`: downloads models, checked against Hugging Face SHA-256. `11`: `build-fast`, native AVX-512 with OpenMP. `12`: native thread and batched-decode benchmarks into `results/fullscale/native/`.
-- `13_dynamorio_check.sh`: feasibility check of DynamoRIO `drmemtrace` on native multithreaded llama.cpp. It skips installation if `tracing/dynamorio/bin64/drrun` already exists. The cluster's glibc is 2.28, so use a stable DynamoRIO release; cronbuilds need 2.34.
-- Planned route: drmemtrace → cache model → physical placement → closed-loop Ramulator, validated against the gem5 Qwen 0.5B traces. `publish.sh` will run `tools/fullscale_report.py` if that file exists.
+- DynamoRIO 11.3.0 (stable) is installed at `tracing/dynamorio`. The cluster's glibc is 2.28, and cronbuilds need 2.34.
+  - `drrun` aborts with "Out of memory" on the login node (`ulimit -v`), so run it only on compute nodes.
+  - The analysis tools are in `tools/bin64/`, not `clients/bin64/`. Some, like `record_filter`, ship only as `.debug` files; run them as `drrun -t drcachesim -simulator_type <tool>`.
+  - `13_dynamorio_check.sh` is the feasibility check. It skips installation when `drrun` exists.
+- `14_drmem_phases.sh [MODEL] [N] [THREADS]` (node01 or node03) is the working DynamoRIO route:
+  - **Timing:** `tools/decode_stamp.c` (LD_PRELOAD, built to `tracing/lib/`) logs the wall-clock start and end of each `llama_process` call. This llama.cpp calls `llama_process(ctx, type, llama_batch_ext *)`, not `llama_decode`. DynamoRIO trace timestamps are microseconds since 1601 (`unix_us + 11644473600e6`), so the two line up directly.
+  - **Conversion:** `drraw2trace -compress gzip`. The default zip output fails once a thread's trace passes about 4 GB.
+  - **Windows:** `record_filter -trim_before_timestamp/-trim_after_timestamp` cuts the trace into `load` and `stepK` windows. `drcachesim -skip_to_timestamp` does not work, because these traces have an empty CPU schedule.
+  - **Simulation:** each window is cache-simulated cold.
+  - **What not to use:** the `view` tool is far too slow (it disassembles every instruction) for traces of billions of instructions.
+- **Counting DRAM reads from drcachesim:** use LL `Misses` plus `Prefetch misses`. `Compulsory misses` includes first touches served by prefetch.
+- Validated: per-token DRAM reads for Qwen 0.5B match gem5 within 0.7%. Model loading is about 65% of a short run's instructions, so always analyze step windows only.
+- Remaining route: write DRAM request traces from the windows → model physical placement (4 KB and 2 MB pages) → closed-loop Ramulator. `publish.sh` will run `tools/fullscale_report.py` if that file exists.
+- llama.cpp flags differ from older docs: mmap is turned off with `-lm none` (there is no `--no-mmap`); use `--no-warmup` to match the gem5 runs.
 
 ## Conventions
 
