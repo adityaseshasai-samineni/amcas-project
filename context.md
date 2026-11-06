@@ -605,3 +605,14 @@ Job 117350 ran on node03, moved from node01 while pending. node01 was full, and 
 - Loading is 65% of the instructions and 57% of the DRAM reads. The prompt step reads the same bytes as one token (the weights are read once per batch) with 3.3× the instructions.
 - Rate for the full-scale estimate: the step1 simulation ran at about 2.2M instructions per second. A 7B token is roughly 14× the 0.5B, so about 3.5G instructions and about 30 min of cache simulation per token, which is feasible.
 - Note for analysis: in drcachesim's LL stats, "Compulsory misses" includes first touches served by prefetch, so it can exceed "Misses". Count DRAM reads as Misses plus Prefetch misses.
+
+### DRAM request streams from DynamoRIO windows: job 117563 (submitted 2026-11-06, about 22:30 IST)
+
+- `drcachesim -LL_miss_file F.gz` writes one line `tid,pc,byte address` per **demand** LLC miss only; prefetch fills are not written. Test on `/bin/ls`: 4,799 lines equal LL "Misses", while "Prefetch misses" was 2,466. With `-data_prefetcher none`, every line reaching DRAM is a demand miss: 6,986 lines, against 7,265 misses plus prefetch misses with it on. The streams therefore use the prefetcher off. drcachesim's only data prefetcher is `nextline`; gem5 used a stride prefetcher at L2.
+- drcachesim does not model dirty lines, so there are no writebacks, and store misses count as reads. gem5 Qwen 0.5B writes were about 1% of reads per token.
+- New `tools/drmiss_export.py MISS OUT [--placement]`:
+  - imports `analyze.py`'s mappings, `open_page_stats` and stride categories, so DynamoRIO and gem5 numbers use the same definitions;
+  - reports stride structure merged and per thread;
+  - computes offline row-hit rates for three placements: VA-order packed (closest to gem5 SE, whose model pages were first touched in file order), 4 KiB shuffled, and THP 2 MiB shuffled, all in 8 GiB;
+  - writes `dram.ramulator.trc` for the chosen placement (default VA-order packed). Tested locally on synthetic data.
+- New `scripts/15_drmem_dram_trace.sh [MODEL] [WINDOWS]` (node03, where job 117350's windows are on `/scratch`): for each window, in parallel, drcachesim without prefetch plus a miss file, then `drmiss_export.py`, then `ramulator_replay.py`. Output in `results/fullscale/drdram/<model>/<window>/`. Job 117563 runs step0 and step1 of Qwen 0.5B.
