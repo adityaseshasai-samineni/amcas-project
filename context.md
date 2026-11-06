@@ -587,3 +587,21 @@ New script `scripts/14_drmem_phases.sh [MODEL] [N_PREDICT] [THREADS]` (node01, 6
   - cuts windows `load` (before the first step) and `stepK` (each step's B to E) with record_filter, in parallel;
   - runs basic_counts and drcachesim on each window (cold cache) and on the whole trace;
   - writes `windows_summary.txt`.
+
+### Phase split works; DynamoRIO matches gem5 (job 117350, read 2026-11-06, about 20:50 IST)
+
+Job 117350 ran on node03, moved from node01 while pending. node01 was full, and node03 is a Xeon Gold 6226, Cascade Lake with the same AVX-512 flags. It took 1 h 46 min and was published as `f9ebe3e`.
+- The LD_PRELOAD wrapper logged both steps under DynamoRIO. Native: prompt 44 ms, token 12 ms. Traced: 0.62 s and 0.25 s, of a 22.5 s traced run.
+- Windows, cut with record_filter. Each was cache-simulated cold, 4 cores, 22 MB 11-way LLC. DRAM reads are LL demand misses plus LL prefetch misses, at 64 B:
+
+  | window | instructions | LL misses | LL prefetch misses | DRAM reads | MB |
+  |---|---|---|---|---|---|
+  | load | 2.200G | 8,076,073 | 7,661,276 | 15.74M | 1,007 |
+  | step0 (prompt, about 11 tokens) | 0.835G | 2,837,874 | 2,658,985 | 5.50M | 352 |
+  | step1 (one token) | 0.254G | 2,737,966 | 2,735,175 | 5.47M | 350 |
+  | whole trace | 3.370G | 14,318,117 | 13,496,253 | 27.81M | 1,780 |
+
+- **Cross-validation:** gem5 `qwen_l3-22m_stride` measured 5,434,710 DRAM reads per token. DynamoRIO plus drcachesim gives 5,473,141 for step1, **0.7% apart**. This is despite a different ISA path (SSE2 single thread against AVX-512 on 4 threads), a different prefetcher, and gem5's physical addresses against DynamoRIO's virtual ones. Instructions per token differ about 11× (2,831M in gem5 against 254M), because of AVX-512.
+- Loading is 65% of the instructions and 57% of the DRAM reads. The prompt step reads the same bytes as one token (the weights are read once per batch) with 3.3× the instructions.
+- Rate for the full-scale estimate: the step1 simulation ran at about 2.2M instructions per second. A 7B token is roughly 14× the 0.5B, so about 3.5G instructions and about 30 min of cache simulation per token, which is feasible.
+- Note for analysis: in drcachesim's LL stats, "Compulsory misses" includes first touches served by prefetch, so it can exceed "Misses". Count DRAM reads as Misses plus Prefetch misses.
