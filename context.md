@@ -536,3 +536,22 @@ Job 116729 (node01, 19 min, published `d41235f`):
 Third attempt, job 116898 (`REUSE=1`):
 - Reuses the 4.4 GB raw trace still on node01 `/scratch` and only redoes conversion, with `-compress gzip`, then the cache simulation.
 - The fallback is now `-lm none`. An attempt stops if its text differs from native.
+
+### DynamoRIO route works end to end (job 116898, read 2026-11-06)
+
+Job 116898 (node01, 22:48 to 23:52, published `d2de8f4`):
+- Conversion succeeded with `-compress gzip`: 6 thread files in 1,221 s, 3.76G instructions, 3.5 GB. This confirms the zip output (probably its 4 GB limit) caused the earlier failures.
+- Per-thread trace sizes: the main thread 3.16 GB, the three compute workers about 165 MB each, two other threads tiny. Most of the trace is the main thread, probably model load plus the weight repacking for AVX-512.
+- drcachesim, 4 cores, 22 MB 11-way LLC (simulation took 2,632 s, about 1.4M instructions per second):
+
+  | | value |
+  |---|---|
+  | LL misses | 20.4M (1.31 GB at 64 B) |
+  | LL compulsory misses | 15.9M (1.02 GB) |
+  | LL local miss rate | 57.7% |
+  | LL total miss rate | 0.34% |
+
+  For comparison, the model file is 429 MB. A footprint of about 1.0 GB is consistent with the file plus a repacked copy plus the KV cache and buffers, but load and inference are not separated, so the figures cannot be attributed yet.
+- The drcachesim log was cut to its last 40 lines, so cores 0 and 1 are not in it.
+
+Conclusion: the DynamoRIO route works on optimized multithreaded llama.cpp, with the right output and about 30× slowdown. Next: separate inference from load (start tracing after load), then add per-token boundaries and get physical addresses for the DRAM replay.
