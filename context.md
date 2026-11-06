@@ -555,3 +555,13 @@ Job 116898 (node01, 22:48 to 23:52, published `d2de8f4`):
 - The drcachesim log was cut to its last 40 lines, so cores 0 and 1 are not in it.
 
 Conclusion: the DynamoRIO route works on optimized multithreaded llama.cpp, with the right output and about 30× slowdown. Next: separate inference from load (start tracing after load), then add per-token boundaries and get physical addresses for the DRAM replay.
+
+### Splitting load from inference: job 117023 (submitted 2026-11-06, about 12:00 IST)
+
+New script `scripts/14_drmem_phases.sh [MODEL] [N_PREDICT] [THREADS]` (node01, 6 h):
+- Traces with `-record_function 'llama_decode|2'` and `--no-warmup`. `build-fast` links `libllama.so` dynamically and exports `llama_decode`, so DynamoRIO can find it.
+- Converts with `-compress gzip`, then runs `basic_counts` per thread.
+- Finds each `llama_decode` call on the main thread with the view tool. View's marker format, checked on `/bin/ls` with `malloc`: `<marker: function #ID>` opens both a call and a return. A call is the one followed by `function return address`; a return by `function return value`. The step's start time is the last `<marker: timestamp N>` before it.
+- Runs drcachesim from each step's start to the end (`-skip_to_timestamp`), and over the whole trace. Consecutive differences give each step's LLC misses; "whole minus step 0" gives the cost of loading.
+- Writes `results/fullscale/drphases/<model>/`: `basic_counts.txt`, `markers.txt`, `step_ts.txt`, `cachesim_*.txt`.
+- Caveat: each run from a step starts with a cold cache. With a 22 MB LLC against about 430 MB of weights, that should add little.
