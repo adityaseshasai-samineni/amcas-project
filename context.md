@@ -643,3 +643,18 @@ Model loading was 65% of a short Qwen 0.5B trace and grows with the model, so tr
 
   The text was the same as an untraced run. gem5 measured 5,434,710 DRAM reads per token, so burst is 1.0% from gem5.
 - Throwaway test script: `~/amcas-pro/scratchtests/burst_test.sh` (cluster only).
+
+### Burst pipeline jobs: 117679 (0.5B) and 117680 (7B) (2026-11-07, about 01:20 IST)
+
+- Job 117563 was still pending after about 2.5 h and was cancelled. node03 had idle CPUs, but 190.6 of its 192.3 GB of memory was allocated, so the 32 GB request could not fit. When a job is stuck on `Priority` with idle CPUs, check `scontrol show node N | grep AllocMem`.
+- New `scripts/16_drburst.sh MODEL SKIP NTRACE [THREADS]` (env: `PROMPT_FILE`, `CTX`, `TAG`; default node01, 24 GB, 8 h). It needs nothing from `/scratch`, so it runs on any AVX-512 node. It does:
+  1. an untraced reference run with the same binary;
+  2. the burst trace, raw2trace with gzip, and basic_counts;
+  3. drcachesim with prefetch (DRAM reads = LL misses plus prefetch misses) and without prefetch with `-LL_miss_file`, in parallel;
+  4. `drmiss_export.py`, then `ramulator_replay.py`.
+
+  Results go to `results/fullscale/drburst/<MODEL>_s<SKIP>n<NTRACE>t<THREADS><TAG>/`; the Ramulator trace stays on `/scratch`.
+- `drmiss_export.py` now reads the miss file in chunks of 4M lines into numpy. A 7B token is about 75M lines, too many for Python lists.
+- Submitted:
+  - 117679: Qwen 0.5B, step 1 (the first token after the prompt), 4 threads. It replaces 117563 and checks the pipeline against gem5.
+  - 117680: Qwen2.5-7B Q4_K_M (`qwen2.5-7b-instruct-q4_k_m-00001-of-00002`, which loads both splits), step 1, 4 threads, 48 GB. It runs after 117679 (`afterany`).

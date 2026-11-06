@@ -35,15 +35,27 @@ from analyze import LINE, PAGE, mapping_ro_ba_co, mapping_ro_co_ba, mapping_xor,
 CAPACITY = 8 << 30
 
 
-def read_misses(path):
+def read_misses(path, chunk=4_000_000):
+    """Read in chunks into numpy arrays: a 7B token is about 75M lines, too many for
+    Python lists."""
     op = gzip.open if path.endswith(".gz") else open
-    tids, addrs = [], []
+    tids, addrs, t_buf, a_buf = [], [], [], []
+
+    def flush():
+        tids.append(np.array(t_buf, dtype=np.int64))
+        addrs.append(np.array(a_buf, dtype=np.uint64))
+        t_buf.clear()
+        a_buf.clear()
+
     with op(path, "rt") as f:
         for line in f:
             t, _pc, a = line.rstrip().split(",")
-            tids.append(int(t))
-            addrs.append(int(a, 16))
-    return np.array(tids, dtype=np.int64), np.array(addrs, dtype=np.uint64)
+            t_buf.append(int(t))
+            a_buf.append(int(a, 16))
+            if len(t_buf) >= chunk:
+                flush()
+    flush()
+    return np.concatenate(tids), np.concatenate(addrs)
 
 
 def placements(va):
