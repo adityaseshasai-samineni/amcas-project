@@ -1,0 +1,70 @@
+==========================================
+SLURM_JOB_ID = 117350
+SLURM_NODELIST = node03
+SLURM_JOB_GPUS = 
+==========================================
+=== native
+native 4.93 s
+=== traced
+traced 22.54 s, max RSS 1103088 KB
+same text: yes
+2.8G	/scratch/adityaseshasai.s/drphases/qwen25-05b-q4_0/drmemtrace.llama-completion.2833534.9811.dir/raw
+raw2trace 1031.01 s
+
+ adityaseshasai.s       4096 Nov  6 18:54 .
+ adityaseshasai.s       4096 Nov  6 18:54 ..
+ adityaseshasai.s         22 Nov  6 19:11 cpu_schedule.bin.zip
+ adityaseshasai.s 2272892229 Nov  6 19:11 drmemtrace.llama-completion.2833534.7391.trace.gz
+ adityaseshasai.s      25052 Nov  6 19:11 drmemtrace.llama-completion.2833536.5246.trace.gz
+ adityaseshasai.s     250296 Nov  6 19:11 drmemtrace.llama-completion.2833537.9161.trace.gz
+ adityaseshasai.s  119184996 Nov  6 19:11 drmemtrace.llama-completion.2833543.2544.trace.gz
+ adityaseshasai.s  119959889 Nov  6 19:11 drmemtrace.llama-completion.2833544.6535.trace.gz
+ adityaseshasai.s  119179727 Nov  6 19:11 drmemtrace.llama-completion.2833545.7713.trace.gz
+ adityaseshasai.s         20 Nov  6 19:11 serial_schedule.bin.gz
+=== basic counts (per thread)
+Total counts:
+  3369566239 total (fetched) instructions
+      194809 total unique (fetched) instructions
+   435137534 total non-fetched instructions
+Thread 2833534 counts:
+  2547067779 (fetched) instructions
+      193371 unique (fetched) instructions
+   435137378 non-fetched instructions
+Thread 2833545 counts:
+   274685030 (fetched) instructions
+        7318 unique (fetched) instructions
+           0 non-fetched instructions
+Thread 2833544 counts:
+   274623766 (fetched) instructions
+        7639 unique (fetched) instructions
+           0 non-fetched instructions
+Thread 2833543 counts:
+   273041789 (fetched) instructions
+        7497 unique (fetched) instructions
+           0 non-fetched instructions
+Thread 2833537 counts:
+      141610 (fetched) instructions
+        3300 unique (fetched) instructions
+          78 non-fetched instructions
+Thread 2833536 counts:
+        6265 (fetched) instructions
+        2039 unique (fetched) instructions
+          78 non-fetched instructions
+=== steps (B|E n_tokens time_us), native and traced
+B 1 13438445021618888	B 1 13438445042838480
+E 1 13438445021663220	E 1 13438445043459897
+B 1 13438445021663881	B 1 13438445043499238
+E 1 13438445021675910	E 1 13438445043747480
+load 0 13438445042838480
+step0 13438445042838480 13438445043459897
+step1 13438445043499238 13438445043747480
+=== cut each window and cache-simulate it (windows in parallel)
+=== whole trace
+window       instructions      LL_misses  LL_compulsory
+all            3369566239     14,318,117     15,887,129
+load           2200086913      8,076,073     13,600,101
+step0           834893067      2,837,874      5,478,369
+step1           253805016      2,737,966      5,457,181
+sim load: 1783.67 s
+sim step0: 239.15 s
+sim step1: 113.01 s

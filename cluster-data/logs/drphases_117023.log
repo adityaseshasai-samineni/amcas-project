@@ -1,0 +1,54 @@
+==========================================
+SLURM_JOB_ID = 117023
+SLURM_NODELIST = node01
+SLURM_JOB_GPUS = 
+==========================================
+=== native
+native 0.64 s
+=== traced
+traced 19.88 s, max RSS 1147188 KB
+same text: yes
+2.8G	/scratch/adityaseshasai.s/drphases/qwen25-05b-q4_0/drmemtrace.llama-completion.3909564.5325.dir/raw
+raw2trace 952.69 s
+
+ adityaseshasai.s       4096 Nov  6 11:36 .
+ adityaseshasai.s       4096 Nov  6 11:36 ..
+ adityaseshasai.s         22 Nov  6 11:52 cpu_schedule.bin.zip
+ adityaseshasai.s 2278200784 Nov  6 11:52 drmemtrace.llama-completion.3909564.2270.trace.gz
+ adityaseshasai.s      24899 Nov  6 11:52 drmemtrace.llama-completion.3909565.0697.trace.gz
+ adityaseshasai.s     252581 Nov  6 11:52 drmemtrace.llama-completion.3909566.2891.trace.gz
+ adityaseshasai.s  114304868 Nov  6 11:52 drmemtrace.llama-completion.3909569.3148.trace.gz
+ adityaseshasai.s  127082106 Nov  6 11:52 drmemtrace.llama-completion.3909570.2423.trace.gz
+ adityaseshasai.s  112763937 Nov  6 11:52 drmemtrace.llama-completion.3909571.4373.trace.gz
+ adityaseshasai.s         20 Nov  6 11:52 serial_schedule.bin.gz
+=== basic counts (per thread)
+Total counts:
+  3372227986 total (fetched) instructions
+      193865 total unique (fetched) instructions
+   435137470 total non-fetched instructions
+Thread 3909564 counts:
+  2563630676 (fetched) instructions
+      192111 unique (fetched) instructions
+   435137314 non-fetched instructions
+Thread 3909570 counts:
+   295339436 (fetched) instructions
+        7639 unique (fetched) instructions
+           0 non-fetched instructions
+Thread 3909569 counts:
+   257706642 (fetched) instructions
+        7506 unique (fetched) instructions
+           0 non-fetched instructions
+Thread 3909571 counts:
+   255403169 (fetched) instructions
+        7314 unique (fetched) instructions
+           0 non-fetched instructions
+Thread 3909566 counts:
+      141930 (fetched) instructions
+        3308 unique (fetched) instructions
+          78 non-fetched instructions
+Thread 3909565 counts:
+        6133 (fetched) instructions
+        2039 unique (fetched) instructions
+          78 non-fetched instructions
+=== function markers and timestamps on main thread 3909564
+slurmstepd: error: *** JOB 117023 ON node01 CANCELLED AT 2026-11-06T17:36:06 DUE TO TIME LIMIT ***
