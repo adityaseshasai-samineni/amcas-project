@@ -565,3 +565,25 @@ New script `scripts/14_drmem_phases.sh [MODEL] [N_PREDICT] [THREADS]` (node01, 6
 - Runs drcachesim from each step's start to the end (`-skip_to_timestamp`), and over the whole trace. Consecutive differences give each step's LLC misses; "whole minus step 0" gives the cost of loading.
 - Writes `results/fullscale/drphases/<model>/`: `basic_counts.txt`, `markers.txt`, `step_ts.txt`, `cachesim_*.txt`.
 - Caveat: each run from a step starts with a cold cache. With a 22 MB LLC against about 430 MB of weights, that should add little.
+
+### Phase split, second design: job 117023 timed out; new job (2026-11-06, about 18:10 IST)
+
+- Job 117023 hit its 6 h limit inside the view step. The view tool (it disassembles every instruction) did not get through the main thread's 2.56G instructions in about 5.5 h. Before that: native 0.64 s, traced 19.9 s, same text; raw 2.8 GB (4.4 GB with warmup); raw2trace 953 s.
+- Instruction counts from basic_counts (Qwen 0.5B, 4 threads, `--no-warmup`, prompt plus 2 tokens), 3.37G in total:
+
+  | thread | instructions |
+  |---|---|
+  | main | 2.56G |
+  | each of 3 workers | 0.26–0.30G |
+
+  If the main thread does about one worker's share of compute, loading is about 2.3G (about 68%) and inference about 1.1G.
+- This llama.cpp's completion tool does not call `llama_decode`. It calls `llama_process(ctx, type, llama_batch_ext *)`, so `-record_function 'llama_decode|2'` could never have marked anything.
+- `drcachesim -skip_to_timestamp` fails on these traces: "Missing as-traced istream", and with `-cpu_schedule_file` "Failed to read initial input contents". The traces' `cpu_schedule.bin.zip` is empty (22 bytes).
+- What works: `drrun -t drcachesim -indir T -simulator_type record_filter -outdir O -trim_before_timestamp A -trim_after_timestamp B`, tested on `/bin/ls`. The 11.3.0 release ships `record_filter_launcher.debug` only as debug info, so it must be run this way.
+- DynamoRIO timestamps are wall-clock microseconds since 1601-01-01 UTC (`unix_us + 11644473600e6`). Verified: a trace timestamp decoded to the time of the run.
+- New `tools/decode_stamp.c`, built to `tracing/lib/libdecode_stamp.so`: an LD_PRELOAD wrapper that logs `B|E type dr_us` around each `llama_process` (and `llama_decode`). Tested natively on node01: Qwen 0.5B `-n 2` gives 2 steps, the prompt (about 60 ms) and one token (about 20 ms).
+- `14_drmem_phases.sh` now:
+  - logs steps with the wrapper;
+  - cuts windows `load` (before the first step) and `stepK` (each step's B to E) with record_filter, in parallel;
+  - runs basic_counts and drcachesim on each window (cold cache) and on the whole trace;
+  - writes `windows_summary.txt`.
