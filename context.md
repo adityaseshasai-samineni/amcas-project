@@ -616,3 +616,30 @@ Job 117350 ran on node03, moved from node01 while pending. node01 was full, and 
   - computes offline row-hit rates for three placements: VA-order packed (closest to gem5 SE, whose model pages were first touched in file order), 4 KiB shuffled, and THP 2 MiB shuffled, all in 8 GiB;
   - writes `dram.ramulator.trc` for the chosen placement (default VA-order packed). Tested locally on synthetic data.
 - New `scripts/15_drmem_dram_trace.sh [MODEL] [WINDOWS]` (node03, where job 117350's windows are on `/scratch`): for each window, in parallel, drcachesim without prefetch plus a miss file, then `drmiss_export.py`, then `ramulator_replay.py`. Output in `results/fullscale/drdram/<model>/<window>/`. Job 117563 runs step0 and step1 of Qwen 0.5B.
+
+### Burst tracing: trace only chosen steps (2026-11-06, about 23:00 IST)
+
+Model loading was 65% of a short Qwen 0.5B trace and grows with the model, so tracing the whole process would not scale to 7B or 30B. New `tools/drburst/`:
+- `drburst_main.cpp` builds `llama-drburst`: llama-completion's `llama_completion(argc, argv)` entry point, with drmemtrace linked statically. It calls `dr_app_setup()` at start. Its own exported `llama_process` (found with `-rdynamic` and `RTLD_NEXT`) calls `dr_app_start()` at the start of step `AMCAS_SKIP_STEPS` and `dr_app_stop_and_cleanup()` after `AMCAS_TRACE_STEPS` steps. Step times go to `AMCAS_STEPS`, in the same format as `decode_stamp.c`. Tracer options are given as `DYNAMORIO_OPTIONS="-stderr_mask 0xc -client_lib ';;-offline -outdir DIR'"`.
+- `CMakeLists.txt`, built to `tracing/drburst-build/`:
+
+  ```bash
+  cmake -S tools/drburst -B $W/drburst-build -DDynamoRIO_DIR=$W/dynamorio/cmake -DLLAMA=$W/llama.cpp -DDRLIBS=$W/mamba/envs/drlibs
+  ```
+
+  Build pitfalls, all handled in the file:
+  - drmemtrace_static is not an imported target: link it from `tools/lib64/release`, plus the `*_static` extensions, including `drpttracer_static`.
+  - It needs lz4, snappy and zlib. These are in the new micromamba env `drlibs`, installed from conda-forge (`lz4-c snappy zlib`).
+  - The release's imported targets hard-code `/usr/lib/x86_64-linux-gnu/libpthread.so` and `libz`; these are rewritten.
+  - The conda linker needs every llama and ggml library listed, with `-rpath-link`. `BUILD_RPATH` did not take effect, so an explicit `-Wl,-rpath` is used.
+- Test (node03, Qwen 0.5B, 4 threads, `-n 2`, `AMCAS_SKIP_STEPS=1 AMCAS_TRACE_STEPS=1`, so the one token step only):
+
+  | | full trace, cut afterwards (job 117350) | burst |
+  |---|---|---|
+  | traced run | 22.5 s | 1.7 s |
+  | raw trace | 2.8 GB | 531 MB |
+  | token-step instructions | 254M | 270M (4 threads, about 68M each) |
+  | token DRAM reads (LL misses plus prefetch misses) | 5,473,141 | 5,491,736 |
+
+  The text was the same as an untraced run. gem5 measured 5,434,710 DRAM reads per token, so burst is 1.0% from gem5.
+- Throwaway test script: `~/amcas-pro/scratchtests/burst_test.sh` (cluster only).
