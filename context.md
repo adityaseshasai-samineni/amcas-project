@@ -658,3 +658,47 @@ Model loading was 65% of a short Qwen 0.5B trace and grows with the model, so tr
 - Submitted:
   - 117679: Qwen 0.5B, step 1 (the first token after the prompt), 4 threads. It replaces 117563 and checks the pipeline against gem5.
   - 117680: Qwen2.5-7B Q4_K_M (`qwen2.5-7b-instruct-q4_k_m-00001-of-00002`, which loads both splits), step 1, 4 threads, 48 GB. It runs after 117679 (`afterany`).
+
+### First full-scale results: Qwen 0.5B and Qwen 7B burst traces (read 2026-11-07, about 09:30 IST)
+
+Job 117679 (Qwen 0.5B, step 1, 4 threads, node01, 4.5 min, published `c8f6181`):
+- Traced run 1.48 s, same text. Raw 526 MB; raw2trace 17 s. 268.6M instructions in 4 balanced threads (62–71M each).
+- DRAM reads: with prefetch, 2,748,646 + 2,743,785 = 5,492,431; without prefetch, 5,485,339 (351 MB). gem5 measured 5,434,710 (+0.9 to +1.1%).
+- Stride (merged stream): +1 line 0.336, within 16 lines 0.001, beyond 0.663. gem5's single core gave 0.41 / 0.51 / 0.02. The difference is mostly four threads interleaved by drcachesim's scheduler. The miss file's first field is the pid, not the thread, so the stream cannot be split by thread.
+- Offline open-page row-hit rate. This matches gem5 Qwen 0.5B closely (0.983 / 0.964 / 0.989):
+
+  | placement | RoRaBaCoCh | RoCoRaBaCh | XOR |
+  |---|---|---|---|
+  | VA-order packed | 0.961 | 0.058 | 0.958 |
+  | 4 KiB shuffled | 0.955 | 0.028 | 0.954 |
+  | THP 2 MiB | 0.961 | 0.057 | 0.958 |
+
+  The exception is RoCoRaBaCh, which collapses here because four interleaved streams defeat line interleaving in the in-order model.
+- Ramulator, saturated:
+
+  | mapper | policy | hit | conflict | rd_lat | Mcycles |
+  |---|---|---|---|---|---|
+  | RoBaRaCoCh | Open | 0.984 | 0.005 | 186.5 | 28.4 |
+  | RoBaRaCoCh | ClosedCAP | 0.790 | 0.002 | 222.7 | 34.1 |
+  | MOP4CLXOR | Open | 0.630 | 0.277 | 181.4 | 23.5 |
+  | MOP4CLXOR | ClosedCAP | 0.600 | 0.154 | 183.6 | 23.5 |
+  | ChRaBaRoCo | Open | 0.966 | 0.033 | 262.8 | 41.5 |
+  | ChRaBaRoCo | ClosedCAP | 0.793 | 0.011 | 469.2 | 76.4 |
+
+  MOP4CLXOR finishes in 0.83 of RoBaRaCoCh's cycles; on the gem5 traces it was 0.67.
+
+Job 117680 (Qwen2.5-7B Q4_K_M, step 1, 4 threads, node01, still in Ramulator at 09:20):
+- Untraced 13.8 s; traced run 5.25 s (loading was not traced), same text. Native token step 189 ms on 4 threads.
+- Raw 1.4 GB; raw2trace 170 s. **2.81G instructions per token** (10.5× the 0.5B), four threads of 698–707M.
+- **DRAM reads per token: 68.7M lines, 4.40 GB.** That is 94% of the 4.68 GB model file, so 7B decode streams essentially the whole model each token, as gem5 showed for 0.5B. 4.40 GB in 0.189 s is about 23 GB/s on 4 threads.
+- Cache simulation took 910 s with prefetch and 982 s without.
+- Stride: +1 line 0.213, -1 line 0.037, within 16 lines 0.148, beyond 0.601.
+- Offline row-hit rate:
+
+  | placement | RoRaBaCoCh | RoCoRaBaCh | XOR |
+  |---|---|---|---|
+  | VA-order packed | 0.964 | 0.030 | 0.964 |
+  | 4 KiB shuffled | 0.955 | 0.014 | 0.956 |
+  | THP 2 MiB | 0.963 | 0.029 | 0.963 |
+
+- Glitch: in the 7B traced run, the step-1 `B` stamp written right after `dr_app_start` came out as the literal format string `%c %ld %llu`. `drburst_main.cpp` now stamps before attaching, and has been rebuilt; the next jobs use it.

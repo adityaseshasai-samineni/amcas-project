@@ -51,12 +51,14 @@ static void stamp(char what) {
 extern "C" int32_t llama_process(struct llama_context *ctx, enum llama_process_type type, struct llama_batch_ext *batch) {
     typedef int32_t (*fn_t)(struct llama_context *, enum llama_process_type, struct llama_batch_ext *);
     static fn_t real = (fn_t)dlsym(RTLD_NEXT, "llama_process");
+    // Stamp before attaching: in the 7B run (job 117680) the stamp written straight
+    // after dr_app_start came out as the bare format string.
+    stamp('B');
     if (!tracing && !finished && step >= skip_steps) {
         fprintf(stderr, "drburst: attaching at step %ld\n", step);
         dr_app_start();
         tracing = true;
     }
-    stamp('B');
     int32_t r = real(ctx, type, batch);
     stamp('E');
     step++;

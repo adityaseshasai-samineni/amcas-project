@@ -4,7 +4,9 @@
 Usage: drmiss_export.py MISS_FILE OUT_DIR [--placement NAME]
 
 MISS_FILE is from `drcachesim -LL_miss_file F.gz -data_prefetcher none`: one line
-"tid,pc,address" per demand LLC miss, in simulation order. With the prefetcher off,
+"pid,pc,address" per demand LLC miss, in simulation order. The first field is the
+process id, not the thread (one value for a 4-thread run), so the stream cannot be
+split by thread; the "per thread" stride lines are then the merged stream again. With the prefetcher off,
 every line that reaches DRAM is a demand miss, so the file is the whole read stream.
 drcachesim does not model dirty lines, so there are no writebacks; store misses
 appear as reads. For gem5's Qwen 0.5B, writes were about 1% of reads per token.
