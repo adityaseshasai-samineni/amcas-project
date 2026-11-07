@@ -1,0 +1,67 @@
+==========================================
+SLURM_JOB_ID = 117680
+SLURM_NODELIST = node01
+SLURM_JOB_GPUS = 
+==========================================
+run qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n1t4 on node01.local: -m /home/adityaseshasai.s/amcas-pro/tracing/models/qwen2.5-7b-instruct-q4_k_m-00001-of-00002.gguf -t 4 -c 4096 -n 2 -p Once upon a time there was a little girl named Lily. -no-cnv --temp 0 --seed 1 --no-warmup
+=== untraced
+untraced 13.83 s, max RSS 7859216 KB
+=== traced (steps 1 to 1)
+drburst: attaching at step 1
+drburst: detached after step 1
+traced 5.25 s, max RSS 7865136 KB
+same text: yes
+B 0 13438495250393558	B 0 13438495254749349
+E 0 13438495251246074	E 0 13438495255481280
+B 1 13438495251247439	%c %ld %llu
+E 1 13438495251436608	E 1 13438495256709050
+1.4G	/scratch/adityaseshasai.s/drburst/qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n1t4/drmemtrace.llama-drburst.2744776.3807.dir/raw
+raw2trace 170.32 s
+1.4G	/scratch/adityaseshasai.s/drburst/qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n1t4/drmemtrace.llama-drburst.2744776.3807.dir/trace
+  2810936887 total (fetched) instructions
+Thread 2744795 counts:
+   707215362 (fetched) instructions
+Thread 2744793 counts:
+   703752501 (fetched) instructions
+Thread 2744776 counts:
+   701664418 (fetched) instructions
+Thread 2744794 counts:
+   698304605 (fetched) instructions
+Thread 2744778 counts:
+           1 (fetched) instructions
+=== cache simulation, with and without prefetch (in parallel)
+sim pf: 910.50 s
+sim nopf: 982.13 s
+LL pf:  Misses: 36,465,418  Prefetch misses: 32,242,625 
+LL nopf:  Misses: 68,679,913 
+=== DRAM stream and Ramulator
+68,679,913 DRAM reads (4395.5 MB), 1 threads
+stride, merged: {'+1 line': 0.213, '-1 line': 0.037, 'within 16 lines': 0.148, 'within 8 KiB row': 0.0, 'beyond': 0.601}
+stride, thread 2744776: {'+1 line': 0.213, '-1 line': 0.037, 'within 16 lines': 0.148, 'within 8 KiB row': 0.0, 'beyond': 0.601}
+
+offline in-order open-page row hit rate (DDR4 8 KiB row, 2 ranks x 16 banks)
+placement              RoRaBaCoCh   RoCoRaBaCh     XOR-bank
+VA-order packed             0.964        0.030        0.964
+4KiB shuffled               0.955        0.014        0.956
+THP 2MiB shuffled           0.963        0.029        0.963
+
+wrote /home/adityaseshasai.s/amcas-pro/results/fullscale/drburst/qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n1t4/summary.json and dram.ramulator.trc (68,679,913 requests, VA-order packed)
+[[Ramulator::LoadStoreTrace] [[32minfo[0m] Loading trace file /scratch/adityaseshasai.s/drburst/qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n1t4/dram.ramulator.trc ...
+Ramulator::LoadStoreTrace] [[32minfo[0m] Loading trace file /scratch/adityaseshasai.s/drburst/qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n1t4/dram.ramulator.trc ...
+[[Ramulator::LoadStoreTraceRamulator::LoadStoreTrace] [[32minfo[0m] ] [[32minfo[0m] Loading trace file /scratch/adityaseshasai.s/drburst/qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n1t4/dram.ramulator.trc ...Loading trace file /scratch/adityaseshasai.s/drburst/qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n1t4/dram.ramulator.trc ...
+
+[[Ramulator::LoadStoreTraceRamulator::LoadStoreTrace] [[32minfo[0m] ] [[32minfo[0m] Loading trace file /scratch/adityaseshasai.s/drburst/qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n1t4/dram.ramulator.trc ...Loading trace file /scratch/adityaseshasai.s/drburst/qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n1t4/dram.ramulator.trc ...
+
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loaded 68679913 lines.
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loaded 68679913 lines.
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loaded 68679913 lines.
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loaded 68679913 lines.
+[[Ramulator::LoadStoreTrace] [[32minfo[0m] Loaded 68679913 lines.Ramulator::LoadStoreTrace
+] [[32minfo[0m] Loaded 68679913 lines.
+mapper      policy          reads   writes    hit  conflict  rd_lat  Mcycles
+RoBaRaCoCh  Open         68679913        0  0.985     0.005   183.9    350.4
+RoBaRaCoCh  ClosedCAP    68679913        0  0.789     0.002   213.4    406.6
+MOP4CLXOR   Open         68679913        0  0.608     0.293   182.3    295.0
+MOP4CLXOR   ClosedCAP    68679913        0  0.587     0.169   183.7    294.8
+ChRaBaRoCo  Open         68679913        0  0.963     0.032   220.9    429.8
+ChRaBaRoCo  ClosedCAP    68679913        0  0.787     0.008   364.6    732.2
