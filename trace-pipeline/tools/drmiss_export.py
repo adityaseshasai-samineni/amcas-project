@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Turn drcachesim's LLC miss file into a DRAM request stream, comparable to a gem5 run.
 
-Usage: drmiss_export.py MISS_FILE OUT_DIR [--placement NAME]
+Usage: drmiss_export.py MISS_FILE OUT_DIR [--placement NAME] [--stride-only]
 
 MISS_FILE is from `drcachesim -LL_miss_file F.gz -data_prefetcher none`: one line
 "pid,pc,address" per demand LLC miss, in simulation order. The first field is the
@@ -81,6 +81,7 @@ def main():
     ap.add_argument("miss_file")
     ap.add_argument("out_dir")
     ap.add_argument("--placement", default="VA-order packed")
+    ap.add_argument("--stride-only", action="store_true", help="write only stride.json (for one thread's stream)")
     a = ap.parse_args()
     os.makedirs(a.out_dir, exist_ok=True)
 
@@ -105,6 +106,10 @@ def main():
     print("stride, merged:", {k: round(v, 3) for k, v in stride.items()})
     for t, s in per_thread.items():
         print(f"stride, thread {t}:", {k: round(v, 3) for k, v in s.items()})
+
+    if a.stride_only:
+        json.dump(dict(reads=int(len(va)), stride=stride), open(f"{a.out_dir}/stride.json", "w"), indent=1)
+        return
 
     place, n_pages = placements(va)
     mappings = {"RoRaBaCoCh": mapping_ro_ba_co, "RoCoRaBaCh": mapping_ro_co_ba, "XOR-bank": mapping_xor}

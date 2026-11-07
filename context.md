@@ -719,3 +719,34 @@ Qwen2.5-7B, one decode token, 68,679,913 reads, saturated replay on one channel 
 - MOP4CLXOR finishes in 0.84 of RoBaRaCoCh/Open's cycles, the same as on 0.5B (0.83), despite a 0.61 hit rate. The pattern from the gem5 traces holds at 7B: bank parallelism beats row hits for a weight stream under saturation.
 - RoBaRaCoCh/Open drains at 5.1 cycles per 64 B line (about 15 GB/s, 78% of this one channel's 19.2 GB/s peak). The replay models one channel; node01 measured about 63 GB/s natively over many channels. The full-scale DRAM model needs multiple channels (the planned 8-channel DDR5) before absolute numbers mean anything.
 - Close page (ClosedCAP) loses with every mapper except XOR, where it ties.
+
+### Next four items: thread streams, MoE, long context, DDR5 (submitted 2026-11-07, about 21:45 IST)
+
+The user approved all four.
+
+**Multi-channel DDR5 in Ramulator.** `tools/ramulator_replay.py` gained `--dram ddr4|ddr5 --channels N --interleave-bits B --issue K --procs P`. The defaults are unchanged: one DDR4-2400 channel, issue 1, 6 processes.
+- ddr5 is DDR5-4800B 16Gb x8 with one rank per 32-bit subchannel, and one controller per subchannel. 16 subchannels = 8 DIMM channels, 307 GB/s peak.
+- `CacheLineInterleave(interleave_bits=B)` takes the channel bits just above the 64 B line offset plus B (B=2 gives a 256 B interleave).
+- Several controllers report `stats["memory_system"]["controller"]` as a list, one per channel, each with `total_throughput_MBps`. The script sums them, takes the maximum cycles, and weights latency by reads served.
+- LoadStoreTrace offers `clock_ratio` requests per memory cycle. At 1 it caps throughput at about 150 GB/s (64 B per 416 ps); at 4, a sequential test reached 260–282 GB/s. Full-scale runs use `--issue 4`.
+
+**Per-thread streams.** drcachesim's miss file gives the pid, so `16_drburst.sh` now also runs drcachesim without prefetch for each compute thread alone (`-only_thread T -cores 1`, threads with more than 1M instructions), with `drmiss_export.py --stride-only`. Results go to `thread_<tid>/`.
+
+**`16_drburst.sh`, other changes:**
+- `--exclude=node02,node04,node05,node07,node08` instead of `-w node01`. node06 is a Xeon Gold 5317, Ice Lake with AVX-512 VNNI, so it also runs build-fast. Its `/scratch` is 97% full, with 71 GB free.
+- New environment variables: `PROMPT_CHARS` (prompt = first N characters of `results/sessions/corpus.txt`, the llama.cpp docs, about 4.2 characters per Qwen token), `TB` (prompt threads, `-tb`) and `RAMU_PROCS`.
+- Both Ramulator configurations are run: one DDR4 channel, and DDR5 with 16 subchannels at 256 B interleave, issue 4.
+
+**Cluster:** node01 had only about 18 GB of memory unallocated, and node03 about 28 GB.
+
+**Jobs:**
+
+| job | model | context | memory |
+|---|---|---|---|
+| 118386 | Qwen 0.5B | short | 16G |
+| 118387 | Qwen 7B | short | 40G |
+| 118388 | Qwen3-30B-A3B | short | 64G |
+| 118389 | Qwen 7B | `PROMPT_CHARS=32000 CTX=8192` (about 7.6k tokens), `-c 16 TB=16` | 40G |
+| 118390 | Qwen 7B | `PROMPT_CHARS=120000 CTX=32768` (about 28.6k tokens), `-c 16 TB=16` | 48G |
+
+All trace step 1 (the first token after the prompt) on 4 threads.
