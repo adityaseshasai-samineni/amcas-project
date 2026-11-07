@@ -2,73 +2,115 @@
  {
   "mapper": "RoBaRaCoCh",
   "policy": "Open",
-  "reads": 5485339,
+  "dram": "ddr4",
+  "channels": 1,
+  "interleave_bits": 0,
+  "reads": 5480966,
   "writes": 0,
-  "cycles": 28417553,
-  "row_hits": 5397477,
-  "row_misses": 59186,
-  "row_conflicts": 28646,
-  "hit_rate": 0.9839877753468401,
-  "avg_read_latency": 186.481247
+  "cycles": 28755031,
+  "row_hits": 5396354,
+  "row_misses": 58387,
+  "row_conflicts": 26195,
+  "hit_rate": 0.9845679643039073,
+  "avg_read_latency": 188.558899,
+  "throughput_MBps": 14644.536133,
+  "channel_reads": [
+   5480966
+  ]
  },
  {
   "mapper": "RoBaRaCoCh",
   "policy": "ClosedCAP",
-  "reads": 5485339,
+  "dram": "ddr4",
+  "channels": 1,
+  "interleave_bits": 0,
+  "reads": 5480966,
   "writes": 0,
-  "cycles": 34087565,
-  "row_hits": 4334053,
-  "row_misses": 1138733,
-  "row_conflicts": 12522,
-  "hit_rate": 0.7901202630736506,
-  "avg_read_latency": 222.738419
+  "cycles": 34346262,
+  "row_hits": 4334489,
+  "row_misses": 1135178,
+  "row_conflicts": 11268,
+  "hit_rate": 0.7908302141879077,
+  "avg_read_latency": 224.34278899999998,
+  "throughput_MBps": 12260.547852,
+  "channel_reads": [
+   5480966
+  ]
  },
  {
   "mapper": "MOP4CLXOR",
   "policy": "Open",
-  "reads": 5485339,
+  "dram": "ddr4",
+  "channels": 1,
+  "interleave_bits": 0,
+  "reads": 5480966,
   "writes": 0,
-  "cycles": 23527784,
-  "row_hits": 3453426,
-  "row_misses": 513260,
-  "row_conflicts": 1518627,
-  "hit_rate": 0.6295768354513225,
-  "avg_read_latency": 181.35524
+  "cycles": 23531620,
+  "row_hits": 3439160,
+  "row_misses": 526579,
+  "row_conflicts": 1515203,
+  "hit_rate": 0.6274760798417498,
+  "avg_read_latency": 181.152344,
+  "throughput_MBps": 17895.214844,
+  "channel_reads": [
+   5480966
+  ]
  },
  {
   "mapper": "MOP4CLXOR",
   "policy": "ClosedCAP",
-  "reads": 5485339,
+  "dram": "ddr4",
+  "channels": 1,
+  "interleave_bits": 0,
+  "reads": 5480966,
   "writes": 0,
-  "cycles": 23515420,
-  "row_hits": 3291640,
-  "row_misses": 1351230,
-  "row_conflicts": 842446,
-  "hit_rate": 0.6000821101282041,
-  "avg_read_latency": 183.618896
+  "cycles": 23517637,
+  "row_hits": 3272295,
+  "row_misses": 1348386,
+  "row_conflicts": 860260,
+  "hit_rate": 0.5970316046095004,
+  "avg_read_latency": 183.587967,
+  "throughput_MBps": 17905.849609,
+  "channel_reads": [
+   5480966
+  ]
  },
  {
   "mapper": "ChRaBaRoCo",
   "policy": "Open",
-  "reads": 5485339,
+  "dram": "ddr4",
+  "channels": 1,
+  "interleave_bits": 0,
+  "reads": 5480966,
   "writes": 0,
-  "cycles": 41526094,
-  "row_hits": 5299468,
-  "row_misses": 4118,
-  "row_conflicts": 181721,
-  "hit_rate": 0.96612058358812,
-  "avg_read_latency": 262.79422
+  "cycles": 41177552,
+  "row_hits": 5303625,
+  "row_misses": 4068,
+  "row_conflicts": 173241,
+  "hit_rate": 0.9676498567579905,
+  "avg_read_latency": 260.928223,
+  "throughput_MBps": 10226.546875,
+  "channel_reads": [
+   5480966
+  ]
  },
  {
   "mapper": "ChRaBaRoCo",
   "policy": "ClosedCAP",
-  "reads": 5485339,
+  "dram": "ddr4",
+  "channels": 1,
+  "interleave_bits": 0,
+  "reads": 5480966,
   "writes": 0,
-  "cycles": 76435552,
-  "row_hits": 4351910,
-  "row_misses": 1073279,
-  "row_conflicts": 60118,
-  "hit_rate": 0.7933758311066272,
-  "avg_read_latency": 469.210876
+  "cycles": 76349901,
+  "row_hits": 4348905,
+  "row_misses": 1072462,
+  "row_conflicts": 59567,
+  "hit_rate": 0.7934605671223189,
+  "avg_read_latency": 469.065643,
+  "throughput_MBps": 5515.450195,
+  "channel_reads": [
+   5480966
+  ]
  }
 ]

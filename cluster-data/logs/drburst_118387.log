@@ -1,0 +1,21 @@
+==========================================
+SLURM_JOB_ID = 118387
+SLURM_NODELIST = node06
+SLURM_JOB_GPUS = 
+==========================================
+run qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n1t4 on node06.local: -m /home/adityaseshasai.s/amcas-pro/tracing/models/qwen2.5-7b-instruct-q4_k_m-00001-of-00002.gguf -t 4 -tb 4 -c 4096 -n 2 -p Once upon a time there was a little girl named Lily. -no-cnv --temp 0 --seed 1 --no-warmup
+=== untraced
+untraced 43.38 s, max RSS 7861416 KB
+0.42.897.369 I common_perf_print: prompt eval time =     830.50 ms /    12 tokens (   69.21 ms per token,    14.45 tokens per second)
+0.42.897.371 I common_perf_print:        eval time =     160.88 ms /     1 runs   (  160.88 ms per token,     6.22 tokens per second)
+=== traced (steps 1 to 1)
+drburst: attaching at step 1
+drburst: detached after step 1
+traced 4.21 s, max RSS 7867388 KB
+same text: yes
+E 0 13438541484532198	E 0 13438541488015312
+B 1 13438541484533370	B 1 13438541488016511
+E 1 13438541484694243	E 1 13438541489070867
+1.4G	/scratch/adityaseshasai.s/drburst/qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n1t4/drmemtrace.llama-drburst.3611429.4119.dir/raw
+raw2trace 273.84 s
+1.4G	/scratch/adityaseshasai.s/drburst/qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n1t4/drmemtrace.llama-drburst.3611429.4119.dir/trace

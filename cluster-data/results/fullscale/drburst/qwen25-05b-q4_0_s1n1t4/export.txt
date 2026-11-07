@@ -1,11 +1,11 @@
-5,485,339 DRAM reads (351.1 MB), 1 threads
-stride, merged: {'+1 line': 0.336, '-1 line': 0.0, 'within 16 lines': 0.001, 'within 8 KiB row': 0.0, 'beyond': 0.663}
-stride, thread 2701806: {'+1 line': 0.336, '-1 line': 0.0, 'within 16 lines': 0.001, 'within 8 KiB row': 0.0, 'beyond': 0.663}
+5,480,966 DRAM reads (350.8 MB), 1 threads
+stride, merged: {'+1 line': 0.334, '-1 line': 0.0, 'within 16 lines': 0.001, 'within 8 KiB row': 0.0, 'beyond': 0.666}
+stride, thread 3170663: {'+1 line': 0.334, '-1 line': 0.0, 'within 16 lines': 0.001, 'within 8 KiB row': 0.0, 'beyond': 0.666}
 
 offline in-order open-page row hit rate (DDR4 8 KiB row, 2 ranks x 16 banks)
 placement              RoRaBaCoCh   RoCoRaBaCh     XOR-bank
-VA-order packed             0.961        0.058        0.958
-4KiB shuffled               0.955        0.028        0.954
-THP 2MiB shuffled           0.961        0.057        0.958
+VA-order packed             0.969        0.068        0.966
+4KiB shuffled               0.956        0.027        0.956
+THP 2MiB shuffled           0.968        0.068        0.966
 
-wrote /home/adityaseshasai.s/amcas-pro/results/fullscale/drburst/qwen25-05b-q4_0_s1n1t4/summary.json and dram.ramulator.trc (5,485,339 requests, VA-order packed)
+wrote /home/adityaseshasai.s/amcas-pro/results/fullscale/drburst/qwen25-05b-q4_0_s1n1t4/summary.json and dram.ramulator.trc (5,480,966 requests, VA-order packed)
