@@ -1,0 +1,11 @@
+
+] [[32minfo[0m] Loading trace file /scratch/adityaseshasai.s/drburst/Qwen3-30B-A3B-Q4_K_M_s1n1t4/dram.ramulator.trc ...
+
+ddr4, 1 channel(s), interleave 64 B << 0, issue 1/cycle
+mapper      policy          reads   writes    hit  conflict  rd_lat  Mcycles    GB/s
+RoBaRaCoCh  Open         30325656        0  0.984     0.006   187.9    158.5    14.7
+RoBaRaCoCh  ClosedCAP    30325656        0  0.789     0.002   223.6    189.2    12.3
+MOP4CLXOR   Open         30325656        0  0.625     0.279   181.4    130.1    17.9
+MOP4CLXOR   ClosedCAP    30325656        0  0.596     0.158   183.7    130.0    17.9
+ChRaBaRoCo  Open         30325656        0  0.950     0.039   238.1    205.9    11.3
+ChRaBaRoCo  ClosedCAP    30325656        0  0.785     0.012   373.0    331.2     7.0

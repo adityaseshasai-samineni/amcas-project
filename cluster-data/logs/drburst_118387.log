@@ -19,3 +19,40 @@ E 1 13438541484694243	E 1 13438541489070867
 1.4G	/scratch/adityaseshasai.s/drburst/qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n1t4/drmemtrace.llama-drburst.3611429.4119.dir/raw
 raw2trace 273.84 s
 1.4G	/scratch/adityaseshasai.s/drburst/qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n1t4/drmemtrace.llama-drburst.3611429.4119.dir/trace
+  2809029823 total (fetched) instructions
+Thread 3611438 counts:
+   704970013 (fetched) instructions
+Thread 3611436 counts:
+   704548510 (fetched) instructions
+Thread 3611429 counts:
+   702213491 (fetched) instructions
+Thread 3611437 counts:
+   697296053 (fetched) instructions
+Thread 3611431 counts:
+        1756 (fetched) instructions
+compute threads: 3611438
+3611436
+3611429
+3611437
+=== cache simulation: with and without prefetch, and each thread alone (in parallel)
+sim pf: 852.40 s
+sim nopf: 940.13 s
+LL pf:  Misses: 36,475,261  Prefetch misses: 32,249,973 
+LL nopf:  Misses: 68,692,638 
+thread 3611438: 17,259,949 DRAM reads (1104.6 MB), 1 threads stride, merged: {'+1 line': 0.632, '-1 line': 0.043, 'within 16 lines': 0.319, 'within 8 KiB row': 0.0, 'beyond': 0.005} 
+thread 3611436: 17,258,319 DRAM reads (1104.5 MB), 1 threads stride, merged: {'+1 line': 0.633, '-1 line': 0.043, 'within 16 lines': 0.319, 'within 8 KiB row': 0.0, 'beyond': 0.004} 
+thread 3611429: 17,166,461 DRAM reads (1098.7 MB), 1 threads stride, merged: {'+1 line': 0.632, '-1 line': 0.042, 'within 16 lines': 0.314, 'within 8 KiB row': 0.0, 'beyond': 0.011} 
+thread 3611437: 17,047,519 DRAM reads (1091.0 MB), 1 threads stride, merged: {'+1 line': 0.632, '-1 line': 0.044, 'within 16 lines': 0.32, 'within 8 KiB row': 0.0, 'beyond': 0.005} 
+=== DRAM stream
+68,692,638 DRAM reads (4396.3 MB), 1 threads
+stride, merged: {'+1 line': 0.216, '-1 line': 0.036, 'within 16 lines': 0.147, 'within 8 KiB row': 0.0, 'beyond': 0.6}
+stride, thread 3611429: {'+1 line': 0.216, '-1 line': 0.036, 'within 16 lines': 0.147, 'within 8 KiB row': 0.0, 'beyond': 0.6}
+
+offline in-order open-page row hit rate (DDR4 8 KiB row, 2 ranks x 16 banks)
+placement              RoRaBaCoCh   RoCoRaBaCh     XOR-bank
+VA-order packed             0.966        0.031        0.962
+4KiB shuffled               0.955        0.015        0.955
+THP 2MiB shuffled           0.964        0.031        0.965
+
+wrote /home/adityaseshasai.s/amcas-pro/results/fullscale/drburst/qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n1t4/summary.json and dram.ramulator.trc (68,692,638 requests, VA-order packed)
+=== Ramulator: one DDR4-2400 channel

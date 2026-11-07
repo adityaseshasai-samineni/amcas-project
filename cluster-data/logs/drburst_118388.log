@@ -1,0 +1,79 @@
+==========================================
+SLURM_JOB_ID = 118388
+SLURM_NODELIST = node06
+SLURM_JOB_GPUS = 
+==========================================
+run Qwen3-30B-A3B-Q4_K_M_s1n1t4 on node06.local: -m /home/adityaseshasai.s/amcas-pro/tracing/models/Qwen3-30B-A3B-Q4_K_M.gguf -t 4 -tb 4 -c 4096 -n 2 -p Once upon a time there was a little girl named Lily. -no-cnv --temp 0 --seed 1 --no-warmup
+=== untraced
+untraced 156.40 s, max RSS 32263788 KB
+2.35.252.445 I common_perf_print: prompt eval time =     335.30 ms /    12 tokens (   27.94 ms per token,    35.79 tokens per second)
+2.35.252.446 I common_perf_print:        eval time =      61.06 ms /     1 runs   (   61.06 ms per token,    16.38 tokens per second)
+=== traced (steps 1 to 1)
+drburst: attaching at step 1
+drburst: detached after step 1
+traced 10.51 s, max RSS 32272168 KB
+same text: yes
+E 0 13438541953164090	E 0 13438541963490170
+B 1 13438541953164796	B 1 13438541963491133
+E 1 13438541953225856	E 1 13438541964311079
+1.1G	/scratch/adityaseshasai.s/drburst/Qwen3-30B-A3B-Q4_K_M_s1n1t4/drmemtrace.llama-drburst.3612121.4407.dir/raw
+raw2trace 67.64 s
+654M	/scratch/adityaseshasai.s/drburst/Qwen3-30B-A3B-Q4_K_M_s1n1t4/drmemtrace.llama-drburst.3612121.4407.dir/trace
+  1353930172 total (fetched) instructions
+Thread 3612121 counts:
+   343776275 (fetched) instructions
+Thread 3612133 counts:
+   337797095 (fetched) instructions
+Thread 3612134 counts:
+   337092742 (fetched) instructions
+Thread 3612132 counts:
+   335264059 (fetched) instructions
+Thread 3612123 counts:
+           1 (fetched) instructions
+compute threads: 3612121
+3612133
+3612134
+3612132
+=== cache simulation: with and without prefetch, and each thread alone (in parallel)
+sim pf: 442.64 s
+sim nopf: 461.70 s
+LL pf:  Misses: 16,078,797  Prefetch misses: 14,263,832 
+LL nopf:  Misses: 30,325,656 
+thread 3612121: 7,651,700 DRAM reads (489.7 MB), 1 threads stride, merged: {'+1 line': 0.645, '-1 line': 0.041, 'within 16 lines': 0.305, 'within 8 KiB row': 0.001, 'beyond': 0.008} 
+thread 3612133: 7,542,628 DRAM reads (482.7 MB), 1 threads stride, merged: {'+1 line': 0.647, '-1 line': 0.041, 'within 16 lines': 0.306, 'within 8 KiB row': 0.001, 'beyond': 0.005} 
+thread 3612134: 7,565,347 DRAM reads (484.2 MB), 1 threads stride, merged: {'+1 line': 0.647, '-1 line': 0.041, 'within 16 lines': 0.306, 'within 8 KiB row': 0.001, 'beyond': 0.005} 
+thread 3612132: 7,534,885 DRAM reads (482.2 MB), 1 threads stride, merged: {'+1 line': 0.646, '-1 line': 0.041, 'within 16 lines': 0.307, 'within 8 KiB row': 0.001, 'beyond': 0.006} 
+=== DRAM stream
+30,325,656 DRAM reads (1940.8 MB), 1 threads
+stride, merged: {'+1 line': 0.257, '-1 line': 0.033, 'within 16 lines': 0.147, 'within 8 KiB row': 0.0, 'beyond': 0.563}
+stride, thread 3612121: {'+1 line': 0.257, '-1 line': 0.033, 'within 16 lines': 0.147, 'within 8 KiB row': 0.0, 'beyond': 0.563}
+
+offline in-order open-page row hit rate (DDR4 8 KiB row, 2 ranks x 16 banks)
+placement              RoRaBaCoCh   RoCoRaBaCh     XOR-bank
+VA-order packed             0.963        0.079        0.967
+4KiB shuffled               0.957        0.039        0.957
+THP 2MiB shuffled           0.962        0.077        0.966
+
+wrote /home/adityaseshasai.s/amcas-pro/results/fullscale/drburst/Qwen3-30B-A3B-Q4_K_M_s1n1t4/summary.json and dram.ramulator.trc (30,325,656 requests, VA-order packed)
+=== Ramulator: one DDR4-2400 channel
+
+] [[32minfo[0m] Loading trace file /scratch/adityaseshasai.s/drburst/Qwen3-30B-A3B-Q4_K_M_s1n1t4/dram.ramulator.trc ...
+
+ddr4, 1 channel(s), interleave 64 B << 0, issue 1/cycle
+mapper      policy          reads   writes    hit  conflict  rd_lat  Mcycles    GB/s
+RoBaRaCoCh  Open         30325656        0  0.984     0.006   187.9    158.5    14.7
+RoBaRaCoCh  ClosedCAP    30325656        0  0.789     0.002   223.6    189.2    12.3
+MOP4CLXOR   Open         30325656        0  0.625     0.279   181.4    130.1    17.9
+MOP4CLXOR   ClosedCAP    30325656        0  0.596     0.158   183.7    130.0    17.9
+ChRaBaRoCo  Open         30325656        0  0.950     0.039   238.1    205.9    11.3
+ChRaBaRoCo  ClosedCAP    30325656        0  0.785     0.012   373.0    331.2     7.0
+=== Ramulator: 16 DDR5-4800 subchannels, 256 B interleave
+
+ddr5, 16 channel(s), interleave 64 B << 2, issue 4/cycle
+mapper      policy          reads   writes    hit  conflict  rd_lat  Mcycles    GB/s
+RoBaRaCoCh  Open         30325656        0  0.969     0.010   276.1     17.3   269.4
+RoBaRaCoCh  ClosedCAP    30325656        0  0.781     0.004   376.4     22.9   203.8
+MOP4CLXOR   Open         30325656        0  0.597     0.299   281.8     17.0   275.2
+MOP4CLXOR   ClosedCAP    30325656        0  0.563     0.207   280.3     16.9   275.6
+ChRaBaRoCo  Open         30325656        0  0.942     0.056   485.6     34.7   134.3
+ChRaBaRoCo  ClosedCAP    30325656        0  0.786     0.015   607.9     61.9    75.4

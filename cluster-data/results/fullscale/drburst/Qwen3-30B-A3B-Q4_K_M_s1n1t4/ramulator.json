@@ -1,0 +1,116 @@
+[
+ {
+  "mapper": "RoBaRaCoCh",
+  "policy": "Open",
+  "dram": "ddr4",
+  "channels": 1,
+  "interleave_bits": 0,
+  "reads": 30325656,
+  "writes": 0,
+  "cycles": 158534090,
+  "row_hits": 29831185,
+  "row_misses": 325316,
+  "row_conflicts": 169124,
+  "hit_rate": 0.983695636940706,
+  "avg_read_latency": 187.946518,
+  "throughput_MBps": 14696.774414,
+  "channel_reads": [
+   30325656
+  ]
+ },
+ {
+  "mapper": "RoBaRaCoCh",
+  "policy": "ClosedCAP",
+  "dram": "ddr4",
+  "channels": 1,
+  "interleave_bits": 0,
+  "reads": 30325656,
+  "writes": 0,
+  "cycles": 189194639,
+  "row_hits": 23935786,
+  "row_misses": 6322897,
+  "row_conflicts": 66942,
+  "hit_rate": 0.7892924218379671,
+  "avg_read_latency": 223.55127,
+  "throughput_MBps": 12315.040039,
+  "channel_reads": [
+   30325656
+  ]
+ },
+ {
+  "mapper": "MOP4CLXOR",
+  "policy": "Open",
+  "dram": "ddr4",
+  "channels": 1,
+  "interleave_bits": 0,
+  "reads": 30325656,
+  "writes": 0,
+  "cycles": 130108130,
+  "row_hits": 18954614,
+  "row_misses": 2903104,
+  "row_conflicts": 8467910,
+  "hit_rate": 0.6250361575364572,
+  "avg_read_latency": 181.445175,
+  "throughput_MBps": 17907.714844,
+  "channel_reads": [
+   30325656
+  ]
+ },
+ {
+  "mapper": "MOP4CLXOR",
+  "policy": "ClosedCAP",
+  "dram": "ddr4",
+  "channels": 1,
+  "interleave_bits": 0,
+  "reads": 30325656,
+  "writes": 0,
+  "cycles": 130036468,
+  "row_hits": 18063606,
+  "row_misses": 7467772,
+  "row_conflicts": 4794249,
+  "hit_rate": 0.5956548235589655,
+  "avg_read_latency": 183.654602,
+  "throughput_MBps": 17917.583984,
+  "channel_reads": [
+   30325656
+  ]
+ },
+ {
+  "mapper": "ChRaBaRoCo",
+  "policy": "Open",
+  "dram": "ddr4",
+  "channels": 1,
+  "interleave_bits": 0,
+  "reads": 30325656,
+  "writes": 0,
+  "cycles": 205931345,
+  "row_hits": 28820668,
+  "row_misses": 318632,
+  "row_conflicts": 1186324,
+  "hit_rate": 0.9503734531563143,
+  "avg_read_latency": 238.13945,
+  "throughput_MBps": 11314.158203,
+  "channel_reads": [
+   30325656
+  ]
+ },
+ {
+  "mapper": "ChRaBaRoCo",
+  "policy": "ClosedCAP",
+  "dram": "ddr4",
+  "channels": 1,
+  "interleave_bits": 0,
+  "reads": 30325656,
+  "writes": 0,
+  "cycles": 331206632,
+  "row_hits": 23811232,
+  "row_misses": 6158488,
+  "row_conflicts": 355904,
+  "hit_rate": 0.7851852281753543,
+  "avg_read_latency": 372.969757,
+  "throughput_MBps": 7034.70166,
+  "channel_reads": [
+   30325656
+  ]
+ }
+]

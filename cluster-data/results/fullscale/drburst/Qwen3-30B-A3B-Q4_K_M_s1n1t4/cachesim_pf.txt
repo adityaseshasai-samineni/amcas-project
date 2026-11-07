@@ -1,0 +1,69 @@
+Cache simulation results:
+Core #0 (traced CPU(s): #0)
+  L1I0 (size=32768, assoc=8, block=64, LRU) stats:
+    Hits:                      538,093,012
+    Misses:                         54,730
+    Compulsory misses:               2,941
+    Invalidations:                       0
+    Miss rate:                        0.01%
+  L1D0 (size=32768, assoc=8, block=64, LRU) stats:
+    Hits:                       89,728,790
+    Misses:                      6,253,753
+    Compulsory misses:          10,975,373
+    Invalidations:                       0
+    Prefetch hits:                 639,797
+    Prefetch misses:             5,613,956
+    Miss rate:                        6.52%
+Core #1 (traced CPU(s): #1)
+  L1I1 (size=32768, assoc=8, block=64, LRU) stats:
+    Hits:                                0
+    Misses:                              1
+    Compulsory misses:                   1
+    Invalidations:                       0
+    Miss rate:                      100.00%
+  L1D1 (size=32768, assoc=8, block=64, LRU) stats:
+    Hits:                                0
+    Misses:                              0
+    Compulsory misses:                   0
+    Invalidations:                       0
+Core #2 (traced CPU(s): #2)
+  L1I2 (size=32768, assoc=8, block=64, LRU) stats:
+    Hits:                      540,550,811
+    Misses:                         42,708
+    Compulsory misses:               1,097
+    Invalidations:                       0
+    Miss rate:                        0.01%
+  L1D2 (size=32768, assoc=8, block=64, LRU) stats:
+    Hits:                       92,746,189
+    Misses:                      6,597,424
+    Compulsory misses:          11,667,378
+    Invalidations:                       0
+    Prefetch hits:                 845,722
+    Prefetch misses:             5,751,702
+    Miss rate:                        6.64%
+Core #3 (traced CPU(s): #3)
+  L1I3 (size=32768, assoc=8, block=64, LRU) stats:
+    Hits:                      358,384,449
+    Misses:                         25,516
+    Compulsory misses:                 767
+    Invalidations:                       0
+    Miss rate:                        0.01%
+  L1D3 (size=32768, assoc=8, block=64, LRU) stats:
+    Hits:                       59,272,479
+    Misses:                      4,201,065
+    Compulsory misses:           7,529,566
+    Invalidations:                       0
+    Prefetch hits:                 486,159
+    Prefetch misses:             3,714,906
+    Miss rate:                        6.62%
+LL (size=23068672, assoc=11, block=64, LRU) stats:
+    Hits:                        1,096,400
+    Misses:                     16,078,797
+    Compulsory misses:          30,085,801
+    Invalidations:                       0
+    Prefetch hits:                 816,732
+    Prefetch misses:            14,263,832
+    Local miss rate:                 93.62%
+    Child hits:              1,680,747,408
+    Total miss rate:                  0.95%
+sim pf: 442.64 s

@@ -1,61 +1,62 @@
 Cache simulation results:
 Core #0 (traced CPU(s): #0)
   L1I0 (size=32768, assoc=8, block=64, LRU) stats:
-    Hits:                    1,125,502,686
-    Misses:                         15,093
-    Compulsory misses:               2,663
+    Hits:                    1,123,208,274
+    Misses:                         14,058
+    Compulsory misses:               2,622
     Invalidations:                       0
     Miss rate:                        0.00%
   L1D0 (size=32768, assoc=8, block=64, LRU) stats:
-    Hits:                      150,963,673
-    Misses:                     32,325,000
-    Compulsory misses:          25,252,844
+    Hits:                      150,587,392
+    Misses:                     32,361,407
+    Compulsory misses:          25,237,153
     Invalidations:                       0
-    Miss rate:                       17.64%
+    Miss rate:                       17.69%
 Core #1 (traced CPU(s): #1)
   L1I1 (size=32768, assoc=8, block=64, LRU) stats:
-    Hits:                                0
-    Misses:                              1
-    Compulsory misses:                   1
+    Hits:                            1,687
+    Misses:                            145
+    Compulsory misses:                 145
     Invalidations:                       0
-    Miss rate:                      100.00%
+    Miss rate:                        7.91%
   L1D1 (size=32768, assoc=8, block=64, LRU) stats:
-    Hits:                                0
-    Misses:                              0
-    Compulsory misses:                   0
+    Hits:                              634
+    Misses:                             68
+    Compulsory misses:                  68
     Invalidations:                       0
+    Miss rate:                        9.69%
 Core #2 (traced CPU(s): #2)
   L1I2 (size=32768, assoc=8, block=64, LRU) stats:
-    Hits:                      749,098,975
-    Misses:                          6,148
-    Compulsory misses:                 584
+    Hits:                      750,048,556
+    Misses:                          5,904
+    Compulsory misses:                 583
     Invalidations:                       0
     Miss rate:                        0.00%
   L1D2 (size=32768, assoc=8, block=64, LRU) stats:
-    Hits:                      102,472,091
-    Misses:                     21,886,278
-    Compulsory misses:          17,137,787
+    Hits:                      102,513,313
+    Misses:                     21,974,629
+    Compulsory misses:          17,201,753
     Invalidations:                       0
-    Miss rate:                       17.60%
+    Miss rate:                       17.65%
 Core #3 (traced CPU(s): #3)
   L1I3 (size=32768, assoc=8, block=64, LRU) stats:
-    Hits:                    1,117,656,550
-    Misses:                         10,324
-    Compulsory misses:                 845
+    Hits:                    1,117,117,282
+    Misses:                          9,788
+    Compulsory misses:                 844
     Invalidations:                       0
     Miss rate:                        0.00%
   L1D3 (size=32768, assoc=8, block=64, LRU) stats:
-    Hits:                      157,901,810
-    Misses:                     33,283,026
-    Compulsory misses:          26,002,018
+    Hits:                      157,894,752
+    Misses:                     33,176,943
+    Compulsory misses:          25,952,949
     Invalidations:                       0
-    Miss rate:                       17.41%
+    Miss rate:                       17.36%
 LL (size=23068672, assoc=11, block=64, LRU) stats:
-    Hits:                       18,845,957
-    Misses:                     68,679,913
-    Compulsory misses:          68,348,439
+    Hits:                       18,850,304
+    Misses:                     68,692,638
+    Compulsory misses:          68,348,717
     Invalidations:                       0
     Local miss rate:                 78.47%
-    Child hits:              3,403,595,785
+    Child hits:              3,401,371,890
     Total miss rate:                  1.97%
-sim nopf: 982.13 s
+sim nopf: 940.13 s
