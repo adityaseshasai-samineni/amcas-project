@@ -702,3 +702,20 @@ Job 117680 (Qwen2.5-7B Q4_K_M, step 1, 4 threads, node01, still in Ramulator at 
   | THP 2 MiB | 0.963 | 0.029 | 0.963 |
 
 - Glitch: in the 7B traced run, the step-1 `B` stamp written right after `dr_app_start` came out as the literal format string `%c %ld %llu`. `drburst_main.cpp` now stamps before attaching, and has been rebuilt; the next jobs use it.
+
+### Qwen 7B Ramulator result (job 117680 finished 09:36, published `ebd6cbe`; read 2026-11-07, about 21:10 IST)
+
+Qwen2.5-7B, one decode token, 68,679,913 reads, saturated replay on one channel of DDR4-2400 (2 ranks):
+
+| mapper | policy | hit | conflict | rd_lat | Mcycles |
+|---|---|---|---|---|---|
+| RoBaRaCoCh | Open | 0.985 | 0.005 | 183.9 | 350.4 |
+| RoBaRaCoCh | ClosedCAP | 0.789 | 0.002 | 213.4 | 406.6 |
+| MOP4CLXOR | Open | 0.608 | 0.293 | 182.3 | 295.0 |
+| MOP4CLXOR | ClosedCAP | 0.587 | 0.169 | 183.7 | 294.8 |
+| ChRaBaRoCo | Open | 0.963 | 0.032 | 220.9 | 429.8 |
+| ChRaBaRoCo | ClosedCAP | 0.787 | 0.008 | 364.6 | 732.2 |
+
+- MOP4CLXOR finishes in 0.84 of RoBaRaCoCh/Open's cycles, the same as on 0.5B (0.83), despite a 0.61 hit rate. The pattern from the gem5 traces holds at 7B: bank parallelism beats row hits for a weight stream under saturation.
+- RoBaRaCoCh/Open drains at 5.1 cycles per 64 B line (about 15 GB/s, 78% of this one channel's 19.2 GB/s peak). The replay models one channel; node01 measured about 63 GB/s natively over many channels. The full-scale DRAM model needs multiple channels (the planned 8-channel DDR5) before absolute numbers mean anything.
+- Close page (ClosedCAP) loses with every mapper except XOR, where it ties.
