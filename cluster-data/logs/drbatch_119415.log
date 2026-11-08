@@ -1,0 +1,26 @@
+==========================================
+SLURM_JOB_ID = 119415
+SLURM_NODELIST = node03
+SLURM_JOB_GPUS = 
+==========================================
+run Qwen3-30B-A3B-Q4_K_M_B16_P512t4 on node03.local: B=16 P=512 threads=4 skip=1 ntrace=1 kvu=0
+=== untraced
+drbatch: seq 0 evaluated and saved
+drbatch: seq 1 evaluated and saved
+drbatch: seq 2 evaluated and saved
+drbatch: seq 3 evaluated and saved
+drbatch: seq 4 evaluated and saved
+drbatch: seq 5 evaluated and saved
+drbatch: seq 6 evaluated and saved
+drbatch: seq 7 evaluated and saved
+drbatch: seq 8 evaluated and saved
+drbatch: seq 9 evaluated and saved
+drbatch: seq 10 evaluated and saved
+drbatch: seq 11 evaluated and saved
+drbatch: seq 12 evaluated and saved
+drbatch: seq 13 evaluated and saved
+drbatch: seq 14 evaluated and saved
+drbatch: seq 15 evaluated and saved
+untraced 233.77 s, max RSS 33104924 KB
+=== traced (decode step 1, 1 step(s)), raw trace capped at 16 GB per thread
+slurmstepd: error: *** JOB 119415 ON node03 CANCELLED AT 2026-11-09T04:37:39 ***
