@@ -18,3 +18,21 @@ E 15 13438612389352589	E 15 13438614640789715
 B 16 13438612389353917	B 16 13438614640791205
 E 16 13438612390706122	E 16 13438614647847894
 14G	/scratch/adityaseshasai.s/drburst/qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n1t4_c32k_llsweep/drmemtrace.llama-drburst.3945443.0545.dir/raw
+raw2trace 601.20 s
+3.3G	/scratch/adityaseshasai.s/drburst/qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n1t4_c32k_llsweep/drmemtrace.llama-drburst.3945443.0545.dir/trace
+  8304567503 total (fetched) instructions
+Thread 3945443 counts:
+  2098236881 (fetched) instructions
+Thread 3945460 counts:
+  2090009092 (fetched) instructions
+Thread 3945462 counts:
+  2061160769 (fetched) instructions
+Thread 3945461 counts:
+  2055160760 (fetched) instructions
+Thread 3945445 counts:
+           1 (fetched) instructions
+compute threads: 3945443
+3945460
+3945462
+3945461
+=== cache simulation: with and without prefetch, and each thread alone (in parallel)
