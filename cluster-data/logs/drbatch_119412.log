@@ -1,0 +1,28 @@
+==========================================
+SLURM_JOB_ID = 119412
+SLURM_NODELIST = node03
+SLURM_JOB_GPUS = 
+==========================================
+run qwen2.5-7b-instruct-q4_k_m-00001-of-00002_B16_P512t4 on node03.local: B=16 P=512 threads=4 skip=1 ntrace=1 kvu=0
+=== untraced
+drbatch: seq 0 evaluated and saved
+drbatch: seq 1 evaluated and saved
+drbatch: seq 2 evaluated and saved
+drbatch: seq 3 evaluated and saved
+drbatch: seq 4 evaluated and saved
+drbatch: seq 5 evaluated and saved
+drbatch: seq 6 evaluated and saved
+drbatch: seq 7 evaluated and saved
+drbatch: seq 8 evaluated and saved
+drbatch: seq 9 evaluated and saved
+drbatch: seq 10 evaluated and saved
+drbatch: seq 11 evaluated and saved
+drbatch: seq 12 evaluated and saved
+drbatch: seq 13 evaluated and saved
+drbatch: seq 14 evaluated and saved
+drbatch: seq 15 evaluated and saved
+untraced 246.31 s, max RSS 8452608 KB
+=== traced (decode step 1, 1 step(s)), raw trace capped at 16 GB per thread
+drbatch: attaching at step 1
+traced 18.17 s, max RSS 8317976 KB
+same tokens: NO

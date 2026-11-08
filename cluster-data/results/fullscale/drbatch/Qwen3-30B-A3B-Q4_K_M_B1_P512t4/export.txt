@@ -1,0 +1,25 @@
+31,146,116 DRAM reads (1993.4 MB), 1 threads
+stride, merged: {'+1 line': 0.214, '-1 line': 0.034, 'within 16 lines': 0.14, 'within 8 KiB row': 0.0, 'beyond': 0.612}
+stride, thread 4002724: {'+1 line': 0.214, '-1 line': 0.034, 'within 16 lines': 0.14, 'within 8 KiB row': 0.0, 'beyond': 0.612}
+
+offline in-order open-page row hit rate (DDR4 8 KiB row, 2 ranks x 16 banks)
+placement              RoRaBaCoCh   RoCoRaBaCh     XOR-bank
+VA-order packed             0.953        0.060        0.957
+4KiB shuffled               0.947        0.030        0.947
+THP 2MiB shuffled           0.950        0.060        0.957
+
+attribution by class (reads, share, MB; stride +1/within16/beyond, per class stream)
+  expert weights   17,141,760   0.550    1097.1  +1 0.31 w16 0.16 beyond 0.50
+  KV cache            789,106   0.025      50.5  +1 0.74 w16 0.00 beyond 0.26
+  dense weights    12,853,148   0.413     822.6  +1 0.42 w16 0.24 beyond 0.29
+  activations         118,998   0.004       7.6  +1 0.60 w16 0.04 beyond 0.31
+  unattributed        243,104   0.008      15.6  +1 0.25 w16 0.13 beyond 0.43
+  row hit VA-order packed / RoRaBaCoCh: expert weights 0.957, KV cache 0.815, dense weights 0.960, activations 0.850, unattributed 0.815
+  row hit VA-order packed / XOR-bank: expert weights 0.958, KV cache 0.937, dense weights 0.960, activations 0.842, unattributed 0.811
+  row hit 4KiB shuffled / RoRaBaCoCh: expert weights 0.948, KV cache 0.901, dense weights 0.953, activations 0.797, unattributed 0.736
+  row hit 4KiB shuffled / XOR-bank: expert weights 0.948, KV cache 0.901, dense weights 0.953, activations 0.778, unattributed 0.733
+  row hit THP 2MiB shuffled / RoRaBaCoCh: expert weights 0.956, KV cache 0.728, dense weights 0.960, activations 0.682, unattributed 0.802
+  row hit THP 2MiB shuffled / XOR-bank: expert weights 0.957, KV cache 0.935, dense weights 0.962, activations 0.727, unattributed 0.813
+  experts: 144 expert tensors, mean touched/tensor 8.0 of 128, mostly read 8.0
+
+wrote /home/adityaseshasai.s/amcas-pro/results/fullscale/drbatch/Qwen3-30B-A3B-Q4_K_M_B1_P512t4/summary.json and dram.ramulator.trc (31,146,116 requests, VA-order packed)
