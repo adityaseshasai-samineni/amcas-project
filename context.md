@@ -858,3 +858,19 @@ Note: the trace is deleted on exit, so the LLC sweep needs a new job, or a `KEEP
 - `bitrev` (Shao and Davis 2005, our reading): reverse the bit order of everything above the column field within the trace's active width. `xor_gf2` (Rotaru style): bank bit j ^= XOR of up to K candidate row (and optionally column) bits; greedy search on 8 sampled 100k-request chunks with a cheap cost = max(bus time, busiest-bank occupancy) + 0.05 sum occupancy + a window-conflict term (same bank, different row within 3 requests). Row and column are unchanged, so it is a bijection; the tool asserts this. Matrix saved as JSON.
 - Evidence: the vectorised in-order hit count equals `analyze.open_page_stats` (0.0 vs 0.0 on the synthetic; real stream 0.982 reported by both paths). Synthetic trace (4 interleaved sweeps at 256 MiB offsets, 200k reads, one DDR4 channel, Ramulator RoBaRaCoCh/Open): identity hit 0.930, 1.6 Mcycles, 9.6 GB/s; xor_gf2 (found bank bits ^= row10/row11) 0.990, 0.8 Mcycles, 18.1 GB/s; bitrev 0.987, 0.9 Mcycles, 18.0 GB/s. Real Qwen 0.5B step (first 1.5M reads, packed placement, DDR4 1 channel, RoBaRaCoCh/Open): identity 0.987, 8.3 Mcycles; xor_gf2 0.987, 8.2 Mcycles (search found only row4/row9 taps, in-order hit 0.982 to 0.981); bitrev 0.976, 9.1 Mcycles (uses 10 of 32 banks, offline hit 0.866). So on a clean weight sweep these mappings add nothing and bit reversal hurts; they only help where aligned streams collide. This agrees with the DDR5 result above (mapping hardly matters for the sweep).
 - HAPPY-style adaptive page closure: not feasible with the existing Python bindings, which only select among compiled row policies (Open, ClosedCAP, ...). It would need a new C++ `IRowPolicy` implementation in ramulator2 (per-bank predictor deciding precharge-after-access from recent hit/miss history) and a rebuild of the shared tree, which was not done. Cheapest route: build a copy of ramulator2 in a separate directory with the policy added.
+
+#### dev agent addendum: Qwen3-30B-A3B attribution (job 119168, node03, 2026-11-08)
+Decode step 1, 4 threads, same text as untraced, 701 distinct tensors in the dump, including `blk.N.ffn_{gate,up,down}_exps.weight` (144 tensors = 48 layers x 3) and `cache_k_lN`/`cache_v_lN`. Results in `results/fullscale/drattr/Qwen3-30B-A3B-Q4_K_M_s1n1t4_attr/` (`tensors.tsv`, `attr/attribution.json`, `export.txt`); not published to GitHub (small, can be copied).
+
+| class | reads | share | MB | stride +1 / within16 / beyond (class stream) |
+|---|---|---|---|---|
+| expert weights | 17,141,770 | 0.565 | 1097 | 0.38 / 0.19 / 0.40 |
+| dense weights | 12,853,303 | 0.423 | 823 | 0.47 / 0.23 / 0.24 |
+| KV cache | 60,564 | 0.002 | 3.9 | 0.75 / 0.00 / 0.25 |
+| activations | 105,718 | 0.003 | 6.8 | |
+| unattributed | 195,577 | 0.006 | 12.5 | |
+
+- Experts: on average **8.0 of 128 experts are touched per expert tensor**, and all 8 are read at least half-way (top-8 routing); the per-expert read counts over layers are in `attribution.json` (`experts.per_expert_reads_all_layers`). So the 1.94 GB per token is 1.1 GB expert slices plus 0.82 GB attention/shared/router/embedding weights.
+- Offline row hit, RoRaBaCoCh packed: experts 0.971, dense 0.973, KV 0.952. With THP 2 MiB placement the small KV class drops to 0.736 (XOR: 0.884); the weight classes do not move.
+- Note: the first 30B submission died in DynamoRIO (`heap.c` debug check failure at `dr_app_start`, 262 fragments); the rerun at the same settings (only `--mem` differed) was fine. Treat as a flaky attach; resubmit if seen.
+- Queue note: node03 had about 10 GB unallocated memory; jobs asking 48-64 GB sat pending for 30+ min, 32 GB started at once.
