@@ -750,3 +750,48 @@ The user approved all four.
 | 118390 | Qwen 7B | `PROMPT_CHARS=120000 CTX=32768` (about 28.6k tokens), `-c 16 TB=16` | 48G |
 
 All trace step 1 (the first token after the prompt) on 4 threads.
+
+### Results of jobs 118386–118390, and the long-context failure (read 2026-11-08, about 09:30 IST)
+
+**Finished:** 118386 (Qwen 0.5B, node01, 7 min), 118387 (Qwen 7B, node06, 1 h 26 min), 118388 (Qwen3-30B-A3B, node06, 37 min). All were step 1 on 4 threads with the same text as untraced.
+
+| model | instructions/token | DRAM reads/token | share of model file |
+|---|---|---|---|
+| Qwen 0.5B | 0.261G | 5.48M lines, 351 MB | 82% |
+| Qwen 7B | 2.81G | 68.7M lines, 4.40 GB | 94% |
+| Qwen3-30B-A3B | 1.35G | 30.3M lines, 1.94 GB | **10.5%** of 18.56 GB |
+
+For the MoE, the 1.94 GB fits about 3.3B active parameters at Q4_K_M.
+
+**Per-thread streams** (`-only_thread`, no prefetch). The per-thread read counts add up to the merged count (0.5B 5.50M against 5.48M; 7B 68.74M against 68.69M).
+- 0.5B, each thread: +1 line 0.977–0.991, beyond 0.008–0.021. gem5's single core: +1 0.41, within 16 lines 0.51, beyond 0.02. The share of long jumps agrees. The +1 against within-16 split differs because gem5's L2 stride prefetcher (degree 8) reorders lines, while this stream has no prefetch.
+- 7B and the MoE, each thread: +1 line about 0.63, -1 line about 0.04, within 16 lines about 0.31, beyond 0.004–0.011.
+- So each thread sweeps its slice of the weights almost sequentially. The merged stream's "beyond" share of about 0.6 comes entirely from interleaving four such sweeps.
+
+**Offline row-hit rate (RoRaBaCoCh):** 0.955–0.969 for every model and placement. Line interleave (RoCoRaBaCh) collapses to 0.015–0.079 in the in-order model.
+
+**Ramulator, saturated:**
+
+| model | DDR4 1 ch: RoBaRaCoCh/Open GB/s | DDR4: MOP4CLXOR/Open GB/s | XOR time ratio | DDR5 16 subch: RoBaRaCoCh/Open GB/s | DDR5: MOP4CLXOR/Open GB/s | XOR time ratio |
+|---|---|---|---|---|---|---|
+| 0.5B | 14.6 | 17.9 | 0.82 | 272.8 | 276.1 | 1.00 (3.1 against 3.1 Mcycles) |
+| 7B | 15.0 | 17.9 | 0.84 | 269.6 | 276.0 | 0.98 |
+| 30B-A3B | 14.7 | 17.9 | 0.82 | 269.4 | 275.2 | 0.98 |
+
+- On 16 DDR5-4800 subchannels (307 GB/s peak), the XOR advantage shrinks from 16–18% to about 2%. With 16 × 32 banks there is enough bank parallelism either way, and both reach about 88–90% of peak.
+- Close page (ClosedCAP) costs row-interleaved about 24% (205 against 270 GB/s). ChRaBaRoCo is worst (about 135 GB/s open, about 76 GB/s closed).
+- **Implication for the proposal:** for a single-stream weight sweep on a many-channel system, mapping hardly matters. The gains must come where the stream is not a clean sweep: KV at long context, expert gathers, and batched or concurrent requests. Saturated open-loop replay with 4 requests per cycle also overstates how many requests a CPU keeps in flight, so closed-loop replay is still needed for absolute numbers.
+
+**Failed:**
+- 118390 (7B, about 32k context, `-tb 16 -t 4`, node06): `Fatal error: failed to write trace for T3614340 window -1: wrote 10824 of 32784`. node06's `/scratch` was full: 100%, with 71 GB of it our leftover traces. Prompt: 120,000 characters = 32,143 tokens (3.73 characters per token, not 4.2), native prompt 890 s at 36 tok/s, token 1.35 s.
+- 118389 (7B, about 8k context, node01): prompt 7,363 tokens in 149 s, native token 318 ms. The traced run took 13,071 s, never printed `detached`, and its text differed. Its traced.err is on node01's `/scratch`, and node01 has been drained since 22:50 (`Kill task failed`), so it cannot be read.
+- Likely common cause: `-tb 16` creates 16 OpenMP threads while the token uses 4, so after `dr_app_start` DynamoRIO also traces the 12 idle, spinning threads. This is not yet confirmed.
+
+**Fixes in `16_drburst.sh`:**
+- `TB` must equal `THREADS` (documented; the resubmissions do not set it).
+- `-max_trace_size 17179869184` (16 GiB per thread).
+- Refuse to trace with under 100 GB free on `/scratch`.
+- `trap` on exit copies `*.err` and `raw2trace.log` to the results folder, then deletes the run's `/scratch` folder.
+- Our leftovers were deleted on node06 (back to 71 GB free) and node03 (`burst`, `drphases`, `drcheck`, `fmt`). node01's cannot be reached while it is drained; clean it when it returns.
+
+**Resubmitted on node03** (717 GB free): 118727 (8k: `PROMPT_CHARS=32000 CTX=8192`) and 118728 (32k: `PROMPT_CHARS=116000 CTX=32768`, 14 h). Both use 4 threads for the prompt too.

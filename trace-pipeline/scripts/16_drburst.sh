@@ -18,8 +18,10 @@
 #                 corpus.txt (llama.cpp docs, about 4.2 characters per Qwen token)
 #   PROMPT_FILE   or use this prompt file (default: the short gem5 prompt)
 #   CTX           context size (default 4096)
-#   TB            threads for the prompt (-tb; default THREADS); the traced step
-#                 uses THREADS
+#   TB            threads for the prompt (-tb; default THREADS). Keep it equal to
+#                 THREADS: with -tb 16 -t 4 (jobs 118389, 118390) the 12 extra
+#                 OpenMP threads are traced too once DynamoRIO attaches, and the
+#                 32k run filled node06's /scratch in about 3 minutes
 #   RAMU_PROCS    Ramulator configurations at once (default 6; each holds the trace)
 #   TAG           run name suffix
 # Writes results/fullscale/drburst/<MODEL>_s<SKIP>n<NTRACE>t<THREADS><TAG>/.
@@ -42,6 +44,12 @@ D=$W/dynamorio; X=$W/drburst-build/llama-drburst
 RUN=${MODEL}_s${SKIP}n${NTRACE}t${TH}${TAG:-}
 R=$HOME/amcas-pro/results/fullscale/drburst/$RUN; mkdir -p $R
 S=/scratch/$USER/drburst/$RUN; rm -rf $S; mkdir -p $S
+# /scratch is shared by every user of the node: never leave traces behind (all
+# results are written to $R), and do not start on a nearly full disk.
+# Keep the logs, so a failed run can still be diagnosed.
+trap 'cp $S/*.err $S/raw2trace.log $R/ 2>/dev/null; rm -rf $S' EXIT
+FREE_GB=$(df -BG --output=avail /scratch | tail -1 | tr -dc 0-9)
+[ "$FREE_GB" -ge 100 ] || { echo "only ${FREE_GB} GB free on $(hostname):/scratch; not tracing"; exit 1; }
 if [ -n "${PROMPT_CHARS:-}" ]; then
   head -c $PROMPT_CHARS $HOME/amcas-pro/results/sessions/corpus.txt > $R/prompt.txt; INPUT=(-f $R/prompt.txt)
 elif [ -n "${PROMPT_FILE:-}" ]; then INPUT=(-f "$PROMPT_FILE")
@@ -55,9 +63,9 @@ echo "=== untraced"
 AMCAS_SKIP_STEPS=999999 AMCAS_STEPS=$R/steps_native.txt /usr/bin/time -f "untraced %e s, max RSS %M KB" \
   $X "${ARGS[@]}" > $S/plain.out 2> $S/plain.err; tail -1 $S/plain.err
 grep -E "prompt eval time|eval time" $S/plain.err | head -3 | cut -c1-160
-echo "=== traced (steps $SKIP to $((SKIP + NTRACE - 1)))"
+echo "=== traced (steps $SKIP to $((SKIP + NTRACE - 1))), raw trace capped at 16 GB per thread"
 AMCAS_SKIP_STEPS=$SKIP AMCAS_TRACE_STEPS=$NTRACE AMCAS_STEPS=$R/steps_traced.txt \
-  DYNAMORIO_OPTIONS="-stderr_mask 0xc -client_lib ';;-offline -outdir $S'" \
+  DYNAMORIO_OPTIONS="-stderr_mask 0xc -client_lib ';;-offline -outdir $S -max_trace_size 17179869184'" \
   /usr/bin/time -f "traced %e s, max RSS %M KB" $X "${ARGS[@]}" > $S/traced.out 2> $S/traced.err
 grep -E "^drburst|^traced" $S/traced.err
 cmp -s <(tail -c 300 $S/plain.out) <(tail -c 300 $S/traced.out) && echo "same text: yes" || { echo "same text: NO"; exit 1; }
