@@ -40,7 +40,7 @@ import numpy as np
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from analyze import LINE, PAGE, mapping_ro_ba_co, mapping_ro_co_ba, mapping_xor, open_page_stats  # noqa: E402
 
-CAPACITY = 8 << 30
+CAPACITY = int(os.environ.get("AMCAS_CAPACITY_GB", "8")) << 30  # modelled DRAM size for the shuffled placements
 
 
 def read_misses(path, chunk=4_000_000):

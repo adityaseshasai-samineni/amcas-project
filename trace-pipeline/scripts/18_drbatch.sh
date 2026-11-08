@@ -32,6 +32,7 @@ S=/scratch/$USER/drbatch/$RUN; rm -rf $S; mkdir -p $S
 trap 'cp $S/*.err $S/raw2trace.log $R/ 2>/dev/null; rm -rf $S' EXIT
 FREE_GB=$(df -BG --output=avail /scratch | tail -1 | tr -dc 0-9)
 [ "$FREE_GB" -ge 100 ] || { echo "only ${FREE_GB} GB free on $(hostname):/scratch; not tracing"; exit 1; }
+export AMCAS_CAPACITY_GB=${CAP_GB:-32}  # drmiss_export placement model; 8 GiB overflows for MoE with B>=4 (sparse 2 MiB pages)
 CD=${SESSIONS:-$HOME/amcas-pro/results/sessions/drbatch}; mkdir -p $CD
 export AMCAS_MODEL=$W/models/$MODEL.gguf AMCAS_B=$B AMCAS_P=$P AMCAS_THREADS=$TH AMCAS_NGEN=$NGEN AMCAS_KVU=${KVU:-0} \
   AMCAS_CORPUS=$HOME/amcas-pro/results/sessions/corpus.txt AMCAS_CACHE_DIR=$CD
