@@ -107,6 +107,17 @@ for f in pf nopf; do
 done
 for t in $THREADS; do echo "thread $t: $(grep -E 'DRAM reads|stride, merged' $R/thread_$t/export.txt | tr '\n' ' ')"; done
 
+if [ -n "${LL_SWEEP:-}" ]; then
+  echo "=== LL size sweep (with prefetch): $LL_SWEEP"
+  for sa in $LL_SWEEP; do
+    ( $D/bin64/drrun -t drcachesim -indir $T -cores $TH -LL_size ${sa%%:*} -LL_assoc ${sa##*:} > $R/cachesim_pf_LL${sa%%:*}.txt 2>&1 ) &
+  done
+  wait
+  for sa in $LL_SWEEP; do
+    echo "LL ${sa}: $(sed -n '/^LL /,$p' $R/cachesim_pf_LL${sa%%:*}.txt | grep -E '^ *(Misses|Prefetch misses):' | tr -s ' ' | tr '\n' ' ')"
+  done
+fi
+
 echo "=== DRAM stream"
 $E/bin/python $HOME/amcas-pro/tools/drmiss_export.py $S/miss.gz $R 2>&1 | tee $R/export.txt
 mv $R/dram.ramulator.trc $S/ 2>/dev/null

@@ -874,3 +874,9 @@ Decode step 1, 4 threads, same text as untraced, 701 distinct tensors in the dum
 - Offline row hit, RoRaBaCoCh packed: experts 0.971, dense 0.973, KV 0.952. With THP 2 MiB placement the small KV class drops to 0.736 (XOR: 0.884); the weight classes do not move.
 - Note: the first 30B submission died in DynamoRIO (`heap.c` debug check failure at `dr_app_start`, 262 fragments); the rerun at the same settings (only `--mem` differed) was fine. Treat as a flaky attach; resubmit if seen.
 - Queue note: node03 had about 10 GB unallocated memory; jobs asking 48-64 GB sat pending for 30+ min, 32 GB started at once.
+
+### LL-size sweep, 8k control (job 119097; recorded 2026-11-08 evening, rce-runner)
+
+- Added optional `LL_SWEEP="size:assoc ..."` to `16_drburst.sh` (runs with-prefetch drcachesim per LL size on the same trace, writes `cachesim_pf_LL<size>.txt`).
+- Qwen 7B 8k (run `..._s1n1t4_c8k_llsweep`), DRAM reads = LL Misses + Prefetch misses: 22M/11-way 75.64M (4.84 GB); 32M/16 75.50M; 64M/16 75.20M; 128M/16 75.04M (4.80 GB). Flat (-0.8%), as expected when a layer's KV already fits the LLC.
+- 32k sweep (job 119096) still running. Queued on node03: 119347 (Qwen 0.5B 32k, `_c32k`), 119348 (Qwen3-30B-A3B 8k, `_c8k`).
