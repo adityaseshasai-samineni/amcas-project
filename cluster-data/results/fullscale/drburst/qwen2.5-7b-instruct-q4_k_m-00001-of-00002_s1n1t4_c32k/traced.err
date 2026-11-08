@@ -1,23 +1,28 @@
-0.00.004.116 I llama_completion: llama backend init
-0.00.005.750 I llama_completion: load the model and apply lora adapter, if any
-0.00.324.296 W load: control-looking token: 128247 '</s>' was not control-type; this is probably a bug in the model. its type will be overridden
-0.03.686.351 I cmn          init: llama threadpool init, n_threads = 4
-0.03.691.290 I 
-0.03.691.383 I system_info: n_threads = 4 (n_threads_batch = 4) / 96 | CPU : SSE3 = 1 | SSSE3 = 1 | AVX = 1 | AVX2 = 1 | F16C = 1 | FMA = 1 | BMI2 = 1 | AVX512 = 1 | AVX512_VNNI = 1 | LLAMAFILE = 1 | OPENMP = 1 | REPACK = 1 | 
-0.03.691.384 I 
-0.03.757.044 I sampler seed: 4294967295
-0.03.757.063 I sampler params: 
+0.00.001.775 I llama_completion: llama backend init
+0.00.003.397 I llama_completion: load the model and apply lora adapter, if any
+0.00.308.484 W load: control-looking token: 128247 '</s>' was not control-type; this is probably a bug in the model. its type will be overridden
+0.03.144.233 I cmn          init: llama threadpool init, n_threads = 4
+0.03.149.182 I 
+0.03.149.282 I system_info: n_threads = 4 (n_threads_batch = 4) / 96 | CPU : SSE3 = 1 | SSSE3 = 1 | AVX = 1 | AVX2 = 1 | F16C = 1 | FMA = 1 | BMI2 = 1 | AVX512 = 1 | AVX512_VNNI = 1 | LLAMAFILE = 1 | OPENMP = 1 | REPACK = 1 | 
+0.03.149.284 I 
+0.03.214.733 I sampler seed: 4294967295
+0.03.214.751 I sampler params: 
 	repeat_last_n = 64, repeat_penalty = 1.000, frequency_penalty = 0.000, presence_penalty = 0.000
 	dry_multiplier = 0.000, dry_base = 1.750, dry_allowed_length = 2, dry_penalty_last_n = 64
 	top_k = 40, top_p = 0.950, min_p = 0.050, xtc_probability = 0.000, xtc_threshold = 0.100, typical_p = 1.000, top_n_sigma = -1.000, temp = 0.000
 	mirostat = 0, mirostat_lr = 0.100, mirostat_ent = 5.000, adaptive_target = -1.000, adaptive_decay = 0.900
-0.03.757.074 I sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> min-p -> ?xtc -> temp-ext -> greedy 
-0.03.757.075 I generate: n_ctx = 32768, n_batch = 2048, n_predict = 2, n_keep = 0
-0.03.757.076 I 
-drburst: attaching at step 1
-1.01.861.256 E init: sequence 0 positions are decreasing (not allowed)
-1.01.867.807 E decode: failed to initialize batch
-drburst: detached after step 1
-1.01.900.222 E cmn  common_promp: failed to eval
-Command exited with non-zero status 1
-traced 62.25 s, max RSS 9602672 KB
+0.03.214.765 I sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> min-p -> ?xtc -> temp-ext -> greedy 
+0.03.214.766 I generate: n_ctx = 32768, n_batch = 2048, n_predict = 2, n_keep = 0
+0.03.214.767 I 
+drburst: attaching at step 16
+drburst: detached after step 16
+33.30.000.510 I common_perf_print:    sampling time =       4.95 ms
+33.30.000.511 I common_perf_print:    samplers time =       1.70 ms / 31003 tokens
+33.30.000.521 I common_perf_print:        load time = 2001156.14 ms
+33.30.000.523 I common_perf_print: prompt eval time = 2001086.74 ms / 31001 tokens (   64.55 ms per token,    15.49 tokens per second)
+33.30.000.526 I common_perf_print:        eval time =    5653.89 ms /     1 runs   ( 5653.89 ms per token,     0.18 tokens per second)
+33.30.000.528 I common_perf_print:       total time = 2006851.34 ms / 31002 tokens
+33.30.000.530 I common_perf_print: unaccounted time =     105.77 ms /   0.0 %      (total - sampling - prompt eval - eval) / (total)
+33.30.000.531 I common_perf_print:    graphs reused =          0
+33.30.000.531 I common_perf_print:   graph reallocs =          0    /     0        (same size) / (changed size)
+traced 2010.22 s, max RSS 9642280 KB

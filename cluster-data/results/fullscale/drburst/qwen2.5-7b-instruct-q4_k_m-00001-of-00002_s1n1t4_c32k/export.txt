@@ -1,0 +1,11 @@
+152,718,730 DRAM reads (9774.0 MB), 1 threads
+stride, merged: {'+1 line': 0.401, '-1 line': 0.016, 'within 16 lines': 0.084, 'within 8 KiB row': 0.0, 'beyond': 0.499}
+stride, thread 3875530: {'+1 line': 0.401, '-1 line': 0.016, 'within 16 lines': 0.084, 'within 8 KiB row': 0.0, 'beyond': 0.499}
+
+offline in-order open-page row hit rate (DDR4 8 KiB row, 2 ranks x 16 banks)
+placement              RoRaBaCoCh   RoCoRaBaCh     XOR-bank
+VA-order packed             0.958        0.158        0.953
+4KiB shuffled               0.931        0.079        0.931
+THP 2MiB shuffled           0.841        0.157        0.928
+
+wrote /home/adityaseshasai.s/amcas-pro/results/fullscale/drburst/qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n1t4_c32k/summary.json and dram.ramulator.trc (152,718,730 requests, VA-order packed)
