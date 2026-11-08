@@ -810,3 +810,36 @@ For the MoE, the 1.94 GB fits about 3.3B active parameters at Q4_K_M.
   At 32k the token costs 4.2× the short-context token (189 ms on node01). This is the KV-cache cost appearing.
 - **Fix in `16_drburst.sh`:** `SKIP` now counts decode steps (1 = first step after the prompt). `PROMPT_STEPS` = (number of `B` lines in `steps_native.txt`) − (N − 1), and the traced run attaches at call `PROMPT_STEPS + SKIP − 1`. For short prompts this is call 1, as before.
 - Resubmitted on node03: 118735 (8k: `PROMPT_CHARS=32000 CTX=8192`) and 118736 (32k: `PROMPT_CHARS=116000 CTX=32768`).
+
+### Long-context results: 8k done, 32k almost (read 2026-11-08, about 14:10 IST)
+
+Qwen2.5-7B, the first decode step after the prompt, 4 threads, node03. Both with the same text as untraced. The fixed step selection attached at call 4 (8k) and call 16 (32k), and the earlier "positions are decreasing" failure did not recur.
+
+| | short | 8k (7,363 tokens) | 32k (31,001 tokens) |
+|---|---|---|---|
+| native token (4 threads) | 189 ms (node01) | 279 ms | 1,245 ms |
+| instructions | 2.81G | 4.11G | 8.26G |
+| raw / converted trace | 1.4 GB / 1.4 GB | 4.2 / 1.9 GB | 14 / 3.3 GB |
+| DRAM reads | 68.7M (4.40 GB) | 75.7M (4.85 GB) | 152.7M (9.77 GB) |
+| weights + one KV read (expected) | 4.40 GB | 4.82 GB | 6.18 GB |
+| measured / expected | 1.00 | 1.01 | **1.58** |
+| per-thread stride: beyond | 0.005 | 0.027–0.032 | 0.075–0.080 |
+| offline row hit, RoRaBaCoCh (packed / 4K / THP) | 0.966 / 0.955 / 0.964 | 0.966 / 0.958 / 0.946 | 0.958 / 0.931 / **0.841** |
+| offline row hit, XOR (packed / 4K / THP) | 0.962 / 0.955 / 0.965 | 0.969 / 0.958 / 0.964 | 0.953 / 0.931 / 0.928 |
+
+The expected size uses KV f16 = 28 layers × 4 KV heads × 128 × 2 (K, V) × 2 B = 57,344 B per token: 422 MB at 7,363 tokens and 1.78 GB at 31,001.
+
+**Finding: KV traffic is amplified once a layer's KV exceeds the LLC.** At 8k, the measured reads equal the weights plus one pass over KV. At 32k they are 3.6 GB more than that, so KV is read about 3× instead of once. Per layer, K+V is 15 MB at 7,363 tokens, which fits the 22 MB LLC, and 63.5 MB at 31,001 (K alone 31.7 MB), which does not.
+- Hypothesis: with GQA, each KV head serves 7 query heads. While a layer's KV fits the LLC, the 7 reuses hit; once it does not, some of them go to DRAM.
+- To verify: an LLC-size sweep on the 32k trace (the excess should vanish at about 64 MB or more), or attribution of misses to the KV buffer.
+- This is also the first workload where placement matters: THP drops RoRaBaCoCh to 0.841.
+
+**Ramulator, one DDR4 channel:**
+- 8k: RoBaRaCoCh/Open 404.0 Mcycles, MOP4CLXOR 324.8 (0.80).
+- 32k: RoBaRaCoCh/Open 0.969 hit, 740.9 Mcycles; MOP4CLXOR 0.377 hit, 0.516 conflict, 665.1 Mcycles (0.90). XOR's advantage halves.
+
+**Ramulator, 16 DDR5 subchannels, 8k:** RoBaRaCoCh/Open 231.2 GB/s, MOP4CLXOR/Open 235.9 GB/s (0.98), ClosedCAP row-interleaved 165.9, ChRaBaRoCo 122.0. Lower than the short-context 270 GB/s: the KV part of the stream drains less efficiently. The 32k DDR5 replay was still running.
+
+**Native bandwidth falls with context:** 4.40 GB / 0.189 s ≈ 23 GB/s (short), 4.85 / 0.279 ≈ 17 GB/s (8k), 9.77 / 1.245 ≈ 7.9 GB/s (32k). At long context on 4 threads the token is limited by attention compute, not DRAM bandwidth.
+
+Note: the trace is deleted on exit, so the LLC sweep needs a new job, or a `KEEP=1` option.
