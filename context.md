@@ -904,10 +904,10 @@ Decode step 1, 4 threads, same text as untraced, 701 distinct tensors in the dum
 |---|---|---|---|---|---|---|---|---|
 | Qwen3-30B-A3B short (KV 0.2%) | THP | DDR5 Open | 6.80 | 7.41 | 6.80 | 6.80 | 1.000 | 1.001 |
 | Qwen3-30B-A3B short | THP | DDR4 Open | 61.25 | 64.13 | 60.93 | 61.24 | 1.000 | 1.005 |
-| 7B 8k (KV 9%) | packed | DDR5 Open | 7.87 | 11.32 | 7.85 | 7.88 | 1.001 | 1.004 |
+| 7B 8k (KV 8.8% of reads) | packed | DDR5 Open | 7.87 | 11.32 | 7.85 | 7.88 | 1.001 | 1.004 |
 | 7B 8k | THP | DDR5 Open | 8.44 | 8.41 | 7.88 | 7.90 | 0.936 | 1.003 |
 | 7B 8k | THP | DDR5 ClosedCAP | 11.61 | 12.26 | 9.89 | 10.02 | 0.863 | 1.013 |
-| 7B 32k (KV 22% of reads) | packed | DDR5 Open | 13.27 | 22.58 | 13.30 | 13.27 | 1.000 | 1.000 |
+| 7B 32k (KV 61% of 179M reads (the earlier burst run counted 152M; this run is a separate trace)) | packed | DDR5 Open | 13.27 | 22.58 | 13.30 | 13.27 | 1.000 | 1.000 |
 | 7B 32k | THP | DDR4 Open | 61.77 | 60.03 | 57.05 | 56.75 | 0.919 | 0.995 |
 | 7B 32k | THP | DDR5 Open | 16.09 | 13.98 | 13.40 | 13.38 | 0.831 | 0.998 |
 | 7B 32k | THP | DDR5 ClosedCAP | 21.36 | 17.83 | 15.14 | 15.22 | 0.713 | 1.006 |
@@ -922,3 +922,27 @@ Decode step 1, 4 threads, same text as untraced, 701 distinct tensors in the dum
 **Takeaway for the proposal:** the data supports "an XOR bank hash on the KV (and activation) pages" as the useful mechanism (up to 17% on 7B 32k THP DDR5, 29% with closed page), not a per-class choice of mapping; the per-class variant is better only in being smaller in scope (weights provably untouched, no risk of a global hash hurting weight streams) and equal in speed. Whether the per-class choice matters when weights are not a clean sweep (batched decode, MoE with many experts per token at high batch) is untested.
 
 Files: `results/fullscale/region/<run>/` (manifest.json, replay_*.json, make.txt), `results/fullscale/drattr/*_attr_miss`, `*_attr_c8k`, `*_attr_c32k` (miss.gz kept on the cluster only, 115 MB / 281 MB / 619 MB).
+
+### LL sweep at 32k, and KV on 0.5B and 30B-A3B (jobs 119096, 119347, 119348; 2026-11-09, rce-runner)
+
+**Hypothesis confirmed.** Qwen 7B 32k (31,001 tokens), DRAM reads = LL Misses + Prefetch misses, with prefetch:
+
+| LL | reads | GB | vs expected 6.18 GB |
+|---|---|---|---|
+| 22M/11 | 161.3M | 10.32 | 1.67 |
+| 32M/16 | 109.2M | 6.99 | 1.13 |
+| 64M/16 | 97.1M | 6.21 | 1.00 |
+| 128M/16 | 96.3M | 6.16 | 1.00 |
+
+The 8k control is flat (75.6M to 75.0M). So the 3.6+ GB excess at 32k is KV re-reads that miss a 22 MB LLC; with an LLC at least as large as one layer's K+V (63.5 MB) the traffic is weights + one KV pass. (The 22M figure here, 161.3M, counts Misses+Prefetch misses of the with-prefetch run; the earlier 152.7M in the table above used the other counting, so compare ratios within one method.) Ramulator (7B 32k): DDR4 time ratio XOR/RoBaRaCoCh = 702.8/782.2 = 0.90; DDR5x16 179.9/179.7 = 1.00.
+
+**Second models** (first decode step, 4 threads, node03). Expected = active weights (short-prompt reads) + one KV pass; KV dims taken from model configs (not re-read from logs): 0.5B 24 layers x 2 KV heads x 64 = 12,288 B/token; 30B-A3B 48 x 4 x 128 = 98,304 B/token.
+
+| model | context | DRAM reads | expected | measured/expected | Ramulator DDR4 XOR ratio | DDR5 XOR ratio |
+|---|---|---|---|---|---|---|
+| Qwen 0.5B | 31,001 tok | 11.66M lines (746 MB) | 351 MB + 381 MB = 732 MB | 1.02 | 50.0/65.6 = 0.76 | 6.5/6.6 = 0.98 |
+| Qwen3-30B-A3B | 7,356 tok | 42.1M lines (2.70 GB) | 1.94 GB + 0.72 GB = 2.66 GB | 1.01 | 181.2/241.7 = 0.75 | 35.4/36.1 = 0.98 |
+
+Both match weights + one KV pass: 0.5B KV per layer is 12 MB at 31k, and 30B-A3B per layer 15 MB at 7.4k, so both fit the 22 MB LLC. No amplification, consistent with the hypothesis (amplification needs per-layer KV above the LLC). Native: 0.5B token 130 ms at 31k.
+
+Submitted: 119402 (30B-A3B s1n4 `_n4`), 119403 (7B s1n4 `_n4`).
