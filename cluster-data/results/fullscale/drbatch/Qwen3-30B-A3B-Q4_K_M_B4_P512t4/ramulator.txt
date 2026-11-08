@@ -1,0 +1,33 @@
+Loading trace file /scratch/adityaseshasai.s/drbatch/Qwen3-30B-A3B-Q4_K_M_B4_P512t4/dram.ramulator.trc ...Loading trace file /scratch/adityaseshasai.s/drbatch/Qwen3-30B-A3B-Q4_K_M_B4_P512t4/dram.ramulator.trc ...
+
+multiprocessing.pool.RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "/home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/lib/python3.12/multiprocessing/pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+                    ^^^^^^^^^^^^^^^^^^^
+  File "/home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/lib/python3.12/multiprocessing/pool.py", line 48, in mapstar
+    return list(map(*args))
+           ^^^^^^^^^^^^^^^^
+  File "/home/adityaseshasai.s/amcas-pro/tools/ramulator_replay.py", line 51, in run
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/adityaseshasai.s/amcas-pro/tracing/ramulator2/python/ramulator/__init__.py", line 44, in __init__
+    self._sim = _CppSimulation(config)
+                ^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: Trace /scratch/adityaseshasai.s/drbatch/Qwen3-30B-A3B-Q4_K_M_B4_P512t4/dram.ramulator.trc does not exist!
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/adityaseshasai.s/amcas-pro/tools/ramulator_replay.py", line 108, in <module>
+    main()
+  File "/home/adityaseshasai.s/amcas-pro/tools/ramulator_replay.py", line 91, in main
+    res = pool.map(run, cfgs)
+          ^^^^^^^^^^^^^^^^^^^
+  File "/home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/lib/python3.12/multiprocessing/pool.py", line 367, in map
+    return self._map_async(func, iterable, mapstar, chunksize).get()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/lib/python3.12/multiprocessing/pool.py", line 774, in get
+    raise self._value
+RuntimeError: Trace /scratch/adityaseshasai.s/drbatch/Qwen3-30B-A3B-Q4_K_M_B4_P512t4/dram.ramulator.trc does not exist!

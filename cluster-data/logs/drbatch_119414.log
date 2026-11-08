@@ -1,0 +1,124 @@
+==========================================
+SLURM_JOB_ID = 119414
+SLURM_NODELIST = node03
+SLURM_JOB_GPUS = 
+==========================================
+run Qwen3-30B-A3B-Q4_K_M_B4_P512t4 on node03.local: B=4 P=512 threads=4 skip=1 ntrace=1 kvu=0
+=== untraced
+drbatch: seq 0 evaluated and saved
+drbatch: seq 1 evaluated and saved
+drbatch: seq 2 evaluated and saved
+drbatch: seq 3 evaluated and saved
+untraced 75.10 s, max RSS 32182012 KB
+=== traced (decode step 1, 1 step(s)), raw trace capped at 16 GB per thread
+drbatch: attaching at step 1
+drbatch: detached after step 1
+traced 19.31 s, max RSS 32128424 KB
+same tokens: yes
+B 0 13438650172347991	B 0 13438650189384599
+E 0 13438650172665274	E 0 13438650189707549
+B 1 13438650172666051	B 1 13438650189708343
+E 1 13438650172942406	E 1 13438650192090759
+B 2 13438650172943155	B 2 13438650192092233
+E 2 13438650173203240	E 2 13438650192535650
+B 3 13438650173203991	B 3 13438650192536404
+E 3 13438650173454145	E 3 13438650192855225
+4.4G	/scratch/adityaseshasai.s/drbatch/Qwen3-30B-A3B-Q4_K_M_B4_P512t4/drmemtrace.llama-drbatch.47137.9084.dir/raw
+raw2trace 334.12 s
+2.4G	/scratch/adityaseshasai.s/drbatch/Qwen3-30B-A3B-Q4_K_M_B4_P512t4/drmemtrace.llama-drbatch.47137.9084.dir/trace
+  4964052601 total (fetched) instructions
+Thread 47141 counts:
+  1243280600 (fetched) instructions
+Thread 47137 counts:
+  1243223510 (fetched) instructions
+Thread 47142 counts:
+  1240423733 (fetched) instructions
+Thread 47140 counts:
+  1237124758 (fetched) instructions
+=== cache simulation: with and without prefetch (in parallel)
+sim pf: 1530.84 s
+sim nopf: 1593.15 s
+LL pf:  Misses: 35,585,519  Prefetch misses: 31,198,806 
+LL nopf:  Misses: 66,760,306 
+=== DRAM stream and tensor attribution
+66,760,306 DRAM reads (4272.7 MB), 1 threads
+stride, merged: {'+1 line': 0.246, '-1 line': 0.032, 'within 16 lines': 0.166, 'within 8 KiB row': 0.009, 'beyond': 0.547}
+stride, thread 47137: {'+1 line': 0.246, '-1 line': 0.032, 'within 16 lines': 0.166, 'within 8 KiB row': 0.009, 'beyond': 0.547}
+Traceback (most recent call last):
+  File "/home/adityaseshasai.s/amcas-pro/tools/drmiss_export.py", line 278, in <module>
+    main()
+  File "/home/adityaseshasai.s/amcas-pro/tools/drmiss_export.py", line 239, in main
+    place, n_pages = placements(va)
+                     ^^^^^^^^^^^^^^
+  File "/home/adityaseshasai.s/amcas-pro/tools/drmiss_export.py", line 80, in placements
+    hframes = rng.choice(CAPACITY // huge, size=len(hp), replace=False).astype(np.int64)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "numpy/random/_generator.pyx", line 925, in numpy.random._generator.Generator.choice
+ValueError: Cannot take a larger sample than population when replace is False
+=== Ramulator: one DDR4-2400 channel
+Loading trace file /scratch/adityaseshasai.s/drbatch/Qwen3-30B-A3B-Q4_K_M_B4_P512t4/dram.ramulator.trc ...Loading trace file /scratch/adityaseshasai.s/drbatch/Qwen3-30B-A3B-Q4_K_M_B4_P512t4/dram.ramulator.trc ...
+
+multiprocessing.pool.RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "/home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/lib/python3.12/multiprocessing/pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+                    ^^^^^^^^^^^^^^^^^^^
+  File "/home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/lib/python3.12/multiprocessing/pool.py", line 48, in mapstar
+    return list(map(*args))
+           ^^^^^^^^^^^^^^^^
+  File "/home/adityaseshasai.s/amcas-pro/tools/ramulator_replay.py", line 51, in run
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/adityaseshasai.s/amcas-pro/tracing/ramulator2/python/ramulator/__init__.py", line 44, in __init__
+    self._sim = _CppSimulation(config)
+                ^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: Trace /scratch/adityaseshasai.s/drbatch/Qwen3-30B-A3B-Q4_K_M_B4_P512t4/dram.ramulator.trc does not exist!
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/adityaseshasai.s/amcas-pro/tools/ramulator_replay.py", line 108, in <module>
+    main()
+  File "/home/adityaseshasai.s/amcas-pro/tools/ramulator_replay.py", line 91, in main
+    res = pool.map(run, cfgs)
+          ^^^^^^^^^^^^^^^^^^^
+  File "/home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/lib/python3.12/multiprocessing/pool.py", line 367, in map
+    return self._map_async(func, iterable, mapstar, chunksize).get()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/lib/python3.12/multiprocessing/pool.py", line 774, in get
+    raise self._value
+RuntimeError: Trace /scratch/adityaseshasai.s/drbatch/Qwen3-30B-A3B-Q4_K_M_B4_P512t4/dram.ramulator.trc does not exist!
+=== Ramulator: 16 DDR5-4800 subchannels, 256 B interleave
+] [[32minfo[0m] Loading trace file /scratch/adityaseshasai.s/drbatch/Qwen3-30B-A3B-Q4_K_M_B4_P512t4/dram.ramulator.trc ...
+multiprocessing.pool.RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "/home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/lib/python3.12/multiprocessing/pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+                    ^^^^^^^^^^^^^^^^^^^
+  File "/home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/lib/python3.12/multiprocessing/pool.py", line 48, in mapstar
+    return list(map(*args))
+           ^^^^^^^^^^^^^^^^
+  File "/home/adityaseshasai.s/amcas-pro/tools/ramulator_replay.py", line 51, in run
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/adityaseshasai.s/amcas-pro/tracing/ramulator2/python/ramulator/__init__.py", line 44, in __init__
+    self._sim = _CppSimulation(config)
+                ^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: Trace /scratch/adityaseshasai.s/drbatch/Qwen3-30B-A3B-Q4_K_M_B4_P512t4/dram.ramulator.trc does not exist!
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/adityaseshasai.s/amcas-pro/tools/ramulator_replay.py", line 108, in <module>
+    main()
+  File "/home/adityaseshasai.s/amcas-pro/tools/ramulator_replay.py", line 91, in main
+    res = pool.map(run, cfgs)
+          ^^^^^^^^^^^^^^^^^^^
+  File "/home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/lib/python3.12/multiprocessing/pool.py", line 367, in map
+    return self._map_async(func, iterable, mapstar, chunksize).get()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/lib/python3.12/multiprocessing/pool.py", line 774, in get
+    raise self._value
+RuntimeError: Trace /scratch/adityaseshasai.s/drbatch/Qwen3-30B-A3B-Q4_K_M_B4_P512t4/dram.ramulator.trc does not exist!
