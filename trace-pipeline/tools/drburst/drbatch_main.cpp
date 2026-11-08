@@ -34,6 +34,8 @@
 #include "ggml-backend.h"
 
 static long step = -1;
+static bool want_trace, finished;
+static long g_skip, g_ntrace;
 static bool tracing;
 static FILE *out, *tsv;
 static std::set<std::pair<long, void *>> seen;
@@ -66,6 +68,10 @@ static void dump_tensor(const struct ggml_tensor *t) {
 extern "C" enum ggml_status ggml_backend_sched_graph_compute_async(ggml_backend_sched_t sched, struct ggml_cgraph *g) {
     typedef enum ggml_status (*fn_t)(ggml_backend_sched_t, struct ggml_cgraph *);
     static fn_t real = (fn_t)dlsym(RTLD_NEXT, "ggml_backend_sched_graph_compute_async");
+    // Attach just before the graph compute, not in llama_process: with B >= 13
+    // sequences DynamoRIO crashed (SIGSEGV in std::unordered_map<bitset<256>,..>::
+    // operator[] after a rehash, inside llama_batch_allocr::init) when started earlier.
+    if (want_trace && !tracing && !finished) { fprintf(stderr, "drbatch: attaching at step %ld\n", step); dr_app_start(); tracing = true; }
     enum ggml_status r = real(sched, g);
     if (tracing && !tsv) {
         const char *p = getenv("AMCAS_TENSORS");
@@ -80,6 +86,7 @@ extern "C" enum ggml_status ggml_backend_sched_graph_compute_async(ggml_backend_
         }
         fflush(tsv);
     }
+    if (tracing && step + 1 >= g_skip + g_ntrace) { dr_app_stop_and_cleanup(); tracing = false; finished = true; fprintf(stderr, "drbatch: detached after step %ld\n", step); }
     return r;
 }
 
@@ -88,16 +95,12 @@ static void on_sig(int sig, siginfo_t *si, void *) {
     void *bt[30]; int n = backtrace(bt, 30); backtrace_symbols_fd(bt, n, 2); _exit(99);
 }
 // Same shape as drburst's wrapper: attach and detach happen inside llama_process.
-static bool want_trace, finished;
-static long g_skip, g_ntrace;
 extern "C" int32_t llama_process(struct llama_context *ctx, enum llama_process_type type, struct llama_batch_ext *batch) {
     typedef int32_t (*fn_t)(struct llama_context *, enum llama_process_type, struct llama_batch_ext *);
     static fn_t real = (fn_t)dlsym(RTLD_NEXT, "llama_process");
     if (step >= 0) stamp('B');
-    if (want_trace && !tracing && !finished) { fprintf(stderr, "drbatch: attaching at step %ld\n", step); dr_app_start(); tracing = true; }
     int32_t r = real(ctx, type, batch);
     if (step >= 0) stamp('E');
-    if (tracing && step + 1 >= g_skip + g_ntrace) { dr_app_stop_and_cleanup(); tracing = false; finished = true; fprintf(stderr, "drbatch: detached after step %ld\n", step); }
     return r;
 }
 static void die(const char *m) { fprintf(stderr, "drbatch: %s\n", m); exit(1); }
