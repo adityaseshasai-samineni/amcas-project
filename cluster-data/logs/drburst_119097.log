@@ -73,3 +73,13 @@ MOP4CLXOR   ClosedCAP    75615487        0  0.573     0.183   185.1    324.2    
 ChRaBaRoCo  Open         75615487        0  0.964     0.030   222.4    476.7    12.2
 ChRaBaRoCo  ClosedCAP    75615487        0  0.787     0.011   373.1    826.3     7.0
 === Ramulator: 16 DDR5-4800 subchannels, 256 B interleave
+
+Loaded 75615487 lines.
+ddr5, 16 channel(s), interleave 64 B << 2, issue 4/cycle
+mapper      policy          reads   writes    hit  conflict  rd_lat  Mcycles    GB/s
+RoBaRaCoCh  Open         75615487        0  0.975     0.006   265.9     50.2   231.8
+RoBaRaCoCh  ClosedCAP    75615487        0  0.783     0.002   387.1     69.7   166.8
+MOP4CLXOR   Open         75615487        0  0.629     0.275   267.4     49.2   236.2
+MOP4CLXOR   ClosedCAP    75615487        0  0.586     0.182   268.7     49.2   236.5
+ChRaBaRoCo  Open         75615487        0  0.938     0.058   417.7     95.4   122.0
+ChRaBaRoCo  ClosedCAP    75615487        0  0.777     0.023   579.2    173.7    67.0
