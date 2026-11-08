@@ -36,3 +36,34 @@ compute threads: 3966615
 3966635
 3966634
 === cache simulation: with and without prefetch, and each thread alone (in parallel)
+sim pf: 1656.33 s
+sim nopf: 1691.79 s
+LL pf:  Misses: 21,992,303  Prefetch misses: 20,147,354 
+LL nopf:  Misses: 42,129,548 
+thread 3966615: 10,531,216 DRAM reads (674.0 MB), 1 threads stride, merged: {'+1 line': 0.672, '-1 line': 0.03, 'within 16 lines': 0.223, 'within 8 KiB row': 0.001, 'beyond': 0.074} 
+thread 3966633: 10,368,708 DRAM reads (663.6 MB), 1 threads stride, merged: {'+1 line': 0.676, '-1 line': 0.03, 'within 16 lines': 0.22, 'within 8 KiB row': 0.0, 'beyond': 0.074} 
+thread 3966635: 10,318,646 DRAM reads (660.4 MB), 1 threads stride, merged: {'+1 line': 0.673, '-1 line': 0.031, 'within 16 lines': 0.226, 'within 8 KiB row': 0.0, 'beyond': 0.07} 
+thread 3966634: 10,375,761 DRAM reads (664.0 MB), 1 threads stride, merged: {'+1 line': 0.673, '-1 line': 0.03, 'within 16 lines': 0.223, 'within 8 KiB row': 0.0, 'beyond': 0.074} 
+=== DRAM stream
+42,129,548 DRAM reads (2696.3 MB), 1 threads
+stride, merged: {'+1 line': 0.517, '-1 line': 0.028, 'within 16 lines': 0.164, 'within 8 KiB row': 0.0, 'beyond': 0.29}
+stride, thread 3966615: {'+1 line': 0.517, '-1 line': 0.028, 'within 16 lines': 0.164, 'within 8 KiB row': 0.0, 'beyond': 0.29}
+
+offline in-order open-page row hit rate (DDR4 8 KiB row, 2 ranks x 16 banks)
+placement              RoRaBaCoCh   RoCoRaBaCh     XOR-bank
+VA-order packed             0.974        0.426        0.975
+4KiB shuffled               0.958        0.214        0.958
+THP 2MiB shuffled           0.912        0.425        0.959
+
+wrote /home/adityaseshasai.s/amcas-pro/results/fullscale/drburst/Qwen3-30B-A3B-Q4_K_M_s1n1t4_c8k/summary.json and dram.ramulator.trc (42,129,548 requests, VA-order packed)
+=== Ramulator: one DDR4-2400 channel
+
+ddr4, 1 channel(s), interleave 64 B << 0, issue 1/cycle
+mapper      policy          reads   writes    hit  conflict  rd_lat  Mcycles    GB/s
+RoBaRaCoCh  Open         42129548        0  0.978     0.007   204.3    241.7    13.4
+RoBaRaCoCh  ClosedCAP    42129548        0  0.785     0.004   268.7    322.3    10.0
+MOP4CLXOR   Open         42129548        0  0.595     0.324   179.5    181.2    17.9
+MOP4CLXOR   ClosedCAP    42129548        0  0.513     0.271   187.5    181.1    17.9
+ChRaBaRoCo  Open         42129548        0  0.963     0.032   229.8    275.4    11.8
+ChRaBaRoCo  ClosedCAP    42129548        0  0.786     0.016   395.3    489.6     6.6
+=== Ramulator: 16 DDR5-4800 subchannels, 256 B interleave
