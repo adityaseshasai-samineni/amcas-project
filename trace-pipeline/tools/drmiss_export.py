@@ -2,6 +2,12 @@
 """Turn drcachesim's LLC miss file into a DRAM request stream, comparable to a gem5 run.
 
 Usage: drmiss_export.py MISS_FILE OUT_DIR [--placement NAME] [--stride-only]
+                       [--tensors TSV] [--no-trace]
+
+--tensors TSV (from llama-drattr, AMCAS_TENSORS) labels every read by its virtual address:
+dense weights / expert weights / KV cache / activations / unattributed, and writes
+attribution.json (reads, stride and in-order open-page row hit per class and per placement,
+plus per-expert read counts for 3-D *_exps tensors). --no-trace skips dram.ramulator.trc.
 
 MISS_FILE is from `drcachesim -LL_miss_file F.gz -data_prefetcher none`: one line
 "pid,pc,address" per demand LLC miss, in simulation order. The first field is the
@@ -76,11 +82,140 @@ def placements(va):
     return {"VA-order packed": packed, "4KiB shuffled": shuffled, "THP 2MiB shuffled": thp}, len(pages)
 
 
+def load_tensors(path):
+    rows = []
+    with open(path) as f:
+        next(f)
+        for line in f:
+            p = line.rstrip("\n").split("\t")
+            rows.append((p[1], int(p[2], 16), int(p[3]), p[4], p[5], [int(x) for x in p[6:10]]))
+    return rows
+
+
+def tensor_class(name, op):
+    if "_exps" in name:
+        return "expert weights"
+    if name.startswith("cache_k") or name.startswith("cache_v"):
+        return "KV cache"
+    if op == "NONE" and (name.startswith("blk.") or name.startswith("token_embd") or name.startswith("output")
+                         or name.startswith("rope_freqs")):
+        return "dense weights"
+    return "activations"
+
+
+CLASSES = ["expert weights", "KV cache", "dense weights", "activations"]
+
+
+def classify(va, rows):
+    """Class id per read (index into CLASSES, len(CLASSES) = unattributed) and the tensor
+    index (-1 if none). Priority: experts, KV, dense weights, activations."""
+    cls = np.full(len(va), len(CLASSES), dtype=np.int8)
+    tix = np.full(len(va), -1, dtype=np.int32)
+    for ci in reversed(range(len(CLASSES))):  # lowest priority first, overwritten by higher
+        sel = [i for i, r in enumerate(rows) if tensor_class(r[0], r[4]) == CLASSES[ci] and r[2] > 0]
+        if not sel:
+            continue
+        sel.sort(key=lambda i: rows[i][1])
+        st = np.array([rows[i][1] for i in sel], dtype=np.int64)
+        en = np.array([rows[i][1] + rows[i][2] for i in sel], dtype=np.int64)
+        k = np.searchsorted(st, va, side="right") - 1
+        ok = (k >= 0) & (va < en[np.maximum(k, 0)])
+        cls[ok] = ci
+        tix[ok] = np.array(sel)[k[ok]]
+    return cls, tix
+
+
+def class_row_hits(cls, bank, row, nbanks=32):
+    """In-order open-page model over the whole stream (shared bank state), hits counted per class."""
+    open_row = [-1] * nbanks
+    n = len(CLASSES) + 1
+    hit, tot = [0] * n, [0] * n
+    for c, b, r in zip(cls.tolist(), bank.tolist(), row.tolist()):
+        tot[c] += 1
+        if open_row[b] == r:
+            hit[c] += 1
+        open_row[b] = r
+    return {(CLASSES + ["unattributed"])[i]: hit[i] / tot[i] for i in range(n) if tot[i]}
+
+
+def attribution(va, tids, rows, place, strides, out_dir):
+    names = CLASSES + ["unattributed"]
+    cls, tix = classify(va, rows)
+    res = {"reads": int(len(va)), "classes": {}}
+    print("\nattribution by class (reads, share, MB; stride +1/within16/beyond, per class stream)")
+    for ci, nm in enumerate(names):
+        m = cls == ci
+        n = int(m.sum())
+        if not n:
+            continue
+        d = dict(reads=n, share=n / len(va), MB=n * LINE / 1e6, stride=strides(va[m]) if n > 1 else {})
+        d["tensors_touched"] = int(len(np.unique(tix[m & (tix >= 0)])))
+        res["classes"][nm] = d
+        st = d["stride"]
+        print(f"  {nm:<15}{n:>12,}{d['share']:>8.3f}{d['MB']:>10.1f}  +1 {st.get('+1 line', 0):.2f} w16 {st.get('within 16 lines', 0):.2f} beyond {st.get('beyond', 0):.2f}")
+    res["offline_row_hit_by_class"] = {}
+    for pname, pa in place.items():
+        for mname, fn in (("RoRaBaCoCh", mapping_ro_ba_co), ("XOR-bank", mapping_xor)):
+            bank, row = fn(pa)
+            h = class_row_hits(cls, bank, row)
+            res["offline_row_hit_by_class"][f"{pname} / {mname}"] = h
+            print(f"  row hit {pname} / {mname}: " + ", ".join(f"{k} {v:.3f}" for k, v in h.items()))
+    # Per-expert traffic: 3-D tensors named *_exps, slice e = bytes [e*S, (e+1)*S), S = nbytes / ne2.
+    exp = {}
+    per_layer = {}
+    for ti, r in enumerate(rows):
+        name, data, nb, _t, op, ne = r
+        if "_exps" not in name or ne[2] < 2 or nb <= 0:
+            continue
+        m = tix == ti
+        if not m.any():
+            continue
+        S = nb // ne[2]
+        e = (va[m] - data) // S
+        cnt = np.bincount(e, minlength=ne[2])[: ne[2]]
+        lines_per_slice = S // LINE
+        exp.setdefault("per_expert_reads", np.zeros(ne[2], dtype=np.int64))
+        exp["per_expert_reads"] += cnt
+        per_layer[name] = dict(
+            n_expert=int(ne[2]), slice_bytes=int(S),
+            experts_touched=int((cnt > 0).sum()),
+            experts_mostly_read=int((cnt >= 0.5 * lines_per_slice).sum()),
+            reads=int(cnt.sum()),
+        )
+    if per_layer:
+        tot = exp["per_expert_reads"]
+        res["experts"] = dict(
+            per_expert_reads_all_layers=tot.tolist(),
+            per_layer=per_layer,
+            mean_experts_touched_per_tensor=float(np.mean([v["experts_touched"] for v in per_layer.values()])),
+            mean_experts_mostly_read_per_tensor=float(np.mean([v["experts_mostly_read"] for v in per_layer.values()])),
+        )
+        print(f"  experts: {len(per_layer)} expert tensors, mean touched/tensor "
+              f"{res['experts']['mean_experts_touched_per_tensor']:.1f} of {next(iter(per_layer.values()))['n_expert']}, "
+              f"mostly read {res['experts']['mean_experts_mostly_read_per_tensor']:.1f}")
+    json.dump(res, open(f"{out_dir}/attribution.json", "w"), indent=1)
+
+
+def strides(x):
+    s = np.diff(x // LINE)
+    if len(s) == 0:
+        return {}
+    return {
+        "+1 line": float((s == 1).mean()),
+        "-1 line": float((s == -1).mean()),
+        "within 16 lines": float(((np.abs(s) <= 16) & (np.abs(s) != 1)).mean()),
+        "within 8 KiB row": float(((np.abs(s) > 16) & (np.abs(s) <= 128)).mean()),
+        "beyond": float((np.abs(s) > 128).mean()),
+    }
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("miss_file")
     ap.add_argument("out_dir")
     ap.add_argument("--placement", default="VA-order packed")
+    ap.add_argument("--tensors", help="tensor TSV from llama-drattr: attribute reads to classes")
+    ap.add_argument("--no-trace", action="store_true", help="do not write dram.ramulator.trc")
     ap.add_argument("--stride-only", action="store_true", help="write only stride.json (for one thread's stream)")
     a = ap.parse_args()
     os.makedirs(a.out_dir, exist_ok=True)
@@ -91,16 +226,6 @@ def main():
 
     # Stride structure, exactly as analyze.py: on the merged stream, and per thread
     # (the merged stream interleaves the cores, which gem5's one core did not).
-    def strides(x):
-        s = np.diff(x // LINE)
-        return {
-            "+1 line": float((s == 1).mean()),
-            "-1 line": float((s == -1).mean()),
-            "within 16 lines": float(((np.abs(s) <= 16) & (np.abs(s) != 1)).mean()),
-            "within 8 KiB row": float(((np.abs(s) > 16) & (np.abs(s) <= 128)).mean()),
-            "beyond": float((np.abs(s) > 128).mean()),
-        }
-
     stride = strides(va)
     per_thread = {str(t): strides(va[tids == t]) for t in np.unique(tids) if (tids == t).sum() > 1000}
     print("stride, merged:", {k: round(v, 3) for k, v in stride.items()})
@@ -139,6 +264,10 @@ def main():
         open(f"{a.out_dir}/summary.json", "w"),
         indent=1,
     )
+    if a.tensors:
+        attribution(va, tids, load_tensors(a.tensors), place, strides, a.out_dir)
+    if a.no_trace:
+        return
     with open(f"{a.out_dir}/dram.ramulator.trc", "w") as fr:
         for ad in place[a.placement].tolist():
             fr.write(f"LD 0x{ad:x}\n")
