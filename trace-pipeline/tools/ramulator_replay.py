@@ -84,8 +84,9 @@ def main():
     ap.add_argument("--interleave-bits", type=int, default=0)
     ap.add_argument("--issue", type=int, default=1, help="requests the front end offers per memory cycle")
     ap.add_argument("--procs", type=int, default=6, help="configurations run at once; each holds the whole trace")
+    ap.add_argument("--mappers", default=",".join(MAPPERS), help="comma list; RoBaRaCoCh only for pre-transformed (remap.py) traces")
     a = ap.parse_args()
-    cfgs = [(a.trace, m, p, a) for m in MAPPERS for p in POLICIES]
+    cfgs = [(a.trace, m, p, a) for m in a.mappers.split(",") for p in POLICIES]
     with multiprocessing.Pool(min(a.procs, len(cfgs))) as pool:
         res = pool.map(run, cfgs)
     json.dump(res, open(a.out, "w"), indent=1)
