@@ -1,0 +1,67 @@
+==========================================
+SLURM_JOB_ID = 119411
+SLURM_NODELIST = node03
+SLURM_JOB_GPUS = 
+==========================================
+run qwen2.5-7b-instruct-q4_k_m-00001-of-00002_B4_P512t4 on node03.local: B=4 P=512 threads=4 skip=1 ntrace=1 kvu=0
+=== untraced
+drbatch: seq 0 evaluated and saved
+drbatch: seq 1 evaluated and saved
+drbatch: seq 2 evaluated and saved
+drbatch: seq 3 evaluated and saved
+untraced 62.87 s, max RSS 7922244 KB
+=== traced (decode step 1, 1 step(s)), raw trace capped at 16 GB per thread
+drbatch: attaching at step 1
+drbatch: detached after step 1
+traced 8.54 s, max RSS 7785188 KB
+same tokens: yes
+B 0 13438638762342767	B 0 13438638768586295
+E 0 13438638762744660	E 0 13438638768866909
+B 1 13438638762745446	B 1 13438638768867703
+E 1 13438638763028936	E 1 13438638771532856
+B 2 13438638763029693	B 2 13438638771560388
+E 2 13438638763312818	E 2 13438638771866312
+B 3 13438638763313571	B 3 13438638771867086
+E 3 13438638763599767	E 3 13438638772182590
+4.1G	/scratch/adityaseshasai.s/drbatch/qwen2.5-7b-instruct-q4_k_m-00001-of-00002_B4_P512t4/drmemtrace.llama-drbatch.3989457.6990.dir/raw
+raw2trace 476.29 s
+3.5G	/scratch/adityaseshasai.s/drbatch/qwen2.5-7b-instruct-q4_k_m-00001-of-00002_B4_P512t4/drmemtrace.llama-drbatch.3989457.6990.dir/trace
+  6289158556 total (fetched) instructions
+Thread 3989458 counts:
+  1581779511 (fetched) instructions
+Thread 3989459 counts:
+  1574572445 (fetched) instructions
+Thread 3989457 counts:
+  1570619373 (fetched) instructions
+Thread 3989460 counts:
+  1562187227 (fetched) instructions
+=== cache simulation: with and without prefetch (in parallel)
+sim pf: 2134.49 s
+sim nopf: 2178.15 s
+LL pf:  Misses: 40,397,853  Prefetch misses: 30,924,714 
+LL nopf:  Misses: 71,274,747 
+=== DRAM stream and tensor attribution
+71,274,747 DRAM reads (4561.6 MB), 1 threads
+stride, merged: {'+1 line': 0.198, '-1 line': 0.039, 'within 16 lines': 0.275, 'within 8 KiB row': 0.0, 'beyond': 0.489}
+stride, thread 3989457: {'+1 line': 0.198, '-1 line': 0.039, 'within 16 lines': 0.275, 'within 8 KiB row': 0.0, 'beyond': 0.489}
+
+offline in-order open-page row hit rate (DDR4 8 KiB row, 2 ranks x 16 banks)
+placement              RoRaBaCoCh   RoCoRaBaCh     XOR-bank
+VA-order packed             0.957        0.255        0.957
+4KiB shuffled               0.934        0.062        0.934
+THP 2MiB shuffled           0.948        0.254        0.957
+
+attribution by class (reads, share, MB; stride +1/within16/beyond, per class stream)
+  KV cache          1,839,991   0.026     117.8  +1 0.74 w16 0.00 beyond 0.26
+  dense weights    68,311,154   0.958    4371.9  +1 0.19 w16 0.29 beyond 0.48
+  activations         616,383   0.009      39.4  +1 0.31 w16 0.08 beyond 0.60
+  unattributed        507,219   0.007      32.5  +1 0.31 w16 0.05 beyond 0.59
+  row hit VA-order packed / RoRaBaCoCh: KV cache 0.952, dense weights 0.960, activations 0.805, unattributed 0.748
+  row hit VA-order packed / XOR-bank: KV cache 0.951, dense weights 0.960, activations 0.789, unattributed 0.734
+  row hit 4KiB shuffled / RoRaBaCoCh: KV cache 0.915, dense weights 0.939, activations 0.735, unattributed 0.647
+  row hit 4KiB shuffled / XOR-bank: KV cache 0.915, dense weights 0.939, activations 0.720, unattributed 0.651
+  row hit THP 2MiB shuffled / RoRaBaCoCh: KV cache 0.737, dense weights 0.960, activations 0.465, unattributed 0.592
+  row hit THP 2MiB shuffled / XOR-bank: KV cache 0.952, dense weights 0.961, activations 0.804, unattributed 0.723
+
+wrote /home/adityaseshasai.s/amcas-pro/results/fullscale/drbatch/qwen2.5-7b-instruct-q4_k_m-00001-of-00002_B4_P512t4/summary.json and dram.ramulator.trc (71,274,747 requests, VA-order packed)
+=== Ramulator: one DDR4-2400 channel
