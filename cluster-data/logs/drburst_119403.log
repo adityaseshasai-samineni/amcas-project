@@ -1,0 +1,50 @@
+==========================================
+SLURM_JOB_ID = 119403
+SLURM_NODELIST = node03
+SLURM_JOB_GPUS = 
+==========================================
+run qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n4t4_n4 on node03.local: -m /home/adityaseshasai.s/amcas-pro/tracing/models/qwen2.5-7b-instruct-q4_k_m-00001-of-00002.gguf -t 4 -tb 4 -c 4096 -n 5 -p Once upon a time there was a little girl named Lily. -no-cnv --temp 0 --seed 1 --no-warmup
+=== untraced
+untraced 15.98 s, max RSS 7845944 KB
+0.15.588.983 I common_perf_print: prompt eval time =     891.39 ms /    12 tokens (   74.28 ms per token,    13.46 tokens per second)
+0.15.588.985 I common_perf_print:        eval time =     619.83 ms /     4 runs   (  154.96 ms per token,     6.45 tokens per second)
+prompt steps: 1; tracing llama_process calls 1 to 4
+=== traced (decode steps 1 to 4), raw trace capped at 16 GB per thread
+drburst: attaching at step 1
+drburst: detached after step 4
+traced 6.61 s, max RSS 7866096 KB
+same text: yes
+B 2 13438632835896337	B 2 13438632841551459
+E 2 13438632836050533	E 2 13438632842104749
+B 3 13438632836051042	B 3 13438632842116305
+E 3 13438632836206715	E 3 13438632842634859
+B 4 13438632836207248	B 4 13438632842644904
+E 4 13438632836361874	E 4 13438632843157088
+5.1G	/scratch/adityaseshasai.s/drburst/qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n4t4_n4/drmemtrace.llama-drburst.3973808.5061.dir/raw
+raw2trace 703.48 s
+5.5G	/scratch/adityaseshasai.s/drburst/qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n4t4_n4/drmemtrace.llama-drburst.3973808.5061.dir/trace
+ 11140619454 total (fetched) instructions
+Thread 3973808 counts:
+  2809215978 (fetched) instructions
+Thread 3973812 counts:
+  2782004865 (fetched) instructions
+Thread 3973813 counts:
+  2776258720 (fetched) instructions
+Thread 3973811 counts:
+  2773134716 (fetched) instructions
+Thread 3973810 counts:
+        5175 (fetched) instructions
+compute threads: 3973808
+3973812
+3973813
+3973811
+=== cache simulation: with and without prefetch, and each thread alone (in parallel)
+sim pf: 3477.85 s
+sim nopf: 3735.77 s
+LL pf:  Misses: 145,871,717  Prefetch misses: 128,962,430 
+LL nopf:  Misses: 274,731,197 
+thread 3973808: 69,149,237 DRAM reads (4425.6 MB), 1 threads stride, merged: {'+1 line': 0.631, '-1 line': 0.043, 'within 16 lines': 0.315, 'within 8 KiB row': 0.0, 'beyond': 0.01} 
+thread 3973812: 68,716,989 DRAM reads (4397.9 MB), 1 threads stride, merged: {'+1 line': 0.632, '-1 line': 0.043, 'within 16 lines': 0.319, 'within 8 KiB row': 0.0, 'beyond': 0.005} 
+thread 3973813: 68,582,077 DRAM reads (4389.3 MB), 1 threads stride, merged: {'+1 line': 0.633, '-1 line': 0.043, 'within 16 lines': 0.319, 'within 8 KiB row': 0.0, 'beyond': 0.005} 
+thread 3973811: 68,558,025 DRAM reads (4387.7 MB), 1 threads stride, merged: {'+1 line': 0.633, '-1 line': 0.043, 'within 16 lines': 0.319, 'within 8 KiB row': 0.0, 'beyond': 0.005} 
+=== DRAM stream

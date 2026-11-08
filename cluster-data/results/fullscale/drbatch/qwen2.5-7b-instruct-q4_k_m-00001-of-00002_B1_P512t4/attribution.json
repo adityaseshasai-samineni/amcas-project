@@ -1,0 +1,95 @@
+{
+ "reads": 69145021,
+ "classes": {
+  "KV cache": {
+   "reads": 460220,
+   "share": 0.006655866081810865,
+   "MB": 29.45408,
+   "stride": {
+    "+1 line": 0.7434634380588372,
+    "-1 line": 0.0,
+    "within 16 lines": 0.0,
+    "within 8 KiB row": 0.0,
+    "beyond": 0.2565365619411628
+   },
+   "tensors_touched": 56
+  },
+  "dense weights": {
+   "reads": 68290246,
+   "share": 0.9876379385292254,
+   "MB": 4370.575744,
+   "stride": {
+    "+1 line": 0.1546628804743635,
+    "-1 line": 0.0331691590797485,
+    "within 16 lines": 0.13202701205713935,
+    "within 8 KiB row": 0.0,
+    "beyond": 0.6801409483887486
+   },
+   "tensors_touched": 339
+  },
+  "activations": {
+   "reads": 150953,
+   "share": 0.002183136223214105,
+   "MB": 9.660992,
+   "stride": {
+    "+1 line": 0.3893356828660766,
+    "-1 line": 0.008406645821188193,
+    "within 16 lines": 0.03401743600614765,
+    "within 8 KiB row": 0.03448778419630081,
+    "beyond": 0.5337524511102867
+   },
+   "tensors_touched": 15
+  },
+  "unattributed": {
+   "reads": 243602,
+   "share": 0.0035230591657496205,
+   "MB": 15.590528,
+   "stride": {
+    "+1 line": 0.2806392420392363,
+    "-1 line": 0.05678958624964594,
+    "within 16 lines": 0.06937574147889376,
+    "within 8 KiB row": 0.08778699594829249,
+    "beyond": 0.5054084342839316
+   },
+   "tensors_touched": 0
+  }
+ },
+ "offline_row_hit_by_class": {
+  "VA-order packed / RoRaBaCoCh": {
+   "KV cache": 0.8097170918256485,
+   "dense weights": 0.9534859194972002,
+   "activations": 0.7992156499042748,
+   "unattributed": 0.7653754895280006
+  },
+  "VA-order packed / XOR-bank": {
+   "KV cache": 0.9325865890226414,
+   "dense weights": 0.9478871990005717,
+   "activations": 0.8046743025974973,
+   "unattributed": 0.766040508698615
+  },
+  "4KiB shuffled / RoRaBaCoCh": {
+   "KV cache": 0.8962843857285646,
+   "dense weights": 0.9392936437804017,
+   "activations": 0.7108636463005041,
+   "unattributed": 0.6496908892373626
+  },
+  "4KiB shuffled / XOR-bank": {
+   "KV cache": 0.8959497631567511,
+   "dense weights": 0.9394111715456407,
+   "activations": 0.7311282319662411,
+   "unattributed": 0.6580939401154342
+  },
+  "THP 2MiB shuffled / RoRaBaCoCh": {
+   "KV cache": 0.7272282821259398,
+   "dense weights": 0.9536961252123766,
+   "activations": 0.42967678681443894,
+   "unattributed": 0.6659469134079359
+  },
+  "THP 2MiB shuffled / XOR-bank": {
+   "KV cache": 0.9319195167528573,
+   "dense weights": 0.9487146085254986,
+   "activations": 0.7965260710287307,
+   "unattributed": 0.7566440341212305
+  }
+ }
+}

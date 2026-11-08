@@ -1,0 +1,11 @@
+
+
+Loaded 121428377 lines.
+ddr4, 1 channel(s), interleave 64 B << 0, issue 1/cycle
+mapper      policy          reads   writes    hit  conflict  rd_lat  Mcycles    GB/s
+RoBaRaCoCh  Open        121428377        0  0.978     0.010   178.2    597.0    15.6
+RoBaRaCoCh  ClosedCAP   121428377        0  0.781     0.005   198.5    659.0    14.2
+MOP4CLXOR   Open        121428377        0  0.542     0.350   185.3    523.6    17.8
+MOP4CLXOR   ClosedCAP   121428377        0  0.528     0.247   186.2    523.3    17.8
+ChRaBaRoCo  Open        121428377        0  0.949     0.048   240.4    833.1    11.2
+ChRaBaRoCo  ClosedCAP   121428377        0  0.785     0.015   388.2   1384.2     6.7

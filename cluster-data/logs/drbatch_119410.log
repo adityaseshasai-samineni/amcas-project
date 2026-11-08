@@ -1,0 +1,84 @@
+==========================================
+SLURM_JOB_ID = 119410
+SLURM_NODELIST = node03
+SLURM_JOB_GPUS = 
+==========================================
+run qwen2.5-7b-instruct-q4_k_m-00001-of-00002_B1_P512t4 on node03.local: B=1 P=512 threads=4 skip=1 ntrace=1 kvu=0
+=== untraced
+drbatch: seq 0 evaluated and saved
+untraced 19.64 s, max RSS 7803064 KB
+=== traced (decode step 1, 1 step(s)), raw trace capped at 16 GB per thread
+drbatch: attaching at step 1
+drbatch: detached after step 1
+traced 4.75 s, max RSS 7685964 KB
+same tokens: yes
+B 0 13438632929591995	B 0 13438632933057518
+E 0 13438632929762813	E 0 13438632933228689
+B 1 13438632929763059	B 1 13438632933228947
+E 1 13438632929937359	E 1 13438632934693474
+B 2 13438632929937564	B 2 13438632934702583
+E 2 13438632930106665	E 2 13438632934874755
+B 3 13438632930106881	B 3 13438632934874980
+E 3 13438632930279687	E 3 13438632935042442
+1.7G	/scratch/adityaseshasai.s/drbatch/qwen2.5-7b-instruct-q4_k_m-00001-of-00002_B1_P512t4/drmemtrace.llama-drbatch.3973939.9339.dir/raw
+raw2trace 193.48 s
+1.5G	/scratch/adityaseshasai.s/drbatch/qwen2.5-7b-instruct-q4_k_m-00001-of-00002_B1_P512t4/drmemtrace.llama-drbatch.3973939.9339.dir/trace
+  2915375070 total (fetched) instructions
+Thread 3973939 counts:
+   740455148 (fetched) instructions
+Thread 3973941 counts:
+   736920810 (fetched) instructions
+Thread 3973942 counts:
+   725892383 (fetched) instructions
+Thread 3973943 counts:
+   712106729 (fetched) instructions
+=== cache simulation: with and without prefetch (in parallel)
+sim pf: 823.66 s
+sim nopf: 896.19 s
+LL pf:  Misses: 36,703,328  Prefetch misses: 32,464,729 
+LL nopf:  Misses: 69,145,021 
+=== DRAM stream and tensor attribution
+69,145,021 DRAM reads (4425.3 MB), 1 threads
+stride, merged: {'+1 line': 0.154, '-1 line': 0.033, 'within 16 lines': 0.13, 'within 8 KiB row': 0.0, 'beyond': 0.683}
+stride, thread 3973939: {'+1 line': 0.154, '-1 line': 0.033, 'within 16 lines': 0.13, 'within 8 KiB row': 0.0, 'beyond': 0.683}
+
+offline in-order open-page row hit rate (DDR4 8 KiB row, 2 ranks x 16 banks)
+placement              RoRaBaCoCh   RoCoRaBaCh     XOR-bank
+VA-order packed             0.952        0.010        0.947
+4KiB shuffled               0.937        0.005        0.938
+THP 2MiB shuffled           0.950        0.009        0.948
+
+attribution by class (reads, share, MB; stride +1/within16/beyond, per class stream)
+  KV cache            460,220   0.007      29.5  +1 0.74 w16 0.00 beyond 0.26
+  dense weights    68,290,246   0.988    4370.6  +1 0.15 w16 0.13 beyond 0.68
+  activations         150,953   0.002       9.7  +1 0.39 w16 0.03 beyond 0.53
+  unattributed        243,602   0.004      15.6  +1 0.28 w16 0.07 beyond 0.51
+  row hit VA-order packed / RoRaBaCoCh: KV cache 0.810, dense weights 0.953, activations 0.799, unattributed 0.765
+  row hit VA-order packed / XOR-bank: KV cache 0.933, dense weights 0.948, activations 0.805, unattributed 0.766
+  row hit 4KiB shuffled / RoRaBaCoCh: KV cache 0.896, dense weights 0.939, activations 0.711, unattributed 0.650
+  row hit 4KiB shuffled / XOR-bank: KV cache 0.896, dense weights 0.939, activations 0.731, unattributed 0.658
+  row hit THP 2MiB shuffled / RoRaBaCoCh: KV cache 0.727, dense weights 0.954, activations 0.430, unattributed 0.666
+  row hit THP 2MiB shuffled / XOR-bank: KV cache 0.932, dense weights 0.949, activations 0.797, unattributed 0.757
+
+wrote /home/adityaseshasai.s/amcas-pro/results/fullscale/drbatch/qwen2.5-7b-instruct-q4_k_m-00001-of-00002_B1_P512t4/summary.json and dram.ramulator.trc (69,145,021 requests, VA-order packed)
+=== Ramulator: one DDR4-2400 channel
+Loading trace file /scratch/adityaseshasai.s/drbatch/qwen2.5-7b-instruct-q4_k_m-00001-of-00002_B1_P512t4/dram.ramulator.trc ...Loading trace file /scratch/adityaseshasai.s/drbatch/qwen2.5-7b-instruct-q4_k_m-00001-of-00002_B1_P512t4/dram.ramulator.trc ...
+
+ddr4, 1 channel(s), interleave 64 B << 0, issue 1/cycle
+mapper      policy          reads   writes    hit  conflict  rd_lat  Mcycles    GB/s
+RoBaRaCoCh  Open         69145021        0  0.979     0.010   177.3    338.2    15.7
+RoBaRaCoCh  ClosedCAP    69145021        0  0.781     0.004   194.0    365.5    14.5
+MOP4CLXOR   Open         69145021        0  0.537     0.354   185.7    298.1    17.8
+MOP4CLXOR   ClosedCAP    69145021        0  0.526     0.249   186.3    297.9    17.8
+ChRaBaRoCo  Open         69145021        0  0.938     0.058   250.5    495.8    10.7
+ChRaBaRoCo  ClosedCAP    69145021        0  0.786     0.015   391.3    794.8     6.7
+=== Ramulator: 16 DDR5-4800 subchannels, 256 B interleave
+
+ddr5, 16 channel(s), interleave 64 B << 2, issue 4/cycle
+mapper      policy          reads   writes    hit  conflict  rd_lat  Mcycles    GB/s
+RoBaRaCoCh  Open         69145021        0  0.971     0.010   260.9     39.3   270.9
+RoBaRaCoCh  ClosedCAP    69145021        0  0.775     0.005   312.6     45.3   234.8
+MOP4CLXOR   Open         69145021        0  0.510     0.381   290.1     39.0   273.0
+MOP4CLXOR   ClosedCAP    69145021        0  0.495     0.292   288.7     38.9   273.4
+ChRaBaRoCo  Open         69145021        0  0.922     0.075   539.9     85.6   124.3
+ChRaBaRoCo  ClosedCAP    69145021        0  0.788     0.010   658.5    138.0    77.1
