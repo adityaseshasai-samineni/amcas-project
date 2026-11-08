@@ -36,3 +36,40 @@ compute threads: 3945443
 3945462
 3945461
 === cache simulation: with and without prefetch, and each thread alone (in parallel)
+sim pf: 3502.33 s
+sim nopf: 3574.55 s
+LL pf:  Misses: 82,724,855  Prefetch misses: 78,534,151 
+LL nopf:  Misses: 161,150,578 
+thread 3945443: 24,375,304 DRAM reads (1560.0 MB), 1 threads stride, merged: {'+1 line': 0.664, '-1 line': 0.031, 'within 16 lines': 0.225, 'within 8 KiB row': 0.0, 'beyond': 0.08} 
+thread 3945460: 24,109,078 DRAM reads (1543.0 MB), 1 threads stride, merged: {'+1 line': 0.665, '-1 line': 0.031, 'within 16 lines': 0.227, 'within 8 KiB row': 0.0, 'beyond': 0.077} 
+thread 3945462: 23,973,474 DRAM reads (1534.3 MB), 1 threads stride, merged: {'+1 line': 0.665, '-1 line': 0.031, 'within 16 lines': 0.228, 'within 8 KiB row': 0.0, 'beyond': 0.075} 
+thread 3945461: 24,176,584 DRAM reads (1547.3 MB), 1 threads stride, merged: {'+1 line': 0.667, '-1 line': 0.031, 'within 16 lines': 0.225, 'within 8 KiB row': 0.0, 'beyond': 0.076} 
+=== LL size sweep (with prefetch): 32M:16 64M:16 128M:16
+LL 32M:16:  Misses: 56,715,422  Prefetch misses: 52,508,452 
+LL 64M:16:  Misses: 50,650,700  Prefetch misses: 46,415,009 
+LL 128M:16:  Misses: 50,265,773  Prefetch misses: 46,016,578 
+=== DRAM stream
+161,150,578 DRAM reads (10313.6 MB), 1 threads
+stride, merged: {'+1 line': 0.41, '-1 line': 0.016, 'within 16 lines': 0.08, 'within 8 KiB row': 0.0, 'beyond': 0.494}
+stride, thread 3945443: {'+1 line': 0.41, '-1 line': 0.016, 'within 16 lines': 0.08, 'within 8 KiB row': 0.0, 'beyond': 0.494}
+
+offline in-order open-page row hit rate (DDR4 8 KiB row, 2 ranks x 16 banks)
+placement              RoRaBaCoCh   RoCoRaBaCh     XOR-bank
+VA-order packed             0.956        0.155        0.952
+4KiB shuffled               0.931        0.078        0.931
+THP 2MiB shuffled           0.835        0.155        0.927
+
+wrote /home/adityaseshasai.s/amcas-pro/results/fullscale/drburst/qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n1t4_c32k_llsweep/summary.json and dram.ramulator.trc (161,150,578 requests, VA-order packed)
+=== Ramulator: one DDR4-2400 channel
+
+Loading trace file /scratch/adityaseshasai.s/drburst/qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n1t4_c32k_llsweep/dram.ramulator.trc ...
+
+ddr4, 1 channel(s), interleave 64 B << 0, issue 1/cycle
+mapper      policy          reads   writes    hit  conflict  rd_lat  Mcycles    GB/s
+RoBaRaCoCh  Open        161150578        0  0.967     0.018   177.1    782.2    15.8
+RoBaRaCoCh  ClosedCAP   161150578        0  0.776     0.010   208.3    920.2    13.5
+MOP4CLXOR   Open        161150578        0  0.365     0.529   190.0    702.8    17.6
+MOP4CLXOR   ClosedCAP   161150578        0  0.335     0.488   192.8    702.6    17.6
+ChRaBaRoCo  Open        161150578        0  0.930     0.061   240.9   1106.7    11.2
+ChRaBaRoCo  ClosedCAP   161150578        0  0.780     0.021   369.0   1739.7     7.1
+=== Ramulator: 16 DDR5-4800 subchannels, 256 B interleave
