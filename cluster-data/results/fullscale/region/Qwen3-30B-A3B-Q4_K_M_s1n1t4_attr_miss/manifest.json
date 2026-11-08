@@ -62,11 +62,11 @@
    }
   },
   {
-   "inorder_hit": 0.9643008333333334,
+   "inorder_hit": 0.96428125,
    "banks_used": 32,
    "banks_total": 32,
    "inorder_hit_W": 0.9658376237330774,
-   "inorder_hit_O": 0.9365592628627024,
+   "inorder_hit_O": 0.9364829546538469,
    "placement": "packed",
    "dram": "ddr4",
    "scheme": "region",
@@ -76,26 +76,23 @@
     "O": {
      "matrix": {
       "0": [
-       "row7",
-       "row2"
-      ],
-      "1": [
-       "row6",
-       "row0"
-      ],
-      "2": [
-       "row3"
-      ],
-      "3": [
        "row7"
       ],
-      "4": []
+      "1": [],
+      "2": [
+       "row4"
+      ],
+      "3": [],
+      "4": [
+       "row6"
+      ]
      },
      "cost": [
-      484915.15,
-      475415.9
+      1576290.05,
+      1559849.15
      ],
-     "reads": 104838
+     "reads_full": 342620,
+     "reads_window": 104838
     }
    }
   },
@@ -153,11 +150,11 @@
    }
   },
   {
-   "inorder_hit": 0.9643333333333334,
+   "inorder_hit": 0.9643141666666667,
    "banks_used": 512,
    "banks_total": 512,
    "inorder_hit_W": 0.9665858270782693,
-   "inorder_hit_O": 0.9552833896106374,
+   "inorder_hit_O": 0.9536141475419219,
    "placement": "packed",
    "dram": "ddr5",
    "scheme": "region",
@@ -170,7 +167,8 @@
        "row1"
       ],
       "1": [
-       "row1"
+       "row1",
+       "row2"
       ],
       "2": [
        "row1"
@@ -181,10 +179,11 @@
       ]
      },
      "cost": [
-      64822.05,
-      59777.75
+      207346.90000000002,
+      193772.0
      ],
-     "reads": 104838
+     "reads_full": 342620,
+     "reads_window": 104838
     }
    }
   },
@@ -247,44 +246,69 @@
    }
   },
   {
-   "inorder_hit": 0.96522925,
+   "inorder_hit": 0.9654573333333333,
    "banks_used": 32,
    "banks_total": 32,
    "inorder_hit_W": 0.9670470235633343,
-   "inorder_hit_K": 0.7465243296921549,
-   "inorder_hit_O": 0.9323926722934519,
+   "inorder_hit_K": 0.9806976166832175,
+   "inorder_hit_O": 0.9300732341129223,
    "placement": "thp",
    "dram": "ddr4",
    "scheme": "region",
    "file": "thp_ddr4_region.trc",
    "info": {
-    "K": "identity (too few reads)",
+    "K": {
+     "matrix": {
+      "0": [
+       "row7",
+       "row8"
+      ],
+      "1": [
+       "row11",
+       "row10"
+      ],
+      "2": [
+       "row14"
+      ],
+      "3": [
+       "row3"
+      ],
+      "4": [
+       "row13"
+      ]
+     },
+     "cost": [
+      1275709.95,
+      186019.35
+     ],
+     "reads_full": 43738,
+     "reads_window": 16112
+    },
     "O": {
      "matrix": {
       "0": [
-       "row11",
-       "row7"
+       "row8",
+       "row10",
+       "row1"
       ],
       "1": [
-       "row12",
-       "row2"
+       "row10",
+       "row1"
       ],
       "2": [
-       "row8",
-       "row9",
-       "row6"
+       "row14"
       ],
       "3": [
-       "row3",
-       "row1"
+       "row3"
       ],
       "4": []
      },
      "cost": [
-      686793.9,
-      425897.75
+      2284481.55,
+      1424100.4
      ],
-     "reads": 93126
+     "reads_full": 309212,
+     "reads_window": 93126
     }
    }
   },
@@ -347,44 +371,68 @@
    }
   },
   {
-   "inorder_hit": 0.9621974166666667,
+   "inorder_hit": 0.9625026666666666,
    "banks_used": 512,
    "banks_total": 512,
    "inorder_hit_W": 0.9652428498695037,
-   "inorder_hit_K": 0.5050893743793445,
-   "inorder_hit_O": 0.9073405923157872,
+   "inorder_hit_K": 0.8329816285998014,
+   "inorder_hit_O": 0.892983699503898,
    "placement": "thp",
    "dram": "ddr5",
    "scheme": "region",
    "file": "thp_ddr5_region.trc",
    "info": {
-    "K": "identity (too few reads)",
-    "O": {
+    "K": {
      "matrix": {
       "0": [
-       "row8"
-      ],
-      "1": [
-       "row1",
-       "row9"
-      ],
-      "2": [
-       "row5",
+       "row4",
        "row10"
       ],
+      "1": [
+       "row8",
+       "row7",
+       "row2"
+      ],
+      "2": [
+       "row9"
+      ],
       "3": [
-       "row7"
+       "row5"
       ],
       "4": [
-       "row6",
-       "row8"
+       "row4"
       ]
      },
      "cost": [
-      269833.75,
-      65753.15
+      368361.25,
+      36708.9
      ],
-     "reads": 93126
+     "reads_full": 43738,
+     "reads_window": 16112
+    },
+    "O": {
+     "matrix": {
+      "0": [
+       "row8",
+       "row7"
+      ],
+      "1": [
+       "row1"
+      ],
+      "2": [
+       "row5"
+      ],
+      "3": [
+       "row6"
+      ],
+      "4": []
+     },
+     "cost": [
+      666652.35,
+      212760.65
+     ],
+     "reads_full": 309212,
+     "reads_window": 93126
     }
    }
   }
