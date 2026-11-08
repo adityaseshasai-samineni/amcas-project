@@ -1,0 +1,11 @@
+] [[32minfo[0m] Loading trace file /scratch/adityaseshasai.s/drburst/qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n4t4_n4/dram.ramulator.trc ...Loading trace file /scratch/adityaseshasai.s/drburst/qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n4t4_n4/dram.ramulator.trc ...
+
+] [[32minfo[0m] Loaded 274731197 lines.
+ddr4, 1 channel(s), interleave 64 B << 0, issue 1/cycle
+mapper      policy          reads   writes    hit  conflict  rd_lat  Mcycles    GB/s
+RoBaRaCoCh  Open        274731197        0  0.979     0.010   176.2   1333.8    15.8
+RoBaRaCoCh  ClosedCAP   274731197        0  0.780     0.005   193.2   1444.1    14.6
+MOP4CLXOR   Open        274731197        0  0.529     0.362   185.9   1185.7    17.8
+MOP4CLXOR   ClosedCAP   274731197        0  0.519     0.260   186.5   1185.1    17.8
+ChRaBaRoCo  Open        274731197        0  0.941     0.055   251.5   1978.9    10.7
+ChRaBaRoCo  ClosedCAP   274731197        0  0.786     0.015   396.2   3199.9     6.6

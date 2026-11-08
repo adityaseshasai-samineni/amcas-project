@@ -1,0 +1,10 @@
+
+Loaded 71274747 lines.
+ddr5, 16 channel(s), interleave 64 B << 2, issue 4/cycle
+mapper      policy          reads   writes    hit  conflict  rd_lat  Mcycles    GB/s
+RoBaRaCoCh  Open         71274747        0  0.960     0.019   257.2     43.7   250.9
+RoBaRaCoCh  ClosedCAP    71274747        0  0.771     0.010   345.2     56.6   193.8
+MOP4CLXOR   Open         71274747        0  0.421     0.475   271.3     41.7   262.8
+MOP4CLXOR   ClosedCAP    71274747        0  0.401     0.417   270.6     41.7   263.1
+ChRaBaRoCo  Open         71274747        0  0.897     0.099   518.5    101.9   107.6
+ChRaBaRoCo  ClosedCAP    71274747        0  0.767     0.044   715.7    157.5    69.6

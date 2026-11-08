@@ -65,3 +65,24 @@ attribution by class (reads, share, MB; stride +1/within16/beyond, per class str
 
 wrote /home/adityaseshasai.s/amcas-pro/results/fullscale/drbatch/qwen2.5-7b-instruct-q4_k_m-00001-of-00002_B4_P512t4/summary.json and dram.ramulator.trc (71,274,747 requests, VA-order packed)
 === Ramulator: one DDR4-2400 channel
+Loading trace file /scratch/adityaseshasai.s/drbatch/qwen2.5-7b-instruct-q4_k_m-00001-of-00002_B4_P512t4/dram.ramulator.trc ...
+
+ddr4, 1 channel(s), interleave 64 B << 0, issue 1/cycle
+mapper      policy          reads   writes    hit  conflict  rd_lat  Mcycles    GB/s
+RoBaRaCoCh  Open         71274747        0  0.963     0.021   172.9    336.1    16.3
+RoBaRaCoCh  ClosedCAP    71274747        0  0.773     0.012   205.6    397.0    13.8
+MOP4CLXOR   Open         71274747        0  0.485     0.398   188.3    307.2    17.8
+MOP4CLXOR   ClosedCAP    71274747        0  0.449     0.343   191.4    307.1    17.8
+ChRaBaRoCo  Open         71274747        0  0.900     0.095   301.8    623.9     8.8
+ChRaBaRoCo  ClosedCAP    71274747        0  0.783     0.020   428.2    901.4     6.1
+=== Ramulator: 16 DDR5-4800 subchannels, 256 B interleave
+
+Loaded 71274747 lines.
+ddr5, 16 channel(s), interleave 64 B << 2, issue 4/cycle
+mapper      policy          reads   writes    hit  conflict  rd_lat  Mcycles    GB/s
+RoBaRaCoCh  Open         71274747        0  0.960     0.019   257.2     43.7   250.9
+RoBaRaCoCh  ClosedCAP    71274747        0  0.771     0.010   345.2     56.6   193.8
+MOP4CLXOR   Open         71274747        0  0.421     0.475   271.3     41.7   262.8
+MOP4CLXOR   ClosedCAP    71274747        0  0.401     0.417   270.6     41.7   263.1
+ChRaBaRoCo  Open         71274747        0  0.897     0.099   518.5    101.9   107.6
+ChRaBaRoCo  ClosedCAP    71274747        0  0.767     0.044   715.7    157.5    69.6
