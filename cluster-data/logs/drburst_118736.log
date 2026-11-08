@@ -1,0 +1,38 @@
+==========================================
+SLURM_JOB_ID = 118736
+SLURM_NODELIST = node03
+SLURM_JOB_GPUS = 
+==========================================
+run qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n1t4_c32k on node03.local: -m /home/adityaseshasai.s/amcas-pro/tracing/models/qwen2.5-7b-instruct-q4_k_m-00001-of-00002.gguf -t 4 -tb 4 -c 32768 -n 2 -f /home/adityaseshasai.s/amcas-pro/results/fullscale/drburst/qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n1t4_c32k/prompt.txt -no-cnv --temp 0 --seed 1 --no-warmup
+=== untraced
+untraced 2067.82 s, max RSS 9639052 KB
+34.27.534.200 I common_perf_print: prompt eval time = 2062229.12 ms / 31001 tokens (   66.52 ms per token,    15.03 tokens per second)
+34.27.534.203 I common_perf_print:        eval time =    1244.73 ms /     1 runs   ( 1244.73 ms per token,     0.80 tokens per second)
+prompt steps: 16; tracing llama_process calls 16 to 16
+=== traced (decode steps 1 to 1), raw trace capped at 16 GB per thread
+drburst: attaching at step 16
+drburst: detached after step 16
+traced 2010.22 s, max RSS 9642280 KB
+same text: yes
+E 15 13438588625429070	E 15 13438590631284686
+B 16 13438588625430590	B 16 13438590631286220
+E 16 13438588626675370	E 16 13438590636963249
+14G	/scratch/adityaseshasai.s/drburst/qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n1t4_c32k/drmemtrace.llama-drburst.3875530.4613.dir/raw
+raw2trace 593.81 s
+3.3G	/scratch/adityaseshasai.s/drburst/qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n1t4_c32k/drmemtrace.llama-drburst.3875530.4613.dir/trace
+  8261322691 total (fetched) instructions
+Thread 3875530 counts:
+  2083161686 (fetched) instructions
+Thread 3875534 counts:
+  2073894445 (fetched) instructions
+Thread 3875536 counts:
+  2054467030 (fetched) instructions
+Thread 3875535 counts:
+  2049799529 (fetched) instructions
+Thread 3875532 counts:
+           1 (fetched) instructions
+compute threads: 3875530
+3875534
+3875536
+3875535
+=== cache simulation: with and without prefetch, and each thread alone (in parallel)

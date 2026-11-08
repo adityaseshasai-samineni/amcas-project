@@ -1,0 +1,79 @@
+==========================================
+SLURM_JOB_ID = 118735
+SLURM_NODELIST = node03
+SLURM_JOB_GPUS = 
+==========================================
+run qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n1t4_c8k on node03.local: -m /home/adityaseshasai.s/amcas-pro/tracing/models/qwen2.5-7b-instruct-q4_k_m-00001-of-00002.gguf -t 4 -tb 4 -c 8192 -n 2 -f /home/adityaseshasai.s/amcas-pro/results/fullscale/drburst/qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n1t4_c8k/prompt.txt -no-cnv --temp 0 --seed 1 --no-warmup
+=== untraced
+untraced 264.24 s, max RSS 8227352 KB
+4.23.985.772 I common_perf_print: prompt eval time =  260342.74 ms /  7363 tokens (   35.36 ms per token,    28.28 tokens per second)
+4.23.985.773 I common_perf_print:        eval time =     279.16 ms /     1 runs   (  279.16 ms per token,     3.58 tokens per second)
+prompt steps: 4; tracing llama_process calls 4 to 4
+=== traced (decode steps 1 to 1), raw trace capped at 16 GB per thread
+drburst: attaching at step 4
+drburst: detached after step 4
+traced 266.06 s, max RSS 8233784 KB
+same text: yes
+E 3 13438586822846054	E 3 13438587087043942
+B 4 13438586822847678	B 4 13438587087045532
+E 4 13438586823126907	E 4 13438587089181443
+4.2G	/scratch/adityaseshasai.s/drburst/qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n1t4_c8k/drmemtrace.llama-drburst.3874104.6290.dir/raw
+raw2trace 275.24 s
+1.9G	/scratch/adityaseshasai.s/drburst/qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n1t4_c8k/drmemtrace.llama-drburst.3874104.6290.dir/trace
+  4111553139 total (fetched) instructions
+Thread 3874104 counts:
+  1034764167 (fetched) instructions
+Thread 3874107 counts:
+  1028357983 (fetched) instructions
+Thread 3874109 counts:
+  1027450670 (fetched) instructions
+Thread 3874108 counts:
+  1020980318 (fetched) instructions
+Thread 3874106 counts:
+           1 (fetched) instructions
+compute threads: 3874104
+3874107
+3874109
+3874108
+=== cache simulation: with and without prefetch, and each thread alone (in parallel)
+sim pf: 1499.55 s
+sim nopf: 1549.51 s
+LL pf:  Misses: 39,998,976  Prefetch misses: 35,766,048 
+LL nopf:  Misses: 75,744,529 
+thread 3874104: 18,990,616 DRAM reads (1215.4 MB), 1 threads stride, merged: {'+1 line': 0.64, '-1 line': 0.039, 'within 16 lines': 0.288, 'within 8 KiB row': 0.0, 'beyond': 0.032} 
+thread 3874107: 18,781,152 DRAM reads (1202.0 MB), 1 threads stride, merged: {'+1 line': 0.645, '-1 line': 0.039, 'within 16 lines': 0.288, 'within 8 KiB row': 0.0, 'beyond': 0.027} 
+thread 3874109: 18,786,671 DRAM reads (1202.3 MB), 1 threads stride, merged: {'+1 line': 0.64, '-1 line': 0.04, 'within 16 lines': 0.293, 'within 8 KiB row': 0.0, 'beyond': 0.026} 
+thread 3874108: 18,851,217 DRAM reads (1206.5 MB), 1 threads stride, merged: {'+1 line': 0.642, '-1 line': 0.04, 'within 16 lines': 0.291, 'within 8 KiB row': 0.0, 'beyond': 0.027} 
+=== DRAM stream
+75,744,529 DRAM reads (4847.6 MB), 1 threads
+stride, merged: {'+1 line': 0.323, '-1 line': 0.034, 'within 16 lines': 0.162, 'within 8 KiB row': 0.0, 'beyond': 0.481}
+stride, thread 3874104: {'+1 line': 0.323, '-1 line': 0.034, 'within 16 lines': 0.162, 'within 8 KiB row': 0.0, 'beyond': 0.481}
+
+offline in-order open-page row hit rate (DDR4 8 KiB row, 2 ranks x 16 banks)
+placement              RoRaBaCoCh   RoCoRaBaCh     XOR-bank
+VA-order packed             0.966        0.200        0.969
+4KiB shuffled               0.958        0.101        0.958
+THP 2MiB shuffled           0.946        0.200        0.964
+
+wrote /home/adityaseshasai.s/amcas-pro/results/fullscale/drburst/qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n1t4_c8k/summary.json and dram.ramulator.trc (75,744,529 requests, VA-order packed)
+=== Ramulator: one DDR4-2400 channel
+
+] [[32minfo[0m] Loading trace file /scratch/adityaseshasai.s/drburst/qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n1t4_c8k/dram.ramulator.trc ...
+ddr4, 1 channel(s), interleave 64 B << 0, issue 1/cycle
+mapper      policy          reads   writes    hit  conflict  rd_lat  Mcycles    GB/s
+RoBaRaCoCh  Open         75744529        0  0.983     0.006   191.3    404.0    14.4
+RoBaRaCoCh  ClosedCAP    75744529        0  0.788     0.003   238.8    508.6    11.4
+MOP4CLXOR   Open         75744529        0  0.626     0.278   180.6    324.8    17.9
+MOP4CLXOR   ClosedCAP    75744529        0  0.575     0.182   185.1    324.7    17.9
+ChRaBaRoCo  Open         75744529        0  0.965     0.030   221.7    476.1    12.2
+ChRaBaRoCo  ClosedCAP    75744529        0  0.787     0.010   377.3    837.6     6.9
+=== Ramulator: 16 DDR5-4800 subchannels, 256 B interleave
+
+ddr5, 16 channel(s), interleave 64 B << 2, issue 4/cycle
+mapper      policy          reads   writes    hit  conflict  rd_lat  Mcycles    GB/s
+RoBaRaCoCh  Open         75744529        0  0.975     0.006   265.7     50.4   231.2
+RoBaRaCoCh  ClosedCAP    75744529        0  0.783     0.002   388.3     70.2   165.9
+MOP4CLXOR   Open         75744529        0  0.640     0.266   263.5     49.4   235.9
+MOP4CLXOR   ClosedCAP    75744529        0  0.592     0.177   266.1     49.4   236.0
+ChRaBaRoCo  Open         75744529        0  0.939     0.058   407.9     95.5   122.0
+ChRaBaRoCo  ClosedCAP    75744529        0  0.776     0.024   570.9    174.1    66.9

@@ -1,0 +1,15 @@
+==========================================
+SLURM_JOB_ID = 118728
+SLURM_NODELIST = node03
+SLURM_JOB_GPUS = 
+==========================================
+run qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n1t4_c32k on node03.local: -m /home/adityaseshasai.s/amcas-pro/tracing/models/qwen2.5-7b-instruct-q4_k_m-00001-of-00002.gguf -t 4 -tb 4 -c 32768 -n 2 -f /home/adityaseshasai.s/amcas-pro/results/fullscale/drburst/qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n1t4_c32k/prompt.txt -no-cnv --temp 0 --seed 1 --no-warmup
+=== untraced
+untraced 2121.85 s, max RSS 9636564 KB
+35.21.347.259 I common_perf_print: prompt eval time = 2071543.98 ms / 31001 tokens (   66.82 ms per token,    14.97 tokens per second)
+35.21.347.262 I common_perf_print:        eval time =    1239.12 ms /     1 runs   ( 1239.12 ms per token,     0.81 tokens per second)
+=== traced (steps 1 to 1), raw trace capped at 16 GB per thread
+drburst: attaching at step 1
+drburst: detached after step 1
+traced 62.25 s, max RSS 9602672 KB
+same text: NO

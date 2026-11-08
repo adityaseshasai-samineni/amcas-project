@@ -1,0 +1,22 @@
+Cache simulation results:
+Core #0 (traced CPU(s): #0)
+  L1I0 (size=32768, assoc=8, block=64, LRU) stats:
+    Hits:                    2,204,834,144
+    Misses:                          6,344
+    Compulsory misses:                 599
+    Invalidations:                       0
+    Miss rate:                        0.00%
+  L1D0 (size=32768, assoc=8, block=64, LRU) stats:
+    Hits:                      760,106,793
+    Misses:                     70,983,395
+    Compulsory misses:          24,105,271
+    Invalidations:                       0
+    Miss rate:                        8.54%
+LL (size=23068672, assoc=11, block=64, LRU) stats:
+    Hits:                       46,794,896
+    Misses:                     24,194,843
+    Compulsory misses:          24,105,870
+    Invalidations:                       0
+    Local miss rate:                 34.08%
+    Child hits:              2,964,940,937
+    Total miss rate:                  0.80%
