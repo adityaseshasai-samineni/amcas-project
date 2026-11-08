@@ -1,0 +1,21 @@
+5,487,082 DRAM reads (351.2 MB), 1 threads
+stride, merged: {'+1 line': 0.409, '-1 line': 0.0, 'within 16 lines': 0.001, 'within 8 KiB row': 0.001, 'beyond': 0.589}
+stride, thread 3931801: {'+1 line': 0.409, '-1 line': 0.0, 'within 16 lines': 0.001, 'within 8 KiB row': 0.001, 'beyond': 0.589}
+
+offline in-order open-page row hit rate (DDR4 8 KiB row, 2 ranks x 16 banks)
+placement              RoRaBaCoCh   RoCoRaBaCh     XOR-bank
+VA-order packed             0.972        0.168        0.969
+4KiB shuffled               0.959        0.076        0.960
+THP 2MiB shuffled           0.971        0.169        0.970
+
+attribution by class (reads, share, MB; stride +1/within16/beyond, per class stream)
+  KV cache              5,447   0.001       0.3  +1 0.50 w16 0.02 beyond 0.47
+  dense weights     5,411,107   0.986     346.3  +1 0.41 w16 0.00 beyond 0.59
+  activations           2,776   0.001       0.2  +1 0.64 w16 0.02 beyond 0.33
+  unattributed         67,752   0.012       4.3  +1 0.24 w16 0.11 beyond 0.54
+  row hit VA-order packed / RoRaBaCoCh: KV cache 0.939, dense weights 0.973, activations 0.942, unattributed 0.891
+  row hit VA-order packed / XOR-bank: KV cache 0.965, dense weights 0.970, activations 0.880, unattributed 0.860
+  row hit 4KiB shuffled / RoRaBaCoCh: KV cache 0.937, dense weights 0.961, activations 0.885, unattributed 0.833
+  row hit 4KiB shuffled / XOR-bank: KV cache 0.936, dense weights 0.962, activations 0.909, unattributed 0.824
+  row hit THP 2MiB shuffled / RoRaBaCoCh: KV cache 0.524, dense weights 0.973, activations 0.609, unattributed 0.884
+  row hit THP 2MiB shuffled / XOR-bank: KV cache 0.963, dense weights 0.971, activations 0.942, unattributed 0.877

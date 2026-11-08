@@ -1,0 +1,63 @@
+==========================================
+SLURM_JOB_ID = 119097
+SLURM_NODELIST = node03
+SLURM_JOB_GPUS = 
+==========================================
+run qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n1t4_c8k_llsweep on node03.local: -m /home/adityaseshasai.s/amcas-pro/tracing/models/qwen2.5-7b-instruct-q4_k_m-00001-of-00002.gguf -t 4 -tb 4 -c 8192 -n 2 -f /home/adityaseshasai.s/amcas-pro/results/fullscale/drburst/qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n1t4_c8k_llsweep/prompt.txt -no-cnv --temp 0 --seed 1 --no-warmup
+=== untraced
+untraced 277.52 s, max RSS 8228732 KB
+4.37.290.799 I common_perf_print: prompt eval time =  268629.11 ms /  7363 tokens (   36.48 ms per token,    27.41 tokens per second)
+4.37.290.801 I common_perf_print:        eval time =     329.02 ms /     1 runs   (  329.02 ms per token,     3.04 tokens per second)
+prompt steps: 4; tracing llama_process calls 4 to 4
+=== traced (decode steps 1 to 1), raw trace capped at 16 GB per thread
+drburst: attaching at step 4
+drburst: detached after step 4
+traced 274.01 s, max RSS 8234500 KB
+same text: yes
+E 3 13438610596907071	E 3 13438610868949485
+B 4 13438610596908687	B 4 13438610868951108
+E 4 13438610597237780	E 4 13438610871144634
+4.2G	/scratch/adityaseshasai.s/drburst/qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n1t4_c8k_llsweep/drmemtrace.llama-drburst.3938878.4089.dir/raw
+raw2trace 273.77 s
+1.9G	/scratch/adityaseshasai.s/drburst/qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n1t4_c8k_llsweep/drmemtrace.llama-drburst.3938878.4089.dir/trace
+  4108360753 total (fetched) instructions
+Thread 3938878 counts:
+  1031442216 (fetched) instructions
+Thread 3938890 counts:
+  1030390591 (fetched) instructions
+Thread 3938891 counts:
+  1026140309 (fetched) instructions
+Thread 3938892 counts:
+  1020387636 (fetched) instructions
+Thread 3938880 counts:
+           1 (fetched) instructions
+compute threads: 3938878
+3938890
+3938891
+3938892
+=== cache simulation: with and without prefetch, and each thread alone (in parallel)
+sim pf: 1563.90 s
+sim nopf: 1630.14 s
+LL pf:  Misses: 39,934,143  Prefetch misses: 35,701,444 
+LL nopf:  Misses: 75,615,487 
+thread 3938878: 18,914,531 DRAM reads (1210.5 MB), 1 threads stride, merged: {'+1 line': 0.641, '-1 line': 0.039, 'within 16 lines': 0.287, 'within 8 KiB row': 0.0, 'beyond': 0.032} 
+thread 3938890: 18,883,839 DRAM reads (1208.6 MB), 1 threads stride, merged: {'+1 line': 0.642, '-1 line': 0.04, 'within 16 lines': 0.291, 'within 8 KiB row': 0.0, 'beyond': 0.027} 
+thread 3938891: 18,921,229 DRAM reads (1211.0 MB), 1 threads stride, merged: {'+1 line': 0.643, '-1 line': 0.04, 'within 16 lines': 0.291, 'within 8 KiB row': 0.0, 'beyond': 0.027} 
+thread 3938892: 18,685,629 DRAM reads (1195.9 MB), 1 threads stride, merged: {'+1 line': 0.642, '-1 line': 0.04, 'within 16 lines': 0.291, 'within 8 KiB row': 0.0, 'beyond': 0.026} 
+=== LL size sweep (with prefetch): 32M:16 64M:16 128M:16
+LL 32M:16:  Misses: 39,866,756  Prefetch misses: 35,631,884 
+LL 64M:16:  Misses: 39,723,263  Prefetch misses: 35,479,038 
+LL 128M:16:  Misses: 39,648,237  Prefetch misses: 35,393,527 
+=== DRAM stream
+75,615,487 DRAM reads (4839.4 MB), 1 threads
+stride, merged: {'+1 line': 0.313, '-1 line': 0.035, 'within 16 lines': 0.158, 'within 8 KiB row': 0.0, 'beyond': 0.493}
+stride, thread 3938878: {'+1 line': 0.313, '-1 line': 0.035, 'within 16 lines': 0.158, 'within 8 KiB row': 0.0, 'beyond': 0.493}
+
+offline in-order open-page row hit rate (DDR4 8 KiB row, 2 ranks x 16 banks)
+placement              RoRaBaCoCh   RoCoRaBaCh     XOR-bank
+VA-order packed             0.969        0.165        0.969
+4KiB shuffled               0.958        0.083        0.958
+THP 2MiB shuffled           0.949        0.165        0.965
+
+wrote /home/adityaseshasai.s/amcas-pro/results/fullscale/drburst/qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n1t4_c8k_llsweep/summary.json and dram.ramulator.trc (75,615,487 requests, VA-order packed)
+=== Ramulator: one DDR4-2400 channel

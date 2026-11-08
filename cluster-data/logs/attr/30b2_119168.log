@@ -1,0 +1,33 @@
+==========================================
+SLURM_JOB_ID = 119168
+SLURM_NODELIST = node03
+SLURM_JOB_GPUS = 
+==========================================
+tracing llama_process calls 1..1
+drburst: attaching at step 1
+drburst: detached after step 1
+same text: yes
+701 /home/adityaseshasai.s/amcas-pro/results/fullscale/drattr/Qwen3-30B-A3B-Q4_K_M_s1n1t4_attr/tensors.tsv
+30,356,932 DRAM reads (1942.8 MB), 1 threads
+stride, merged: {'+1 line': 0.293, '-1 line': 0.036, 'within 16 lines': 0.163, 'within 8 KiB row': 0.0, 'beyond': 0.508}
+stride, thread 3946354: {'+1 line': 0.293, '-1 line': 0.036, 'within 16 lines': 0.163, 'within 8 KiB row': 0.0, 'beyond': 0.508}
+
+offline in-order open-page row hit rate (DDR4 8 KiB row, 2 ranks x 16 banks)
+placement              RoRaBaCoCh   RoCoRaBaCh     XOR-bank
+VA-order packed             0.971        0.138        0.970
+4KiB shuffled               0.961        0.068        0.961
+THP 2MiB shuffled           0.969        0.137        0.969
+
+attribution by class (reads, share, MB; stride +1/within16/beyond, per class stream)
+  expert weights   17,141,770   0.565    1097.1  +1 0.38 w16 0.19 beyond 0.40
+  KV cache             60,564   0.002       3.9  +1 0.75 w16 0.00 beyond 0.25
+  dense weights    12,853,303   0.423     822.6  +1 0.47 w16 0.23 beyond 0.24
+  activations         105,718   0.003       6.8  +1 0.63 w16 0.06 beyond 0.26
+  unattributed        195,577   0.006      12.5  +1 0.26 w16 0.16 beyond 0.47
+  row hit VA-order packed / RoRaBaCoCh: expert weights 0.971, KV cache 0.952, dense weights 0.973, activations 0.879, unattributed 0.855
+  row hit VA-order packed / XOR-bank: expert weights 0.969, KV cache 0.952, dense weights 0.974, activations 0.878, unattributed 0.852
+  row hit 4KiB shuffled / RoRaBaCoCh: expert weights 0.961, KV cache 0.920, dense weights 0.965, activations 0.833, unattributed 0.778
+  row hit 4KiB shuffled / XOR-bank: expert weights 0.961, KV cache 0.915, dense weights 0.965, activations 0.835, unattributed 0.778
+  row hit THP 2MiB shuffled / RoRaBaCoCh: expert weights 0.970, KV cache 0.736, dense weights 0.974, activations 0.729, unattributed 0.841
+  row hit THP 2MiB shuffled / XOR-bank: expert weights 0.969, KV cache 0.884, dense weights 0.973, activations 0.848, unattributed 0.837
+  experts: 144 expert tensors, mean touched/tensor 8.0 of 128, mostly read 8.0
