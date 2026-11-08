@@ -880,3 +880,9 @@ Decode step 1, 4 threads, same text as untraced, 701 distinct tensors in the dum
 - Added optional `LL_SWEEP="size:assoc ..."` to `16_drburst.sh` (runs with-prefetch drcachesim per LL size on the same trace, writes `cachesim_pf_LL<size>.txt`).
 - Qwen 7B 8k (run `..._s1n1t4_c8k_llsweep`), DRAM reads = LL Misses + Prefetch misses: 22M/11-way 75.64M (4.84 GB); 32M/16 75.50M; 64M/16 75.20M; 128M/16 75.04M (4.80 GB). Flat (-0.8%), as expected when a layer's KV already fits the LLC.
 - 32k sweep (job 119096) still running. Queued on node03: 119347 (Qwen 0.5B 32k, `_c32k`), 119348 (Qwen3-30B-A3B 8k, `_c8k`).
+
+## 2026-11-08 Full-scale report and draft analysis (report-dev)
+
+- `trace-pipeline/tools/fullscale_report.py RESULTS_DIR OUT_DIR` (numpy, matplotlib, json only; tolerates missing runs) writes `analysis/fullscale/tables.md` and `fig_reads_per_token.png`, `fig_llc_sweep.png`, `fig_region_time.png`. `publish.sh` already calls it. Do not hand-edit its output.
+- `ANALYSIS_FULLSCALE.md` is a draft of the full-scale write-up (method, findings, limits, what remains). It cites the generated tables; pending items are marked.
+- The 7B 32k runs differ: burst 152.7M lines (9.78 GB), its LL-sweep twin 161.2M (10.32 GB), the drattr run 179.5M (11.5 GB). Unexplained.
