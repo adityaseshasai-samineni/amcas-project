@@ -2,3 +2,7 @@
 Loading trace file /scratch/adityaseshasai.s/region/qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n1t4_attr_c8k/thp_ddr5_xor_global.trc ...
 [[Ramulator::LoadStoreTraceRamulator::LoadStoreTrace] [[32minfo[0m] ] [[32minfo[0m] Loaded 12000000 lines.Loaded 12000000 lines.
 
+ddr5, 16 channel(s), interleave 64 B << 2, issue 4/cycle
+mapper      policy          reads   writes    hit  conflict  rd_lat  Mcycles    GB/s
+RoBaRaCoCh  Open         12000000        0  0.971     0.010   252.0      7.9   234.2
+RoBaRaCoCh  ClosedCAP    12000000        0  0.777     0.005   328.7      9.9   186.7
