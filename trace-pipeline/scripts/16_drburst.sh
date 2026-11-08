@@ -11,8 +11,14 @@
 # without AVX-512; node01, node03 (Cascade Lake) and node06 (Ice Lake) run build-fast.
 #
 # Usage: sbatch [--mem=..] [-c ..] 16_drburst.sh MODEL SKIP NTRACE [THREADS]
-#   SKIP    steps run untraced first: 0 is the prompt, each token one more step
-#   NTRACE  steps to trace
+#   SKIP    which decode step to trace first: 1 is the first step after the prompt
+#           (it decodes the first generated token and produces the second)
+#   NTRACE  decode steps to trace
+# llama.cpp evaluates the prompt in batches of 2048 tokens, one llama_process call
+# each, so a long prompt takes several steps (7,363 tokens: 4; 31,001: 16). The
+# number of prompt steps is read from the untraced run's step log, and the traced
+# run attaches at step PROMPT_STEPS + SKIP - 1. (Jobs 118389/118390/118727 counted
+# steps from 0 and so traced a 2048-token prompt batch instead of a token.)
 # Environment:
 #   PROMPT_CHARS  build the prompt from the first N characters of results/sessions/
 #                 corpus.txt (llama.cpp docs, about 4.2 characters per Qwen token)
@@ -54,7 +60,7 @@ if [ -n "${PROMPT_CHARS:-}" ]; then
   head -c $PROMPT_CHARS $HOME/amcas-pro/results/sessions/corpus.txt > $R/prompt.txt; INPUT=(-f $R/prompt.txt)
 elif [ -n "${PROMPT_FILE:-}" ]; then INPUT=(-f "$PROMPT_FILE")
 else INPUT=(-p "Once upon a time there was a little girl named Lily."); fi
-N=$((SKIP + NTRACE))  # tokens to generate: step k (k >= 1) is the k-th generated token
+N=$((SKIP + NTRACE))  # tokens to generate: N - 1 decode steps after the prompt
 ARGS=(-m $W/models/$MODEL.gguf -t $TH -tb ${TB:-$TH} -c ${CTX:-4096} -n $N "${INPUT[@]}" -no-cnv --temp 0 --seed 1 --no-warmup)
 CACHE=(-LL_size 22M -LL_assoc 11)
 echo "run $RUN on $(hostname): ${ARGS[*]}"
@@ -63,8 +69,12 @@ echo "=== untraced"
 AMCAS_SKIP_STEPS=999999 AMCAS_STEPS=$R/steps_native.txt /usr/bin/time -f "untraced %e s, max RSS %M KB" \
   $X "${ARGS[@]}" > $S/plain.out 2> $S/plain.err; tail -1 $S/plain.err
 grep -E "prompt eval time|eval time" $S/plain.err | head -3 | cut -c1-160
-echo "=== traced (steps $SKIP to $((SKIP + NTRACE - 1))), raw trace capped at 16 GB per thread"
-AMCAS_SKIP_STEPS=$SKIP AMCAS_TRACE_STEPS=$NTRACE AMCAS_STEPS=$R/steps_traced.txt \
+PROMPT_STEPS=$(( $(grep -c '^B' $R/steps_native.txt) - (N - 1) ))
+[ $PROMPT_STEPS -ge 1 ] || { echo "cannot count prompt steps from steps_native.txt"; exit 1; }
+FIRST=$((PROMPT_STEPS + SKIP - 1))
+echo "prompt steps: $PROMPT_STEPS; tracing llama_process calls $FIRST to $((FIRST + NTRACE - 1))"
+echo "=== traced (decode steps $SKIP to $((SKIP + NTRACE - 1))), raw trace capped at 16 GB per thread"
+AMCAS_SKIP_STEPS=$FIRST AMCAS_TRACE_STEPS=$NTRACE AMCAS_STEPS=$R/steps_traced.txt \
   DYNAMORIO_OPTIONS="-stderr_mask 0xc -client_lib ';;-offline -outdir $S -max_trace_size 17179869184'" \
   /usr/bin/time -f "traced %e s, max RSS %M KB" $X "${ARGS[@]}" > $S/traced.out 2> $S/traced.err
 grep -E "^drburst|^traced" $S/traced.err

@@ -795,3 +795,18 @@ For the MoE, the 1.94 GB fits about 3.3B active parameters at Q4_K_M.
 - Our leftovers were deleted on node06 (back to 71 GB free) and node03 (`burst`, `drphases`, `drcheck`, `fmt`). node01's cannot be reached while it is drained; clean it when it returns.
 
 **Resubmitted on node03** (717 GB free): 118727 (8k: `PROMPT_CHARS=32000 CTX=8192`) and 118728 (32k: `PROMPT_CHARS=116000 CTX=32768`, 14 h). Both use 4 threads for the prompt too.
+
+### Long context: step numbering bug and resubmission (2026-11-08, about 10:20 IST)
+
+- **Bug:** llama.cpp evaluates a prompt in batches of 2048 tokens, one `llama_process` call each. A 7,363-token prompt is 4 steps; a 31,001-token prompt is 16 steps (17 with the one decode). Counting from 0 as in short runs, "step 1" was the **second prompt batch**, not a decode step. That explains the 65 GB raw trace of job 118727 (8k) and the 3.6 h traced run of 118389. 118727 was cancelled while converting; its `/scratch` folder was gone afterwards.
+- 118728 (32k, node03, 36 min) failed differently: after attaching mid-prompt at call 1, llama.cpp reported `init: sequence 0 positions are decreasing (not allowed)` / `decode: failed to initialize batch` / `failed to eval`. 118727 also attached mid-prompt and kept the right text, so this is not systematic. It is an open question whether attaching can corrupt state. Every attach at a decode step has worked so far.
+- Native, node03, 4 threads, Qwen 7B:
+
+  | prompt | prompt eval | next token |
+  |---|---|---|
+  | 7,363 tokens | 261 s (28 tok/s) | 295 ms |
+  | 31,001 tokens | 2,072 s (15 tok/s) | 1,239 ms |
+
+  At 32k the token costs 4.2× the short-context token (189 ms on node01). This is the KV-cache cost appearing.
+- **Fix in `16_drburst.sh`:** `SKIP` now counts decode steps (1 = first step after the prompt). `PROMPT_STEPS` = (number of `B` lines in `steps_native.txt`) − (N − 1), and the traced run attaches at call `PROMPT_STEPS + SKIP − 1`. For short prompts this is call 1, as before.
+- Resubmitted on node03: 118735 (8k: `PROMPT_CHARS=32000 CTX=8192`) and 118736 (32k: `PROMPT_CHARS=116000 CTX=32768`).
