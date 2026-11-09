@@ -961,3 +961,23 @@ Decode steps 1 to 4, 4 threads, short prompt, node03. DRAM reads = LL misses wit
 - MoE: the 4 tokens together touch 3.02 GB, 1.55x one token's 1.94 GB; the experts chosen by consecutive tokens overlap strongly (union of 4 tokens = 39% of 4 x reads, against 25% if fully shared and 100% if disjoint). About 61% of the 4-token reads are re-reads of data an earlier token already fetched. Implication: expert-weight reuse across consecutive tokens is large but LLC-sized caches cannot capture it (union 3 GB).
 - Ramulator, 1 DDR4 channel (Mcycles XOR/RoBaRaCoCh): MoE 523/598 about 0.87; DDR5x16 gives the usual near 1.0 (RoBaRaCoCh 261.0 vs MOP4CLXOR 286.3 GB/s in the first column listing; read ramulator_ddr5x16.txt for time ratios).
 - /scratch: no leftover directories on node03 listing at the time of check.
+
+### batch-dev: batched-decode DRAM trace (drbatch), 2026-11-09 (partial: 7B B=1,4 and 30B B=1 done; 30B B=4,16 and 7B B=16 queued)
+
+**Tool.** `tools/drburst/drbatch_main.cpp` (CMake `-DBATCH=ON`, build `tracing/drbatch-build`, needs `-DCMAKE_BUILD_TYPE=Release`; the unoptimised build crashed under DynamoRIO) is its own `main` on libllama.so, not llama-completion. B sequences, each with its own prompt (P=512 tokens from corpus slice k, offset k*30000 chars), decode together (kv_unified=0, per-sequence KV). `scripts/18_drbatch.sh MODEL B [THREADS]` runs: untraced reference, traced decode step 1 (one `llama_process` with B tokens, after all prompts and a batched last-prompt-token step 0), tensor dump (drattr hook is included), raw2trace gzip, basic_counts, drcachesim with/without prefetch, `drmiss_export.py --tensors`, Ramulator DDR4x1 and DDR5x16 (`--procs 3`). Results in `results/fullscale/drbatch/<MODEL>_B<B>_P512t4/`.
+- **Prompt cache.** The first P-1 tokens of each sequence are stored with `llama_state_seq_save_file` in `results/sessions/drbatch/` and restored by every later run (B=1 and B=4 share the first sequences). Step numbering is by decode step, so no prompt-step counting is needed. Text equality (greedy token ids, 4 steps) holds between the fresh-evaluated untraced run and the restored traced run: yes for all finished runs.
+- **DynamoRIO crash and fix.** Attaching in `llama_process` crashed with B=16 (SIGSEGV in `unordered_map<bitset<256>>::operator[]` inside `llama_batch_allocr::init`, reproducible on Qwen 0.5B). The driver now attaches inside the interposed `ggml_backend_sched_graph_compute_async` (just before the graph compute). The B=1 and B=4 7B and the 30B B=1 runs used the earlier attach point (batch setup included, negligible).
+- **drmiss_export.py** got `AMCAS_CAPACITY_GB` (default 8). With 30B B>=4 the touched 2 MiB pages exceed 8 GiB and the THP placement failed (no attribution, no Ramulator); `18_drbatch.sh` now exports 32. Row-hit numbers of the shuffled placements in new runs are therefore not exactly comparable with the earlier 8 GiB runs.
+
+**Results (Qwen2.5-7B Q4_K_M, 512-token prompts, 4 threads, node03; DRAM reads = LL misses + prefetch misses, 22 MB LLC):**
+
+| B | DRAM reads | GB | GB per sequence | native step | instructions | DDR4 RoBaRaCoCh/Open hit | DDR5x16 GB/s (RoBaRaCoCh / MOP4CLXOR) |
+|---|---|---|---|---|---|---|---|
+| 1 | 69.17M | 4.43 | 4.43 | 174 ms | 2.9G | 0.979 | 270.9 / 273.0 |
+| 4 | 71.32M | 4.56 | 1.14 | 283 ms | 6.3G | 0.963 | 250.9 / 262.8 |
+
+Dense model: B=4 reads 1.03x of B=1 (weights are read once per step, KV reads rise from 29 MB to 118 MB), so DRAM traffic per sequence falls 3.9x; native step time 1.6x (throughput 2.5x).
+
+**Qwen3-30B-A3B Q4_K_M:** B=1: 31.16M reads = 1.99 GB, 104 ms, 8.0 of 128 experts touched in every expert tensor (matches the drattr run). B=4: 66.78M reads = 4.27 GB (nopf stream; step 276 ms, 5.0G instr), i.e. 2.1x of B=1 for 4 sequences (1.07 GB per sequence), against 4x for no sharing and 1.0x for a dense model. Native step time 2.65x (throughput gain 1.5x). The expert union per layer at B=4 and the B=16 numbers are pending (first B=4 attempt hit the 8 GiB placement limit; rerun queued).
+
+**Queued (node03 is saturated by another user's array; priority 1):** 119987 (30B B=4), 119988 (30B B=16), 119989 (7B B=16), dependent chain, each publishes itself. Per-run table: a small script is not in the repo; read `cachesim_pf.txt`/`cachesim_nopf.txt` (DRAM reads), `steps_native.txt` (step time), `attribution.json` -> `experts.per_layer[*].experts_touched`.
