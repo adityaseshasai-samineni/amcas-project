@@ -981,3 +981,17 @@ Dense model: B=4 reads 1.03x of B=1 (weights are read once per step, KV reads ri
 **Qwen3-30B-A3B Q4_K_M:** B=1: 31.16M reads = 1.99 GB, 104 ms, 8.0 of 128 experts touched in every expert tensor (matches the drattr run). B=4: 66.78M reads = 4.27 GB (nopf stream; step 276 ms, 5.0G instr), i.e. 2.1x of B=1 for 4 sequences (1.07 GB per sequence), against 4x for no sharing and 1.0x for a dense model. Native step time 2.65x (throughput gain 1.5x). The expert union per layer at B=4 and the B=16 numbers are pending (first B=4 attempt hit the 8 GiB placement limit; rerun queued).
 
 **Queued (node03 is saturated by another user's array; priority 1):** 119987 (30B B=4), 119988 (30B B=16), 119989 (7B B=16), dependent chain, each publishes itself. Per-run table: a small script is not in the repo; read `cachesim_pf.txt`/`cachesim_nopf.txt` (DRAM reads), `steps_native.txt` (step time), `attribution.json` -> `experts.per_layer[*].experts_touched`.
+
+### The 9.8 / 10.3 / 11.5 GB discrepancy at 32k explained (2026-11-09)
+
+The three numbers are DRAM reads (no-prefetch LL misses × 64 B) for one Qwen 7B decode token at 31,003 tokens of context, from three separate traces. All three had the same prompt (116,000 characters), 4 threads, the same 22 MB 11-way LLC flags (`-cores 4 -LL_size 22M -LL_assoc 11`) and nearly the same instructions (8.26G against 8.30G; the drattr run has no basic_counts):
+
+| run | script / binary | no-prefetch misses | GB | ÷ 6.18 GB expected |
+|---|---|---|---|---|
+| 118736 `_c32k` | 16_drburst / llama-drburst | 152.7M | 9.77 | 1.58 |
+| 119096 `_c32k_llsweep` | 16_drburst / llama-drburst | 161.2M | 10.31 | 1.67 |
+| 119180 `_attr_c32k` | 17_drattr / llama-drattr | 179.5M | 11.49 | 1.86 |
+
+- Cause: run-to-run variation in how the four threads' work interleaves, in the one regime where the shared LLC is thrashing. ggml hands out matmul and attention chunks dynamically through an atomic counter, so which thread reads which K/V block, and when, differs between runs. drcachesim interleaves the four traces in a shared LLC. When a layer's KV (63.5 MB) is about 3× the LLC, whether the reuses across the 7 query heads that share a KV head hit depends strongly on that interleaving. The drattr run also walks the graph inside the traced step, which disturbs the cache a little more.
+- Evidence that this regime-specific sensitivity is the cause: where nothing thrashes, the same comparison is stable. Short context gives 68.69M against 68.68M lines (0.01%) between two runs. At 8k the LLC sweep is flat, and at ≥64 MB the 32k run gives 6.16–6.21 GB in the sweep run.
+- How to report it: at 32k with a 22 MB LLC, KV amplification is **1.6–1.9× the expected traffic (one pass over the weights plus one over the KV), depending on thread scheduling**; it vanishes at 64 MB and above. Absolute 32k numbers should be quoted as a range. The direction of every finding is unchanged.
