@@ -946,3 +946,18 @@ The 8k control is flat (75.6M to 75.0M). So the 3.6+ GB excess at 32k is KV re-r
 Both match weights + one KV pass: 0.5B KV per layer is 12 MB at 31k, and 30B-A3B per layer 15 MB at 7.4k, so both fit the 22 MB LLC. No amplification, consistent with the hypothesis (amplification needs per-layer KV above the LLC). Native: 0.5B token 130 ms at 31k.
 
 Submitted: 119402 (30B-A3B s1n4 `_n4`), 119403 (7B s1n4 `_n4`).
+
+### MoE across tokens (jobs 119402, 119403; 2026-11-09, rce-runner)
+
+Decode steps 1 to 4, 4 threads, short prompt, node03. DRAM reads = LL misses without prefetch (the replayed stream). Footprint = distinct 4 KB pages touched (`summary.json footprint_pages`, so an upper bound on distinct lines).
+
+| model | DRAM reads, 4 tokens | per token | 1-token run | 4 x 1-token | footprint (4 KB pages) | footprint / 4 x per-token reads |
+|---|---|---|---|---|---|---|
+| Qwen3-30B-A3B | 121.4M lines (7.77 GB) | 30.4M (1.94 GB) | 30.3M | 121.2M | 738,558 = 3.02 GB | 0.39 |
+| Qwen 7B (dense) | 274.7M (17.58 GB) | 68.7M (4.40 GB) | 68.7M | 274.8M | 1,069,147 = 4.38 GB | 0.25 |
+
+- Per-token reads are the same as for one token in both models: the 22 MB LLC keeps nothing between tokens, so every token re-reads its whole weight set from DRAM.
+- Dense: the footprint equals one token's reads, so all 4 tokens read the same bytes (reuse factor 4).
+- MoE: the 4 tokens together touch 3.02 GB, 1.55x one token's 1.94 GB; the experts chosen by consecutive tokens overlap strongly (union of 4 tokens = 39% of 4 x reads, against 25% if fully shared and 100% if disjoint). About 61% of the 4-token reads are re-reads of data an earlier token already fetched. Implication: expert-weight reuse across consecutive tokens is large but LLC-sized caches cannot capture it (union 3 GB).
+- Ramulator, 1 DDR4 channel (Mcycles XOR/RoBaRaCoCh): MoE 523/598 about 0.87; DDR5x16 gives the usual near 1.0 (RoBaRaCoCh 261.0 vs MOP4CLXOR 286.3 GB/s in the first column listing; read ramulator_ddr5x16.txt for time ratios).
+- /scratch: no leftover directories on node03 listing at the time of check.
