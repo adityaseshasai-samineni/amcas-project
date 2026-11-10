@@ -1,0 +1,81 @@
+==========================================
+SLURM_JOB_ID = 119987
+SLURM_NODELIST = node03
+SLURM_JOB_GPUS = 
+==========================================
+run Qwen3-30B-A3B-Q4_K_M_B4_P512t4 on node03.local: B=4 P=512 threads=4 skip=1 ntrace=1 kvu=0
+=== untraced
+drbatch: seq 0 evaluated and saved
+drbatch: seq 1 evaluated and saved
+drbatch: seq 2 evaluated and saved
+drbatch: seq 3 evaluated and saved
+untraced 66.83 s, max RSS 32211420 KB
+=== traced (decode step 1, 1 step(s)), raw trace capped at 16 GB per thread
+drbatch: attaching at step 1
+drbatch: detached after step 1
+traced 18.90 s, max RSS 32131576 KB
+same tokens: yes
+B 0 13438752620400966	B 0 13438752637680830
+E 0 13438752620746165	E 0 13438752637948937
+B 1 13438752620746976	B 1 13438752637949721
+E 1 13438752621038448	E 1 13438752639954157
+B 2 13438752621039199	B 2 13438752639955505
+E 2 13438752621323663	E 2 13438752640240329
+B 3 13438752621324414	B 3 13438752640241075
+E 3 13438752621585496	E 3 13438752640499644
+4.4G	/scratch/adityaseshasai.s/drbatch/Qwen3-30B-A3B-Q4_K_M_B4_P512t4/drmemtrace.llama-drbatch.309576.1883.dir/raw
+raw2trace 332.76 s
+2.4G	/scratch/adityaseshasai.s/drbatch/Qwen3-30B-A3B-Q4_K_M_B4_P512t4/drmemtrace.llama-drbatch.309576.1883.dir/trace
+  4973719231 total (fetched) instructions
+Thread 309590 counts:
+  1248102366 (fetched) instructions
+Thread 309588 counts:
+  1247896097 (fetched) instructions
+Thread 309576 counts:
+  1241724581 (fetched) instructions
+Thread 309589 counts:
+  1235996187 (fetched) instructions
+=== cache simulation: with and without prefetch (in parallel)
+sim pf: 1502.96 s
+sim nopf: 1571.21 s
+LL pf:  Misses: 35,714,295  Prefetch misses: 31,303,490 
+LL nopf:  Misses: 66,969,083 
+=== DRAM stream and tensor attribution
+66,969,083 DRAM reads (4286.0 MB), 1 threads
+stride, merged: {'+1 line': 0.281, '-1 line': 0.031, 'within 16 lines': 0.169, 'within 8 KiB row': 0.009, 'beyond': 0.51}
+stride, thread 309576: {'+1 line': 0.281, '-1 line': 0.031, 'within 16 lines': 0.169, 'within 8 KiB row': 0.009, 'beyond': 0.51}
+
+offline in-order open-page row hit rate (DDR4 8 KiB row, 2 ranks x 16 banks)
+placement              RoRaBaCoCh   RoCoRaBaCh     XOR-bank
+VA-order packed             0.964        0.175        0.964
+4KiB shuffled               0.951        0.069        0.950
+THP 2MiB shuffled           0.951        0.175        0.963
+
+attribution by class (reads, share, MB; stride +1/within16/beyond, per class stream)
+  expert weights   49,777,911   0.743    3185.8  +1 0.34 w16 0.17 beyond 0.46
+  KV cache          3,154,415   0.047     201.9  +1 0.74 w16 0.00 beyond 0.26
+  dense weights    12,862,132   0.192     823.2  +1 0.18 w16 0.32 beyond 0.40
+  activations         817,153   0.012      52.3  +1 0.43 w16 0.07 beyond 0.45
+  unattributed        357,472   0.005      22.9  +1 0.28 w16 0.11 beyond 0.48
+  row hit VA-order packed / RoRaBaCoCh: expert weights 0.967, KV cache 0.945, dense weights 0.970, activations 0.848, unattributed 0.752
+  row hit VA-order packed / XOR-bank: expert weights 0.968, KV cache 0.944, dense weights 0.969, activations 0.846, unattributed 0.744
+  row hit 4KiB shuffled / RoRaBaCoCh: expert weights 0.959, KV cache 0.908, dense weights 0.945, activations 0.793, unattributed 0.648
+  row hit 4KiB shuffled / XOR-bank: expert weights 0.959, KV cache 0.908, dense weights 0.945, activations 0.783, unattributed 0.651
+  row hit THP 2MiB shuffled / RoRaBaCoCh: expert weights 0.966, KV cache 0.732, dense weights 0.971, activations 0.703, unattributed 0.704
+  row hit THP 2MiB shuffled / XOR-bank: expert weights 0.967, KV cache 0.945, dense weights 0.970, activations 0.795, unattributed 0.695
+  experts: 144 expert tensors, mean touched/tensor 23.2 of 128, mostly read 23.2
+
+wrote /home/adityaseshasai.s/amcas-pro/results/fullscale/drbatch/Qwen3-30B-A3B-Q4_K_M_B4_P512t4/summary.json and dram.ramulator.trc (66,969,083 requests, VA-order packed)
+=== Ramulator: one DDR4-2400 channel
+] [[32minfo[0m] ] [[32minfo[0m] Loading trace file /scratch/adityaseshasai.s/drbatch/Qwen3-30B-A3B-Q4_K_M_B4_P512t4/dram.ramulator.trc ...Loading trace file /scratch/adityaseshasai.s/drbatch/Qwen3-30B-A3B-Q4_K_M_B4_P512t4/dram.ramulator.trc ...
+
+Loaded 66969083 lines.
+ddr4, 1 channel(s), interleave 64 B << 0, issue 1/cycle
+mapper      policy          reads   writes    hit  conflict  rd_lat  Mcycles    GB/s
+RoBaRaCoCh  Open         66969083        0  0.975     0.011   185.3    343.9    15.0
+RoBaRaCoCh  ClosedCAP    66969083        0  0.782     0.005   223.9    417.4    12.3
+MOP4CLXOR   Open         66969083        0  0.585     0.309   183.1    287.6    17.9
+MOP4CLXOR   ClosedCAP    66969083        0  0.548     0.215   186.0    287.5    17.9
+ChRaBaRoCo  Open         66969083        0  0.936     0.056   245.5    469.7    11.0
+ChRaBaRoCo  ClosedCAP    66969083        0  0.782     0.018   393.6    774.6     6.6
+=== Ramulator: 16 DDR5-4800 subchannels, 256 B interleave

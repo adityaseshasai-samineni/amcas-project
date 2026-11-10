@@ -1,0 +1,37 @@
+0.00.001.361 I llama_completion: llama backend init
+0.00.003.052 I llama_completion: load the model and apply lora adapter, if any
+0.00.391.227 W load: control-looking token: 128247 '</s>' was not control-type; this is probably a bug in the model. its type will be overridden
+0.15.195.124 I cmn          init: llama threadpool init, n_threads = 4
+0.15.203.095 I 
+0.15.203.211 I system_info: n_threads = 4 (n_threads_batch = 4) / 96 | CPU : SSE3 = 1 | SSSE3 = 1 | AVX = 1 | AVX2 = 1 | F16C = 1 | FMA = 1 | BMI2 = 1 | AVX512 = 1 | AVX512_VNNI = 1 | LLAMAFILE = 1 | OPENMP = 1 | REPACK = 1 | 
+0.15.203.213 I 
+0.15.203.480 I sampler seed: 4294967295
+0.15.203.497 I sampler params: 
+	repeat_last_n = 64, repeat_penalty = 1.000, frequency_penalty = 0.000, presence_penalty = 0.000
+	dry_multiplier = 0.000, dry_base = 1.750, dry_allowed_length = 2, dry_penalty_last_n = 64
+	top_k = 40, top_p = 0.950, min_p = 0.050, xtc_probability = 0.000, xtc_threshold = 0.100, typical_p = 1.000, top_n_sigma = -1.000, temp = 0.000
+	mirostat = 0, mirostat_lr = 0.100, mirostat_ent = 5.000, adaptive_target = -1.000, adaptive_decay = 0.900
+0.15.203.509 I sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> min-p -> ?xtc -> temp-ext -> greedy 
+0.15.203.511 I generate: n_ctx = 4096, n_batch = 2048, n_predict = 5, n_keep = 0
+0.15.203.512 I 
+drburst: attaching at step 1
+<Application /home/adityaseshasai.s/amcas-pro/tracing/drburst-attr-build/llama-drattr (312318).  Internal Error: DynamoRIO debug check failure: /home/runner/work/dynamorio/dynamorio/core/heap.c:1987 IF_WINDOWS(doing_detach ||) vmh->num_free_blocks == vmh->num_blocks - unfreed_blocks || ((ever_beyond_vmm IF_WINDOWS(|| get_os_version() >= WINDOWS_VERSION_8_1)) && vmh->num_free_blocks >= vmh->num_blocks - unfreed_blocks)
+(Error occurred @269 frags in tid 312318)
+version 11.3.0, build 1
+-client_lib ';;-offline -outdir /scratch/adityaseshasai.s/drattr/Qwen3-30B-A3B-Q4_K_M_s1n4t4_attr_n4m -max_trace_size 17179869184' -stderr_mask 12 -stack_size 56K -signal_stack_size 32K -max_elide_jmp 0 -max_elide_call 0 -no_inline_ignored_syscalls -native_exec_default_list '' -no_native_exec_managed_code -no_indcall2dir
+0x000014b04d18d950 0x000055c1c858bc16
+0x000014b04d18dba0 0x000055c1c862194e
+0x000014b04d18dbe0 0x000055c1c86219dd
+0x000014b04d18dbf0 0x000055c1c8502911
+0x000014b04d18dc30 0x000055c1c8502c54
+0x000014b04d18dc50 0x000055c1c8502de2
+0x000014b04d18dc70 0x000055c1c87a7327
+0x000014b04d18ddd0 0x000055c1c87a770c
+0x000014b04d18de00 0x000055c1c879be76
+0x000014b04d18de70 0x000055c1c879c381
+0x000014b04d18dff0 0x000055c1c87a3034
+0x000014b04d18e090 0x000055c1c879fa72
+0x000014b04d18e2d0 0x000055c1c87a2c25
+0x000014b04d18e370 0x000055c1c875d3fe
+0x000055c1c9602898 0x000000000000000d
+/home/adityaseshasai.s/amcas-pro/tracing/drburst-attr-build/llama-drattr=0x000055c1c8484000>

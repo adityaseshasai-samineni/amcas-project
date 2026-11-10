@@ -10,11 +10,13 @@ Instructions are for the traced token only (the load phase is not traced). Nativ
 |---|---|---|---|---|---|---|
 | Qwen3-30B-A3B-Q4_K_M | Qwen3-30B-A3B | 12 | 4 | 1.354G | 61 | 1 |
 | Qwen3-30B-A3B-Q4_K_M_c8k | Qwen3-30B-A3B | 7356 | 4 | 3.938G | 576 | 4 |
+| Qwen3-30B-A3B-Q4_K_M_s1n4t4_n4 | Qwen3-30B-A3B | 12 | 4 | 5.260G | 99 | 1 |
 | qwen2.5-7b-instruct-q4_k_m | Qwen2.5-7B | 12 | 4 | 2.809G | 161 | 1 |
 | qwen2.5-7b-instruct-q4_k_m_c32k | Qwen2.5-7B | 31001 | 4 | 8.261G | 1245 | 16 |
-| qwen2.5-7b-instruct-q4_k_m_c32k_llsweep | Qwen2.5-7B | 31001 | 4 | 8.305G | - | None |
+| qwen2.5-7b-instruct-q4_k_m_c32k_llsweep | Qwen2.5-7B | 31001 | 4 | 8.305G | 1352 | 16 |
 | qwen2.5-7b-instruct-q4_k_m_c8k | Qwen2.5-7B | 7363 | 4 | 4.112G | 279 | 4 |
 | qwen2.5-7b-instruct-q4_k_m_c8k_llsweep | Qwen2.5-7B | 7363 | 4 | 4.108G | 329 | 4 |
+| qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n4t4_n4 | Qwen2.5-7B | 12 | 4 | 11.141G | 155 | 1 |
 | qwen25-05b-q4_0 | Qwen2.5-0.5B | 12 | 4 | 0.261G | 15 | 1 |
 | qwen25-05b-q4_0_c32k | Qwen2.5-0.5B | 31001 | 4 | 2.157G | 130 | 16 |
 
@@ -26,11 +28,13 @@ Instructions are for the traced token only (the load phase is not traced). Nativ
 |---|---|---|---|---|---|---|---|
 | Qwen3-30B-A3B | 12 | 30.3 | 1.94 | 10.5% | 30.3 | 1.94 | 10.5% |
 | Qwen3-30B-A3B | 7356 | 42.1 | 2.70 | 14.5% | 42.1 | 2.70 | 14.5% |
+| Qwen3-30B-A3B | 12 | 121.5 | 7.78 | 41.9% | 121.4 | 7.77 | 41.9% |
 | Qwen2.5-7B | 12 | 68.7 | 4.40 | 93.9% | 68.7 | 4.40 | 93.9% |
 | Qwen2.5-7B | 31001 | 152.8 | 9.78 | 208.9% | 152.7 | 9.77 | 208.7% |
 | Qwen2.5-7B | 31001 | 161.3 | 10.32 | 220.4% | 161.2 | 10.31 | 220.2% |
 | Qwen2.5-7B | 7363 | 75.8 | 4.85 | 103.5% | 75.7 | 4.85 | 103.5% |
 | Qwen2.5-7B | 7363 | 75.6 | 4.84 | 103.4% | 75.6 | 4.84 | 103.3% |
+| Qwen2.5-7B | 12 | 274.8 | 17.59 | 375.6% | 274.7 | 17.58 | 375.5% |
 | Qwen2.5-0.5B | 12 | 5.5 | 0.35 | 81.9% | 5.5 | 0.35 | 81.8% |
 | Qwen2.5-0.5B | 31001 | 11.7 | 0.75 | 174.2% | 11.7 | 0.75 | 174.0% |
 
@@ -40,11 +44,11 @@ Expected = weights read at the short-context run + KV cache size (layers x kv he
 
 | model | ctx | weights GB (short) | KV GB | expected GB | measured GB | measured/expected |
 |---|---|---|---|---|---|---|
-| Qwen3-30B-A3B | 7356 | 1.94 | 0.72 | 2.67 | 2.70 | 1.01 |
-| Qwen2.5-7B | 31001 | 4.40 | 1.78 | 6.18 | 9.78 | 1.58 |
-| Qwen2.5-7B | 31001 | 4.40 | 1.78 | 6.18 | 10.32 | 1.67 |
-| Qwen2.5-7B | 7363 | 4.40 | 0.42 | 4.82 | 4.85 | 1.01 |
-| Qwen2.5-7B | 7363 | 4.40 | 0.42 | 4.82 | 4.84 | 1.00 |
+| Qwen3-30B-A3B | 7356 | 7.78 | 0.72 | 8.50 | 2.70 | 0.32 |
+| Qwen2.5-7B | 31001 | 17.59 | 1.78 | 19.37 | 9.78 | 0.51 |
+| Qwen2.5-7B | 31001 | 17.59 | 1.78 | 19.37 | 10.32 | 0.53 |
+| Qwen2.5-7B | 7363 | 17.59 | 0.42 | 18.01 | 4.85 | 0.27 |
+| Qwen2.5-7B | 7363 | 17.59 | 0.42 | 18.01 | 4.84 | 0.27 |
 | Qwen2.5-0.5B | 31001 | 0.35 | 0.38 | 0.73 | 0.75 | 1.02 |
 
 ## LLC size sweep (DRAM GB per token, with prefetch)
@@ -68,6 +72,11 @@ Expected = weights read at the short-context run + KV cache size (layers x kv he
 | Qwen3-30B-A3B-Q4_K_M_c8k | 3966633 | 10368708 | 67.6 | 3.0 | 22.0 | 0.0 | 7.4 |
 | Qwen3-30B-A3B-Q4_K_M_c8k | 3966634 | 10375761 | 67.3 | 3.0 | 22.3 | 0.0 | 7.4 |
 | Qwen3-30B-A3B-Q4_K_M_c8k | 3966635 | 10318646 | 67.3 | 3.1 | 22.6 | 0.0 | 7.0 |
+| Qwen3-30B-A3B-Q4_K_M_s1n4t4_n4 | merged | 121428377 | 17.6 | 3.0 | 12.6 | 0.0 | 66.8 |
+| Qwen3-30B-A3B-Q4_K_M_s1n4t4_n4 | 3973799 | 30473360 | 64.7 | 4.1 | 30.4 | 0.1 | 0.7 |
+| Qwen3-30B-A3B-Q4_K_M_s1n4t4_n4 | 3973836 | 30131245 | 64.8 | 4.1 | 30.5 | 0.1 | 0.6 |
+| Qwen3-30B-A3B-Q4_K_M_s1n4t4_n4 | 3973837 | 30273592 | 64.6 | 4.1 | 30.7 | 0.1 | 0.5 |
+| Qwen3-30B-A3B-Q4_K_M_s1n4t4_n4 | 3973838 | 30342390 | 64.5 | 4.2 | 30.8 | 0.0 | 0.5 |
 | qwen2.5-7b-instruct-q4_k_m | merged | 68692638 | 21.6 | 3.6 | 14.7 | 0.0 | 60.0 |
 | qwen2.5-7b-instruct-q4_k_m | 3611429 | 17166461 | 63.2 | 4.2 | 31.4 | 0.0 | 1.1 |
 | qwen2.5-7b-instruct-q4_k_m | 3611436 | 17258319 | 63.3 | 4.3 | 31.9 | 0.0 | 0.4 |
@@ -93,6 +102,11 @@ Expected = weights read at the short-context run + KV cache size (layers x kv he
 | qwen2.5-7b-instruct-q4_k_m_c8k_llsweep | 3938890 | 18883839 | 64.2 | 4.0 | 29.1 | 0.0 | 2.7 |
 | qwen2.5-7b-instruct-q4_k_m_c8k_llsweep | 3938891 | 18921229 | 64.3 | 4.0 | 29.1 | 0.0 | 2.7 |
 | qwen2.5-7b-instruct-q4_k_m_c8k_llsweep | 3938892 | 18685629 | 64.2 | 4.0 | 29.1 | 0.0 | 2.6 |
+| qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n4t4_n4 | merged | 274731197 | 14.6 | 3.2 | 12.7 | 0.0 | 69.5 |
+| qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n4t4_n4 | 3973808 | 69149237 | 63.1 | 4.3 | 31.5 | 0.0 | 1.0 |
+| qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n4t4_n4 | 3973811 | 68558025 | 63.3 | 4.3 | 31.9 | 0.0 | 0.5 |
+| qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n4t4_n4 | 3973812 | 68716989 | 63.2 | 4.3 | 31.9 | 0.0 | 0.5 |
+| qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n4t4_n4 | 3973813 | 68582077 | 63.3 | 4.3 | 31.9 | 0.0 | 0.5 |
 | qwen25-05b-q4_0 | merged | 5480966 | 33.4 | 0.0 | 0.1 | 0.0 | 66.6 |
 | qwen25-05b-q4_0 | 3170663 | 1625854 | 97.7 | 0.0 | 0.2 | 0.1 | 2.1 |
 | qwen25-05b-q4_0 | 3170670 | 1135751 | 98.8 | 0.0 | 0.1 | 0.1 | 1.0 |
@@ -114,6 +128,9 @@ Expected = weights read at the short-context run + KV cache size (layers x kv he
 | Qwen3-30B-A3B-Q4_K_M_c8k | VA-order packed | 97.4 | 42.6 | 97.5 |
 | Qwen3-30B-A3B-Q4_K_M_c8k | 4KiB shuffled | 95.8 | 21.4 | 95.8 |
 | Qwen3-30B-A3B-Q4_K_M_c8k | THP 2MiB shuffled | 91.2 | 42.5 | 95.9 |
+| Qwen3-30B-A3B-Q4_K_M_s1n4t4_n4 | VA-order packed | 94.9 | 3.4 | 94.9 |
+| Qwen3-30B-A3B-Q4_K_M_s1n4t4_n4 | 4KiB shuffled | 94.0 | 1.5 | 93.9 |
+| Qwen3-30B-A3B-Q4_K_M_s1n4t4_n4 | THP 2MiB shuffled | 94.8 | 3.2 | 94.8 |
 | qwen2.5-7b-instruct-q4_k_m | VA-order packed | 96.6 | 3.1 | 96.2 |
 | qwen2.5-7b-instruct-q4_k_m | 4KiB shuffled | 95.5 | 1.5 | 95.5 |
 | qwen2.5-7b-instruct-q4_k_m | THP 2MiB shuffled | 96.4 | 3.1 | 96.5 |
@@ -129,6 +146,9 @@ Expected = weights read at the short-context run + KV cache size (layers x kv he
 | qwen2.5-7b-instruct-q4_k_m_c8k_llsweep | VA-order packed | 96.9 | 16.5 | 96.9 |
 | qwen2.5-7b-instruct-q4_k_m_c8k_llsweep | 4KiB shuffled | 95.8 | 8.3 | 95.8 |
 | qwen2.5-7b-instruct-q4_k_m_c8k_llsweep | THP 2MiB shuffled | 94.9 | 16.5 | 96.5 |
+| qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n4t4_n4 | VA-order packed | 94.4 | 0.9 | 94.5 |
+| qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n4t4_n4 | 4KiB shuffled | 93.6 | 0.4 | 93.6 |
+| qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n4t4_n4 | THP 2MiB shuffled | 94.3 | 0.9 | 94.5 |
 | qwen25-05b-q4_0 | VA-order packed | 96.9 | 6.8 | 96.6 |
 | qwen25-05b-q4_0 | 4KiB shuffled | 95.6 | 2.7 | 95.6 |
 | qwen25-05b-q4_0 | THP 2MiB shuffled | 96.8 | 6.8 | 96.6 |
@@ -154,6 +174,12 @@ Hit and conflict are % of reads. Latency in DRAM clocks. Time rel = cycles / cyc
 | Qwen3-30B-A3B-Q4_K_M_c8k | MOP4CLXOR | ClosedCAP | 51.3 | 27.1 | 187 | 181135250 | 17.9 | 0.75 |
 | Qwen3-30B-A3B-Q4_K_M_c8k | ChRaBaRoCo | Open | 96.3 | 3.2 | 230 | 275397014 | 11.8 | 1.14 |
 | Qwen3-30B-A3B-Q4_K_M_c8k | ChRaBaRoCo | ClosedCAP | 78.6 | 1.6 | 395 | 489560159 | 6.6 | 2.03 |
+| Qwen3-30B-A3B-Q4_K_M_s1n4t4_n4 | RoBaRaCoCh | Open | 97.8 | 1.0 | 178 | 596981943 | 15.6 | 1.00 |
+| Qwen3-30B-A3B-Q4_K_M_s1n4t4_n4 | RoBaRaCoCh | ClosedCAP | 78.1 | 0.5 | 199 | 658966521 | 14.2 | 1.10 |
+| Qwen3-30B-A3B-Q4_K_M_s1n4t4_n4 | MOP4CLXOR | Open | 54.2 | 35.0 | 185 | 523563617 | 17.8 | 0.88 |
+| Qwen3-30B-A3B-Q4_K_M_s1n4t4_n4 | MOP4CLXOR | ClosedCAP | 52.8 | 24.7 | 186 | 523291236 | 17.8 | 0.88 |
+| Qwen3-30B-A3B-Q4_K_M_s1n4t4_n4 | ChRaBaRoCo | Open | 94.9 | 4.8 | 240 | 833101618 | 11.2 | 1.40 |
+| Qwen3-30B-A3B-Q4_K_M_s1n4t4_n4 | ChRaBaRoCo | ClosedCAP | 78.5 | 1.5 | 388 | 1384215424 | 6.7 | 2.32 |
 | qwen2.5-7b-instruct-q4_k_m | RoBaRaCoCh | Open | 98.5 | 0.5 | 185 | 351807982 | 15.0 | 1.00 |
 | qwen2.5-7b-instruct-q4_k_m | RoBaRaCoCh | ClosedCAP | 78.8 | 0.2 | 212 | 404108440 | 13.1 | 1.15 |
 | qwen2.5-7b-instruct-q4_k_m | MOP4CLXOR | Open | 60.9 | 29.1 | 182 | 294972642 | 17.9 | 0.84 |
@@ -184,6 +210,12 @@ Hit and conflict are % of reads. Latency in DRAM clocks. Time rel = cycles / cyc
 | qwen2.5-7b-instruct-q4_k_m_c8k_llsweep | MOP4CLXOR | ClosedCAP | 57.3 | 18.3 | 185 | 324207222 | 17.9 | 0.81 |
 | qwen2.5-7b-instruct-q4_k_m_c8k_llsweep | ChRaBaRoCo | Open | 96.4 | 3.0 | 222 | 476748405 | 12.2 | 1.19 |
 | qwen2.5-7b-instruct-q4_k_m_c8k_llsweep | ChRaBaRoCo | ClosedCAP | 78.7 | 1.1 | 373 | 826338641 | 7.0 | 2.07 |
+| qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n4t4_n4 | RoBaRaCoCh | Open | 97.9 | 1.0 | 176 | 1333838115 | 15.8 | 1.00 |
+| qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n4t4_n4 | RoBaRaCoCh | ClosedCAP | 78.0 | 0.5 | 193 | 1444078005 | 14.6 | 1.08 |
+| qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n4t4_n4 | MOP4CLXOR | Open | 52.9 | 36.2 | 186 | 1185700562 | 17.8 | 0.89 |
+| qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n4t4_n4 | MOP4CLXOR | ClosedCAP | 51.9 | 26.0 | 186 | 1185080239 | 17.8 | 0.89 |
+| qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n4t4_n4 | ChRaBaRoCo | Open | 94.1 | 5.5 | 251 | 1978892700 | 10.7 | 1.48 |
+| qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n4t4_n4 | ChRaBaRoCo | ClosedCAP | 78.6 | 1.5 | 396 | 3199923643 | 6.6 | 2.40 |
 | qwen25-05b-q4_0 | RoBaRaCoCh | Open | 98.5 | 0.5 | 189 | 28755031 | 14.6 | 1.00 |
 | qwen25-05b-q4_0 | RoBaRaCoCh | ClosedCAP | 79.1 | 0.2 | 224 | 34346262 | 12.3 | 1.19 |
 | qwen25-05b-q4_0 | MOP4CLXOR | Open | 62.7 | 27.6 | 181 | 23531620 | 17.9 | 0.82 |
@@ -215,6 +247,12 @@ Hit and conflict are % of reads. Latency in DRAM clocks. Time rel = cycles / cyc
 | Qwen3-30B-A3B-Q4_K_M_c8k | MOP4CLXOR | ClosedCAP | 58.5 | 20.6 | 247 | 35374039 | 183.2 | 0.98 |
 | Qwen3-30B-A3B-Q4_K_M_c8k | ChRaBaRoCo | Open | 93.0 | 6.8 | 365 | 68613834 | 94.5 | 1.90 |
 | Qwen3-30B-A3B-Q4_K_M_c8k | ChRaBaRoCo | ClosedCAP | 75.1 | 6.1 | 524 | 129650391 | 50.0 | 3.59 |
+| Qwen3-30B-A3B-Q4_K_M_s1n4t4_n4 | RoBaRaCoCh | Open | 96.4 | 1.4 | 261 | 68318732 | 273.4 | 1.00 |
+| Qwen3-30B-A3B-Q4_K_M_s1n4t4_n4 | RoBaRaCoCh | ClosedCAP | 77.3 | 0.7 | 316 | 79239035 | 235.8 | 1.16 |
+| Qwen3-30B-A3B-Q4_K_M_s1n4t4_n4 | MOP4CLXOR | Open | 50.2 | 38.9 | 286 | 67842714 | 275.4 | 0.99 |
+| Qwen3-30B-A3B-Q4_K_M_s1n4t4_n4 | MOP4CLXOR | ClosedCAP | 48.1 | 31.4 | 285 | 67744800 | 275.8 | 0.99 |
+| Qwen3-30B-A3B-Q4_K_M_s1n4t4_n4 | ChRaBaRoCo | Open | 91.8 | 8.1 | 548 | 156026423 | 119.7 | 2.28 |
+| Qwen3-30B-A3B-Q4_K_M_s1n4t4_n4 | ChRaBaRoCo | ClosedCAP | 78.5 | 1.7 | 678 | 248819643 | 75.1 | 3.64 |
 | qwen2.5-7b-instruct-q4_k_m | RoBaRaCoCh | Open | 97.6 | 0.7 | 280 | 39197762 | 269.6 | 1.00 |
 | qwen2.5-7b-instruct-q4_k_m | RoBaRaCoCh | ClosedCAP | 78.4 | 0.3 | 374 | 51479429 | 205.3 | 1.31 |
 | qwen2.5-7b-instruct-q4_k_m | MOP4CLXOR | Open | 59.0 | 30.5 | 289 | 38293249 | 276.0 | 0.98 |
@@ -227,6 +265,12 @@ Hit and conflict are % of reads. Latency in DRAM clocks. Time rel = cycles / cyc
 | qwen2.5-7b-instruct-q4_k_m_c32k | MOP4CLXOR | ClosedCAP | 43.7 | 37.6 | 249 | 165230484 | 142.2 | 1.00 |
 | qwen2.5-7b-instruct-q4_k_m_c32k | ChRaBaRoCo | Open | 87.5 | 12.0 | 414 | 345770155 | 68.0 | 2.09 |
 | qwen2.5-7b-instruct-q4_k_m_c32k | ChRaBaRoCo | ClosedCAP | 71.0 | 11.6 | 578 | 577267708 | 40.7 | 3.49 |
+| qwen2.5-7b-instruct-q4_k_m_c32k_llsweep | RoBaRaCoCh | Open | 96.2 | 1.4 | 218 | 179686201 | 138.0 | 1.00 |
+| qwen2.5-7b-instruct-q4_k_m_c32k_llsweep | RoBaRaCoCh | ClosedCAP | 77.0 | 0.9 | 307 | 212711767 | 116.6 | 1.18 |
+| qwen2.5-7b-instruct-q4_k_m_c32k_llsweep | MOP4CLXOR | Open | 46.0 | 42.3 | 249 | 179908529 | 137.8 | 1.00 |
+| qwen2.5-7b-instruct-q4_k_m_c32k_llsweep | MOP4CLXOR | ClosedCAP | 42.9 | 38.5 | 250 | 179861422 | 137.8 | 1.00 |
+| qwen2.5-7b-instruct-q4_k_m_c32k_llsweep | ChRaBaRoCo | Open | 87.6 | 12.0 | 417 | 375113982 | 66.1 | 2.09 |
+| qwen2.5-7b-instruct-q4_k_m_c32k_llsweep | ChRaBaRoCo | ClosedCAP | 70.7 | 12.1 | 583 | 629823177 | 39.4 | 3.51 |
 | qwen2.5-7b-instruct-q4_k_m_c8k | RoBaRaCoCh | Open | 97.5 | 0.6 | 266 | 50407504 | 231.2 | 1.00 |
 | qwen2.5-7b-instruct-q4_k_m_c8k | RoBaRaCoCh | ClosedCAP | 78.3 | 0.2 | 388 | 70220726 | 165.9 | 1.39 |
 | qwen2.5-7b-instruct-q4_k_m_c8k | MOP4CLXOR | Open | 64.0 | 26.6 | 263 | 49408146 | 235.9 | 0.98 |
@@ -239,6 +283,12 @@ Hit and conflict are % of reads. Latency in DRAM clocks. Time rel = cycles / cyc
 | qwen2.5-7b-instruct-q4_k_m_c8k_llsweep | MOP4CLXOR | ClosedCAP | 58.6 | 18.2 | 269 | 49196463 | 236.5 | 0.98 |
 | qwen2.5-7b-instruct-q4_k_m_c8k_llsweep | ChRaBaRoCo | Open | 93.8 | 5.8 | 418 | 95387426 | 122.0 | 1.90 |
 | qwen2.5-7b-instruct-q4_k_m_c8k_llsweep | ChRaBaRoCo | ClosedCAP | 77.7 | 2.3 | 579 | 173680002 | 67.0 | 3.46 |
+| qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n4t4_n4 | RoBaRaCoCh | Open | 97.1 | 1.1 | 266 | 153920631 | 274.6 | 1.00 |
+| qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n4t4_n4 | RoBaRaCoCh | ClosedCAP | 77.5 | 0.5 | 311 | 176242259 | 239.8 | 1.15 |
+| qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n4t4_n4 | MOP4CLXOR | Open | 49.6 | 39.4 | 296 | 153020580 | 276.2 | 0.99 |
+| qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n4t4_n4 | MOP4CLXOR | ClosedCAP | 48.1 | 31.1 | 296 | 152787133 | 276.6 | 0.99 |
+| qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n4t4_n4 | ChRaBaRoCo | Open | 92.2 | 7.5 | 555 | 339275693 | 124.6 | 2.20 |
+| qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n4t4_n4 | ChRaBaRoCo | ClosedCAP | 79.0 | 0.9 | 683 | 543117982 | 77.8 | 3.53 |
 | qwen25-05b-q4_0 | RoBaRaCoCh | Open | 96.6 | 1.1 | 268 | 3090517 | 272.8 | 1.00 |
 | qwen25-05b-q4_0 | RoBaRaCoCh | ClosedCAP | 78.0 | 0.6 | 375 | 4127345 | 204.3 | 1.34 |
 | qwen25-05b-q4_0 | MOP4CLXOR | Open | 63.6 | 26.4 | 280 | 3053925 | 276.1 | 0.99 |

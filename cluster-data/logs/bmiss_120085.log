@@ -1,0 +1,39 @@
+==========================================
+SLURM_JOB_ID = 120085
+SLURM_NODELIST = node03
+SLURM_JOB_GPUS = 
+==========================================
+run Qwen3-30B-A3B-Q4_K_M_B4_P512t4 on node03.local: B=4 P=512 threads=4 skip=1 ntrace=1 kvu=0
+=== untraced
+drbatch: seq 0 restored from /home/adityaseshasai.s/amcas-pro/results/sessions/drbatch/Qwen3-30B-A3B-Q4_K_M.gguf_P512_s30000_b0.seq
+drbatch: seq 1 restored from /home/adityaseshasai.s/amcas-pro/results/sessions/drbatch/Qwen3-30B-A3B-Q4_K_M.gguf_P512_s30000_b1.seq
+drbatch: seq 2 restored from /home/adityaseshasai.s/amcas-pro/results/sessions/drbatch/Qwen3-30B-A3B-Q4_K_M.gguf_P512_s30000_b2.seq
+drbatch: seq 3 restored from /home/adityaseshasai.s/amcas-pro/results/sessions/drbatch/Qwen3-30B-A3B-Q4_K_M.gguf_P512_s30000_b3.seq
+untraced 16.57 s, max RSS 32125572 KB
+=== traced (decode step 1, 1 step(s)), raw trace capped at 16 GB per thread
+drbatch: attaching at step 1
+drbatch: detached after step 1
+traced 18.00 s, max RSS 32131856 KB
+same tokens: yes
+B 0 13438755420518285	B 0 13438755436758114
+E 0 13438755420792202	E 0 13438755437024958
+B 1 13438755420793019	B 1 13438755437025779
+E 1 13438755421063272	E 1 13438755439094368
+B 2 13438755421064038	B 2 13438755439095831
+E 2 13438755421330512	E 2 13438755439364113
+B 3 13438755421331278	B 3 13438755439364883
+E 3 13438755421591652	E 3 13438755439625330
+4.4G	/scratch/adityaseshasai.s/bmiss/Qwen3-30B-A3B-Q4_K_M_B4_P512t4/drmemtrace.llama-drbatch.312399.1688.dir/raw
+raw2trace 333.75 s
+2.4G	/scratch/adityaseshasai.s/bmiss/Qwen3-30B-A3B-Q4_K_M_B4_P512t4/drmemtrace.llama-drbatch.312399.1688.dir/trace
+  4965011252 total (fetched) instructions
+Thread 312399 counts:
+  1245322544 (fetched) instructions
+Thread 312405 counts:
+  1242264763 (fetched) instructions
+Thread 312404 counts:
+  1240808209 (fetched) instructions
+Thread 312403 counts:
+  1236615736 (fetched) instructions
+=== cache simulation without prefetch, keep miss stream
+-rw-rw-r-- 1 adityaseshasai.s adityaseshasai.s 258847177 Nov 10 09:45 /home/adityaseshasai.s/amcas-pro/results/fullscale/drbatch_miss/Qwen3-30B-A3B-Q4_K_M_B4_P512t4/miss.gz

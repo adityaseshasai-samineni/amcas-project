@@ -1,0 +1,1258 @@
+{
+ "reads": 66969083,
+ "classes": {
+  "expert weights": {
+   "reads": 49777911,
+   "share": 0.7432968882073538,
+   "MB": 3185.786304,
+   "stride": {
+    "+1 line": 0.3394778527262394,
+    "-1 line": 0.03054226262211491,
+    "within 16 lines": 0.1675965905358421,
+    "within 8 KiB row": 2.4307971146237356e-06,
+    "beyond": 0.46238086331868894
+   },
+   "tensors_touched": 144
+  },
+  "KV cache": {
+   "reads": 3154415,
+   "share": 0.04710255626465723,
+   "MB": 201.88256,
+   "stride": {
+    "+1 line": 0.73988132185566,
+    "-1 line": 0.0,
+    "within 16 lines": 4.9771526502228305e-05,
+    "within 8 KiB row": 0.0,
+    "beyond": 0.2600689066178377
+   },
+   "tensors_touched": 96
+  },
+  "dense weights": {
+   "reads": 12862132,
+   "share": 0.19206074540396498,
+   "MB": 823.176448,
+   "stride": {
+    "+1 line": 0.18251376851938453,
+    "-1 line": 0.04863121048914834,
+    "within 16 lines": 0.3237896581833912,
+    "within 8 KiB row": 0.045602707669514485,
+    "beyond": 0.3994626551385614
+   },
+   "tensors_touched": 435
+  },
+  "activations": {
+   "reads": 817153,
+   "share": 0.012201943992573409,
+   "MB": 52.297792,
+   "stride": {
+    "+1 line": 0.43375039160401,
+    "-1 line": 0.009169652647243108,
+    "within 16 lines": 0.06514332706766918,
+    "within 8 KiB row": 0.03940637727130326,
+    "beyond": 0.45253025140977443
+   },
+   "tensors_touched": 23
+  },
+  "unattributed": {
+   "reads": 357472,
+   "share": 0.005337866131450538,
+   "MB": 22.878208,
+   "stride": {
+    "+1 line": 0.2777484047657013,
+    "-1 line": 0.01861689479706046,
+    "within 16 lines": 0.1114496001074213,
+    "within 8 KiB row": 0.1090577976954774,
+    "beyond": 0.48312730263433956
+   },
+   "tensors_touched": 0
+  }
+ },
+ "offline_row_hit_by_class": {
+  "VA-order packed / RoRaBaCoCh": {
+   "expert weights": 0.9665650894831646,
+   "KV cache": 0.9452361214361459,
+   "dense weights": 0.9704732465815155,
+   "activations": 0.848262198144044,
+   "unattributed": 0.7517931474353237
+  },
+  "VA-order packed / XOR-bank": {
+   "expert weights": 0.9678182758613555,
+   "KV cache": 0.9443338939232789,
+   "dense weights": 0.9693336221397821,
+   "activations": 0.8462943904017974,
+   "unattributed": 0.7443967639423508
+  },
+  "4KiB shuffled / RoRaBaCoCh": {
+   "expert weights": 0.9593524123581643,
+   "KV cache": 0.9080076654466834,
+   "dense weights": 0.9451359230335997,
+   "activations": 0.7930681280005091,
+   "unattributed": 0.6480759332199445
+  },
+  "4KiB shuffled / XOR-bank": {
+   "expert weights": 0.959469572758889,
+   "KV cache": 0.9081097445960662,
+   "dense weights": 0.9449331572712829,
+   "activations": 0.782897450049134,
+   "unattributed": 0.6513545116820338
+  },
+  "THP 2MiB shuffled / RoRaBaCoCh": {
+   "expert weights": 0.965925227356367,
+   "KV cache": 0.732390950461496,
+   "dense weights": 0.970865094527097,
+   "activations": 0.7029564842814015,
+   "unattributed": 0.7044383895801629
+  },
+  "THP 2MiB shuffled / XOR-bank": {
+   "expert weights": 0.9670690881342932,
+   "KV cache": 0.9450262568495268,
+   "dense weights": 0.9697553251669319,
+   "activations": 0.7946516747781627,
+   "unattributed": 0.6952740354489303
+  }
+ },
+ "experts": {
+  "per_expert_reads_all_layers": [
+   714240,
+   191268,
+   404956,
+   363456,
+   465503,
+   398664,
+   267840,
+   707931,
+   143424,
+   220094,
+   220032,
+   280556,
+   226387,
+   315648,
+   440129,
+   191316,
+   430426,
+   392256,
+   698154,
+   427392,
+   398662,
+   421095,
+   184948,
+   570934,
+   369792,
+   321984,
+   519846,
+   315648,
+   267840,
+   433728,
+   404994,
+   468906,
+   446500,
+   612288,
+   417666,
+   589872,
+   819698,
+   322022,
+   220032,
+   478234,
+   523008,
+   261536,
+   226368,
+   487964,
+   637727,
+   481571,
+   302976,
+   315681,
+   411264,
+   95616,
+   494246,
+   392256,
+   130752,
+   321984,
+   363492,
+   475229,
+   95652,
+   220032,
+   309312,
+   516672,
+   191331,
+   487872,
+   446453,
+   411264,
+   542060,
+   500544,
+   516672,
+   363456,
+   385965,
+   232704,
+   446474,
+   535811,
+   315686,
+   280587,
+   267906,
+   471782,
+   385920,
+   398592,
+   357152,
+   220032,
+   398592,
+   452899,
+   714278,
+   309312,
+   309355,
+   143465,
+   507025,
+   267840,
+   143455,
+   357156,
+   762084,
+   315769,
+   440095,
+   433751,
+   404960,
+   599660,
+   382464,
+   465548,
+   589892,
+   280572,
+   172224,
+   232741,
+   736789,
+   398640,
+   309342,
+   411297,
+   452736,
+   130752,
+   130752,
+   248832,
+   625031,
+   392296,
+   440144,
+   357198,
+   220032,
+   446400,
+   274232,
+   357157,
+   357167,
+   315752,
+   606017,
+   309312,
+   286848,
+   481536,
+   500710,
+   363526,
+   513306,
+   523008
+  ],
+  "per_layer": {
+   "blk.0.ffn_gate_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 27,
+    "experts_mostly_read": 27,
+    "reads": 373248
+   },
+   "blk.0.ffn_up_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 27,
+    "experts_mostly_read": 27,
+    "reads": 373248
+   },
+   "blk.0.ffn_down_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 1290240,
+    "experts_touched": 27,
+    "experts_mostly_read": 27,
+    "reads": 544340
+   },
+   "blk.1.ffn_gate_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 25,
+    "experts_mostly_read": 25,
+    "reads": 345600
+   },
+   "blk.1.ffn_up_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 25,
+    "experts_mostly_read": 25,
+    "reads": 345600
+   },
+   "blk.1.ffn_down_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 1290240,
+    "experts_touched": 25,
+    "experts_mostly_read": 25,
+    "reads": 504173
+   },
+   "blk.2.ffn_gate_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 25,
+    "experts_mostly_read": 25,
+    "reads": 345600
+   },
+   "blk.2.ffn_up_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 25,
+    "experts_mostly_read": 25,
+    "reads": 345600
+   },
+   "blk.2.ffn_down_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 1290240,
+    "experts_touched": 25,
+    "experts_mostly_read": 25,
+    "reads": 504138
+   },
+   "blk.3.ffn_gate_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 28,
+    "experts_mostly_read": 28,
+    "reads": 387072
+   },
+   "blk.3.ffn_up_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 28,
+    "experts_mostly_read": 28,
+    "reads": 387072
+   },
+   "blk.3.ffn_down_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 1290240,
+    "experts_touched": 28,
+    "experts_mostly_read": 28,
+    "reads": 564663
+   },
+   "blk.4.ffn_gate_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 21,
+    "experts_mostly_read": 21,
+    "reads": 290304
+   },
+   "blk.4.ffn_up_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 21,
+    "experts_mostly_read": 21,
+    "reads": 290304
+   },
+   "blk.4.ffn_down_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 1290240,
+    "experts_touched": 21,
+    "experts_mostly_read": 21,
+    "reads": 423667
+   },
+   "blk.5.ffn_gate_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 26,
+    "experts_mostly_read": 26,
+    "reads": 359424
+   },
+   "blk.5.ffn_up_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 26,
+    "experts_mostly_read": 26,
+    "reads": 359424
+   },
+   "blk.5.ffn_down_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 1290240,
+    "experts_touched": 26,
+    "experts_mostly_read": 26,
+    "reads": 524349
+   },
+   "blk.6.ffn_gate_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 17,
+    "experts_mostly_read": 17,
+    "reads": 235008
+   },
+   "blk.6.ffn_up_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 17,
+    "experts_mostly_read": 17,
+    "reads": 235008
+   },
+   "blk.6.ffn_down_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 17,
+    "experts_mostly_read": 17,
+    "reads": 235008
+   },
+   "blk.7.ffn_gate_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 23,
+    "experts_mostly_read": 23,
+    "reads": 317952
+   },
+   "blk.7.ffn_up_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 23,
+    "experts_mostly_read": 23,
+    "reads": 317952
+   },
+   "blk.7.ffn_down_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 23,
+    "experts_mostly_read": 23,
+    "reads": 317952
+   },
+   "blk.8.ffn_gate_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 22,
+    "experts_mostly_read": 22,
+    "reads": 304128
+   },
+   "blk.8.ffn_up_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 22,
+    "experts_mostly_read": 22,
+    "reads": 304128
+   },
+   "blk.8.ffn_down_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 1290240,
+    "experts_touched": 22,
+    "experts_mostly_read": 22,
+    "reads": 443737
+   },
+   "blk.9.ffn_gate_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 22,
+    "experts_mostly_read": 22,
+    "reads": 304128
+   },
+   "blk.9.ffn_up_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 22,
+    "experts_mostly_read": 22,
+    "reads": 304128
+   },
+   "blk.9.ffn_down_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 22,
+    "experts_mostly_read": 22,
+    "reads": 304128
+   },
+   "blk.10.ffn_gate_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 24,
+    "experts_mostly_read": 24,
+    "reads": 331776
+   },
+   "blk.10.ffn_up_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 24,
+    "experts_mostly_read": 24,
+    "reads": 331776
+   },
+   "blk.10.ffn_down_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 24,
+    "experts_mostly_read": 24,
+    "reads": 331776
+   },
+   "blk.11.ffn_gate_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 26,
+    "experts_mostly_read": 26,
+    "reads": 359424
+   },
+   "blk.11.ffn_up_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 26,
+    "experts_mostly_read": 26,
+    "reads": 359424
+   },
+   "blk.11.ffn_down_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 1290240,
+    "experts_touched": 26,
+    "experts_mostly_read": 26,
+    "reads": 524336
+   },
+   "blk.12.ffn_gate_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 20,
+    "experts_mostly_read": 20,
+    "reads": 276480
+   },
+   "blk.12.ffn_up_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 20,
+    "experts_mostly_read": 20,
+    "reads": 276480
+   },
+   "blk.12.ffn_down_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 20,
+    "experts_mostly_read": 20,
+    "reads": 276480
+   },
+   "blk.13.ffn_gate_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 25,
+    "experts_mostly_read": 25,
+    "reads": 345600
+   },
+   "blk.13.ffn_up_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 25,
+    "experts_mostly_read": 25,
+    "reads": 345600
+   },
+   "blk.13.ffn_down_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 25,
+    "experts_mostly_read": 25,
+    "reads": 345600
+   },
+   "blk.14.ffn_gate_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 22,
+    "experts_mostly_read": 22,
+    "reads": 304128
+   },
+   "blk.14.ffn_up_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 22,
+    "experts_mostly_read": 22,
+    "reads": 304128
+   },
+   "blk.14.ffn_down_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 1290240,
+    "experts_touched": 22,
+    "experts_mostly_read": 22,
+    "reads": 443788
+   },
+   "blk.15.ffn_gate_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 25,
+    "experts_mostly_read": 25,
+    "reads": 345600
+   },
+   "blk.15.ffn_up_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 25,
+    "experts_mostly_read": 25,
+    "reads": 345600
+   },
+   "blk.15.ffn_down_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 25,
+    "experts_mostly_read": 25,
+    "reads": 345600
+   },
+   "blk.16.ffn_gate_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 22,
+    "experts_mostly_read": 22,
+    "reads": 304128
+   },
+   "blk.16.ffn_up_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 22,
+    "experts_mostly_read": 22,
+    "reads": 304128
+   },
+   "blk.16.ffn_down_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 22,
+    "experts_mostly_read": 22,
+    "reads": 304128
+   },
+   "blk.17.ffn_gate_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 22,
+    "experts_mostly_read": 22,
+    "reads": 304128
+   },
+   "blk.17.ffn_up_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 22,
+    "experts_mostly_read": 22,
+    "reads": 304128
+   },
+   "blk.17.ffn_down_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 1290240,
+    "experts_touched": 22,
+    "experts_mostly_read": 22,
+    "reads": 443727
+   },
+   "blk.18.ffn_gate_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 21,
+    "experts_mostly_read": 21,
+    "reads": 290304
+   },
+   "blk.18.ffn_up_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 21,
+    "experts_mostly_read": 21,
+    "reads": 290304
+   },
+   "blk.18.ffn_down_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 21,
+    "experts_mostly_read": 21,
+    "reads": 290304
+   },
+   "blk.19.ffn_gate_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 19,
+    "experts_mostly_read": 19,
+    "reads": 262656
+   },
+   "blk.19.ffn_up_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 19,
+    "experts_mostly_read": 19,
+    "reads": 262656
+   },
+   "blk.19.ffn_down_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 19,
+    "experts_mostly_read": 19,
+    "reads": 262656
+   },
+   "blk.20.ffn_gate_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 21,
+    "experts_mostly_read": 21,
+    "reads": 290304
+   },
+   "blk.20.ffn_up_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 21,
+    "experts_mostly_read": 21,
+    "reads": 290304
+   },
+   "blk.20.ffn_down_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 1290240,
+    "experts_touched": 21,
+    "experts_mostly_read": 21,
+    "reads": 423575
+   },
+   "blk.21.ffn_gate_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 19,
+    "experts_mostly_read": 19,
+    "reads": 262656
+   },
+   "blk.21.ffn_up_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 19,
+    "experts_mostly_read": 19,
+    "reads": 262656
+   },
+   "blk.21.ffn_down_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 19,
+    "experts_mostly_read": 19,
+    "reads": 262656
+   },
+   "blk.22.ffn_gate_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 26,
+    "experts_mostly_read": 26,
+    "reads": 359424
+   },
+   "blk.22.ffn_up_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 26,
+    "experts_mostly_read": 26,
+    "reads": 359424
+   },
+   "blk.22.ffn_down_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 26,
+    "experts_mostly_read": 26,
+    "reads": 359424
+   },
+   "blk.23.ffn_gate_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 25,
+    "experts_mostly_read": 25,
+    "reads": 345600
+   },
+   "blk.23.ffn_up_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 25,
+    "experts_mostly_read": 25,
+    "reads": 345600
+   },
+   "blk.23.ffn_down_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 1290240,
+    "experts_touched": 25,
+    "experts_mostly_read": 25,
+    "reads": 504241
+   },
+   "blk.24.ffn_gate_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 24,
+    "experts_mostly_read": 24,
+    "reads": 331776
+   },
+   "blk.24.ffn_up_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 24,
+    "experts_mostly_read": 24,
+    "reads": 331776
+   },
+   "blk.24.ffn_down_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 24,
+    "experts_mostly_read": 24,
+    "reads": 331776
+   },
+   "blk.25.ffn_gate_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 25,
+    "experts_mostly_read": 25,
+    "reads": 345600
+   },
+   "blk.25.ffn_up_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 25,
+    "experts_mostly_read": 25,
+    "reads": 345600
+   },
+   "blk.25.ffn_down_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 25,
+    "experts_mostly_read": 25,
+    "reads": 345600
+   },
+   "blk.26.ffn_gate_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 23,
+    "experts_mostly_read": 23,
+    "reads": 317952
+   },
+   "blk.26.ffn_up_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 23,
+    "experts_mostly_read": 23,
+    "reads": 317952
+   },
+   "blk.26.ffn_down_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 1290240,
+    "experts_touched": 23,
+    "experts_mostly_read": 23,
+    "reads": 463917
+   },
+   "blk.27.ffn_gate_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 20,
+    "experts_mostly_read": 20,
+    "reads": 276480
+   },
+   "blk.27.ffn_up_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 20,
+    "experts_mostly_read": 20,
+    "reads": 276480
+   },
+   "blk.27.ffn_down_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 20,
+    "experts_mostly_read": 20,
+    "reads": 276480
+   },
+   "blk.28.ffn_gate_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 22,
+    "experts_mostly_read": 22,
+    "reads": 304128
+   },
+   "blk.28.ffn_up_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 22,
+    "experts_mostly_read": 22,
+    "reads": 304128
+   },
+   "blk.28.ffn_down_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 22,
+    "experts_mostly_read": 22,
+    "reads": 304128
+   },
+   "blk.29.ffn_gate_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 21,
+    "experts_mostly_read": 21,
+    "reads": 290304
+   },
+   "blk.29.ffn_up_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 21,
+    "experts_mostly_read": 21,
+    "reads": 290304
+   },
+   "blk.29.ffn_down_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 1290240,
+    "experts_touched": 21,
+    "experts_mostly_read": 21,
+    "reads": 423669
+   },
+   "blk.30.ffn_gate_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 19,
+    "experts_mostly_read": 19,
+    "reads": 262656
+   },
+   "blk.30.ffn_up_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 19,
+    "experts_mostly_read": 19,
+    "reads": 262656
+   },
+   "blk.30.ffn_down_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 19,
+    "experts_mostly_read": 19,
+    "reads": 262656
+   },
+   "blk.31.ffn_gate_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 20,
+    "experts_mostly_read": 20,
+    "reads": 276480
+   },
+   "blk.31.ffn_up_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 20,
+    "experts_mostly_read": 20,
+    "reads": 276480
+   },
+   "blk.31.ffn_down_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 20,
+    "experts_mostly_read": 20,
+    "reads": 276480
+   },
+   "blk.32.ffn_gate_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 23,
+    "experts_mostly_read": 23,
+    "reads": 317952
+   },
+   "blk.32.ffn_up_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 23,
+    "experts_mostly_read": 23,
+    "reads": 317952
+   },
+   "blk.32.ffn_down_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 1290240,
+    "experts_touched": 23,
+    "experts_mostly_read": 23,
+    "reads": 463905
+   },
+   "blk.33.ffn_gate_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 19,
+    "experts_mostly_read": 19,
+    "reads": 262656
+   },
+   "blk.33.ffn_up_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 19,
+    "experts_mostly_read": 19,
+    "reads": 262656
+   },
+   "blk.33.ffn_down_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 19,
+    "experts_mostly_read": 19,
+    "reads": 262656
+   },
+   "blk.34.ffn_gate_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 23,
+    "experts_mostly_read": 23,
+    "reads": 317952
+   },
+   "blk.34.ffn_up_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 23,
+    "experts_mostly_read": 23,
+    "reads": 317952
+   },
+   "blk.34.ffn_down_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 23,
+    "experts_mostly_read": 23,
+    "reads": 317952
+   },
+   "blk.35.ffn_gate_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 25,
+    "experts_mostly_read": 25,
+    "reads": 345600
+   },
+   "blk.35.ffn_up_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 25,
+    "experts_mostly_read": 25,
+    "reads": 345600
+   },
+   "blk.35.ffn_down_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 1290240,
+    "experts_touched": 25,
+    "experts_mostly_read": 25,
+    "reads": 504209
+   },
+   "blk.36.ffn_gate_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 23,
+    "experts_mostly_read": 23,
+    "reads": 317952
+   },
+   "blk.36.ffn_up_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 23,
+    "experts_mostly_read": 23,
+    "reads": 317952
+   },
+   "blk.36.ffn_down_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 23,
+    "experts_mostly_read": 23,
+    "reads": 317952
+   },
+   "blk.37.ffn_gate_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 26,
+    "experts_mostly_read": 26,
+    "reads": 359424
+   },
+   "blk.37.ffn_up_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 26,
+    "experts_mostly_read": 26,
+    "reads": 359424
+   },
+   "blk.37.ffn_down_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 26,
+    "experts_mostly_read": 26,
+    "reads": 359424
+   },
+   "blk.38.ffn_gate_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 26,
+    "experts_mostly_read": 26,
+    "reads": 359424
+   },
+   "blk.38.ffn_up_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 26,
+    "experts_mostly_read": 26,
+    "reads": 359424
+   },
+   "blk.38.ffn_down_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 1290240,
+    "experts_touched": 26,
+    "experts_mostly_read": 26,
+    "reads": 524388
+   },
+   "blk.39.ffn_gate_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 24,
+    "experts_mostly_read": 24,
+    "reads": 331776
+   },
+   "blk.39.ffn_up_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 24,
+    "experts_mostly_read": 24,
+    "reads": 331776
+   },
+   "blk.39.ffn_down_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 24,
+    "experts_mostly_read": 24,
+    "reads": 331776
+   },
+   "blk.40.ffn_gate_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 27,
+    "experts_mostly_read": 27,
+    "reads": 373248
+   },
+   "blk.40.ffn_up_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 27,
+    "experts_mostly_read": 27,
+    "reads": 373248
+   },
+   "blk.40.ffn_down_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 27,
+    "experts_mostly_read": 27,
+    "reads": 373248
+   },
+   "blk.41.ffn_gate_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 26,
+    "experts_mostly_read": 26,
+    "reads": 359424
+   },
+   "blk.41.ffn_up_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 26,
+    "experts_mostly_read": 26,
+    "reads": 359424
+   },
+   "blk.41.ffn_down_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 1290240,
+    "experts_touched": 26,
+    "experts_mostly_read": 26,
+    "reads": 524353
+   },
+   "blk.42.ffn_gate_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 23,
+    "experts_mostly_read": 23,
+    "reads": 317952
+   },
+   "blk.42.ffn_up_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 23,
+    "experts_mostly_read": 23,
+    "reads": 317952
+   },
+   "blk.42.ffn_down_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 1290240,
+    "experts_touched": 23,
+    "experts_mostly_read": 23,
+    "reads": 463934
+   },
+   "blk.43.ffn_gate_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 24,
+    "experts_mostly_read": 24,
+    "reads": 331776
+   },
+   "blk.43.ffn_up_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 24,
+    "experts_mostly_read": 24,
+    "reads": 331776
+   },
+   "blk.43.ffn_down_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 1290240,
+    "experts_touched": 24,
+    "experts_mostly_read": 24,
+    "reads": 484059
+   },
+   "blk.44.ffn_gate_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 23,
+    "experts_mostly_read": 23,
+    "reads": 317952
+   },
+   "blk.44.ffn_up_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 23,
+    "experts_mostly_read": 23,
+    "reads": 317952
+   },
+   "blk.44.ffn_down_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 1290240,
+    "experts_touched": 23,
+    "experts_mostly_read": 23,
+    "reads": 463948
+   },
+   "blk.45.ffn_gate_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 24,
+    "experts_mostly_read": 24,
+    "reads": 331776
+   },
+   "blk.45.ffn_up_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 24,
+    "experts_mostly_read": 24,
+    "reads": 331776
+   },
+   "blk.45.ffn_down_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 1290240,
+    "experts_touched": 24,
+    "experts_mostly_read": 24,
+    "reads": 484051
+   },
+   "blk.46.ffn_gate_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 24,
+    "experts_mostly_read": 24,
+    "reads": 331776
+   },
+   "blk.46.ffn_up_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 24,
+    "experts_mostly_read": 24,
+    "reads": 331776
+   },
+   "blk.46.ffn_down_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 1290240,
+    "experts_touched": 24,
+    "experts_mostly_read": 24,
+    "reads": 484054
+   },
+   "blk.47.ffn_gate_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 25,
+    "experts_mostly_read": 25,
+    "reads": 345600
+   },
+   "blk.47.ffn_up_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 884736,
+    "experts_touched": 25,
+    "experts_mostly_read": 25,
+    "reads": 345600
+   },
+   "blk.47.ffn_down_exps.weight": {
+    "n_expert": 128,
+    "slice_bytes": 1290240,
+    "experts_touched": 25,
+    "experts_mostly_read": 25,
+    "reads": 504274
+   }
+  },
+  "mean_experts_touched_per_tensor": 23.166666666666668,
+  "mean_experts_mostly_read_per_tensor": 23.166666666666668
+ }
+}

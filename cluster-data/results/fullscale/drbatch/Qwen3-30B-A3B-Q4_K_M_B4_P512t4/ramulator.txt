@@ -1,33 +1,11 @@
-Loading trace file /scratch/adityaseshasai.s/drbatch/Qwen3-30B-A3B-Q4_K_M_B4_P512t4/dram.ramulator.trc ...Loading trace file /scratch/adityaseshasai.s/drbatch/Qwen3-30B-A3B-Q4_K_M_B4_P512t4/dram.ramulator.trc ...
+] [[32minfo[0m] ] [[32minfo[0m] Loading trace file /scratch/adityaseshasai.s/drbatch/Qwen3-30B-A3B-Q4_K_M_B4_P512t4/dram.ramulator.trc ...Loading trace file /scratch/adityaseshasai.s/drbatch/Qwen3-30B-A3B-Q4_K_M_B4_P512t4/dram.ramulator.trc ...
 
-multiprocessing.pool.RemoteTraceback: 
-"""
-Traceback (most recent call last):
-  File "/home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/lib/python3.12/multiprocessing/pool.py", line 125, in worker
-    result = (True, func(*args, **kwds))
-                    ^^^^^^^^^^^^^^^^^^^
-  File "/home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/lib/python3.12/multiprocessing/pool.py", line 48, in mapstar
-    return list(map(*args))
-           ^^^^^^^^^^^^^^^^
-  File "/home/adityaseshasai.s/amcas-pro/tools/ramulator_replay.py", line 51, in run
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/adityaseshasai.s/amcas-pro/tracing/ramulator2/python/ramulator/__init__.py", line 44, in __init__
-    self._sim = _CppSimulation(config)
-                ^^^^^^^^^^^^^^^^^^^^^^
-RuntimeError: Trace /scratch/adityaseshasai.s/drbatch/Qwen3-30B-A3B-Q4_K_M_B4_P512t4/dram.ramulator.trc does not exist!
-"""
-
-The above exception was the direct cause of the following exception:
-
-Traceback (most recent call last):
-  File "/home/adityaseshasai.s/amcas-pro/tools/ramulator_replay.py", line 108, in <module>
-    main()
-  File "/home/adityaseshasai.s/amcas-pro/tools/ramulator_replay.py", line 91, in main
-    res = pool.map(run, cfgs)
-          ^^^^^^^^^^^^^^^^^^^
-  File "/home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/lib/python3.12/multiprocessing/pool.py", line 367, in map
-    return self._map_async(func, iterable, mapstar, chunksize).get()
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/lib/python3.12/multiprocessing/pool.py", line 774, in get
-    raise self._value
-RuntimeError: Trace /scratch/adityaseshasai.s/drbatch/Qwen3-30B-A3B-Q4_K_M_B4_P512t4/dram.ramulator.trc does not exist!
+Loaded 66969083 lines.
+ddr4, 1 channel(s), interleave 64 B << 0, issue 1/cycle
+mapper      policy          reads   writes    hit  conflict  rd_lat  Mcycles    GB/s
+RoBaRaCoCh  Open         66969083        0  0.975     0.011   185.3    343.9    15.0
+RoBaRaCoCh  ClosedCAP    66969083        0  0.782     0.005   223.9    417.4    12.3
+MOP4CLXOR   Open         66969083        0  0.585     0.309   183.1    287.6    17.9
+MOP4CLXOR   ClosedCAP    66969083        0  0.548     0.215   186.0    287.5    17.9
+ChRaBaRoCo  Open         66969083        0  0.936     0.056   245.5    469.7    11.0
+ChRaBaRoCo  ClosedCAP    66969083        0  0.782     0.018   393.6    774.6     6.6

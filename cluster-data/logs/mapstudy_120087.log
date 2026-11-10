@@ -1,0 +1,19 @@
+==========================================
+SLURM_JOB_ID = 120087
+SLURM_NODELIST = node03
+SLURM_JOB_GPUS = 
+==========================================
+30,348,314 reads; window [9,104,494,15,104,494); expert share in window 0.659; distinct experts in window 84
+  [packed/ddr4 global] n=6,000,000 cost 4413356 -> 3795396; bank bit ^= {0: ['row11', 'row12'], 1: ['row3'], 2: ['row0'], 3: ['row3', 'row0'], 4: []}
+  [packed/ddr4 region O] n=342,620 cost 1576290 -> 1559849; bank bit ^= {0: ['row7'], 1: [], 2: ['row4'], 3: [], 4: ['row6']}
+  packed ddr4 identity       in-order hit 0.960 banks 32/32
+  packed ddr4 xor_global     in-order hit 0.957 banks 32/32
+  packed ddr4 region         in-order hit 0.960 banks 32/32
+Traceback (most recent call last):
+  File "/home/adityaseshasai.s/amcas-pro/tools/moe_remap.py", line 119, in <module>
+    main()
+  File "/home/adityaseshasai.s/amcas-pro/tools/moe_remap.py", line 108, in main
+    assert len(np.unique((nb << 40) | (nr << 8) | nc)) == len(np.unique((ob << 40) | (orow << 8) | oc)), "not injective"
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: not injective
+cp: cannot stat '/scratch/adityaseshasai.s/mapstudy/moe-Q30B_short/manifest.json': No such file or directory

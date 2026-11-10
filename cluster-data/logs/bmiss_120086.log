@@ -1,0 +1,38 @@
+==========================================
+SLURM_JOB_ID = 120086
+SLURM_NODELIST = node03
+SLURM_JOB_GPUS = 
+==========================================
+run Qwen3-30B-A3B-Q4_K_M_B16_P512t4 on node03.local: B=16 P=512 threads=4 skip=1 ntrace=1 kvu=0
+=== untraced
+drbatch: seq 0 evaluated and saved
+drbatch: seq 1 evaluated and saved
+drbatch: seq 2 evaluated and saved
+drbatch: seq 3 evaluated and saved
+drbatch: seq 4 restored from /home/adityaseshasai.s/amcas-pro/results/sessions/drbatch/Qwen3-30B-A3B-Q4_K_M.gguf_P512_s30000_b4.seq
+drbatch: seq 5 restored from /home/adityaseshasai.s/amcas-pro/results/sessions/drbatch/Qwen3-30B-A3B-Q4_K_M.gguf_P512_s30000_b5.seq
+drbatch: seq 6 restored from /home/adityaseshasai.s/amcas-pro/results/sessions/drbatch/Qwen3-30B-A3B-Q4_K_M.gguf_P512_s30000_b6.seq
+drbatch: seq 7 restored from /home/adityaseshasai.s/amcas-pro/results/sessions/drbatch/Qwen3-30B-A3B-Q4_K_M.gguf_P512_s30000_b7.seq
+drbatch: seq 8 restored from /home/adityaseshasai.s/amcas-pro/results/sessions/drbatch/Qwen3-30B-A3B-Q4_K_M.gguf_P512_s30000_b8.seq
+drbatch: seq 9 restored from /home/adityaseshasai.s/amcas-pro/results/sessions/drbatch/Qwen3-30B-A3B-Q4_K_M.gguf_P512_s30000_b9.seq
+drbatch: seq 10 restored from /home/adityaseshasai.s/amcas-pro/results/sessions/drbatch/Qwen3-30B-A3B-Q4_K_M.gguf_P512_s30000_b10.seq
+drbatch: seq 11 restored from /home/adityaseshasai.s/amcas-pro/results/sessions/drbatch/Qwen3-30B-A3B-Q4_K_M.gguf_P512_s30000_b11.seq
+drbatch: seq 12 restored from /home/adityaseshasai.s/amcas-pro/results/sessions/drbatch/Qwen3-30B-A3B-Q4_K_M.gguf_P512_s30000_b12.seq
+drbatch: seq 13 restored from /home/adityaseshasai.s/amcas-pro/results/sessions/drbatch/Qwen3-30B-A3B-Q4_K_M.gguf_P512_s30000_b13.seq
+drbatch: seq 14 restored from /home/adityaseshasai.s/amcas-pro/results/sessions/drbatch/Qwen3-30B-A3B-Q4_K_M.gguf_P512_s30000_b14.seq
+drbatch: seq 15 restored from /home/adityaseshasai.s/amcas-pro/results/sessions/drbatch/Qwen3-30B-A3B-Q4_K_M.gguf_P512_s30000_b15.seq
+untraced 75.68 s, max RSS 33105436 KB
+=== traced (decode step 1, 1 step(s)), raw trace capped at 16 GB per thread
+drbatch: attaching at step 1
+drbatch: detached after step 1
+traced 31.09 s, max RSS 33036900 KB
+same tokens: yes
+B 0 13438757696029303	B 0 13438757719871377
+E 0 13438757697169422	E 0 13438757720973418
+B 1 13438757697172427	B 1 13438757720976425
+E 1 13438757698260634	E 1 13438757729394567
+B 2 13438757698263610	B 2 13438757729400258
+E 2 13438757699330744	E 2 13438757730455574
+B 3 13438757699333718	B 3 13438757730458538
+E 3 13438757700401719	E 3 13438757731506504
+20G	/scratch/adityaseshasai.s/bmiss/Qwen3-30B-A3B-Q4_K_M_B16_P512t4/drmemtrace.llama-drbatch.314025.3522.dir/raw
