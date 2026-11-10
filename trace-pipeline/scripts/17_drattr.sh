@@ -34,7 +34,7 @@ AMCAS_SKIP_STEPS=$FIRST AMCAS_TRACE_STEPS=$NTRACE AMCAS_STEPS=$R/steps_traced.tx
   DYNAMORIO_OPTIONS="-stderr_mask 0xc -client_lib ';;-offline -outdir $S -max_trace_size 17179869184'" \
   $X "${ARGS[@]}" > $S/traced.out 2> $S/traced.err
 grep -E "^drburst" $S/traced.err
-cmp -s <(tail -c 300 $S/plain.out) <(tail -c 300 $S/traced.out) && echo "same text: yes" || { echo "same text: NO"; exit 1; }
+cmp -s <(tail -c 300 $S/plain.out) <(tail -c 300 $S/traced.out) && echo "same text: yes" || { echo "same text: NO"; diff <(tail -c 300 $S/plain.out) <(tail -c 300 $S/traced.out) | head -20; tail -5 $S/traced.err; exit 1; }
 wc -l $R/tensors.tsv
 T=$(ls -d $S/drmemtrace.llama-drattr.*.dir) || exit 1
 $D/tools/bin64/drraw2trace -indir $T -jobs 8 -compress gzip > $S/raw2trace.log 2>&1 || { tail -5 $S/raw2trace.log; exit 1; }

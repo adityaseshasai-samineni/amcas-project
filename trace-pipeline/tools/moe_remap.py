@@ -53,9 +53,12 @@ def expert_xor(L, intra, e, lay, kd, mode):
     win = cell[order][first]
     wrow, wrest = win // 32768, win % 32768
     hv = hash5((wrest // 128) // 3, (wrest // 128) % 3, wrest % 128, mode).astype(np.int64)
-    idx = np.searchsorted(wrow, row[isx])  # wrow sorted ascending (cells sorted by row)
+    # the XOR constant must depend on the row only (bijection per row): apply it to every access in a row that
+    # has a winning expert, including non-expert accesses that share that row
+    idx = np.minimum(np.searchsorted(wrow, row), len(wrow) - 1)
+    hit = wrow[idx] == row
     new = bank.copy()
-    new[isx] ^= hv[idx]
+    new[hit] ^= hv[idx[hit]]
     return L.put_bank(intra, new)
 
 
