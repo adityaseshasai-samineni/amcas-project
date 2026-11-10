@@ -1,0 +1,23 @@
+79,600,429 DRAM reads (5094.4 MB), 1 threads
+stride, merged: {'+1 line': 0.391, '-1 line': 0.063, 'within 16 lines': 0.139, 'within 8 KiB row': 0.013, 'beyond': 0.393}
+stride, thread 507516: {'+1 line': 0.391, '-1 line': 0.063, 'within 16 lines': 0.139, 'within 8 KiB row': 0.013, 'beyond': 0.393}
+
+offline in-order open-page row hit rate (DDR4 8 KiB row, 2 ranks x 16 banks)
+placement              RoRaBaCoCh   RoCoRaBaCh     XOR-bank
+VA-order packed             0.907        0.196        0.911
+4KiB shuffled               0.878        0.003        0.878
+THP 2MiB shuffled           0.872        0.197        0.907
+
+attribution by class (reads, share, MB; stride +1/within16/beyond, per class stream)
+  KV cache          7,357,460   0.092     470.9  +1 0.66 w16 0.00 beyond 0.34
+  dense weights    68,290,505   0.858    4370.6  +1 0.38 w16 0.16 beyond 0.37
+  activations       2,242,299   0.028     143.5  +1 0.30 w16 0.06 beyond 0.63
+  unattributed      1,710,165   0.021     109.5  +1 0.53 w16 0.02 beyond 0.44
+  row hit VA-order packed / RoRaBaCoCh: KV cache 0.962, dense weights 0.911, activations 0.731, unattributed 0.753
+  row hit VA-order packed / XOR-bank: KV cache 0.959, dense weights 0.918, activations 0.713, unattributed 0.712
+  row hit 4KiB shuffled / RoRaBaCoCh: KV cache 0.922, dense weights 0.886, activations 0.651, unattributed 0.666
+  row hit 4KiB shuffled / XOR-bank: KV cache 0.922, dense weights 0.886, activations 0.660, unattributed 0.665
+  row hit THP 2MiB shuffled / RoRaBaCoCh: KV cache 0.741, dense weights 0.911, activations 0.394, unattributed 0.533
+  row hit THP 2MiB shuffled / XOR-bank: KV cache 0.907, dense weights 0.917, activations 0.731, unattributed 0.712
+
+wrote /home/adityaseshasai.s/amcas-pro/results/fullscale/drbatch/qwen2.5-7b-instruct-q4_k_m-00001-of-00002_B16_P512t4/summary.json and dram.ramulator.trc (79,600,429 requests, VA-order packed)

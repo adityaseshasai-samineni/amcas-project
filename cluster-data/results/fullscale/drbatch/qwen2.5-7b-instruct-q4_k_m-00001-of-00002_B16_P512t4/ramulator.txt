@@ -1,0 +1,10 @@
+
+Loading trace file /scratch/adityaseshasai.s/drbatch/qwen2.5-7b-instruct-q4_k_m-00001-of-00002_B16_P512t4/dram.ramulator.trc ...
+ddr4, 1 channel(s), interleave 64 B << 0, issue 1/cycle
+mapper      policy          reads   writes    hit  conflict  rd_lat  Mcycles    GB/s
+RoBaRaCoCh  Open         79600429        0  0.899     0.069   169.1    356.4    17.2
+RoBaRaCoCh  ClosedCAP    79600429        0  0.734     0.052   180.6    371.7    16.5
+MOP4CLXOR   Open         79600429        0  0.301     0.573   199.3    344.9    17.7
+MOP4CLXOR   ClosedCAP    79600429        0  0.292     0.543   200.0    344.9    17.7
+ChRaBaRoCo  Open         79600429        0  0.838     0.157   384.8    901.0     6.8
+ChRaBaRoCo  ClosedCAP    79600429        0  0.756     0.069   481.6   1138.4     5.4

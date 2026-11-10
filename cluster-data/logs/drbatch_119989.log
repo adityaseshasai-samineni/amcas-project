@@ -1,0 +1,99 @@
+==========================================
+SLURM_JOB_ID = 119989
+SLURM_NODELIST = node03
+SLURM_JOB_GPUS = 
+==========================================
+run qwen2.5-7b-instruct-q4_k_m-00001-of-00002_B16_P512t4 on node03.local: B=16 P=512 threads=4 skip=1 ntrace=1 kvu=0
+=== untraced
+drbatch: seq 0 restored from /home/adityaseshasai.s/amcas-pro/results/sessions/drbatch/qwen2.5-7b-instruct-q4_k_m-00001-of-00002.gguf_P512_s30000_b0.seq
+drbatch: seq 1 restored from /home/adityaseshasai.s/amcas-pro/results/sessions/drbatch/qwen2.5-7b-instruct-q4_k_m-00001-of-00002.gguf_P512_s30000_b1.seq
+drbatch: seq 2 restored from /home/adityaseshasai.s/amcas-pro/results/sessions/drbatch/qwen2.5-7b-instruct-q4_k_m-00001-of-00002.gguf_P512_s30000_b2.seq
+drbatch: seq 3 restored from /home/adityaseshasai.s/amcas-pro/results/sessions/drbatch/qwen2.5-7b-instruct-q4_k_m-00001-of-00002.gguf_P512_s30000_b3.seq
+drbatch: seq 4 restored from /home/adityaseshasai.s/amcas-pro/results/sessions/drbatch/qwen2.5-7b-instruct-q4_k_m-00001-of-00002.gguf_P512_s30000_b4.seq
+drbatch: seq 5 restored from /home/adityaseshasai.s/amcas-pro/results/sessions/drbatch/qwen2.5-7b-instruct-q4_k_m-00001-of-00002.gguf_P512_s30000_b5.seq
+drbatch: seq 6 restored from /home/adityaseshasai.s/amcas-pro/results/sessions/drbatch/qwen2.5-7b-instruct-q4_k_m-00001-of-00002.gguf_P512_s30000_b6.seq
+drbatch: seq 7 restored from /home/adityaseshasai.s/amcas-pro/results/sessions/drbatch/qwen2.5-7b-instruct-q4_k_m-00001-of-00002.gguf_P512_s30000_b7.seq
+drbatch: seq 8 restored from /home/adityaseshasai.s/amcas-pro/results/sessions/drbatch/qwen2.5-7b-instruct-q4_k_m-00001-of-00002.gguf_P512_s30000_b8.seq
+drbatch: seq 9 restored from /home/adityaseshasai.s/amcas-pro/results/sessions/drbatch/qwen2.5-7b-instruct-q4_k_m-00001-of-00002.gguf_P512_s30000_b9.seq
+drbatch: seq 10 restored from /home/adityaseshasai.s/amcas-pro/results/sessions/drbatch/qwen2.5-7b-instruct-q4_k_m-00001-of-00002.gguf_P512_s30000_b10.seq
+drbatch: seq 11 restored from /home/adityaseshasai.s/amcas-pro/results/sessions/drbatch/qwen2.5-7b-instruct-q4_k_m-00001-of-00002.gguf_P512_s30000_b11.seq
+drbatch: seq 12 restored from /home/adityaseshasai.s/amcas-pro/results/sessions/drbatch/qwen2.5-7b-instruct-q4_k_m-00001-of-00002.gguf_P512_s30000_b12.seq
+drbatch: seq 13 restored from /home/adityaseshasai.s/amcas-pro/results/sessions/drbatch/qwen2.5-7b-instruct-q4_k_m-00001-of-00002.gguf_P512_s30000_b13.seq
+drbatch: seq 14 restored from /home/adityaseshasai.s/amcas-pro/results/sessions/drbatch/qwen2.5-7b-instruct-q4_k_m-00001-of-00002.gguf_P512_s30000_b14.seq
+drbatch: seq 15 restored from /home/adityaseshasai.s/amcas-pro/results/sessions/drbatch/qwen2.5-7b-instruct-q4_k_m-00001-of-00002.gguf_P512_s30000_b15.seq
+untraced 10.50 s, max RSS 8333996 KB
+=== traced (decode step 1, 1 step(s)), raw trace capped at 16 GB per thread
+drbatch: attaching at step 1
+drbatch: detached after step 1
+traced 12.68 s, max RSS 8339876 KB
+same tokens: yes
+B 0 13438778149053585	B 0 13438778155711960
+E 0 13438778149913818	E 0 13438778156606202
+B 1 13438778149916807	B 1 13438778156609186
+E 1 13438778150772133	E 1 13438778163445983
+B 2 13438778150775069	B 2 13438778163451862
+E 2 13438778151633012	E 2 13438778164317308
+B 3 13438778151635941	B 3 13438778164320244
+E 3 13438778152496387	E 3 13438778165187373
+17G	/scratch/adityaseshasai.s/drbatch/qwen2.5-7b-instruct-q4_k_m-00001-of-00002_B16_P512t4/drmemtrace.llama-drbatch.507516.0288.dir/raw
+raw2trace 1392.32 s
+13G	/scratch/adityaseshasai.s/drbatch/qwen2.5-7b-instruct-q4_k_m-00001-of-00002_B16_P512t4/drmemtrace.llama-drbatch.507516.0288.dir/trace
+ 16112650059 total (fetched) instructions
+Thread 507516 counts:
+  4035456752 (fetched) instructions
+Thread 507519 counts:
+  4033637452 (fetched) instructions
+Thread 507520 counts:
+  4025878546 (fetched) instructions
+Thread 507518 counts:
+  4017677309 (fetched) instructions
+=== cache simulation: with and without prefetch (in parallel)
+sim pf: 5775.40 s
+sim nopf: 5823.54 s
+LL pf:  Misses: 42,755,168  Prefetch misses: 36,855,455 
+LL nopf:  Misses: 79,600,429 
+=== DRAM stream and tensor attribution
+79,600,429 DRAM reads (5094.4 MB), 1 threads
+stride, merged: {'+1 line': 0.391, '-1 line': 0.063, 'within 16 lines': 0.139, 'within 8 KiB row': 0.013, 'beyond': 0.393}
+stride, thread 507516: {'+1 line': 0.391, '-1 line': 0.063, 'within 16 lines': 0.139, 'within 8 KiB row': 0.013, 'beyond': 0.393}
+
+offline in-order open-page row hit rate (DDR4 8 KiB row, 2 ranks x 16 banks)
+placement              RoRaBaCoCh   RoCoRaBaCh     XOR-bank
+VA-order packed             0.907        0.196        0.911
+4KiB shuffled               0.878        0.003        0.878
+THP 2MiB shuffled           0.872        0.197        0.907
+
+attribution by class (reads, share, MB; stride +1/within16/beyond, per class stream)
+  KV cache          7,357,460   0.092     470.9  +1 0.66 w16 0.00 beyond 0.34
+  dense weights    68,290,505   0.858    4370.6  +1 0.38 w16 0.16 beyond 0.37
+  activations       2,242,299   0.028     143.5  +1 0.30 w16 0.06 beyond 0.63
+  unattributed      1,710,165   0.021     109.5  +1 0.53 w16 0.02 beyond 0.44
+  row hit VA-order packed / RoRaBaCoCh: KV cache 0.962, dense weights 0.911, activations 0.731, unattributed 0.753
+  row hit VA-order packed / XOR-bank: KV cache 0.959, dense weights 0.918, activations 0.713, unattributed 0.712
+  row hit 4KiB shuffled / RoRaBaCoCh: KV cache 0.922, dense weights 0.886, activations 0.651, unattributed 0.666
+  row hit 4KiB shuffled / XOR-bank: KV cache 0.922, dense weights 0.886, activations 0.660, unattributed 0.665
+  row hit THP 2MiB shuffled / RoRaBaCoCh: KV cache 0.741, dense weights 0.911, activations 0.394, unattributed 0.533
+  row hit THP 2MiB shuffled / XOR-bank: KV cache 0.907, dense weights 0.917, activations 0.731, unattributed 0.712
+
+wrote /home/adityaseshasai.s/amcas-pro/results/fullscale/drbatch/qwen2.5-7b-instruct-q4_k_m-00001-of-00002_B16_P512t4/summary.json and dram.ramulator.trc (79,600,429 requests, VA-order packed)
+=== Ramulator: one DDR4-2400 channel
+
+Loading trace file /scratch/adityaseshasai.s/drbatch/qwen2.5-7b-instruct-q4_k_m-00001-of-00002_B16_P512t4/dram.ramulator.trc ...
+ddr4, 1 channel(s), interleave 64 B << 0, issue 1/cycle
+mapper      policy          reads   writes    hit  conflict  rd_lat  Mcycles    GB/s
+RoBaRaCoCh  Open         79600429        0  0.899     0.069   169.1    356.4    17.2
+RoBaRaCoCh  ClosedCAP    79600429        0  0.734     0.052   180.6    371.7    16.5
+MOP4CLXOR   Open         79600429        0  0.301     0.573   199.3    344.9    17.7
+MOP4CLXOR   ClosedCAP    79600429        0  0.292     0.543   200.0    344.9    17.7
+ChRaBaRoCo  Open         79600429        0  0.838     0.157   384.8    901.0     6.8
+ChRaBaRoCo  ClosedCAP    79600429        0  0.756     0.069   481.6   1138.4     5.4
+=== Ramulator: 16 DDR5-4800 subchannels, 256 B interleave
+
+ddr5, 16 channel(s), interleave 64 B << 2, issue 4/cycle
+mapper      policy          reads   writes    hit  conflict  rd_lat  Mcycles    GB/s
+RoBaRaCoCh  Open         79600429        0  0.879     0.082   226.6     53.4   229.2
+RoBaRaCoCh  ClosedCAP    79600429        0  0.731     0.052   288.2     63.9   191.7
+MOP4CLXOR   Open         79600429        0  0.291     0.616   246.7     52.1   235.1
+MOP4CLXOR   ClosedCAP    79600429        0  0.279     0.591   246.1     52.1   235.3
+ChRaBaRoCo  Open         79600429        0  0.807     0.189   592.3    176.2    69.5
+ChRaBaRoCo  ClosedCAP    79600429        0  0.716     0.118   709.2    228.8    53.5
