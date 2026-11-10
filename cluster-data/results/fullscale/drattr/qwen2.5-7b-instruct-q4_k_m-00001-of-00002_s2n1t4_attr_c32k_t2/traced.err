@@ -1,37 +1,37 @@
-0.00.003.342 I llama_completion: llama backend init
-0.00.004.910 I llama_completion: load the model and apply lora adapter, if any
-0.00.320.453 W load: control-looking token: 128247 '</s>' was not control-type; this is probably a bug in the model. its type will be overridden
-0.03.232.341 I cmn          init: llama threadpool init, n_threads = 4
-0.03.237.318 I 
-0.03.237.426 I system_info: n_threads = 4 (n_threads_batch = 4) / 96 | CPU : SSE3 = 1 | SSSE3 = 1 | AVX = 1 | AVX2 = 1 | F16C = 1 | FMA = 1 | BMI2 = 1 | AVX512 = 1 | AVX512_VNNI = 1 | LLAMAFILE = 1 | OPENMP = 1 | REPACK = 1 | 
-0.03.237.427 I 
-0.03.303.325 I sampler seed: 4294967295
-0.03.303.351 I sampler params: 
+0.00.002.148 I llama_completion: llama backend init
+0.00.003.732 I llama_completion: load the model and apply lora adapter, if any
+0.00.333.732 W load: control-looking token: 128247 '</s>' was not control-type; this is probably a bug in the model. its type will be overridden
+0.04.328.509 I cmn          init: llama threadpool init, n_threads = 4
+0.04.333.507 I 
+0.04.333.611 I system_info: n_threads = 4 (n_threads_batch = 4) / 96 | CPU : SSE3 = 1 | SSSE3 = 1 | AVX = 1 | AVX2 = 1 | F16C = 1 | FMA = 1 | BMI2 = 1 | AVX512 = 1 | AVX512_VNNI = 1 | LLAMAFILE = 1 | OPENMP = 1 | REPACK = 1 | 
+0.04.333.612 I 
+0.04.399.681 I sampler seed: 4294967295
+0.04.399.702 I sampler params: 
 	repeat_last_n = 64, repeat_penalty = 1.000, frequency_penalty = 0.000, presence_penalty = 0.000
 	dry_multiplier = 0.000, dry_base = 1.750, dry_allowed_length = 2, dry_penalty_last_n = 64
 	top_k = 40, top_p = 0.950, min_p = 0.050, xtc_probability = 0.000, xtc_threshold = 0.100, typical_p = 1.000, top_n_sigma = -1.000, temp = 0.000
 	mirostat = 0, mirostat_lr = 0.100, mirostat_ent = 5.000, adaptive_target = -1.000, adaptive_decay = 0.900
-0.03.303.366 I sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> min-p -> ?xtc -> temp-ext -> greedy 
-0.03.303.367 I generate: n_ctx = 32768, n_batch = 2048, n_predict = 3, n_keep = 0
-0.03.303.368 I 
+0.04.399.716 I sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> min-p -> ?xtc -> temp-ext -> greedy 
+0.04.399.717 I generate: n_ctx = 32768, n_batch = 2048, n_predict = 3, n_keep = 0
+0.04.399.718 I 
 drburst: attaching at step 17
-<Application /home/adityaseshasai.s/amcas-pro/tracing/drburst-attr-build/llama-drattr (312671).  Internal Error: DynamoRIO debug check failure: /home/runner/work/dynamorio/dynamorio/core/heap.c:1987 IF_WINDOWS(doing_detach ||) vmh->num_free_blocks == vmh->num_blocks - unfreed_blocks || ((ever_beyond_vmm IF_WINDOWS(|| get_os_version() >= WINDOWS_VERSION_8_1)) && vmh->num_free_blocks >= vmh->num_blocks - unfreed_blocks)
-(Error occurred @243 frags in tid 312671)
+<Application /home/adityaseshasai.s/amcas-pro/tracing/drburst-attr-build/llama-drattr (441433).  Internal Error: DynamoRIO debug check failure: /home/runner/work/dynamorio/dynamorio/core/heap.c:1987 IF_WINDOWS(doing_detach ||) vmh->num_free_blocks == vmh->num_blocks - unfreed_blocks || ((ever_beyond_vmm IF_WINDOWS(|| get_os_version() >= WINDOWS_VERSION_8_1)) && vmh->num_free_blocks >= vmh->num_blocks - unfreed_blocks)
+(Error occurred @244 frags in tid 441433)
 version 11.3.0, build 1
 -client_lib ';;-offline -outdir /scratch/adityaseshasai.s/drattr/qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s2n1t4_attr_c32k_t2 -max_trace_size 17179869184' -stderr_mask 12 -stack_size 56K -signal_stack_size 32K -max_elide_jmp 0 -max_elide_call 0 -no_inline_ignored_syscalls -native_exec_default_list '' -no_native_exec_man
-0x0000149e4a002950 0x00005649db40ac16
-0x0000149e4a002ba0 0x00005649db4a094e
-0x0000149e4a002be0 0x00005649db4a09dd
-0x0000149e4a002bf0 0x00005649db381911
-0x0000149e4a002c30 0x00005649db381c54
-0x0000149e4a002c50 0x00005649db381de2
-0x0000149e4a002c70 0x00005649db626327
-0x0000149e4a002dd0 0x00005649db62670c
-0x0000149e4a002e00 0x00005649db61ae76
-0x0000149e4a002e70 0x00005649db61b381
-0x0000149e4a002ff0 0x00005649db622034
-0x0000149e4a003090 0x00005649db61ea72
-0x0000149e4a0032d0 0x00005649db621c25
-0x0000149e4a003370 0x00005649db5dc3fe
-0x00005649dc210898 0x000000000000000d
-/home/adityaseshasai.s/amcas-pro/tracing/drburst-attr-build/llama-drattr=0x00005649db303000>
+0x000014f602557950 0x0000563ad1109c16
+0x000014f602557ba0 0x0000563ad119f94e
+0x000014f602557be0 0x0000563ad119f9dd
+0x000014f602557bf0 0x0000563ad1080911
+0x000014f602557c30 0x0000563ad1080c54
+0x000014f602557c50 0x0000563ad1080de2
+0x000014f602557c70 0x0000563ad1325327
+0x000014f602557dd0 0x0000563ad132570c
+0x000014f602557e00 0x0000563ad1319e76
+0x000014f602557e70 0x0000563ad131a381
+0x000014f602557ff0 0x0000563ad1321034
+0x000014f602558090 0x0000563ad131da72
+0x000014f6025582d0 0x0000563ad1320c25
+0x000014f602558370 0x0000563ad12db3fe
+0x0000563ad1841898 0x000000000000000d
+/home/adityaseshasai.s/amcas-pro/tracing/drburst-attr-build/llama-drattr=0x0000563ad1002000>

@@ -3,3 +3,22 @@ SLURM_JOB_ID = 120934
 SLURM_NODELIST = node03
 SLURM_JOB_GPUS = 
 ==========================================
+tracing llama_process calls 17..17
+drburst: attaching at step 17
+same text: NO
+1c1,2
+< r /f "usebackq tokens=*" %%i in (`"%VSWHERE%" -latest -products Microsoft.VisualStudio.Product.BuildTools -property installationPath`) do (
+---
+> (
+>     for /f "usebackq tokens=*" %%i in (`"%VSWHERE%" -latest -products Microsoft.VisualStudio.Product.BuildTools -property installationPath`) do (
+8,9c9
+<     echo WARNING: Viual Studio Build
+< 
+---
+>     echo WARNING: Viual Studio
+\ No newline at end of file
+0x000014f602558090 0x0000563ad131da72
+0x000014f6025582d0 0x0000563ad1320c25
+0x000014f602558370 0x0000563ad12db3fe
+0x0000563ad1841898 0x000000000000000d
+/home/adityaseshasai.s/amcas-pro/tracing/drburst-attr-build/llama-drattr=0x0000563ad1002000>
