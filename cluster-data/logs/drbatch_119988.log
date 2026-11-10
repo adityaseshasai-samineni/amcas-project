@@ -1,0 +1,91 @@
+==========================================
+SLURM_JOB_ID = 119988
+SLURM_NODELIST = node03
+SLURM_JOB_GPUS = 
+==========================================
+run Qwen3-30B-A3B-Q4_K_M_B16_P512t4 on node03.local: B=16 P=512 threads=4 skip=1 ntrace=1 kvu=0
+=== untraced
+drbatch: seq 0 restored from /home/adityaseshasai.s/amcas-pro/results/sessions/drbatch/Qwen3-30B-A3B-Q4_K_M.gguf_P512_s30000_b0.seq
+drbatch: seq 1 restored from /home/adityaseshasai.s/amcas-pro/results/sessions/drbatch/Qwen3-30B-A3B-Q4_K_M.gguf_P512_s30000_b1.seq
+drbatch: seq 2 restored from /home/adityaseshasai.s/amcas-pro/results/sessions/drbatch/Qwen3-30B-A3B-Q4_K_M.gguf_P512_s30000_b2.seq
+drbatch: seq 3 restored from /home/adityaseshasai.s/amcas-pro/results/sessions/drbatch/Qwen3-30B-A3B-Q4_K_M.gguf_P512_s30000_b3.seq
+drbatch: seq 4 restored from /home/adityaseshasai.s/amcas-pro/results/sessions/drbatch/Qwen3-30B-A3B-Q4_K_M.gguf_P512_s30000_b4.seq
+drbatch: seq 5 restored from /home/adityaseshasai.s/amcas-pro/results/sessions/drbatch/Qwen3-30B-A3B-Q4_K_M.gguf_P512_s30000_b5.seq
+drbatch: seq 6 restored from /home/adityaseshasai.s/amcas-pro/results/sessions/drbatch/Qwen3-30B-A3B-Q4_K_M.gguf_P512_s30000_b6.seq
+drbatch: seq 7 restored from /home/adityaseshasai.s/amcas-pro/results/sessions/drbatch/Qwen3-30B-A3B-Q4_K_M.gguf_P512_s30000_b7.seq
+drbatch: seq 8 restored from /home/adityaseshasai.s/amcas-pro/results/sessions/drbatch/Qwen3-30B-A3B-Q4_K_M.gguf_P512_s30000_b8.seq
+drbatch: seq 9 restored from /home/adityaseshasai.s/amcas-pro/results/sessions/drbatch/Qwen3-30B-A3B-Q4_K_M.gguf_P512_s30000_b9.seq
+drbatch: seq 10 restored from /home/adityaseshasai.s/amcas-pro/results/sessions/drbatch/Qwen3-30B-A3B-Q4_K_M.gguf_P512_s30000_b10.seq
+drbatch: seq 11 restored from /home/adityaseshasai.s/amcas-pro/results/sessions/drbatch/Qwen3-30B-A3B-Q4_K_M.gguf_P512_s30000_b11.seq
+drbatch: seq 12 restored from /home/adityaseshasai.s/amcas-pro/results/sessions/drbatch/Qwen3-30B-A3B-Q4_K_M.gguf_P512_s30000_b12.seq
+drbatch: seq 13 restored from /home/adityaseshasai.s/amcas-pro/results/sessions/drbatch/Qwen3-30B-A3B-Q4_K_M.gguf_P512_s30000_b13.seq
+drbatch: seq 14 restored from /home/adityaseshasai.s/amcas-pro/results/sessions/drbatch/Qwen3-30B-A3B-Q4_K_M.gguf_P512_s30000_b14.seq
+drbatch: seq 15 restored from /home/adityaseshasai.s/amcas-pro/results/sessions/drbatch/Qwen3-30B-A3B-Q4_K_M.gguf_P512_s30000_b15.seq
+untraced 17.48 s, max RSS 33030164 KB
+=== traced (decode step 1, 1 step(s)), raw trace capped at 16 GB per thread
+drbatch: attaching at step 1
+drbatch: detached after step 1
+traced 23.33 s, max RSS 33036396 KB
+same tokens: yes
+B 0 13438759319843291	B 0 13438759336608788
+E 0 13438759320645867	E 0 13438759337378239
+B 1 13438759320648858	B 1 13438759337381213
+E 1 13438759321427502	E 1 13438759344697617
+B 2 13438759321430441	B 2 13438759344703026
+E 2 13438759322203170	E 2 13438759345516298
+B 3 13438759322206104	B 3 13438759345519223
+E 3 13438759322985148	E 3 13438759346321451
+20G	/scratch/adityaseshasai.s/drbatch/Qwen3-30B-A3B-Q4_K_M_B16_P512t4/drmemtrace.llama-drbatch.315805.8644.dir/raw
+raw2trace 1244.43 s
+9.6G	/scratch/adityaseshasai.s/drbatch/Qwen3-30B-A3B-Q4_K_M_B16_P512t4/drmemtrace.llama-drbatch.315805.8644.dir/trace
+ 17692040058 total (fetched) instructions
+Thread 315811 counts:
+  4440931456 (fetched) instructions
+Thread 315805 counts:
+  4428847816 (fetched) instructions
+Thread 315812 counts:
+  4412708446 (fetched) instructions
+Thread 315810 counts:
+  4409552340 (fetched) instructions
+=== cache simulation: with and without prefetch (in parallel)
+sim pf: 5300.60 s
+sim nopf: 5423.07 s
+LL pf:  Misses: 80,834,123  Prefetch misses: 73,093,077 
+LL nopf:  Misses: 153,779,841 
+=== DRAM stream and tensor attribution
+153,779,841 DRAM reads (9841.9 MB), 1 threads
+stride, merged: {'+1 line': 0.358, '-1 line': 0.03, 'within 16 lines': 0.153, 'within 8 KiB row': 0.007, 'beyond': 0.451}
+stride, thread 315805: {'+1 line': 0.358, '-1 line': 0.03, 'within 16 lines': 0.153, 'within 8 KiB row': 0.007, 'beyond': 0.451}
+
+offline in-order open-page row hit rate (DDR4 8 KiB row, 2 ranks x 16 banks)
+placement              RoRaBaCoCh   RoCoRaBaCh     XOR-bank
+VA-order packed             0.966        0.249        0.964
+4KiB shuffled               0.951        0.106        0.951
+THP 2MiB shuffled           0.943        0.248        0.959
+
+attribution by class (reads, share, MB; stride +1/within16/beyond, per class stream)
+  expert weights  123,141,822   0.801    7881.1  +1 0.36 w16 0.19 beyond 0.42
+  KV cache         12,617,518   0.082     807.5  +1 0.71 w16 0.00 beyond 0.29
+  dense weights    12,862,157   0.084     823.2  +1 0.37 w16 0.16 beyond 0.32
+  activations       3,847,832   0.025     246.3  +1 0.36 w16 0.04 beyond 0.55
+  unattributed      1,310,512   0.009      83.9  +1 0.56 w16 0.07 beyond 0.32
+  row hit VA-order packed / RoRaBaCoCh: expert weights 0.972, KV cache 0.957, dense weights 0.960, activations 0.855, unattributed 0.873
+  row hit VA-order packed / XOR-bank: expert weights 0.971, KV cache 0.956, dense weights 0.961, activations 0.845, unattributed 0.831
+  row hit 4KiB shuffled / RoRaBaCoCh: expert weights 0.963, KV cache 0.920, dense weights 0.925, activations 0.797, unattributed 0.799
+  row hit 4KiB shuffled / XOR-bank: expert weights 0.963, KV cache 0.920, dense weights 0.925, activations 0.801, unattributed 0.798
+  row hit THP 2MiB shuffled / RoRaBaCoCh: expert weights 0.972, KV cache 0.738, dense weights 0.960, activations 0.678, unattributed 0.808
+  row hit THP 2MiB shuffled / XOR-bank: expert weights 0.971, KV cache 0.911, dense weights 0.961, activations 0.753, unattributed 0.830
+  experts: 144 expert tensors, mean touched/tensor 57.2 of 128, mostly read 57.2
+
+wrote /home/adityaseshasai.s/amcas-pro/results/fullscale/drbatch/Qwen3-30B-A3B-Q4_K_M_B16_P512t4/summary.json and dram.ramulator.trc (153,779,841 requests, VA-order packed)
+=== Ramulator: one DDR4-2400 channel
+
+ddr4, 1 channel(s), interleave 64 B << 0, issue 1/cycle
+mapper      policy          reads   writes    hit  conflict  rd_lat  Mcycles    GB/s
+RoBaRaCoCh  Open        153779841        0  0.974     0.011   191.8    820.8    14.4
+RoBaRaCoCh  ClosedCAP   153779841        0  0.783     0.006   237.8   1026.3    11.5
+MOP4CLXOR   Open        153779841        0  0.595     0.311   182.1    660.4    17.9
+MOP4CLXOR   ClosedCAP   153779841        0  0.547     0.222   186.3    660.1    17.9
+ChRaBaRoCo  Open        153779841        0  0.948     0.046   246.0   1081.7    10.9
+ChRaBaRoCo  ClosedCAP   153779841        0  0.782     0.021   419.2   1901.5     6.2
+=== Ramulator: 16 DDR5-4800 subchannels, 256 B interleave

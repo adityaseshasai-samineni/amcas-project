@@ -4,10 +4,32 @@
   packed ddr4 identity       in-order hit 0.960 banks 32/32
   packed ddr4 xor_global     in-order hit 0.957 banks 32/32
   packed ddr4 region         in-order hit 0.960 banks 32/32
-Traceback (most recent call last):
-  File "/home/adityaseshasai.s/amcas-pro/tools/moe_remap.py", line 119, in <module>
-    main()
-  File "/home/adityaseshasai.s/amcas-pro/tools/moe_remap.py", line 108, in main
-    assert len(np.unique((nb << 40) | (nr << 8) | nc)) == len(np.unique((ob << 40) | (orow << 8) | oc)), "not injective"
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-AssertionError: not injective
+  packed ddr4 expert_hash    in-order hit 0.965 banks 32/32
+  packed ddr4 expert_lin     in-order hit 0.961 banks 32/32
+  packed ddr4 region_expert  in-order hit 0.965 banks 32/32
+  [packed/ddr5 global] n=6,000,000 cost 520483 -> 422924; bank bit ^= {0: ['row8'], 1: ['row7', 'row8'], 2: ['row5'], 3: ['row5', 'row8'], 4: ['row7', 'row9']}
+  [packed/ddr5 region O] n=342,620 cost 207347 -> 193772; bank bit ^= {0: ['row1'], 1: ['row1', 'row2'], 2: ['row1'], 3: [], 4: ['row1']}
+  packed ddr5 identity       in-order hit 0.964 banks 512/512
+  packed ddr5 xor_global     in-order hit 0.966 banks 512/512
+  packed ddr5 region         in-order hit 0.964 banks 512/512
+  packed ddr5 expert_hash    in-order hit 0.966 banks 512/512
+  packed ddr5 expert_lin     in-order hit 0.963 banks 512/512
+  packed ddr5 region_expert  in-order hit 0.966 banks 512/512
+  [thp/ddr4 global] n=6,000,000 cost 4449366 -> 3894408; bank bit ^= {0: ['row2'], 1: ['row12'], 2: [], 3: [], 4: []}
+  [thp/ddr4 region K] n=43,738 cost 1275710 -> 186019; bank bit ^= {0: ['row7', 'row8'], 1: ['row11', 'row10'], 2: ['row14'], 3: ['row3'], 4: ['row13']}
+  [thp/ddr4 region O] n=309,212 cost 2284482 -> 1424100; bank bit ^= {0: ['row8', 'row10', 'row1'], 1: ['row10', 'row1'], 2: ['row14'], 3: ['row3'], 4: []}
+  thp ddr4 identity       in-order hit 0.960 banks 32/32
+  thp ddr4 xor_global     in-order hit 0.962 banks 32/32
+  thp ddr4 region         in-order hit 0.961 banks 32/32
+  thp ddr4 expert_hash    in-order hit 0.958 banks 32/32
+  thp ddr4 expert_lin     in-order hit 0.961 banks 32/32
+  thp ddr4 region_expert  in-order hit 0.959 banks 32/32
+  [thp/ddr5 global] n=6,000,000 cost 458248 -> 426686; bank bit ^= {0: ['row4'], 1: ['row3', 'row9'], 2: [], 3: ['row5', 'row8'], 4: ['row9']}
+  [thp/ddr5 region K] n=43,738 cost 368361 -> 36709; bank bit ^= {0: ['row4', 'row10'], 1: ['row8', 'row7', 'row2'], 2: ['row9'], 3: ['row5'], 4: ['row4']}
+  [thp/ddr5 region O] n=309,212 cost 666652 -> 212761; bank bit ^= {0: ['row8', 'row7'], 1: ['row1'], 2: ['row5'], 3: ['row6'], 4: []}
+  thp ddr5 identity       in-order hit 0.962 banks 512/512
+  thp ddr5 xor_global     in-order hit 0.961 banks 512/512
+  thp ddr5 region         in-order hit 0.963 banks 512/512
+  thp ddr5 expert_hash    in-order hit 0.962 banks 512/512
+  thp ddr5 expert_lin     in-order hit 0.965 banks 512/512
+  thp ddr5 region_expert  in-order hit 0.963 banks 512/512

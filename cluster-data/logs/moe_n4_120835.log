@@ -1,0 +1,19 @@
+==========================================
+SLURM_JOB_ID = 120835
+SLURM_NODELIST = node03
+SLURM_JOB_GPUS = 
+==========================================
+tracing llama_process calls 1..4
+drburst: attaching at step 1
+same text: NO
+1,2c1
+< Once upon a time there was a little girl named Lily. She was very curious and
+< 
+---
+> Once upon a time there was a little girl named Lily. She
+\ No newline at end of file
+0x000014cd559a4090 0x0000559754693a72
+0x000014cd559a42d0 0x0000559754696c25
+0x000014cd559a4370 0x00005597546513fe
+0x0000559756577898 0x000000000000000d
+/home/adityaseshasai.s/amcas-pro/tracing/drburst-attr-build/llama-drattr=0x0000559754378000>
