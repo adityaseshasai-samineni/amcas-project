@@ -3870,13 +3870,13 @@ llama_graph_n_input_tensors: input tensor '                         out_ids' [i3
 llama_graph_n_input_tensors: input tensor '                      inp_tokens' [i32, ne = {   512,     1,     1,     1 }] is used by node 'embd' (GET_ROWS)
 sched_reserve:        CPU compute buffer size =   317.52 MiB
 sched_reserve: graph: nodes = 3129, splits = 1, input objects = 4, input tensors = 9
-sched_reserve: reserve took 17.05 ms, sched copies = 1
+sched_reserve: reserve took 15.51 ms, sched copies = 1
 llama_state_seq_load_file: error loading sequence state file: n_stream mismatch
 drbatch: seq 0 evaluated and saved
-llama_state_seq_load_file: error loading sequence state file: failed to open /home/adityaseshasai.s/amcas-pro/results/sessions/drbatch/Qwen3-30B-A3B-Q4_K_M.gguf_P512_s30000_b1.seq: No such file or directory
+llama_state_seq_load_file: error loading sequence state file: n_stream mismatch
 drbatch: seq 1 evaluated and saved
-llama_state_seq_load_file: error loading sequence state file: failed to open /home/adityaseshasai.s/amcas-pro/results/sessions/drbatch/Qwen3-30B-A3B-Q4_K_M.gguf_P512_s30000_b2.seq: No such file or directory
+llama_state_seq_load_file: error loading sequence state file: n_stream mismatch
 drbatch: seq 2 evaluated and saved
-llama_state_seq_load_file: error loading sequence state file: failed to open /home/adityaseshasai.s/amcas-pro/results/sessions/drbatch/Qwen3-30B-A3B-Q4_K_M.gguf_P512_s30000_b3.seq: No such file or directory
+llama_state_seq_load_file: error loading sequence state file: n_stream mismatch
 drbatch: seq 3 evaluated and saved
-untraced 75.10 s, max RSS 32182012 KB
+untraced 66.83 s, max RSS 32211420 KB
