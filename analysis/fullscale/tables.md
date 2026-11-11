@@ -348,6 +348,10 @@ From the `drattr` runs (tensor addresses dumped, reads attributed by address). T
 | qwen25-05b-q4_0_attr | dense weights | 5.4 | 0.35 | 98.6 | 291 |
 | qwen25-05b-q4_0_attr | activations | 0.0 | 0.00 | 0.1 | 14 |
 | qwen25-05b-q4_0_attr | unattributed | 0.1 | 0.00 | 1.2 | 0 |
+| qwen25-05b-q4_0_attr_c32k | KV cache | 6.1 | 0.39 | 52.5 | 48 |
+| qwen25-05b-q4_0_attr_c32k | dense weights | 5.4 | 0.35 | 46.5 | 291 |
+| qwen25-05b-q4_0_attr_c32k | activations | 0.0 | 0.00 | 0.1 | 18 |
+| qwen25-05b-q4_0_attr_c32k | unattributed | 0.1 | 0.01 | 0.9 | 0 |
 | qwen25-05b-q4_0_s2n1t4_attr_smoke | KV cache | 0.0 | 0.00 | 0.1 | 48 |
 | qwen25-05b-q4_0_s2n1t4_attr_smoke | dense weights | 5.4 | 0.35 | 98.8 | 291 |
 | qwen25-05b-q4_0_s2n1t4_attr_smoke | activations | 0.0 | 0.00 | 0.0 | 14 |
@@ -397,6 +401,10 @@ From the `drattr` runs (tensor addresses dumped, reads attributed by address). T
 | qwen25-05b-q4_0_attr | dense weights | 97.3 | 96.1 | 97.3 | 97.1 |
 | qwen25-05b-q4_0_attr | activations | 94.2 | 88.5 | 60.9 | 94.2 |
 | qwen25-05b-q4_0_attr | unattributed | 89.1 | 83.3 | 88.4 | 87.7 |
+| qwen25-05b-q4_0_attr_c32k | KV cache | 96.2 | 93.7 | 49.0 | 85.6 |
+| qwen25-05b-q4_0_attr_c32k | dense weights | 97.6 | 96.9 | 97.6 | 97.7 |
+| qwen25-05b-q4_0_attr_c32k | activations | 88.7 | 83.1 | 67.5 | 87.8 |
+| qwen25-05b-q4_0_attr_c32k | unattributed | 87.6 | 79.5 | 86.4 | 86.1 |
 | qwen25-05b-q4_0_s2n1t4_attr_smoke | KV cache | 94.3 | 92.1 | 52.4 | 94.2 |
 | qwen25-05b-q4_0_s2n1t4_attr_smoke | dense weights | 97.1 | 95.7 | 97.0 | 96.4 |
 | qwen25-05b-q4_0_s2n1t4_attr_smoke | activations | 92.4 | 81.7 | 43.8 | 91.1 |

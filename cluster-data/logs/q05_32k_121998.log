@@ -8,3 +8,24 @@ drburst: attaching at step 16
 drburst: detached after step 16
 same text: yes
 361 /home/adityaseshasai.s/amcas-pro/results/fullscale/drattr/qwen25-05b-q4_0_s1n1t4_attr_c32k/tensors.tsv
+11,649,327 DRAM reads (745.6 MB), 1 threads
+stride, merged: {'+1 line': 0.506, '-1 line': 0.0, 'within 16 lines': 0.0, 'within 8 KiB row': 0.0, 'beyond': 0.493}
+stride, thread 2717029: {'+1 line': 0.506, '-1 line': 0.0, 'within 16 lines': 0.0, 'within 8 KiB row': 0.0, 'beyond': 0.493}
+
+offline in-order open-page row hit rate (DDR4 8 KiB row, 2 ranks x 16 banks)
+placement              RoRaBaCoCh   RoCoRaBaCh     XOR-bank
+VA-order packed             0.968        0.226        0.971
+4KiB shuffled               0.950        0.111        0.951
+THP 2MiB shuffled           0.719        0.225        0.912
+
+attribution by class (reads, share, MB; stride +1/within16/beyond, per class stream)
+  KV cache          6,113,020   0.525     391.2  +1 0.46 w16 0.00 beyond 0.54
+  dense weights     5,411,397   0.465     346.3  +1 0.65 w16 0.00 beyond 0.35
+  activations          14,516   0.001       0.9  +1 0.65 w16 0.10 beyond 0.23
+  unattributed        110,394   0.009       7.1  +1 0.32 w16 0.08 beyond 0.51
+  row hit VA-order packed / RoRaBaCoCh: KV cache 0.962, dense weights 0.976, activations 0.887, unattributed 0.876
+  row hit VA-order packed / XOR-bank: KV cache 0.968, dense weights 0.975, activations 0.889, unattributed 0.871
+  row hit 4KiB shuffled / RoRaBaCoCh: KV cache 0.937, dense weights 0.969, activations 0.831, unattributed 0.795
+  row hit 4KiB shuffled / XOR-bank: KV cache 0.938, dense weights 0.970, activations 0.840, unattributed 0.804
+  row hit THP 2MiB shuffled / RoRaBaCoCh: KV cache 0.490, dense weights 0.976, activations 0.675, unattributed 0.864
+  row hit THP 2MiB shuffled / XOR-bank: KV cache 0.856, dense weights 0.977, activations 0.878, unattributed 0.861
