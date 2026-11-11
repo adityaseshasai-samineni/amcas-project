@@ -18,12 +18,10 @@ placement packed: 2936 granules, tags W/K/O = [2084, 847, 5]; reads whose own cl
   [packed/ddr5 region K] n=110,201,810 cost 817328 -> 446236; bank bit ^= {0: ['row7', 'row6'], 1: ['row5', 'row7'], 2: [], 3: ['row7', 'row8'], 4: ['row6', 'row7']}
   [packed/ddr5 region O] n=964,273 cost 405954 -> 398435; bank bit ^= {0: ['row1', 'row0'], 1: [], 2: ['row1'], 3: [], 4: []}
   [packed/ddr5 region+chan] channel hash cost 656774 -> 463232; chan bit ^= {0: ['row0'], 1: ['row3'], 2: ['row5'], 3: ['row4']}
-Traceback (most recent call last):
-  File "/home/adityaseshasai.s/amcas-pro/tools/memsys_study.py", line 223, in <module>
-    main()
-  File "/home/adityaseshasai.s/amcas-pro/tools/memsys_study.py", line 211, in main
-    write_trace(os.path.join(a.out, fn), phys)
-  File "/home/adityaseshasai.s/amcas-pro/tools/memsys_study.py", line 112, in write_trace
-    with open(path, "w") as f:
-         ^^^^^^^^^^^^^^^
-FileNotFoundError: [Errno 2] No such file or directory: '/scratch/adityaseshasai.s/memsys/q7_32k_w12M/packed_ddr5_identity.trc'
+  packed ddr5   identity         in-order hit 0.947 banks 512/512 chan max/mean 1.057
+  packed ddr5   chan             in-order hit 0.953 banks 512/512 chan max/mean 1.006
+  packed ddr5   xor_global       in-order hit 0.944 banks 512/512 chan max/mean 1.057
+  packed ddr5   xor_global_chan  in-order hit 0.949 banks 512/512 chan max/mean 1.008
+  packed ddr5   region           in-order hit 0.946 banks 512/512 chan max/mean 1.057
+  packed ddr5   region_chan      in-order hit 0.957 banks 512/512 chan max/mean 1.052
+placement thp: 3122 granules, tags W/K/O = [2179, 896, 47]; reads whose own class equals granule tag 1.0000
