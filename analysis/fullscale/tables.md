@@ -512,8 +512,10 @@ Each remap rewrites the read stream with the named scheme (identity = no change)
 | qwen25-05b-q4_0_attr_c32k | packed | ddr4 | ClosedCAP | 1.00 (hit 79%) | 1.68 (hit 78%) | 1.00 (hit 79%) | 1.00 (hit 79%) |
 | qwen25-05b-q4_0_attr_c32k | packed | ddr5 | Open | 1.00 (hit 96%) | 1.64 (hit 94%) | 1.00 (hit 96%) | 1.00 (hit 96%) |
 | qwen25-05b-q4_0_attr_c32k | packed | ddr5 | ClosedCAP | 1.00 (hit 78%) | 2.25 (hit 77%) | 1.00 (hit 78%) | 1.00 (hit 78%) |
-| qwen25-05b-q4_0_attr_c32k | thp | ddr4 | Open | 1.00 (hit 92%) | 0.93 (hit 97%) | - | - |
-| qwen25-05b-q4_0_attr_c32k | thp | ddr4 | ClosedCAP | 1.00 (hit 78%) | 0.99 (hit 79%) | - | - |
+| qwen25-05b-q4_0_attr_c32k | thp | ddr4 | Open | 1.00 (hit 92%) | 0.93 (hit 97%) | 0.88 (hit 98%) | 0.87 (hit 98%) |
+| qwen25-05b-q4_0_attr_c32k | thp | ddr4 | ClosedCAP | 1.00 (hit 78%) | 0.99 (hit 79%) | 0.81 (hit 79%) | 0.81 (hit 79%) |
+| qwen25-05b-q4_0_attr_c32k | thp | ddr5 | Open | 1.00 (hit 93%) | 1.08 (hit 95%) | 0.88 (hit 96%) | 0.88 (hit 96%) |
+| qwen25-05b-q4_0_attr_c32k | thp | ddr5 | ClosedCAP | 1.00 (hit 78%) | 1.24 (hit 78%) | 0.82 (hit 78%) | 0.80 (hit 78%) |
 
 ## Batched decode (drbatch, 512-token prompts, 4 threads)
 

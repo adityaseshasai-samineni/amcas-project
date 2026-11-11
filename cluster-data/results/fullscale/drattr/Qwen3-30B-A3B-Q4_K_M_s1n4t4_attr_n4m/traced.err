@@ -1,37 +1,27 @@
-0.00.001.045 I llama_completion: llama backend init
-0.00.014.251 I llama_completion: load the model and apply lora adapter, if any
-0.00.347.054 W load: control-looking token: 128247 '</s>' was not control-type; this is probably a bug in the model. its type will be overridden
-0.14.569.105 I cmn          init: llama threadpool init, n_threads = 4
-0.14.576.467 I 
-0.14.576.569 I system_info: n_threads = 4 (n_threads_batch = 4) / 96 | CPU : SSE3 = 1 | SSSE3 = 1 | AVX = 1 | AVX2 = 1 | F16C = 1 | FMA = 1 | BMI2 = 1 | AVX512 = 1 | AVX512_VNNI = 1 | LLAMAFILE = 1 | OPENMP = 1 | REPACK = 1 | 
-0.14.576.570 I 
-0.14.576.754 I sampler seed: 4294967295
-0.14.576.766 I sampler params: 
+0.00.001.370 I llama_completion: llama backend init
+0.00.003.048 I llama_completion: load the model and apply lora adapter, if any
+0.00.360.906 W load: control-looking token: 128247 '</s>' was not control-type; this is probably a bug in the model. its type will be overridden
+0.13.928.683 I cmn          init: llama threadpool init, n_threads = 4
+0.13.936.730 I 
+0.13.936.844 I system_info: n_threads = 4 (n_threads_batch = 4) / 96 | CPU : SSE3 = 1 | SSSE3 = 1 | AVX = 1 | AVX2 = 1 | F16C = 1 | FMA = 1 | BMI2 = 1 | AVX512 = 1 | AVX512_VNNI = 1 | LLAMAFILE = 1 | OPENMP = 1 | REPACK = 1 | 
+0.13.936.845 I 
+0.13.937.108 I sampler seed: 4294967295
+0.13.937.124 I sampler params: 
 	repeat_last_n = 64, repeat_penalty = 1.000, frequency_penalty = 0.000, presence_penalty = 0.000
 	dry_multiplier = 0.000, dry_base = 1.750, dry_allowed_length = 2, dry_penalty_last_n = 64
 	top_k = 40, top_p = 0.950, min_p = 0.050, xtc_probability = 0.000, xtc_threshold = 0.100, typical_p = 1.000, top_n_sigma = -1.000, temp = 0.000
 	mirostat = 0, mirostat_lr = 0.100, mirostat_ent = 5.000, adaptive_target = -1.000, adaptive_decay = 0.900
-0.14.576.775 I sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> min-p -> ?xtc -> temp-ext -> greedy 
-0.14.576.776 I generate: n_ctx = 4096, n_batch = 2048, n_predict = 5, n_keep = 0
-0.14.576.777 I 
+0.13.937.137 I sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> min-p -> ?xtc -> temp-ext -> greedy 
+0.13.937.139 I generate: n_ctx = 4096, n_batch = 2048, n_predict = 5, n_keep = 0
+0.13.937.139 I 
 drburst: attaching at step 1
-<Application /home/adityaseshasai.s/amcas-pro/tracing/drburst-attr-build/llama-drattr (405240).  Internal Error: DynamoRIO debug check failure: /home/runner/work/dynamorio/dynamorio/core/heap.c:1987 IF_WINDOWS(doing_detach ||) vmh->num_free_blocks == vmh->num_blocks - unfreed_blocks || ((ever_beyond_vmm IF_WINDOWS(|| get_os_version() >= WINDOWS_VERSION_8_1)) && vmh->num_free_blocks >= vmh->num_blocks - unfreed_blocks)
-(Error occurred @268 frags in tid 405240)
-version 11.3.0, build 1
--client_lib ';;-offline -outdir /scratch/adityaseshasai.s/drattr/Qwen3-30B-A3B-Q4_K_M_s1n4t4_attr_n4m -max_trace_size 17179869184' -stderr_mask 12 -stack_size 56K -signal_stack_size 32K -max_elide_jmp 0 -max_elide_call 0 -no_inline_ignored_syscalls -native_exec_default_list '' -no_native_exec_managed_code -no_indcall2dir
-0x000014cd559a3950 0x000055975447fc16
-0x000014cd559a3ba0 0x000055975451594e
-0x000014cd559a3be0 0x00005597545159dd
-0x000014cd559a3bf0 0x00005597543f6911
-0x000014cd559a3c30 0x00005597543f6c54
-0x000014cd559a3c50 0x00005597543f6de2
-0x000014cd559a3c70 0x000055975469b327
-0x000014cd559a3dd0 0x000055975469b70c
-0x000014cd559a3e00 0x000055975468fe76
-0x000014cd559a3e70 0x0000559754690381
-0x000014cd559a3ff0 0x0000559754697034
-0x000014cd559a4090 0x0000559754693a72
-0x000014cd559a42d0 0x0000559754696c25
-0x000014cd559a4370 0x00005597546513fe
-0x0000559756577898 0x000000000000000d
-/home/adityaseshasai.s/amcas-pro/tracing/drburst-attr-build/llama-drattr=0x0000559754378000>
+drburst: detached after step 4
+0.24.085.791 I common_perf_print:    sampling time =      61.86 ms
+0.24.085.794 I common_perf_print:    samplers time =      32.89 ms /    17 tokens
+0.24.085.804 I common_perf_print:        load time =    6989.46 ms
+0.24.085.806 I common_perf_print: prompt eval time =    6969.53 ms /    12 tokens (  580.79 ms per token,     1.72 tokens per second)
+0.24.085.808 I common_perf_print:        eval time =    3011.92 ms /     4 runs   (  752.98 ms per token,     1.33 tokens per second)
+0.24.085.809 I common_perf_print:       total time =   10149.08 ms /    16 tokens
+0.24.085.810 I common_perf_print: unaccounted time =     105.78 ms /   1.0 %      (total - sampling - prompt eval - eval) / (total)
+0.24.085.810 I common_perf_print:    graphs reused =          3
+0.24.085.812 I common_perf_print:   graph reallocs =          0    /     0        (same size) / (changed size)

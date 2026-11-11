@@ -1,29 +1,25 @@
-<Starting application /home/adityaseshasai.s/amcas-pro/tracing/drburst-attr-build/llama-drattr (405219)>
-<unable to determine lib path for cross-arch execve>
-<Initial options = -stack_size 56K -signal_stack_size 32K -max_elide_jmp 0 -max_elide_call 0 -no_inline_ignored_syscalls -native_exec_default_list '' -no_native_exec_managed_code -no_indcall2direct >
-0.00.001.309 I llama_completion: llama backend init
-0.00.002.868 I llama_completion: load the model and apply lora adapter, if any
-0.00.313.916 W load: control-looking token: 128247 '</s>' was not control-type; this is probably a bug in the model. its type will be overridden
-0.20.454.816 I cmn          init: llama threadpool init, n_threads = 4
-0.20.462.190 I 
-0.20.462.294 I system_info: n_threads = 4 (n_threads_batch = 4) / 96 | CPU : SSE3 = 1 | SSSE3 = 1 | AVX = 1 | AVX2 = 1 | F16C = 1 | FMA = 1 | BMI2 = 1 | AVX512 = 1 | AVX512_VNNI = 1 | LLAMAFILE = 1 | OPENMP = 1 | REPACK = 1 | 
-0.20.462.295 I 
-0.20.462.516 I sampler seed: 4294967295
-0.20.462.528 I sampler params: 
+0.00.001.433 I llama_completion: llama backend init
+0.00.003.050 I llama_completion: load the model and apply lora adapter, if any
+0.00.420.740 W load: control-looking token: 128247 '</s>' was not control-type; this is probably a bug in the model. its type will be overridden
+2.54.030.421 I cmn          init: llama threadpool init, n_threads = 4
+2.54.038.274 I 
+2.54.038.381 I system_info: n_threads = 4 (n_threads_batch = 4) / 96 | CPU : SSE3 = 1 | SSSE3 = 1 | AVX = 1 | AVX2 = 1 | F16C = 1 | FMA = 1 | BMI2 = 1 | AVX512 = 1 | AVX512_VNNI = 1 | LLAMAFILE = 1 | OPENMP = 1 | REPACK = 1 | 
+2.54.038.383 I 
+2.54.038.514 I sampler seed: 4294967295
+2.54.038.529 I sampler params: 
 	repeat_last_n = 64, repeat_penalty = 1.000, frequency_penalty = 0.000, presence_penalty = 0.000
 	dry_multiplier = 0.000, dry_base = 1.750, dry_allowed_length = 2, dry_penalty_last_n = 64
 	top_k = 40, top_p = 0.950, min_p = 0.050, xtc_probability = 0.000, xtc_threshold = 0.100, typical_p = 1.000, top_n_sigma = -1.000, temp = 0.000
 	mirostat = 0, mirostat_lr = 0.100, mirostat_ent = 5.000, adaptive_target = -1.000, adaptive_decay = 0.900
-0.20.462.537 I sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> min-p -> ?xtc -> temp-ext -> greedy 
-0.20.462.538 I generate: n_ctx = 4096, n_batch = 2048, n_predict = 5, n_keep = 0
-0.20.462.539 I 
-0.21.429.081 I common_perf_print:    sampling time =       3.05 ms
-0.21.429.086 I common_perf_print:    samplers time =       0.81 ms /    17 tokens
-0.21.429.092 I common_perf_print:        load time =     577.81 ms
-0.21.429.093 I common_perf_print: prompt eval time =     576.62 ms /    12 tokens (   48.05 ms per token,    20.81 tokens per second)
-0.21.429.095 I common_perf_print:        eval time =     385.80 ms /     4 runs   (   96.45 ms per token,    10.37 tokens per second)
-0.21.429.096 I common_perf_print:       total time =     966.91 ms /    16 tokens
-0.21.429.097 I common_perf_print: unaccounted time =       1.44 ms /   0.1 %      (total - sampling - prompt eval - eval) / (total)
-0.21.429.097 I common_perf_print:    graphs reused =          3
-0.21.429.104 I common_perf_print:   graph reallocs =          0    /     0        (same size) / (changed size)
-<Stopping application /home/adityaseshasai.s/amcas-pro/tracing/drburst-attr-build/llama-drattr (405219)>
+2.54.038.540 I sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> min-p -> ?xtc -> temp-ext -> greedy 
+2.54.038.542 I generate: n_ctx = 4096, n_batch = 2048, n_predict = 5, n_keep = 0
+2.54.038.542 I 
+2.55.177.761 I common_perf_print:    sampling time =       4.25 ms
+2.55.177.762 I common_perf_print:    samplers time =       1.04 ms /    17 tokens
+2.55.177.770 I common_perf_print:        load time =     729.62 ms
+2.55.177.772 I common_perf_print: prompt eval time =     716.62 ms /    12 tokens (   59.72 ms per token,    16.75 tokens per second)
+2.55.177.774 I common_perf_print:        eval time =     405.39 ms /     4 runs   (  101.35 ms per token,     9.87 tokens per second)
+2.55.177.775 I common_perf_print:       total time =    1139.50 ms /    16 tokens
+2.55.177.775 I common_perf_print: unaccounted time =      13.25 ms /   1.2 %      (total - sampling - prompt eval - eval) / (total)
+2.55.177.776 I common_perf_print:    graphs reused =          3
+2.55.177.782 I common_perf_print:   graph reallocs =          0    /     0        (same size) / (changed size)
