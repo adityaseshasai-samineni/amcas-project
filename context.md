@@ -1099,3 +1099,41 @@ Harness fixes: 122135/120093 failures were (a) node05 `/scratch` 100% full (ENOS
 Same traces saturated (Open, Mcycles): packed x16 3.91 / 3.91 / 2.78 / 2.90; THP x16 4.71 / 3.95 / 3.36 / 3.16; 4 KiB x16 3.93 / 3.93 / 2.34 / 2.33 (x8 similar, about 2x larger). So the robustness-owner's saturated gain (-30 to -40%) reproduces, but **closed-loop it almost vanishes**: channel hash alone is 0-1% for packed and 4 KiB, 6% for THP (bank XOR alone already gives 11-13% there), and the combination is no better than xor_global (THP 46.25 vs 46.38). ClosedCAP shows the same pattern. Cause: with 4 cores and 16 MSHRs the demand (about 13 GB/s) is far below channel capacity, so temporal channel clumping does not stall the cores. Magnitude -35% to -47% is therefore a saturated (bandwidth-bound) upper bound; the closed-loop gain is the THP bank XOR only (about 11-13% cycles, 14-15% latency). Caveat: closed-loop is core-bound by construction (constant bubbles, 4 cores); a machine with many more cores/threads would sit between the two.
 
 **Writes, 0.5B and 7B 8k** (`20_drwb.sh`, jobs 122013 and 122338). 0.5B: KV writes 12,288 B/token exactly, activations 51,584 B, writes 0.39% of requests. 7B 8k: 75.3M reads, 204k writes (0.27%), KV append 57,344 B/token (28 layers x 2 x 4 heads x 128 x 2 B, exact), activations 7.4 MB, unattributed 5.6 MB. Writes add 0.3-1.1% saturated cycles. XOR gain holds: 7B 8k THP DDR5 identity -> xor_global 8.45 -> 7.85 Mcycles reads-only (-7.1%), 8.54 -> 7.91 with writes (-7.4%). 7B 32k writes job 122378 pending; result to be appended.
+
+### mapping-owner: held-out, 32k MoE, batched mapping (2026-11-12)
+
+Jobs: 121992 attr_t2 (7B 32k, decode token 2; "detached after step 17", same text yes), 121997 q30_32k (same text yes; LL misses 224.1M = 14.3 GB at 64 B, no prefetch, versus about 5 GB naive weights+KV: strong KV amplification), 121998 q05_32k (same text yes), 121993 moe_n4 (same text yes, detached after step 4; capture only, not replayed), 122001 bmiss7b16 (7B B=16 miss stream). Replays: heldout 122333, region 122334 (30B 32k), 122262 (7B B=16), 122150 (30B B=4 THP; first try 122134 died with ENOSPC on node05 /scratch, 122260/121999 on node01 scratch, both full from other data; rerun after cleanup), 122005 (30B B=16 mapstudy), 122000 (0.5B 32k). Ratios below are Ramulator Mcycles relative to identity (id) and to xor_global (xg), 8M-request window, Open / ClosedCAP; h = row hit.
+
+**1. Held-out test (7B 32k, 122333): the XOR searched on token 1 transfers to token 2.** THP placement (matrices over physical row bits, searched on stream A and applied to stream B; "self" = searched on B itself):
+
+| DRAM, policy | identity Mcycles (hit) | xor_train | xor_self | region_train | region_self |
+|---|---|---|---|---|---|
+| DDR4x1 Open | 44.02 (0.833) | 37.85 = 0.860 (0.958) | 0.854 | 0.855 | 0.856 |
+| DDR4x1 ClosedCAP | 47.48 (0.738) | 41.36 = 0.871 | 0.859 | 0.865 | 0.865 |
+| DDR5x16 Open | 10.78 (0.856) | 9.10 = 0.844 (0.959) | 0.840 | 0.847 | 0.840 |
+| DDR5x16 ClosedCAP | 14.47 (0.710) | 10.30 = 0.712 (0.767) | 0.698 | 0.750 | 0.713 |
+
+Held-out gain is 14-16% (Open) and 13% / 29% (DDR4 / DDR5 ClosedCAP), within 1-2 points of the in-sample numbers. Packed placement: no gain on either token (identity hit 0.966; xor_train 1.003-1.018). Region_train is not better than the global XOR. Verdict: the XOR gain is a property of the THP page-offset structure of the KV stream, not an overfit to one token's addresses.
+
+**2. Qwen3-30B-A3B at 32k (122334), THP:**
+
+| DRAM, policy | identity Mcycles (hit) | xor_global | region |
+|---|---|---|---|
+| DDR4x1 Open | 65.77 (0.822) | 0.843 (0.954) | 0.852 |
+| DDR4x1 ClosedCAP | 73.43 (0.750) | 0.819 | 0.831 |
+| DDR5x16 Open | 21.60 (0.801) | 0.776 (0.953) | 0.780 |
+| DDR5x16 ClosedCAP | 29.36 (0.683) | 0.656 (0.764) | 0.670 |
+
+Packed: identity already 0.952-0.954 hit, gain <= 2%. The KV-page XOR gain appears on the MoE model at 32k and is larger than for 7B (22-34%); region is within 1-2% of xor_global (never better).
+
+**3. 0.5B control at 32k (122000), THP:** xor_global 0.880 / 0.811 (DDR4 Open / Closed), 0.883 / 0.815 (DDR5); region 0.871 / 0.807 / 0.878 / 0.800 (region slightly ahead here, 0-2%). Packed: no gain. Same shape as 7B and 30B.
+
+**4. Batched streams, THP** (xor_global / identity; region within 1%):
+- 7B B=16 (122262): DDR4 Open 0.968, Closed 0.947; DDR5 Open 0.931, Closed 0.862. Packed: 1.000 (no gain).
+- 30B B=4 (122150, THP now complete): DDR4 Open 0.990, Closed 0.985; DDR5 Open 0.980, Closed 0.990. Hit identity 0.968 -> 0.975.
+- 30B B=16 (122005): DDR4 Open 0.974, Closed 0.977; DDR5 Open 0.922, Closed 0.857 (identity hit 0.952 -> 0.962 Open). region 0.927 / 0.869, region_expert 0.926 / 0.873, expert_hash / expert_lin 1.000-1.004: expert-aware mappings add nothing over xor_global at B=16 either.
+- Packed 30B B=16 gains <= 2%; expert-aware ~ identity.
+
+**Verdict for the proposal.** A page-offset-aware XOR (permute bank bits with row bits, the matrix being searched offline once) removes the THP-induced row conflicts of the KV and large-activation streams: 12-34% fewer cycles at long context (32k) across 0.5B, 7B and 30B-A3B, and it transfers across tokens (held-out). It is a no-op when pages are contiguous (packed). Gains shrink with batching (large weight reads dominate): DDR5 Open 7% (7B B16), 8% (30B B16), 2% (30B B4). Region-specific (K/V/O) matrices and expert-aware mappings never beat the single global XOR by more than 1-2%; the global XOR is the proposal. Caveats: replays are open-loop, 8M-request windows, placement is modelled (random THP), single decode token per stream.
+
+Operational: node05 and node01 /scratch were full (other users' data; node01 freed by the main session); scripts use node-local /scratch, so check `df /scratch` before replays.
