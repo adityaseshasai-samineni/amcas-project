@@ -51,6 +51,9 @@ LAYOUTS = {
     # name: line bits, col_bits, bank_bits(region), row_bits, channel shift s, channel width W
     "ddr4": dict(col=7, bank=5, row=16, s=0, W=0),
     "ddr5": dict(col=6, bank=5, row=16, s=8, W=4),
+    # 8 independent 32-bit subchannel controllers (4 DIMM channels x 2 subchannels), 256 B interleave:
+    # same intra-channel layout as ddr5, 3 channel bits instead of 4 (added by memsys)
+    "ddr5x8": dict(col=6, bank=5, row=16, s=8, W=3),
 }
 
 

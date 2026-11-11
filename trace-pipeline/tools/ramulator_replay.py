@@ -83,9 +83,16 @@ def main():
     ap.add_argument("--channels", type=int, default=1)
     ap.add_argument("--interleave-bits", type=int, default=0)
     ap.add_argument("--issue", type=int, default=1, help="requests the front end offers per memory cycle")
+    ap.add_argument("--preset", choices=["ddr5x16", "ddr5x8"],
+                    help="shorthand for --dram ddr5 with channels/issue: ddr5x16 = 16 subchannels (8 DIMM channels, 307 GB/s), "
+                         "interleave 256 B, issue 4; ddr5x8 = 8 subchannels (4 DIMM channels, 154 GB/s), interleave 256 B, issue 2. "
+                         "Both DDR5-4800B 16Gb x8.")
     ap.add_argument("--procs", type=int, default=6, help="configurations run at once; each holds the whole trace")
     ap.add_argument("--mappers", default=",".join(MAPPERS), help="comma list; RoBaRaCoCh only for pre-transformed (remap.py) traces")
     a = ap.parse_args()
+    if a.preset:
+        a.dram, a.interleave_bits = "ddr5", 2
+        a.channels, a.issue = (16, 4) if a.preset == "ddr5x16" else (8, 2)
     cfgs = [(a.trace, m, p, a) for m in a.mappers.split(",") for p in POLICIES]
     with multiprocessing.Pool(min(a.procs, len(cfgs))) as pool:
         res = pool.map(run, cfgs)
