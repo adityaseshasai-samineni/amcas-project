@@ -2,6 +2,91 @@
 
 Policies are new Ramulator 2.1 plugins (trace-pipeline/ramulator-ext): Timeout (64 idle cycles), HAPPY-style predictor (simplified, see happy.cpp), Region (close KV/other granules after 4 column accesses, open weights). Window: 4M contiguous misses of one decode token, 4 threads. `sat` = saturated LoadStore replay; `o3` = closed-loop SimpleO3 with 4 cores (16 MSHRs each, constant bubbles = instructions per read). Cycles are memory-clock cycles.
 
+## Qwen3-30B-A3B-Q4_K_M_s1n1t4_attr_miss
+
+| condition | policy | hit | read lat | Mcycles | GB/s | vs best baseline |
+|---|---|---|---|---|---|---|
+| packed_ddr4_identity o3 | Open (Open) | 0.817 | 48 | 74.99 | 12.5 | 1.000 |
+| packed_ddr4_identity o3 | ClosedCAP | 0.650 | 52 | 78.83 | 11.9 | 1.051 |
+| packed_ddr4_identity o3 | Timeout | 0.580 | 54 | 80.60 | 11.5 | 1.075 |
+| packed_ddr4_identity o3 | HAPPY | 0.776 | 54 | 83.72 | 11.1 | 1.116 |
+| packed_ddr4_identity o3 | Region | 0.816 | 48 | 74.73 | 12.5 | 0.997 |
+| packed_ddr4_identity sat | Open (Open) | 0.984 | 184 | 20.38 | 15.1 | 1.000 |
+| packed_ddr4_identity sat | ClosedCAP | 0.788 | 210 | 23.26 | 13.2 | 1.141 |
+| packed_ddr4_identity sat | Timeout | 0.943 | 188 | 20.65 | 14.9 | 1.013 |
+| packed_ddr4_identity sat | HAPPY | 0.983 | 184 | 20.39 | 15.1 | 1.001 |
+| packed_ddr4_identity sat | Region | 0.982 | 184 | 20.39 | 15.1 | 1.000 |
+| packed_ddr4_xor_global o3 | Open (Open) | 0.824 | 47 | 73.49 | 12.7 | 1.000 |
+| packed_ddr4_xor_global o3 | ClosedCAP | 0.658 | 51 | 75.94 | 12.2 | 1.033 |
+| packed_ddr4_xor_global o3 | Timeout | 0.591 | 53 | 78.09 | 11.9 | 1.063 |
+| packed_ddr4_xor_global o3 | HAPPY | 0.784 | 53 | 82.63 | 11.3 | 1.124 |
+| packed_ddr4_xor_global o3 | Region | 0.829 | 47 | 71.72 | 12.9 | 0.976 |
+| packed_ddr4_xor_global sat | Open (Open) | 0.983 | 184 | 20.47 | 15.0 | 1.000 |
+| packed_ddr4_xor_global sat | ClosedCAP | 0.788 | 211 | 23.40 | 13.1 | 1.143 |
+| packed_ddr4_xor_global sat | Timeout | 0.942 | 188 | 20.73 | 14.8 | 1.013 |
+| packed_ddr4_xor_global sat | HAPPY | 0.983 | 184 | 20.47 | 15.0 | 1.000 |
+| packed_ddr4_xor_global sat | Region | 0.982 | 184 | 20.47 | 15.0 | 1.000 |
+| packed_ddr5_identity o3 | Open (Open) | 0.773 | 73 | 42.37 | 14.6 | 1.000 |
+| packed_ddr5_identity o3 | ClosedCAP | 0.727 | 74 | 42.39 | 14.5 | 1.001 |
+| packed_ddr5_identity o3 | Timeout | 0.212 | 103 | 52.15 | 11.8 | 1.231 |
+| packed_ddr5_identity o3 | HAPPY | 0.770 | 74 | 42.72 | 14.5 | 1.008 |
+| packed_ddr5_identity o3 | Region | 0.772 | 74 | 42.47 | 14.6 | 1.002 |
+| packed_ddr5_identity sat | Open (Open) | 0.970 | 278 | 2.28 | 269.8 | 1.000 |
+| packed_ddr5_identity sat | ClosedCAP | 0.781 | 361 | 2.89 | 212.6 | 1.269 |
+| packed_ddr5_identity sat | Timeout | 0.909 | 274 | 2.33 | 264.2 | 1.021 |
+| packed_ddr5_identity sat | HAPPY | 0.970 | 278 | 2.28 | 269.4 | 1.001 |
+| packed_ddr5_identity sat | Region | 0.969 | 279 | 2.28 | 269.7 | 1.000 |
+| packed_ddr5_xor_global o3 | Open (Open) | 0.772 | 74 | 42.45 | 14.5 | 1.000 |
+| packed_ddr5_xor_global o3 | ClosedCAP | 0.725 | 74 | 42.54 | 14.5 | 1.002 |
+| packed_ddr5_xor_global o3 | Timeout | 0.212 | 103 | 52.13 | 11.8 | 1.228 |
+| packed_ddr5_xor_global o3 | HAPPY | 0.768 | 74 | 42.60 | 14.5 | 1.003 |
+| packed_ddr5_xor_global o3 | Region | 0.771 | 74 | 42.49 | 14.5 | 1.001 |
+| packed_ddr5_xor_global sat | Open (Open) | 0.970 | 280 | 2.28 | 270.4 | 1.000 |
+| packed_ddr5_xor_global sat | ClosedCAP | 0.781 | 358 | 2.87 | 214.2 | 1.262 |
+| packed_ddr5_xor_global sat | Timeout | 0.909 | 274 | 2.32 | 264.7 | 1.021 |
+| packed_ddr5_xor_global sat | HAPPY | 0.970 | 278 | 2.28 | 270.0 | 1.002 |
+| packed_ddr5_xor_global sat | Region | 0.970 | 279 | 2.28 | 270.3 | 1.000 |
+| thp_ddr4_identity o3 | Open (Open) | 0.817 | 48 | 75.68 | 12.4 | 1.000 |
+| thp_ddr4_identity o3 | ClosedCAP | 0.655 | 51 | 76.79 | 12.1 | 1.015 |
+| thp_ddr4_identity o3 | Timeout | 0.581 | 54 | 79.70 | 11.7 | 1.053 |
+| thp_ddr4_identity o3 | HAPPY | 0.784 | 53 | 82.03 | 11.3 | 1.084 |
+| thp_ddr4_identity o3 | Region | 0.815 | 48 | 75.28 | 12.5 | 0.995 |
+| thp_ddr4_identity sat | Open (Open) | 0.983 | 183 | 20.23 | 15.2 | 1.000 |
+| thp_ddr4_identity sat | ClosedCAP | 0.788 | 210 | 23.22 | 13.2 | 1.148 |
+| thp_ddr4_identity sat | Timeout | 0.943 | 187 | 20.51 | 15.0 | 1.014 |
+| thp_ddr4_identity sat | HAPPY | 0.983 | 183 | 20.24 | 15.2 | 1.001 |
+| thp_ddr4_identity sat | Region | 0.982 | 183 | 20.25 | 15.2 | 1.001 |
+| thp_ddr4_xor_global o3 | Open (Open) | 0.831 | 47 | 71.95 | 12.9 | 1.000 |
+| thp_ddr4_xor_global o3 | ClosedCAP | 0.661 | 50 | 76.33 | 12.3 | 1.061 |
+| thp_ddr4_xor_global o3 | Timeout | 0.601 | 52 | 76.11 | 12.2 | 1.058 |
+| thp_ddr4_xor_global o3 | HAPPY | 0.792 | 51 | 80.82 | 11.5 | 1.123 |
+| thp_ddr4_xor_global o3 | Region | 0.829 | 47 | 72.71 | 12.8 | 1.011 |
+| thp_ddr4_xor_global sat | Open (Open) | 0.984 | 184 | 20.38 | 15.1 | 1.000 |
+| thp_ddr4_xor_global sat | ClosedCAP | 0.788 | 210 | 23.20 | 13.2 | 1.138 |
+| thp_ddr4_xor_global sat | Timeout | 0.944 | 188 | 20.64 | 14.9 | 1.013 |
+| thp_ddr4_xor_global sat | HAPPY | 0.984 | 184 | 20.41 | 15.1 | 1.001 |
+| thp_ddr4_xor_global sat | Region | 0.983 | 184 | 20.39 | 15.1 | 1.001 |
+| thp_ddr5_identity o3 | Open | 0.770 | 74 | 42.61 | 14.5 | 1.002 |
+| thp_ddr5_identity o3 | ClosedCAP (ClosedCAP) | 0.725 | 74 | 42.53 | 14.5 | 1.000 |
+| thp_ddr5_identity o3 | Timeout | 0.212 | 103 | 52.14 | 11.8 | 1.226 |
+| thp_ddr5_identity o3 | HAPPY | 0.767 | 74 | 42.80 | 14.5 | 1.006 |
+| thp_ddr5_identity o3 | Region | 0.771 | 74 | 42.56 | 14.5 | 1.001 |
+| thp_ddr5_identity sat | Open (Open) | 0.969 | 281 | 2.27 | 270.7 | 1.000 |
+| thp_ddr5_identity sat | ClosedCAP | 0.780 | 359 | 2.88 | 213.6 | 1.267 |
+| thp_ddr5_identity sat | Timeout | 0.909 | 275 | 2.32 | 264.8 | 1.022 |
+| thp_ddr5_identity sat | HAPPY | 0.969 | 279 | 2.28 | 270.5 | 1.001 |
+| thp_ddr5_identity sat | Region | 0.969 | 281 | 2.27 | 270.7 | 1.000 |
+| thp_ddr5_xor_global o3 | Open | 0.770 | 74 | 42.62 | 14.5 | 1.004 |
+| thp_ddr5_xor_global o3 | ClosedCAP (ClosedCAP) | 0.726 | 74 | 42.45 | 14.5 | 1.000 |
+| thp_ddr5_xor_global o3 | Timeout | 0.212 | 103 | 52.12 | 11.8 | 1.228 |
+| thp_ddr5_xor_global o3 | HAPPY | 0.769 | 74 | 42.58 | 14.5 | 1.003 |
+| thp_ddr5_xor_global o3 | Region | 0.771 | 74 | 42.56 | 14.5 | 1.003 |
+| thp_ddr5_xor_global sat | Open (Open) | 0.970 | 279 | 2.27 | 270.9 | 1.000 |
+| thp_ddr5_xor_global sat | ClosedCAP | 0.781 | 359 | 2.88 | 213.8 | 1.267 |
+| thp_ddr5_xor_global sat | Timeout | 0.909 | 273 | 2.32 | 265.0 | 1.022 |
+| thp_ddr5_xor_global sat | HAPPY | 0.970 | 278 | 2.27 | 270.7 | 1.001 |
+| thp_ddr5_xor_global sat | Region | 0.970 | 279 | 2.27 | 270.9 | 1.000 |
+
 ## qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n1t4_attr_c32k
 
 | condition | policy | hit | read lat | Mcycles | GB/s | vs best baseline |
@@ -87,9 +172,98 @@ Policies are new Ramulator 2.1 plugins (trace-pipeline/ramulator-ext): Timeout (
 | thp_ddr5_xor_global sat | HAPPY | 0.958 | 192 | 3.94 | 156.3 | 1.001 |
 | thp_ddr5_xor_global sat | Region | 0.864 | 212 | 4.28 | 143.8 | 1.088 |
 
+## qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n1t4_attr_c8k
+
+| condition | policy | hit | read lat | Mcycles | GB/s | vs best baseline |
+|---|---|---|---|---|---|---|
+| packed_ddr4_identity o3 | Open | 0.809 | 47 | 78.46 | 12.3 | 1.008 |
+| packed_ddr4_identity o3 | ClosedCAP (ClosedCAP) | 0.650 | 50 | 77.83 | 11.9 | 1.000 |
+| packed_ddr4_identity o3 | Timeout | 0.574 | 52 | 80.44 | 11.8 | 1.033 |
+| packed_ddr4_identity o3 | HAPPY | 0.762 | 53 | 88.71 | 10.9 | 1.140 |
+| packed_ddr4_identity o3 | Region | 0.795 | 48 | 76.92 | 12.2 | 0.988 |
+| packed_ddr4_identity sat | Open (Open) | 0.979 | 182 | 20.14 | 15.3 | 1.000 |
+| packed_ddr4_identity sat | ClosedCAP | 0.784 | 207 | 22.80 | 13.5 | 1.132 |
+| packed_ddr4_identity sat | Timeout | 0.930 | 187 | 20.46 | 15.0 | 1.016 |
+| packed_ddr4_identity sat | HAPPY | 0.979 | 182 | 20.15 | 15.3 | 1.000 |
+| packed_ddr4_identity sat | Region | 0.960 | 183 | 20.26 | 15.2 | 1.006 |
+| packed_ddr4_xor_global o3 | Open (Open) | 0.819 | 46 | 73.80 | 12.6 | 1.000 |
+| packed_ddr4_xor_global o3 | ClosedCAP | 0.657 | 49 | 76.08 | 12.2 | 1.031 |
+| packed_ddr4_xor_global o3 | Timeout | 0.572 | 52 | 80.96 | 11.7 | 1.097 |
+| packed_ddr4_xor_global o3 | HAPPY | 0.783 | 51 | 84.50 | 11.4 | 1.145 |
+| packed_ddr4_xor_global o3 | Region | 0.808 | 46 | 74.08 | 12.6 | 1.004 |
+| packed_ddr4_xor_global sat | Open (Open) | 0.980 | 181 | 20.05 | 15.3 | 1.000 |
+| packed_ddr4_xor_global sat | ClosedCAP | 0.784 | 206 | 22.74 | 13.5 | 1.134 |
+| packed_ddr4_xor_global sat | Timeout | 0.935 | 186 | 20.32 | 15.1 | 1.014 |
+| packed_ddr4_xor_global sat | HAPPY | 0.980 | 181 | 20.05 | 15.3 | 1.000 |
+| packed_ddr4_xor_global sat | Region | 0.962 | 182 | 20.13 | 15.3 | 1.004 |
+| packed_ddr5_identity o3 | Open | 0.756 | 75 | 45.91 | 13.5 | 1.005 |
+| packed_ddr5_identity o3 | ClosedCAP (ClosedCAP) | 0.715 | 75 | 45.68 | 13.5 | 1.000 |
+| packed_ddr5_identity o3 | Timeout | 0.195 | 103 | 54.75 | 11.3 | 1.198 |
+| packed_ddr5_identity o3 | HAPPY | 0.750 | 75 | 46.05 | 13.5 | 1.008 |
+| packed_ddr5_identity o3 | Region | 0.745 | 75 | 46.17 | 13.4 | 1.011 |
+| packed_ddr5_identity sat | Open (Open) | 0.972 | 236 | 2.63 | 233.9 | 1.000 |
+| packed_ddr5_identity sat | ClosedCAP | 0.777 | 326 | 3.29 | 187.1 | 1.250 |
+| packed_ddr5_identity sat | Timeout | 0.885 | 243 | 2.69 | 229.0 | 1.021 |
+| packed_ddr5_identity sat | HAPPY | 0.971 | 237 | 2.63 | 233.8 | 1.001 |
+| packed_ddr5_identity sat | Region | 0.954 | 240 | 2.73 | 225.5 | 1.037 |
+| packed_ddr5_xor_global o3 | Open | 0.757 | 75 | 45.76 | 13.5 | 1.001 |
+| packed_ddr5_xor_global o3 | ClosedCAP (ClosedCAP) | 0.716 | 75 | 45.71 | 13.5 | 1.000 |
+| packed_ddr5_xor_global o3 | Timeout | 0.195 | 103 | 54.78 | 11.3 | 1.198 |
+| packed_ddr5_xor_global o3 | HAPPY | 0.752 | 75 | 45.90 | 13.5 | 1.004 |
+| packed_ddr5_xor_global o3 | Region | 0.747 | 75 | 45.87 | 13.5 | 1.003 |
+| packed_ddr5_xor_global sat | Open (Open) | 0.973 | 243 | 2.62 | 234.5 | 1.000 |
+| packed_ddr5_xor_global sat | ClosedCAP | 0.778 | 324 | 3.27 | 188.3 | 1.245 |
+| packed_ddr5_xor_global sat | Timeout | 0.886 | 244 | 2.68 | 229.9 | 1.020 |
+| packed_ddr5_xor_global sat | HAPPY | 0.973 | 243 | 2.63 | 234.3 | 1.001 |
+| packed_ddr5_xor_global sat | Region | 0.956 | 249 | 2.71 | 226.7 | 1.034 |
+| thp_ddr4_identity o3 | Open (Open) | 0.797 | 48 | 76.23 | 12.2 | 1.000 |
+| thp_ddr4_identity o3 | ClosedCAP | 0.649 | 50 | 78.06 | 11.9 | 1.024 |
+| thp_ddr4_identity o3 | Timeout | 0.564 | 53 | 81.23 | 11.5 | 1.066 |
+| thp_ddr4_identity o3 | HAPPY | 0.753 | 54 | 89.39 | 10.8 | 1.173 |
+| thp_ddr4_identity o3 | Region | 0.795 | 48 | 77.34 | 12.2 | 1.014 |
+| thp_ddr4_identity sat | Open (Open) | 0.965 | 184 | 20.36 | 15.1 | 1.000 |
+| thp_ddr4_identity sat | ClosedCAP | 0.782 | 208 | 23.00 | 13.4 | 1.130 |
+| thp_ddr4_identity sat | Timeout | 0.927 | 188 | 20.66 | 14.9 | 1.015 |
+| thp_ddr4_identity sat | HAPPY | 0.965 | 184 | 20.38 | 15.1 | 1.001 |
+| thp_ddr4_identity sat | Region | 0.959 | 185 | 20.47 | 15.0 | 1.006 |
+| thp_ddr4_xor_global o3 | Open (Open) | 0.814 | 47 | 75.04 | 12.5 | 1.000 |
+| thp_ddr4_xor_global o3 | ClosedCAP | 0.653 | 50 | 77.94 | 12.0 | 1.039 |
+| thp_ddr4_xor_global o3 | Timeout | 0.575 | 52 | 80.83 | 11.8 | 1.077 |
+| thp_ddr4_xor_global o3 | HAPPY | 0.772 | 52 | 84.70 | 11.2 | 1.129 |
+| thp_ddr4_xor_global o3 | Region | 0.804 | 47 | 74.02 | 12.6 | 0.987 |
+| thp_ddr4_xor_global sat | Open (Open) | 0.974 | 182 | 20.11 | 15.3 | 1.000 |
+| thp_ddr4_xor_global sat | ClosedCAP | 0.783 | 208 | 22.89 | 13.4 | 1.138 |
+| thp_ddr4_xor_global sat | Timeout | 0.930 | 186 | 20.42 | 15.1 | 1.015 |
+| thp_ddr4_xor_global sat | HAPPY | 0.974 | 182 | 20.12 | 15.3 | 1.000 |
+| thp_ddr4_xor_global sat | Region | 0.961 | 183 | 20.20 | 15.2 | 1.004 |
+| thp_ddr5_identity o3 | Open (Open) | 0.732 | 78 | 47.19 | 13.1 | 1.000 |
+| thp_ddr5_identity o3 | ClosedCAP | 0.703 | 77 | 47.21 | 13.2 | 1.001 |
+| thp_ddr5_identity o3 | Timeout | 0.195 | 103 | 54.74 | 11.3 | 1.160 |
+| thp_ddr5_identity o3 | HAPPY | 0.728 | 77 | 46.89 | 13.2 | 0.994 |
+| thp_ddr5_identity o3 | Region | 0.734 | 77 | 47.09 | 13.2 | 0.998 |
+| thp_ddr5_identity sat | Open (Open) | 0.961 | 245 | 2.81 | 218.9 | 1.000 |
+| thp_ddr5_identity sat | ClosedCAP | 0.770 | 346 | 3.90 | 157.8 | 1.387 |
+| thp_ddr5_identity sat | Timeout | 0.884 | 250 | 2.91 | 211.5 | 1.035 |
+| thp_ddr5_identity sat | HAPPY | 0.961 | 246 | 2.82 | 218.3 | 1.003 |
+| thp_ddr5_identity sat | Region | 0.947 | 262 | 3.34 | 184.3 | 1.188 |
+| thp_ddr5_xor_global o3 | Open (Open) | 0.755 | 75 | 45.95 | 13.5 | 1.000 |
+| thp_ddr5_xor_global o3 | ClosedCAP | 0.713 | 76 | 46.01 | 13.5 | 1.001 |
+| thp_ddr5_xor_global o3 | Timeout | 0.195 | 103 | 54.77 | 11.3 | 1.192 |
+| thp_ddr5_xor_global o3 | HAPPY | 0.749 | 75 | 46.11 | 13.5 | 1.003 |
+| thp_ddr5_xor_global o3 | Region | 0.745 | 75 | 46.02 | 13.4 | 1.001 |
+| thp_ddr5_xor_global sat | Open (Open) | 0.973 | 246 | 2.65 | 232.3 | 1.000 |
+| thp_ddr5_xor_global sat | ClosedCAP | 0.778 | 322 | 3.34 | 184.4 | 1.259 |
+| thp_ddr5_xor_global sat | Timeout | 0.883 | 247 | 2.71 | 227.0 | 1.023 |
+| thp_ddr5_xor_global sat | HAPPY | 0.973 | 247 | 2.65 | 232.1 | 1.001 |
+| thp_ddr5_xor_global sat | Region | 0.956 | 252 | 2.81 | 219.2 | 1.060 |
+
 ## Summary: HAPPY / Region cycles relative to best baseline (min, median, max over conditions)
 
 | policy | stream | n | min | median | max |
 |---|---|---|---|---|---|
+| HAPPY | Qwen3-30B-A3B-Q4_K_M_s1n1t4_attr_miss | 16 | 1.000 | 1.003 | 1.124 |
 | HAPPY | qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n1t4_attr_c32k | 16 | 0.968 | 1.001 | 1.098 |
+| HAPPY | qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n1t4_attr_c8k | 16 | 0.994 | 1.003 | 1.173 |
+| Region | Qwen3-30B-A3B-Q4_K_M_s1n1t4_attr_miss | 16 | 0.976 | 1.000 | 1.011 |
 | Region | qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n1t4_attr_c32k | 16 | 0.977 | 1.022 | 1.330 |
+| Region | qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n1t4_attr_c8k | 16 | 0.987 | 1.006 | 1.188 |
