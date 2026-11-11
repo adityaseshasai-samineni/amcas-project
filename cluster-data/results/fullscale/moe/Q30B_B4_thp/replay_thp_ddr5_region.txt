@@ -2,3 +2,7 @@
 [Ramulator::LoadStoreTrace] [[32minfo[0m] Loading trace file /scratch/adityaseshasai.s/mapstudy/moe-Q30B_B4_thp/thp_ddr5_region.trc ...
 [Ramulator::LoadStoreTrace] [[32minfo[0m] Loaded 8000000 lines.
 [Ramulator::LoadStoreTrace] [[32minfo[0m] Loaded 8000000 lines.
+ddr5, 16 channel(s), interleave 64 B << 2, issue 4/cycle
+mapper      policy          reads   writes    hit  conflict  rd_lat  Mcycles    GB/s
+RoBaRaCoCh  Open          8000000        0  0.964     0.013   256.4      5.1   242.5
+RoBaRaCoCh  ClosedCAP     8000000        0  0.775     0.007   351.5      6.5   189.5
