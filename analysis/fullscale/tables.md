@@ -313,6 +313,11 @@ From the `drattr` runs (tensor addresses dumped, reads attributed by address). T
 | Qwen3-30B-A3B-Q4_K_M_attr | dense weights | 12.9 | 0.82 | 42.3 | 435 |
 | Qwen3-30B-A3B-Q4_K_M_attr | activations | 0.1 | 0.01 | 0.3 | 23 |
 | Qwen3-30B-A3B-Q4_K_M_attr | unattributed | 0.2 | 0.01 | 0.6 | 0 |
+| Qwen3-30B-A3B-Q4_K_M_attr_c32k | expert weights | 17.1 | 1.10 | 7.6 | 144 |
+| Qwen3-30B-A3B-Q4_K_M_attr_c32k | KV cache | 193.0 | 12.35 | 86.1 | 96 |
+| Qwen3-30B-A3B-Q4_K_M_attr_c32k | dense weights | 12.9 | 0.82 | 5.7 | 435 |
+| Qwen3-30B-A3B-Q4_K_M_attr_c32k | activations | 0.5 | 0.03 | 0.2 | 24 |
+| Qwen3-30B-A3B-Q4_K_M_attr_c32k | unattributed | 0.6 | 0.04 | 0.3 | 0 |
 | Qwen3-30B-A3B-Q4_K_M_attr_miss | expert weights | 17.1 | 1.10 | 56.5 | 144 |
 | Qwen3-30B-A3B-Q4_K_M_attr_miss | KV cache | 0.0 | 0.00 | 0.1 | 96 |
 | Qwen3-30B-A3B-Q4_K_M_attr_miss | dense weights | 12.9 | 0.82 | 42.4 | 435 |
@@ -348,6 +353,11 @@ From the `drattr` runs (tensor addresses dumped, reads attributed by address). T
 | Qwen3-30B-A3B-Q4_K_M_attr | dense weights | 97.3 | 96.5 | 97.4 | 97.3 |
 | Qwen3-30B-A3B-Q4_K_M_attr | activations | 87.9 | 83.3 | 72.9 | 84.8 |
 | Qwen3-30B-A3B-Q4_K_M_attr | unattributed | 85.5 | 77.8 | 84.1 | 83.7 |
+| Qwen3-30B-A3B-Q4_K_M_attr_c32k | expert weights | 97.8 | 97.0 | 97.8 | 97.8 |
+| Qwen3-30B-A3B-Q4_K_M_attr_c32k | KV cache | 93.9 | 90.7 | 73.1 | 88.8 |
+| Qwen3-30B-A3B-Q4_K_M_attr_c32k | dense weights | 98.0 | 97.2 | 97.9 | 98.0 |
+| Qwen3-30B-A3B-Q4_K_M_attr_c32k | activations | 67.1 | 54.5 | 63.8 | 62.6 |
+| Qwen3-30B-A3B-Q4_K_M_attr_c32k | unattributed | 80.2 | 68.2 | 80.1 | 79.1 |
 | Qwen3-30B-A3B-Q4_K_M_attr_miss | expert weights | 96.6 | 95.8 | 96.6 | 96.8 |
 | Qwen3-30B-A3B-Q4_K_M_attr_miss | KV cache | 94.6 | 90.9 | 73.9 | 88.7 |
 | Qwen3-30B-A3B-Q4_K_M_attr_miss | dense weights | 97.3 | 96.2 | 97.2 | 97.1 |
@@ -379,6 +389,7 @@ From the `drattr` runs (tensor addresses dumped, reads attributed by address). T
 | run | mean experts touched | mean mostly read | expert tensors |
 |---|---|---|---|
 | Qwen3-30B-A3B-Q4_K_M_attr | 8.0 | 8.0 | 144 |
+| Qwen3-30B-A3B-Q4_K_M_attr_c32k | 8.0 | 8.0 | 144 |
 | Qwen3-30B-A3B-Q4_K_M_attr_miss | 8.0 | 8.0 | 144 |
 
 ## Region-aware mapping proposal (replay of remapped traces, RoBaRaCoCh)
