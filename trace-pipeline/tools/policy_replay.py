@@ -29,7 +29,7 @@ def run(cfg):
     import ramulator
     d, key, mode, pol, a = cfg
     dram_k = key.split("_")[1]
-    nch = 1 if dram_k == "ddr4" else 16
+    nch = {"ddr4": 1, "ddr5x8": 8}.get(dram_k, 16)
     impl, kw = POLS[pol]
     if impl == "Region":
         kw = dict(kw, ranges=f"{d}/{key}.ranges")
@@ -45,7 +45,7 @@ def run(cfg):
         clock_ratio=1, controllers=[ctrl() for _ in range(nch)],
         channel_mapper=ramulator.channel_mapper.CacheLineInterleave(interleave_bits=0 if nch == 1 else 2))
     if mode == "sat":
-        fe = ramulator.frontend.LoadStoreTrace(clock_ratio=1 if nch == 1 else 4, path=f"{d}/{key}.trc")
+        fe = ramulator.frontend.LoadStoreTrace(clock_ratio={1: 1, 8: 2}.get(nch, 4), path=f"{d}/{key}.trc")
     else:
         tr = [f"{d}/{key}.t{t}.trc" for t in range(4)]
         ns = [sum(1 for _ in open(t)) for t in tr]

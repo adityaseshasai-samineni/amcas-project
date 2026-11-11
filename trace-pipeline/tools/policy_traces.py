@@ -21,6 +21,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import remap as R
 import drmiss_export as X
 import region_remap as G
+import memsys_study as M  # read-only reuse of chan_search/hash_bits (channel-bit XOR hash)
 from analyze import LINE
 
 
@@ -31,7 +32,9 @@ def main():
     ap.add_argument("--start-frac", type=float, default=0.3)
     ap.add_argument("--bubbles", type=int, default=40)
     ap.add_argument("--placements", default="packed,thp")
-    ap.add_argument("--drams", default="ddr4,ddr5")
+    ap.add_argument("--drams", default="ddr4,ddr5")   # ddr5 = 16 subchannels, ddr5x8 = 8 subchannels
+    ap.add_argument("--schemes", default="identity,xor_global")  # also chan, xor_global_chan (memsys_study)
+    ap.add_argument("--fanin", type=int, default=3)
     a = ap.parse_args()
     os.makedirs(a.out, exist_ok=True)
     tids, addrs = X.read_misses(a.miss)
@@ -62,10 +65,26 @@ def main():
         for dk in a.drams.split(","):
             L, nch = R.Layout(dk), G.NCH[dk]
             intra, ch = L.to_intra(pw)
-            Mg, sel, c0, c1 = G.search(L, intra, ch, nch, 3, f"{pk}/{dk} global")
-            for sk, new in (("identity", intra), ("xor_global", G.apply_named(L, intra, Mg))):
-                phys = L.from_intra(new, ch)
-                assert ((phys >> np.uint64(G.GRAN)) == (pw >> np.uint64(G.GRAN))).all()
+            ch = ch.astype(np.int64)
+            schemes = a.schemes.split(",")
+            variants = {"identity": (intra, ch)}
+            bank_new = None
+            if "xor_global" in schemes or "xor_global_chan" in schemes:
+                Mg, sel, c0, c1 = G.search(L, intra, ch, nch, a.fanin, f"{pk}/{dk} global")
+                bank_new = G.apply_named(L, intra, Mg)
+                variants["xor_global"] = (bank_new, ch)
+            if "chan" in schemes:
+                Mc, cands, sel, c0, c1 = M.chan_search(L, intra, ch, nch, a.fanin, f"{pk}/{dk} chan")
+                variants["chan"] = (intra, ch ^ M.hash_bits(L, intra, Mc, cands))
+            if "xor_global_chan" in schemes:
+                Mc, cands, sel, c0, c1 = M.chan_search(L, bank_new, ch, nch, a.fanin, f"{pk}/{dk} bank+chan")
+                variants["xor_global_chan"] = (bank_new, ch ^ M.hash_bits(L, bank_new, Mc, cands))
+            for sk in schemes:
+                new, nc_ = variants[sk]
+                phys = L.from_intra(new, nc_.astype(np.uint64))
+                assert np.unique(phys).size == np.unique(pw).size, "not injective"
+                if sk in ("identity", "xor_global"):
+                    assert ((phys >> np.uint64(G.GRAN)) == (pw >> np.uint64(G.GRAN))).all()
                 key = f"{pk}_{dk}_{sk}"
                 with open(f"{a.out}/{key}.trc", "w") as f:
                     f.writelines(f"LD 0x{x:x}\n" for x in phys.tolist())
@@ -83,7 +102,7 @@ def main():
                     rows[-1][1] = (g + 1) << G.GRAN
                 else:
                     rows.append([g << G.GRAN, (g + 1) << G.GRAN, c])
-            for sk in ("identity", "xor_global"):
+            for sk in schemes:
                 with open(f"{a.out}/{pk}_{dk}_{sk}.ranges", "w") as f:
                     f.writelines(f"{s} {e} {c}\n" for s, e, c in rows)
             print(f"  {pk}/{dk}: {len(rows)} ranges")
