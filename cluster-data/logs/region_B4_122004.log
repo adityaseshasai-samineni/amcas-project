@@ -3,3 +3,34 @@ SLURM_JOB_ID = 122004
 SLURM_NODELIST = node04
 SLURM_JOB_GPUS = 
 ==========================================
+67,424,594 reads; window [20,227,378, 32,227,378); class shares (W,K,O) full [0.9384, 0.0468, 0.0149], window [0.9304, 0.054, 0.0156]
+placement packed: 2037 granules, tags W/K/O = [1936, 96, 5]; reads whose own class equals their granule's tag 0.9992
+  [packed/ddr4 global] n=12,000,000 cost 3692346 -> 3648831; bank bit ^= {0: ['row7'], 1: ['row12'], 2: [], 3: [], 4: []}
+  [packed/ddr4 region K] n=3,127,791 cost 3443481 -> 3429893; bank bit ^= {0: [], 1: [], 2: [], 3: ['row4', 'row5'], 4: []}
+  [packed/ddr4 region O] n=1,046,996 cost 3672538 -> 3660291; bank bit ^= {0: ['row7'], 1: ['row5'], 2: [], 3: [], 4: []}
+  packed ddr4 identity    in-order hit 0.964 banks 32/32 W:0.969 K:0.968 O:0.949
+  packed ddr4 bitrev      in-order hit 0.513 banks 10/32 W:0.503 K:0.718 O:0.436
+  packed ddr4 xor_global  in-order hit 0.965 banks 32/32 W:0.970 K:0.968 O:0.950
+  packed ddr4 region      in-order hit 0.964 banks 32/32 W:0.969 K:0.968 O:0.950
+  [packed/ddr5 global] n=12,000,000 cost 585434 -> 440257; bank bit ^= {0: ['row0', 'row1'], 1: ['row3', 'row6'], 2: ['row0'], 3: ['row10'], 4: ['row1']}
+  [packed/ddr5 region K] n=3,127,791 cost 3835512 -> 415936; bank bit ^= {0: ['row0', 'row1'], 1: ['row0', 'row2'], 2: ['row0'], 3: ['row0', 'row1'], 4: ['row0']}
+  [packed/ddr5 region O] n=1,046,996 cost 442924 -> 391241; bank bit ^= {0: ['row1', 'row2'], 1: ['row2'], 2: ['row4'], 3: [], 4: ['row2']}
+  packed ddr5 identity    in-order hit 0.941 banks 512/512 W:0.965 K:0.594 O:0.963
+  packed ddr5 bitrev      in-order hit 0.735 banks 160/512 W:0.752 K:0.500 O:0.580
+  packed ddr5 xor_global  in-order hit 0.961 banks 512/512 W:0.966 K:0.973 O:0.960
+  packed ddr5 region      in-order hit 0.961 banks 512/512 W:0.965 K:0.973 O:0.988
+placement thp: 4768 granules, tags W/K/O = [4585, 144, 39]; reads whose own class equals their granule's tag 0.9999
+  [thp/ddr4 global] n=12,000,000 cost 4322468 -> 3766706; bank bit ^= {0: ['row8', 'row7'], 1: ['row8'], 2: ['row13', 'row6'], 3: [], 4: ['row9']}
+  [thp/ddr4 region K] n=3,144,015 cost 17880064 -> 3453911; bank bit ^= {0: ['row2', 'row8'], 1: ['row2', 'row12'], 2: ['row2', 'row12'], 3: ['row2'], 4: ['row3']}
+  [thp/ddr4 region O] n=1,003,725 cost 7497270 -> 3622328; bank bit ^= {0: ['row6', 'row4', 'row3'], 1: ['row7'], 2: ['row6', 'row15'], 3: ['row7', 'row6'], 4: ['row2']}
+  thp    ddr4 identity    in-order hit 0.944 banks 32/32 W:0.963 K:0.742 O:0.779
+  thp    ddr4 bitrev      in-order hit 0.863 banks 32/32 W:0.865 K:0.928 O:0.677
+  thp    ddr4 xor_global  in-order hit 0.960 banks 32/32 W:0.964 K:0.966 O:0.946
+  thp    ddr4 region      in-order hit 0.958 banks 32/32 W:0.963 K:0.967 O:0.952
+  [thp/ddr5 global] n=12,000,000 cost 461846 -> 442644; bank bit ^= {0: ['row3'], 1: [], 2: ['row8'], 3: ['row5', 'row2'], 4: ['row12']}
+  [thp/ddr5 region K] n=3,144,015 cost 423498 -> 419522; bank bit ^= {0: ['row10', 'row1'], 1: [], 2: ['row1'], 3: [], 4: []}
+  [thp/ddr5 region O] n=1,003,725 cost 3680062 -> 450595; bank bit ^= {0: ['row8', 'row9', 'row7'], 1: ['row4'], 2: ['row7', 'row1'], 3: ['row7'], 4: ['row4']}
+  thp    ddr5 identity    in-order hit 0.955 banks 512/512 W:0.962 K:0.971 O:0.735
+  thp    ddr5 bitrev      in-order hit 0.939 banks 512/512 W:0.945 K:0.915 O:0.795
+  thp    ddr5 xor_global  in-order hit 0.959 banks 512/512 W:0.965 K:0.938 O:0.938
+  thp    ddr5 region      in-order hit 0.958 banks 512/512 W:0.962 K:0.971 O:0.956
