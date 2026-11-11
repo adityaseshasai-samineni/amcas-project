@@ -497,6 +497,10 @@ Each remap rewrites the read stream with the named scheme (identity = no change)
 | qwen2.5-7b-instruct-q4_k_m_attr_c8k | thp | ddr4 | ClosedCAP | 1.00 (hit 78%) | 1.12 (hit 78%) | 0.98 (hit 78%) | 0.99 (hit 78%) |
 | qwen2.5-7b-instruct-q4_k_m_attr_c8k | thp | ddr5 | Open | 1.00 (hit 96%) | 1.00 (hit 97%) | 0.93 (hit 97%) | 0.94 (hit 97%) |
 | qwen2.5-7b-instruct-q4_k_m_attr_c8k | thp | ddr5 | ClosedCAP | 1.00 (hit 77%) | 1.06 (hit 77%) | 0.85 (hit 78%) | 0.86 (hit 78%) |
+| qwen25-05b-q4_0_attr_c32k | packed | ddr4 | Open | 1.00 (hit 98%) | 1.22 (hit 95%) | 0.98 (hit 98%) | 0.99 (hit 98%) |
+| qwen25-05b-q4_0_attr_c32k | packed | ddr4 | ClosedCAP | 1.00 (hit 79%) | 1.68 (hit 78%) | 1.00 (hit 79%) | 1.00 (hit 79%) |
+| qwen25-05b-q4_0_attr_c32k | packed | ddr5 | Open | 1.00 (hit 96%) | 1.64 (hit 94%) | - | 1.00 (hit 96%) |
+| qwen25-05b-q4_0_attr_c32k | packed | ddr5 | ClosedCAP | 1.00 (hit 78%) | 2.25 (hit 77%) | - | 1.00 (hit 78%) |
 
 ## Batched decode (drbatch, 512-token prompts, 4 threads)
 
