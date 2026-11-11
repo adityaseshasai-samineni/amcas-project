@@ -1057,3 +1057,24 @@ Submitted via `scripts/17_drattr.sh` (unmodified), node03, `--dependency=afterok
 ### longctx update (2026-11-11)
 
 Smoke 122041 (0.5B, SKIP=2, Release build 122019) PASSED: "detached after step 2", "same text: yes". It replaces 121991 and 121990 (cancelled). The main session now runs the queue 4 at a time: 121992 attr_t2 and 121997 q30_32k running; 121993 moe_n4 (48 GB), 121998 q05_32k and region jobs 121999/122000 held by the user until released. The 30B and 0.5B 32k tables are still pending; this section supersedes the job references to 121991 above.
+
+### robustness-owner: memory system, page size, 1k context, prefill (2026-11-11), part 1: 7B 32k memory-system study (job 122014)
+
+Job 122014 (`21_memsys.sh`, run `..._s1n1t4_attr_c32k`, tag `q7_32k_w12M`, 12M-request window, 71 min on node03, published; results in `results/fullscale/memsys/q7_32k_w12M/`). Smoke test first: 1M-request replay takes about 12 s per trace (2 policies), generation about 2 min. Replay: Ramulator DDR5-4800, RoBaRaCoCh, saturated, 8 channels (issue 2/cycle) or 16 (issue 4). Mcycles Open / ClosedCAP; every one of the 72 replays reads exactly 12,000,000 requests, 0 writes.
+
+| placement | DRAM | identity | chan | xor_global | xor_global_chan | region | region_chan |
+|---|---|---|---|---|---|---|---|
+| packed | x8 | 26.5 / 29.0 | 17.4 / 21.2 | 26.6 / 29.4 | 17.8 / 21.7 | 26.7 / 29.4 | 20.4 / 24.0 |
+| packed | x16 | 13.3 / 14.6 | 8.9 / 10.9 | 13.3 / 14.8 | 8.7 / 10.8 | 13.3 / 14.6 | 9.1 / 10.8 |
+| THP | x8 | 31.8 / 43.1 | 21.0 / 28.0 | 27.0 / 31.5 | 19.4 / 23.4 | 26.8 / 30.9 | 20.1 / 23.9 |
+| THP | x16 | 16.1 / 21.4 | 10.5 / 13.9 | 13.4 / 15.1 | 9.7 / 11.7 | 13.4 / 15.2 | 9.4 / 11.5 |
+| 4 KiB | x8 | 26.6 / 26.7 | 14.6 / 14.8 | 26.6 / 26.8 | 14.6 / 14.8 | 26.6 / 26.7 | 14.6 / 14.8 |
+| 4 KiB | x16 | 13.4 / 13.3 | 7.1 / 7.1 | 13.4 / 13.3 | 7.1 / 7.1 | 13.4 / 13.3 | 7.1 / 7.1 |
+
+Findings:
+- **The KV bank-XOR gain holds on 8-channel DDR5-4800**, THP only: xor_global is -15% Open / -27% ClosedCAP vs identity (x16: -17% / -29%); region equals xor_global. With packed or 4 KiB placement the bank XOR gives nothing (default already 0.95 row hit packed; 4 KiB has 0.75 hit that no bank hash changes).
+- **A channel-bit hash is larger than the bank XOR**: -35% packed, -47% 4 KiB, -35% THP (x16 Open); on x8 -34% / -45% / -34%. Combined bank+channel is best for THP (x16 Open 9.7 vs 16.1, -40%).
+- Cheaper than the bank search, but see the check below for whether it is an artefact of the saturated replay.
+
+**Channel-hash verification** (requested by main): (1) the study asserts per scheme that row and column are unchanged and the number of unique physical addresses is unchanged (injective), and the run passed all asserts; (2) reads equal in all replays (12,000,000); (3) static channel load over the 12M window, max/mean: identity 1.057, chan 1.001 (packed) / 1.042 (THP), so identity is balanced on average; (4) hashed bits: the channel bit j is XORed with listed row bits of the channel-removed address, found by greedy search on the window. Examples (x8): packed chan bit0 ^= row0,row2,row4; bit1 ^= row1; bit2 ^= row1. THP chan: bit0 ^= row5,row14; bit1 ^= row5; bit2 ^= row13. 4 KiB x16: bit0 ^= row6,row10; bit1 ^= row9; bit2 ^= row4; bit3 ^= row1 (all in `manifest.json`/`make.txt`).
+- **Temporal imbalance** (2M-request window, 8 channels, channel = addr[10:8]; `tools/chan_temporal.py`, job 122340; mean over consecutive windows of the busiest channel's count / mean count; random uniform would be about 1.8 at W=32): identity W=32 2.43 (6.4 of 8 channels used per window), W=128 2.04 (7.6/8); chan W=32 1.86 (7.5/8), W=128 1.44 (8.0/8), for both packed and THP. So the default mapping concentrates consecutive requests on fewer channels (the four threads' streams are phase-aligned in the channel bits), while the hashed one looks like uniform random. The gain is real in the model (burst-level channel imbalance under limited controller queues), not a miscount, but: the replay is saturated open-loop with the miss stream in drcachesim interleave order, no timestamps, so how much burst imbalance appears depends on that order; a closed-loop run would show smaller gains. Treat the magnitude (-35 to -47%) as an upper bound.
