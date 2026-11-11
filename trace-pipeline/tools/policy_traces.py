@@ -41,8 +41,13 @@ def main():
     grp = grp_of[cls]
     place, _ = X.placements(va)
     n = len(va); w = min(a.window, n); s0 = min(int(n * a.start_frac), n - w)
+    NT = 4
     ut = {t: i for i, t in enumerate(np.unique(tids[s0:s0 + w]))}
-    tw_id = np.array([ut[t] for t in tids[s0:s0 + w]], dtype=np.int8)
+    if len(ut) == NT:
+        tw_id = np.array([ut[t] for t in tids[s0:s0 + w]], dtype=np.int8)
+    else:  # window not interleaved over 4 threads (miss stream is blocky): 4 contiguous pseudo-threads
+        print(f"  WARNING: window has {len(ut)} thread(s); splitting into {NT} contiguous pseudo-threads")
+        tw_id = (np.arange(w) * NT // w).astype(np.int8); ut = {i: i for i in range(NT)}
     print(f"{n:,} reads, window [{s0:,},{s0 + w:,}), threads {len(ut)}, class shares W/K/O "
           f"{[round(float((grp[s0:s0 + w] == i).mean()), 4) for i in range(3)]}")
     man = dict(reads_total=n, window=[s0, s0 + w], files=[])

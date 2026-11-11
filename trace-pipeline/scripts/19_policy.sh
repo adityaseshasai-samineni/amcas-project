@@ -18,7 +18,10 @@ S=/scratch/$USER/policy/$RUN; rm -rf $S; mkdir -p $S
 trap 'rm -rf $S' EXIT
 T=$A/tensors.tsv; [ -s $T ] || T=$(ls $A/../*/tensors.tsv | head -1)
 $E/bin/python $HOME/amcas-pro/tools/policy_traces.py $A/miss.gz $T $S --window $WIN --bubbles $BUB 2>&1 | tee $R/make.txt
+[ ${PIPESTATUS[0]} -eq 0 ] || { echo "policy_traces failed"; exit 1; }
 cp $S/manifest.json $R/
 $E/bin/python $HOME/amcas-pro/tools/policy_replay.py $S $R/replay.json --bubbles $BUB --procs 6 \
   --policies Open,ClosedCAP,Timeout,HAPPY,Region 2>&1 | grep -v "Ramulator::\|Loading trace\|Loaded" > $R/replay.txt
-bash $HOME/amcas-pro/tools/publish.sh "policy results $RUN" || true
+RC=${PIPESTATUS[0]}
+bash $HOME/amcas-pro/tools/publish.sh "policy results $RUN (rc=$RC)" || true
+exit $RC
