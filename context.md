@@ -1035,3 +1035,12 @@ The three numbers are DRAM reads (no-prefetch LL misses × 64 B) for one Qwen 7B
 - `tools/fullscale_report.py` now also writes a "Batched decode" table (GB per sequence, vs B=1, native step, experts touched vs the disjoint bound) and `analysis/fullscale/fig_batched.png` from `results/fullscale/drbatch/*_B*_P*t*` (skips `_test` dirs; missing runs tolerated). Regenerated locally with system python3.
 - gem5 `moe_l3-22m_stride` (114798) had in fact already been analysed on 2026-11-05 (jobs 115490, 115498), and was already in `report.py` RUNS and `analysis/tables.md`; no job was needed. Added the run to the ANALYSIS.md run table, changed "all 9 runs" to 10, and added subsection F3a (reads the whole 1.92 GB model per token, expert weights 84.3%, same mapping ratios as the 1024-token run; only one LLC size/prefetcher exists for tinymoe4, so no cache-size or prefetch comparison). The `report.py` LABEL needed no change (REPLAYED unchanged).
 - Job IDs 121997/121998 for the 30B/0.5B 32k runs were read from squeue names, not from a context.md note.
+
+### scenarios: 1k context and prefill (2026-11-11) - SUBMITTED, results pending
+
+Submitted via `scripts/17_drattr.sh` (unmodified), node03, `--dependency=afterok:121991` (attr_smoke, the Release-build check), all with KEEP_MISS=1:
+- 122008 `sc7k1`: Qwen 7B, 1k-context decode (TAG=_c1k, PROMPT_CHARS=4000, CTX=2048, SKIP=1 NTRACE=1).
+- 122009 `sc30k1`: same for Qwen3-30B-A3B (60G mem).
+- 122010 `sc7pf32`, 122011 `sc30pf32`: PREFILL window, SKIP=0 NTRACE=1 (traces llama_process call 0 = the prompt), TAG=_pf32, PROMPT_CHARS=120 (about 30 tokens), CTX=512.
+- Why prefill is only ~30 tokens, not 512/2048: instruction count scales with tokens (decode of 7B is ~2.9G instructions; 512 tokens would be ~1.5T, a multi-TB DynamoRIO trace, and the 16 GB `-max_trace_size` cap would truncate it). Weight reuse across tokens already appears at 30 tokens; larger prompts need a native-counter approach instead. If the 30-token runs fit, 128 tokens is the next step.
+- Not yet done: validation (same text, reads vs weights+KV), 18_region.sh replays (identity vs xor_global, DDR4x1/DDR5x16, Open/ClosedCAP; run `sbatch scripts/18_region.sh <RUN>` with RUN = `<model>_s1n1t4_attr_c1k` and `<model>_s0n1t4_attr_pf32`), tables. Caveat: if 17_drattr's PROMPT_STEPS arithmetic miscounts for the prompt call (N=1), the traced step may be wrong; check `steps_traced.txt` and "same text".
