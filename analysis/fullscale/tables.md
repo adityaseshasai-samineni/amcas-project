@@ -426,8 +426,8 @@ Each remap rewrites the read stream with the named scheme (identity = no change)
 | Q7B_B16 | packed | ddr4 | ClosedCAP | 1.00 (hit 74%) | 2.94 (hit 77%) | 1.00 (hit 74%) | 1.00 (hit 74%) |
 | Q7B_B16 | packed | ddr5 | Open | 1.00 (hit 92%) | 2.50 (hit 85%) | 1.00 (hit 92%) | 1.00 (hit 92%) |
 | Q7B_B16 | packed | ddr5 | ClosedCAP | 1.00 (hit 75%) | 3.01 (hit 75%) | 0.98 (hit 75%) | 0.98 (hit 75%) |
-| Q7B_B16 | thp | ddr4 | Open | 1.00 (hit 90%) | 1.34 (hit 78%) | - | - |
-| Q7B_B16 | thp | ddr4 | ClosedCAP | 1.00 (hit 74%) | 1.40 (hit 72%) | - | - |
+| Q7B_B16 | thp | ddr4 | Open | 1.00 (hit 90%) | 1.34 (hit 78%) | 0.97 (hit 92%) | 0.96 (hit 91%) |
+| Q7B_B16 | thp | ddr4 | ClosedCAP | 1.00 (hit 74%) | 1.40 (hit 72%) | 0.95 (hit 74%) | 0.94 (hit 74%) |
 | Qwen3-30B-A3B-Q4_K_M_attr_c32k | packed | ddr4 | Open | 1.00 (hit 95%) | 1.58 (hit 89%) | 1.00 (hit 96%) | 1.01 (hit 95%) |
 | Qwen3-30B-A3B-Q4_K_M_attr_c32k | packed | ddr4 | ClosedCAP | 1.00 (hit 77%) | 2.14 (hit 77%) | 1.00 (hit 77%) | 1.01 (hit 77%) |
 | Qwen3-30B-A3B-Q4_K_M_attr_c32k | packed | ddr5 | Open | 1.00 (hit 95%) | 1.89 (hit 81%) | 1.00 (hit 96%) | 1.00 (hit 95%) |
@@ -444,6 +444,8 @@ Each remap rewrites the read stream with the named scheme (identity = no change)
 | Qwen3-30B-A3B-Q4_K_M_attr_miss | thp | ddr4 | ClosedCAP | 1.00 (hit 79%) | 1.14 (hit 78%) | 1.00 (hit 79%) | 1.00 (hit 79%) |
 | Qwen3-30B-A3B-Q4_K_M_attr_miss | thp | ddr5 | Open | 1.00 (hit 97%) | 1.09 (hit 96%) | 1.00 (hit 97%) | 1.00 (hit 97%) |
 | Qwen3-30B-A3B-Q4_K_M_attr_miss | thp | ddr5 | ClosedCAP | 1.00 (hit 78%) | 1.26 (hit 78%) | 1.00 (hit 78%) | 1.00 (hit 78%) |
+| qwen2.5-7b-instruct-q4_k_m_attr_c1k | packed | ddr4 | Open | 1.00 (hit 98%) | - | - | 1.00 (hit 98%) |
+| qwen2.5-7b-instruct-q4_k_m_attr_c1k | packed | ddr4 | ClosedCAP | 1.00 (hit 79%) | - | - | 1.00 (hit 79%) |
 | qwen2.5-7b-instruct-q4_k_m_attr_c32k_early | packed | ddr4 | Open | 1.00 (hit 96%) | 1.37 (hit 91%) | 1.00 (hit 96%) | 1.00 (hit 96%) |
 | qwen2.5-7b-instruct-q4_k_m_attr_c32k_early | packed | ddr4 | ClosedCAP | 1.00 (hit 77%) | 1.80 (hit 77%) | 1.00 (hit 77%) | 1.00 (hit 77%) |
 | qwen2.5-7b-instruct-q4_k_m_attr_c32k_early | packed | ddr5 | Open | 1.00 (hit 95%) | 1.70 (hit 87%) | 1.00 (hit 95%) | 1.00 (hit 95%) |

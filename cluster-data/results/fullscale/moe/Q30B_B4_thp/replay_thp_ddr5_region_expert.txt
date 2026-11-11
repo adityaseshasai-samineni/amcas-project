@@ -1,34 +1,8 @@
 [Ramulator::LoadStoreTrace] [[32minfo[0m] Loading trace file /scratch/adityaseshasai.s/mapstudy/moe-Q30B_B4_thp/thp_ddr5_region_expert.trc ...
 [Ramulator::LoadStoreTrace] [[32minfo[0m] Loading trace file /scratch/adityaseshasai.s/mapstudy/moe-Q30B_B4_thp/thp_ddr5_region_expert.trc ...
-multiprocessing.pool.RemoteTraceback: 
-"""
-Traceback (most recent call last):
-  File "/home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/lib/python3.12/multiprocessing/pool.py", line 125, in worker
-    result = (True, func(*args, **kwds))
-                    ^^^^^^^^^^^^^^^^^^^
-  File "/home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/lib/python3.12/multiprocessing/pool.py", line 48, in mapstar
-    return list(map(*args))
-           ^^^^^^^^^^^^^^^^
-  File "/home/adityaseshasai.s/amcas-pro/tools/ramulator_replay.py", line 51, in run
-    sim = ramulator.Simulation(ramulator.frontend.LoadStoreTrace(clock_ratio=a.issue, path=trace), mem)
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/adityaseshasai.s/amcas-pro/tracing/ramulator2/python/ramulator/__init__.py", line 44, in __init__
-    self._sim = _CppSimulation(config)
-                ^^^^^^^^^^^^^^^^^^^^^^
-RuntimeError: Trace /scratch/adityaseshasai.s/mapstudy/moe-Q30B_B4_thp/thp_ddr5_region_expert.trc line 4006477: expected 2 tokens, got 1
-"""
-
-The above exception was the direct cause of the following exception:
-
-Traceback (most recent call last):
-  File "/home/adityaseshasai.s/amcas-pro/tools/ramulator_replay.py", line 115, in <module>
-    main()
-  File "/home/adityaseshasai.s/amcas-pro/tools/ramulator_replay.py", line 98, in main
-    res = pool.map(run, cfgs)
-          ^^^^^^^^^^^^^^^^^^^
-  File "/home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/lib/python3.12/multiprocessing/pool.py", line 367, in map
-    return self._map_async(func, iterable, mapstar, chunksize).get()
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/lib/python3.12/multiprocessing/pool.py", line 774, in get
-    raise self._value
-RuntimeError: Trace /scratch/adityaseshasai.s/mapstudy/moe-Q30B_B4_thp/thp_ddr5_region_expert.trc line 4006477: expected 2 tokens, got 1
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loaded 8000000 lines.
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loaded 8000000 lines.
+ddr5, 16 channel(s), interleave 64 B << 2, issue 4/cycle
+mapper      policy          reads   writes    hit  conflict  rd_lat  Mcycles    GB/s
+RoBaRaCoCh  Open          8000000        0  0.964     0.013   257.5      5.1   242.5
+RoBaRaCoCh  ClosedCAP     8000000        0  0.775     0.006   350.1      6.5   190.0
