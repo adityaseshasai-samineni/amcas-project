@@ -448,6 +448,12 @@ Each remap rewrites the read stream with the named scheme (identity = no change)
 | Qwen3-30B-A3B-Q4_K_M_attr_miss | thp | ddr5 | ClosedCAP | 1.00 (hit 78%) | 1.26 (hit 78%) | 1.00 (hit 78%) | 1.00 (hit 78%) |
 | qwen2.5-7b-instruct-q4_k_m_attr_c1k | packed | ddr4 | Open | 1.00 (hit 98%) | 1.02 (hit 98%) | 1.00 (hit 98%) | 1.00 (hit 98%) |
 | qwen2.5-7b-instruct-q4_k_m_attr_c1k | packed | ddr4 | ClosedCAP | 1.00 (hit 79%) | 1.50 (hit 78%) | 0.99 (hit 79%) | 1.00 (hit 79%) |
+| qwen2.5-7b-instruct-q4_k_m_attr_c1k | packed | ddr5 | Open | 1.00 (hit 98%) | 1.26 (hit 97%) | 0.99 (hit 98%) | 1.00 (hit 98%) |
+| qwen2.5-7b-instruct-q4_k_m_attr_c1k | packed | ddr5 | ClosedCAP | 1.00 (hit 78%) | 1.71 (hit 78%) | 0.99 (hit 78%) | 1.00 (hit 78%) |
+| qwen2.5-7b-instruct-q4_k_m_attr_c1k | thp | ddr4 | Open | 1.00 (hit 98%) | 1.03 (hit 98%) | 0.99 (hit 98%) | 1.00 (hit 98%) |
+| qwen2.5-7b-instruct-q4_k_m_attr_c1k | thp | ddr4 | ClosedCAP | 1.00 (hit 79%) | 1.08 (hit 79%) | 0.99 (hit 79%) | 1.00 (hit 79%) |
+| qwen2.5-7b-instruct-q4_k_m_attr_c1k | thp | ddr5 | Open | 1.00 (hit 97%) | 1.04 (hit 97%) | 0.98 (hit 98%) | 0.99 (hit 97%) |
+| qwen2.5-7b-instruct-q4_k_m_attr_c1k | thp | ddr5 | ClosedCAP | 1.00 (hit 78%) | 1.17 (hit 78%) | 0.96 (hit 78%) | 0.97 (hit 78%) |
 | qwen2.5-7b-instruct-q4_k_m_attr_c32k_early | packed | ddr4 | Open | 1.00 (hit 96%) | 1.37 (hit 91%) | 1.00 (hit 96%) | 1.00 (hit 96%) |
 | qwen2.5-7b-instruct-q4_k_m_attr_c32k_early | packed | ddr4 | ClosedCAP | 1.00 (hit 77%) | 1.80 (hit 77%) | 1.00 (hit 77%) | 1.00 (hit 77%) |
 | qwen2.5-7b-instruct-q4_k_m_attr_c32k_early | packed | ddr5 | Open | 1.00 (hit 95%) | 1.70 (hit 87%) | 1.00 (hit 95%) | 1.00 (hit 95%) |
