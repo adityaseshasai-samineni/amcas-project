@@ -1,0 +1,60 @@
+==========================================
+SLURM_JOB_ID = 122013
+SLURM_NODELIST = node03
+SLURM_JOB_GPUS = 
+==========================================
+tracing llama_process calls 1..1
+drburst: attaching at step 1
+drburst: detached after step 1
+same text: yes
+5 thread files
+659M	/scratch/adityaseshasai.s/drwb/qwen25-05b-q4_0_s1n1t4_wb/drmemtrace.llama-drattr.2599656.7285.dir
+drcachesim LL:     Misses:                      5,489,326
+{"threads": 5, "quantum": 1000, "instr": 265766127, "loads": 50755019, "stores": 3118365, "prefetches": 0,
+ "l1_accesses": 60046474, "l1_misses": 6118959, "l1_dirty_evictions": 99767, "ll_accesses": 6118959, "ll_hits": 648012,
+ "dram_reads": 5470947, "dram_writes": 21506, "wb_hit_in_ll": 99751, "wb_alloc_in_ll": 16,
+ "residual_dirty_ll": 11244, "residual_dirty_l1": 331}
+5492453 requests
+{
+ "requests": 5492453,
+ "reads": 5470947,
+ "writes": 21506,
+ "write_fraction": 0.003915554671109611,
+ "classes": {
+  "expert weights": {
+   "reads": 0,
+   "writes": 0,
+   "write_bytes": 0,
+   "read_bytes": 0
+  },
+  "KV cache": {
+   "reads": 2496,
+   "writes": 192,
+   "write_bytes": 12288,
+   "read_bytes": 159744
+  },
+  "dense weights": {
+   "reads": 5409489,
+   "writes": 0,
+   "write_bytes": 0,
+   "read_bytes": 346207296
+  },
+  "activations": {
+   "reads": 863,
+   "writes": 806,
+   "write_bytes": 51584,
+   "read_bytes": 55232
+  },
+  "unattributed": {
+   "reads": 58099,
+   "writes": 20508,
+   "write_bytes": 1312512,
+   "read_bytes": 3718336
+  }
+ }
+}
+window [0, 5,492,453): 21,506 writes of 5,492,453 requests
+  [packed/ddr4 global(rw)] n=5,492,453 cost 3460761 -> 3428817; bank bit ^= {0: [], 1: [], 2: [], 3: ['row4', 'row3'], 4: ['row1', 'row7']}
+  [packed/ddr5 global(rw)] n=5,492,453 cost 455945 -> 433580; bank bit ^= {0: ['row0', 'row5'], 1: ['row4', 'row3'], 2: ['row2'], 3: ['row4', 'row5'], 4: []}
+  [thp/ddr4 global(rw)] n=5,492,453 cost 3548770 -> 3451598; bank bit ^= {0: ['row6'], 1: ['row8'], 2: ['row6'], 3: ['row14'], 4: ['row1']}
+  [thp/ddr5 global(rw)] n=5,492,453 cost 518302 -> 433409; bank bit ^= {0: ['row3', 'row0'], 1: ['row4'], 2: ['row13'], 3: ['row12'], 4: []}

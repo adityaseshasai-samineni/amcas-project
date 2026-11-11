@@ -1,0 +1,274 @@
+{
+ "requests": 5492453,
+ "window": [
+  0,
+  5492453
+ ],
+ "window_writes": 21506,
+ "files": [
+  {
+   "file": "packed_ddr4_identity_rw.trc",
+   "placement": "packed",
+   "dram": "ddr4",
+   "scheme": "identity",
+   "mode": "rw",
+   "requests": 5492453,
+   "matrix": null
+  },
+  {
+   "file": "packed_ddr4_identity_ro.trc",
+   "placement": "packed",
+   "dram": "ddr4",
+   "scheme": "identity",
+   "mode": "ro",
+   "requests": 5470947,
+   "matrix": null
+  },
+  {
+   "file": "packed_ddr4_xor_global_rw.trc",
+   "placement": "packed",
+   "dram": "ddr4",
+   "scheme": "xor_global",
+   "mode": "rw",
+   "requests": 5492453,
+   "matrix": {
+    "0": [],
+    "1": [],
+    "2": [],
+    "3": [
+     "row4",
+     "row3"
+    ],
+    "4": [
+     "row1",
+     "row7"
+    ]
+   }
+  },
+  {
+   "file": "packed_ddr4_xor_global_ro.trc",
+   "placement": "packed",
+   "dram": "ddr4",
+   "scheme": "xor_global",
+   "mode": "ro",
+   "requests": 5470947,
+   "matrix": {
+    "0": [],
+    "1": [],
+    "2": [],
+    "3": [
+     "row4",
+     "row3"
+    ],
+    "4": [
+     "row1",
+     "row7"
+    ]
+   }
+  },
+  {
+   "file": "packed_ddr5_identity_rw.trc",
+   "placement": "packed",
+   "dram": "ddr5",
+   "scheme": "identity",
+   "mode": "rw",
+   "requests": 5492453,
+   "matrix": null
+  },
+  {
+   "file": "packed_ddr5_identity_ro.trc",
+   "placement": "packed",
+   "dram": "ddr5",
+   "scheme": "identity",
+   "mode": "ro",
+   "requests": 5470947,
+   "matrix": null
+  },
+  {
+   "file": "packed_ddr5_xor_global_rw.trc",
+   "placement": "packed",
+   "dram": "ddr5",
+   "scheme": "xor_global",
+   "mode": "rw",
+   "requests": 5492453,
+   "matrix": {
+    "0": [
+     "row0",
+     "row5"
+    ],
+    "1": [
+     "row4",
+     "row3"
+    ],
+    "2": [
+     "row2"
+    ],
+    "3": [
+     "row4",
+     "row5"
+    ],
+    "4": []
+   }
+  },
+  {
+   "file": "packed_ddr5_xor_global_ro.trc",
+   "placement": "packed",
+   "dram": "ddr5",
+   "scheme": "xor_global",
+   "mode": "ro",
+   "requests": 5470947,
+   "matrix": {
+    "0": [
+     "row0",
+     "row5"
+    ],
+    "1": [
+     "row4",
+     "row3"
+    ],
+    "2": [
+     "row2"
+    ],
+    "3": [
+     "row4",
+     "row5"
+    ],
+    "4": []
+   }
+  },
+  {
+   "file": "thp_ddr4_identity_rw.trc",
+   "placement": "thp",
+   "dram": "ddr4",
+   "scheme": "identity",
+   "mode": "rw",
+   "requests": 5492453,
+   "matrix": null
+  },
+  {
+   "file": "thp_ddr4_identity_ro.trc",
+   "placement": "thp",
+   "dram": "ddr4",
+   "scheme": "identity",
+   "mode": "ro",
+   "requests": 5470947,
+   "matrix": null
+  },
+  {
+   "file": "thp_ddr4_xor_global_rw.trc",
+   "placement": "thp",
+   "dram": "ddr4",
+   "scheme": "xor_global",
+   "mode": "rw",
+   "requests": 5492453,
+   "matrix": {
+    "0": [
+     "row6"
+    ],
+    "1": [
+     "row8"
+    ],
+    "2": [
+     "row6"
+    ],
+    "3": [
+     "row14"
+    ],
+    "4": [
+     "row1"
+    ]
+   }
+  },
+  {
+   "file": "thp_ddr4_xor_global_ro.trc",
+   "placement": "thp",
+   "dram": "ddr4",
+   "scheme": "xor_global",
+   "mode": "ro",
+   "requests": 5470947,
+   "matrix": {
+    "0": [
+     "row6"
+    ],
+    "1": [
+     "row8"
+    ],
+    "2": [
+     "row6"
+    ],
+    "3": [
+     "row14"
+    ],
+    "4": [
+     "row1"
+    ]
+   }
+  },
+  {
+   "file": "thp_ddr5_identity_rw.trc",
+   "placement": "thp",
+   "dram": "ddr5",
+   "scheme": "identity",
+   "mode": "rw",
+   "requests": 5492453,
+   "matrix": null
+  },
+  {
+   "file": "thp_ddr5_identity_ro.trc",
+   "placement": "thp",
+   "dram": "ddr5",
+   "scheme": "identity",
+   "mode": "ro",
+   "requests": 5470947,
+   "matrix": null
+  },
+  {
+   "file": "thp_ddr5_xor_global_rw.trc",
+   "placement": "thp",
+   "dram": "ddr5",
+   "scheme": "xor_global",
+   "mode": "rw",
+   "requests": 5492453,
+   "matrix": {
+    "0": [
+     "row3",
+     "row0"
+    ],
+    "1": [
+     "row4"
+    ],
+    "2": [
+     "row13"
+    ],
+    "3": [
+     "row12"
+    ],
+    "4": []
+   }
+  },
+  {
+   "file": "thp_ddr5_xor_global_ro.trc",
+   "placement": "thp",
+   "dram": "ddr5",
+   "scheme": "xor_global",
+   "mode": "ro",
+   "requests": 5470947,
+   "matrix": {
+    "0": [
+     "row3",
+     "row0"
+    ],
+    "1": [
+     "row4"
+    ],
+    "2": [
+     "row13"
+    ],
+    "3": [
+     "row12"
+    ],
+    "4": []
+   }
+  }
+ ]
+}

@@ -1,0 +1,38 @@
+{
+ "requests": 5492453,
+ "reads": 5470947,
+ "writes": 21506,
+ "write_fraction": 0.003915554671109611,
+ "classes": {
+  "expert weights": {
+   "reads": 0,
+   "writes": 0,
+   "write_bytes": 0,
+   "read_bytes": 0
+  },
+  "KV cache": {
+   "reads": 2496,
+   "writes": 192,
+   "write_bytes": 12288,
+   "read_bytes": 159744
+  },
+  "dense weights": {
+   "reads": 5409489,
+   "writes": 0,
+   "write_bytes": 0,
+   "read_bytes": 346207296
+  },
+  "activations": {
+   "reads": 863,
+   "writes": 806,
+   "write_bytes": 51584,
+   "read_bytes": 55232
+  },
+  "unattributed": {
+   "reads": 58099,
+   "writes": 20508,
+   "write_bytes": 1312512,
+   "read_bytes": 3718336
+  }
+ }
+}
