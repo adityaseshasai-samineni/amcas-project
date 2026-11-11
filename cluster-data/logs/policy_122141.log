@@ -3,3 +3,13 @@ SLURM_JOB_ID = 122141
 SLURM_NODELIST = node04
 SLURM_JOB_GPUS = 
 ==========================================
+  WARNING: window has 1 thread(s); splitting into 4 contiguous pseudo-threads
+179,460,712 reads, window [53,838,213,54,038,213), threads 4, class shares W/K/O [0.1088, 0.8871, 0.0041]
+  [packed/ddr4 global] n=200,000 cost 907042 -> 896760; bank bit ^= {0: ['row3', 'row8', 'row13'], 1: [], 2: ['row13'], 3: ['row13'], 4: []}
+  packed/ddr4: 9 ranges
+  [packed/ddr5 global] n=200,000 cost 122746 -> 108008; bank bit ^= {0: ['row5', 'row10', 'row0'], 1: ['row1'], 2: ['row6'], 3: ['row10'], 4: ['row6']}
+  packed/ddr5: 9 ranges
+  [thp/ddr4 global] n=200,000 cost 1192165 -> 922290; bank bit ^= {0: ['row4', 'row2'], 1: ['row8'], 2: ['row12'], 3: ['row12'], 4: []}
+  thp/ddr4: 36 ranges
+  [thp/ddr5 global] n=200,000 cost 322713 -> 110053; bank bit ^= {0: ['row5'], 1: ['row1'], 2: [], 3: [], 4: []}
+  thp/ddr5: 36 ranges

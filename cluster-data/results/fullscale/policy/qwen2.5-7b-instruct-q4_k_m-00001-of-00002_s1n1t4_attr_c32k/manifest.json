@@ -2,7 +2,7 @@
  "reads_total": 179460712,
  "window": [
   53838213,
-  57838213
+  54038213
  ],
  "files": [
   {
@@ -10,9 +10,12 @@
    "placement": "packed",
    "dram": "ddr4",
    "mapping": "identity",
-   "reads": 4000000,
+   "reads": 200000,
    "per_thread": [
-    4000000
+    50000,
+    50000,
+    50000,
+    50000
    ],
    "bubbles": 52
   },
@@ -21,9 +24,12 @@
    "placement": "packed",
    "dram": "ddr4",
    "mapping": "xor_global",
-   "reads": 4000000,
+   "reads": 200000,
    "per_thread": [
-    4000000
+    50000,
+    50000,
+    50000,
+    50000
    ],
    "bubbles": 52
   },
@@ -32,9 +38,12 @@
    "placement": "packed",
    "dram": "ddr5",
    "mapping": "identity",
-   "reads": 4000000,
+   "reads": 200000,
    "per_thread": [
-    4000000
+    50000,
+    50000,
+    50000,
+    50000
    ],
    "bubbles": 52
   },
@@ -43,9 +52,12 @@
    "placement": "packed",
    "dram": "ddr5",
    "mapping": "xor_global",
-   "reads": 4000000,
+   "reads": 200000,
    "per_thread": [
-    4000000
+    50000,
+    50000,
+    50000,
+    50000
    ],
    "bubbles": 52
   },
@@ -54,9 +66,12 @@
    "placement": "thp",
    "dram": "ddr4",
    "mapping": "identity",
-   "reads": 4000000,
+   "reads": 200000,
    "per_thread": [
-    4000000
+    50000,
+    50000,
+    50000,
+    50000
    ],
    "bubbles": 52
   },
@@ -65,9 +80,12 @@
    "placement": "thp",
    "dram": "ddr4",
    "mapping": "xor_global",
-   "reads": 4000000,
+   "reads": 200000,
    "per_thread": [
-    4000000
+    50000,
+    50000,
+    50000,
+    50000
    ],
    "bubbles": 52
   },
@@ -76,9 +94,12 @@
    "placement": "thp",
    "dram": "ddr5",
    "mapping": "identity",
-   "reads": 4000000,
+   "reads": 200000,
    "per_thread": [
-    4000000
+    50000,
+    50000,
+    50000,
+    50000
    ],
    "bubbles": 52
   },
@@ -87,9 +108,12 @@
    "placement": "thp",
    "dram": "ddr5",
    "mapping": "xor_global",
-   "reads": 4000000,
+   "reads": 200000,
    "per_thread": [
-    4000000
+    50000,
+    50000,
+    50000,
+    50000
    ],
    "bubbles": 52
   }
