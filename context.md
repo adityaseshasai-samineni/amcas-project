@@ -1053,3 +1053,7 @@ Submitted via `scripts/17_drattr.sh` (unmodified), node03, `--dependency=afterok
 - **Suggestion.** Lowering the smoke job to about 3.5 GB (it was denied here as an action on the user's job; needs the user's go-ahead) would run it now; the 30B job needs 64 GB, which only fits when the pawan array drains or node01 returns.
 
 - scenarios update (2026-11-11): smoke 122041 passed (dependency met). Jobs 122008-122011 (sc7k1, sc30k1, sc7pf32, sc30pf32) are on user hold under main-session queue control, with 8 CPUs and limits 2h/1h/4h/4h; the main session releases them. Not resubmitted or released by the scenarios agent. Risk: the 1h limit on sc30k1 (or the 2h on sc7k1) may be too short for DynamoRIO trace + drraw2trace + cachesim; check for TIMEOUT.
+
+### longctx update (2026-11-11)
+
+Smoke 122041 (0.5B, SKIP=2, Release build 122019) PASSED: "detached after step 2", "same text: yes". It replaces 121991 and 121990 (cancelled). The main session now runs the queue 4 at a time: 121992 attr_t2 and 121997 q30_32k running; 121993 moe_n4 (48 GB), 121998 q05_32k and region jobs 121999/122000 held by the user until released. The 30B and 0.5B 32k tables are still pending; this section supersedes the job references to 121991 above.
