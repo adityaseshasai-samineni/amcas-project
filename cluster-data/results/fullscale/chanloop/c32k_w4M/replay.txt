@@ -89,4 +89,9 @@ thp_ddr5x8_identity         o3  Open      hit 0.649 lat    91.0 cyc    53.58M   
 thp_ddr5x8_identity         sat ClosedCAP hit 0.716 lat   341.9 cyc    12.80M    48.1GB/s
 thp_ddr5x8_identity         o3  ClosedCAP hit 0.598 lat    93.1 cyc    54.06M    11.7GB/s
 thp_ddr5x8_xor_global       sat ClosedCAP hit 0.762 lat   262.6 cyc     9.11M    67.5GB/s
-thp_ddr5x8_xor_global_chan  sat Open      hit 0.961 lat   202.3 cyc     6.19M    99.4GB
+thp_ddr5x8_xor_global_chan  sat Open      hit 0.961 lat   202.3 cyc     6.19M    99.4GB/s
+thp_ddr5x8_xor_global       o3  Open      hit 0.786 lat    76.6 cyc    46.42M    13.4GB/s
+thp_ddr5x8_xor_global_chan  o3  Open      hit 0.786 lat    76.7 cyc    46.41M    13.3GB/s
+thp_ddr5x8_xor_global_chan  sat ClosedCAP hit 0.768 lat   278.1 cyc     7.55M    81.5GB/s
+thp_ddr5x8_xor_global       o3  ClosedCAP hit 0.679 lat    81.4 cyc    48.23M    12.9GB/s
+thp_ddr5x8_xor_global_chan  o3  ClosedCAP hit 0.680 lat    81.3 cyc    48.14M    12.9GB/s
