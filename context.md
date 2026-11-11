@@ -1137,3 +1137,24 @@ Packed: identity already 0.952-0.954 hit, gain <= 2%. The KV-page XOR gain appea
 **Verdict for the proposal.** A page-offset-aware XOR (permute bank bits with row bits, the matrix being searched offline once) removes the THP-induced row conflicts of the KV and large-activation streams: 12-34% fewer cycles at long context (32k) across 0.5B, 7B and 30B-A3B, and it transfers across tokens (held-out). It is a no-op when pages are contiguous (packed). Gains shrink with batching (large weight reads dominate): DDR5 Open 7% (7B B16), 8% (30B B16), 2% (30B B4). Region-specific (K/V/O) matrices and expert-aware mappings never beat the single global XOR by more than 1-2%; the global XOR is the proposal. Caveats: replays are open-loop, 8M-request windows, placement is modelled (random THP), single decode token per stream.
 
 Operational: node05 and node01 /scratch were full (other users' data; node01 freed by the main session); scripts use node-local /scratch, so check `df /scratch` before replays.
+
+### policy-owner: closed-loop calibration and headline gain (2026-11-12), part 2
+
+**Calibration** (`23_calib.sh`, job 122404; `policy_replay.py --window-depth --mshr`). SimpleO3 runs at the memory clock (2.4 GHz); ipc is an integer, so a slower core is modelled by dilating compute by k: bubbles' = k(b+1)-1 and window' = k x window (same MLP, k-times slower compute). MSHRs per core (16 vs 32) change nothing; the instruction window is the effective-MLP knob. Native targets: 7B short (B1 P512, steps 1-3, 4 threads): 69.1M reads x 64 B in ~172 ms = 25.7 GB/s, 42 instr/read; 7B 8k: 7.8 GB/s; 7B 32k (drattr c32k step 16): 179.5M reads in 2.40 s = 4.8 GB/s (about 0.4 IPC per thread: the attention phase is compute-bound in this build). Sweep (1M-read windows, THP DDR5 identity): short proxy (7B 8k stream, weights window 94% W, bubbles 42): window 128/192/256/384/512 -> 14.3/21.9/26.2/35.9/42.6 GB/s; **chosen window 256 (26.2 GB/s, +2% vs native)**. 32k (bubbles 52): k=1/6/8/10/12 at window 256k -> 18.5/7.3/5.6/4.5/3.8 GB/s; **chosen k=10 (bubbles 529, window 2560): 4.5 GB/s, -6% vs 4.8**.
+
+**Rerun, 7B 32k, 2M window, closed loop** (`22_chanloop.sh`, MODES=o3). Mcycles / avg read latency (cycles) / GB/s, Open, identity | xor_global | chan | xor_global_chan.
+
+(A) matched 32k native rate (k=10; job 122422): every cell, all placements, DRAM widths and both policies, is 67.94-67.96 Mcycles at 4.5 GB/s: **no cycle gain from any mapping or policy**, because the decode step at 32k is compute-bound in the native build. Only read latency moves, on THP: 107 (x16) / 110 (x8) identity -> 102 / 101 xor_global, 104 chan, 102 / 101 xor_global_chan (-5 to -8%); packed and 4 KiB flat.
+
+(B) fast-core bound (k=1, window 256, bubbles 52, ~22 GB/s demand, about the short-context native rate; job 122423):
+
+| placement | DRAM | identity | xor_global | chan | xor_global_chan |
+|---|---|---|---|---|---|
+| packed | x16 | 14.88 / 78 / 21.9 | 14.62 / 78 / 21.7 | 14.19 / 77 / 22.1 | 14.28 / 78 / 21.9 |
+| packed | x8 | 14.63 / 78 / 21.5 | 14.50 / 78 / 21.6 | 14.49 / 78 / 21.5 | 14.64 / 78 / 21.6 |
+| THP | x16 | 17.33 / 99 / 18.7 | 14.49 / 78 / 21.8 | 15.71 / 85 / 20.4 | 14.23 / 77 / 22.0 |
+| THP | x8 | 17.69 / 102 / 18.2 | 14.66 / 78 / 21.5 | 15.85 / 86 / 20.1 | 14.55 / 77 / 21.7 |
+| 4 KiB | x16 | 16.13 / 94 / 19.5 | 16.13 / 94 / 19.5 | 16.08 / 94 / 19.5 | 16.08 / 94 / 19.5 |
+| 4 KiB | x8 | 15.96 / 89 / 19.7 | 15.94 / 89 / 19.7 | 15.83 / 89 / 19.8 | 15.81 / 89 / 19.8 |
+
+ClosedCAP has the same pattern (about +3% cycles over Open). Headline: with fast cores, **THP bank XOR -16% to -17% cycles (-21 to -22% latency)**, channel hash alone -9%, combined -18% (x16) / -18% (x8) at best, i.e. the channel hash adds at most 1-2% over bank XOR; packed gains <=4% from either, 4 KiB <=1%. The mapping gain therefore needs (i) THP placement (huge pages concentrate KV across few banks; 4 KiB placement already spreads them) and (ii) a workload that is actually memory-bound (short/medium context, fast cores). At native 32k speeds the gain is latency only. The saturated -35..-47% channel-hash figure is unreachable in the closed loop (<=2% beyond bank XOR).
