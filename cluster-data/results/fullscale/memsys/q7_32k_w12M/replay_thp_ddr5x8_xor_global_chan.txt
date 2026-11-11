@@ -1,0 +1,8 @@
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loading trace file /scratch/adityaseshasai.s/memsys/q7_32k_w12M/thp_ddr5x8_xor_global_chan.trc ...
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loading trace file /scratch/adityaseshasai.s/memsys/q7_32k_w12M/thp_ddr5x8_xor_global_chan.trc ...
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loaded 12000000 lines.
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loaded 12000000 lines.
+ddr5, 8 channel(s), interleave 64 B << 2, issue 2/cycle
+mapper      policy          reads   writes    hit  conflict  rd_lat  Mcycles    GB/s
+RoBaRaCoCh  Open         12000000        0  0.959     0.016   199.4     19.4    95.3
+RoBaRaCoCh  ClosedCAP    12000000        0  0.768     0.009   277.9     23.4    78.8
