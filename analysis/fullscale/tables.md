@@ -383,6 +383,10 @@ Each remap rewrites the read stream with the named scheme (identity = no change)
 | Q30B_B16 | packed | ddr4 | ClosedCAP | 1.00 (hit 78%) | 1.83 (hit 78%) | 0.99 (hit 78%) | 1.00 (hit 78%) |
 | Q30B_B16 | packed | ddr5 | Open | 1.00 (hit 96%) | 1.73 (hit 93%) | 1.00 (hit 96%) | 1.00 (hit 96%) |
 | Q30B_B16 | packed | ddr5 | ClosedCAP | 1.00 (hit 78%) | 2.26 (hit 77%) | 1.00 (hit 78%) | 0.98 (hit 78%) |
+| Q30B_B16 | thp | ddr4 | Open | 1.00 (hit 96%) | 1.04 (hit 96%) | 0.98 (hit 97%) | 0.98 (hit 97%) |
+| Q30B_B16 | thp | ddr4 | ClosedCAP | 1.00 (hit 78%) | 1.19 (hit 78%) | 0.98 (hit 78%) | 0.98 (hit 78%) |
+| Q30B_B16 | thp | ddr5 | Open | 1.00 (hit 95%) | 1.07 (hit 95%) | 0.94 (hit 96%) | 0.93 (hit 96%) |
+| Q30B_B16 | thp | ddr5 | ClosedCAP | 1.00 (hit 77%) | 1.17 (hit 78%) | 0.89 (hit 78%) | 0.87 (hit 78%) |
 | Q30B_B4 | packed | ddr4 | Open | 1.00 (hit 98%) | 1.43 (hit 93%) | 1.00 (hit 98%) | 1.00 (hit 98%) |
 | Q30B_B4 | packed | ddr4 | ClosedCAP | 1.00 (hit 78%) | 1.96 (hit 78%) | 1.00 (hit 78%) | 1.00 (hit 78%) |
 | Q30B_B4 | packed | ddr5 | Open | 1.00 (hit 96%) | 1.66 (hit 92%) | 0.97 (hit 96%) | 0.97 (hit 96%) |
