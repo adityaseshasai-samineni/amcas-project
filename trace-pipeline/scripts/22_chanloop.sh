@@ -6,6 +6,7 @@
 #SBATCH --time=03:00:00
 #SBATCH -o /home/adityaseshasai.s/amcas-pro/logs/chanloop_%j.log
 # Closed-loop (SimpleO3) + saturated replay of identity / xor_global / chan / xor_global_chan for DDR5 x16 and x8.
+# Env: MODES (sat,o3), WDEPTH (SimpleO3 window, default 128), MSHR (16); see 23_calib.sh for calibrated values.
 # Usage: 22_chanloop.sh ATTR_RUN BUBBLES TAG [WINDOW] [PLACEMENTS] [POLICIES]
 set -uo pipefail
 RUN=$1; BUB=$2; TAG=$3; WIN=${4:-4000000}; PL=${5:-packed,thp,4k}; POL=${6:-Open,ClosedCAP}
@@ -20,7 +21,7 @@ $E/bin/python $HOME/amcas-pro/tools/policy_traces.py $A/miss.gz $T $S --window $
   --placements $PL --drams ddr5,ddr5x8 --schemes identity,xor_global,chan,xor_global_chan 2>&1 | tee $R/make.txt
 [ ${PIPESTATUS[0]} -eq 0 ] || { echo "policy_traces failed"; exit 1; }
 cp $S/manifest.json $R/
-$E/bin/python $HOME/amcas-pro/tools/policy_replay.py $S $R/replay.json --bubbles $BUB --procs 6 --policies $POL 2>&1 \
+$E/bin/python $HOME/amcas-pro/tools/policy_replay.py $S $R/replay.json --bubbles $BUB --procs 6 --policies $POL --modes ${MODES:-sat,o3} --window-depth ${WDEPTH:-128} --mshr ${MSHR:-16} 2>&1 \
   | grep -v "Ramulator::\|Loading trace\|Loaded" > $R/replay.txt
 RC=${PIPESTATUS[0]}
 bash $HOME/amcas-pro/tools/publish.sh "chanloop results $TAG (rc=$RC)" || true

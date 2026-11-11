@@ -51,8 +51,9 @@ def run(cfg):
         ns = [sum(1 for _ in open(t)) for t in tr]
         b = a.bubbles
         fe = ramulator.frontend.SimpleO3(
-            clock_ratio=3 if nch == 1 else 1, num_expected_insts=min(ns) * (b + 1), traces=tr, ipc=4,
-            inst_window_depth=128, llc_capacity_per_core="4KB", llc_associativity=4, llc_num_mshr_per_core=16,
+            clock_ratio=3 if nch == 1 else 1, num_expected_insts=min(ns) * (b + 1), traces=tr, ipc=getattr(a, "ipc", 4),
+            inst_window_depth=getattr(a, "window_depth", 128), llc_capacity_per_core="4KB", llc_associativity=4,
+            llc_num_mshr_per_core=getattr(a, "mshr", 16),
             translation=ramulator.translation.NoTranslation(max_addr=1 << 40))
     sim = ramulator.Simulation(fe, mem)
     sim.run()
@@ -79,6 +80,9 @@ def main():
     ap.add_argument("--policies", default=",".join(POLS))
     ap.add_argument("--bubbles", type=int, default=40)
     ap.add_argument("--procs", type=int, default=6)
+    ap.add_argument("--ipc", type=int, default=4)             # SimpleO3 peak commit rate (calibrated per workload)
+    ap.add_argument("--window-depth", type=int, default=128)  # SimpleO3 instruction window (effective MLP)
+    ap.add_argument("--mshr", type=int, default=16)           # MSHRs per core
     a = ap.parse_args()
     keys = a.keys.split(",") if a.keys else sorted(f[:-4] for f in os.listdir(a.dir) if f.endswith(".trc") and ".t" not in f[-7:-4] and f.count(".") == 1)
     cfgs = [(a.dir, k, m, p, a) for k in keys for m in a.modes.split(",") for p in a.policies.split(",")]
