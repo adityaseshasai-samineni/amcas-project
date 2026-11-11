@@ -492,6 +492,14 @@ Each remap rewrites the read stream with the named scheme (identity = no change)
 | Qwen3-30B-A3B-Q4_K_M_attr_miss | thp | ddr4 | ClosedCAP | 1.00 (hit 79%) | 1.14 (hit 78%) | 1.00 (hit 79%) | 1.00 (hit 79%) |
 | Qwen3-30B-A3B-Q4_K_M_attr_miss | thp | ddr5 | Open | 1.00 (hit 97%) | 1.09 (hit 96%) | 1.00 (hit 97%) | 1.00 (hit 97%) |
 | Qwen3-30B-A3B-Q4_K_M_attr_miss | thp | ddr5 | ClosedCAP | 1.00 (hit 78%) | 1.26 (hit 78%) | 1.00 (hit 78%) | 1.00 (hit 78%) |
+| qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s0n1t4_attr_pf32 | packed | ddr4 | Open | 1.00 (hit 91%) | 1.83 (hit 86%) | 1.00 (hit 91%) | 0.99 (hit 91%) |
+| qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s0n1t4_attr_pf32 | packed | ddr4 | ClosedCAP | 1.00 (hit 75%) | 2.21 (hit 75%) | 1.00 (hit 75%) | 1.00 (hit 75%) |
+| qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s0n1t4_attr_pf32 | packed | ddr5 | Open | 1.00 (hit 92%) | 1.97 (hit 86%) | 0.99 (hit 92%) | 1.00 (hit 92%) |
+| qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s0n1t4_attr_pf32 | packed | ddr5 | ClosedCAP | 1.00 (hit 76%) | 2.06 (hit 74%) | 0.98 (hit 75%) | 1.00 (hit 76%) |
+| qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s0n1t4_attr_pf32 | thp | ddr4 | Open | 1.00 (hit 90%) | 1.68 (hit 83%) | 0.99 (hit 91%) | 0.98 (hit 91%) |
+| qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s0n1t4_attr_pf32 | thp | ddr4 | ClosedCAP | 1.00 (hit 75%) | 1.79 (hit 75%) | 0.96 (hit 75%) | 0.96 (hit 75%) |
+| qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s0n1t4_attr_pf32 | thp | ddr5 | Open | 1.00 (hit 92%) | 1.44 (hit 86%) | 0.98 (hit 92%) | 0.99 (hit 92%) |
+| qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s0n1t4_attr_pf32 | thp | ddr5 | ClosedCAP | 1.00 (hit 76%) | 1.51 (hit 73%) | 0.97 (hit 75%) | 0.98 (hit 76%) |
 | qwen2.5-7b-instruct-q4_k_m_attr_c1k | packed | ddr4 | Open | 1.00 (hit 98%) | 1.02 (hit 98%) | 1.00 (hit 98%) | 1.00 (hit 98%) |
 | qwen2.5-7b-instruct-q4_k_m_attr_c1k | packed | ddr4 | ClosedCAP | 1.00 (hit 79%) | 1.50 (hit 78%) | 0.99 (hit 79%) | 1.00 (hit 79%) |
 | qwen2.5-7b-instruct-q4_k_m_attr_c1k | packed | ddr5 | Open | 1.00 (hit 98%) | 1.26 (hit 97%) | 0.99 (hit 98%) | 1.00 (hit 98%) |

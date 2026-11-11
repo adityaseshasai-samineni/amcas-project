@@ -1,0 +1,40 @@
+[
+ {
+  "mapper": "RoBaRaCoCh",
+  "policy": "Open",
+  "dram": "ddr4",
+  "channels": 1,
+  "interleave_bits": 0,
+  "reads": 12000000,
+  "writes": 0,
+  "cycles": 52747219,
+  "row_hits": 10867233,
+  "row_misses": 330236,
+  "row_conflicts": 802501,
+  "hit_rate": 0.905605014012535,
+  "avg_read_latency": 167.354553,
+  "throughput_MBps": 17478.953125,
+  "channel_reads": [
+   12000000
+  ]
+ },
+ {
+  "mapper": "RoBaRaCoCh",
+  "policy": "ClosedCAP",
+  "dram": "ddr4",
+  "channels": 1,
+  "interleave_bits": 0,
+  "reads": 12000000,
+  "writes": 0,
+  "cycles": 60588490,
+  "row_hits": 8965183,
+  "row_misses": 2415990,
+  "row_conflicts": 618796,
+  "hit_rate": 0.7471005133429928,
+  "avg_read_latency": 190.35984799999997,
+  "throughput_MBps": 15216.855469,
+  "channel_reads": [
+   12000000
+  ]
+ }
+]
