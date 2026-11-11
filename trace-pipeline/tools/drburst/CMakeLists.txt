@@ -5,6 +5,12 @@
 # the DynamoRIO release does not bundle.
 cmake_minimum_required(VERSION 3.14)
 project(drburst C CXX)
+# Default to Release: with an empty build type configure_DynamoRIO_static links DynamoRIO's
+# debug library, whose heap leak assert (heap.c:1987) fired at dr_app_stop_and_cleanup in
+# multi-step/mid-run detaches (jobs 120081, 120084, 120835, 120934); unoptimised drbatch also crashed.
+if (NOT CMAKE_BUILD_TYPE)
+  set(CMAKE_BUILD_TYPE Release CACHE STRING "" FORCE)
+endif ()
 find_package(DynamoRIO REQUIRED)
 set(LLAMA "" CACHE PATH "llama.cpp checkout with build-fast/")
 set(DRLIBS "" CACHE PATH "prefix with liblz4, libsnappy, libz")
