@@ -1,0 +1,48 @@
+==========================================
+SLURM_JOB_ID = 122003
+SLURM_NODELIST = node05
+SLURM_JOB_GPUS = 
+==========================================
+67,424,594 reads; window [20,227,378,28,227,378); expert share in window 0.772; distinct experts in window 92
+  [packed/ddr4 global] n=8,000,000 cost 3949018 -> 3705645; bank bit ^= {0: ['row8'], 1: ['row2', 'row8'], 2: [], 3: [], 4: ['row11']}
+  [packed/ddr4 region K] n=3,127,791 cost 3443481 -> 3429893; bank bit ^= {0: [], 1: [], 2: [], 3: ['row4', 'row5'], 4: []}
+  [packed/ddr4 region O] n=1,046,996 cost 3672538 -> 3660291; bank bit ^= {0: ['row7'], 1: ['row5'], 2: [], 3: [], 4: []}
+  packed ddr4 identity       in-order hit 0.963 banks 32/32
+  packed ddr4 xor_global     in-order hit 0.968 banks 32/32
+  packed ddr4 region         in-order hit 0.963 banks 32/32
+  packed ddr4 expert_hash    in-order hit 0.963 banks 32/32
+  packed ddr4 expert_lin     in-order hit 0.963 banks 32/32
+  packed ddr4 region_expert  in-order hit 0.963 banks 32/32
+  [packed/ddr5 global] n=8,000,000 cost 517426 -> 437600; bank bit ^= {0: ['row0', 'row3'], 1: ['row8'], 2: ['row10'], 3: ['row0'], 4: ['row2']}
+  [packed/ddr5 region K] n=3,127,791 cost 3835512 -> 415936; bank bit ^= {0: ['row0', 'row1'], 1: ['row0', 'row2'], 2: ['row0'], 3: ['row0', 'row1'], 4: ['row0']}
+  [packed/ddr5 region O] n=1,046,996 cost 442924 -> 391241; bank bit ^= {0: ['row1', 'row2'], 1: ['row2'], 2: ['row4'], 3: [], 4: ['row2']}
+  packed ddr5 identity       in-order hit 0.940 banks 512/512
+  packed ddr5 xor_global     in-order hit 0.963 banks 512/512
+  packed ddr5 region         in-order hit 0.960 banks 512/512
+  packed ddr5 expert_hash    in-order hit 0.940 banks 512/512
+  packed ddr5 expert_lin     in-order hit 0.941 banks 512/512
+  packed ddr5 region_expert  in-order hit 0.961 banks 512/512
+  [thp/ddr4 global] n=8,000,000 cost 4363387 -> 3779911; bank bit ^= {0: ['row6'], 1: ['row3'], 2: [], 3: ['row10'], 4: ['row11']}
+  [thp/ddr4 region K] n=3,144,015 cost 17880064 -> 3453911; bank bit ^= {0: ['row2', 'row8'], 1: ['row2', 'row12'], 2: ['row2', 'row12'], 3: ['row2'], 4: ['row3']}
+  [thp/ddr4 region O] n=1,003,725 cost 7497270 -> 3622328; bank bit ^= {0: ['row6', 'row4', 'row3'], 1: ['row7'], 2: ['row6', 'row15'], 3: ['row7', 'row6'], 4: ['row2']}
+Traceback (most recent call last):
+  File "/home/adityaseshasai.s/amcas-pro/tools/mapprep.py", line 71, in write_trace
+    f.writelines(f"LD 0x{x:x}\n" for x in phys.tolist())
+OSError: [Errno 28] No space left on device
+
+During handling of the above exception, another exception occurred:
+
+OSError: [Errno 28] No space left on device
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/adityaseshasai.s/amcas-pro/tools/moe_remap.py", line 122, in <module>
+    main()
+  File "/home/adityaseshasai.s/amcas-pro/tools/moe_remap.py", line 113, in main
+    P.write_trace(os.path.join(a.out, fn), phys)
+  File "/home/adityaseshasai.s/amcas-pro/tools/mapprep.py", line 70, in write_trace
+    with open(path, "w") as f:
+         ^^^^^^^^^^^^^^^
+OSError: [Errno 28] No space left on device
+cp: cannot stat '/scratch/adityaseshasai.s/mapstudy/moe-Q30B_B4/manifest.json': No such file or directory
