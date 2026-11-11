@@ -3,3 +3,34 @@ SLURM_JOB_ID = 122014
 SLURM_NODELIST = node05
 SLURM_JOB_GPUS = 
 ==========================================
+179,460,712 reads; window [53,838,213, 65,838,213); class shares (W,K,O) window [0.3819, 0.6136, 0.0045]
+placement packed: 2936 granules, tags W/K/O = [2084, 847, 5]; reads whose own class equals granule tag 0.9991
+  [packed/ddr5x8 global bank] n=12,000,000 cost 783313 -> 692327; bank bit ^= {0: ['row10'], 1: ['row1'], 2: ['row1'], 3: [], 4: ['row9']}
+  [packed/ddr5x8 chan] channel hash cost 944229 -> 694419; chan bit ^= {0: ['row2', 'row0', 'row4'], 1: ['row1'], 2: ['row1']}
+  [packed/ddr5x8 bank+chan] channel hash cost 853243 -> 686984; chan bit ^= {0: ['row1', 'row11'], 1: ['row0'], 2: ['row0']}
+  [packed/ddr5x8 region K] n=110,201,810 cost 1137826 -> 689963; bank bit ^= {0: ['row2'], 1: ['row5'], 2: [], 3: [], 4: ['row5']}
+  [packed/ddr5x8 region O] n=964,273 cost 661565 -> 656101; bank bit ^= {0: ['row2'], 1: ['row2'], 2: ['row1'], 3: [], 4: []}
+  [packed/ddr5x8 region+chan] channel hash cost 1006057 -> 693252; chan bit ^= {0: ['row1', 'row0', 'row5'], 1: ['row4', 'row3'], 2: ['row6', 'row11']}
+  packed ddr5x8 identity         in-order hit 0.951 banks 256/256 chan max/mean 1.057
+  packed ddr5x8 chan             in-order hit 0.954 banks 256/256 chan max/mean 1.001
+  packed ddr5x8 xor_global       in-order hit 0.944 banks 256/256 chan max/mean 1.057
+  packed ddr5x8 xor_global_chan  in-order hit 0.948 banks 256/256 chan max/mean 1.004
+  packed ddr5x8 region           in-order hit 0.942 banks 256/256 chan max/mean 1.057
+  packed ddr5x8 region_chan      in-order hit 0.952 banks 256/256 chan max/mean 1.020
+  [packed/ddr5 global bank] n=12,000,000 cost 677195 -> 471609; bank bit ^= {0: ['row0', 'row5', 'row10'], 1: ['row0'], 2: ['row9'], 3: ['row8', 'row10'], 4: ['row1', 'row0', 'row8']}
+  [packed/ddr5 chan] channel hash cost 757871 -> 476242; chan bit ^= {0: ['row0', 'row2'], 1: ['row3', 'row4'], 2: ['row4', 'row9'], 3: ['row8', 'row0']}
+  [packed/ddr5 bank+chan] channel hash cost 552285 -> 463324; chan bit ^= {0: ['row1', 'row3'], 1: ['row4'], 2: ['row4'], 3: []}
+  [packed/ddr5 region K] n=110,201,810 cost 817328 -> 446236; bank bit ^= {0: ['row7', 'row6'], 1: ['row5', 'row7'], 2: [], 3: ['row7', 'row8'], 4: ['row6', 'row7']}
+  [packed/ddr5 region O] n=964,273 cost 405954 -> 398435; bank bit ^= {0: ['row1', 'row0'], 1: [], 2: ['row1'], 3: [], 4: []}
+  [packed/ddr5 region+chan] channel hash cost 656774 -> 463232; chan bit ^= {0: ['row0'], 1: ['row3'], 2: ['row5'], 3: ['row4']}
+Traceback (most recent call last):
+  File "/home/adityaseshasai.s/amcas-pro/tools/memsys_study.py", line 223, in <module>
+    main()
+  File "/home/adityaseshasai.s/amcas-pro/tools/memsys_study.py", line 211, in main
+    write_trace(os.path.join(a.out, fn), phys)
+  File "/home/adityaseshasai.s/amcas-pro/tools/memsys_study.py", line 112, in write_trace
+    with open(path, "w") as f:
+         ^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/scratch/adityaseshasai.s/memsys/q7_32k_w12M/packed_ddr5_identity.trc'
+cp: cannot stat '/scratch/adityaseshasai.s/memsys/q7_32k_w12M/manifest.json': No such file or directory
+ls: cannot access '/scratch/adityaseshasai.s/memsys/q7_32k_w12M/*.trc': No such file or directory

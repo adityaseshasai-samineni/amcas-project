@@ -30,3 +30,6 @@ Traceback (most recent call last):
     f.writelines(f"LD 0x{x:x}\n" for x in phys.tolist())
 OSError: [Errno 28] No space left on device
 cp: cannot stat '/scratch/adityaseshasai.s/mapstudy/moe-Q30B_B4_thp/manifest.json': No such file or directory
+wrote analysis/tables.md and 3 figures; validation failures: none
+wrote analysis/fullscale/tables.md
+publish: pushed c9c3d9e
