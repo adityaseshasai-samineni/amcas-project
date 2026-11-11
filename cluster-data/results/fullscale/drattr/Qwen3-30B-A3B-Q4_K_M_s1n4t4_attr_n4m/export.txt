@@ -1,0 +1,23 @@
+121,366,479 DRAM reads (7767.5 MB), 1 threads
+stride, merged: {'+1 line': 0.177, '-1 line': 0.03, 'within 16 lines': 0.127, 'within 8 KiB row': 0.0, 'beyond': 0.666}
+stride, thread 2717085: {'+1 line': 0.177, '-1 line': 0.03, 'within 16 lines': 0.127, 'within 8 KiB row': 0.0, 'beyond': 0.666}
+
+offline in-order open-page row hit rate (DDR4 8 KiB row, 2 ranks x 16 banks)
+placement              RoRaBaCoCh   RoCoRaBaCh     XOR-bank
+VA-order packed             0.949        0.053        0.948
+4KiB shuffled               0.940        0.018        0.940
+THP 2MiB shuffled           0.948        0.051        0.949
+
+attribution by class (reads, share, MB; stride +1/within16/beyond, per class stream)
+  expert weights   68,567,040   0.565    4388.3  +1 0.26 w16 0.14 beyond 0.57
+  KV cache            186,857   0.002      12.0  +1 0.75 w16 0.00 beyond 0.25
+  dense weights    51,410,718   0.424    3290.3  +1 0.36 w16 0.19 beyond 0.41
+  activations         448,458   0.004      28.7  +1 0.57 w16 0.08 beyond 0.28
+  unattributed        753,406   0.006      48.2  +1 0.30 w16 0.14 beyond 0.46
+  row hit VA-order packed / RoRaBaCoCh: expert weights 0.949, KV cache 0.932, dense weights 0.951, activations 0.845, unattributed 0.819
+  row hit VA-order packed / XOR-bank: expert weights 0.948, KV cache 0.932, dense weights 0.952, activations 0.844, unattributed 0.818
+  row hit 4KiB shuffled / RoRaBaCoCh: expert weights 0.939, KV cache 0.893, dense weights 0.945, activations 0.764, unattributed 0.748
+  row hit 4KiB shuffled / XOR-bank: expert weights 0.939, KV cache 0.897, dense weights 0.945, activations 0.782, unattributed 0.739
+  row hit THP 2MiB shuffled / RoRaBaCoCh: expert weights 0.949, KV cache 0.730, dense weights 0.952, activations 0.702, unattributed 0.804
+  row hit THP 2MiB shuffled / XOR-bank: expert weights 0.948, KV cache 0.895, dense weights 0.954, activations 0.842, unattributed 0.810
+  experts: 144 expert tensors, mean touched/tensor 15.8 of 128, mostly read 15.8

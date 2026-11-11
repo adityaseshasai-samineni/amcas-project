@@ -328,6 +328,11 @@ From the `drattr` runs (tensor addresses dumped, reads attributed by address). T
 | Qwen3-30B-A3B-Q4_K_M_attr_miss | dense weights | 12.9 | 0.82 | 42.4 | 435 |
 | Qwen3-30B-A3B-Q4_K_M_attr_miss | activations | 0.1 | 0.01 | 0.4 | 23 |
 | Qwen3-30B-A3B-Q4_K_M_attr_miss | unattributed | 0.2 | 0.01 | 0.7 | 0 |
+| Qwen3-30B-A3B-Q4_K_M_s1n4t4_attr_n4m | expert weights | 68.6 | 4.39 | 56.5 | 144 |
+| Qwen3-30B-A3B-Q4_K_M_s1n4t4_attr_n4m | KV cache | 0.2 | 0.01 | 0.2 | 96 |
+| Qwen3-30B-A3B-Q4_K_M_s1n4t4_attr_n4m | dense weights | 51.4 | 3.29 | 42.4 | 435 |
+| Qwen3-30B-A3B-Q4_K_M_s1n4t4_attr_n4m | activations | 0.4 | 0.03 | 0.4 | 23 |
+| Qwen3-30B-A3B-Q4_K_M_s1n4t4_attr_n4m | unattributed | 0.8 | 0.05 | 0.6 | 0 |
 | qwen2.5-7b-instruct-q4_k_m_attr_c1k | KV cache | 0.9 | 0.06 | 1.3 | 56 |
 | qwen2.5-7b-instruct-q4_k_m_attr_c1k | dense weights | 68.3 | 4.37 | 98.1 | 339 |
 | qwen2.5-7b-instruct-q4_k_m_attr_c1k | activations | 0.2 | 0.01 | 0.2 | 15 |
@@ -381,6 +386,11 @@ From the `drattr` runs (tensor addresses dumped, reads attributed by address). T
 | Qwen3-30B-A3B-Q4_K_M_attr_miss | dense weights | 97.3 | 96.2 | 97.2 | 97.1 |
 | Qwen3-30B-A3B-Q4_K_M_attr_miss | activations | 86.9 | 82.0 | 72.7 | 83.3 |
 | Qwen3-30B-A3B-Q4_K_M_attr_miss | unattributed | 84.7 | 78.0 | 79.5 | 81.6 |
+| Qwen3-30B-A3B-Q4_K_M_s1n4t4_attr_n4m | expert weights | 94.9 | 93.9 | 94.9 | 94.8 |
+| Qwen3-30B-A3B-Q4_K_M_s1n4t4_attr_n4m | KV cache | 93.2 | 89.3 | 73.0 | 89.5 |
+| Qwen3-30B-A3B-Q4_K_M_s1n4t4_attr_n4m | dense weights | 95.1 | 94.5 | 95.2 | 95.4 |
+| Qwen3-30B-A3B-Q4_K_M_s1n4t4_attr_n4m | activations | 84.5 | 76.4 | 70.2 | 84.2 |
+| Qwen3-30B-A3B-Q4_K_M_s1n4t4_attr_n4m | unattributed | 81.9 | 74.8 | 80.4 | 81.0 |
 | qwen2.5-7b-instruct-q4_k_m_attr_c1k | KV cache | 94.6 | 91.0 | 73.3 | 91.4 |
 | qwen2.5-7b-instruct-q4_k_m_attr_c1k | dense weights | 96.6 | 95.8 | 96.6 | 96.6 |
 | qwen2.5-7b-instruct-q4_k_m_attr_c1k | activations | 84.8 | 78.2 | 46.5 | 84.9 |
@@ -418,6 +428,7 @@ From the `drattr` runs (tensor addresses dumped, reads attributed by address). T
 | Qwen3-30B-A3B-Q4_K_M_attr_c1k | 8.0 | 8.0 | 144 |
 | Qwen3-30B-A3B-Q4_K_M_attr_c32k | 8.0 | 8.0 | 144 |
 | Qwen3-30B-A3B-Q4_K_M_attr_miss | 8.0 | 8.0 | 144 |
+| Qwen3-30B-A3B-Q4_K_M_s1n4t4_attr_n4m | 15.8 | 15.8 | 144 |
 
 ## Region-aware mapping proposal (replay of remapped traces, RoBaRaCoCh)
 
@@ -499,8 +510,10 @@ Each remap rewrites the read stream with the named scheme (identity = no change)
 | qwen2.5-7b-instruct-q4_k_m_attr_c8k | thp | ddr5 | ClosedCAP | 1.00 (hit 77%) | 1.06 (hit 77%) | 0.85 (hit 78%) | 0.86 (hit 78%) |
 | qwen25-05b-q4_0_attr_c32k | packed | ddr4 | Open | 1.00 (hit 98%) | 1.22 (hit 95%) | 0.98 (hit 98%) | 0.99 (hit 98%) |
 | qwen25-05b-q4_0_attr_c32k | packed | ddr4 | ClosedCAP | 1.00 (hit 79%) | 1.68 (hit 78%) | 1.00 (hit 79%) | 1.00 (hit 79%) |
-| qwen25-05b-q4_0_attr_c32k | packed | ddr5 | Open | 1.00 (hit 96%) | 1.64 (hit 94%) | - | 1.00 (hit 96%) |
-| qwen25-05b-q4_0_attr_c32k | packed | ddr5 | ClosedCAP | 1.00 (hit 78%) | 2.25 (hit 77%) | - | 1.00 (hit 78%) |
+| qwen25-05b-q4_0_attr_c32k | packed | ddr5 | Open | 1.00 (hit 96%) | 1.64 (hit 94%) | 1.00 (hit 96%) | 1.00 (hit 96%) |
+| qwen25-05b-q4_0_attr_c32k | packed | ddr5 | ClosedCAP | 1.00 (hit 78%) | 2.25 (hit 77%) | 1.00 (hit 78%) | 1.00 (hit 78%) |
+| qwen25-05b-q4_0_attr_c32k | thp | ddr4 | Open | 1.00 (hit 92%) | 0.93 (hit 97%) | - | - |
+| qwen25-05b-q4_0_attr_c32k | thp | ddr4 | ClosedCAP | 1.00 (hit 78%) | 0.99 (hit 79%) | - | - |
 
 ## Batched decode (drbatch, 512-token prompts, 4 threads)
 

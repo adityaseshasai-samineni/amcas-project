@@ -2,3 +2,7 @@
 Loading trace file /scratch/adityaseshasai.s/region/qwen25-05b-q4_0_s1n1t4_attr_c32k/thp_ddr4_identity.trc ...
 [[Ramulator::LoadStoreTrace] [[32minfo[0m] Ramulator::LoadStoreTraceLoaded 11649327 lines.] [[32minfo[0m] 
 Loaded 11649327 lines.
+ddr4, 1 channel(s), interleave 64 B << 0, issue 1/cycle
+mapper      policy          reads   writes    hit  conflict  rd_lat  Mcycles    GB/s
+RoBaRaCoCh  Open         11649327        0  0.921     0.065   215.1     70.4    12.7
+RoBaRaCoCh  ClosedCAP    11649327        0  0.782     0.014   291.4     97.5     9.2
