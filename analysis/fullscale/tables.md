@@ -323,6 +323,10 @@ From the `drattr` runs (tensor addresses dumped, reads attributed by address). T
 | Qwen3-30B-A3B-Q4_K_M_attr_miss | dense weights | 12.9 | 0.82 | 42.4 | 435 |
 | Qwen3-30B-A3B-Q4_K_M_attr_miss | activations | 0.1 | 0.01 | 0.4 | 23 |
 | Qwen3-30B-A3B-Q4_K_M_attr_miss | unattributed | 0.2 | 0.01 | 0.7 | 0 |
+| qwen2.5-7b-instruct-q4_k_m_attr_c1k | KV cache | 0.9 | 0.06 | 1.3 | 56 |
+| qwen2.5-7b-instruct-q4_k_m_attr_c1k | dense weights | 68.3 | 4.37 | 98.1 | 339 |
+| qwen2.5-7b-instruct-q4_k_m_attr_c1k | activations | 0.2 | 0.01 | 0.2 | 15 |
+| qwen2.5-7b-instruct-q4_k_m_attr_c1k | unattributed | 0.3 | 0.02 | 0.4 | 0 |
 | qwen2.5-7b-instruct-q4_k_m_attr_c32k | KV cache | 110.3 | 7.06 | 61.5 | 56 |
 | qwen2.5-7b-instruct-q4_k_m_attr_c32k | dense weights | 68.3 | 4.37 | 38.1 | 339 |
 | qwen2.5-7b-instruct-q4_k_m_attr_c32k | activations | 0.4 | 0.02 | 0.2 | 17 |
@@ -363,6 +367,10 @@ From the `drattr` runs (tensor addresses dumped, reads attributed by address). T
 | Qwen3-30B-A3B-Q4_K_M_attr_miss | dense weights | 97.3 | 96.2 | 97.2 | 97.1 |
 | Qwen3-30B-A3B-Q4_K_M_attr_miss | activations | 86.9 | 82.0 | 72.7 | 83.3 |
 | Qwen3-30B-A3B-Q4_K_M_attr_miss | unattributed | 84.7 | 78.0 | 79.5 | 81.6 |
+| qwen2.5-7b-instruct-q4_k_m_attr_c1k | KV cache | 94.6 | 91.0 | 73.3 | 91.4 |
+| qwen2.5-7b-instruct-q4_k_m_attr_c1k | dense weights | 96.6 | 95.8 | 96.6 | 96.6 |
+| qwen2.5-7b-instruct-q4_k_m_attr_c1k | activations | 84.8 | 78.2 | 46.5 | 84.9 |
+| qwen2.5-7b-instruct-q4_k_m_attr_c1k | unattributed | 80.0 | 69.2 | 71.1 | 79.8 |
 | qwen2.5-7b-instruct-q4_k_m_attr_c32k | KV cache | 92.3 | 89.1 | 72.4 | 87.0 |
 | qwen2.5-7b-instruct-q4_k_m_attr_c32k | dense weights | 96.3 | 95.5 | 96.4 | 96.4 |
 | qwen2.5-7b-instruct-q4_k_m_attr_c32k | activations | 59.4 | 49.8 | 48.4 | 50.4 |
@@ -414,6 +422,8 @@ Each remap rewrites the read stream with the named scheme (identity = no change)
 | Q30B_B4 | thp | ddr4 | ClosedCAP | 1.00 (hit 78%) | 1.17 (hit 78%) | 0.99 (hit 78%) | 0.99 (hit 78%) |
 | Q30B_B4 | thp | ddr5 | Open | 1.00 (hit 96%) | 1.09 (hit 95%) | 0.98 (hit 96%) | 0.99 (hit 96%) |
 | Q30B_B4 | thp | ddr5 | ClosedCAP | 1.00 (hit 77%) | 1.29 (hit 77%) | 1.00 (hit 77%) | 1.00 (hit 78%) |
+| Q7B_B16 | packed | ddr4 | Open | 1.00 (hit 91%) | - | 1.00 (hit 92%) | 1.00 (hit 91%) |
+| Q7B_B16 | packed | ddr4 | ClosedCAP | 1.00 (hit 74%) | - | 1.00 (hit 74%) | 1.00 (hit 74%) |
 | Qwen3-30B-A3B-Q4_K_M_attr_c32k | packed | ddr4 | Open | 1.00 (hit 95%) | 1.58 (hit 89%) | 1.00 (hit 96%) | 1.01 (hit 95%) |
 | Qwen3-30B-A3B-Q4_K_M_attr_c32k | packed | ddr4 | ClosedCAP | 1.00 (hit 77%) | 2.14 (hit 77%) | 1.00 (hit 77%) | 1.01 (hit 77%) |
 | Qwen3-30B-A3B-Q4_K_M_attr_c32k | packed | ddr5 | Open | 1.00 (hit 95%) | 1.89 (hit 81%) | 1.00 (hit 96%) | 1.00 (hit 95%) |

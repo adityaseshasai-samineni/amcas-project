@@ -9,3 +9,52 @@ drburst: detached after step 4
 same text: yes
 5 thread files
 6.1G	/scratch/adityaseshasai.s/drwb/qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n1t4_wb_c8k/drmemtrace.llama-drattr.3597581.7036.dir
+drcachesim LL:     Misses:                     75,739,293
+{"threads": 5, "quantum": 1000, "instr": 4118227771, "loads": 842941789, "stores": 204617162, "prefetches": 0,
+ "l1_accesses": 1168172651, "l1_misses": 133880787, "l1_dirty_evictions": 411965, "ll_accesses": 133880787, "ll_hits": 58572010,
+ "dram_reads": 75308777, "dram_writes": 204184, "wb_hit_in_ll": 410369, "wb_alloc_in_ll": 1596,
+ "residual_dirty_ll": 10349, "residual_dirty_l1": 350}
+75512961 requests
+{
+ "requests": 75512961,
+ "reads": 75308777,
+ "writes": 204184,
+ "write_fraction": 0.0027039596553497616,
+ "classes": {
+  "expert weights": {
+   "reads": 0,
+   "writes": 0,
+   "write_bytes": 0,
+   "read_bytes": 0
+  },
+  "KV cache": {
+   "reads": 6598428,
+   "writes": 896,
+   "write_bytes": 57344,
+   "read_bytes": 422299392
+  },
+  "dense weights": {
+   "reads": 68290232,
+   "writes": 0,
+   "write_bytes": 0,
+   "read_bytes": 4370574848
+  },
+  "activations": {
+   "reads": 175695,
+   "writes": 116053,
+   "write_bytes": 7427392,
+   "read_bytes": 11244480
+  },
+  "unattributed": {
+   "reads": 244422,
+   "writes": 87235,
+   "write_bytes": 5583040,
+   "read_bytes": 15643008
+  }
+ }
+}
+window [22,653,888, 34,653,888): 33,406 writes of 12,000,000 requests
+  [packed/ddr4 global(rw)] n=12,000,000 cost 3579144 -> 3417065; bank bit ^= {0: ['row3', 'row2'], 1: ['row5', 'row6'], 2: [], 3: [], 4: ['row12']}
+  [packed/ddr5 global(rw)] n=12,000,000 cost 464538 -> 406976; bank bit ^= {0: ['row2'], 1: ['row9'], 2: ['row10'], 3: ['row5', 'row8'], 4: ['row3', 'row9']}
+  [thp/ddr4 global(rw)] n=12,000,000 cost 4377152 -> 3421059; bank bit ^= {0: ['row9', 'row14'], 1: ['row8', 'row9'], 2: ['row5'], 3: ['row9'], 4: []}
+  [thp/ddr5 global(rw)] n=12,000,000 cost 768138 -> 415618; bank bit ^= {0: ['row6'], 1: ['row13'], 2: ['row13'], 3: ['row2', 'row1'], 4: []}

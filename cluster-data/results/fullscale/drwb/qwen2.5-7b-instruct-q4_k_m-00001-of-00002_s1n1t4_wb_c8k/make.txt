@@ -1,0 +1,43 @@
+{
+ "requests": 75512961,
+ "reads": 75308777,
+ "writes": 204184,
+ "write_fraction": 0.0027039596553497616,
+ "classes": {
+  "expert weights": {
+   "reads": 0,
+   "writes": 0,
+   "write_bytes": 0,
+   "read_bytes": 0
+  },
+  "KV cache": {
+   "reads": 6598428,
+   "writes": 896,
+   "write_bytes": 57344,
+   "read_bytes": 422299392
+  },
+  "dense weights": {
+   "reads": 68290232,
+   "writes": 0,
+   "write_bytes": 0,
+   "read_bytes": 4370574848
+  },
+  "activations": {
+   "reads": 175695,
+   "writes": 116053,
+   "write_bytes": 7427392,
+   "read_bytes": 11244480
+  },
+  "unattributed": {
+   "reads": 244422,
+   "writes": 87235,
+   "write_bytes": 5583040,
+   "read_bytes": 15643008
+  }
+ }
+}
+window [22,653,888, 34,653,888): 33,406 writes of 12,000,000 requests
+  [packed/ddr4 global(rw)] n=12,000,000 cost 3579144 -> 3417065; bank bit ^= {0: ['row3', 'row2'], 1: ['row5', 'row6'], 2: [], 3: [], 4: ['row12']}
+  [packed/ddr5 global(rw)] n=12,000,000 cost 464538 -> 406976; bank bit ^= {0: ['row2'], 1: ['row9'], 2: ['row10'], 3: ['row5', 'row8'], 4: ['row3', 'row9']}
+  [thp/ddr4 global(rw)] n=12,000,000 cost 4377152 -> 3421059; bank bit ^= {0: ['row9', 'row14'], 1: ['row8', 'row9'], 2: ['row5'], 3: ['row9'], 4: []}
+  [thp/ddr5 global(rw)] n=12,000,000 cost 768138 -> 415618; bank bit ^= {0: ['row6'], 1: ['row13'], 2: ['row13'], 3: ['row2', 'row1'], 4: []}
