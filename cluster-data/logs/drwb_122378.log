@@ -58,3 +58,6 @@ window [53,425,569, 65,425,569): 10,693 writes of 12,000,000 requests
   [packed/ddr5 global(rw)] n=12,000,000 cost 487955 -> 448362; bank bit ^= {0: ['row0', 'row7'], 1: ['row10'], 2: [], 3: [], 4: []}
   [thp/ddr4 global(rw)] n=12,000,000 cost 15094069 -> 3484695; bank bit ^= {0: ['row10', 'row7'], 1: ['row6', 'row3', 'row15'], 2: ['row15'], 3: ['row10'], 4: []}
   [thp/ddr5 global(rw)] n=12,000,000 cost 4186932 -> 469131; bank bit ^= {0: ['row7', 'row2'], 1: ['row3'], 2: ['row12', 'row3'], 3: ['row7'], 4: ['row3']}
+wrote analysis/tables.md and 3 figures; validation failures: none
+wrote analysis/fullscale/tables.md
+publish: pushed 5824fa5
