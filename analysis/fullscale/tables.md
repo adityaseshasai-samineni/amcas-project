@@ -395,3 +395,16 @@ Each remap rewrites the read stream with the named scheme (identity = no change)
 | qwen2.5-7b-instruct-q4_k_m_attr_c8k | thp | ddr4 | ClosedCAP | 1.00 (hit 78%) | 1.12 (hit 78%) | 0.98 (hit 78%) | 0.99 (hit 78%) |
 | qwen2.5-7b-instruct-q4_k_m_attr_c8k | thp | ddr5 | Open | 1.00 (hit 96%) | 1.00 (hit 97%) | 0.93 (hit 97%) | 0.94 (hit 97%) |
 | qwen2.5-7b-instruct-q4_k_m_attr_c8k | thp | ddr5 | ClosedCAP | 1.00 (hit 77%) | 1.06 (hit 77%) | 0.85 (hit 78%) | 0.86 (hit 78%) |
+
+## Batched decode (drbatch, 512-token prompts, 4 threads)
+
+DRAM reads = LL misses + prefetch misses; step = native decode step 1. Experts: mean distinct experts touched per expert tensor (of 128) against the disjoint upper bound min(128, 8B).
+
+| model | B | DRAM reads | GB | GB per seq | vs B=1 | native step (ms) | experts touched | disjoint bound |
+|---|---|---|---|---|---|---|---|---|
+| Qwen2.5-7B | 1 | 69.2M | 4.43 | 4.43 | 1.00 | 174 | - | - |
+| Qwen2.5-7B | 4 | 71.3M | 4.56 | 1.14 | 1.03 | 283 | - | - |
+| Qwen2.5-7B | 16 | 79.6M | 5.10 | 0.32 | 1.15 | 855 | - | - |
+| Qwen3-30B-A3B | 1 | 31.2M | 1.99 | 1.99 | 1.00 | 104 | 8.0 | 8 |
+| Qwen3-30B-A3B | 4 | 67.0M | 4.29 | 1.07 | 2.15 | 291 | 23.2 | 32 |
+| Qwen3-30B-A3B | 16 | 153.9M | 9.85 | 0.62 | 4.94 | 779 | 57.2 | 128 |

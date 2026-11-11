@@ -432,6 +432,69 @@ def main():
             fig.savefig(out + "/fig_reads_per_token.png", dpi=130)
             plt.close(fig)
 
+    # --- batched decode (drbatch): GB per sequence and expert union vs B ---
+    brows, bser = [], {}
+    for d in sorted(glob.glob(fs + "/drbatch/*_B*_P*t*")):
+        n = os.path.basename(d)
+        m = re.search(r"_B(\d+)_P(\d+)t(\d+)$", n)
+        if not m or "_test" in n:
+            continue
+        B = int(m.group(1))
+        ll = ll_stats(rtext(d + "/cachesim_pf.txt"))
+        if not ll:
+            continue
+        model = model_of(n)
+        reads = ll[0] + ll[1]
+        nat = None
+        t = rtext(d + "/steps_native.txt")
+        b1 = re.search(r"^B 1 (\d+)", t, re.M)
+        e1 = re.search(r"^E 1 (\d+)", t, re.M)
+        if b1 and e1:
+            nat = (int(e1.group(1)) - int(b1.group(1))) / 1000.0
+        at = jload(d + "/attribution.json") or {}
+        ex = (at.get("experts") or {}).get("mean_experts_touched_per_tensor")
+        bser.setdefault(model, []).append((B, reads * LINE, ex))
+        brows.append((model, B, reads, reads * LINE, nat, ex))
+    if brows:
+        brows.sort(key=lambda r: (r[0], r[1]))
+        base = {r[0]: r[3] for r in brows if r[1] == 1}
+        rows = []
+        for model, B, reads, by, nat, ex in brows:
+            rows.append([model, B, "%.1fM" % (reads / 1e6), gb(by), gb(by / B),
+                         fmt(by / base[model], "%.2f") if model in base else "-",
+                         fmt(nat, "%.0f"), fmt(ex, "%.1f"),
+                         ("%d" % min(128, 8 * B)) if ex is not None else "-"])
+        md.append("## Batched decode (drbatch, 512-token prompts, 4 threads)\n")
+        md.append("DRAM reads = LL misses + prefetch misses; step = native decode step 1. "
+                  "Experts: mean distinct experts touched per expert tensor (of 128) against the "
+                  "disjoint upper bound min(128, 8B).\n")
+        md.append(table(["model", "B", "DRAM reads", "GB", "GB per seq", "vs B=1",
+                         "native step (ms)", "experts touched", "disjoint bound"], rows))
+        if plt:
+            fig, axs = plt.subplots(1, 2, figsize=(9, 3.8))
+            for model, v in sorted(bser.items()):
+                v.sort()
+                axs[0].plot([x[0] for x in v], [x[1] / x[0] / 1e9 for x in v], "o-", label=model)
+                e = [(x[0], x[2]) for x in v if x[2] is not None]
+                if e:
+                    axs[1].plot([x[0] for x in e], [x[1] for x in e], "o-", label=model + " measured")
+                    axs[1].plot([x[0] for x in e], [min(128, 8 * x[0]) for x in e], "k--",
+                                label="disjoint bound")
+            axs[0].set_xscale("log", base=2)
+            axs[0].set_yscale("log")
+            axs[0].set_xlabel("batch size B")
+            axs[0].set_ylabel("DRAM reads per sequence (GB)")
+            axs[0].legend(fontsize=7)
+            axs[0].grid(alpha=.3)
+            axs[1].set_xscale("log", base=2)
+            axs[1].set_xlabel("batch size B")
+            axs[1].set_ylabel("experts touched per tensor (of 128)")
+            axs[1].legend(fontsize=7)
+            axs[1].grid(alpha=.3)
+            fig.tight_layout()
+            fig.savefig(out + "/fig_batched.png", dpi=130)
+            plt.close(fig)
+
     with open(out + "/tables.md", "w") as f:
         f.write("\n".join(md))
     print("wrote", out + "/tables.md")

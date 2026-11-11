@@ -44,12 +44,13 @@ Runs (each "detailed token" is one generated token simulated on the O3 core):
 | `qwen_l3-22m_stride` | Qwen2.5-0.5B | 24 | 22 MiB | 2 |
 | `qwen_c1024_l3-22m` | Qwen2.5-0.5B | 1023 | 22 MiB | 2 |
 | `moe_c1024_l3-22m` | tinymoe4 | 1023 | 22 MiB | 2 |
+| `moe_l3-22m_stride` | tinymoe4 | short | 22 MiB | 2 |
 
 ## Findings
 
 ### F1. The traces are faithful to the program they come from
 
-- Generated text matches native in all 9 runs, and per-phase trace counts equal the controller's counters in all of them.
+- Generated text matches native in all 10 runs, and per-phase trace counts equal the controller's counters in all of them.
 - Instructions per token match native where measured: stories15M at 1024 tokens 147.8M against 148.2M, Qwen at 1024 3,799M against 3,801M, tinymoe4 6,354M against 6,353M.
 - Phases are very stable: Qwen's two detailed tokens differ by under 0.1% in reads, and stories15M's 4 to 8 tokens per run behave the same way. A few tokens per configuration are enough for decode characterization.
 
@@ -70,6 +71,15 @@ Runs (each "detailed token" is one generated token simulated on the O3 core):
 
 - `tinymoe4`'s router produces 2 scores per token and top-k keeps 2, so both experts run every token. Its expert weights are 83.3% of reads and the stream is 94% +1-line strides: a dense scan of about 1.9 GB per token.
 - No result so far says anything about expert-routing indirection. This needs a model with many experts and a small top-k.
+
+**F3a. `moe_l3-22m_stride`: tinymoe4 at short context (job 114798, analysed 2026-11-11).** All numbers from `analysis/tables.md`; this run was analysed on 2026-11-05 (jobs 115490, 115498, see `context.md`) and is counted in F1 as a tenth run.
+- Validated: counts match the controller and the text matches native.
+- It reads 29.98M lines (1.92 GB) per detailed token, against 1.82 GiB of tensors (277.5 MiB dense, 1,542.8 MiB experts): the whole model once per token, as the 2-expert top-2 routing predicts. Expert weights are 84.3% of reads, dense weights 15.2%, KV 0.0%.
+- The 1024-token run of the same model reads 30.33M lines (+1.2%) and its KV share is 1.2%: context adds almost nothing, because the KV is small next to 1.8 GiB of weights.
+- A 22 MiB LLC filters nothing, since the per-token working set is about 85 times the LLC (MPKI 6.93). Only this LLC size and the stride prefetcher were run for tinymoe4, so this run gives no cache-size or prefetch comparison; it is only a short-context point next to the 1024 run.
+- Stream: 95% +1-line strides, 1% beyond a row. Offline row hit 0.989 (RoRaBaCoCh) and 0.991 (XOR-bank); gem5 row hit 0.934, read latency 30.3 ns.
+- DRAMsim3 (load 7.7%): row-interleaved open 0.988 hit, 40.8 cycles; line-interleaved open 0.897, 38.5 cycles; row-interleaved close 1,770.8 cycles. Ramulator saturated: MOP4CLXOR needs 0.67 of RoBaRaCoCh's cycles, ClosedCAP costs 1.64x, ChRaBaRoCo 1.05x (Open) and 2.18x (ClosedCAP). These equal the 1024-token run's values (0.67, 1.63, 1.06, 2.19).
+- Conclusion: for a model whose router selects every expert, the MoE stream is a dense weight scan and behaves like the dense models. It adds nothing on routing; the full-scale Qwen3-30B-A3B runs (`ANALYSIS_FULLSCALE.md`) are the MoE evidence.
 
 ### F4. Row-buffer locality is high because streams are sequential
 
