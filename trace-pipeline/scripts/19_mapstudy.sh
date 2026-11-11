@@ -8,8 +8,9 @@
 # Usage: 19_mapstudy.sh MODE OUTNAME ARGS...
 #   MODE=moe:     ARGS = MISS_GZ TENSORS_TSV      -> moe_remap.py        -> results/fullscale/moe/OUTNAME
 #   MODE=heldout: ARGS = A_MISS A_TSV B_MISS B_TSV -> heldout_remap.py   -> results/fullscale/heldout/OUTNAME
-# Env: WIN (window, default 8000000), PL (placements, default packed,thp)
+# Env: CAP_GB (modelled DRAM size for shuffled placements, default 32; batched MoE needs >8), WIN (window, default 8000000), PL (placements, default packed,thp)
 set -uo pipefail
+export AMCAS_CAPACITY_GB=${CAP_GB:-32}
 MODE=$1; NAME=$2; shift 2
 W=$HOME/amcas-pro/tracing; E=$W/mamba/envs/gem5; export LD_LIBRARY_PATH=$E/lib OPENBLAS_NUM_THREADS=1
 R=$HOME/amcas-pro/results/fullscale/$MODE/$NAME; mkdir -p $R
