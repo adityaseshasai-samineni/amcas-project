@@ -1,0 +1,26 @@
+  WARNING: window has 1 thread(s); splitting into 4 contiguous pseudo-threads
+179,460,712 reads, window [53,838,213,57,838,213), threads 4, class shares W/K/O [0.4921, 0.5033, 0.0047]
+  [packed/ddr5 global] n=4,000,000 cost 505624 -> 454904; bank bit ^= {0: ['row10', 'row11', 'row9'], 1: ['row4'], 2: ['row7'], 3: ['row2', 'row9'], 4: ['row11', 'row10', 'row8']}
+  [packed/ddr5 chan] channel hash cost 544056 -> 484861; chan bit ^= {0: ['row3', 'row4'], 1: ['row4', 'row11'], 2: ['row7', 'row5'], 3: []}
+  [packed/ddr5 bank+chan] channel hash cost 493336 -> 454159; chan bit ^= {0: ['row3'], 1: ['row0'], 2: ['row3'], 3: ['row1']}
+  packed/ddr5: 24 ranges
+  [packed/ddr5x8 global] n=4,000,000 cost 697863 -> 678257; bank bit ^= {0: [], 1: ['row11', 'row9'], 2: ['row0'], 3: ['row11'], 4: []}
+  [packed/ddr5x8 chan] channel hash cost 774655 -> 680069; chan bit ^= {0: ['row0', 'row3'], 1: ['row2', 'row9'], 2: ['row5']}
+  [packed/ddr5x8 bank+chan] channel hash cost 755049 -> 678829; chan bit ^= {0: ['row0', 'row3'], 1: ['row1', 'row10'], 2: []}
+  packed/ddr5x8: 24 ranges
+  [thp/ddr5 global] n=4,000,000 cost 999442 -> 467407; bank bit ^= {0: ['row13', 'row11'], 1: ['row11', 'row5'], 2: ['row0'], 3: [], 4: ['row7']}
+  [thp/ddr5 chan] channel hash cost 1037874 -> 654086; chan bit ^= {0: ['row7', 'row4'], 1: ['row4'], 2: ['row4', 'row2', 'row0'], 3: ['row10']}
+  [thp/ddr5 bank+chan] channel hash cost 505839 -> 466908; chan bit ^= {0: ['row10', 'row6'], 1: ['row0'], 2: ['row4'], 3: ['row1']}
+  thp/ddr5: 175 ranges
+  [thp/ddr5x8 global] n=4,000,000 cost 1250695 -> 709049; bank bit ^= {0: ['row14'], 1: ['row12'], 2: ['row6'], 3: ['row11'], 4: ['row1']}
+  [thp/ddr5x8 chan] channel hash cost 1327487 -> 970146; chan bit ^= {0: ['row8', 'row0'], 1: ['row0'], 2: ['row9']}
+  [thp/ddr5x8 bank+chan] channel hash cost 785841 -> 703179; chan bit ^= {0: ['row11', 'row7', 'row6'], 1: ['row1'], 2: ['row3']}
+  thp/ddr5x8: 175 ranges
+  [4k/ddr5 global] n=4,000,000 cost 1235431 -> 1225015; bank bit ^= {0: ['row6'], 1: ['row9'], 2: [], 3: [], 4: []}
+  [4k/ddr5 chan] channel hash cost 1273863 -> 1212598; chan bit ^= {0: ['row6'], 1: ['row9'], 2: ['row2'], 3: []}
+  [4k/ddr5 bank+chan] channel hash cost 1263447 -> 1207016; chan bit ^= {0: ['row7'], 1: ['row4', 'row7'], 2: ['row13'], 3: []}
+  4k/ddr5: 2038 ranges
+  [4k/ddr5x8 global] n=4,000,000 cost 1110262 -> 1102099; bank bit ^= {0: ['row11'], 1: [], 2: ['row5'], 3: ['row13'], 4: []}
+  [4k/ddr5x8 chan] channel hash cost 1187054 -> 1078905; chan bit ^= {0: ['row6'], 1: ['row9'], 2: ['row0']}
+  [4k/ddr5x8 bank+chan] channel hash cost 1178891 -> 1074487; chan bit ^= {0: ['row7'], 1: ['row2'], 2: ['row1']}
+  4k/ddr5x8: 2038 ranges
