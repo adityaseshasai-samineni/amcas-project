@@ -313,6 +313,11 @@ From the `drattr` runs (tensor addresses dumped, reads attributed by address). T
 | Qwen3-30B-A3B-Q4_K_M_attr | dense weights | 12.9 | 0.82 | 42.3 | 435 |
 | Qwen3-30B-A3B-Q4_K_M_attr | activations | 0.1 | 0.01 | 0.3 | 23 |
 | Qwen3-30B-A3B-Q4_K_M_attr | unattributed | 0.2 | 0.01 | 0.6 | 0 |
+| Qwen3-30B-A3B-Q4_K_M_attr_c1k | expert weights | 17.1 | 1.10 | 53.8 | 144 |
+| Qwen3-30B-A3B-Q4_K_M_attr_c1k | KV cache | 1.5 | 0.10 | 4.7 | 96 |
+| Qwen3-30B-A3B-Q4_K_M_attr_c1k | dense weights | 12.9 | 0.82 | 40.3 | 435 |
+| Qwen3-30B-A3B-Q4_K_M_attr_c1k | activations | 0.1 | 0.01 | 0.4 | 23 |
+| Qwen3-30B-A3B-Q4_K_M_attr_c1k | unattributed | 0.2 | 0.02 | 0.8 | 0 |
 | Qwen3-30B-A3B-Q4_K_M_attr_c32k | expert weights | 17.1 | 1.10 | 7.6 | 144 |
 | Qwen3-30B-A3B-Q4_K_M_attr_c32k | KV cache | 193.0 | 12.35 | 86.1 | 96 |
 | Qwen3-30B-A3B-Q4_K_M_attr_c32k | dense weights | 12.9 | 0.82 | 5.7 | 435 |
@@ -357,6 +362,11 @@ From the `drattr` runs (tensor addresses dumped, reads attributed by address). T
 | Qwen3-30B-A3B-Q4_K_M_attr | dense weights | 97.3 | 96.5 | 97.4 | 97.3 |
 | Qwen3-30B-A3B-Q4_K_M_attr | activations | 87.9 | 83.3 | 72.9 | 84.8 |
 | Qwen3-30B-A3B-Q4_K_M_attr | unattributed | 85.5 | 77.8 | 84.1 | 83.7 |
+| Qwen3-30B-A3B-Q4_K_M_attr_c1k | expert weights | 96.5 | 96.1 | 97.0 | 96.9 |
+| Qwen3-30B-A3B-Q4_K_M_attr_c1k | KV cache | 95.4 | 91.7 | 73.6 | 89.5 |
+| Qwen3-30B-A3B-Q4_K_M_attr_c1k | dense weights | 97.5 | 96.5 | 97.5 | 97.2 |
+| Qwen3-30B-A3B-Q4_K_M_attr_c1k | activations | 87.4 | 82.8 | 73.0 | 84.3 |
+| Qwen3-30B-A3B-Q4_K_M_attr_c1k | unattributed | 83.2 | 74.6 | 82.2 | 81.2 |
 | Qwen3-30B-A3B-Q4_K_M_attr_c32k | expert weights | 97.8 | 97.0 | 97.8 | 97.8 |
 | Qwen3-30B-A3B-Q4_K_M_attr_c32k | KV cache | 93.9 | 90.7 | 73.1 | 88.8 |
 | Qwen3-30B-A3B-Q4_K_M_attr_c32k | dense weights | 98.0 | 97.2 | 97.9 | 98.0 |
@@ -397,6 +407,7 @@ From the `drattr` runs (tensor addresses dumped, reads attributed by address). T
 | run | mean experts touched | mean mostly read | expert tensors |
 |---|---|---|---|
 | Qwen3-30B-A3B-Q4_K_M_attr | 8.0 | 8.0 | 144 |
+| Qwen3-30B-A3B-Q4_K_M_attr_c1k | 8.0 | 8.0 | 144 |
 | Qwen3-30B-A3B-Q4_K_M_attr_c32k | 8.0 | 8.0 | 144 |
 | Qwen3-30B-A3B-Q4_K_M_attr_miss | 8.0 | 8.0 | 144 |
 
