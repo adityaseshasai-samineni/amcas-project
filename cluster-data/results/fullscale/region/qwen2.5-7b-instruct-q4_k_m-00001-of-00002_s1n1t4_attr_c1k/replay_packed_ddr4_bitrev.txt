@@ -2,3 +2,7 @@
 Loading trace file /scratch/adityaseshasai.s/region/qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n1t4_attr_c1k/packed_ddr4_bitrev.trc ...
 [Ramulator::LoadStoreTrace] [[32minfo[0m] Loaded 12000000 lines.
 [Ramulator::LoadStoreTrace] [[32minfo[0m] Loaded 12000000 lines.
+ddr4, 1 channel(s), interleave 64 B << 0, issue 1/cycle
+mapper      policy          reads   writes    hit  conflict  rd_lat  Mcycles    GB/s
+RoBaRaCoCh  Open         12000000        0  0.976     0.019   186.0     62.1    14.9
+RoBaRaCoCh  ClosedCAP    12000000        0  0.784     0.008   302.4    104.6     8.8

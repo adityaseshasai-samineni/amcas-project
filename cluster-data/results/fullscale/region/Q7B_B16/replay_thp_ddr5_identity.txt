@@ -2,3 +2,7 @@
 [Ramulator::LoadStoreTrace] [[32minfo[0m] Loading trace file /scratch/adityaseshasai.s/region/Q7B_B16/thp_ddr5_identity.trc ...
 [[Ramulator::LoadStoreTrace] [[32minfo[0m] Ramulator::LoadStoreTraceLoaded 12000000 lines.] [[32minfo[0m] 
 Loaded 12000000 lines.
+ddr5, 16 channel(s), interleave 64 B << 2, issue 4/cycle
+mapper      policy          reads   writes    hit  conflict  rd_lat  Mcycles    GB/s
+RoBaRaCoCh  Open         12000000        0  0.911     0.057   228.8      8.4   220.3
+RoBaRaCoCh  ClosedCAP    12000000        0  0.739     0.041   300.1     10.6   173.7
