@@ -1,8 +1,31 @@
-Traceback (most recent call last):
-  File "/home/adityaseshasai.s/amcas-pro/tools/region_remap.py", line 220, in <module>
-    main()
-  File "/home/adityaseshasai.s/amcas-pro/tools/region_remap.py", line 151, in main
-    os.makedirs(a.out, exist_ok=True)
-  File "<frozen os>", line 216, in makedirs
-  File "<frozen os>", line 226, in makedirs
-OSError: [Errno 28] No space left on device: '/scratch/adityaseshasai.s/region'
+224,116,805 reads; window [67,235,041, 79,235,041); class shares (W,K,O) full [0.1338, 0.861, 0.0051], window [0.0933, 0.9022, 0.0045]
+placement packed: 2376 granules, tags W/K/O = [918, 1452, 6]; reads whose own class equals their granule's tag 0.9996
+  [packed/ddr4 global] n=12,000,000 cost 4439500 -> 3640960; bank bit ^= {0: ['row2', 'row1', 'row13'], 1: ['row12'], 2: ['row12'], 3: ['row5', 'row4', 'row13'], 4: ['row10', 'row11']}
+  [packed/ddr4 region K] n=192,886,354 cost 4126925 -> 3473838; bank bit ^= {0: ['row0', 'row11'], 1: [], 2: [], 3: [], 4: []}
+  [packed/ddr4 region O] n=1,229,372 cost 3692428 -> 3656306; bank bit ^= {0: ['row1', 'row2'], 1: ['row1'], 2: [], 3: [], 4: ['row9']}
+  packed ddr4 identity    in-order hit 0.930 banks 32/32 W:0.991 K:0.928 O:0.924
+  packed ddr4 bitrev      in-order hit 0.662 banks 10/32 W:0.988 K:0.629 O:0.478
+  packed ddr4 xor_global  in-order hit 0.949 banks 32/32 W:0.991 K:0.949 O:0.905
+  packed ddr4 region      in-order hit 0.945 banks 32/32 W:0.991 K:0.944 O:0.920
+  [packed/ddr5 global] n=12,000,000 cost 472874 -> 438113; bank bit ^= {0: ['row4', 'row10'], 1: ['row8'], 2: [], 3: [], 4: ['row6']}
+  [packed/ddr5 region K] n=192,886,354 cost 467987 -> 430857; bank bit ^= {0: ['row8'], 1: ['row8'], 2: [], 3: [], 4: ['row10']}
+  [packed/ddr5 region O] n=1,229,372 cost 474486 -> 450933; bank bit ^= {0: ['row1'], 1: ['row2'], 2: [], 3: ['row2'], 4: ['row2']}
+  packed ddr5 identity    in-order hit 0.947 banks 512/512 W:0.978 K:0.947 O:0.934
+  packed ddr5 bitrev      in-order hit 0.571 banks 160/512 W:0.978 K:0.529 O:0.609
+  packed ddr5 xor_global  in-order hit 0.959 banks 512/512 W:0.978 K:0.960 O:0.965
+  packed ddr5 region      in-order hit 0.947 banks 512/512 W:0.978 K:0.947 O:0.965
+placement thp: 3762 granules, tags W/K/O = [2171, 1536, 55]; reads whose own class equals their granule's tag 1.0000
+  [thp/ddr4 global] n=12,000,000 cost 7392260 -> 3763625; bank bit ^= {0: ['row10', 'row3', 'row6'], 1: ['row8'], 2: ['row14', 'row6'], 3: ['row1', 'row9'], 4: ['row11', 'row1']}
+  [thp/ddr4 region K] n=192,970,214 cost 8445886 -> 3770405; bank bit ^= {0: ['row10', 'row9'], 1: ['row8', 'row5', 'row12'], 2: ['row3'], 3: ['row9'], 4: ['row10', 'row9']}
+  [thp/ddr4 region O] n=1,151,339 cost 4659786 -> 3655503; bank bit ^= {0: ['row8'], 1: ['row3', 'row5', 'row4'], 2: ['row8', 'row0'], 3: ['row6'], 4: ['row13']}
+  thp    ddr4 identity    in-order hit 0.758 banks 32/32 W:0.992 K:0.736 O:0.880
+  thp    ddr4 bitrev      in-order hit 0.943 banks 32/32 W:0.988 K:0.942 O:0.578
+  thp    ddr4 xor_global  in-order hit 0.945 banks 32/32 W:0.992 K:0.945 O:0.924
+  thp    ddr4 region      in-order hit 0.931 banks 32/32 W:0.992 K:0.929 O:0.926
+  [thp/ddr5 global] n=12,000,000 cost 1927940 -> 447101; bank bit ^= {0: ['row7'], 1: ['row13', 'row0'], 2: ['row11', 'row4'], 3: ['row4', 'row1', 'row10'], 4: ['row0']}
+  [thp/ddr5 region K] n=192,970,214 cost 2277961 -> 481880; bank bit ^= {0: ['row7', 'row6'], 1: ['row2', 'row5'], 2: ['row0'], 3: ['row9'], 4: ['row5']}
+  [thp/ddr5 region O] n=1,151,339 cost 1438731 -> 464013; bank bit ^= {0: ['row1', 'row4'], 1: ['row0'], 2: ['row7', 'row6'], 3: ['row1'], 4: ['row7']}
+  thp    ddr5 identity    in-order hit 0.544 banks 512/512 W:0.976 K:0.500 O:0.852
+  thp    ddr5 bitrev      in-order hit 0.944 banks 512/512 W:0.979 K:0.943 O:0.720
+  thp    ddr5 xor_global  in-order hit 0.947 banks 512/512 W:0.978 K:0.947 O:0.941
+  thp    ddr5 region      in-order hit 0.932 banks 512/512 W:0.976 K:0.930 O:0.952

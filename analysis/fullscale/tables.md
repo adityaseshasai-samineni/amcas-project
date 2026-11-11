@@ -414,6 +414,14 @@ Each remap rewrites the read stream with the named scheme (identity = no change)
 | Q30B_B4 | thp | ddr4 | ClosedCAP | 1.00 (hit 78%) | 1.17 (hit 78%) | 0.99 (hit 78%) | 0.99 (hit 78%) |
 | Q30B_B4 | thp | ddr5 | Open | 1.00 (hit 96%) | 1.09 (hit 95%) | 0.98 (hit 96%) | 0.99 (hit 96%) |
 | Q30B_B4 | thp | ddr5 | ClosedCAP | 1.00 (hit 77%) | 1.29 (hit 77%) | 1.00 (hit 77%) | 1.00 (hit 78%) |
+| Qwen3-30B-A3B-Q4_K_M_attr_c32k | packed | ddr4 | Open | 1.00 (hit 95%) | 1.58 (hit 89%) | 1.00 (hit 96%) | 1.01 (hit 95%) |
+| Qwen3-30B-A3B-Q4_K_M_attr_c32k | packed | ddr4 | ClosedCAP | 1.00 (hit 77%) | 2.14 (hit 77%) | 1.00 (hit 77%) | 1.01 (hit 77%) |
+| Qwen3-30B-A3B-Q4_K_M_attr_c32k | packed | ddr5 | Open | 1.00 (hit 95%) | 1.89 (hit 81%) | 1.00 (hit 96%) | 1.00 (hit 95%) |
+| Qwen3-30B-A3B-Q4_K_M_attr_c32k | packed | ddr5 | ClosedCAP | 1.00 (hit 76%) | 2.58 (hit 67%) | 0.98 (hit 77%) | 1.00 (hit 76%) |
+| Qwen3-30B-A3B-Q4_K_M_attr_c32k | thp | ddr4 | Open | 1.00 (hit 82%) | 0.91 (hit 96%) | 0.84 (hit 95%) | 0.85 (hit 95%) |
+| Qwen3-30B-A3B-Q4_K_M_attr_c32k | thp | ddr4 | ClosedCAP | 1.00 (hit 75%) | 0.96 (hit 76%) | 0.82 (hit 77%) | 0.83 (hit 76%) |
+| Qwen3-30B-A3B-Q4_K_M_attr_c32k | thp | ddr5 | Open | 1.00 (hit 80%) | 0.81 (hit 95%) | 0.78 (hit 95%) | 0.78 (hit 95%) |
+| Qwen3-30B-A3B-Q4_K_M_attr_c32k | thp | ddr5 | ClosedCAP | 1.00 (hit 68%) | 0.75 (hit 76%) | 0.66 (hit 76%) | 0.67 (hit 76%) |
 | Qwen3-30B-A3B-Q4_K_M_attr_miss | packed | ddr4 | Open | 1.00 (hit 98%) | 1.13 (hit 96%) | 1.00 (hit 98%) | 1.00 (hit 98%) |
 | Qwen3-30B-A3B-Q4_K_M_attr_miss | packed | ddr4 | ClosedCAP | 1.00 (hit 79%) | 1.47 (hit 78%) | 1.00 (hit 79%) | 1.00 (hit 79%) |
 | Qwen3-30B-A3B-Q4_K_M_attr_miss | packed | ddr5 | Open | 1.00 (hit 97%) | 1.28 (hit 96%) | 1.00 (hit 97%) | 1.00 (hit 97%) |
