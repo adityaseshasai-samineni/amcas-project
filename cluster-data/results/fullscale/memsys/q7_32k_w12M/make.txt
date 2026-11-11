@@ -25,3 +25,52 @@ placement packed: 2936 granules, tags W/K/O = [2084, 847, 5]; reads whose own cl
   packed ddr5   region           in-order hit 0.946 banks 512/512 chan max/mean 1.057
   packed ddr5   region_chan      in-order hit 0.957 banks 512/512 chan max/mean 1.052
 placement thp: 3122 granules, tags W/K/O = [2179, 896, 47]; reads whose own class equals granule tag 1.0000
+  [thp/ddr5x8 global bank] n=12,000,000 cost 1328322 -> 717589; bank bit ^= {0: ['row14', 'row0'], 1: ['row5'], 2: ['row13'], 3: [], 4: []}
+  [thp/ddr5x8 chan] channel hash cost 1489238 -> 861906; chan bit ^= {0: ['row14', 'row5'], 1: ['row5'], 2: ['row13']}
+  [thp/ddr5x8 bank+chan] channel hash cost 878505 -> 695701; chan bit ^= {0: ['row12', 'row4'], 1: ['row13', 'row6', 'row11'], 2: ['row9']}
+  [thp/ddr5x8 region K] n=110,340,158 cost 2838076 -> 689113; bank bit ^= {0: ['row11', 'row3', 'row5'], 1: ['row5', 'row11', 'row0'], 2: ['row3', 'row5'], 3: [], 4: []}
+  [thp/ddr5x8 region O] n=830,297 cost 3508899 -> 679625; bank bit ^= {0: ['row2', 'row0', 'row10'], 1: ['row5', 'row4'], 2: ['row3'], 3: ['row12'], 4: ['row6']}
+  [thp/ddr5x8 region+chan] channel hash cost 918828 -> 707072; chan bit ^= {0: ['row12', 'row2'], 1: ['row13'], 2: ['row8']}
+  thp    ddr5x8 identity         in-order hit 0.677 banks 256/256 chan max/mean 1.057
+  thp    ddr5x8 chan             in-order hit 0.822 banks 256/256 chan max/mean 1.042
+  thp    ddr5x8 xor_global       in-order hit 0.921 banks 256/256 chan max/mean 1.057
+  thp    ddr5x8 xor_global_chan  in-order hit 0.942 banks 256/256 chan max/mean 1.023
+  thp    ddr5x8 region           in-order hit 0.933 banks 256/256 chan max/mean 1.057
+  thp    ddr5x8 region_chan      in-order hit 0.948 banks 256/256 chan max/mean 1.056
+  [thp/ddr5 global bank] n=12,000,000 cost 1055535 -> 489771; bank bit ^= {0: ['row13'], 1: ['row4'], 2: ['row5'], 3: ['row9', 'row7'], 4: []}
+  [thp/ddr5 chan] channel hash cost 1136211 -> 628130; chan bit ^= {0: ['row13', 'row4'], 1: ['row4'], 2: ['row8'], 3: ['row4']}
+  [thp/ddr5 bank+chan] channel hash cost 570447 -> 472542; chan bit ^= {0: ['row5', 'row8', 'row6'], 1: ['row12', 'row9'], 2: [], 3: ['row1']}
+  [thp/ddr5 region K] n=110,340,158 cost 2565112 -> 487750; bank bit ^= {0: ['row10', 'row3', 'row4'], 1: ['row4', 'row2'], 2: ['row2'], 3: ['row2'], 4: ['row1']}
+  [thp/ddr5 region O] n=830,297 cost 1571910 -> 438698; bank bit ^= {0: ['row1', 'row11'], 1: ['row1', 'row5'], 2: ['row6'], 3: ['row1'], 4: []}
+  [thp/ddr5 region+chan] channel hash cost 612784 -> 491150; chan bit ^= {0: ['row10', 'row2'], 1: ['row2'], 2: ['row1'], 3: ['row4']}
+  thp    ddr5   identity         in-order hit 0.681 banks 512/512 chan max/mean 1.057
+  thp    ddr5   chan             in-order hit 0.827 banks 512/512 chan max/mean 1.042
+  thp    ddr5   xor_global       in-order hit 0.943 banks 512/512 chan max/mean 1.057
+  thp    ddr5   xor_global_chan  in-order hit 0.948 banks 512/512 chan max/mean 1.013
+  thp    ddr5   region           in-order hit 0.940 banks 512/512 chan max/mean 1.057
+  thp    ddr5   region_chan      in-order hit 0.947 banks 512/512 chan max/mean 1.014
+placement 4k: 16384 granules, tags W/K/O = [698, 15647, 39]; reads whose own class equals granule tag 0.6177
+  [4k/ddr5x8 global bank] n=12,000,000 cost 1132557 -> 1115901; bank bit ^= {0: ['row11'], 1: [], 2: ['row9'], 3: [], 4: ['row9']}
+  [4k/ddr5x8 chan] channel hash cost 1293473 -> 1085900; chan bit ^= {0: ['row11'], 1: ['row10'], 2: []}
+  [4k/ddr5x8 bank+chan] channel hash cost 1276817 -> 1081930; chan bit ^= {0: ['row10', 'row9'], 1: ['row1'], 2: []}
+  [4k/ddr5x8 region K] n=172,618,981 cost 1101143 -> 1080365; bank bit ^= {0: ['row0'], 1: ['row6', 'row2'], 2: [], 3: ['row3', 'row12'], 4: ['row6', 'row9']}
+  [4k/ddr5x8 region O] n=749,742 cost 992149 -> 939585; bank bit ^= {0: ['row9'], 1: ['row8'], 2: ['row1'], 3: ['row9'], 4: []}
+  [4k/ddr5x8 region+chan] channel hash cost 1290581 -> 1091419; chan bit ^= {0: ['row11'], 1: ['row7'], 2: []}
+  4k     ddr5x8 identity         in-order hit 0.773 banks 256/256 chan max/mean 1.057
+  4k     ddr5x8 chan             in-order hit 0.779 banks 256/256 chan max/mean 1.001
+  4k     ddr5x8 xor_global       in-order hit 0.773 banks 256/256 chan max/mean 1.057
+  4k     ddr5x8 xor_global_chan  in-order hit 0.779 banks 256/256 chan max/mean 1.003
+  4k     ddr5x8 region           in-order hit 0.774 banks 256/256 chan max/mean 1.057
+  4k     ddr5x8 region_chan      in-order hit 0.779 banks 256/256 chan max/mean 1.000
+  [4k/ddr5 global bank] n=12,000,000 cost 1268796 -> 1249659; bank bit ^= {0: ['row0'], 1: ['row6'], 2: [], 3: ['row6', 'row8'], 4: ['row5']}
+  [4k/ddr5 chan] channel hash cost 1349472 -> 1230425; chan bit ^= {0: ['row6', 'row10'], 1: ['row9'], 2: ['row4'], 3: ['row1']}
+  [4k/ddr5 bank+chan] channel hash cost 1330335 -> 1229922; chan bit ^= {0: ['row9', 'row0'], 1: ['row8'], 2: [], 3: ['row6']}
+  [4k/ddr5 region K] n=172,618,981 cost 1208995 -> 1193150; bank bit ^= {0: ['row10'], 1: [], 2: ['row1'], 3: [], 4: []}
+  [4k/ddr5 region O] n=749,742 cost 1009812 -> 959474; bank bit ^= {0: ['row4'], 1: [], 2: [], 3: ['row8', 'row6'], 4: ['row2']}
+  [4k/ddr5 region+chan] channel hash cost 1348758 -> 1235368; chan bit ^= {0: ['row7'], 1: ['row3'], 2: ['row9'], 3: ['row3']}
+  4k     ddr5   identity         in-order hit 0.593 banks 512/512 chan max/mean 1.057
+  4k     ddr5   chan             in-order hit 0.593 banks 512/512 chan max/mean 1.002
+  4k     ddr5   xor_global       in-order hit 0.593 banks 512/512 chan max/mean 1.057
+  4k     ddr5   xor_global_chan  in-order hit 0.593 banks 512/512 chan max/mean 1.002
+  4k     ddr5   region           in-order hit 0.593 banks 512/512 chan max/mean 1.057
+  4k     ddr5   region_chan      in-order hit 0.593 banks 512/512 chan max/mean 1.001

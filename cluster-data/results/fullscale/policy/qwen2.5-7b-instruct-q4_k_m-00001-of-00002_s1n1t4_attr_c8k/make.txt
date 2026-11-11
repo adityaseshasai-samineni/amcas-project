@@ -1,0 +1,10 @@
+  WARNING: window has 1 thread(s); splitting into 4 contiguous pseudo-threads
+75,356,086 reads, window [22,606,825,26,606,825), threads 4, class shares W/K/O [0.903, 0.0923, 0.0047]
+  [packed/ddr4 global] n=4,000,000 cost 3898502 -> 3660250; bank bit ^= {0: ['row7'], 1: ['row13'], 2: [], 3: ['row0'], 4: ['row12', 'row13']}
+  packed/ddr4: 37 ranges
+  [packed/ddr5 global] n=4,000,000 cost 494784 -> 413055; bank bit ^= {0: ['row5'], 1: ['row3'], 2: ['row5', 'row10'], 3: ['row10'], 4: ['row7', 'row3']}
+  packed/ddr5: 37 ranges
+  [thp/ddr4 global] n=4,000,000 cost 3924127 -> 3594775; bank bit ^= {0: ['row10'], 1: [], 2: [], 3: ['row8'], 4: ['row8']}
+  thp/ddr4: 215 ranges
+  [thp/ddr5 global] n=4,000,000 cost 529564 -> 418354; bank bit ^= {0: ['row8', 'row4', 'row7'], 1: ['row4', 'row3'], 2: [], 3: ['row0'], 4: []}
+  thp/ddr5: 215 ranges
