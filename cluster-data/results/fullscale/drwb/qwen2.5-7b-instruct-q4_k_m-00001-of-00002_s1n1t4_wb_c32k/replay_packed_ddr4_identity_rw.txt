@@ -1,0 +1,8 @@
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loading trace file /scratch/adityaseshasai.s/drwb/qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n1t4_wb_c32k/tr/packed_ddr4_identity_rw.trc ...
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loading trace file /scratch/adityaseshasai.s/drwb/qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n1t4_wb_c32k/tr/packed_ddr4_identity_rw.trc ...
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loaded 12000000 lines.
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loaded 12000000 lines.
+ddr4, 1 channel(s), interleave 64 B << 0, issue 1/cycle
+mapper      policy          reads   writes    hit  conflict  rd_lat  Mcycles    GB/s
+RoBaRaCoCh  Open         11989307    10693  0.958     0.025   169.1     55.1    16.7
+RoBaRaCoCh  ClosedCAP    11989307    10693  0.774     0.016   185.9     59.9    15.4

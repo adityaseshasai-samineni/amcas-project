@@ -1,0 +1,262 @@
+{
+ "requests": 178085231,
+ "window": [
+  53425569,
+  65425569
+ ],
+ "window_writes": 10693,
+ "files": [
+  {
+   "file": "packed_ddr4_identity_rw.trc",
+   "placement": "packed",
+   "dram": "ddr4",
+   "scheme": "identity",
+   "mode": "rw",
+   "requests": 12000000,
+   "matrix": null
+  },
+  {
+   "file": "packed_ddr4_identity_ro.trc",
+   "placement": "packed",
+   "dram": "ddr4",
+   "scheme": "identity",
+   "mode": "ro",
+   "requests": 11989307,
+   "matrix": null
+  },
+  {
+   "file": "packed_ddr4_xor_global_rw.trc",
+   "placement": "packed",
+   "dram": "ddr4",
+   "scheme": "xor_global",
+   "mode": "rw",
+   "requests": 12000000,
+   "matrix": {
+    "0": [
+     "row1"
+    ],
+    "1": [],
+    "2": [],
+    "3": [],
+    "4": []
+   }
+  },
+  {
+   "file": "packed_ddr4_xor_global_ro.trc",
+   "placement": "packed",
+   "dram": "ddr4",
+   "scheme": "xor_global",
+   "mode": "ro",
+   "requests": 11989307,
+   "matrix": {
+    "0": [
+     "row1"
+    ],
+    "1": [],
+    "2": [],
+    "3": [],
+    "4": []
+   }
+  },
+  {
+   "file": "packed_ddr5_identity_rw.trc",
+   "placement": "packed",
+   "dram": "ddr5",
+   "scheme": "identity",
+   "mode": "rw",
+   "requests": 12000000,
+   "matrix": null
+  },
+  {
+   "file": "packed_ddr5_identity_ro.trc",
+   "placement": "packed",
+   "dram": "ddr5",
+   "scheme": "identity",
+   "mode": "ro",
+   "requests": 11989307,
+   "matrix": null
+  },
+  {
+   "file": "packed_ddr5_xor_global_rw.trc",
+   "placement": "packed",
+   "dram": "ddr5",
+   "scheme": "xor_global",
+   "mode": "rw",
+   "requests": 12000000,
+   "matrix": {
+    "0": [
+     "row0",
+     "row7"
+    ],
+    "1": [
+     "row10"
+    ],
+    "2": [],
+    "3": [],
+    "4": []
+   }
+  },
+  {
+   "file": "packed_ddr5_xor_global_ro.trc",
+   "placement": "packed",
+   "dram": "ddr5",
+   "scheme": "xor_global",
+   "mode": "ro",
+   "requests": 11989307,
+   "matrix": {
+    "0": [
+     "row0",
+     "row7"
+    ],
+    "1": [
+     "row10"
+    ],
+    "2": [],
+    "3": [],
+    "4": []
+   }
+  },
+  {
+   "file": "thp_ddr4_identity_rw.trc",
+   "placement": "thp",
+   "dram": "ddr4",
+   "scheme": "identity",
+   "mode": "rw",
+   "requests": 12000000,
+   "matrix": null
+  },
+  {
+   "file": "thp_ddr4_identity_ro.trc",
+   "placement": "thp",
+   "dram": "ddr4",
+   "scheme": "identity",
+   "mode": "ro",
+   "requests": 11989307,
+   "matrix": null
+  },
+  {
+   "file": "thp_ddr4_xor_global_rw.trc",
+   "placement": "thp",
+   "dram": "ddr4",
+   "scheme": "xor_global",
+   "mode": "rw",
+   "requests": 12000000,
+   "matrix": {
+    "0": [
+     "row10",
+     "row7"
+    ],
+    "1": [
+     "row6",
+     "row3",
+     "row15"
+    ],
+    "2": [
+     "row15"
+    ],
+    "3": [
+     "row10"
+    ],
+    "4": []
+   }
+  },
+  {
+   "file": "thp_ddr4_xor_global_ro.trc",
+   "placement": "thp",
+   "dram": "ddr4",
+   "scheme": "xor_global",
+   "mode": "ro",
+   "requests": 11989307,
+   "matrix": {
+    "0": [
+     "row10",
+     "row7"
+    ],
+    "1": [
+     "row6",
+     "row3",
+     "row15"
+    ],
+    "2": [
+     "row15"
+    ],
+    "3": [
+     "row10"
+    ],
+    "4": []
+   }
+  },
+  {
+   "file": "thp_ddr5_identity_rw.trc",
+   "placement": "thp",
+   "dram": "ddr5",
+   "scheme": "identity",
+   "mode": "rw",
+   "requests": 12000000,
+   "matrix": null
+  },
+  {
+   "file": "thp_ddr5_identity_ro.trc",
+   "placement": "thp",
+   "dram": "ddr5",
+   "scheme": "identity",
+   "mode": "ro",
+   "requests": 11989307,
+   "matrix": null
+  },
+  {
+   "file": "thp_ddr5_xor_global_rw.trc",
+   "placement": "thp",
+   "dram": "ddr5",
+   "scheme": "xor_global",
+   "mode": "rw",
+   "requests": 12000000,
+   "matrix": {
+    "0": [
+     "row7",
+     "row2"
+    ],
+    "1": [
+     "row3"
+    ],
+    "2": [
+     "row12",
+     "row3"
+    ],
+    "3": [
+     "row7"
+    ],
+    "4": [
+     "row3"
+    ]
+   }
+  },
+  {
+   "file": "thp_ddr5_xor_global_ro.trc",
+   "placement": "thp",
+   "dram": "ddr5",
+   "scheme": "xor_global",
+   "mode": "ro",
+   "requests": 11989307,
+   "matrix": {
+    "0": [
+     "row7",
+     "row2"
+    ],
+    "1": [
+     "row3"
+    ],
+    "2": [
+     "row12",
+     "row3"
+    ],
+    "3": [
+     "row7"
+    ],
+    "4": [
+     "row3"
+    ]
+   }
+  }
+ ]
+}
