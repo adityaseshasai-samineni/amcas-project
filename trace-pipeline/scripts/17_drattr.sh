@@ -13,6 +13,9 @@
 set -uo pipefail
 MODEL=$1; SKIP=$2; NTRACE=$3; TH=${4:-4}
 W=$HOME/amcas-pro/tracing; E=$W/mamba/envs/gem5; export LD_LIBRARY_PATH=$E/lib OPENBLAS_NUM_THREADS=1
+# Modelled DRAM size for drmiss_export's shuffled placements. The old 8 GiB default failed for
+# 30B prefill (7,106 x 2 MiB THP frames = 14 GB, job 122011); 32 matches 18_drbatch.sh / 18_region.sh.
+export AMCAS_CAPACITY_GB=${CAP_GB:-32}
 D=$W/dynamorio; X=$W/drburst-attr-build/llama-drattr
 RUN=${MODEL}_s${SKIP}n${NTRACE}t${TH}_attr${TAG:-}
 R=$HOME/amcas-pro/results/fullscale/drattr/$RUN; mkdir -p $R
