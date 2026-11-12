@@ -1212,3 +1212,20 @@ Re-derived from the raw replay outputs in `cluster-data/results/fullscale/` and 
 ### 30B prefill attribution rerun (job 122693, 2026-11-12)
 
 `17_drattr.sh` now exports `AMCAS_CAPACITY_GB=${CAP_GB:-32}` (commit 2808a92; the 8 GiB default could not hold 7,106 THP frames for 30B prefill). Re-ran only `drmiss_export.py` on the kept `miss.gz` of `Qwen3-30B-A3B-Q4_K_M_s0n1t4_attr_pf32` (10 min, node01, published 52d1c28). 125.3M reads (8.02 GB): expert weights 83.8% (6.72 GB), dense weights 10.3%, activations 4.7%, unattributed 1.2%, KV 0.1%. Experts touched per expert tensor: 48.9 of 128 for a ~30-token prompt (decode B=1: 8; B=4: 23; B=16: 57). Offline row hit THP / RoRaBaCoCh -> XOR-bank: expert weights 0.984 -> 0.984, KV 0.806 -> 0.924, activations 0.735 -> 0.821; total gain under 1% (as in the region replay). Caveat: the prefill export sees a single thread id ("1 threads"), also for 7B prefill, so prefill streams lack the 4-thread interleave of decode. Future drattr runs use 32 GiB placements, so their shuffled-placement row hits are not directly comparable with earlier 8 GiB runs.
+
+### policy-owner: when is long-context decode memory-bound? (2026-11-12), part 4
+
+Native thread sweep, job 122477 (`24_native_ctx.sh`, node04, not exclusive, node load average 4-7 during the run, no pinning/NUMA policy; `results/fullscale/native/ctx32k/`). Build-fast (AVX-512, OpenMP) 7B Q4_K_M; 32k = prompt of 31,001 tokens evaluated once (449 s at 32 threads) and restored with `--prompt-cache-ro`, 32 decode tokens per thread count. GB/s = DRAM bytes per token x tokens/s with 11.49 GB/token at 32k (179.46M LL misses x 64 B, no-prefetch cachesim of the 4-thread trace; approximate) and 4.43 GB short.
+
+| threads | 32k tok/s | 32k GB/s | short tok/s | short GB/s |
+|---|---|---|---|---|
+| 4 | 0.87 | 10.0 | 6.17 | 27.3 |
+| 8 | 1.74 | 20.0 | 9.71 | 43.0 |
+| 16 | 2.80 | 32.2 | 11.67 | 51.7 |
+| 24 | 3.59 | 41.2 | 12.35 | 54.7 |
+| 32 | 3.78 | 43.4 | 12.63 | 55.9 |
+| 48 | 3.63 | 41.7 | 11.60 | 51.4 |
+
+Earlier benchmark (qwen7b.threads.json, short): 1/8/16/32 threads 1.77/9.18/12.44/13.55 tok/s. 30B short: 3.84/15.78/19.79/22.01 tok/s. **Memory-bound point: about 16 threads for short context (about 52-56 GB/s plateau), about 24-32 threads at 32k (about 43 GB/s plateau)**; 4 threads (the traced configuration) are far from it (10 GB/s at 32k, 27 GB/s short). Note: this build decodes 32k at 4 threads in 1.15 s/token, not the 2.40 s of the DynamoRIO-binary plain run used for the part-2 calibration (4.8 GB/s); the part-2 "matched-rate" cell therefore under-states native speed, and part-2 case (B) (about 22 GB/s) is closer to the real 4-thread rate (10 GB/s native at this build is slower than (B) but faster than (A)).
+
+Closed-loop at the plateau (jobs 122705/122706, 2M window, bubbles 52, Open; window depth 512 / 1024 gives 33-35 / 40 GB/s, i.e. up to 93% of the native 43 GB/s plateau). Mcycles at window 1024: packed x16 identity 7.61, xor_global 7.62, chan 7.58, xor_global_chan 7.58; THP x16 7.72 / 7.63 / 7.61 / 7.59, THP x8 7.87 / 7.69 / 7.70 / 7.65; 4 KiB x16 7.71 / 7.71 / 7.63 / 7.63. Window 512: THP x16 9.68 / 8.99 / 9.41 / 8.88, THP x8 10.12 / 9.32 / 9.81 / 9.26; packed and 4 KiB within 1-2%. So at the native plateau bandwidth the expected token-time gain of xor_global is **about 1% (x16) to 2% (x8) at 40 GB/s demand (THP), up to 7% at 33 GB/s window 512 where the sim cores are still MLP-limited**, and 0% for packed/4 KiB; THP read latency still drops 25%. Reason: the plateau (43 GB/s) is only 15% of the node's DDR4 peak (2 sockets x 6 channels DDR4-2933, about 280 GB/s) and 14% of the simulated DDR5 x16 peak (307 GB/s), so the plateau is set by the cores/NUMA/software, not by DRAM row conflicts or channel clumping; the mapping gain appears only when demand approaches the DRAM limit. Caveats: Ramulator DDR5 is not this node's DDR4; window depth is the effective-MLP knob, not a pinned microarchitectural parameter; 2M-read window; native sweep ran on a shared node.
