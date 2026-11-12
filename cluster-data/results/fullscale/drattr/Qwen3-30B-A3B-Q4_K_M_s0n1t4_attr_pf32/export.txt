@@ -1,14 +1,23 @@
 125,308,049 DRAM reads (8019.7 MB), 1 threads
 stride, merged: {'+1 line': 0.502, '-1 line': 0.035, 'within 16 lines': 0.221, 'within 8 KiB row': 0.007, 'beyond': 0.235}
 stride, thread 3696465: {'+1 line': 0.502, '-1 line': 0.035, 'within 16 lines': 0.221, 'within 8 KiB row': 0.007, 'beyond': 0.235}
-Traceback (most recent call last):
-  File "/home/adityaseshasai.s/amcas-pro/tools/drmiss_export.py", line 278, in <module>
-    main()
-  File "/home/adityaseshasai.s/amcas-pro/tools/drmiss_export.py", line 239, in main
-    place, n_pages = placements(va)
-                     ^^^^^^^^^^^^^^
-  File "/home/adityaseshasai.s/amcas-pro/tools/drmiss_export.py", line 80, in placements
-    hframes = rng.choice(CAPACITY // huge, size=len(hp), replace=False).astype(np.int64)
-              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "numpy/random/_generator.pyx", line 925, in numpy.random._generator.Generator.choice
-ValueError: Cannot take a larger sample than population when replace is False
+
+offline in-order open-page row hit rate (DDR4 8 KiB row, 2 ranks x 16 banks)
+placement              RoRaBaCoCh   RoCoRaBaCh     XOR-bank
+VA-order packed             0.979        0.604        0.978
+4KiB shuffled               0.967        0.275        0.967
+THP 2MiB shuffled           0.970        0.604        0.975
+
+attribution by class (reads, share, MB; stride +1/within16/beyond, per class stream)
+  expert weights  104,998,551   0.838    6719.9  +1 0.56 w16 0.24 beyond 0.18
+  KV cache             80,665   0.001       5.2  +1 0.81 w16 0.01 beyond 0.18
+  dense weights    12,872,043   0.103     823.8  +1 0.31 w16 0.27 beyond 0.26
+  activations       5,889,040   0.047     376.9  +1 0.43 w16 0.05 beyond 0.49
+  unattributed      1,467,750   0.012      93.9  +1 0.65 w16 0.08 beyond 0.21
+  row hit VA-order packed / RoRaBaCoCh: expert weights 0.984, KV cache 0.923, dense weights 0.981, activations 0.894, unattributed 0.905
+  row hit VA-order packed / XOR-bank: expert weights 0.984, KV cache 0.921, dense weights 0.981, activations 0.888, unattributed 0.900
+  row hit 4KiB shuffled / RoRaBaCoCh: expert weights 0.976, KV cache 0.890, dense weights 0.959, activations 0.850, unattributed 0.857
+  row hit 4KiB shuffled / XOR-bank: expert weights 0.976, KV cache 0.894, dense weights 0.959, activations 0.852, unattributed 0.864
+  row hit THP 2MiB shuffled / RoRaBaCoCh: expert weights 0.984, KV cache 0.806, dense weights 0.981, activations 0.735, unattributed 0.820
+  row hit THP 2MiB shuffled / XOR-bank: expert weights 0.984, KV cache 0.924, dense weights 0.981, activations 0.821, unattributed 0.909
+  experts: 144 expert tensors, mean touched/tensor 48.9 of 128, mostly read 48.9
