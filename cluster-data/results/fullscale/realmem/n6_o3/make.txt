@@ -6,3 +6,15 @@
   packed_identity      in-order hit 0.948 banks 192/192 chan max/mean 1.096
   packed_xor_global    in-order hit 0.950 banks 192/192 chan max/mean 1.096
   packed_region        in-order hit 0.944 banks 192/192 chan max/mean 1.096
+  [thp global] n=3,000,000 cost 998339 -> 843427; bank bit ^= {0: ['row2'], 1: ['row4'], 2: [], 3: ['row10'], 4: ['row10']}
+  [thp region K] n=110,340,158 cost 1625840 -> 838239; bank bit ^= {0: ['row7', 'row13', 'row6'], 1: ['row4'], 2: ['row13'], 3: ['row8'], 4: ['row6', 'row8']}
+  [thp region O] n=830,297 cost 937236 -> 788590; bank bit ^= {0: ['row10'], 1: [], 2: [], 3: [], 4: []}
+  thp_identity         in-order hit 0.872 banks 192/192 chan max/mean 1.096
+  thp_xor_global       in-order hit 0.940 banks 192/192 chan max/mean 1.096
+  thp_region           in-order hit 0.934 banks 192/192 chan max/mean 1.096
+  [4k global] n=3,000,000 cost 1390585 -> 1371513; bank bit ^= {0: ['row9'], 1: ['row5'], 2: [], 3: ['row4'], 4: ['row6']}
+  [4k region K] n=172,618,981 cost 1309383 -> 1302772; bank bit ^= {0: [], 1: ['row7'], 2: [], 3: [], 4: []}
+  [4k region O] n=749,742 cost 1168951 -> 1111041; bank bit ^= {0: ['row11'], 1: ['row0'], 2: [], 3: [], 4: []}
+  4k_identity          in-order hit 0.723 banks 192/192 chan max/mean 1.098
+  4k_xor_global        in-order hit 0.723 banks 192/192 chan max/mean 1.098
+  4k_region            in-order hit 0.723 banks 192/192 chan max/mean 1.098
