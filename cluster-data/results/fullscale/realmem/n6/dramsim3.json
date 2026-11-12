@@ -1,0 +1,326 @@
+[
+ {
+  "key": "4k_identity",
+  "policy": "OPEN_PAGE",
+  "nch": 6,
+  "reads": 3000000,
+  "cycles": 2429075,
+  "hit_rate": 0.7299236666666666,
+  "avg_read_latency": 513.6875646666666,
+  "acts": 819959,
+  "channel_cycles": [
+   2005868,
+   2429075,
+   2006962,
+   2425991,
+   2006811,
+   2422076
+  ]
+ },
+ {
+  "key": "4k_identity",
+  "policy": "CLOSE_PAGE",
+  "nch": 6,
+  "reads": 3000000,
+  "cycles": 2882386,
+  "hit_rate": 0.0,
+  "avg_read_latency": 634.9282653333333,
+  "acts": 3009081,
+  "channel_cycles": [
+   2409944,
+   2882386,
+   2417109,
+   2881051,
+   2401436,
+   2871920
+  ]
+ },
+ {
+  "key": "4k_region",
+  "policy": "OPEN_PAGE",
+  "nch": 6,
+  "reads": 3000000,
+  "cycles": 2427867,
+  "hit_rate": 0.729852,
+  "avg_read_latency": 511.01265666666666,
+  "acts": 820057,
+  "channel_cycles": [
+   2004853,
+   2420463,
+   2008772,
+   2427867,
+   2008848,
+   2423298
+  ]
+ },
+ {
+  "key": "4k_region",
+  "policy": "CLOSE_PAGE",
+  "nch": 6,
+  "reads": 3000000,
+  "cycles": 2880569,
+  "hit_rate": 0.0,
+  "avg_read_latency": 633.7819353333333,
+  "acts": 3009136,
+  "channel_cycles": [
+   2404957,
+   2880569,
+   2410247,
+   2879827,
+   2394491,
+   2875881
+  ]
+ },
+ {
+  "key": "4k_xor_global",
+  "policy": "OPEN_PAGE",
+  "nch": 6,
+  "reads": 3000000,
+  "cycles": 2426892,
+  "hit_rate": 0.7298983333333333,
+  "avg_read_latency": 512.51995,
+  "acts": 820052,
+  "channel_cycles": [
+   2012647,
+   2421792,
+   2012603,
+   2421657,
+   2012505,
+   2426892
+  ]
+ },
+ {
+  "key": "4k_xor_global",
+  "policy": "CLOSE_PAGE",
+  "nch": 6,
+  "reads": 3000000,
+  "cycles": 2875471,
+  "hit_rate": 0.0,
+  "avg_read_latency": 633.182293,
+  "acts": 3009027,
+  "channel_cycles": [
+   2400995,
+   2872050,
+   2411211,
+   2874457,
+   2401939,
+   2875471
+  ]
+ },
+ {
+  "key": "packed_identity",
+  "policy": "OPEN_PAGE",
+  "nch": 6,
+  "reads": 3000000,
+  "cycles": 2680018,
+  "hit_rate": 0.9627816666666666,
+  "avg_read_latency": 311.97169233333335,
+  "acts": 112552,
+  "channel_cycles": [
+   2243562,
+   2678250,
+   2245708,
+   2680018,
+   2246850,
+   2678238
+  ]
+ },
+ {
+  "key": "packed_identity",
+  "policy": "CLOSE_PAGE",
+  "nch": 6,
+  "reads": 3000000,
+  "cycles": 10505725,
+  "hit_rate": 0.0,
+  "avg_read_latency": 1102.4450716666668,
+  "acts": 3005296,
+  "channel_cycles": [
+   9919703,
+   10504774,
+   9919712,
+   10505725,
+   9919591,
+   10504912
+  ]
+ },
+ {
+  "key": "packed_region",
+  "policy": "OPEN_PAGE",
+  "nch": 6,
+  "reads": 3000000,
+  "cycles": 2681721,
+  "hit_rate": 0.9620173333333333,
+  "avg_read_latency": 311.239057,
+  "acts": 114815,
+  "channel_cycles": [
+   2241561,
+   2681721,
+   2239015,
+   2681660,
+   2240230,
+   2681627
+  ]
+ },
+ {
+  "key": "packed_region",
+  "policy": "CLOSE_PAGE",
+  "nch": 6,
+  "reads": 3000000,
+  "cycles": 10668827,
+  "hit_rate": 0.0,
+  "avg_read_latency": 1109.17394,
+  "acts": 3005262,
+  "channel_cycles": [
+   9998373,
+   10668827,
+   9997802,
+   10668469,
+   9998079,
+   10667421
+  ]
+ },
+ {
+  "key": "packed_xor_global",
+  "policy": "OPEN_PAGE",
+  "nch": 6,
+  "reads": 3000000,
+  "cycles": 2692075,
+  "hit_rate": 0.9635003333333333,
+  "avg_read_latency": 312.87398766666666,
+  "acts": 110348,
+  "channel_cycles": [
+   2257206,
+   2689470,
+   2270390,
+   2692075,
+   2260479,
+   2689192
+  ]
+ },
+ {
+  "key": "packed_xor_global",
+  "policy": "CLOSE_PAGE",
+  "nch": 6,
+  "reads": 3000000,
+  "cycles": 10504273,
+  "hit_rate": 0.0,
+  "avg_read_latency": 1102.874596,
+  "acts": 3005361,
+  "channel_cycles": [
+   9909986,
+   10502359,
+   9911127,
+   10504273,
+   9910241,
+   10503910
+  ]
+ },
+ {
+  "key": "thp_identity",
+  "policy": "OPEN_PAGE",
+  "nch": 6,
+  "reads": 3000000,
+  "cycles": 2782150,
+  "hit_rate": 0.94298,
+  "avg_read_latency": 310.33469533333334,
+  "acts": 171948,
+  "channel_cycles": [
+   2311457,
+   2782150,
+   2311716,
+   2773428,
+   2309981,
+   2780933
+  ]
+ },
+ {
+  "key": "thp_identity",
+  "policy": "CLOSE_PAGE",
+  "nch": 6,
+  "reads": 3000000,
+  "cycles": 11568765,
+  "hit_rate": 0.0,
+  "avg_read_latency": 1156.0725293333333,
+  "acts": 3005442,
+  "channel_cycles": [
+   10413058,
+   11566169,
+   10407706,
+   11568765,
+   10412354,
+   11568618
+  ]
+ },
+ {
+  "key": "thp_region",
+  "policy": "OPEN_PAGE",
+  "nch": 6,
+  "reads": 3000000,
+  "cycles": 2709533,
+  "hit_rate": 0.959304,
+  "avg_read_latency": 312.0315913333333,
+  "acts": 123005,
+  "channel_cycles": [
+   2262499,
+   2709321,
+   2263700,
+   2709533,
+   2265785,
+   2709128
+  ]
+ },
+ {
+  "key": "thp_region",
+  "policy": "CLOSE_PAGE",
+  "nch": 6,
+  "reads": 3000000,
+  "cycles": 10689484,
+  "hit_rate": 0.0,
+  "avg_read_latency": 1107.61247,
+  "acts": 3005406,
+  "channel_cycles": [
+   9970584,
+   10689484,
+   9970323,
+   10687003,
+   9970200,
+   10688641
+  ]
+ },
+ {
+  "key": "thp_xor_global",
+  "policy": "OPEN_PAGE",
+  "nch": 6,
+  "reads": 3000000,
+  "cycles": 2708135,
+  "hit_rate": 0.961255,
+  "avg_read_latency": 314.550354,
+  "acts": 117159,
+  "channel_cycles": [
+   2268239,
+   2708135,
+   2268437,
+   2695572,
+   2268036,
+   2707036
+  ]
+ },
+ {
+  "key": "thp_xor_global",
+  "policy": "CLOSE_PAGE",
+  "nch": 6,
+  "reads": 3000000,
+  "cycles": 10635643,
+  "hit_rate": 0.0,
+  "avg_read_latency": 1103.9514256666666,
+  "acts": 3005516,
+  "channel_cycles": [
+   9923619,
+   10632295,
+   9923364,
+   10632669,
+   9923895,
+   10635643
+  ]
+ }
+]
