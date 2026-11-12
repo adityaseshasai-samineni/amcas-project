@@ -6,3 +6,158 @@ SLURM_JOB_GPUS =
 /dev/sdc1       1.8T  1.2T  612G  67% /scratch
 7B32k: 179,460,712 reads, window [53,838,213,61,838,213)
 7B32k_t2: 206,836,603 reads, window [62,050,980,70,050,980)
+30B32k: 224,116,805 reads, window [67,235,041,75,235,041)
+05B32k: 11,649,327 reads, window [3,494,798,11,494,798)
+7B8k: 75,356,086 reads, window [22,606,825,30,606,825)
+7B1k: 69,580,336 reads, window [20,874,100,28,874,100)
+30Bshort: 30,348,314 reads, window [9,104,494,17,104,494)
+30B1k: 31,855,428 reads, window [9,556,628,17,556,628)
+  [packed/ddr4 self:7B32k] n=800,000 cost 4269519 -> 3866867; bank bit ^= {0: ['row1', 'row6'], 1: ['row4', 'row13'], 2: ['row1'], 3: ['row11', 'row13'], 4: []}
+  [packed/ddr5 T30] n=800,000 cost 479072 -> 437794; bank bit ^= {0: ['row6', 'row7'], 1: ['row7'], 2: ['row8'], 3: [], 4: ['row8']}
+  [packed/ddr5 loo:pool:30B32k] n=600,000 cost 338570 -> 325140; bank bit ^= {0: ['row9'], 1: ['row3', 'row8'], 2: ['row9'], 3: ['row6', 'row11'], 4: ['row10']}
+  [thp/ddr4 loo:pool:7B32k] n=600,000 cost 3926671 -> 2786180; bank bit ^= {0: ['row11', 'row2'], 1: ['row6'], 2: ['row13'], 3: ['row1'], 4: ['row13']}
+  [thp/ddr4 loo:pool:30B32k] n=600,000 cost 3848017 -> 2787983; bank bit ^= {0: ['row11', 'row4', 'row7'], 1: ['row6'], 2: ['row13'], 3: ['row12'], 4: ['row11']}
+  [thp/ddr5 loo:pool:7B32k] n=600,000 cost 728347 -> 331706; bank bit ^= {0: ['row6', 'row0'], 1: ['row9', 'row2'], 2: ['row11', 'row4'], 3: ['row1'], 4: ['row0', 'row1']}
+  [thp/ddr5 self:7B32k_t2] n=800,000 cost 1022992 -> 454610; bank bit ^= {0: ['row5'], 1: ['row8', 'row11'], 2: ['row8'], 3: ['row6', 'row4'], 4: ['row13']}
+  30B32k packed ddr4 identity           in-order hit 0.921
+  [packed/ddr4 pool] n=800,000 cost 5566096 -> 3671944; bank bit ^= {0: ['row7', 'row12'], 1: [], 2: ['row8', 'row11'], 3: ['row13'], 4: ['row4']}
+  [packed/ddr5 pool] n=800,000 cost 487552 -> 439233; bank bit ^= {0: ['row6', 'row5', 'row10'], 1: ['row3', 'row9'], 2: ['row10'], 3: ['row9'], 4: ['row10']}
+  [packed/ddr5 loo:pool:05B32k] n=600,000 cost 375254 -> 326482; bank bit ^= {0: ['row5', 'row8'], 1: ['row3'], 2: ['row9'], 3: ['row6'], 4: ['row10']}
+  [thp/ddr4 self:30B32k] n=800,000 cost 5006162 -> 3801537; bank bit ^= {0: ['row7', 'row6'], 1: ['row13'], 2: ['row14', 'row13'], 3: ['row14'], 4: ['row8']}
+  [thp/ddr5 self:7B32k] n=800,000 cost 1065605 -> 468186; bank bit ^= {0: ['row2'], 1: ['row0'], 2: ['row13', 'row0'], 3: [], 4: ['row6', 'row8']}
+  [thp/ddr5 loo:pool:05B32k] n=600,000 cost 712438 -> 334333; bank bit ^= {0: ['row2', 'row11'], 1: ['row3', 'row2'], 2: ['row11'], 3: ['row11', 'row3'], 4: ['row0', 'row3']}
+  [thp/ddr5 self:30B1k] n=800,000 cost 590957 -> 444126; bank bit ^= {0: ['row8'], 1: ['row5'], 2: [], 3: [], 4: []}
+  30B32k packed ddr5 identity           in-order hit 0.954
+  [packed/ddr4 self:30B32k] n=800,000 cost 5634031 -> 3749979; bank bit ^= {0: ['row0'], 1: [], 2: ['row2'], 3: ['row1', 'row2'], 4: ['row1']}
+  [packed/ddr4 loo:pool:05B32k] n=600,000 cost 4517841 -> 2749216; bank bit ^= {0: ['row7'], 1: [], 2: [], 3: ['row13', 'row11'], 4: ['row12']}
+  [packed/ddr5 loo:pool:7B32k] n=600,000 cost 374601 -> 324572; bank bit ^= {0: ['row6', 'row2', 'row4'], 1: ['row3', 'row9', 'row10'], 2: ['row10', 'row9'], 3: ['row7', 'row9'], 4: ['row10', 'row9', 'row8']}
+  [thp/ddr4 T30] n=800,000 cost 5006162 -> 3801537; bank bit ^= {0: ['row7', 'row6'], 1: ['row13'], 2: ['row14', 'row13'], 3: ['row14'], 4: ['row8']}
+  [thp/ddr5 T30] n=800,000 cost 1471962 -> 465937; bank bit ^= {0: ['row2'], 1: ['row11', 'row0'], 2: ['row0'], 3: ['row3'], 4: []}
+  [thp/ddr5 loo:pool:30B32k] n=600,000 cost 673204 -> 326320; bank bit ^= {0: ['row1'], 1: ['row4'], 2: ['row11'], 3: ['row7'], 4: ['row6', 'row0']}
+  [thp/ddr5 loo:pool:7B8k] n=600,000 cost 841129 -> 341507; bank bit ^= {0: ['row6', 'row3'], 1: ['row9', 'row12'], 2: ['row11'], 3: ['row13', 'row11', 'row9'], 4: ['row1']}
+  7B32k packed ddr4 identity           in-order hit 0.951
+  [packed/ddr4 T30] n=800,000 cost 5634031 -> 3749979; bank bit ^= {0: ['row0'], 1: [], 2: ['row2'], 3: ['row1', 'row2'], 4: ['row1']}
+  [packed/ddr4 self:05B32k] n=800,000 cost 3760358 -> 3552671; bank bit ^= {0: ['row8', 'row10'], 1: ['row1'], 2: ['row8'], 3: ['row10'], 4: []}
+  [packed/ddr5 self:30B32k] n=800,000 cost 479072 -> 437794; bank bit ^= {0: ['row6', 'row7'], 1: ['row7'], 2: ['row8'], 3: [], 4: ['row8']}
+  [thp/ddr4 self:7B32k] n=800,000 cost 4688649 -> 3771244; bank bit ^= {0: ['row15'], 1: ['row7', 'row2'], 2: ['row4'], 3: [], 4: []}
+  [thp/ddr4 loo:pool:05B32k] n=600,000 cost 3898621 -> 2798366; bank bit ^= {0: ['row11', 'row15'], 1: ['row6'], 2: ['row14'], 3: ['row1'], 4: ['row13']}
+  [thp/ddr5 self:30B32k] n=800,000 cost 1471962 -> 465937; bank bit ^= {0: ['row2'], 1: ['row11', 'row0'], 2: ['row0'], 3: ['row3'], 4: []}
+  [thp/ddr5 self:7B8k] n=800,000 cost 559195 -> 429686; bank bit ^= {0: ['row8', 'row4', 'row9'], 1: ['row3', 'row7'], 2: ['row10'], 3: [], 4: ['row5']}
+  7B32k packed ddr5 identity           in-order hit 0.950
+  [packed/ddr4 loo:pool:7B32k] n=600,000 cost 4689185 -> 2736770; bank bit ^= {0: ['row7'], 1: [], 2: ['row8', 'row11', 'row12'], 3: ['row13'], 4: []}
+  [packed/ddr4 loo:pool:30B32k] n=600,000 cost 3389549 -> 2744927; bank bit ^= {0: ['row7', 'row13'], 1: ['row6'], 2: ['row11'], 3: [], 4: ['row6']}
+  [packed/ddr5 self:7B32k] n=800,000 cost 649127 -> 464255; bank bit ^= {0: ['row0', 'row5'], 1: ['row5', 'row9'], 2: ['row7'], 3: ['row10'], 4: ['row1']}
+  [thp/ddr4 T7] n=800,000 cost 4688649 -> 3771244; bank bit ^= {0: ['row15'], 1: ['row7', 'row2'], 2: ['row4'], 3: [], 4: []}
+  [thp/ddr4 self:05B32k] n=800,000 cost 8412596 -> 3546944; bank bit ^= {0: ['row13'], 1: ['row7'], 2: ['row15'], 3: ['row5'], 4: []}
+  [thp/ddr5 pool] n=800,000 cost 985039 -> 444192; bank bit ^= {0: ['row6', 'row8'], 1: ['row9', 'row12', 'row2'], 2: ['row11'], 3: ['row1', 'row4'], 4: ['row4', 'row0']}
+  [thp/ddr5 self:7B1k] n=800,000 cost 481598 -> 415586; bank bit ^= {0: ['row0', 'row2', 'row9'], 1: [], 2: ['row11', 'row6'], 3: ['row13', 'row5'], 4: []}
+  05B32k packed ddr4 identity           in-order hit 0.972
+  [packed/ddr4 T7] n=800,000 cost 4269519 -> 3866867; bank bit ^= {0: ['row1', 'row6'], 1: ['row4', 'row13'], 2: ['row1'], 3: ['row11', 'row13'], 4: []}
+  [packed/ddr5 T7] n=800,000 cost 649127 -> 464255; bank bit ^= {0: ['row0', 'row5'], 1: ['row5', 'row9'], 2: ['row7'], 3: ['row10'], 4: ['row1']}
+  [packed/ddr5 self:05B32k] n=800,000 cost 434279 -> 429508; bank bit ^= {0: ['row8'], 1: [], 2: ['row6'], 3: [], 4: ['row8']}
+  [thp/ddr4 pool] n=800,000 cost 5090962 -> 3758984; bank bit ^= {0: ['row11', 'row2'], 1: ['row6'], 2: ['row13'], 3: ['row1'], 4: ['row13']}
+  [thp/ddr5 T7] n=800,000 cost 1065605 -> 468186; bank bit ^= {0: ['row2'], 1: ['row0'], 2: ['row13', 'row0'], 3: [], 4: ['row6', 'row8']}
+  [thp/ddr5 self:05B32k] n=800,000 cost 2968184 -> 429451; bank bit ^= {0: ['row10', 'row11'], 1: ['row4'], 2: ['row2'], 3: ['row0', 'row3'], 4: ['row6']}
+  [thp/ddr5 self:30Bshort] n=800,000 cost 474561 -> 432478; bank bit ^= {0: ['row5', 'row6'], 1: ['row3'], 2: ['row13'], 3: [], 4: []}
+  05B32k packed ddr5 identity           in-order hit 0.962
+  30B32k packed ddr4 naive              in-order hit 0.938
+  30B32k packed ddr5 naive              in-order hit 0.935
+  7B32k packed ddr4 naive              in-order hit 0.939
+  7B32k packed ddr5 naive              in-order hit 0.948
+  05B32k packed ddr4 naive              in-order hit 0.972
+  30B32k packed ddr4 self               in-order hit 0.948
+  05B32k packed ddr5 naive              in-order hit 0.960
+  30B32k packed ddr5 self               in-order hit 0.950
+  7B32k packed ddr4 self               in-order hit 0.938
+  7B32k packed ddr5 self               in-order hit 0.949
+  30B32k packed ddr4 x_T7               in-order hit 0.920
+  05B32k packed ddr4 self               in-order hit 0.975
+  30B32k packed ddr5 x_T7               in-order hit 0.946
+  05B32k packed ddr5 self               in-order hit 0.962
+  7B32k packed ddr4 x_T30              in-order hit 0.942
+  7B32k packed ddr5 x_T30              in-order hit 0.949
+  30B32k packed ddr4 x_pool             in-order hit 0.935
+  30B32k packed ddr5 x_pool             in-order hit 0.957
+  05B32k packed ddr4 x_T7               in-order hit 0.974
+  7B32k packed ddr4 x_pool             in-order hit 0.940
+  05B32k packed ddr5 x_T7               in-order hit 0.961
+  30B32k packed ddr4 x_pool_loo         in-order hit 0.942
+  7B32k packed ddr5 x_pool             in-order hit 0.952
+  30B32k packed ddr5 x_pool_loo         in-order hit 0.953
+  05B32k packed ddr4 x_T30              in-order hit 0.969
+  7B32k packed ddr4 x_pool_loo         in-order hit 0.938
+  05B32k packed ddr5 x_T30              in-order hit 0.962
+  7B32k packed ddr5 x_pool_loo         in-order hit 0.949
+  7B32k thp ddr4 identity           in-order hit 0.816
+  30B32k thp ddr4 identity           in-order hit 0.757
+  05B32k packed ddr4 x_pool             in-order hit 0.976
+  30B32k thp ddr4 naive              in-order hit 0.899
+  05B32k thp ddr4 identity           in-order hit 0.743
+  7B32k thp ddr4 naive              in-order hit 0.903
+  05B32k packed ddr5 x_pool             in-order hit 0.963
+  05B32k packed ddr4 x_pool_loo         in-order hit 0.974
+  7B32k thp ddr5 identity           in-order hit 0.679
+  30B32k thp ddr4 self               in-order hit 0.945
+  7B32k thp ddr4 self               in-order hit 0.942
+  05B32k thp ddr4 naive              in-order hit 0.947
+  05B32k packed ddr5 x_pool_loo         in-order hit 0.960
+  7B32k thp ddr5 naive              in-order hit 0.940
+  30B32k thp ddr5 identity           in-order hit 0.549
+  30B32k thp ddr4 x_T7               in-order hit 0.904
+  7B32k thp ddr4 x_T30              in-order hit 0.940
+  05B32k thp ddr4 self               in-order hit 0.964
+  30B32k thp ddr5 naive              in-order hit 0.912
+  30B32k thp ddr4 x_pool             in-order hit 0.917
+  7B32k thp ddr5 self               in-order hit 0.942
+  7B32k thp ddr4 x_pool             in-order hit 0.921
+  05B32k thp ddr5 identity           in-order hit 0.626
+  30B32k thp ddr4 x_pool_loo         in-order hit 0.933
+  30B32k thp ddr5 self               in-order hit 0.949
+  05B32k thp ddr4 x_T7               in-order hit 0.969
+  7B32k thp ddr5 x_T30              in-order hit 0.937
+  7B32k thp ddr4 x_pool_loo         in-order hit 0.921
+  30B32k thp ddr5 x_T7               in-order hit 0.929
+  05B32k thp ddr5 naive              in-order hit 0.949
+  05B32k thp ddr4 x_T30              in-order hit 0.962
+  7B32k thp ddr5 x_pool             in-order hit 0.926
+  7B32k_t2 thp ddr5 identity           in-order hit 0.684
+  30B32k thp ddr5 x_pool             in-order hit 0.927
+  05B32k thp ddr5 self               in-order hit 0.956
+  7B32k thp ddr5 x_pool_loo         in-order hit 0.943
+  7B32k_t2 thp ddr5 naive              in-order hit 0.913
+  7B8k thp ddr5 identity           in-order hit 0.925
+  05B32k thp ddr4 x_pool             in-order hit 0.960
+  30B32k thp ddr5 x_pool_loo         in-order hit 0.926
+  05B32k thp ddr5 x_T7               in-order hit 0.943
+  7B32k_t2 thp ddr5 self               in-order hit 0.958
+  05B32k thp ddr4 x_pool_loo         in-order hit 0.958
+  7B8k thp ddr5 naive              in-order hit 0.963
+  7B1k thp ddr5 identity           in-order hit 0.958
+  7B32k_t2 thp ddr5 x_T7               in-order hit 0.951
+  30Bshort thp ddr5 identity           in-order hit 0.961
+  05B32k thp ddr5 x_T30              in-order hit 0.945
+  7B8k thp ddr5 self               in-order hit 0.964
+  7B1k thp ddr5 naive              in-order hit 0.964
+  30B1k thp ddr5 identity           in-order hit 0.941
+  7B32k_t2 thp ddr5 x_T30              in-order hit 0.937
+  30Bshort thp ddr5 naive              in-order hit 0.961
+  05B32k thp ddr5 x_pool             in-order hit 0.938
+  7B8k thp ddr5 x_T7               in-order hit 0.962
+  7B32k_t2 thp ddr5 x_pool             in-order hit 0.940
+  7B1k thp ddr5 self               in-order hit 0.966
+  30B1k thp ddr5 naive              in-order hit 0.965
+  30Bshort thp ddr5 self               in-order hit 0.965
+  05B32k thp ddr5 x_pool_loo         in-order hit 0.944
+  7B8k thp ddr5 x_T30              in-order hit 0.963
+  30B1k thp ddr5 self               in-order hit 0.961
+  7B1k thp ddr5 x_T7               in-order hit 0.966
+  30Bshort thp ddr5 x_T7               in-order hit 0.963
+  7B8k thp ddr5 x_pool             in-order hit 0.966
+  30B1k thp ddr5 x_T7               in-order hit 0.964
+  7B1k thp ddr5 x_T30              in-order hit 0.965
+  7B8k thp ddr5 x_pool_loo         in-order hit 0.964
+  30Bshort thp ddr5 x_T30              in-order hit 0.964
+  30B1k thp ddr5 x_T30              in-order hit 0.961
+  7B1k thp ddr5 x_pool             in-order hit 0.967
+  30Bshort thp ddr5 x_pool             in-order hit 0.963
+  30B1k thp ddr5 x_pool             in-order hit 0.963

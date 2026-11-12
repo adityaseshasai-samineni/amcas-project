@@ -1,0 +1,32 @@
+==========================================
+SLURM_JOB_ID = 122823
+SLURM_NODELIST = node01
+SLURM_JOB_GPUS = 
+==========================================
+run qwen2.5-7b-instruct-q4_k_m-00001-of-00002_B4_P8192t4 on node01.local: B=4 P=8192 threads=4 skip=1 ntrace=1 kvu=0
+=== untraced
+drbatch: seq 0 restored from /home/adityaseshasai.s/amcas-pro/results/sessions/drbatch/qwen2.5-7b-instruct-q4_k_m-00001-of-00002.gguf_P8192_s40000_b0.seq
+drbatch: seq 1 restored from /home/adityaseshasai.s/amcas-pro/results/sessions/drbatch/qwen2.5-7b-instruct-q4_k_m-00001-of-00002.gguf_P8192_s40000_b1.seq
+drbatch: seq 2 restored from /home/adityaseshasai.s/amcas-pro/results/sessions/drbatch/qwen2.5-7b-instruct-q4_k_m-00001-of-00002.gguf_P8192_s40000_b2.seq
+drbatch: seq 3 restored from /home/adityaseshasai.s/amcas-pro/results/sessions/drbatch/qwen2.5-7b-instruct-q4_k_m-00001-of-00002.gguf_P8192_s40000_b3.seq
+untraced 10.35 s, max RSS 9512340 KB
+=== traced (decode step 1, 1 step(s)), raw trace capped at 16 GB per thread
+drbatch: attaching at step 1
+drbatch: detached after step 1
+traced 15.65 s, max RSS 9517516 KB
+same tokens: NO (1 differing token(s) of 16)
+2c2
+< 12 87 698 315
+---
+> 12 87 43488 315
+B 0 13438938192598001	B 0 13438938202897483
+E 0 13438938193807512	E 0 13438938204002413
+B 1 13438938193808290	B 1 13438938204003194
+E 1 13438938194953086	E 1 13438938210434401
+B 2 13438938194953822	B 2 13438938210435866
+E 2 13438938196087089	E 2 13438938211695516
+B 3 13438938196087822	B 3 13438938211696298
+E 3 13438938197219021	E 3 13438938212875492
+16G	/scratch/adityaseshasai.s/drbatch/qwen2.5-7b-instruct-q4_k_m-00001-of-00002_B4_P8192t4/drmemtrace.llama-drbatch.3912878.4971.dir/raw
+raw2trace 869.75 s
+5.4G	/scratch/adityaseshasai.s/drbatch/qwen2.5-7b-instruct-q4_k_m-00001-of-00002_B4_P8192t4/drmemtrace.llama-drbatch.3912878.4971.dir/trace

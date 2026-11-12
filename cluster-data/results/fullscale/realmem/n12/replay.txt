@@ -1,0 +1,60 @@
+4k_identity       sat         Open      hit 0.664 lat   122.5 cyc    2.245M   125.4GB/s
+4k_identity       sat         ClosedCAP hit 0.611 lat   123.2 cyc    2.264M   124.4GB/s
+4k_identity       w512:52:512 Open      hit 0.662 lat    57.6 cyc   15.182M    37.2GB/s
+4k_identity       k1:52:256   Open      hit 0.655 lat    51.0 cyc   25.554M    22.3GB/s
+4k_identity       w512:52:512 ClosedCAP hit 0.621 lat    57.1 cyc   15.093M    37.5GB/s
+4k_identity       k1:52:256   ClosedCAP hit 0.618 lat    50.7 cyc   25.368M    22.5GB/s
+4k_xor_global     sat         Open      hit 0.663 lat   122.7 cyc    2.245M   125.4GB/s
+4k_identity       w1024:52:1024Open      hit 0.664 lat    63.2 cyc   11.749M    48.0GB/s
+4k_xor_global     sat         ClosedCAP hit 0.611 lat   123.4 cyc    2.264M   124.3GB/s
+4k_identity       w1024:52:1024ClosedCAP hit 0.623 lat    62.4 cyc   11.735M    48.0GB/s
+4k_identity       k5:264:1280 Open      hit 0.643 lat    50.4 cyc   53.751M    10.5GB/s
+4k_identity       k5:264:1280 ClosedCAP hit 0.611 lat    50.2 cyc   53.744M    10.5GB/s
+4k_xor_global     k1:52:256   Open      hit 0.655 lat    51.0 cyc   25.538M    22.3GB/s
+4k_xor_global     w512:52:512 Open      hit 0.662 lat    57.7 cyc   15.179M    37.2GB/s
+4k_xor_global     w1024:52:1024Open      hit 0.664 lat    63.1 cyc   11.748M    48.0GB/s
+4k_xor_global     w512:52:512 ClosedCAP hit 0.621 lat    57.1 cyc   15.103M    37.5GB/s
+4k_xor_global     k1:52:256   ClosedCAP hit 0.617 lat    50.7 cyc   25.383M    22.5GB/s
+4k_xor_global     k5:264:1280 Open      hit 0.643 lat    50.4 cyc   53.746M    10.5GB/s
+packed_identity   sat         Open      hit 0.962 lat   125.9 cyc    2.626M   107.2GB/s
+4k_xor_global     w1024:52:1024ClosedCAP hit 0.623 lat    62.4 cyc   11.741M    48.0GB/s
+packed_identity   sat         ClosedCAP hit 0.761 lat   159.8 cyc    2.980M    94.5GB/s
+4k_xor_global     k5:264:1280 ClosedCAP hit 0.611 lat    50.2 cyc   53.743M    10.5GB/s
+packed_identity   k1:52:256   Open      hit 0.850 lat    40.6 cyc   22.445M    25.8GB/s
+packed_identity   w512:52:512 Open      hit 0.861 lat    44.1 cyc   14.287M    40.0GB/s
+packed_identity   k1:52:256   ClosedCAP hit 0.698 lat    45.2 cyc   23.928M    24.1GB/s
+packed_identity   w1024:52:1024Open      hit 0.866 lat    47.4 cyc   11.593M    48.6GB/s
+packed_xor_global sat         Open      hit 0.967 lat   121.5 cyc    2.456M   114.6GB/s
+packed_identity   w512:52:512 ClosedCAP hit 0.703 lat    50.0 cyc   14.690M    38.8GB/s
+packed_identity   w1024:52:1024ClosedCAP hit 0.707 lat    53.9 cyc   11.630M    48.5GB/s
+packed_identity   k5:264:1280 Open      hit 0.803 lat    45.3 cyc   53.724M    10.5GB/s
+packed_xor_global sat         ClosedCAP hit 0.764 lat   159.3 cyc    2.886M    97.5GB/s
+packed_identity   k5:264:1280 ClosedCAP hit 0.682 lat    47.3 cyc   53.729M    10.5GB/s
+packed_xor_global k1:52:256   Open      hit 0.849 lat    40.6 cyc   22.413M    25.7GB/s
+packed_xor_global w512:52:512 Open      hit 0.868 lat    43.3 cyc   14.265M    40.3GB/s
+packed_xor_global k1:52:256   ClosedCAP hit 0.699 lat    45.1 cyc   23.694M    24.1GB/s
+packed_xor_global w512:52:512 ClosedCAP hit 0.707 lat    49.6 cyc   14.562M    38.9GB/s
+packed_xor_global w1024:52:1024Open      hit 0.873 lat    46.6 cyc   11.582M    48.7GB/s
+thp_identity      sat         Open      hit 0.935 lat   132.1 cyc    2.955M    95.3GB/s
+packed_xor_global k5:264:1280 Open      hit 0.808 lat    45.0 cyc   53.721M    10.5GB/s
+packed_xor_global w1024:52:1024ClosedCAP hit 0.711 lat    53.2 cyc   11.610M    48.6GB/s
+thp_identity      sat         ClosedCAP hit 0.746 lat   180.1 cyc    3.635M    77.5GB/s
+thp_identity      k1:52:256   Open      hit 0.803 lat    43.9 cyc   23.478M    24.2GB/s
+packed_xor_global k5:264:1280 ClosedCAP hit 0.684 lat    47.1 cyc   53.726M    10.5GB/s
+thp_identity      w512:52:512 Open      hit 0.817 lat    47.5 cyc   14.859M    38.6GB/s
+thp_identity      k1:52:256   ClosedCAP hit 0.675 lat    47.4 cyc   24.460M    23.2GB/s
+thp_identity      w1024:52:1024Open      hit 0.822 lat    51.4 cyc   11.706M    48.2GB/s
+thp_identity      w512:52:512 ClosedCAP hit 0.679 lat    52.6 cyc   14.947M    38.0GB/s
+thp_xor_global    sat         Open      hit 0.965 lat   124.1 cyc    2.577M   109.3GB/s
+thp_identity      k5:264:1280 Open      hit 0.766 lat    47.1 cyc   53.729M    10.5GB/s
+thp_identity      w1024:52:1024ClosedCAP hit 0.681 lat    57.1 cyc   11.732M    48.0GB/s
+thp_xor_global    sat         ClosedCAP hit 0.761 lat   161.5 cyc    2.998M    93.9GB/s
+thp_identity      k5:264:1280 ClosedCAP hit 0.660 lat    49.0 cyc   53.731M    10.5GB/s
+thp_xor_global    k1:52:256   Open      hit 0.857 lat    40.0 cyc   21.777M    26.1GB/s
+thp_xor_global    w512:52:512 Open      hit 0.866 lat    43.5 cyc   14.087M    40.2GB/s
+thp_xor_global    k1:52:256   ClosedCAP hit 0.700 lat    45.0 cyc   23.532M    24.1GB/s
+thp_xor_global    w1024:52:1024Open      hit 0.875 lat    46.4 cyc   11.591M    48.7GB/s
+thp_xor_global    w512:52:512 ClosedCAP hit 0.708 lat    49.4 cyc   14.478M    39.1GB/s
+thp_xor_global    w1024:52:1024ClosedCAP hit 0.710 lat    53.3 cyc   11.653M    48.4GB/s
+thp_xor_global    k5:264:1280 Open      hit 0.809 lat    44.9 cyc   53.718M    10.5GB/s
+thp_xor_global    k5:264:1280 ClosedCAP hit 0.685 lat    47.0 cyc   53.718M    10.5GB/s

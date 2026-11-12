@@ -1,0 +1,33 @@
+==========================================
+SLURM_JOB_ID = 122817
+SLURM_NODELIST = node01
+SLURM_JOB_GPUS = 
+==========================================
+/dev/sdc1       1.8T  1.2T  613G  67% /scratch
+  WARNING: window has 1 thread(s); 4 contiguous pseudo-threads
+179,460,712 reads, window [53,838,213,56,838,213), nch 12
+  [packed global] n=3,000,000 cost 554380 -> 509407; bank bit ^= {0: ['row3'], 1: ['row0'], 2: [], 3: ['row10'], 4: []}
+  [packed region K] n=110,201,810 cost 764411 -> 508495; bank bit ^= {0: ['row2', 'row6'], 1: ['row0', 'row2', 'row5'], 2: ['row6'], 3: ['row3', 'row5'], 4: ['row4']}
+  [packed region O] n=964,273 cost 510911 -> 443342; bank bit ^= {0: ['row5'], 1: ['row2'], 2: [], 3: ['row5'], 4: ['row5']}
+  packed_identity      in-order hit 0.957 banks 384/384 chan max/mean 1.302
+  packed_xor_global    in-order hit 0.960 banks 384/384 chan max/mean 1.302
+  packed_region        in-order hit 0.958 banks 384/384 chan max/mean 1.302
+  [thp global] n=3,000,000 cost 669751 -> 526847; bank bit ^= {0: ['row1'], 1: ['row7'], 2: ['row4'], 3: ['row2'], 4: ['row3']}
+  [thp region K] n=110,340,158 cost 1245579 -> 536019; bank bit ^= {0: ['row6', 'row12'], 1: ['row8', 'row10', 'row6'], 2: ['row4', 'row12'], 3: ['row10', 'row13'], 4: []}
+  [thp region O] n=830,297 cost 604931 -> 484650; bank bit ^= {0: ['row4'], 1: ['row12', 'row3'], 2: ['row5', 'row13'], 3: ['row13'], 4: []}
+  thp_identity         in-order hit 0.893 banks 384/384 chan max/mean 1.302
+  thp_xor_global       in-order hit 0.959 banks 384/384 chan max/mean 1.302
+  thp_region           in-order hit 0.957 banks 384/384 chan max/mean 1.302
+  [4k global] n=3,000,000 cost 1137929 -> 1129805; bank bit ^= {0: ['row8'], 1: [], 2: [], 3: [], 4: []}
+  [4k region K] n=172,618,981 cost 1098129 -> 1086420; bank bit ^= {0: ['row6'], 1: [], 2: [], 3: [], 4: ['row0']}
+  [4k region O] n=749,742 cost 956326 -> 911365; bank bit ^= {0: ['row1'], 1: [], 2: [], 3: [], 4: []}
+  4k_identity          in-order hit 0.691 banks 384/384 chan max/mean 1.303
+  4k_xor_global        in-order hit 0.691 banks 384/384 chan max/mean 1.303
+Traceback (most recent call last):
+  File "/home/adityaseshasai.s/amcas-pro/tools/realmem_traces.py", line 132, in <module>
+    main()
+  File "/home/adityaseshasai.s/amcas-pro/tools/realmem_traces.py", line 112, in main
+    assert np.unique(lin).size == np.unique(pw).size, "not injective"
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: not injective
+realmem_traces failed
