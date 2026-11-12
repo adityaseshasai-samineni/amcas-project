@@ -1,0 +1,9 @@
+==========================================
+SLURM_JOB_ID = 123536
+SLURM_NODELIST = node01
+SLURM_JOB_GPUS = 
+==========================================
+/var/spool/slurmd/job123536/slurm_script: line 27: 853848 Killed                  $E/bin/python $HOME/amcas-pro/tools/region_remap.py $MISS $TSV $S --window $WIN 2>&1
+     853849 Done                    | tee $R/make.txt
+cp: cannot stat '/scratch/adityaseshasai.s/region/7B_B4_P32768/manifest.json': No such file or directory
+ls: cannot access '/scratch/adityaseshasai.s/region/7B_B4_P32768/*.trc': No such file or directory

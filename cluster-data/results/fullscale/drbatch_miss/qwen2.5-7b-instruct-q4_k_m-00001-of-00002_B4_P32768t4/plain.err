@@ -2279,13 +2279,13 @@ llama_graph_n_input_tensors: input tensor '                         out_ids' [i3
 llama_graph_n_input_tensors: input tensor '                      inp_tokens' [i32, ne = {   512,     1,     1,     1 }] is used by node 'embd' (GET_ROWS)
 sched_reserve:        CPU compute buffer size =   371.27 MiB
 sched_reserve: graph: nodes = 1017, splits = 1, input objects = 4, input tensors = 9
-sched_reserve: reserve took 7.43 ms, sched copies = 1
-llama_state_seq_load_file: error loading sequence state file: failed to open /home/adityaseshasai.s/amcas-pro/results/sessions/drbatch/qwen2.5-7b-instruct-q4_k_m-00001-of-00002.gguf_P32768_s70000_b0.seq: No such file or directory
-drbatch: seq 0 evaluated and saved
-llama_state_seq_load_file: error loading sequence state file: failed to open /home/adityaseshasai.s/amcas-pro/results/sessions/drbatch/qwen2.5-7b-instruct-q4_k_m-00001-of-00002.gguf_P32768_s70000_b1.seq: No such file or directory
-drbatch: seq 1 evaluated and saved
-llama_state_seq_load_file: error loading sequence state file: failed to open /home/adityaseshasai.s/amcas-pro/results/sessions/drbatch/qwen2.5-7b-instruct-q4_k_m-00001-of-00002.gguf_P32768_s70000_b2.seq: No such file or directory
-drbatch: seq 2 evaluated and saved
-llama_state_seq_load_file: error loading sequence state file: failed to open /home/adityaseshasai.s/amcas-pro/results/sessions/drbatch/qwen2.5-7b-instruct-q4_k_m-00001-of-00002.gguf_P32768_s70000_b3.seq: No such file or directory
-drbatch: seq 3 evaluated and saved
-untraced 9556.88 s, max RSS 15243604 KB
+sched_reserve: reserve took 7.71 ms, sched copies = 1
+state_read_meta: cell_count = 32767, dest_seq_id = 0
+drbatch: seq 0 restored from /home/adityaseshasai.s/amcas-pro/results/sessions/drbatch/qwen2.5-7b-instruct-q4_k_m-00001-of-00002.gguf_P32768_s70000_b0.seq
+state_read_meta: cell_count = 32767, dest_seq_id = 1
+drbatch: seq 1 restored from /home/adityaseshasai.s/amcas-pro/results/sessions/drbatch/qwen2.5-7b-instruct-q4_k_m-00001-of-00002.gguf_P32768_s70000_b1.seq
+state_read_meta: cell_count = 32767, dest_seq_id = 2
+drbatch: seq 2 restored from /home/adityaseshasai.s/amcas-pro/results/sessions/drbatch/qwen2.5-7b-instruct-q4_k_m-00001-of-00002.gguf_P32768_s70000_b2.seq
+state_read_meta: cell_count = 32767, dest_seq_id = 3
+drbatch: seq 3 restored from /home/adityaseshasai.s/amcas-pro/results/sessions/drbatch/qwen2.5-7b-instruct-q4_k_m-00001-of-00002.gguf_P32768_s70000_b3.seq
+untraced 87.14 s, max RSS 15054724 KB
