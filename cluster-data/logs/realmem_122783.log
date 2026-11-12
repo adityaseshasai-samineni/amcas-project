@@ -4,3 +4,11 @@ SLURM_NODELIST = node01
 SLURM_JOB_GPUS = 
 ==========================================
 /dev/sdc1       1.8T  1.2T  612G  67% /scratch
+  WARNING: window has 1 thread(s); 4 contiguous pseudo-threads
+179,460,712 reads, window [53,838,213,56,838,213), nch 6
+  [packed global] n=3,000,000 cost 864780 -> 834086; bank bit ^= {0: ['row6', 'row5'], 1: ['row11'], 2: ['row9'], 3: ['row11'], 4: []}
+  [packed region K] n=110,201,810 cost 948328 -> 818599; bank bit ^= {0: ['row1'], 1: ['row0'], 2: [], 3: ['row1'], 4: ['row7', 'row2', 'row3']}
+  [packed region O] n=964,273 cost 804579 -> 747528; bank bit ^= {0: ['row3'], 1: [], 2: ['row0'], 3: ['row0'], 4: ['row6']}
+  packed_identity      in-order hit 0.948 banks 192/192 chan max/mean 1.096
+  packed_xor_global    in-order hit 0.950 banks 192/192 chan max/mean 1.096
+  packed_region        in-order hit 0.944 banks 192/192 chan max/mean 1.096
