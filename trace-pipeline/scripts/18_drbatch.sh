@@ -51,12 +51,14 @@ AMCAS_SKIP_STEPS=$SKIP AMCAS_TRACE_STEPS=$NTRACE AMCAS_OUT=$R/tokens_traced.txt 
   DYNAMORIO_OPTIONS="-stderr_mask 0xc -client_lib ';;-offline -outdir $S -max_trace_size $MAXTR'" \
   /usr/bin/time -f "traced %e s, max RSS %M KB" $X > $S/traced.out 2> $S/traced.err
 grep -E "^drbatch: (att|det)|^traced" $S/traced.err
-if cmp -s $R/tokens_native.txt $R/tokens_traced.txt; then echo "same tokens: yes"; else
-  NDIFF=$(paste -d'|' <(tr ' ' '\n' < $R/tokens_native.txt) <(tr ' ' '\n' < $R/tokens_traced.txt) | awk -F'|' '$1!=$2' | wc -l)
-  echo "same tokens: NO ($NDIFF differing token(s) of $(wc -w < $R/tokens_native.txt))"; diff $R/tokens_native.txt $R/tokens_traced.txt
-  # TOL_TOK=n: continue when at most n tokens differ (a near-tie logit flip under DynamoRIO; the untraced run is deterministic)
-  [ "$NDIFF" -le "${TOL_TOK:-0}" ] || exit 1
-fi
+# Positional token gate: per sequence (column), all tokens of steps before the traced step ($SKIP) must be
+# identical; the first divergence (if any) must be at step >= $SKIP (a near-tie logit flip at the traced step
+# under DynamoRIO; later tokens of that sequence then cascade, so their count says nothing).
+awk -v skip=$SKIP 'NR==FNR { for (i=1;i<=NF;i++) a[FNR,i]=$i; n[FNR]=NF; rows=FNR; next }
+  { for (i=1;i<=NF;i++) if (!((i) in fd) && a[FNR,i]!=$i) fd[i]=FNR-1; cols=NF }
+  END { bad=0; for (i=1;i<=cols;i++) { if (i in fd) { printf "seq %d: first divergence at step %d%s\n", i-1, fd[i], (fd[i]<skip ? "  <-- BEFORE traced step" : ""); if (fd[i]<skip) bad=1 } else printf "seq %d: identical\n", i-1 }
+    exit bad }' $R/tokens_native.txt $R/tokens_traced.txt | tee $R/token_check.txt
+[ ${PIPESTATUS[0]} -eq 0 ] && echo "same tokens (positional check): yes" || { echo "same tokens: NO (divergence before the traced step)"; exit 1; }
 paste $R/steps_native.txt $R/steps_traced.txt | head -$((2 * NGEN + 2))
 T=$(ls -d $S/drmemtrace.llama-drbatch.*.dir) || exit 1; du -sh $T/raw
 /usr/bin/time -f "raw2trace %e s" $D/tools/bin64/drraw2trace -indir $T -jobs 8 -compress gzip > $S/raw2trace.log 2>&1 \

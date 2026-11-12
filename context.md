@@ -1365,3 +1365,40 @@ Region replay (123118), THP placement, Mcycles of identity (hit) and ratios to i
 Packed: DDR4 xor_global 1.003/1.005, region 1.030/1.025 (Open/Closed, no gain); DDR5 packed identity is worse than THP (21.87 / 29.31) and both XOR and region give 0.86 / 0.77 there (fixing channel/bank hot-spotting of the packed layout, not row conflicts of the KV pages).
 In-order hit by class (DDR4 THP, identity -> xor_global -> region): W 0.957 -> 0.958 -> 0.957, K 0.732 -> 0.816 -> 0.938, O 0.748 -> 0.890 -> 0.964. So at B=4 the four sequences' KV streams need distinct matrices per class (the K-specific matrix recovers 0.94) while the single global matrix, searched on weights+KV together, only gets 0.82 for K: the first case where region beats the global XOR (DDR4 Open 0.921 vs 0.989). On DDR5 the identity KV hit is already 0.965 and nothing helps (0.963).
 Verdict so far: at B=4, P=8192 the global XOR gain is 1-4% (no gain on DDR5 ClosedCAP); the region-specific matrix gives 8-9% on DDR4. Window caveat: the first 24M requests of the stream (first layers). P=32768 (job 123129) and windowed prefill (123130) pending.
+
+### serving-owner: batching x long context, windowed prefill (2026-11-13), part 2 and verdict
+
+**Token gate changed (coordinator request).** `TOL_TOK` (count tolerance) is removed from `18_drbatch.sh` / `19_batchmiss.sh`. New positional gate: per sequence, every token of a step before the traced step (`SKIP`) must be identical; the first divergence step per sequence is logged (`token_check.txt`) and a divergence before the traced step fails the run. First-divergence steps (traced step = 1): 7B B=4 P=8192 (122823/123015): seq 2 at step 1, others identical; P=32768 (123129 first try, 123253): seq 0 and 1 at step 2, seq 2 and 3 identical. (Earlier message to main said "0/1/2 at 2/2/1"; correct is 0/1 at step 2.) Untraced fresh, untraced restored and restored-vs-restored runs are identical, so the prompt-cache restore is not the cause; the late flips are DynamoRIO near-ties. `26_prefill.sh` keeps strict equality (single sequence).
+
+**Task 6, 7B Q4_K_M, B=4, P=32768 (STRIDE=70000, so the four 32k prompts overlap in corpus text but sit at different offsets), 4 threads, node01.** Jobs: 123129 (died on the old count gate; untraced prompt evaluation 9557 s), 123253 (complete, miss stream kept, 28.1G instructions, raw trace 54 GB, native step 4.31 s), region replay 123538 (123536 OOM at 40 GB; 40M-request window of 893M). LL misses (no prefetch) 893M = 57.2 GB per decode step, against 4.4 GB weights + 7.5 GB KV: about 5x amplification of the KV reads (every KV page is re-read by several query heads/threads and the 22 MB LLC holds none of it). The windowed replay therefore sees the first 4.5% of the step.
+
+Region replay, THP, cycles relative to identity (hit):
+
+| DRAM, policy | identity Mcycles (hit) | xor_global | region |
+|---|---|---|---|
+| DDR4x1 Open | 203.4 (0.707) | 0.885 (0.934) | 0.872 (0.925) |
+| DDR4x1 ClosedCAP | 204.2 (0.685) | 0.897 (0.744) | 0.888 (0.737) |
+| DDR5x16 Open | 27.14 (0.956) | 0.938 (0.959) | 1.000 |
+| DDR5x16 ClosedCAP | 28.90 (0.772) | 0.979 | 1.000 |
+
+Packed: DDR4 xor_global / region 1.001-1.003 / 1.004-1.010 (no gain, identity hit 0.949); DDR5 packed identity is bad (hit 0.829 Open, K class 0.594: the contiguous 32k KV streams alias onto few banks/channels) and both XOR and region give 0.651-0.675 Open/Closed.
+In-order row hit by class (DDR4 THP, identity -> xor_global -> region): W 0.942 -> 0.942 -> 0.942, K 0.736 -> 0.935 -> 0.909, O 0.838 -> 0.854 -> 0.966. DDR5 THP: identity already W 0.955 / K 0.952 / O 0.839; xor_global leaves K 0.957, O 0.845; region fixes O (0.983, only 40 granules) but gives no cycle gain.
+
+**Task 8, 7B prefill window, 512-token prompt, n_ubatch=32 (16 graph computes), only the last (positions 480-511) traced, 4 threads (job 123130, run `..._prefill_P512u32c15n1t4`; ub=64 was not run: estimated 55G instructions / ~80 GB raw, versus 27.0G / 23 GB raw / 17 GB trace for ub=32).** Same tokens as the untraced run: yes. basic_counts shows 4 threads, 6.7G instructions each (the cache simulator's merged miss file carries one thread id, as in all earlier runs). 75.3M DRAM reads (no prefetch) = 4.8 GB: about one pass over the weights per micro-batch plus activations. Replay 123352 (24M-request window of 75M), cycles relative to identity (hit):
+
+| DRAM, policy | identity Mcycles (hit) | xor_global | region |
+|---|---|---|---|
+| DDR4x1 Open (THP) | 106.5 (0.898) | 0.992 | 0.994 |
+| DDR4x1 ClosedCAP | 117.0 (0.734) | 0.996 | 0.995 |
+| DDR5x16 Open | 14.26 (0.908) | 1.004 | 1.003 |
+| DDR5x16 ClosedCAP | 17.63 (0.740) | 1.000 | 1.002 |
+
+Packed is the same within 1%. In-order hit by class (DDR4 THP): W 0.937, K 0.753 (459k reads only), O 0.755. Prefill is mapping-insensitive: the stream is weight reads (hit 0.94) with few KV reads, so there is nothing for the KV-page XOR to fix; row-hit about 0.90 Open (DDR4/DDR5), 0.73-0.74 under ClosedCAP, and Open vs ClosedCAP is the only lever (10-20%).
+
+**Verdict.** Batched decode with long per-sequence context (7B, B=4), xor_global / identity cycles, THP, DDR4 Open (DDR5 Open) :
+| prompt per sequence | B=1 (32k, held-out) | B=4 | note |
+|---|---|---|---|
+| 512 | - | 0.914 (0.954) offline-ratio table | weights dominate |
+| 8192 | - | 0.989 (0.963) | region 0.921 (0.963) |
+| 32768 | 0.860 (0.844) | 0.885 (0.938) | region 0.872 (1.000) |
+So the KV-page XOR gain does come back with long contexts under batching, but only at 32k: 11-12% on DDR4 (single sequence 14-16%) and 2-6% on DDR5; at 8k per sequence it is 1-4% (the per-sequence KV is 1.9 GB against 4.4 GB of weights, and the 8k window was weight-heavy). Region-specific matrices are not generally better: they win on DDR4 at 8k (8% vs 1%, the global matrix compromises between weight and KV streams) but only by 1% at 32k, and lose to xor_global on DDR5 THP at 32k (1.000 vs 0.938). Single global XOR remains the proposal. Packed placement shows no DDR4 effect but a large DDR5 effect at 32k (35%), which is channel/bank aliasing of contiguous KV, also fixed by the XOR. Caveats: windows are the first 24M/40M requests of 117M/893M-request steps (early layers), open-loop replay, modelled THP placement, one traced step. Jobs: 122732 (failed gate), 122823, 123015, 123118 (P=8192); 123129, 123253, 123536 (OOM), 123538 (P=32768); 123130, 123352 (prefill). Not done: 30B B=4 P=8192 (time), prefill at ub=64.
