@@ -36,6 +36,11 @@
 static long step = -1;
 static bool want_trace, finished;
 static long g_skip, g_ntrace;
+// Prefill-window mode (AMCAS_PREFILL=1): the P-token prompt of sequence 0 runs as one
+// llama_process call split by n_ubatch (AMCAS_UBATCH) into graph computes; DynamoRIO is
+// attached for the graph computes [AMCAS_TRACE_COMPUTE, +AMCAS_TRACE_COMPUTES) only.
+static bool g_prefill;
+static long g_comp = -1, g_comp_first = 0, g_comp_n = 1;
 static bool tracing;
 static FILE *out, *tsv;
 static std::set<std::pair<long, void *>> seen;
@@ -71,6 +76,9 @@ extern "C" enum ggml_status ggml_backend_sched_graph_compute_async(ggml_backend_
     // Attach just before the graph compute, not in llama_process: with B >= 13
     // sequences DynamoRIO crashed (SIGSEGV in std::unordered_map<bitset<256>,..>::
     // operator[] after a rehash, inside llama_batch_allocr::init) when started earlier.
+    g_comp++;
+    if (g_prefill && step < 0 && g_comp == g_comp_first) want_trace = true;
+    if (g_prefill && step < 0 && g_comp >= g_comp_first + g_comp_n) want_trace = false;
     if (want_trace && !tracing && !finished) { fprintf(stderr, "drbatch: attaching at step %ld\n", step); dr_app_start(); tracing = true; }
     enum ggml_status r = real(sched, g);
     if (tracing && !tsv) {
@@ -86,7 +94,8 @@ extern "C" enum ggml_status ggml_backend_sched_graph_compute_async(ggml_backend_
         }
         fflush(tsv);
     }
-    if (tracing && step + 1 >= g_skip + g_ntrace) { dr_app_stop_and_cleanup(); tracing = false; finished = true; fprintf(stderr, "drbatch: detached after step %ld\n", step); }
+    if (tracing && g_prefill && step < 0 && g_comp + 1 >= g_comp_first + g_comp_n) { dr_app_stop_and_cleanup(); tracing = false; finished = true; fprintf(stderr, "drbatch: detached after graph compute %ld\n", g_comp); }
+    else if (tracing && !g_prefill && step + 1 >= g_skip + g_ntrace) { dr_app_stop_and_cleanup(); tracing = false; finished = true; fprintf(stderr, "drbatch: detached after step %ld\n", step); }
     return r;
 }
 
@@ -122,9 +131,11 @@ int main() {
     llama_model *m = llama_model_load_from_file(model.c_str(), mp);
     if (!m) die("model load failed");
     const llama_vocab *vocab = llama_model_get_vocab(m);
+    g_prefill = env_long("AMCAS_PREFILL", 0) != 0;
+    const int UB = env_long("AMCAS_UBATCH", 512);
     const int cs = ((P + NGEN + 8 + 255) / 256) * 256;
     llama_context_params cp = llama_context_default_params();
-    cp.n_ctx = B * cs; cp.n_batch = 2048; cp.n_ubatch = 512; cp.n_seq_max = B;
+    cp.n_ctx = B * cs; cp.n_batch = 2048; cp.n_ubatch = UB; cp.n_seq_max = B;
     cp.n_threads = cp.n_threads_batch = T; cp.no_perf = true; cp.kv_unified = env_long("AMCAS_KVU", 0) != 0;
     llama_context *ctx = llama_init_from_model(m, cp);
     if (!ctx) die("context failed");
@@ -145,6 +156,37 @@ int main() {
         int32_t r = llama_process(ctx, LLAMA_PROCESS_TYPE_DECODE, batch);
         (void)logits_last_each; return r;
     };
+    if (g_prefill) {
+        // Whole prompt (all P tokens, logits of the last) in one llama_process call = ceil(P/UB) graph computes.
+        long ncomp = (P + UB - 1) / UB;
+        g_comp_first = env_long("AMCAS_TRACE_COMPUTE", ncomp - 1); g_comp_n = env_long("AMCAS_TRACE_COMPUTES", 1);
+        if (P > (int)cp.n_batch) die("prefill mode needs P <= n_batch (2048)");
+        llama_batch_ext_clear(batch);
+        for (int j = 0; j < P; j++) {
+            int idx = llama_batch_ext_add_token(batch, 0, prompt[0][j]);
+            llama_pos p = j; llama_batch_ext_set_pos(batch, idx, &p);
+            llama_batch_ext_set_output_logits(batch, idx, j == P - 1);
+        }
+        fprintf(stderr, "drbatch: prefill P=%d ubatch=%d computes=%ld trace from %ld count %ld\n", P, UB, ncomp, g_comp_first, g_comp_n);
+        if (run(true) != 0) die("prefill failed");
+        llama_synchronize(ctx);
+        fprintf(stderr, "drbatch: prefill done, %ld graph computes\n", g_comp + 1);
+        FILE *tk = fopen(env_str("AMCAS_OUT", "/dev/null").c_str(), "w");
+        std::vector<llama_token> cur1(1); int pos1 = P; const int nv1 = llama_vocab_n_tokens(vocab);
+        const float *l = llama_get_logits_ith(ctx, -1);
+        for (step = 0; step <= NGEN; step++) {
+            int best = 0; for (int i = 1; i < nv1; i++) if (l[i] > l[best]) best = i;
+            fprintf(tk, "%d\n", best); fflush(tk);
+            if (step == NGEN) break;
+            llama_batch_ext_clear(batch);
+            int idx = llama_batch_ext_add_token(batch, 0, best); llama_pos p = pos1++;
+            llama_batch_ext_set_pos(batch, idx, &p); llama_batch_ext_set_output_logits(batch, idx, true);
+            if (run(true) != 0) die("decode failed");
+            l = llama_get_logits_ith(ctx, 0);
+        }
+        if (tracing) dr_app_stop_and_cleanup(); else if (!finished) dr_app_cleanup();
+        return 0;
+    }
     // 1. prompt part (P-1 tokens), cached per sequence
     size_t slash = model.find_last_of('/'); std::string mb = model.substr(slash == std::string::npos ? 0 : slash + 1);
     for (int b = 0; b < B; b++) {

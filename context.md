@@ -1344,3 +1344,24 @@ Findings. (1) The gain does **not** need fragmentation at 2 MiB granularity: wit
 Same as the B=1 sample (Q30B_short: all variants 0.99-1.01): expert-aware mappings, region and the global XOR are all within 1% of identity (the best cell is 0.992), because experts are read as long contiguous slices at 0.97 row hit already. Two routing samples (1 and 4 tokens) agree: no case for expert-aware mapping; the bank XOR only matters through the KV stream at long context. (bitrev, for reference, is 1.08-2.23 worse.)
 
 **Proposal answer.** One fixed bank-XOR matrix can be the hardware mapping for DDR5 x16 with 2 MiB pages: searched once on 7B 32k (or even the naive row-bit-j XOR in Open) it is within about 1 point (Open) and 3 points (ClosedCAP) of per-workload search across 0.5B/7B/30B and 1k-32k contexts, never worse than identity with 2 MiB pages, and neutral where there is no gain. Caveats: ClosedCAP and DDR4 x1 lose 2-4 points to self-search and the naive matrix is inadequate there; a matrix tuned on random frames is fragile (up to 15 ClosedCAP points on 7B) under contiguous physical runs, so the matrix should be searched on a mix of placements; with 4 KiB pages the XOR is a 1-4% loss on DDR4; open-loop saturated replays (the closed-loop analysis of the policy-owner says the real token-time gain is smaller: about 1-2% at the native bandwidth plateau).
+
+### serving-owner: batching x long context (2026-11-12), part 1: 7B B=4 P=8192
+
+Tool changes: `18_drbatch.sh`/`19_batchmiss.sh` take `P`, `STRIDE` (corpus offset between sequences, chars; part of the prompt-cache name), `MAXTRACE_GB` (per-thread `-max_trace_size`), `TOL_TOK` (continue when <= n tokens differ). `drbatch_main.cpp` got a prefill-window mode (`AMCAS_PREFILL=1 AMCAS_UBATCH AMCAS_TRACE_COMPUTE[S]`), driven by new `26_prefill.sh`; old binary kept as `tracing/drbatch-build/llama-drbatch.prev`. cmake lives in the gem5 env (`$E/bin/cmake`; `/usr/bin/cmake` is missing on compute nodes).
+
+Token check (job 122732 failed on it): one of 16 tokens differs in traced vs untraced (step 1, seq 2: 698 vs 43488). Untraced fresh and untraced restored runs are identical, and two restored runs are identical, so the prompt-cache restore is fine; the flip is a DynamoRIO-induced near-tie at the traced step (reproduced identically in 122823 and 123015). Hence `TOL_TOK`.
+
+Runs (7B Q4_K_M, B=4 sequences x 8192-token prompts, STRIDE=40000, 4 threads, node01): 122823 (full pipeline, 11.4G instructions, 16 GB raw trace), 123015 (miss stream kept), region replays 123118 (24M-request window of 117.7M). DRAM reads (no prefetch) 117.7M = 7.53 GB (with prefetch 63.6M + 54.2M = 117.8M): weights 68.3M (58%), KV 48.2M (41%, i.e. 3.09 GB against 1.9 GB of raw KV: LLC amplification 1.6x), activations 0.7M. Native step: see steps_native.txt in `results/fullscale/drbatch/..._B4_P8192t4`. Offline row hit (full stream, THP shuffled): RoRaBaCoCh 0.862, XOR-bank 0.945. Full-stream Ramulator (122823): DDR4 RoBaRaCoCh Open hit 0.956, 534 Mcycles; DDR5x16 Open 108.6 Mcycles, 167 GB/s.
+
+Region replay (123118), THP placement, Mcycles of identity (hit) and ratios to identity:
+
+| DRAM, policy | identity | xor_global | region | bitrev |
+|---|---|---|---|---|
+| DDR4x1 Open | 117.82 (0.884) | 0.989 (0.916) | 0.921 (0.952) | 1.099 |
+| DDR4x1 ClosedCAP | 128.60 (0.753) | 0.984 (0.756) | 0.912 (0.764) | 1.181 |
+| DDR5x16 Open | 19.92 (0.961) | 0.963 (0.960) | 0.963 (0.960) | 1.079 |
+| DDR5x16 ClosedCAP | 22.52 (0.769) | 1.011 (0.769) | 1.035 (0.769) | 1.330 |
+
+Packed: DDR4 xor_global 1.003/1.005, region 1.030/1.025 (Open/Closed, no gain); DDR5 packed identity is worse than THP (21.87 / 29.31) and both XOR and region give 0.86 / 0.77 there (fixing channel/bank hot-spotting of the packed layout, not row conflicts of the KV pages).
+In-order hit by class (DDR4 THP, identity -> xor_global -> region): W 0.957 -> 0.958 -> 0.957, K 0.732 -> 0.816 -> 0.938, O 0.748 -> 0.890 -> 0.964. So at B=4 the four sequences' KV streams need distinct matrices per class (the K-specific matrix recovers 0.94) while the single global matrix, searched on weights+KV together, only gets 0.82 for K: the first case where region beats the global XOR (DDR4 Open 0.921 vs 0.989). On DDR5 the identity KV hit is already 0.965 and nothing helps (0.963).
+Verdict so far: at B=4, P=8192 the global XOR gain is 1-4% (no gain on DDR5 ClosedCAP); the region-specific matrix gives 8-9% on DDR4. Window caveat: the first 24M requests of the stream (first layers). P=32768 (job 123129) and windowed prefill (123130) pending.
