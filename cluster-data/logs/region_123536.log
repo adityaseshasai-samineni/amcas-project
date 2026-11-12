@@ -7,3 +7,7 @@ SLURM_JOB_GPUS =
      853849 Done                    | tee $R/make.txt
 cp: cannot stat '/scratch/adityaseshasai.s/region/7B_B4_P32768/manifest.json': No such file or directory
 ls: cannot access '/scratch/adityaseshasai.s/region/7B_B4_P32768/*.trc': No such file or directory
+wrote analysis/tables.md and 3 figures; validation failures: none
+wrote analysis/fullscale/tables.md
+publish: pushed b279d38
+slurmstepd: error: Detected 1 oom-kill event(s) in StepId=123536.batch. Some of your processes may have been killed by the cgroup out-of-memory handler.

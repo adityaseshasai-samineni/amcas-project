@@ -455,6 +455,14 @@ Each remap rewrites the read stream with the named scheme (identity = no change)
 
 | run | placement | DRAM | policy | identity | bitrev | xor_global | region |
 |---|---|---|---|---|---|---|---|
+| 7B_B4_P32768 | packed | ddr4 | Open | 1.00 (hit 95%) | 2.59 (hit 87%) | 1.00 (hit 95%) | 1.00 (hit 94%) |
+| 7B_B4_P32768 | packed | ddr4 | ClosedCAP | 1.00 (hit 75%) | 3.32 (hit 78%) | 1.00 (hit 75%) | 1.01 (hit 75%) |
+| 7B_B4_P32768 | packed | ddr5 | Open | 1.00 (hit 83%) | 1.53 (hit 90%) | 0.65 (hit 96%) | 0.65 (hit 96%) |
+| 7B_B4_P32768 | packed | ddr5 | ClosedCAP | 1.00 (hit 71%) | 2.05 (hit 77%) | 0.67 (hit 77%) | 0.66 (hit 77%) |
+| 7B_B4_P32768 | thp | ddr4 | Open | 1.00 (hit 71%) | 0.90 (hit 93%) | 0.88 (hit 93%) | 0.87 (hit 92%) |
+| 7B_B4_P32768 | thp | ddr4 | ClosedCAP | 1.00 (hit 68%) | 0.94 (hit 74%) | 0.90 (hit 74%) | 0.89 (hit 74%) |
+| 7B_B4_P32768 | thp | ddr5 | Open | 1.00 (hit 96%) | 1.02 (hit 95%) | 0.94 (hit 96%) | 1.00 (hit 96%) |
+| 7B_B4_P32768 | thp | ddr5 | ClosedCAP | 1.00 (hit 77%) | 1.34 (hit 77%) | 0.98 (hit 77%) | 1.00 (hit 77%) |
 | 7B_B4_P8192 | packed | ddr4 | Open | 1.00 (hit 95%) | 2.15 (hit 90%) | 1.00 (hit 95%) | 1.03 (hit 95%) |
 | 7B_B4_P8192 | packed | ddr4 | ClosedCAP | 1.00 (hit 77%) | 2.84 (hit 78%) | 1.00 (hit 76%) | 1.03 (hit 76%) |
 | 7B_B4_P8192 | packed | ddr5 | Open | 1.00 (hit 91%) | 1.89 (hit 87%) | 0.86 (hit 96%) | 0.86 (hit 96%) |

@@ -1,0 +1,8 @@
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loading trace file /scratch/adityaseshasai.s/region/7B_B4_P32768/thp_ddr4_region.trc ...
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loading trace file /scratch/adityaseshasai.s/region/7B_B4_P32768/thp_ddr4_region.trc ...
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loaded 40000000 lines.
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loaded 40000000 lines.
+ddr4, 1 channel(s), interleave 64 B << 0, issue 1/cycle
+mapper      policy          reads   writes    hit  conflict  rd_lat  Mcycles    GB/s
+RoBaRaCoCh  Open         40000000        0  0.925     0.047   165.4    177.3    17.3
+RoBaRaCoCh  ClosedCAP    40000000        0  0.737     0.030   175.3    181.3    17.0
