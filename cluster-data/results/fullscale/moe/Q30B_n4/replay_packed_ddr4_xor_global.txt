@@ -2,3 +2,7 @@
 
 [[Ramulator::LoadStoreTrace] [[32minfo[0m] Ramulator::LoadStoreTraceLoaded 16000000 lines.] [[32minfo[0m] 
 Loaded 16000000 lines.
+ddr4, 1 channel(s), interleave 64 B << 0, issue 1/cycle
+mapper      policy          reads   writes    hit  conflict  rd_lat  Mcycles    GB/s
+RoBaRaCoCh  Open         16000000        0  0.979     0.010   177.6     78.4    15.7
+RoBaRaCoCh  ClosedCAP    16000000        0  0.781     0.004   196.7     85.9    14.3
