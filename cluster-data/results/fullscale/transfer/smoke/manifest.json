@@ -1,0 +1,294 @@
+{
+ "window": 1000000,
+ "streams": {
+  "05B32k": {
+   "reads": 11649327,
+   "window": [
+    3494798,
+    4494798
+   ]
+  },
+  "30Bshort": {
+   "reads": 30348314,
+   "window": [
+    9104494,
+    10104494
+   ]
+  }
+ },
+ "matrices": {
+  "thp/ddr5/T05": {
+   "matrix": {
+    "0": [
+     "row4"
+    ],
+    "1": [
+     "row1"
+    ],
+    "2": [
+     "row12",
+     "row2",
+     "row0"
+    ],
+    "3": [
+     "row11"
+    ],
+    "4": []
+   },
+   "cost": [
+    4531224.7,
+    445140.4
+   ]
+  },
+  "thp/ddr5/pool": {
+   "matrix": {
+    "0": [
+     "row3"
+    ],
+    "1": [
+     "row10",
+     "row9",
+     "row3"
+    ],
+    "2": [
+     "row13",
+     "row4"
+    ],
+    "3": [
+     "row9",
+     "row3",
+     "row13"
+    ],
+    "4": []
+   },
+   "cost": [
+    1791334.5,
+    444263.30000000005
+   ]
+  },
+  "thp/ddr5/self:05B32k": {
+   "matrix": {
+    "0": [
+     "row4"
+    ],
+    "1": [
+     "row1"
+    ],
+    "2": [
+     "row12",
+     "row2",
+     "row0"
+    ],
+    "3": [
+     "row11"
+    ],
+    "4": []
+   },
+   "cost": [
+    4531224.7,
+    445140.4
+   ]
+  },
+  "thp/ddr5/loo:pool:05B32k": {
+   "matrix": {
+    "0": [
+     "row11",
+     "row9"
+    ],
+    "1": [
+     "row9"
+    ],
+    "2": [
+     "row12"
+    ],
+    "3": [],
+    "4": [
+     "row8"
+    ]
+   },
+   "cost": [
+    465263.4,
+    433648.25
+   ]
+  },
+  "thp/ddr5/self:30Bshort": {
+   "matrix": {
+    "0": [
+     "row11",
+     "row9"
+    ],
+    "1": [
+     "row9"
+    ],
+    "2": [
+     "row12"
+    ],
+    "3": [],
+    "4": [
+     "row8"
+    ]
+   },
+   "cost": [
+    465263.4,
+    433648.25
+   ]
+  },
+  "thp/ddr5/loo:pool:30Bshort": {
+   "matrix": {
+    "0": [
+     "row4"
+    ],
+    "1": [
+     "row1"
+    ],
+    "2": [
+     "row12",
+     "row2",
+     "row0"
+    ],
+    "3": [
+     "row11"
+    ],
+    "4": []
+   },
+   "cost": [
+    4531224.7,
+    445140.4
+   ]
+  }
+ },
+ "files": [
+  {
+   "inorder_hit": 0.508967,
+   "banks_used": 512,
+   "banks_total": 512,
+   "inorder_hit_W": 0.508967,
+   "test": "05B32k",
+   "placement": "thp",
+   "dram": "ddr5",
+   "scheme": "identity",
+   "file": "05B32k__thp_ddr5_identity.trc",
+   "bijective": true
+  },
+  {
+   "inorder_hit": 0.930962,
+   "banks_used": 512,
+   "banks_total": 512,
+   "inorder_hit_W": 0.930962,
+   "test": "05B32k",
+   "placement": "thp",
+   "dram": "ddr5",
+   "scheme": "naive",
+   "file": "05B32k__thp_ddr5_naive.trc",
+   "bijective": true
+  },
+  {
+   "inorder_hit": 0.959347,
+   "banks_used": 512,
+   "banks_total": 512,
+   "inorder_hit_W": 0.959347,
+   "test": "05B32k",
+   "placement": "thp",
+   "dram": "ddr5",
+   "scheme": "self",
+   "file": "05B32k__thp_ddr5_self.trc",
+   "bijective": true
+  },
+  {
+   "inorder_hit": 0.955716,
+   "banks_used": 512,
+   "banks_total": 512,
+   "inorder_hit_W": 0.955716,
+   "test": "05B32k",
+   "placement": "thp",
+   "dram": "ddr5",
+   "scheme": "x_pool",
+   "file": "05B32k__thp_ddr5_x_pool.trc",
+   "bijective": true
+  },
+  {
+   "inorder_hit": 0.910528,
+   "banks_used": 512,
+   "banks_total": 512,
+   "inorder_hit_W": 0.910528,
+   "test": "05B32k",
+   "placement": "thp",
+   "dram": "ddr5",
+   "scheme": "x_pool_loo",
+   "file": "05B32k__thp_ddr5_x_pool_loo.trc",
+   "bijective": true
+  },
+  {
+   "inorder_hit": 0.963133,
+   "banks_used": 512,
+   "banks_total": 512,
+   "inorder_hit_W": 0.963133,
+   "test": "30Bshort",
+   "placement": "thp",
+   "dram": "ddr5",
+   "scheme": "identity",
+   "file": "30Bshort__thp_ddr5_identity.trc",
+   "bijective": true
+  },
+  {
+   "inorder_hit": 0.95948,
+   "banks_used": 512,
+   "banks_total": 512,
+   "inorder_hit_W": 0.95948,
+   "test": "30Bshort",
+   "placement": "thp",
+   "dram": "ddr5",
+   "scheme": "naive",
+   "file": "30Bshort__thp_ddr5_naive.trc",
+   "bijective": true
+  },
+  {
+   "inorder_hit": 0.968377,
+   "banks_used": 512,
+   "banks_total": 512,
+   "inorder_hit_W": 0.968377,
+   "test": "30Bshort",
+   "placement": "thp",
+   "dram": "ddr5",
+   "scheme": "self",
+   "file": "30Bshort__thp_ddr5_self.trc",
+   "bijective": true
+  },
+  {
+   "inorder_hit": 0.964811,
+   "banks_used": 512,
+   "banks_total": 512,
+   "inorder_hit_W": 0.964811,
+   "test": "30Bshort",
+   "placement": "thp",
+   "dram": "ddr5",
+   "scheme": "x_T05",
+   "file": "30Bshort__thp_ddr5_x_T05.trc",
+   "bijective": true
+  },
+  {
+   "inorder_hit": 0.967535,
+   "banks_used": 512,
+   "banks_total": 512,
+   "inorder_hit_W": 0.967535,
+   "test": "30Bshort",
+   "placement": "thp",
+   "dram": "ddr5",
+   "scheme": "x_pool",
+   "file": "30Bshort__thp_ddr5_x_pool.trc",
+   "bijective": true
+  },
+  {
+   "inorder_hit": 0.964811,
+   "banks_used": 512,
+   "banks_total": 512,
+   "inorder_hit_W": 0.964811,
+   "test": "30Bshort",
+   "placement": "thp",
+   "dram": "ddr5",
+   "scheme": "x_pool_loo",
+   "file": "30Bshort__thp_ddr5_x_pool_loo.trc",
+   "bijective": true
+  }
+ ]
+}

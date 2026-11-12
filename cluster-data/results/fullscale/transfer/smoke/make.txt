@@ -1,0 +1,19 @@
+05B32k: 11,649,327 reads, window [3,494,798,4,494,798)
+30Bshort: 30,348,314 reads, window [9,104,494,10,104,494)
+  [thp/ddr5 T05] n=800,000 cost 4531225 -> 445140; bank bit ^= {0: ['row4'], 1: ['row1'], 2: ['row12', 'row2', 'row0'], 3: ['row11'], 4: []}
+  05B32k thp ddr5 identity           in-order hit 0.509
+  [thp/ddr5 pool] n=800,000 cost 1791334 -> 444263; bank bit ^= {0: ['row3'], 1: ['row10', 'row9', 'row3'], 2: ['row13', 'row4'], 3: ['row9', 'row3', 'row13'], 4: []}
+  30Bshort thp ddr5 identity           in-order hit 0.963
+  05B32k thp ddr5 naive              in-order hit 0.931
+  30Bshort thp ddr5 naive              in-order hit 0.959
+  05B32k thp ddr5 self               in-order hit 0.959
+  30Bshort thp ddr5 self               in-order hit 0.968
+  05B32k thp ddr5 x_pool             in-order hit 0.956
+  30Bshort thp ddr5 x_T05              in-order hit 0.965
+  05B32k thp ddr5 x_pool_loo         in-order hit 0.911
+  30Bshort thp ddr5 x_pool             in-order hit 0.968
+  30Bshort thp ddr5 x_pool_loo         in-order hit 0.965
+  [thp/ddr5 loo:pool:05B32k] n=800,000 cost 465263 -> 433648; bank bit ^= {0: ['row11', 'row9'], 1: ['row9'], 2: ['row12'], 3: [], 4: ['row8']}
+  [thp/ddr5 self:30Bshort] n=800,000 cost 465263 -> 433648; bank bit ^= {0: ['row11', 'row9'], 1: ['row9'], 2: ['row12'], 3: [], 4: ['row8']}
+  [thp/ddr5 self:05B32k] n=800,000 cost 4531225 -> 445140; bank bit ^= {0: ['row4'], 1: ['row1'], 2: ['row12', 'row2', 'row0'], 3: ['row11'], 4: []}
+  [thp/ddr5 loo:pool:30Bshort] n=800,000 cost 4531225 -> 445140; bank bit ^= {0: ['row4'], 1: ['row1'], 2: ['row12', 'row2', 'row0'], 3: ['row11'], 4: []}
