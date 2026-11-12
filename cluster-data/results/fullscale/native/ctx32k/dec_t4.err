@@ -1,0 +1,29 @@
+0.00.001.598 I llama_completion: llama backend init
+0.00.014.939 I llama_completion: load the model and apply lora adapter, if any
+0.00.304.885 W load: control-looking token: 128247 '</s>' was not control-type; this is probably a bug in the model. its type will be overridden
+0.03.151.808 I cmn          init: llama threadpool init, n_threads = 4
+0.03.156.150 I 
+0.03.156.225 I system_info: n_threads = 4 (n_threads_batch = 4) / 64 | CPU : SSE3 = 1 | SSSE3 = 1 | AVX = 1 | AVX2 = 1 | F16C = 1 | FMA = 1 | BMI2 = 1 | AVX512 = 1 | AVX512_VNNI = 1 | LLAMAFILE = 1 | OPENMP = 1 | REPACK = 1 | 
+0.03.156.226 I 
+0.03.156.227 I llama_completion: attempting to load saved session from '/scratch/adityaseshasai.s/nativectx/s.session'
+0.04.103.199 I llama_completion: loaded a session with prompt size of 31001 tokens
+0.04.163.713 I llama_completion: session file has exact match for prompt!
+0.05.365.117 I llama_completion: replayed last token from session
+0.05.365.136 I sampler seed: 4294967295
+0.05.365.154 I sampler params: 
+	repeat_last_n = 64, repeat_penalty = 1.000, frequency_penalty = 0.000, presence_penalty = 0.000
+	dry_multiplier = 0.000, dry_base = 1.750, dry_allowed_length = 2, dry_penalty_last_n = 64
+	top_k = 40, top_p = 0.950, min_p = 0.050, xtc_probability = 0.000, xtc_threshold = 0.100, typical_p = 1.000, top_n_sigma = -1.000, temp = 0.000
+	mirostat = 0, mirostat_lr = 0.100, mirostat_ent = 5.000, adaptive_target = -1.000, adaptive_decay = 0.900
+0.05.365.167 I sampler chain: logits -> logit-bias -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> min-p -> ?xtc -> temp-ext -> greedy 
+0.05.365.206 I generate: n_ctx = 32768, n_batch = 2048, n_predict = 32, n_keep = 0
+0.05.365.207 I 
+0.40.947.523 I common_perf_print:    sampling time =      23.24 ms
+0.40.947.528 I common_perf_print:    samplers time =       7.38 ms / 31033 tokens
+0.40.947.535 I common_perf_print:        load time =    2245.52 ms
+0.40.947.536 I common_perf_print: prompt eval time =       0.00 ms /     1 tokens (    0.00 ms per token,      inf tokens per second)
+0.40.947.539 I common_perf_print:        eval time =   36761.96 ms /    32 runs   ( 1148.81 ms per token,     0.87 tokens per second)
+0.40.947.540 I common_perf_print:       total time =   37791.39 ms /    33 tokens
+0.40.947.541 I common_perf_print: unaccounted time =    1006.19 ms /   2.7 %      (total - sampling - prompt eval - eval) / (total)
+0.40.947.541 I common_perf_print:    graphs reused =         31
+0.40.947.542 I common_perf_print:   graph reallocs =          0    /     0        (same size) / (changed size)
