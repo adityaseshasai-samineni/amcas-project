@@ -1,0 +1,184 @@
+{
+ "reads_total": 179460712,
+ "window": [
+  0,
+  179460712
+ ],
+ "files": [
+  {
+   "inorder_hit": 0.6799162036089548,
+   "banks_used": 512,
+   "banks_total": 512,
+   "inorder_hit_W": 0.9789993761481963,
+   "inorder_hit_K": 0.49902353774044805,
+   "inorder_hit_O": 0.8524022127022017,
+   "placement": "thp",
+   "dram": "ddr5",
+   "scheme": "identity",
+   "file": "thp_ddr5_identity.trc",
+   "info": {},
+   "chan_load_max_over_mean": 1.0143464046882864
+  },
+  {
+   "inorder_hit": 0.9374173886036962,
+   "banks_used": 512,
+   "banks_total": 512,
+   "inorder_hit_W": 0.9770120501962674,
+   "inorder_hit_K": 0.9262601744688457,
+   "inorder_hit_O": 0.9501419371622444,
+   "placement": "thp",
+   "dram": "ddr5",
+   "scheme": "xor_global",
+   "file": "thp_ddr5_xor_global.trc",
+   "info": {
+    "matrix": {
+     "0": [
+      "row8",
+      "row3"
+     ],
+     "1": [
+      "row1",
+      "row3"
+     ],
+     "2": [
+      "row3",
+      "row12"
+     ],
+     "3": [
+      "row12",
+      "row4"
+     ],
+     "4": [
+      "row3"
+     ]
+    },
+    "cost": [
+     972839.7000000001,
+     457907.1
+    ]
+   },
+   "chan_load_max_over_mean": 1.0143464046882864
+  },
+  {
+   "inorder_hit": 0.9451596514339027,
+   "banks_used": 512,
+   "banks_total": 512,
+   "inorder_hit_W": 0.9768864393056831,
+   "inorder_hit_K": 0.939080311993028,
+   "inorder_hit_O": 0.952083411116745,
+   "placement": "thp",
+   "dram": "ddr5",
+   "scheme": "xor_global_chan",
+   "file": "thp_ddr5_xor_global_chan.trc",
+   "info": {
+    "matrix": {
+     "0": [
+      "row9"
+     ],
+     "1": [
+      "row10",
+      "row9"
+     ],
+     "2": [],
+     "3": [
+      "row11"
+     ]
+    },
+    "cost": [
+     525359.1,
+     458278.05000000005
+    ],
+    "bank": {
+     "0": [
+      "row8",
+      "row3"
+     ],
+     "1": [
+      "row1",
+      "row3"
+     ],
+     "2": [
+      "row3",
+      "row12"
+     ],
+     "3": [
+      "row12",
+      "row4"
+     ],
+     "4": [
+      "row3"
+     ]
+    }
+   },
+   "chan_load_max_over_mean": 1.0024782248718593
+  },
+  {
+   "inorder_hit": 0.9305955612167637,
+   "banks_used": 512,
+   "banks_total": 512,
+   "inorder_hit_W": 0.9789993761481963,
+   "inorder_hit_K": 0.9138548451235678,
+   "inorder_hit_O": 0.963476924522189,
+   "placement": "thp",
+   "dram": "ddr5",
+   "scheme": "region",
+   "file": "thp_ddr5_region.trc",
+   "info": {
+    "K": {
+     "matrix": {
+      "0": [
+       "row10",
+       "row3",
+       "row4"
+      ],
+      "1": [
+       "row4",
+       "row2"
+      ],
+      "2": [
+       "row2"
+      ],
+      "3": [
+       "row2"
+      ],
+      "4": [
+       "row1"
+      ]
+     },
+     "cost": [
+      2565111.55,
+      487749.95
+     ],
+     "reads_full": 110340158,
+     "reads_window": 110340158
+    },
+    "O": {
+     "matrix": {
+      "0": [
+       "row1",
+       "row11"
+      ],
+      "1": [
+       "row1",
+       "row5"
+      ],
+      "2": [
+       "row6"
+      ],
+      "3": [
+       "row1"
+      ],
+      "4": []
+     },
+     "cost": [
+      1571909.6,
+      438698.15
+     ],
+     "reads_full": 830297,
+     "reads_window": 830297
+    }
+   },
+   "chan_load_max_over_mean": 1.0143464046882864
+  }
+ ]
+}
