@@ -1270,3 +1270,77 @@ Packed and 4 KiB: 0.99-1.00 everywhere (6ch sat packed 0.992, 4k 1.000; 12ch sat
 DRAMsim3 CLOSE_PAGE (always auto-precharge, hit 0.000, 2.7-4x slower) is a different policy from ClosedCAP and is not comparable; THP xor still -8% (6ch) / -13% (12ch) there. **Verdict: DRAMsim3 agrees in direction and mechanism** (THP only; packed/4k flat; hit 0.94-0.96 -> 0.96-0.975) **but the saturated gain is about a third to a half of Ramulator's** (-2.7% vs -9.9% at 6ch, -6.6% vs -12.8% at 12ch). Its identity baseline is already better (hit 0.943 vs 0.911; per-bank command queues of 8 plus a 32-entry transaction queue reorder more). Both simulators therefore support the effect, with DRAMsim3 suggesting the Ramulator numbers (-10..-17% / -27..-29% on DDR5) are upper-end for a controller with deeper reordering. Latencies in DRAMsim3 (300-500 cycles) are queueing delay of the back-to-back injection and not comparable with Ramulator.
 
 **Overall verdict for the proposal:** on the machine's own memory (DDR4-2933, 6-12 channels) the bank-XOR gain is -9..-13% saturated (Ramulator) / -3..-7% (DRAMsim3), but only ~1% at the native 43 GB/s plateau and 0% at the corrected 10 GB/s 4-thread rate; the real mapping already differs (Intel hash unknown), THP placement is required. Caveats: 3M-read window, model address map and DIMM organisation assumed, closed-loop core model is calibrated for DDR5 (re-checked only by achieved GB/s here), no row-policy/refresh differences evaluated, region not run at 12ch.
+
+### transfer-owner: cross-model transfer, fragmentation, MoE 4-token (2026-11-12)
+
+Tools (new): `tools/transfer_remap.py` (train-set/test-set generalisation of heldout_remap.py, imports mapprep/region_remap/remap), `tools/frag_remap.py` (placement sweep), `tools/moe_experts_touched.py`, `tools/transfer_report.py` (tables), scripts `26_moe4.sh`, `27_transfer.sh`, `28_frag.sh`. Jobs: 122723 (MoE 4-token, 1h18), 122792 (transfer, 1h45; first try 122791 died in 7 s on an unbound `$SMOKE` under `set -u`), 122922 (fragmentation, 1h54). Results in `cluster-data/results/fullscale/{transfer/xfer,frag/7B32k,frag/30B32k,moe/Q30B_n4}` and `region/Qwen3-30B-A3B-Q4_K_M_s1n4t4_attr_n4m`. All emitted traces assert unchanged channel/row/column/2 MiB granule and equal distinct-address count (bijection) per test stream; no assertion failed. Window 8M requests (start frac 0.3), Ramulator RoBaRaCoCh.
+
+**Task 4: one fixed matrix.** Matrices: T7 = searched on 7B 32k; T30 = on 30B 32k; pool = on equal windows (2 x 100k chunks each) of 7B 32k, 30B 32k, 0.5B 32k, 7B 8k; pool_loo = the same mix without the test stream (no leakage); naive = bank bit j ^= row bit j; self = searched on the test window. Cycle ratios vs identity (<1 = XOR helps), "-" = identical to self. Matrices are searched per placement/DRAM on that placement's physical bits.
+
+THP, DDR5 x16, Open:
+
+| test | identity Mcyc | naive | self | T7 | T30 | pool | pool_loo |
+|---|---|---|---|---|---|---|---|
+| 7B 32k | 10.68 | 0.822 | 0.818 | - | 0.821 | 0.827 | 0.819 |
+| 7B 32k token 2 | 10.78 | 0.857 | 0.840 | 0.844 | 0.849 | 0.846 | - |
+| 30B 32k | 14.50 | 0.784 | 0.772 | 0.778 | - | 0.781 | 0.779 |
+| 0.5B 32k | 5.13 | 0.894 | 0.892 | 0.897 | 0.897 | 0.903 | 0.897 |
+| 7B 8k | 5.50 | 0.949 | 0.948 | 0.946 | 0.949 | 0.947 | 0.949 |
+| 7B 1k | 4.75 | 0.986 | 0.985 | 0.982 | 0.986 | 0.982 | - |
+| 30B 1k | 5.24 | 0.960 | 0.967 | 0.959 | 0.964 | 0.963 | - |
+| 30B short | 4.54 | 1.003 | 1.000 | 1.000 | 1.000 | 1.001 | - |
+
+THP, DDR5 x16, ClosedCAP:
+
+| test | identity Mcyc | naive | self | T7 | T30 | pool | pool_loo |
+|---|---|---|---|---|---|---|---|
+| 7B 32k | 14.45 | 0.702 | 0.700 | - | 0.713 | 0.726 | 0.697 |
+| 7B 32k token 2 | 14.47 | 0.776 | 0.698 | 0.712 | 0.730 | 0.728 | - |
+| 30B 32k | 19.22 | 0.699 | 0.663 | 0.687 | - | 0.687 | 0.687 |
+| 0.5B 32k | 7.60 | 0.824 | 0.821 | 0.830 | 0.832 | 0.835 | 0.827 |
+| 7B 8k | 7.54 | 0.859 | 0.860 | 0.860 | 0.866 | 0.858 | 0.862 |
+| 7B 1k | 6.19 | 0.970 | 0.967 | 0.965 | 0.970 | 0.962 | - |
+| 30B 1k | 7.23 | 0.915 | 0.933 | 0.916 | 0.927 | 0.920 | - |
+| 30B short | 5.73 | 1.005 | 0.995 | 0.999 | 0.995 | 1.001 | - |
+
+THP, DDR4 x1 (Open | ClosedCAP, ratios): 
+| test | identity Mcyc | naive | self | T7 | T30 | pool | pool_loo |
+|---|---|---|---|---|---|---|---|
+| 7B 32k | 41.67 \| 46.41 | 0.975 \| 0.968 | 0.911 \| 0.918 | - | 0.917 \| 0.925 | 0.931 \| 0.942 | 0.931 \| 0.942 |
+| 30B 32k | 43.52 \| 48.43 | 0.964 \| 0.928 | 0.858 \| 0.830 | 0.875 \| 0.867 | - | 0.871 \| 0.853 | 0.868 \| 0.844 |
+| 0.5B 32k | 48.59 \| 68.17 | 0.958 \| 0.869 | 0.885 \| 0.823 | 0.872 \| 0.816 | 0.876 \| 0.824 | 0.879 \| 0.826 | 0.892 \| 0.831 |
+
+Packed (4 KiB-compacted) placement: DDR5 every variant 0.99-1.03 (no gain; T7 on 0.5B Open 1.013). DDR4 packed: self and fixed matrices **hurt** by 1-4% on the 32k streams (7B self 1.020/1.016, 30B self 1.015/1.013, T7 on 30B 1.044/1.048, pool 1.016-1.024), and gain 1-7% only on 0.5B (T7 0.934).
+
+Verdict (task 4). Gap to the self-searched matrix, THP DDR5 x16, over the 32k/8k streams: **Open: all fixed searched matrices within 1.1 points (max pool on 0.5B +1.1, pool on 30B +0.9); ClosedCAP: within 0.3-3.2 points** (T7 on 30B +2.4, pool on 30B +2.4, pool on 7B +2.6, T30 on 7B token 2 +3.2). Cross-model transfer works in both directions (T7 -> 30B 0.778 vs 0.772 self; T30 -> 7B 0.821 vs 0.818), the pooled matrix is not better than the single-model one (pool_loo, which excludes the test stream, is about equal to pool and to T7), and equal-weight pooling over four streams does not buy robustness. The **naive** row-bit-j matrix is already within 0.4-1.2 points of self in Open at 32k (30B 0.784 vs 0.772) and equal at 8k/1k, but ClosedCAP 3.6 points worse on 30B and 7.8 points worse on 7B token 2 (0.776 vs 0.698): the classic permutation-based interleaving captures most of the DDR5 THP gain, and searching adds 1-8 points in ClosedCAP. On DDR4 x1 the naive matrix is far worse (7B 0.975 vs 0.911; 30B 0.964 vs 0.858, 10 points) and fixed searched matrices lose 0.6-3.7 points to self. Weak-gain streams (1k, short) get 0-8% from any matrix and never lose in THP; there the self matrix is sometimes worse than a fixed one (30B 1k), so differences below 1-2 points are in the noise of the 8M-window search. So: a single fixed matrix (searched once, e.g. on 7B 32k, or the naive one for DDR5 Open) is a defensible hardware proposal for DDR5 x16 with 2 MiB pages, within about 1 point (Open) / 3 points (ClosedCAP) of per-workload search; for DDR4 x1 it costs 2-4 points and the naive one is inadequate. Risk: with 4 KiB-compacted pages the XOR is a small loss (up to 4% DDR4), so the XOR should be enabled only with huge pages.
+
+**Task 5: fragmentation.** Model: distinct 2 MiB VA granules cut into runs of L; a fraction c of the runs is placed in physically contiguous aligned L-granule slots (VA order), the rest on random free frames (32 GiB, 16384 frames; 7B 3122 granules). Identity is **identical for every (c, L)** (7B 32k: 10.68 / 14.45 Mcycles, hit 0.853 / 0.705; 30B 14.50 / 19.22): row-buffer behaviour under the default mapping depends on the frame only through row equality, and a 2 MiB granule keeps its in-granule offset layout. What changes is the XOR, because its inputs are row bits = the frame number. Ratios vs identity, DDR5 x16, 7B 32k (c0 = matrix searched once on the fully random placement, applied unchanged; self = searched on that placement):
+
+| placement | Open xor_c0 / self | ClosedCAP xor_c0 / self |
+|---|---|---|
+| random (c=0) | 0.815 / 0.815 | 0.687 / 0.687 |
+| c=0.25, L=8 / 64 / 512 | 0.817 / 0.824 / 0.820 (self 0.814-0.818) | 0.690 / 0.709 / 0.705 (self 0.687-0.691) |
+| c=0.5, L=8 / 64 / 512 | 0.818 / 0.874 / 0.824 (self 0.823 / 0.826 / 0.814) | 0.691 / 0.859 / 0.711 (self 0.694 / 0.720 / 0.688) |
+| c=0.75, L=8 / 64 / 512 | 0.820 / 0.815 / 0.865 (self 0.819-0.821) | 0.691 / 0.688 / 0.856 (self 0.692 / 0.692 / 0.701) |
+| c=0.9, L=8 / 64 / 512 | 0.815 / 0.868 / 0.865 (self 0.822-0.824) | 0.691 / 0.858 / 0.856 (self 0.716 / 0.703 / 0.713) |
+| c=1, L=8 / 64 / 512 | 0.858 / 0.870 / 0.865 (self 0.816-0.824) | 0.817 / 0.860 / 0.856 (self 0.695 / 0.707 / 0.719) |
+| fully contiguous in VA order, granule level | 0.865 / 0.825 | 0.855 / 0.720 |
+
+30B 32k: xor_c0 stays at 0.769-0.794 Open (identity 14.50) and 0.656-0.739 ClosedCAP over all 17 placements (worst c=1 L=8: 0.794 / 0.739; self 0.769-0.787 / 0.653-0.682).
+
+Findings. (1) The gain does **not** need fragmentation at 2 MiB granularity: with fully contiguous granules the self-searched XOR still gives 0.825 (Open) / 0.720 (ClosedCAP) on 7B and 0.779 / 0.681 on 30B, versus 0.815 / 0.687 and 0.775 / 0.662 for random frames. What the gain needs is **2 MiB pages preserving the VA in-granule offsets** (K/V head strides sharing banks); the earlier 'packed' placement of the study is a 4 KiB-page compaction (untouched pages dropped, offsets re-packed), which is a different thing and is the one with no gain. The 'aged allocator' wording in the task is therefore wrong: frame randomisation is irrelevant for identity, and for the XOR only the matrix's fit to the frame bits matters. (2) A matrix searched on the random placement (c0) and applied unchanged **loses part of the gain on 7B when long contiguous runs or full contiguity occur**: Open 0.865-0.874 instead of 0.815-0.825 (5 points), ClosedCAP 0.856-0.860 instead of 0.69-0.72 (15 points), i.e. most of the ClosedCAP gain is gone for c >= 0.75 with L=512, any c=1, and c=0.5 L=64; the self-searched matrix keeps 0.82 / 0.69-0.72 everywhere. (3) The XOR **never hurts** in this model: every ratio, of either matrix, is <= 0.874 (7B) / 0.794 (30B), none above 1. (4) 30B is insensitive (the c0 matrix is within 2 points of self except a few cases), because its row-bit structure differs. Conclusion: the XOR gain is placement-independent for 2 MiB granules, but the matrix must be designed against the frame-number bit statistics; a matrix tuned on randomly placed frames is fragile for 7B when the allocator hands out contiguous runs. Caveat: granule-level model only; the 4 KiB-compaction case is not a point on this axis; identical identity values across (c, L) are by construction, not a bug (verified: baseline cost 1065605 for every key).
+
+**Task 7: Qwen3-30B-A3B, 4 decode tokens (job 121993 stream, 121.4M reads, replay 122723).** Experts touched (gate tensor, mean over 48 layers; stream cut in 4 equal read-count parts, boundaries approximate): 8.1 / 8.1 / 8.2 / 8.0 per token (top-8), cumulative 8.1 -> 11.0 -> 13.2 -> 15.8 distinct experts per layer over 4 tokens, consecutive-token Jaccard 0.51 / 0.54 / 0.42 (compare: B=4 batch 23 experts, B=16 57, prefill of 30 tokens 49 of 128). Replay (16M window, 8M-trace Mcycles ratios vs identity, from moe_remap.py; region from 18_region.sh 12M window in brackets):
+
+| placement | DRAM | policy | identity Mcyc (hit) | xor_global | region | expert_hash | expert_lin | region_expert |
+|---|---|---|---|---|---|---|---|---|
+| THP | DDR4 | Open | 78.92 (0.977) | 0.995 [0.996] | 1.000 | 0.996 | 0.996 | 0.995 |
+| THP | DDR4 | ClosedCAP | 86.78 (0.780) | 0.993 [0.993] | 0.999 | 0.992 | 0.994 | 0.992 |
+| THP | DDR5 | Open | 8.97 (0.966) | 1.000 [0.998] | 1.000 | 1.001 | 1.000 | 1.000 |
+| THP | DDR5 | ClosedCAP | 10.31 (0.774) | 1.002 [0.998] | 0.999 | 1.005 | 1.002 | 1.005 |
+| packed | DDR4 | Open | 78.51 | 0.998 | 1.000 | 1.001 | 1.002 | 1.001 |
+| packed | DDR5 | Open | 8.94 | 1.003 | 1.000 | 1.004 | 1.003 | 1.004 |
+
+Same as the B=1 sample (Q30B_short: all variants 0.99-1.01): expert-aware mappings, region and the global XOR are all within 1% of identity (the best cell is 0.992), because experts are read as long contiguous slices at 0.97 row hit already. Two routing samples (1 and 4 tokens) agree: no case for expert-aware mapping; the bank XOR only matters through the KV stream at long context. (bitrev, for reference, is 1.08-2.23 worse.)
+
+**Proposal answer.** One fixed bank-XOR matrix can be the hardware mapping for DDR5 x16 with 2 MiB pages: searched once on 7B 32k (or even the naive row-bit-j XOR in Open) it is within about 1 point (Open) and 3 points (ClosedCAP) of per-workload search across 0.5B/7B/30B and 1k-32k contexts, never worse than identity with 2 MiB pages, and neutral where there is no gain. Caveats: ClosedCAP and DDR4 x1 lose 2-4 points to self-search and the naive matrix is inadequate there; a matrix tuned on random frames is fragile (up to 15 ClosedCAP points on 7B) under contiguous physical runs, so the matrix should be searched on a mix of placements; with 4 KiB pages the XOR is a 1-4% loss on DDR4; open-loop saturated replays (the closed-loop analysis of the policy-owner says the real token-time gain is smaller: about 1-2% at the native bandwidth plateau).
