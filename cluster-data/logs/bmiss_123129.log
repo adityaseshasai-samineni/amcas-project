@@ -1,0 +1,23 @@
+==========================================
+SLURM_JOB_ID = 123129
+SLURM_NODELIST = node01
+SLURM_JOB_GPUS = 
+==========================================
+run qwen2.5-7b-instruct-q4_k_m-00001-of-00002_B4_P32768t4 on node01.local: B=4 P=32768 threads=4 skip=1 ntrace=1 kvu=0
+=== untraced
+drbatch: seq 0 evaluated and saved
+drbatch: seq 1 evaluated and saved
+drbatch: seq 2 evaluated and saved
+drbatch: seq 3 evaluated and saved
+untraced 9556.88 s, max RSS 15243604 KB
+=== traced (decode step 1, 1 step(s)), raw trace capped at 16 GB per thread
+drbatch: attaching at step 1
+drbatch: detached after step 1
+traced 683.41 s, max RSS 15054840 KB
+same tokens: NO (3 differing token(s) of 16)
+3,4c3,4
+< 4119 654 38100 16
+< 624 3029 64624 20
+---
+> 19543 13874 38100 16
+> 624 19324 64624 20

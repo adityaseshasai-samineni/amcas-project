@@ -1,0 +1,8 @@
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loading trace file /scratch/adityaseshasai.s/region/7B_prefill_P512u32/packed_ddr5_region.trc ...
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loading trace file /scratch/adityaseshasai.s/region/7B_prefill_P512u32/packed_ddr5_region.trc ...
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loaded 24000000 lines.
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loaded 24000000 lines.
+ddr5, 16 channel(s), interleave 64 B << 2, issue 4/cycle
+mapper      policy          reads   writes    hit  conflict  rd_lat  Mcycles    GB/s
+RoBaRaCoCh  Open         24000000        0  0.907     0.056   208.8     14.3   257.6
+RoBaRaCoCh  ClosedCAP    24000000        0  0.739     0.043   308.1     17.6   209.4

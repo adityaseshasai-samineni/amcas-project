@@ -1,0 +1,42 @@
+==========================================
+SLURM_JOB_ID = 123253
+SLURM_NODELIST = node01
+SLURM_JOB_GPUS = 
+==========================================
+run qwen2.5-7b-instruct-q4_k_m-00001-of-00002_B4_P32768t4 on node01.local: B=4 P=32768 threads=4 skip=1 ntrace=1 kvu=0
+=== untraced
+drbatch: seq 0 restored from /home/adityaseshasai.s/amcas-pro/results/sessions/drbatch/qwen2.5-7b-instruct-q4_k_m-00001-of-00002.gguf_P32768_s70000_b0.seq
+drbatch: seq 1 restored from /home/adityaseshasai.s/amcas-pro/results/sessions/drbatch/qwen2.5-7b-instruct-q4_k_m-00001-of-00002.gguf_P32768_s70000_b1.seq
+drbatch: seq 2 restored from /home/adityaseshasai.s/amcas-pro/results/sessions/drbatch/qwen2.5-7b-instruct-q4_k_m-00001-of-00002.gguf_P32768_s70000_b2.seq
+drbatch: seq 3 restored from /home/adityaseshasai.s/amcas-pro/results/sessions/drbatch/qwen2.5-7b-instruct-q4_k_m-00001-of-00002.gguf_P32768_s70000_b3.seq
+untraced 87.14 s, max RSS 15054724 KB
+=== traced (decode step 1, 1 step(s)), raw trace capped at 16 GB per thread
+drbatch: attaching at step 1
+drbatch: detached after step 1
+traced 500.34 s, max RSS 15054768 KB
+seq 0: first divergence at step 2
+seq 1: first divergence at step 2
+seq 2: identical
+seq 3: identical
+same tokens (positional check): yes
+B 0 13438971899143636	B 0 13438971924082491
+E 0 13438971903471897	E 0 13438971928286712
+B 1 13438971903472680	B 1 13438971928287486
+E 1 13438971907782233	E 1 13438972407481980
+B 2 13438971907782976	B 2 13438972407483398
+E 2 13438971911967995	E 2 13438972411935520
+B 3 13438971911968711	B 3 13438972411936256
+E 3 13438971916096046	E 3 13438972416443748
+54G	/scratch/adityaseshasai.s/bmiss/qwen2.5-7b-instruct-q4_k_m-00001-of-00002_B4_P32768t4/drmemtrace.llama-drbatch.483272.4716.dir/raw
+raw2trace 2174.78 s
+12G	/scratch/adityaseshasai.s/bmiss/qwen2.5-7b-instruct-q4_k_m-00001-of-00002_B4_P32768t4/drmemtrace.llama-drbatch.483272.4716.dir/trace
+ 28056093358 total (fetched) instructions
+Thread 483275 counts:
+  7026748919 (fetched) instructions
+Thread 483272 counts:
+  7024925486 (fetched) instructions
+Thread 483276 counts:
+  7007128939 (fetched) instructions
+Thread 483277 counts:
+  6997290014 (fetched) instructions
+=== cache simulation without prefetch, keep miss stream
