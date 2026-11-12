@@ -1,0 +1,8 @@
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loading trace file /scratch/adityaseshasai.s/transfer/xfer/30B1k__thp_ddr5_x_pool.trc ...
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loading trace file /scratch/adityaseshasai.s/transfer/xfer/30B1k__thp_ddr5_x_pool.trc ...
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loaded 8000000 lines.
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loaded 8000000 lines.
+ddr5, 16 channel(s), interleave 64 B << 2, issue 4/cycle
+mapper      policy          reads   writes    hit  conflict  rd_lat  Mcycles    GB/s
+RoBaRaCoCh  Open          8000000        0  0.968     0.010   271.1      5.0   244.2
+RoBaRaCoCh  ClosedCAP     8000000        0  0.780     0.005   370.8      6.6   185.1

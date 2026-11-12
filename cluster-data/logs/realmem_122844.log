@@ -15,3 +15,6 @@ SLURM_JOB_GPUS =
   [4k global] n=3,000,000 cost 1137929 -> 1129805; bank bit ^= {0: ['row8'], 1: [], 2: [], 3: [], 4: []}
   4k_identity          in-order hit 0.691 banks 384/384 chan max/mean 1.303
   4k_xor_global        in-order hit 0.691 banks 384/384 chan max/mean 1.303
+wrote analysis/tables.md and 3 figures; validation failures: none
+wrote analysis/fullscale/tables.md
+publish: pushed 6b39a7d
