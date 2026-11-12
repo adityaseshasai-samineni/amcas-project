@@ -2279,7 +2279,7 @@ llama_graph_n_input_tensors: input tensor '                         out_ids' [i3
 llama_graph_n_input_tensors: input tensor '                      inp_tokens' [i32, ne = {   512,     1,     1,     1 }] is used by node 'embd' (GET_ROWS)
 sched_reserve:        CPU compute buffer size =   340.27 MiB
 sched_reserve: graph: nodes = 1017, splits = 1, input objects = 4, input tensors = 9
-sched_reserve: reserve took 7.16 ms, sched copies = 1
+sched_reserve: reserve took 7.10 ms, sched copies = 1
 state_read_meta: cell_count = 8191, dest_seq_id = 0
 drbatch: seq 0 restored from /home/adityaseshasai.s/amcas-pro/results/sessions/drbatch/qwen2.5-7b-instruct-q4_k_m-00001-of-00002.gguf_P8192_s40000_b0.seq
 state_read_meta: cell_count = 8191, dest_seq_id = 1
@@ -2290,4 +2290,4 @@ state_read_meta: cell_count = 8191, dest_seq_id = 3
 drbatch: seq 3 restored from /home/adityaseshasai.s/amcas-pro/results/sessions/drbatch/qwen2.5-7b-instruct-q4_k_m-00001-of-00002.gguf_P8192_s40000_b3.seq
 drbatch: attaching at step 1
 drbatch: detached after step 1
-traced 14.09 s, max RSS 9537784 KB
+traced 15.65 s, max RSS 9517516 KB

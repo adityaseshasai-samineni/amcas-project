@@ -81,3 +81,15 @@ MOP4CLXOR   ClosedCAP   117720947        0  0.321     0.500   197.0    510.3    
 ChRaBaRoCo  Open        117720947        0  0.908     0.090   313.6   1074.5     8.4
 ChRaBaRoCo  ClosedCAP   117720947        0  0.783     0.023   459.9   1605.5     5.6
 === Ramulator: 16 DDR5-4800 subchannels, 256 B interleave
+Loading trace file /scratch/adityaseshasai.s/drbatch/qwen2.5-7b-instruct-q4_k_m-00001-of-00002_B4_P8192t4/dram.ramulator.trc ...Loading trace file /scratch/adityaseshasai.s/drbatch/qwen2.5-7b-instruct-q4_k_m-00001-of-00002_B4_P8192t4/dram.ramulator.trc ...
+
+
+
+ddr5, 16 channel(s), interleave 64 B << 2, issue 4/cycle
+mapper      policy          reads   writes    hit  conflict  rd_lat  Mcycles    GB/s
+RoBaRaCoCh  Open        117720947        0  0.912     0.065   269.3    108.6   166.7
+RoBaRaCoCh  ClosedCAP   117720947        0  0.746     0.055   368.6    147.3   123.0
+MOP4CLXOR   Open        117720947        0  0.379     0.487   265.3     94.1   192.5
+MOP4CLXOR   ClosedCAP   117720947        0  0.363     0.455   265.2     94.1   192.6
+ChRaBaRoCo  Open        117720947        0  0.873     0.123   504.5    214.0    84.6
+ChRaBaRoCo  ClosedCAP   117720947        0  0.729     0.101   696.7    346.0    52.3
