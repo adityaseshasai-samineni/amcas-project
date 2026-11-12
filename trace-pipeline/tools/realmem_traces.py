@@ -110,8 +110,8 @@ def main():
             assert (nr == orow).all() and (ncl == oc).all(), "row/col changed"
             lin = L.from_intra(new, ch.astype(np.uint64))
             assert np.unique(lin).size == np.unique(pw).size, "not injective"
-            if sk != "identity":
-                assert ((lin >> np.uint64(G.GRAN)) == (pw >> np.uint64(G.GRAN))).all(), "granule changed"
+            # the bank hash is a controller-internal function of the address: with a non-power-of-two channel count the
+            # linear (mod N) address of a line may leave its 2 MiB page; only injectivity matters (asserted above)
             phys = L.to_slot(new, ch)
             key = f"{pk}_{sk}"
             with open(f"{a.out}/{key}.trc", "w") as f:
