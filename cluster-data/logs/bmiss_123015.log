@@ -1,0 +1,43 @@
+==========================================
+SLURM_JOB_ID = 123015
+SLURM_NODELIST = node01
+SLURM_JOB_GPUS = 
+==========================================
+run qwen2.5-7b-instruct-q4_k_m-00001-of-00002_B4_P8192t4 on node01.local: B=4 P=8192 threads=4 skip=1 ntrace=1 kvu=0
+=== untraced
+drbatch: seq 0 restored from /home/adityaseshasai.s/amcas-pro/results/sessions/drbatch/qwen2.5-7b-instruct-q4_k_m-00001-of-00002.gguf_P8192_s40000_b0.seq
+drbatch: seq 1 restored from /home/adityaseshasai.s/amcas-pro/results/sessions/drbatch/qwen2.5-7b-instruct-q4_k_m-00001-of-00002.gguf_P8192_s40000_b1.seq
+drbatch: seq 2 restored from /home/adityaseshasai.s/amcas-pro/results/sessions/drbatch/qwen2.5-7b-instruct-q4_k_m-00001-of-00002.gguf_P8192_s40000_b2.seq
+drbatch: seq 3 restored from /home/adityaseshasai.s/amcas-pro/results/sessions/drbatch/qwen2.5-7b-instruct-q4_k_m-00001-of-00002.gguf_P8192_s40000_b3.seq
+untraced 7.87 s, max RSS 9529804 KB
+=== traced (decode step 1, 1 step(s)), raw trace capped at 16 GB per thread
+drbatch: attaching at step 1
+drbatch: detached after step 1
+traced 12.72 s, max RSS 9533276 KB
+same tokens: NO (1 differing token(s) of 16)
+2c2
+< 12 87 698 315
+---
+> 12 87 43488 315
+B 0 13438952007691277	B 0 13438952015387979
+E 0 13438952008606923	E 0 13438952016407107
+B 1 13438952008607696	B 1 13438952016407878
+E 1 13438952009513319	E 1 13438952022217141
+B 2 13438952009514057	B 2 13438952022218555
+E 2 13438952010399562	E 2 13438952023107065
+B 3 13438952010400298	B 3 13438952023107796
+E 3 13438952011273485	E 3 13438952024001479
+16G	/scratch/adityaseshasai.s/bmiss/qwen2.5-7b-instruct-q4_k_m-00001-of-00002_B4_P8192t4/drmemtrace.llama-drbatch.4169269.7067.dir/raw
+raw2trace 841.17 s
+5.4G	/scratch/adityaseshasai.s/bmiss/qwen2.5-7b-instruct-q4_k_m-00001-of-00002_B4_P8192t4/drmemtrace.llama-drbatch.4169269.7067.dir/trace
+ 11425652060 total (fetched) instructions
+Thread 4169275 counts:
+  2859864381 (fetched) instructions
+Thread 4169269 counts:
+  2859159304 (fetched) instructions
+Thread 4169276 counts:
+  2854056888 (fetched) instructions
+Thread 4169277 counts:
+  2852571487 (fetched) instructions
+=== cache simulation without prefetch, keep miss stream
+-rw-rw-r-- 1 adityaseshasai.s adityaseshasai.s 373707219 Nov 12 17:21 /home/adityaseshasai.s/amcas-pro/results/fullscale/drbatch_miss/qwen2.5-7b-instruct-q4_k_m-00001-of-00002_B4_P8192t4/miss.gz
