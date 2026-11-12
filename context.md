@@ -1162,3 +1162,36 @@ ClosedCAP has the same pattern (about +3% cycles over Open). Headline: with fast
 ### policy-owner: writes at 32k (2026-11-12), part 3
 
 Job 122378 (`20_drwb.sh`, 7B, `PROMPT_CHARS=116000 CTX=32768 TAG=_c32k`, 2h37 on node01, published to `results/fullscale/drwb/..._wb_c32k/`). Stream: 177.9M DRAM reads, 225,433 writes (0.127% of requests); KV append 57,344 B/token (896 lines, exact), activations 8.55 MB, unattributed 5.8 MB (graph buffers not in the tensor table). Writes are negligible at 32k, as at 8k. Saturated Ramulator replay, Open/ClosedCAP not separated here (two rows per key, Open first-listed lower), Mcycles reads-only -> reads+writes: THP DDR5 identity 16.97 -> 17.00, xor_global 13.59 -> 13.61; packed DDR5 13.62 -> 13.64 / 13.52 -> 13.54; THP DDR4 64.56 -> 64.62 / 55.44 -> 55.50. **The XOR gain is unchanged by writes** (THP DDR5 -19.9% reads-only and -19.9% with writes; THP DDR4 -14.1% / -14.1%; packed DDR5 -0.8% / -0.8%). Adding the write stream costs 0.1-0.4% cycles.
+
+### robustness-owner: memory system, page size, 1k context, prefill (2026-11-12), part 2 and verdict
+
+Jobs: memsys 122014 (7B 32k, 12M window), 122015 (7B 8k), 122016 (30B short), 122017 (7B 32k full 179.5M reads, DDR5x8), 122018 (7B 32k full, DDR5x16); scenario captures 122008 (7B 1k, step 1), 122009 (30B 1k), 122010 (7B prefill, 30 tokens, 3 h 24 min), 122011 (30B prefill, 2 h 29 min); region replays 122375, 122415, 122545, 122555. All captures: "same text: yes", steps_traced.txt shows the intended call (1k: decode step 1; prefill: call 0 = the prompt). 7B 1k: 69.6M reads (4.45 GB), KV 55.7 MB = 1.3% of reads (expected 58 MB for 1k tokens x 57 KB). 7B prefill: 74.7M reads (4.78 GB for 30 tokens: weights read once, 4.39 GB, activations 5.3%, KV 0.06%; the export reports "1 threads"); 30B prefill 125.3M reads (8.0 GB). Node01 scratch was full for a while (stale drburst, cleared by the user) and node05 scratch is full: all jobs ran on node01/03/04.
+
+**Full 7B 32k windows** (179.46M reads, THP, Mcycles Open / ClosedCAP, 12M-window values in part 1):
+
+| DRAM | identity | chan | xor_global | xor_global_chan | region |
+|---|---|---|---|---|---|
+| DDR5-4800 x8 | 461.1 / 610.7 | 317.6 / 434.3 | 393.1 / 441.7 | 305.6 / 362.7 | 396.9 / 465.5 |
+| DDR5 x16 | 235.0 / 310.7 | - | 196.8 / 224.3 | 144.0 / 175.2 | 197.8 / 227.9 |
+
+xor_global saves 14.7% / 27.7% (x8) and 16.3% / 27.8% (x16) over the whole token, matching the 12M window (15% / 27% and 17% / 29%); the 12M window is representative. Adding the channel hash: -34% / -41% (x8), -39% / -44% (x16).
+
+**Other conditions** (Mcycles Open / ClosedCAP, THP, DDR5x16 replay, xor_global vs identity; 12M windows):
+
+| stream | identity | xor_global | saving Open / Closed | 8k-style chan hash (x16 Open) |
+|---|---|---|---|---|
+| 7B 32k | 16.09 / 21.36 | 13.36 / 15.14 | 17% / 29% | 10.53 (-35%) |
+| 7B 8k | 8.44 / 11.61 | 7.90 / 9.96 | 6% / 14% | 7.40 (-12%) |
+| 7B 1k | 7.10 / 9.22 | 6.98 / 8.88 | 1.7% / 3.7% | not run |
+| 30B 1k | 7.80 / 10.72 | 7.50 / 9.88 | 3.8% / 7.8% | not run |
+| 7B prefill (30 tok) | 7.31 / 9.55 | 7.18 / 9.24 | 1.8% / 3.2% | not run |
+| 30B prefill | 7.48 / 11.26 | 7.43 / 11.12 | 0.7% / 1.2% | not run |
+| 30B short (x8 only) | 13.57 / 17.12 | 13.63 / 17.19 | 0% | 13.57 (0%) |
+
+On DDR4 1 channel the 1k/prefill savings are 0.4-1.3% (7B 1k 61.07 -> 60.68; 30B 1k 62.90 -> 62.37 region) except 7B prefill ClosedCAP 3.9%. 7B 8k, memsys x8 (THP): identity 16.71 / 22.84 -> xor_global 15.67 / 19.31 (6% / 15%), xor_global_chan 14.80 / 18.40.
+
+**Page size.** With 4 KiB pages (shuffled) the default mapping already reaches only 0.59-0.75 row hit and neither bank hash (xor_global, region) changes anything (7B 32k x16 13.4 -> 13.3 to 13.4 Mcycles); packed gains nothing from bank XOR either. THP (random 2 MiB frames) is the only placement where the bank XOR helps, because the default mapping then puts the K and V streams of different heads into the same banks at different rows.
+
+**Channel hash.** At 7B 32k it removes 31-47% of cycles for every placement, including packed (13.3 -> 8.7) and 4 KiB (13.4 -> 7.1, i.e. it fixes the 4 KiB case that no bank hash can). Verified (part 1) that it is a bijection, with equal read counts, and the channel load over time is clumped under the default mapping (busiest channel 2.43x mean over 32 requests, 6.4 of 8 channels used) and near uniform when hashed (1.86, 7.5/8). Weaker at shorter context: 7B 8k packed x16 no change (7.87 -> 7.88), THP -12%, 4 KiB -8%; 30B short none. So it is a KV-stream effect (K/V streams with a power-of-two stride across heads land on few channels). Magnitudes are upper bounds from the saturated open-loop replay, whose channel-clumping depends on the miss-stream interleave.
+
+**Verdict.** The KV-page XOR gain is robust to memory system (8 vs 16 DDR5-4800 channels, 15-17% Open / 28-29% Closed) and to window length (full token = 12M window), but it is conditional: it needs THP-style random 2 MiB placement and a long KV (>= 8k tokens; 6% at 8k, 17% at 32k). It vanishes with packed or 4 KiB pages, shrinks to 2-4% at 1k context (30B up to 4-8%), is about 1% for prefill of 30 tokens, and is zero for the 30B at short context. Region-aware again equals global XOR within 1-2%. A channel-bit hash on top is an additional, larger and more placement-independent win for long KV (at 32k), which the study had not looked at before; it should be reported as a separate mechanism with the clumping caveat. Not covered: closed-loop replay, DDR5 timing variants beyond 4800, prefill longer than 30 tokens, held-out hash search.
