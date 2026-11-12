@@ -1,0 +1,22 @@
+==========================================
+SLURM_JOB_ID = 122716
+SLURM_NODELIST = node03
+SLURM_JOB_GPUS = 
+==========================================
+-rw-rw-r-- 1 adityaseshasai.s adityaseshasai.s 1778160721 Nov 12 10:24 /scratch/adityaseshasai.s/bincmp/s.session
+== llama-completion -t 4
+0.16.777.073 I common_perf_print:        eval time =   12280.42 ms /     9 runs   ( 1364.49 ms per token,     0.73 tokens per second)
+== llama-drattr -t 4
+0.16.774.500 I common_perf_print: unaccounted time =    1285.90 ms /   9.6 %      (total - sampling - prompt eval - eval) / (total)
+0.16.774.501 I common_perf_print:    graphs reused =          8
+0.16.774.502 I common_perf_print:   graph reallocs =          0    /     0        (same size) / (changed size)
+step 0 1298 ms
+step 1 1225 ms
+step 2 1312 ms
+step 3 1290 ms
+step 4 1462 ms
+step 5 1456 ms
+step 6 1315 ms
+step 7 1317 ms
+step 8 1332 ms
+== llama-drattr.debug-build -t 4
