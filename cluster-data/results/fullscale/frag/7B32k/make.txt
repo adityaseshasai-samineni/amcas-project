@@ -1,0 +1,69 @@
+179,460,712 reads, window [53,838,213,61,838,213); 3122 distinct 2 MiB granules of 16384
+  [ddr5 c0.5_L64] n=8,000,000 cost 1065605 -> 453023; bank bit ^= {0: ['row4', 'row3', 'row9'], 1: ['row2', 'row6', 'row13'], 2: ['row2', 'row1', 'row3'], 3: ['row13'], 4: ['row6', 'row3']}
+  [ddr5 c0.75_L64] n=8,000,000 cost 1065605 -> 484051; bank bit ^= {0: ['row4'], 1: ['row0', 'row7'], 2: ['row13'], 3: ['row10'], 4: ['row2']}
+  [ddr5 c1_L64] n=8,000,000 cost 1065605 -> 444934; bank bit ^= {0: ['row4', 'row3', 'row1'], 1: ['row2', 'row0', 'row4'], 2: ['row2', 'row0', 'row3'], 3: ['row7', 'row1'], 4: ['row3']}
+  c0.5_L8 ddr5 identity   in-order hit 0.679
+  [ddr5 c0.5_L8] n=8,000,000 cost 1065605 -> 473199; bank bit ^= {0: ['row4', 'row6', 'row3'], 1: ['row3', 'row5'], 2: ['row11'], 3: ['row6', 'row3', 'row11'], 4: ['row2', 'row12']}
+  [ddr5 c0.75_L512] n=8,000,000 cost 1065605 -> 458938; bank bit ^= {0: ['row4', 'row3', 'row10'], 1: ['row2', 'row4'], 2: ['row2', 'row1'], 3: ['row10', 'row3'], 4: ['row1', 'row10']}
+  [ddr5 packed] n=8,000,000 cost 1065605 -> 460035; bank bit ^= {0: ['row4', 'row3', 'row11'], 1: ['row2', 'row10', 'row1'], 2: ['row2', 'row1'], 3: ['row11', 'row3'], 4: ['row1', 'row9', 'row11']}
+  c0.25_L512 ddr5 identity   in-order hit 0.679
+  [ddr5 c0.25_L8] n=8,000,000 cost 1065605 -> 471018; bank bit ^= {0: ['row5', 'row2', 'row11'], 1: ['row13', 'row7', 'row5'], 2: ['row7'], 3: ['row3', 'row5'], 4: ['row2']}
+  [ddr5 c0.9_L64] n=8,000,000 cost 1065605 -> 458765; bank bit ^= {0: ['row4', 'row3'], 1: ['row2', 'row4'], 2: ['row2', 'row1'], 3: ['row11', 'row3'], 4: ['row1']}
+  c0.25_L8 ddr5 identity   in-order hit 0.679
+  [ddr5 c0.25_L512] n=8,000,000 cost 1065605 -> 475501; bank bit ^= {0: ['row4'], 1: ['row3', 'row4'], 2: ['row13'], 3: ['row1'], 4: ['row3']}
+  [ddr5 c0.75_L8] n=8,000,000 cost 1065605 -> 469497; bank bit ^= {0: ['row7', 'row11'], 1: ['row12', 'row3', 'row4'], 2: ['row11'], 3: ['row6'], 4: ['row3']}
+  [ddr5 c1_L512] n=8,000,000 cost 1065605 -> 458351; bank bit ^= {0: ['row4', 'row3', 'row1'], 1: ['row2', 'row9', 'row1'], 2: ['row2', 'row1'], 3: ['row13', 'row3'], 4: ['row1', 'row13']}
+  c0.5_L64 ddr5 identity   in-order hit 0.679
+  [ddr5 c0.25_L64] n=8,000,000 cost 1065605 -> 489427; bank bit ^= {0: ['row12'], 1: ['row8'], 2: ['row5'], 3: ['row1'], 4: ['row8']}
+  [ddr5 c0.5_L512] n=8,000,000 cost 1065605 -> 463170; bank bit ^= {0: ['row13'], 1: ['row11'], 2: ['row1'], 3: ['row3'], 4: ['row4', 'row11']}
+  [ddr5 c0.9_L512] n=8,000,000 cost 1065605 -> 452318; bank bit ^= {0: ['row4', 'row3', 'row1'], 1: ['row2', 'row11', 'row13'], 2: ['row2', 'row1', 'row10'], 3: ['row9', 'row3'], 4: ['row9', 'row10', 'row11']}
+  c0_L1 ddr5 identity   in-order hit 0.679
+  [ddr5 c0_L1] n=8,000,000 cost 1065605 -> 474720; bank bit ^= {0: ['row13', 'row9'], 1: ['row2', 'row9'], 2: ['row11', 'row5'], 3: ['row3'], 4: ['row5']}
+  [ddr5 c0.9_L8] n=8,000,000 cost 1065605 -> 482010; bank bit ^= {0: ['row13'], 1: ['row8'], 2: ['row2'], 3: ['row6'], 4: ['row3']}
+  [ddr5 c1_L8] n=8,000,000 cost 1065605 -> 461224; bank bit ^= {0: ['row6', 'row2'], 1: ['row3', 'row2'], 2: ['row4'], 3: ['row11', 'row6'], 4: ['row12', 'row5']}
+  c0.25_L64 ddr5 identity   in-order hit 0.679
+  c0.5_L8 ddr5 xor_c0     in-order hit 0.948
+  c0.25_L512 ddr5 xor_c0     in-order hit 0.939
+  c0.5_L64 ddr5 xor_c0     in-order hit 0.845
+  c0_L1 ddr5 xor_c0     in-order hit 0.950
+  c0.25_L8 ddr5 xor_c0     in-order hit 0.949
+  c0.25_L64 ddr5 xor_c0     in-order hit 0.937
+  c0.25_L512 ddr5 xor_self   in-order hit 0.951
+  c0_L1 ddr5 xor_self   in-order hit 0.950
+  c0.5_L64 ddr5 xor_self   in-order hit 0.945
+  c0.5_L8 ddr5 xor_self   in-order hit 0.946
+  c0.25_L8 ddr5 xor_self   in-order hit 0.948
+  c0.25_L64 ddr5 xor_self   in-order hit 0.949
+  c0.75_L64 ddr5 identity   in-order hit 0.679
+  c0.75_L8 ddr5 identity   in-order hit 0.679
+  c0.5_L512 ddr5 identity   in-order hit 0.679
+  c0.9_L8 ddr5 identity   in-order hit 0.679
+  c0.75_L512 ddr5 identity   in-order hit 0.679
+  c0.9_L64 ddr5 identity   in-order hit 0.679
+  c0.75_L64 ddr5 xor_c0     in-order hit 0.949
+  c0.75_L8 ddr5 xor_c0     in-order hit 0.947
+  c0.5_L512 ddr5 xor_c0     in-order hit 0.937
+  c0.75_L512 ddr5 xor_c0     in-order hit 0.846
+  c0.9_L8 ddr5 xor_c0     in-order hit 0.946
+  c0.9_L64 ddr5 xor_c0     in-order hit 0.846
+  c0.75_L64 ddr5 xor_self   in-order hit 0.950
+  c0.9_L8 ddr5 xor_self   in-order hit 0.937
+  c0.75_L8 ddr5 xor_self   in-order hit 0.948
+  c0.5_L512 ddr5 xor_self   in-order hit 0.949
+  c0.9_L64 ddr5 xor_self   in-order hit 0.948
+  c0.75_L512 ddr5 xor_self   in-order hit 0.949
+  c1_L8 ddr5 identity   in-order hit 0.679
+  c0.9_L512 ddr5 identity   in-order hit 0.679
+  c1_L64 ddr5 identity   in-order hit 0.679
+  c1_L512 ddr5 identity   in-order hit 0.679
+  packed ddr5 identity   in-order hit 0.679
+  c1_L8 ddr5 xor_c0     in-order hit 0.866
+  c0.9_L512 ddr5 xor_c0     in-order hit 0.846
+  packed ddr5 xor_c0     in-order hit 0.846
+  c1_L64 ddr5 xor_c0     in-order hit 0.845
+  c1_L512 ddr5 xor_c0     in-order hit 0.846
+  c1_L8 ddr5 xor_self   in-order hit 0.949
+  c1_L512 ddr5 xor_self   in-order hit 0.947
+  c1_L64 ddr5 xor_self   in-order hit 0.944
+  c0.9_L512 ddr5 xor_self   in-order hit 0.950
+  packed ddr5 xor_self   in-order hit 0.947

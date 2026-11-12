@@ -1,0 +1,11 @@
+
+
+
+ddr4, 1 channel(s), interleave 64 B << 0, issue 1/cycle
+mapper      policy          reads   writes    hit  conflict  rd_lat  Mcycles    GB/s
+RoBaRaCoCh  Open        117720947        0  0.956     0.027   168.0    534.2    16.9
+RoBaRaCoCh  ClosedCAP   117720947        0  0.769     0.016   192.3    602.3    15.0
+MOP4CLXOR   Open        117720947        0  0.344     0.534   194.9    510.4    17.7
+MOP4CLXOR   ClosedCAP   117720947        0  0.321     0.500   197.0    510.3    17.7
+ChRaBaRoCo  Open        117720947        0  0.908     0.090   313.6   1074.5     8.4
+ChRaBaRoCo  ClosedCAP   117720947        0  0.783     0.023   459.9   1605.5     5.6

@@ -40,3 +40,44 @@ Thread 3912880 counts:
 Thread 3912878 counts:
   2858587085 (fetched) instructions
 === cache simulation: with and without prefetch (in parallel)
+sim pf: 3890.30 s
+sim nopf: 3957.59 s
+LL pf:  Misses: 63,604,721  Prefetch misses: 54,167,494 
+LL nopf:  Misses: 117,720,947 
+=== DRAM stream and tensor attribution
+117,720,947 DRAM reads (7534.1 MB), 1 threads
+stride, merged: {'+1 line': 0.279, '-1 line': 0.024, 'within 16 lines': 0.17, 'within 8 KiB row': 0.0, 'beyond': 0.526}
+stride, thread 3912878: {'+1 line': 0.279, '-1 line': 0.024, 'within 16 lines': 0.17, 'within 8 KiB row': 0.0, 'beyond': 0.526}
+
+offline in-order open-page row hit rate (DDR4 8 KiB row, 2 ranks x 16 banks)
+placement              RoRaBaCoCh   RoCoRaBaCh     XOR-bank
+VA-order packed             0.948        0.159        0.946
+4KiB shuffled               0.919        0.042        0.919
+THP 2MiB shuffled           0.862        0.159        0.945
+
+attribution by class (reads, share, MB; stride +1/within16/beyond, per class stream)
+  KV cache         48,244,521   0.410    3087.6  +1 0.42 w16 0.00 beyond 0.58
+  dense weights    68,293,753   0.580    4370.8  +1 0.19 w16 0.30 beyond 0.47
+  activations         690,236   0.006      44.2  +1 0.36 w16 0.10 beyond 0.50
+  unattributed        492,437   0.004      31.5  +1 0.33 w16 0.05 beyond 0.53
+  row hit VA-order packed / RoRaBaCoCh: KV cache 0.939, dense weights 0.957, activations 0.779, unattributed 0.757
+  row hit VA-order packed / XOR-bank: KV cache 0.934, dense weights 0.958, activations 0.764, unattributed 0.742
+  row hit 4KiB shuffled / RoRaBaCoCh: KV cache 0.899, dense weights 0.937, activations 0.678, unattributed 0.610
+  row hit 4KiB shuffled / XOR-bank: KV cache 0.899, dense weights 0.937, activations 0.678, unattributed 0.611
+  row hit THP 2MiB shuffled / RoRaBaCoCh: KV cache 0.733, dense weights 0.958, activations 0.561, unattributed 0.603
+  row hit THP 2MiB shuffled / XOR-bank: KV cache 0.932, dense weights 0.958, activations 0.768, unattributed 0.755
+
+wrote /home/adityaseshasai.s/amcas-pro/results/fullscale/drbatch/qwen2.5-7b-instruct-q4_k_m-00001-of-00002_B4_P8192t4/summary.json and dram.ramulator.trc (117,720,947 requests, VA-order packed)
+=== Ramulator: one DDR4-2400 channel
+
+
+
+ddr4, 1 channel(s), interleave 64 B << 0, issue 1/cycle
+mapper      policy          reads   writes    hit  conflict  rd_lat  Mcycles    GB/s
+RoBaRaCoCh  Open        117720947        0  0.956     0.027   168.0    534.2    16.9
+RoBaRaCoCh  ClosedCAP   117720947        0  0.769     0.016   192.3    602.3    15.0
+MOP4CLXOR   Open        117720947        0  0.344     0.534   194.9    510.4    17.7
+MOP4CLXOR   ClosedCAP   117720947        0  0.321     0.500   197.0    510.3    17.7
+ChRaBaRoCo  Open        117720947        0  0.908     0.090   313.6   1074.5     8.4
+ChRaBaRoCo  ClosedCAP   117720947        0  0.783     0.023   459.9   1605.5     5.6
+=== Ramulator: 16 DDR5-4800 subchannels, 256 B interleave
