@@ -7,9 +7,7 @@ Final report, 2026-11-14. It replaces the 2026-11-08/11 draft. `ANALYSIS.md` cov
 - The dated sections of `context.md`, cited in brackets. Read later sections over earlier ones: they correct them (see section 9).
 - The main session's checks against raw files ("main session: verification of the 2026-11-11/12 agent results", "check of serving-owner results").
 
-Two runs are still going. Their results are marked **Pending**:
-- mop-owner: Ramulator's MOP4CLXOR mapper against the proposal.
-- l2fix-owner: the GPU L2 model at 32k.
+One run is still going, and its results are marked **Pending**: l2fix-owner's fix to the GPU L2 model at 32k. The MOP4CLXOR comparison is folded in (section 3).
 
 ## 0. Summary
 
@@ -23,7 +21,8 @@ Two runs are still going. Their results are marked **Pending**:
    - It gives the best result among those tested.
    - It transfers to an unseen token and across models.
    - It never makes things worse in the placement sweep.
-   - Per-region, expert-aware, bit-reversal and channel-hash variants add nothing in closed loop. Pending: comparison with MOP4CLXOR.
+   - Per-region, expert-aware, bit-reversal and channel-hash variants add nothing in closed loop.
+   - Ramulator's MOP4CLXOR wins only in saturated DDR4 replay (by 5–25%), and loses in closed loop (+4% to +38% cycles).
    - No row-buffer policy beats open page by more than 3.2%. Open page stays.
 3. **Improvement numbers, 7B at 32k, 2 MiB pages, CPU stream:**
    - Row hit rises from 0.85 to 0.95, and read latency falls 20–25%.
@@ -155,7 +154,22 @@ The engine is llama.cpp throughout.
 - **Textbook permutation:** within ~1 pt on DDR5 open page, but 4–8 pt worse with closed page and 6–10 pt worse on DDR4.
 - **A matrix fitted only on random frames** loses up to 5 pt (Open) and 15 pt (ClosedCAP) on 7B when pages are contiguous. Fit the hardware matrix on both cases.
 
-**Pending: mop-owner.** MOP4CLXOR (Ramulator's built-in XOR mapper) beat RoBaRaCoCh in saturated DDR4 replays (0.67–0.91 of its cycles, at lower row hit). It is being put through the same tests: 2 MiB pages, closed loop, real-node DDR4, held-out token. The "best mapping" claim waits on this.
+**MOP4CLXOR, Ramulator's built-in XOR mapper** ("mop-owner: MOP4CLXOR vs xor_global (2026-11-14)", jobs 124413, 124414, 124444, 124445). It puts the low column bits below the bank fields and XORs each bank level with the next column bits, so the 4 lines of a 256 B chunk go to 4 different bank groups. That trades row hits for bank parallelism. The row is XORed with col>>5. It was tested on:
+- 7B at 32k and 8k, 30B at 32k and short context, the held-out token, and 7B at B=16;
+- all three placements;
+- DDR5 16 sub-channels and 8 channels, DDR4 6 channels and 1 channel;
+- Open and ClosedCAP;
+- saturated and closed loop.
+
+Also tested: MOP4CLXOR combined with our searched XOR (`mopxor`, checked one-to-one) and ChRaBaRoCo (+40% to 3× cycles everywhere).
+
+| Regime | Winner |
+|---|---|
+| **Closed loop** (fast core, plateau, 4-thread native) | **`xor_global` wins or ties everywhere.** MOP4CLXOR takes 4–38% more cycles at ~22 GB/s demand and is worse than the default mapping |
+| Saturated DDR5, 2 MiB pages | three-way tie within 1–3% (`xor_global` 0.82, MOP4CLXOR 0.83, `mopxor` 0.82) |
+| **Saturated DDR4** (6 ch and 1 ch) | **MOP4CLXOR / `mopxor` win by 5–25%,** even with contiguous pages (6 ch: 0.90 vs 1.01) |
+
+So `xor_global` is the best mapping whenever the memory isn't flooded, which covers every realistic operating point we measured: native 4-thread decode runs at ~10 GB/s, far from DDR4's saturation. MOP4CLXOR is better only when DDR4 is bandwidth-saturated. A controller could select MOP4CLXOR-style column interleaving only when the queues are saturated, but we didn't evaluate that.
 
 ## 4. Row-buffer policies
 
@@ -261,7 +275,8 @@ Still to do before claiming novelty:
 
 ## 11. Open items
 
-- **Pending:** mop-owner (MOP4CLXOR vs global XOR) and l2fix-owner (GPU L2 at 32k).
+- **Pending:** l2fix-owner (GPU L2 at 32k). Its per-kernel check found the whole 32k overcount is in `flash_attn_ext_vec`, and an XOR-hashed L2 set index brings it into Nsight Compute's range.
+- **Not evaluated:** a controller that switches to MOP4CLXOR-style column interleaving only when its queues saturate.
 - **Optional:**
   - DRAMsim3 in closed loop;
   - 30B MoE at batch 4 with 8k / 32k prompts;
