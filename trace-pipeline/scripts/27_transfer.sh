@@ -26,7 +26,7 @@ streams={"7B32k":st("$Q7"+"_c32k"),"7B32k_t2":st("$D/qwen2.5-7b-instruct-q4_k_m-
  "30Bshort":st("$Q30"+"_miss"),"30B1k":st("$Q30"+"_c1k")}
 main={"drams":["ddr5","ddr4"],"placements":["thp","packed"]}
 oth={"drams":["ddr5"],"placements":["thp"]}
-if "$SMOKE"=="1":
+if "${SMOKE:-0}"=="1":
     streams={k:streams[k] for k in ("05B32k","30Bshort")}
     cfg=dict(streams=streams,trains={"T05":["05B32k"],"pool":["05B32k","30Bshort"]},tests={"05B32k":oth,"30Bshort":oth})
 else:
