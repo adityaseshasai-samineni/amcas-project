@@ -137,3 +137,85 @@
   packed_chan             sat   Open      hit 0.961 lat   109.3ns    3.019Mt   542.6GB/s
   packed_identity         sat   Open      hit 0.961 lat   106.8ns    3.224Mt   508.2GB/s
   thp_identity            fast  Open      hit 0.894 lat    28.4ns   18.293Mt    23.5GB/s
+  thp_identity            sat   Open      hit 0.958 lat   109.0ns    3.506Mt   467.3GB/s
+  thp_identity            fast  ClosedCAP hit 0.739 lat    36.8ns   21.767Mt    19.8GB/s
+  packed_xor_global       sat   ClosedCAP hit 0.779 lat   181.0ns    5.098Mt   321.4GB/s
+  thp_identity            sat   ClosedCAP hit 0.778 lat   188.0ns    5.826Mt   281.2GB/s
+  packed_identity         sat   ClosedCAP hit 0.779 lat   184.9ns    5.199Mt   315.1GB/s
+  thp_xor_global          fast  Open      hit 0.901 lat    27.5ns   17.214Mt    24.1GB/s
+  thp_xor_global          sat   Open      hit 0.961 lat   108.0ns    3.310Mt   494.9GB/s
+  thp_xor_global          fast  ClosedCAP hit 0.743 lat    36.1ns   21.108Mt    20.1GB/s
+  thp_chan                fast  Open      hit 0.900 lat    27.7ns   17.347Mt    24.1GB/s
+  thp_chan                fast  ClosedCAP hit 0.742 lat    36.3ns   21.361Mt    20.0GB/s
+  packed_chan             sat   ClosedCAP hit 0.779 lat   188.6ns    4.945Mt   331.4GB/s
+  4k_identity             fast  Open      hit 0.860 lat    30.2ns   18.450Mt    22.6GB/s
+  4k_identity             sat   Open      hit 0.836 lat   110.3ns    3.173Mt   516.4GB/s
+  4k_identity             sat   ClosedCAP hit 0.723 lat   124.1ns    3.491Mt   469.3GB/s
+  4k_identity             fast  ClosedCAP hit 0.737 lat    36.5ns   21.253Mt    20.0GB/s
+  thp_chan                sat   Open      hit 0.960 lat   110.7ns    3.047Mt   537.6GB/s
+  4k_xor_global           fast  Open      hit 0.861 lat    30.1ns   18.488Mt    22.6GB/s
+  4k_xor_global           fast  ClosedCAP hit 0.738 lat    36.4ns   21.264Mt    20.1GB/s
+  4k_xor_global           sat   Open      hit 0.836 lat   110.1ns    3.167Mt   517.4GB/s
+  4k_chan                 fast  Open      hit 0.861 lat    30.1ns   18.426Mt    22.6GB/s
+  thp_xor_global          sat   ClosedCAP hit 0.779 lat   181.4ns    5.212Mt   314.4GB/s
+  4k_xor_global           sat   ClosedCAP hit 0.723 lat   124.1ns    3.487Mt   469.8GB/s
+  4k_chan                 fast  ClosedCAP hit 0.737 lat    36.6ns   21.273Mt    20.0GB/s
+  thp_chan                sat   ClosedCAP hit 0.778 lat   190.5ns    4.985Mt   328.7GB/s
+  4k_chan                 sat   Open      hit 0.832 lat   115.0ns    2.788Mt   587.6GB/s
+  4k_chan                 sat   ClosedCAP hit 0.720 lat   128.5ns    3.073Mt   533.1GB/s
+  hbm3x16 done in 2094 s
+=== lpddr6x8: LPDDR6-10667, 8 x12 sub-channels, 2 ranks (laptop-class, 114 GB/s); layout lpddr6x8 cost bus/tRC = (12.0, 161.0)
+  [lpddr6x8/packed global bank] n=8,000,000 cost 2133892 -> 2018881; bank bit ^= {0: ['row3', 'row11', 'row12'], 1: ['row7', 'row10'], 2: [], 3: ['row11'], 4: ['row0']}
+  [lpddr6x8/packed chan] channel hash cost 2216392 -> 2087200; chan bit ^= {0: ['row1'], 1: ['row2'], 2: ['row7', 'row2']}
+  packed_identity          in-order hit 0.947 banks 256/256 chan max/mean 1.005
+  packed_xor_global        in-order hit 0.945 banks 256/256 chan max/mean 1.005
+  packed_chan              in-order hit 0.948 banks 256/256 chan max/mean 1.004
+  [lpddr6x8/thp global bank] n=8,000,000 cost 2385958 -> 2051033; bank bit ^= {0: ['row10', 'row12'], 1: ['row15'], 2: ['row9'], 3: [], 4: ['row12']}
+  [lpddr6x8/thp chan] channel hash cost 2468458 -> 2163348; chan bit ^= {0: ['row10', 'row5'], 1: ['row5'], 2: ['row14', 'row2']}
+  thp_identity             in-order hit 0.913 banks 256/256 chan max/mean 1.005
+  thp_xor_global           in-order hit 0.948 banks 256/256 chan max/mean 1.005
+  thp_chan                 in-order hit 0.935 banks 256/256 chan max/mean 1.002
+  [lpddr6x8/4k global bank] n=8,000,000 cost 2841257 -> 2765763; bank bit ^= {0: ['row15', 'row3'], 1: ['row3'], 2: ['row12', 'row4'], 3: [], 4: ['row3']}
+  [lpddr6x8/4k chan] channel hash cost 2923757 -> 2834193; chan bit ^= {0: ['row3', 'row14'], 1: ['row14', 'row1'], 2: []}
+  4k_identity              in-order hit 0.849 banks 256/256 chan max/mean 1.005
+  4k_xor_global            in-order hit 0.850 banks 256/256 chan max/mean 1.005
+  4k_chan                  in-order hit 0.850 banks 256/256 chan max/mean 1.000
+  traces written in 256 s
+
+  packed_identity         fast  ClosedCAP hit 0.739 lat    58.2ns   26.935Mt    13.2GB/s
+  packed_identity         fast  Open      hit 0.904 lat    49.0ns   22.963Mt    15.1GB/s
+  packed_xor_global       fast  Open      hit 0.900 lat    50.2ns   23.234Mt    14.8GB/s
+  packed_xor_global       fast  ClosedCAP hit 0.738 lat    58.7ns   27.330Mt    13.1GB/s
+  packed_chan             sat   Open      hit 0.976 lat   106.5ns   20.565Mt    66.4GB/s
+  packed_identity         sat   ClosedCAP hit 0.787 lat   177.3ns   35.836Mt    38.1GB/s
+  packed_identity         sat   Open      hit 0.975 lat   106.9ns   21.409Mt    63.8GB/s
+  packed_chan             fast  Open      hit 0.903 lat    49.6ns   23.284Mt    14.9GB/s
+  packed_xor_global       sat   Open      hit 0.975 lat   107.5ns   21.535Mt    63.4GB/s
+  packed_chan             fast  ClosedCAP hit 0.738 lat    58.8ns   27.320Mt    13.0GB/s
+  thp_identity            fast  Open      hit 0.894 lat    51.2ns   24.973Mt    14.5GB/s
+  thp_identity            fast  ClosedCAP hit 0.733 lat    59.7ns   28.444Mt    12.9GB/s
+  packed_xor_global       sat   ClosedCAP hit 0.787 lat   179.7ns   36.369Mt    37.5GB/s
+  thp_xor_global          fast  Open      hit 0.899 lat    50.2ns   23.590Mt    14.8GB/s
+  thp_identity            sat   Open      hit 0.970 lat   111.2ns   23.741Mt    57.5GB/s
+  thp_identity            sat   ClosedCAP hit 0.782 lat   188.8ns   44.119Mt    30.9GB/s
+  thp_xor_global          sat   Open      hit 0.976 lat   106.8ns   21.578Mt    63.3GB/s
+  packed_chan             sat   ClosedCAP hit 0.787 lat   179.8ns   34.724Mt    39.3GB/s
+  thp_xor_global          sat   ClosedCAP hit 0.787 lat   177.7ns   36.346Mt    37.6GB/s
+  thp_xor_global          fast  ClosedCAP hit 0.738 lat    58.5ns   26.897Mt    13.1GB/s
+  thp_chan                fast  Open      hit 0.899 lat    50.2ns   23.518Mt    14.7GB/s
+  thp_chan                fast  ClosedCAP hit 0.737 lat    59.0ns   27.542Mt    13.0GB/s
+  4k_identity             fast  Open      hit 0.876 lat    52.0ns   24.091Mt    14.3GB/s
+  4k_identity             sat   Open      hit 0.926 lat   114.3ns   22.159Mt    61.6GB/s
+  4k_identity             fast  ClosedCAP hit 0.735 lat    59.1ns   27.137Mt    13.0GB/s
+  thp_chan                sat   Open      hit 0.974 lat   109.1ns   21.035Mt    64.9GB/s
+  thp_chan                sat   ClosedCAP hit 0.786 lat   184.6ns   36.785Mt    37.1GB/s
+  4k_xor_global           fast  Open      hit 0.876 lat    51.9ns   24.076Mt    14.4GB/s
+  4k_xor_global           fast  ClosedCAP hit 0.735 lat    59.1ns   27.061Mt    13.0GB/s
+  4k_chan                 fast  Open      hit 0.876 lat    52.2ns   24.136Mt    14.3GB/s
+  4k_chan                 sat   Open      hit 0.926 lat   116.0ns   20.282Mt    67.3GB/s
+  4k_xor_global           sat   Open      hit 0.926 lat   114.3ns   22.162Mt    61.6GB/s
+  4k_identity             sat   ClosedCAP hit 0.747 lat   155.6ns   30.262Mt    45.1GB/s
+  4k_xor_global           sat   ClosedCAP hit 0.747 lat   155.4ns   30.224Mt    45.2GB/s
+  4k_chan                 fast  ClosedCAP hit 0.734 lat    59.4ns   27.327Mt    12.9GB/s
+  4k_chan                 sat   ClosedCAP hit 0.747 lat   158.8ns   27.847Mt    49.0GB/s
+  lpddr6x8 done in 1464 s

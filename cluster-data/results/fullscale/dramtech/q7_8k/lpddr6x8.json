@@ -1,0 +1,863 @@
+{
+ "manifest": {
+  "system": "lpddr6x8",
+  "what": "LPDDR6-10667, 8 x12 sub-channels, 2 ranks (laptop-class, 114 GB/s)",
+  "layout": "lpddr6x8",
+  "nch": 8,
+  "window": [
+   22606825,
+   30606825
+  ],
+  "files": [
+   {
+    "inorder_hit": 0.946939375,
+    "banks_used": 256,
+    "banks_total": 256,
+    "inorder_hit_W": 0.946939375,
+    "key": "packed_identity",
+    "placement": "packed",
+    "scheme": "identity",
+    "info": {},
+    "chan_load_max_over_mean": 1.004544
+   },
+   {
+    "inorder_hit": 0.945083875,
+    "banks_used": 256,
+    "banks_total": 256,
+    "inorder_hit_W": 0.945083875,
+    "key": "packed_xor_global",
+    "placement": "packed",
+    "scheme": "xor_global",
+    "info": {
+     "matrix": {
+      "0": [
+       "row3",
+       "row11",
+       "row12"
+      ],
+      "1": [
+       "row7",
+       "row10"
+      ],
+      "2": [],
+      "3": [
+       "row11"
+      ],
+      "4": [
+       "row0"
+      ]
+     },
+     "cost": [
+      2133892.3,
+      2018881.3
+     ]
+    },
+    "chan_load_max_over_mean": 1.004544
+   },
+   {
+    "inorder_hit": 0.947790375,
+    "banks_used": 256,
+    "banks_total": 256,
+    "inorder_hit_W": 0.947790375,
+    "key": "packed_chan",
+    "placement": "packed",
+    "scheme": "chan",
+    "info": {
+     "matrix": {
+      "0": [
+       "row1"
+      ],
+      "1": [
+       "row2"
+      ],
+      "2": [
+       "row7",
+       "row2"
+      ]
+     },
+     "cost": [
+      2216392.3,
+      2087199.55
+     ]
+    },
+    "chan_load_max_over_mean": 1.00362
+   },
+   {
+    "inorder_hit": 0.912522625,
+    "banks_used": 256,
+    "banks_total": 256,
+    "inorder_hit_W": 0.912522625,
+    "key": "thp_identity",
+    "placement": "thp",
+    "scheme": "identity",
+    "info": {},
+    "chan_load_max_over_mean": 1.004544
+   },
+   {
+    "inorder_hit": 0.94793775,
+    "banks_used": 256,
+    "banks_total": 256,
+    "inorder_hit_W": 0.94793775,
+    "key": "thp_xor_global",
+    "placement": "thp",
+    "scheme": "xor_global",
+    "info": {
+     "matrix": {
+      "0": [
+       "row10",
+       "row12"
+      ],
+      "1": [
+       "row15"
+      ],
+      "2": [
+       "row9"
+      ],
+      "3": [],
+      "4": [
+       "row12"
+      ]
+     },
+     "cost": [
+      2385958.4,
+      2051033.4500000002
+     ]
+    },
+    "chan_load_max_over_mean": 1.004544
+   },
+   {
+    "inorder_hit": 0.934657625,
+    "banks_used": 256,
+    "banks_total": 256,
+    "inorder_hit_W": 0.934657625,
+    "key": "thp_chan",
+    "placement": "thp",
+    "scheme": "chan",
+    "info": {
+     "matrix": {
+      "0": [
+       "row10",
+       "row5"
+      ],
+      "1": [
+       "row5"
+      ],
+      "2": [
+       "row14",
+       "row2"
+      ]
+     },
+     "cost": [
+      2468458.4,
+      2163348.15
+     ]
+    },
+    "chan_load_max_over_mean": 1.001861
+   },
+   {
+    "inorder_hit": 0.849422125,
+    "banks_used": 256,
+    "banks_total": 256,
+    "inorder_hit_W": 0.849422125,
+    "key": "4k_identity",
+    "placement": "4k",
+    "scheme": "identity",
+    "info": {},
+    "chan_load_max_over_mean": 1.004544
+   },
+   {
+    "inorder_hit": 0.84970675,
+    "banks_used": 256,
+    "banks_total": 256,
+    "inorder_hit_W": 0.84970675,
+    "key": "4k_xor_global",
+    "placement": "4k",
+    "scheme": "xor_global",
+    "info": {
+     "matrix": {
+      "0": [
+       "row15",
+       "row3"
+      ],
+      "1": [
+       "row3"
+      ],
+      "2": [
+       "row12",
+       "row4"
+      ],
+      "3": [],
+      "4": [
+       "row3"
+      ]
+     },
+     "cost": [
+      2841257.1,
+      2765763.3
+     ]
+    },
+    "chan_load_max_over_mean": 1.004544
+   },
+   {
+    "inorder_hit": 0.84996325,
+    "banks_used": 256,
+    "banks_total": 256,
+    "inorder_hit_W": 0.84996325,
+    "key": "4k_chan",
+    "placement": "4k",
+    "scheme": "chan",
+    "info": {
+     "matrix": {
+      "0": [
+       "row3",
+       "row14"
+      ],
+      "1": [
+       "row14",
+       "row1"
+      ],
+      "2": []
+     },
+     "cost": [
+      2923757.1,
+      2834193.3
+     ]
+    },
+    "chan_load_max_over_mean": 1.000194
+   }
+  ]
+ },
+ "results": [
+  {
+   "key": "packed_identity",
+   "point": "fast",
+   "policy": "ClosedCAP",
+   "T": 61,
+   "reads": 4164504,
+   "cycles": 26934769.0,
+   "mem_cycles": 26934768,
+   "tick_ps": 375.0,
+   "time_us": 10100.538375,
+   "hit_rate": 0.7385097850882459,
+   "conflict_rate": 0.018480970104454316,
+   "avg_read_latency_ticks": 155.18099356659553,
+   "avg_read_latency_ns": 58.19287258747333,
+   "GBps": 13.193764832362216,
+   "throughput_MBps": 13193.745727
+  },
+  {
+   "key": "packed_identity",
+   "point": "fast",
+   "policy": "Open",
+   "T": 61,
+   "reads": 4075705,
+   "cycles": 22962677.0,
+   "mem_cycles": 22962676,
+   "tick_ps": 375.0,
+   "time_us": 8611.003875,
+   "hit_rate": 0.9043866607355748,
+   "conflict_rate": 0.03961162961819782,
+   "avg_read_latency_ticks": 130.56544092502526,
+   "avg_read_latency_ns": 48.96204034688447,
+   "GBps": 15.146034294404496,
+   "throughput_MBps": 15145.990723
+  },
+  {
+   "key": "packed_xor_global",
+   "point": "fast",
+   "policy": "Open",
+   "T": 61,
+   "reads": 4024754,
+   "cycles": 23234195.0,
+   "mem_cycles": 23234194,
+   "tick_ps": 375.0,
+   "time_us": 8712.823125,
+   "hit_rate": 0.8995576117244695,
+   "conflict_rate": 0.04489949052672902,
+   "avg_read_latency_ticks": 133.78599202845896,
+   "avg_read_latency_ns": 50.16974701067211,
+   "GBps": 14.781905491740371,
+   "throughput_MBps": 14781.862061
+  },
+  {
+   "key": "packed_xor_global",
+   "point": "fast",
+   "policy": "ClosedCAP",
+   "T": 61,
+   "reads": 4186576,
+   "cycles": 27330471.0,
+   "mem_cycles": 27330470,
+   "tick_ps": 375.0,
+   "time_us": 10248.926625,
+   "hit_rate": 0.7376129534170088,
+   "conflict_rate": 0.020501981215653574,
+   "avg_read_latency_ticks": 156.56007217742763,
+   "avg_read_latency_ns": 58.71002706653536,
+   "GBps": 13.071654906105838,
+   "throughput_MBps": 13071.633667
+  },
+  {
+   "key": "packed_chan",
+   "point": "sat",
+   "policy": "Open",
+   "T": 0,
+   "reads": 16000000,
+   "cycles": 20564660,
+   "mem_cycles": 20564660,
+   "tick_ps": 375.0,
+   "time_us": 7711.7475,
+   "hit_rate": 0.9757912070514989,
+   "conflict_rate": 0.0072131750414018495,
+   "avg_read_latency_ticks": 284.08067484653463,
+   "avg_read_latency_ns": 106.53025306745049,
+   "GBps": 66.39221525341695,
+   "throughput_MBps": 66391.720703
+  },
+  {
+   "key": "packed_identity",
+   "point": "sat",
+   "policy": "ClosedCAP",
+   "T": 0,
+   "reads": 16000000,
+   "cycles": 35836040,
+   "mem_cycles": 35836040,
+   "tick_ps": 375.0,
+   "time_us": 13438.515,
+   "hit_rate": 0.7872009958061615,
+   "conflict_rate": 0.0030884566098252735,
+   "avg_read_latency_ticks": 472.86074115391693,
+   "avg_read_latency_ns": 177.32277793271885,
+   "GBps": 38.09944774404017,
+   "throughput_MBps": 38099.192383
+  },
+  {
+   "key": "packed_identity",
+   "point": "sat",
+   "policy": "Open",
+   "T": 0,
+   "reads": 16000000,
+   "cycles": 21408905,
+   "mem_cycles": 21408905,
+   "tick_ps": 375.0,
+   "time_us": 8028.339375,
+   "hit_rate": 0.9754800921530933,
+   "conflict_rate": 0.007298171981982134,
+   "avg_read_latency_ticks": 285.06276810536036,
+   "avg_read_latency_ns": 106.89853803951014,
+   "GBps": 63.77408528522749,
+   "throughput_MBps": 63773.644531
+  },
+  {
+   "key": "packed_chan",
+   "point": "fast",
+   "policy": "Open",
+   "T": 61,
+   "reads": 4073058,
+   "cycles": 23284041.0,
+   "mem_cycles": 23284040,
+   "tick_ps": 375.0,
+   "time_us": 8731.515375,
+   "hit_rate": 0.9025881303866188,
+   "conflict_rate": 0.04119634004541062,
+   "avg_read_latency_ticks": 132.1579031682128,
+   "avg_read_latency_ns": 49.55921368807981,
+   "GBps": 14.927289296561538,
+   "throughput_MBps": 14927.279298000001
+  },
+  {
+   "key": "packed_xor_global",
+   "point": "sat",
+   "policy": "Open",
+   "T": 0,
+   "reads": 16000000,
+   "cycles": 21535301,
+   "mem_cycles": 21535301,
+   "tick_ps": 375.0,
+   "time_us": 8075.737875,
+   "hit_rate": 0.9751328635629085,
+   "conflict_rate": 0.007839875219001752,
+   "avg_read_latency_ticks": 286.61345351375405,
+   "avg_read_latency_ns": 107.48004506765777,
+   "GBps": 63.39977942882402,
+   "throughput_MBps": 63399.242676
+  },
+  {
+   "key": "packed_chan",
+   "point": "fast",
+   "policy": "ClosedCAP",
+   "T": 61,
+   "reads": 4158012,
+   "cycles": 27320359.0,
+   "mem_cycles": 27320358,
+   "tick_ps": 375.0,
+   "time_us": 10245.134625,
+   "hit_rate": 0.7378946725399975,
+   "conflict_rate": 0.019734468749909813,
+   "avg_read_latency_ticks": 156.91321365150296,
+   "avg_read_latency_ns": 58.842455119313605,
+   "GBps": 12.987275313622343,
+   "throughput_MBps": 12987.232177
+  },
+  {
+   "key": "thp_identity",
+   "point": "fast",
+   "policy": "Open",
+   "T": 61,
+   "reads": 4245036,
+   "cycles": 24973370.0,
+   "mem_cycles": 24973369,
+   "tick_ps": 375.0,
+   "time_us": 9365.01375,
+   "hit_rate": 0.8937755799616586,
+   "conflict_rate": 0.0504664051211042,
+   "avg_read_latency_ticks": 136.54880604927612,
+   "avg_read_latency_ns": 51.20580226847855,
+   "GBps": 14.505173791122303,
+   "throughput_MBps": 14505.112672
+  },
+  {
+   "key": "thp_identity",
+   "point": "fast",
+   "policy": "ClosedCAP",
+   "T": 61,
+   "reads": 4297994,
+   "cycles": 28443972.0,
+   "mem_cycles": 28443971,
+   "tick_ps": 375.0,
+   "time_us": 10666.4895,
+   "hit_rate": 0.7332773845958406,
+   "conflict_rate": 0.02763715622820198,
+   "avg_read_latency_ticks": 159.17100298915838,
+   "avg_read_latency_ns": 59.6891261209344,
+   "GBps": 12.894196164539421,
+   "throughput_MBps": 12894.147582
+  },
+  {
+   "key": "packed_xor_global",
+   "point": "sat",
+   "policy": "ClosedCAP",
+   "T": 0,
+   "reads": 16000000,
+   "cycles": 36368709,
+   "mem_cycles": 36368709,
+   "tick_ps": 375.0,
+   "time_us": 13638.265875,
+   "hit_rate": 0.7869210350821162,
+   "conflict_rate": 0.0033202728268756847,
+   "avg_read_latency_ticks": 479.1389464278949,
+   "avg_read_latency_ns": 179.6771049104606,
+   "GBps": 37.54142973107275,
+   "throughput_MBps": 37541.148439
+  },
+  {
+   "key": "thp_xor_global",
+   "point": "fast",
+   "policy": "Open",
+   "T": 61,
+   "reads": 4080174,
+   "cycles": 23590197.0,
+   "mem_cycles": 23590196,
+   "tick_ps": 375.0,
+   "time_us": 8846.323875,
+   "hit_rate": 0.8992217720500166,
+   "conflict_rate": 0.04545745308954266,
+   "avg_read_latency_ticks": 133.8010245748286,
+   "avg_read_latency_ns": 50.175384215560726,
+   "GBps": 14.759302264410932,
+   "throughput_MBps": 14759.266236
+  },
+  {
+   "key": "thp_identity",
+   "point": "sat",
+   "policy": "Open",
+   "T": 0,
+   "reads": 16000000,
+   "cycles": 23741238,
+   "mem_cycles": 23741238,
+   "tick_ps": 375.0,
+   "time_us": 8902.96425,
+   "hit_rate": 0.9697979758775059,
+   "conflict_rate": 0.013459378955683594,
+   "avg_read_latency_ticks": 296.6238270967675,
+   "avg_read_latency_ns": 111.23393516128782,
+   "GBps": 57.508935858076704,
+   "throughput_MBps": 57508.633789
+  },
+  {
+   "key": "thp_identity",
+   "point": "sat",
+   "policy": "ClosedCAP",
+   "T": 0,
+   "reads": 16000000,
+   "cycles": 44119489,
+   "mem_cycles": 44119489,
+   "tick_ps": 375.0,
+   "time_us": 16544.808375,
+   "hit_rate": 0.7822499707185779,
+   "conflict_rate": 0.011371879309790944,
+   "avg_read_latency_ticks": 503.35306335862265,
+   "avg_read_latency_ns": 188.7573987594835,
+   "GBps": 30.946263528422403,
+   "throughput_MBps": 30946.072755
+  },
+  {
+   "key": "thp_xor_global",
+   "point": "sat",
+   "policy": "Open",
+   "T": 0,
+   "reads": 16000000,
+   "cycles": 21578125,
+   "mem_cycles": 21578125,
+   "tick_ps": 375.0,
+   "time_us": 8091.796875,
+   "hit_rate": 0.9757364976166125,
+   "conflict_rate": 0.007305413353420106,
+   "avg_read_latency_ticks": 284.91684626053143,
+   "avg_read_latency_ns": 106.84381734769929,
+   "GBps": 63.27395607048033,
+   "throughput_MBps": 63273.606935
+  },
+  {
+   "key": "packed_chan",
+   "point": "sat",
+   "policy": "ClosedCAP",
+   "T": 0,
+   "reads": 16000000,
+   "cycles": 34724350,
+   "mem_cycles": 34724350,
+   "tick_ps": 375.0,
+   "time_us": 13021.63125,
+   "hit_rate": 0.7873691182960539,
+   "conflict_rate": 0.0030845916108333273,
+   "avg_read_latency_ticks": 479.4299998503451,
+   "avg_read_latency_ns": 179.7862499438794,
+   "GBps": 39.31919052000494,
+   "throughput_MBps": 39318.794433999996
+  },
+  {
+   "key": "thp_xor_global",
+   "point": "sat",
+   "policy": "ClosedCAP",
+   "T": 0,
+   "reads": 16000000,
+   "cycles": 36345936,
+   "mem_cycles": 36345936,
+   "tick_ps": 375.0,
+   "time_us": 13629.726,
+   "hit_rate": 0.7871298598449155,
+   "conflict_rate": 0.0029632025012126624,
+   "avg_read_latency_ticks": 473.7651409535489,
+   "avg_read_latency_ns": 177.66192785758082,
+   "GBps": 37.56495178259636,
+   "throughput_MBps": 37564.746094
+  },
+  {
+   "key": "thp_xor_global",
+   "point": "fast",
+   "policy": "ClosedCAP",
+   "T": 61,
+   "reads": 4129188,
+   "cycles": 26897171.0,
+   "mem_cycles": 26897170,
+   "tick_ps": 375.0,
+   "time_us": 10086.439125,
+   "hit_rate": 0.7380629418099821,
+   "conflict_rate": 0.019391990514337112,
+   "avg_read_latency_ticks": 156.03103296269347,
+   "avg_read_latency_ns": 58.51163736101005,
+   "GBps": 13.100164920689986,
+   "throughput_MBps": 13100.117554
+  },
+  {
+   "key": "thp_chan",
+   "point": "fast",
+   "policy": "Open",
+   "T": 61,
+   "reads": 4056856,
+   "cycles": 23518357.0,
+   "mem_cycles": 23518356,
+   "tick_ps": 375.0,
+   "time_us": 8819.383875,
+   "hit_rate": 0.8987996360725913,
+   "conflict_rate": 0.045357571496921385,
+   "avg_read_latency_ticks": 133.91507668396432,
+   "avg_read_latency_ns": 50.218153756486615,
+   "GBps": 14.719780184191155,
+   "throughput_MBps": 14719.76648
+  },
+  {
+   "key": "thp_chan",
+   "point": "fast",
+   "policy": "ClosedCAP",
+   "T": 61,
+   "reads": 4190040,
+   "cycles": 27541793.0,
+   "mem_cycles": 27541792,
+   "tick_ps": 375.0,
+   "time_us": 10328.172375,
+   "hit_rate": 0.7367789353650099,
+   "conflict_rate": 0.02155804352085674,
+   "avg_read_latency_ticks": 157.36055780584215,
+   "avg_read_latency_ns": 59.01020917719081,
+   "GBps": 12.982091616184901,
+   "throughput_MBps": 12982.074097
+  },
+  {
+   "key": "4k_identity",
+   "point": "fast",
+   "policy": "Open",
+   "T": 61,
+   "reads": 4049911,
+   "cycles": 24091359.0,
+   "mem_cycles": 24091358,
+   "tick_ps": 375.0,
+   "time_us": 9034.259625,
+   "hit_rate": 0.8763162664182985,
+   "conflict_rate": 0.05050862959153086,
+   "avg_read_latency_ticks": 138.70283998894888,
+   "avg_read_latency_ns": 52.01356499585583,
+   "GBps": 14.345077225960285,
+   "throughput_MBps": 14345.038694
+  },
+  {
+   "key": "4k_identity",
+   "point": "sat",
+   "policy": "Open",
+   "T": 0,
+   "reads": 16000000,
+   "cycles": 22159486,
+   "mem_cycles": 22159486,
+   "tick_ps": 375.0,
+   "time_us": 8309.80725,
+   "hit_rate": 0.9256579356910659,
+   "conflict_rate": 0.04412417283816666,
+   "avg_read_latency_ticks": 304.75868668574304,
+   "avg_read_latency_ns": 114.28450750715363,
+   "GBps": 61.613944174216556,
+   "throughput_MBps": 61613.452148
+  },
+  {
+   "key": "4k_identity",
+   "point": "fast",
+   "policy": "ClosedCAP",
+   "T": 61,
+   "reads": 4137006,
+   "cycles": 27136546.0,
+   "mem_cycles": 27136545,
+   "tick_ps": 375.0,
+   "time_us": 10176.20475,
+   "hit_rate": 0.7345655138672884,
+   "conflict_rate": 0.02263015584715695,
+   "avg_read_latency_ticks": 157.66837326880076,
+   "avg_read_latency_ns": 59.12563997580029,
+   "GBps": 13.009191073911913,
+   "throughput_MBps": 13009.176391
+  },
+  {
+   "key": "thp_chan",
+   "point": "sat",
+   "policy": "Open",
+   "T": 0,
+   "reads": 16000000,
+   "cycles": 21035131,
+   "mem_cycles": 21035131,
+   "tick_ps": 375.0,
+   "time_us": 7888.174125,
+   "hit_rate": 0.9740829753043603,
+   "conflict_rate": 0.009192512763698252,
+   "avg_read_latency_ticks": 290.9908804272585,
+   "avg_read_latency_ns": 109.12158016022194,
+   "GBps": 64.9072893025165,
+   "throughput_MBps": 64906.729492
+  },
+  {
+   "key": "thp_chan",
+   "point": "sat",
+   "policy": "ClosedCAP",
+   "T": 0,
+   "reads": 16000000,
+   "cycles": 36785450,
+   "mem_cycles": 36785450,
+   "tick_ps": 375.0,
+   "time_us": 13794.54375,
+   "hit_rate": 0.7861780126963531,
+   "conflict_rate": 0.005292855504450974,
+   "avg_read_latency_ticks": 492.1935051254078,
+   "avg_read_latency_ns": 184.57256442202794,
+   "GBps": 37.116124264711544,
+   "throughput_MBps": 37115.80957
+  },
+  {
+   "key": "4k_xor_global",
+   "point": "fast",
+   "policy": "Open",
+   "T": 61,
+   "reads": 4049154,
+   "cycles": 24075529.0,
+   "mem_cycles": 24075528,
+   "tick_ps": 375.0,
+   "time_us": 9028.323375,
+   "hit_rate": 0.8762173860321693,
+   "conflict_rate": 0.050566452638049444,
+   "avg_read_latency_ticks": 138.5291241422199,
+   "avg_read_latency_ns": 51.94842155333246,
+   "GBps": 14.351826204940295,
+   "throughput_MBps": 14351.794311
+  },
+  {
+   "key": "4k_xor_global",
+   "point": "fast",
+   "policy": "ClosedCAP",
+   "T": 61,
+   "reads": 4126105,
+   "cycles": 27060723.0,
+   "mem_cycles": 27060722,
+   "tick_ps": 375.0,
+   "time_us": 10147.771125,
+   "hit_rate": 0.7346101496426647,
+   "conflict_rate": 0.022470878040646656,
+   "avg_read_latency_ticks": 157.57836468955122,
+   "avg_read_latency_ns": 59.09188675858171,
+   "GBps": 13.011267043136037,
+   "throughput_MBps": 13011.224121
+  },
+  {
+   "key": "4k_chan",
+   "point": "fast",
+   "policy": "Open",
+   "T": 61,
+   "reads": 4038806,
+   "cycles": 24135827.0,
+   "mem_cycles": 24135826,
+   "tick_ps": 375.0,
+   "time_us": 9050.935125,
+   "hit_rate": 0.8756452719507597,
+   "conflict_rate": 0.05089332205275773,
+   "avg_read_latency_ticks": 139.266690633314,
+   "avg_read_latency_ns": 52.22500898749275,
+   "GBps": 14.279385523714048,
+   "throughput_MBps": 14279.362182
+  },
+  {
+   "key": "4k_chan",
+   "point": "sat",
+   "policy": "Open",
+   "T": 0,
+   "reads": 16000000,
+   "cycles": 20282278,
+   "mem_cycles": 20282278,
+   "tick_ps": 375.0,
+   "time_us": 7605.85425,
+   "hit_rate": 0.9259836116086502,
+   "conflict_rate": 0.04477413617692452,
+   "avg_read_latency_ticks": 309.35315712992474,
+   "avg_read_latency_ns": 116.00743392372178,
+   "GBps": 67.31656736651244,
+   "throughput_MBps": 67315.879883
+  },
+  {
+   "key": "4k_xor_global",
+   "point": "sat",
+   "policy": "Open",
+   "T": 0,
+   "reads": 16000000,
+   "cycles": 22161638,
+   "mem_cycles": 22161638,
+   "tick_ps": 375.0,
+   "time_us": 8310.61425,
+   "hit_rate": 0.9256695168518595,
+   "conflict_rate": 0.04401947362657857,
+   "avg_read_latency_ticks": 304.7461376926819,
+   "avg_read_latency_ns": 114.27980163475571,
+   "GBps": 61.60796116845395,
+   "throughput_MBps": 61607.485838
+  },
+  {
+   "key": "4k_identity",
+   "point": "sat",
+   "policy": "ClosedCAP",
+   "T": 0,
+   "reads": 16000000,
+   "cycles": 30262032,
+   "mem_cycles": 30262032,
+   "tick_ps": 375.0,
+   "time_us": 11348.262,
+   "hit_rate": 0.7466023404755189,
+   "conflict_rate": 0.035543322709732574,
+   "avg_read_latency_ticks": 414.9197625994849,
+   "avg_read_latency_ns": 155.59491097480685,
+   "GBps": 45.11704082968828,
+   "throughput_MBps": 45116.745606
+  },
+  {
+   "key": "4k_xor_global",
+   "point": "sat",
+   "policy": "ClosedCAP",
+   "T": 0,
+   "reads": 16000000,
+   "cycles": 30224064,
+   "mem_cycles": 30224064,
+   "tick_ps": 375.0,
+   "time_us": 11334.024,
+   "hit_rate": 0.7466282597551559,
+   "conflict_rate": 0.03555185164305422,
+   "avg_read_latency_ticks": 414.5276319509794,
+   "avg_read_latency_ns": 155.44786198161728,
+   "GBps": 45.17371764873623,
+   "throughput_MBps": 45173.384278
+  },
+  {
+   "key": "4k_chan",
+   "point": "fast",
+   "policy": "ClosedCAP",
+   "T": 61,
+   "reads": 4135776,
+   "cycles": 27327314.0,
+   "mem_cycles": 27327313,
+   "tick_ps": 375.0,
+   "time_us": 10247.74275,
+   "hit_rate": 0.7343761069596556,
+   "conflict_rate": 0.022724937224431273,
+   "avg_read_latency_ticks": 158.42938387916223,
+   "avg_read_latency_ns": 59.41101895468584,
+   "GBps": 12.914534959418258,
+   "throughput_MBps": 12914.485351
+  },
+  {
+   "key": "4k_chan",
+   "point": "sat",
+   "policy": "ClosedCAP",
+   "T": 0,
+   "reads": 16000000,
+   "cycles": 27846675,
+   "mem_cycles": 27846675,
+   "tick_ps": 375.0,
+   "time_us": 10442.503125,
+   "hit_rate": 0.7468963470671236,
+   "conflict_rate": 0.03599694897254075,
+   "avg_read_latency_ticks": 423.33762992065664,
+   "avg_read_latency_ns": 158.75161122024625,
+   "GBps": 49.03038992387182,
+   "throughput_MBps": 49029.88379
+  }
+ ],
+ "args": {
+  "miss": "/home/adityaseshasai.s/amcas-pro/results/fullscale/drattr/qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n1t4_attr_c8k/miss.gz",
+  "tensors": "/home/adityaseshasai.s/amcas-pro/results/fullscale/drattr/qwen2.5-7b-instruct-q4_k_m-00001-of-00002_s1n1t4_attr_c8k/tensors.tsv",
+  "out": "/home/adityaseshasai.s/amcas-pro/results/fullscale/dramtech/q7_8k",
+  "systems": "lpddr5x32,gddr6x16,hbm3x16,lpddr6x8",
+  "placements": "packed,thp,4k",
+  "schemes": "identity,xor_global,chan",
+  "window": 8000000,
+  "o3_window": 2000000,
+  "start_frac": 0.3,
+  "points": "sat,fast",
+  "policies": "Open,ClosedCAP",
+  "bubbles": 54,
+  "fanin": 3,
+  "procs": 6,
+  "tmp": "/scratch/adityaseshasai.s/dramtech/q7_8k",
+  "cost": "auto",
+  "keep": false
+ }
+}
