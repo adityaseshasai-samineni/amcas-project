@@ -1,0 +1,174 @@
+{
+ "ib": 6,
+ "system": "GDDR6 14 Gb/s, 8 x16 channels (128-bit), 16 GiB",
+ "peak_GBps": 224.0,
+ "requests": 80000000,
+ "pages_2MiB": 1247,
+ "info": {
+  "identity_chan_max_over_mean": 1.0019235,
+  "identity_inorder_hit": 0.9683049375,
+  "xor_matrix": {
+   "0": [
+    "row2",
+    "row0"
+   ],
+   "1": [],
+   "2": [
+    "row6"
+   ],
+   "3": [
+    "row2"
+   ]
+  },
+  "xor_chan_max_over_mean": 1.0019235,
+  "xor_inorder_hit": 0.9780833375,
+  "chan_chan_matrix": {
+   "0": [
+    "row0"
+   ],
+   "1": [
+    "row5",
+    "row11"
+   ],
+   "2": [
+    "row5"
+   ]
+  },
+  "chan_chan_max_over_mean": 1.0011707,
+  "chan_inorder_hit": 0.9683049375
+ },
+ "results": [
+  {
+   "scheme": "identity",
+   "policy": "Open",
+   "reads": 79898042,
+   "writes": 101958,
+   "cycles": 44229487,
+   "time_us": 25299.266564,
+   "GBps": 101.18870416752688,
+   "hit_rate": 0.9594538824111002,
+   "conflict_rate": 0.024064692047447083,
+   "avg_read_latency_ns": 52.239296178922864,
+   "chan_reads": [
+    9990584,
+    9988663,
+    9987650,
+    9987480,
+    9987527,
+    9986611,
+    9985221,
+    9984306
+   ]
+  },
+  {
+   "scheme": "identity",
+   "policy": "ClosedCAP",
+   "reads": 79898042,
+   "writes": 101958,
+   "cycles": 88575309,
+   "time_us": 50665.076748,
+   "GBps": 50.52790135368848,
+   "hit_rate": 0.769897058784191,
+   "conflict_rate": 0.013779287351275265,
+   "avg_read_latency_ns": 99.74086472879752,
+   "chan_reads": [
+    9990584,
+    9988663,
+    9987650,
+    9987480,
+    9987527,
+    9986611,
+    9985221,
+    9984306
+   ]
+  },
+  {
+   "scheme": "xor",
+   "policy": "Open",
+   "reads": 79898042,
+   "writes": 101958,
+   "cycles": 41183119,
+   "time_us": 23556.744068,
+   "GBps": 108.67376207043657,
+   "hit_rate": 0.965669682903053,
+   "conflict_rate": 0.01829284405548631,
+   "avg_read_latency_ns": 49.388227023126525,
+   "chan_reads": [
+    9990584,
+    9988663,
+    9987650,
+    9987480,
+    9987527,
+    9986611,
+    9985221,
+    9984306
+   ]
+  },
+  {
+   "scheme": "xor",
+   "policy": "ClosedCAP",
+   "reads": 79898042,
+   "writes": 101958,
+   "cycles": 85287939,
+   "time_us": 48784.701108,
+   "GBps": 52.47546755144916,
+   "hit_rate": 0.770653324475128,
+   "conflict_rate": 0.01142114982476611,
+   "avg_read_latency_ns": 96.80430810336372,
+   "chan_reads": [
+    9990584,
+    9988663,
+    9987650,
+    9987480,
+    9987527,
+    9986611,
+    9985221,
+    9984306
+   ]
+  },
+  {
+   "scheme": "chan",
+   "policy": "Open",
+   "reads": 79898042,
+   "writes": 101958,
+   "cycles": 45080465,
+   "time_us": 25786.02598,
+   "GBps": 99.27857832709746,
+   "hit_rate": 0.9586416285477356,
+   "conflict_rate": 0.024306115454048406,
+   "avg_read_latency_ns": 52.43708610037949,
+   "chan_reads": [
+    9989829,
+    9987045,
+    9985854,
+    9986912,
+    9988330,
+    9988240,
+    9986969,
+    9984863
+   ]
+  },
+  {
+   "scheme": "chan",
+   "policy": "ClosedCAP",
+   "reads": 79898042,
+   "writes": 101958,
+   "cycles": 89559110,
+   "time_us": 51227.81092,
+   "GBps": 49.9728556427646,
+   "hit_rate": 0.7697061145855777,
+   "conflict_rate": 0.013733135254130927,
+   "avg_read_latency_ns": 99.98353283161217,
+   "chan_reads": [
+    9989829,
+    9987045,
+    9985854,
+    9986912,
+    9988330,
+    9988240,
+    9986969,
+    9984863
+   ]
+  }
+ ]
+}
