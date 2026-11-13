@@ -518,3 +518,122 @@ xor      ClosedCAP    79898042  101958  0.771  0.011    96.8   48784.7    52.5
 chan     Open         79898042  101958  0.959  0.024    52.4   25786.0    99.3
 chan     ClosedCAP    79898042  101958  0.770  0.014   100.0   51227.8    50.0
 ######## a16 32k fa=off Fri Nov 13 17:00:23 IST 2026
+15951G
+wall 309.724206979
+q7_a16_32k_faoff window 56679 57245
+warp instrs 314406676; L1 load sectors 1880195968; L2 reads 929039318 writes 13503234; DRAM reads 533234580 (17063.5 MB) writes 5180130 (165.8 MB)
+8.44.011.602 I common_perf_print: prompt eval time =  302124.09 ms / 31001 tokens (    9.75 ms per token,   102.61 tokens per second)
+8.44.011.604 I common_perf_print:        eval time =  219467.41 ms /     2 runs   (109733.70 ms per token,     0.01 tokens per second)
+wall 524.961502244
+-rw-rw-r--. 1 adityaseshasai.s adityaseshasai.s 969403239 Nov 13 17:14 /home/adityaseshasai.s/gt/q7_a16_32k_faoff.dram.gz
+-rw-rw-r--. 1 adityaseshasai.s adityaseshasai.s 321838867 Nov 13 17:14 /home/adityaseshasai.s/gt/q7_a16_32k_faoff.dramlaunch.gz
+step 62, 417 tensors
+activation   read     159.3 MB  write  163.37 MB  (22 tensors)
+kv_cache     read   12533.5 MB  write    0.49 MB  (56 tensors)
+w_attn_out   read     202.3 MB  write    0.00 MB  (28 tensors)
+w_attn_qkv   read     267.3 MB  write    0.00 MB  (168 tensors)
+w_embd       read       0.0 MB  write    0.00 MB  (1 tensors)
+w_ffn        read    3453.1 MB  write    0.00 MB  (84 tensors)
+w_other      read       0.8 MB  write    0.00 MB  (57 tensors)
+w_output     read     447.1 MB  write    0.00 MB  (1 tensors)
+unknown      read       0.2 MB  write    1.91 MB  (0 tensors)
+total read 17063.5 MB
+kernels 566
+dram__bytes_read.sum                                    20497.95 MB
+dram__bytes_write.sum                                   369.53 MB
+{
+ "xor_matrix": {
+  "0": [
+   "row0",
+   "row4"
+  ],
+  "1": [
+   "row7"
+  ],
+  "2": [],
+  "3": [
+   "row0"
+  ]
+ },
+ "layout": "gddr6x8 {'col': 7, 'bank': 4, 'row': 15, 'off': 5, 's': 8, 'W': 3}, 256 B channel interleave; XOR sources = intra row bits",
+ "identity": {
+  "overall": 0.8068063166666667,
+  "class": {
+   "activation": {
+    "share": 0.018315783333333332,
+    "merged_hit": 0.8350457301398521,
+    "own_hit": 0.9043184066201555
+   },
+   "kv_k": {
+    "share": 0.394103,
+    "merged_hit": 0.7501112653291144,
+    "own_hit": 0.7501118151007901
+   },
+   "kv_v": {
+    "share": 0.3496534666666667,
+    "merged_hit": 0.7935250463220537,
+    "own_hit": 0.7941122467540243
+   },
+   "w_attn_out": {
+    "share": 0.0112896,
+    "merged_hit": 0.9906182090891912,
+    "own_hit": 0.9921461640211641
+   },
+   "w_attn_qkv": {
+    "share": 0.0201312,
+    "merged_hit": 0.9912921236687331,
+    "own_hit": 0.9914535646161182
+   },
+   "w_ffn": {
+    "share": 0.2063712,
+    "merged_hit": 0.9069834679774439,
+    "own_hit": 0.9071248798281931
+   },
+   "w_other": {
+    "share": 5.2266666666666665e-05,
+    "merged_hit": 0.9821428571428571,
+    "own_hit": 0.9770408163265306
+   },
+   "unknown": {
+    "share": 8.348333333333333e-05,
+    "merged_hit": 0.787382711119984,
+    "own_hit": 0.9450988221201837
+   }
+  },
+  "per_sm_hit": 0.8878074666666667,
+a16: 80000000 requests (79224702 rd, 775298 wr), 453 2MiB pages = 906 MiB footprint
+  [chan] channel hash cost 1523644 -> 935184; chan bit ^= {0: ['row1', 'row6', 'row2'], 1: ['row0', 'row7'], 2: ['row9', 'row7']}
+  [xor_chan] channel hash cost 1274351 -> 906857; chan bit ^= {0: ['row1', 'row9', 'row8'], 1: ['row0', 'row1'], 2: ['row1', 'row10']}
+GDDR6 14 Gb/s, 8 x16 channels (128-bit), 16 GiB peak 224.0 GB/s {'identity_chan_max_over_mean': 1.0396776, 'identity_inorder_hit': 0.8227818875, 'xor_matrix': {0: ['row9'], 1: ['row0'], 2: ['row5'], 3: []}, 'xor_chan_max_over_mean': 1.0396776, 'xor_inorder_hit': 0.8249736125, 'chan_chan_matrix': {0: ['row1', 'row6', 'row2'], 1: ['row0', 'row7'], 2: ['row9', 'row7']}, 'chan_chan_max_over_mean': 1.0023684, 'chan_inorder_hit': 0.8227818875, 'xor_chan_chan_matrix': {0: ['row1', 'row9', 'row8'], 1: ['row0', 'row1'], 2: ['row1', 'row10']}, 'xor_chan_chan_max_over_mean': 1.0015508, 'xor_chan_inorder_hit': 0.8249736125}
+scheme   policy          reads  writes    hit   conf  lat_ns   time_us    GB/s
+identity Open         79224702  775298  0.783  0.197    65.2   47020.7    54.4
+identity ClosedCAP    79224702  775298  0.738  0.024    67.2   46068.1    55.6
+xor      Open         79224702  775298  0.786  0.194    64.1   46465.0    55.1
+xor      ClosedCAP    79224702  775298  0.738  0.024    66.4   45479.9    56.3
+chan     Open         79224702  775298  0.826  0.152    55.7   24305.4   105.3
+chan     ClosedCAP    79224702  775298  0.740  0.022    62.1   25604.8   100.0
+xor_chan Open         79224702  775298  0.840  0.139    52.9   22562.3   113.5
+xor_chan ClosedCAP    79224702  775298  0.741  0.021    60.8   24191.4   105.8
+a16: 80000000 requests (79224702 rd, 775298 wr), 453 2MiB pages = 906 MiB footprint
+  [chan] channel hash cost 1096781 -> 850135; chan bit ^= {0: ['row9', 'row8'], 1: ['row1'], 2: ['row8', 'row1']}
+
+GDDR6 14 Gb/s, 8 x16 channels (128-bit), 16 GiB peak 224.0 GB/s {'identity_chan_max_over_mean': 1.0178316, 'identity_inorder_hit': 0.8227818875, 'xor_matrix': {0: ['row9'], 1: ['row0'], 2: ['row5'], 3: []}, 'xor_chan_max_over_mean': 1.0178316, 'xor_inorder_hit': 0.8249736125, 'chan_chan_matrix': {0: ['row9', 'row8'], 1: ['row1'], 2: ['row8', 'row1']}, 'chan_chan_max_over_mean': 1.0059144, 'chan_inorder_hit': 0.8227818875}
+scheme   policy          reads  writes    hit   conf  lat_ns   time_us    GB/s
+identity Open         79224702  775298  0.825  0.153    59.6   26419.5    96.9
+identity ClosedCAP    79224702  775298  0.749  0.017    68.7   32056.4    79.9
+xor      Open         79224702  775298  0.825  0.153    59.2   25956.8    98.6
+xor      ClosedCAP    79224702  775298  0.749  0.017    68.3   31713.5    80.7
+chan     Open         79224702  775298  0.825  0.153    59.4   26116.8    98.0
+chan     ClosedCAP    79224702  775298  0.749  0.017    68.5   31753.4    80.6
+a16: 80000000 requests (79224702 rd, 775298 wr), 453 2MiB pages = 906 MiB footprint
+  [chan] channel hash cost 1058924 -> 786096; chan bit ^= {0: ['row9', 'row8'], 1: ['row9'], 2: ['row0']}
+
+GDDR6 14 Gb/s, 8 x16 channels (128-bit), 16 GiB peak 224.0 GB/s {'identity_chan_max_over_mean': 1.018135, 'identity_inorder_hit': 0.8227818875, 'xor_matrix': {0: ['row9'], 1: ['row0'], 2: ['row5'], 3: []}, 'xor_chan_max_over_mean': 1.018135, 'xor_inorder_hit': 0.8249736125, 'chan_chan_matrix': {0: ['row9', 'row8'], 1: ['row9'], 2: ['row0']}, 'chan_chan_max_over_mean': 1.0093498, 'chan_inorder_hit': 0.8227818875}
+scheme   policy          reads  writes    hit   conf  lat_ns   time_us    GB/s
+identity Open         79224702  775298  0.857  0.122    54.9   25609.9   100.0
+identity ClosedCAP    79224702  775298  0.751  0.016    68.5   33082.6    77.4
+xor      Open         79224702  775298  0.857  0.121    54.5   25535.4   100.3
+xor      ClosedCAP    79224702  775298  0.751  0.015    68.2   32983.0    77.6
+chan     Open         79224702  775298  0.857  0.122    54.7   25178.8   101.7
+chan     ClosedCAP    79224702  775298  0.751  0.016    68.3   32606.3    78.5
+######## chain done Fri Nov 13 18:02:21 IST 2026
