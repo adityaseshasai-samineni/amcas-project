@@ -1,0 +1,36 @@
+==========================================
+SLURM_JOB_ID = 124110
+SLURM_NODELIST = node04
+SLURM_JOB_GPUS = 0
+==========================================
+14.20.265.198 I common_perf_print: prompt eval time =  857606.63 ms / 31001 tokens (   27.66 ms per token,    36.15 tokens per second)
+14.20.265.200 I common_perf_print:        eval time =      48.30 ms /     2 runs   (   24.15 ms per token,    41.41 tokens per second)
+wall 860.703479690
+window 61325 61863 (538 launches)
+18.02.765.980 I common_perf_print: prompt eval time =  880345.54 ms / 31001 tokens (   28.40 ms per token,    35.21 tokens per second)
+18.02.765.983 I common_perf_print:        eval time =  199883.30 ms /     2 runs   (99941.65 ms per token,     0.01 tokens per second)
+wall 1083.177896421
+-rw-rw-r-- 1 adityaseshasai.s adityaseshasai.s 53048201568 Nov 13 13:12 /scratch/adityaseshasai.s/gt/q7_32k_fa.bin
+warp instrs 190684420; L1 load sectors 1478099420; L2 reads 536796463 writes 1385618; DRAM reads 290728446 (9303.3 MB) writes 420740 (13.5 MB)
+step 62, 416 tensors
+activation   read       9.9 MB  write    4.81 MB  (21 tensors)
+kv_cache     read    4917.2 MB  write    0.06 MB  (56 tensors)
+w_attn_out   read     202.3 MB  write    0.00 MB  (28 tensors)
+w_attn_qkv   read     267.3 MB  write    0.00 MB  (168 tensors)
+w_embd       read       0.0 MB  write    0.00 MB  (1 tensors)
+w_ffn        read    3454.6 MB  write    0.00 MB  (84 tensors)
+w_other      read       0.8 MB  write    0.00 MB  (57 tensors)
+w_output     read     447.1 MB  write    0.00 MB  (1 tensors)
+unknown      read       4.1 MB  write    8.60 MB  (0 tensors)
+total read 9303.3 MB
+v100: 291149186 requests (290728446 rd, 420740 wr), 2991 2MiB pages = 5982 MiB footprint
+  search: baseline cost 2007553
+  bank bit 0 ^= row2  -> cost 2004770
+  bank bit 1 ^= row3  -> cost 2001704
+
+HBM2, 32 channels x 2 PC, 1.6 Gb/s, 16 GiB peak 819.2 GB/s {'identity_inorder_hit': 0.8925573400023176, 'xor_matrix': {0: ['row2'], 1: ['row3'], 2: [], 3: [], 4: []}, 'xor_inorder_hit': 0.8925506801863426}
+scheme   policy          reads  writes    hit   conf  lat_ns   time_us    GB/s
+identity Open        290728446  420740  0.758  0.204    70.2   65513.5   142.2
+identity ClosedCAP   290728446  420740  0.676  0.129    79.5   77233.5   120.6
+xor      Open        290728446  420740  0.757  0.205    70.3   65604.6   142.0
+xor      ClosedCAP   290728446  420740  0.675  0.130    79.6   77312.7   120.5

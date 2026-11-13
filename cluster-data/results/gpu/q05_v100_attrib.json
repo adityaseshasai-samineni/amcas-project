@@ -1,0 +1,47 @@
+{
+ "activation": {
+  "read_MB": 0.022592,
+  "write_MB": 0.642688,
+  "tensors": 23
+ },
+ "kv_cache": {
+  "read_MB": 3.13344,
+  "write_MB": 0.011776,
+  "tensors": 48
+ },
+ "w_attn_out": {
+  "read_MB": 10.838016,
+  "write_MB": 0.0,
+  "tensors": 24
+ },
+ "w_attn_qkv": {
+  "read_MB": 14.045184,
+  "write_MB": 0.0,
+  "tensors": 144
+ },
+ "w_embd": {
+  "read_MB": 0.0,
+  "write_MB": 0.0,
+  "tensors": 1
+ },
+ "w_ffn": {
+  "read_MB": 176.504832,
+  "write_MB": 0.0,
+  "tensors": 72
+ },
+ "w_other": {
+  "read_MB": 0.175616,
+  "write_MB": 0.0,
+  "tensors": 49
+ },
+ "w_output": {
+  "read_MB": 144.643072,
+  "write_MB": 0.0,
+  "tensors": 1
+ },
+ "unknown": {
+  "read_MB": 0.012,
+  "write_MB": 0.836032,
+  "tensors": 0
+ }
+}

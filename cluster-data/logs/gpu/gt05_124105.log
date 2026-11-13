@@ -1,0 +1,28 @@
+==========================================
+SLURM_JOB_ID = 124105
+SLURM_NODELIST = node04
+SLURM_JOB_GPUS = 1
+==========================================
+wall 56.192997802
+warp instrs 9362405; L1 load sectors 86302288; L2 reads 11724071 writes 385180; DRAM reads 10917961 (349.4 MB) writes 46578 (1.5 MB)
+step 2, 362 tensors
+activation   read       0.0 MB  write    0.64 MB  (23 tensors)
+kv_cache     read       3.1 MB  write    0.01 MB  (48 tensors)
+w_attn_out   read      10.8 MB  write    0.00 MB  (24 tensors)
+w_attn_qkv   read      14.0 MB  write    0.00 MB  (144 tensors)
+w_embd       read       0.0 MB  write    0.00 MB  (1 tensors)
+w_ffn        read     176.5 MB  write    0.00 MB  (72 tensors)
+w_other      read       0.2 MB  write    0.00 MB  (49 tensors)
+w_output     read     144.6 MB  write    0.00 MB  (1 tensors)
+unknown      read       0.0 MB  write    0.84 MB  (0 tensors)
+total read 349.4 MB
+v100: 10964539 requests (10917961 rd, 46578 wr), 222 2MiB pages = 444 MiB footprint
+  search: baseline cost 1725247
+  bank bit 0 ^= row5  -> cost 1720292
+  bank bit 1 ^= row7  -> cost 1718312
+HBM2, 32 channels x 2 PC, 1.6 Gb/s, 16 GiB peak 819.2 GB/s {'identity_inorder_hit': 0.9846929268982489, 'xor_matrix': {0: ['row5'], 1: ['row7'], 2: [], 3: [], 4: []}, 'xor_inorder_hit': 0.984789146173861}
+scheme   policy          reads  writes    hit   conf  lat_ns   time_us    GB/s
+identity Open         10917961   46578  0.931  0.047    50.7     819.4   428.2
+identity ClosedCAP    10917961   46578  0.736  0.022    67.7    1066.5   329.0
+xor      Open         10917961   46578  0.931  0.047    50.7     817.1   429.4
+xor      ClosedCAP    10917961   46578  0.736  0.022    67.6    1064.6   329.6

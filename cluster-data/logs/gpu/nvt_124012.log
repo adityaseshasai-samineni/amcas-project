@@ -1,0 +1,40 @@
+==========================================
+SLURM_JOB_ID = 124012
+SLURM_NODELIST = node04
+SLURM_JOB_GPUS = 1
+==========================================
+node04.local
+Tesla V100-PCIE-16GB, 580.65.06
+/usr/local/cuda-12.6/bin/nvdisasm
+--- native
+Final sum = 100000.000000; sum/n = 1.000000 (should be ~1)
+--- instr_count
+         INSTR_BEGIN = 0 - Beginning of the instruction interval where to apply instrumentation
+           INSTR_END = 4294967295 - End of the instruction interval where to apply instrumentation
+      START_GRID_NUM = 0 - Beginning of the kernel gird launch interval where to apply instrumentation
+        END_GRID_NUM = 4294967295 - End of the kernel launch interval where to apply instrumentation
+    COUNT_WARP_LEVEL = 1 - Count warp level or thread level instructions
+    EXCLUDE_PRED_OFF = 0 - Exclude predicated off instruction from count
+   ACTIVE_FROM_START = 1 - Start instruction counting from start or wait for cuProfilerStart and cuProfilerStop
+       MANGLED_NAMES = 1 - Print kernel names mangled or not
+        TOOL_VERBOSE = 0 - Enable verbosity inside the tool
+WARNING: Do not call CUDA memory allocation in nvbit_at_ctx_init(). It will cause deadlocks. Do them in nvbit_tool_init(). If you encounter deadlocks, remove CUDA API calls to debug.
+----------------------------------------------------------------------------------------------------
+
+kernel 0 - _Z6vecAddPdS_S_i - #thread-blocks 98,  kernel instructions 50077, total instructions 50077
+Final sum = 100000.000000; sum/n = 1.000000 (should be ~1)
+Total app instructions: 50077
+--- mem_trace
+------------- NVBit (NVidia Binary Instrumentation Tool v1.8.1) Loaded --------------
+NVBit core environment variables (mostly for nvbit-devs):
+ACK_CTX_INIT_LIMITATION = 0 - if set, no warning will be printed for nvbit_at_ctx_init()
+            NVDISASM = nvdisasm - override default nvdisasm found in PATH
+            NOBANNER = 0 - if set, does not print this banner
+       NO_EAGER_LOAD = 1 - lazy module loading is now turned on by default. If you see deadlocks in your tool, set NO_EAGER_LOAD to 0
+---------------------------------------------------------------------------------
+         INSTR_BEGIN = 0 - Beginning of the instruction interval where to apply instrumentation
+           INSTR_END = 4294967295 - End of the instruction interval where to apply instrumentation
+        TOOL_VERBOSE = 0 - Enable verbosity inside the tool
+WARNING: Do not call CUDA memory allocation in nvbit_at_ctx_init(). It will cause deadlocks. Do them in nvbit_tool_init(). If you encounter deadlocks, remove CUDA API calls to debug.
+----------------------------------------------------------------------------------------------------
+ERROR file ./src/nvbit_imp.cpp line 735: CUDA_ERROR_INVALID_SOURCE device kernel image is invalid

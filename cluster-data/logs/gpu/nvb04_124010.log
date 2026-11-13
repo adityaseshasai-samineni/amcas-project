@@ -1,0 +1,32 @@
+==========================================
+SLURM_JOB_ID = 124010
+SLURM_NODELIST = node04
+SLURM_JOB_GPUS = 0
+==========================================
+node04.local
+Tesla V100-PCIE-16GB, 580.65.06
+Cuda compilation tools, release 12.6, V12.6.85
+Build cuda_12.6.r12.6/compiler.35059454_0
+[ 95%] Linking CUDA shared library record_reg_vals.so
+[ 95%] Built target record_reg_vals
+[ 97%] Linking CUDA device code CMakeFiles/read_write_regs.dir/cmake_device_link.o
+[100%] Linking CUDA shared library read_write_regs.so
+[100%] Built target read_write_regs
+/home/adityaseshasai.s/amcas-pro/tracing/nvbit/build-sm70_86/record_reg_vals/record_reg_vals.so
+/home/adityaseshasai.s/amcas-pro/tracing/nvbit/build-sm70_86/read_write_regs/read_write_regs.so
+/home/adityaseshasai.s/amcas-pro/tracing/nvbit/build-sm70_86/instr_count/instr_count.so
+/home/adityaseshasai.s/amcas-pro/tracing/nvbit/build-sm70_86/instr_count_bb/instr_count_bb.so
+/home/adityaseshasai.s/amcas-pro/tracing/nvbit/build-sm70_86/opcode_hist/opcode_hist.so
+/home/adityaseshasai.s/amcas-pro/tracing/nvbit/build-sm70_86/mem_trace/mem_trace.so
+/home/adityaseshasai.s/amcas-pro/tracing/nvbit/build-sm70_86/mem_printf/mem_printf.so
+/home/adityaseshasai.s/amcas-pro/tracing/nvbit/build-sm70_86/mov_replace/mov_replace.so
+/home/adityaseshasai.s/amcas-pro/tracing/nvbit/build-sm70_86/mem_read_shared/mem_read_shared.so
+/home/adityaseshasai.s/amcas-pro/tracing/nvbit/build-sm70_86/instr_count_cuda_graph/instr_count_cuda_graph.so
+--- native
+Final sum = 100000.000000; sum/n = 1.000000 (should be ~1)
+--- instr_count
+/home/adityaseshasai.s/amcas-pro/tracing/nvbit/vecadd/vectoradd: /lib64/libstdc++.so.6: version `GLIBCXX_3.4.32' not found (required by /home/adityaseshasai.s/amcas-pro/tracing/nvbit/build-sm70_86/instr_count/instr_count.so)
+/home/adityaseshasai.s/amcas-pro/tracing/nvbit/vecadd/vectoradd: /lib64/libstdc++.so.6: version `GLIBCXX_3.4.29' not found (required by /home/adityaseshasai.s/amcas-pro/tracing/nvbit/build-sm70_86/instr_count/instr_count.so)
+--- mem_trace
+/home/adityaseshasai.s/amcas-pro/tracing/nvbit/vecadd/vectoradd: /lib64/libstdc++.so.6: version `GLIBCXX_3.4.32' not found (required by /home/adityaseshasai.s/amcas-pro/tracing/nvbit/build-sm70_86/mem_trace/mem_trace.so)
+/home/adityaseshasai.s/amcas-pro/tracing/nvbit/vecadd/vectoradd: /lib64/libstdc++.so.6: version `GLIBCXX_3.4.29' not found (required by /home/adityaseshasai.s/amcas-pro/tracing/nvbit/build-sm70_86/mem_trace/mem_trace.so)

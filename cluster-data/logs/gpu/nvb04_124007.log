@@ -1,0 +1,19 @@
+==========================================
+SLURM_JOB_ID = 124007
+SLURM_NODELIST = node04
+SLURM_JOB_GPUS = 0
+==========================================
+node04.local
+Tesla V100-PCIE-16GB, 580.65.06
+Cuda compilation tools, release 12.6, V12.6.85
+Build cuda_12.6.r12.6/compiler.35059454_0
+CMake Error at CMakeLists.txt:1 (cmake_minimum_required):
+  CMake 3.29 or higher is required.  You are running version 3.20.3
+
+
+--- native
+Final sum = 100000.000000; sum/n = 1.000000 (should be ~1)
+--- instr_count
+Final sum = 100000.000000; sum/n = 1.000000 (should be ~1)
+--- mem_trace
+Final sum = 100000.000000; sum/n = 1.000000 (should be ~1)

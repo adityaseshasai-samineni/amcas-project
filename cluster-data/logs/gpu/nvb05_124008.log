@@ -1,0 +1,19 @@
+==========================================
+SLURM_JOB_ID = 124008
+SLURM_NODELIST = node05
+SLURM_JOB_GPUS = 0
+==========================================
+node05.local
+NVIDIA A16, 610.43.02
+/var/spool/slurmd/job124008/slurm_script: line 7: nvcc: command not found
+CMake Error at CMakeLists.txt:1 (cmake_minimum_required):
+  CMake 3.29 or higher is required.  You are running version 3.20.3
+
+
+/var/spool/slurmd/job124008/slurm_script: line 14: nvcc: command not found
+--- native
+/var/spool/slurmd/job124008/slurm_script: line 16: /home/adityaseshasai.s/amcas-pro/tracing/nvbit/vecadd/vectoradd: No such file or directory
+--- instr_count
+/var/spool/slurmd/job124008/slurm_script: line 19: /home/adityaseshasai.s/amcas-pro/tracing/nvbit/vecadd/vectoradd: No such file or directory
+--- mem_trace
+/var/spool/slurmd/job124008/slurm_script: line 19: /home/adityaseshasai.s/amcas-pro/tracing/nvbit/vecadd/vectoradd: No such file or directory
