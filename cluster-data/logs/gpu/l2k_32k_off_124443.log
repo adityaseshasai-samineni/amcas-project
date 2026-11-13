@@ -5,3 +5,15 @@ SLURM_JOB_GPUS = 1
 ==========================================
 wall 1122.775237338
 q7_v100_32k_faoff window 71629 72195
+warp instrs 314406676; mean same-CTA run length 1.00
+base           L1 ld sectors 1880195968; L2 reads 830823860; DRAM reads 463259833 (14824.3 MB) writes 5058354 (161.9 MB)
+h1             L1 ld sectors 1880195968; L2 reads 830823860; DRAM reads 373817220 (11962.2 MB) writes 6206720 (198.6 MB)
+h2             L1 ld sectors 1880195968; L2 reads 830823860; DRAM reads 457937265 (14654.0 MB) writes 6238648 (199.6 MB)
+h3             L1 ld sectors 1880195968; L2 reads 830823860; DRAM reads 331594497 (10611.0 MB) writes 6203234 (198.5 MB)
+h5             L1 ld sectors 1880195968; L2 reads 830823860; DRAM reads 400638382 (12820.4 MB) writes 5070749 (162.3 MB)
+h6             L1 ld sectors 1880195968; L2 reads 830823860; DRAM reads 354698756 (11350.4 MB) writes 6198661 (198.4 MB)
+m4             L1 ld sectors 1880195968; L2 reads 830823860; DRAM reads 496365066 (15883.7 MB) writes 5077303 (162.5 MB)
+49.03.253.494 I common_perf_print: prompt eval time = 1180950.04 ms / 31001 tokens (   38.09 ms per token,    26.25 tokens per second)
+49.03.253.497 I common_perf_print:        eval time = 1759720.05 ms /     2 runs   (879860.03 ms per token,     0.00 tokens per second)
+wall 2944.065667791
+-rw-rw-r-- 1 adityaseshasai.s adityaseshasai.s 55671 Nov 14 02:27 /scratch/adityaseshasai.s/gt/q7_v100_32k_faoff.perk.tsv

@@ -47,3 +47,41 @@ wrote analysis/fullscale/headline.md
 wrote analysis/fullscale/tables.md
 publish: pushed e2b7967
 /dev/sdc1       1.8T  1.2T  608G  67% /scratch
+  WARNING: window has 1 thread(s); 4 contiguous pseudo-threads
+206,836,603 reads, window [62,050,980,70,050,980), o3 window 2,000,000
+  [packed/x16 RoBa xor_global] n=8,000,000 cost 472882 -> 432127; bank bit ^= {0: ['row10'], 1: ['row3'], 2: ['row8', 'row7'], 3: ['row11'], 4: ['row6']}
+  [packed/x16 MOP4CLXOR xor_global] n=8,000,000 cost 1545175 -> 1399873; bank bit ^= {0: ['row2', 'row1'], 1: ['row8'], 2: ['row0', 'row10'], 3: ['row3'], 4: ['row1', 'row10']}
+  packed/x16: in-order hit id/RoBa 0.964 id/MOP 0.460 xg 0.965 mxg 0.507
+  [packed/x8 RoBa xor_global] n=8,000,000 cost 685348 -> 645437; bank bit ^= {0: ['row11', 'row0', 'row8'], 1: ['row11', 'row12'], 2: ['row12'], 3: ['row11'], 4: ['row8']}
+  [packed/x8 MOP4CLXOR xor_global] n=8,000,000 cost 1743596 -> 1656220; bank bit ^= {0: ['row2'], 1: [], 2: ['row6'], 3: ['row1'], 4: ['row12']}
+  packed/x8: in-order hit id/RoBa 0.966 id/MOP 0.459 xg 0.966 mxg 0.490
+  [packed/d4r6 RoBa xor_global] n=8,000,000 cost 895841 -> 791483; bank bit ^= {0: ['row3', 'row8'], 1: ['row4'], 2: [], 3: ['row9'], 4: []}
+  [packed/d4r6 MOP4CLXOR xor_global] n=8,000,000 cost 2085329 -> 1981491; bank bit ^= {0: ['row2'], 1: ['row4'], 2: ['row1', 'row0'], 3: ['row5', 'row8', 'row10'], 4: ['row4', 'row6']}
+  packed/d4r6: in-order hit id/RoBa 0.952 id/MOP 0.378 xg 0.963 mxg 0.405
+  [packed/d4 RoBa xor_global] n=8,000,000 cost 4066349 -> 3693185; bank bit ^= {0: ['row6', 'row13'], 1: ['row8'], 2: ['row7'], 3: ['row13', 'row14'], 4: ['row9']}
+  [packed/d4 MOP4CLXOR xor_global] n=8,000,000 cost 5614256 -> 5110760; bank bit ^= {0: ['row4', 'row7'], 1: ['row3', 'row9'], 2: ['row1'], 3: ['row7', 'row11'], 4: ['row14']}
+  packed/d4: in-order hit id/RoBa 0.952 id/MOP 0.354 xg 0.954 mxg 0.405
+  [thp/x16 RoBa xor_global] n=8,000,000 cost 1022992 -> 454610; bank bit ^= {0: ['row5'], 1: ['row8', 'row11'], 2: ['row8'], 3: ['row6', 'row4'], 4: ['row13']}
+  [thp/x16 MOP4CLXOR xor_global] n=8,000,000 cost 1987690 -> 1361485; bank bit ^= {0: ['row7', 'row1', 'row11'], 1: ['row1', 'row4'], 2: ['row7', 'row10'], 3: ['row4'], 4: ['row10']}
+  thp/x16: in-order hit id/RoBa 0.684 id/MOP 0.254 xg 0.958 mxg 0.512
+  [thp/x8 RoBa xor_global] n=8,000,000 cost 1237054 -> 656104; bank bit ^= {0: ['row6', 'row8', 'row0'], 1: ['row9'], 2: ['row7'], 3: ['row0', 'row7'], 4: []}
+  [thp/x8 MOP4CLXOR xor_global] n=8,000,000 cost 2164983 -> 1642073; bank bit ^= {0: ['row6'], 1: ['row13', 'row0'], 2: ['row6'], 3: ['row14'], 4: ['row4']}
+  thp/x8: in-order hit id/RoBa 0.685 id/MOP 0.258 xg 0.962 mxg 0.501
+  [thp/d4r6 RoBa xor_global] n=8,000,000 cost 1048965 -> 806171; bank bit ^= {0: ['row8'], 1: ['row3'], 2: [], 3: [], 4: []}
+  [thp/d4r6 MOP4CLXOR xor_global] n=8,000,000 cost 2196312 -> 2034675; bank bit ^= {0: ['row8'], 1: [], 2: ['row9'], 3: [], 4: []}
+  thp/d4r6: in-order hit id/RoBa 0.844 id/MOP 0.308 xg 0.956 mxg 0.378
+  [thp/d4 RoBa xor_global] n=8,000,000 cost 4619742 -> 3707079; bank bit ^= {0: ['row8', 'row14'], 1: ['row11'], 2: ['row13'], 3: [], 4: ['row14']}
+  [thp/d4 MOP4CLXOR xor_global] n=8,000,000 cost 5679623 -> 5164219; bank bit ^= {0: ['row6', 'row7'], 1: ['row0'], 2: ['row6'], 3: ['row7'], 4: []}
+  thp/d4: in-order hit id/RoBa 0.823 id/MOP 0.338 xg 0.956 mxg 0.403
+  [4k/x16 RoBa xor_global] n=8,000,000 cost 1230312 -> 1222754; bank bit ^= {0: ['row9', 'row4'], 1: ['row7'], 2: [], 3: [], 4: []}
+  [4k/x16 MOP4CLXOR xor_global] n=8,000,000 cost 2450133 -> 2447589; bank bit ^= {0: [], 1: ['row7'], 2: [], 3: [], 4: []}
+  4k/x16: in-order hit id/RoBa 0.595 id/MOP 0.000 xg 0.595 mxg 0.000
+  [4k/x8 RoBa xor_global] n=8,000,000 cost 1104551 -> 1086886; bank bit ^= {0: ['row14'], 1: ['row0'], 2: ['row13'], 3: ['row1'], 4: ['row6']}
+  [4k/x8 MOP4CLXOR xor_global] n=8,000,000 cost 2138731 -> 2131615; bank bit ^= {0: ['row10'], 1: [], 2: [], 3: ['row13'], 4: []}
+  4k/x8: in-order hit id/RoBa 0.778 id/MOP 0.272 xg 0.778 mxg 0.271
+  [4k/d4r6 RoBa xor_global] n=8,000,000 cost 1387216 -> 1364470; bank bit ^= {0: ['row8'], 1: ['row0'], 2: [], 3: ['row13'], 4: []}
+  [4k/d4r6 MOP4CLXOR xor_global] n=8,000,000 cost 2469423 -> 2452429; bank bit ^= {0: ['row4'], 1: [], 2: ['row14'], 3: ['row11'], 4: []}
+  4k/d4r6: in-order hit id/RoBa 0.718 id/MOP 0.188 xg 0.718 mxg 0.190
+  [4k/d4 RoBa xor_global] n=8,000,000 cost 4240404 -> 4140195; bank bit ^= {0: ['row11'], 1: ['row7'], 2: ['row0'], 3: [], 4: ['row2']}
+  [4k/d4 MOP4CLXOR xor_global] n=8,000,000 cost 5434545 -> 5288203; bank bit ^= {0: ['row5'], 1: ['row5'], 2: ['row5'], 3: [], 4: []}
+  4k/d4: in-order hit id/RoBa 0.920 id/MOP 0.353 xg 0.920 mxg 0.365
