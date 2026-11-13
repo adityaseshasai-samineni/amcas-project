@@ -4,3 +4,396 @@ SLURM_NODELIST = node05
 SLURM_JOB_GPUS = 0
 ==========================================
 ######## a16 short fa=auto Fri Nov 13 14:34:19 IST 2026
+15945G
+wall 2.808763211
+q7_a16_short_faauto window 1295 1833
+warp instrs 159819348; L1 load sectors 1073136064; L2 reads 139408562 writes 1186370; DRAM reads 137200670 (4390.4 MB) writes 214618 (6.9 MB)
+1.56.602.266 I common_perf_print: prompt eval time =      78.50 ms /     5 tokens (   15.70 ms per token,    63.69 tokens per second)
+1.56.602.273 I common_perf_print:        eval time =  114222.23 ms /     2 runs   (57111.12 ms per token,     0.02 tokens per second)
+wall 117.055447217
+-rw-rw-r--. 1 adityaseshasai.s adityaseshasai.s 236558708 Nov 13 14:36 /home/adityaseshasai.s/gt/q7_a16_short_faauto.dram.gz
+-rw-rw-r--. 1 adityaseshasai.s adityaseshasai.s  68974667 Nov 13 14:36 /home/adityaseshasai.s/gt/q7_a16_short_faauto.dramlaunch.gz
+step 2, 416 tensors
+activation   read       3.2 MB  write    4.75 MB  (21 tensors)
+kv_cache     read      14.6 MB  write    0.06 MB  (56 tensors)
+w_attn_out   read     202.3 MB  write    0.00 MB  (28 tensors)
+w_attn_qkv   read     267.3 MB  write    0.00 MB  (168 tensors)
+w_embd       read       0.0 MB  write    0.00 MB  (1 tensors)
+w_ffn        read    3453.1 MB  write    0.00 MB  (84 tensors)
+w_other      read       0.8 MB  write    0.00 MB  (57 tensors)
+w_output     read     447.1 MB  write    0.00 MB  (1 tensors)
+unknown      read       2.1 MB  write    2.06 MB  (0 tensors)
+total read 4390.4 MB
+kernels 538
+dram__bytes_read.sum                                    5240.24 MB
+dram__bytes_write.sum                                   19.59 MB
+{
+ "xor_matrix": {
+  "0": [
+   "row1"
+  ],
+  "1": [
+   "row7"
+  ],
+  "2": [],
+  "3": [
+   "row2"
+  ]
+ },
+ "layout": "gddr6x8 {'col': 7, 'bank': 4, 'row': 15, 'off': 5, 's': 8, 'W': 3}, 256 B channel interleave; XOR sources = intra row bits",
+ "identity": {
+  "overall": 0.9371821333333333,
+  "class": {
+   "activation": {
+    "share": 0.0020387833333333333,
+    "merged_hit": 0.8593769159711265,
+    "own_hit": 0.9720748485616422
+   },
+   "kv_k": {
+    "share": 0.0019114666666666667,
+    "merged_hit": 0.9876883370535714,
+    "own_hit": 0.9921875
+   },
+   "kv_v": {
+    "share": 0.0019114666666666667,
+    "merged_hit": 0.9885341099330357,
+    "own_hit": 0.9921875
+   },
+   "w_attn_out": {
+    "share": 0.0526848,
+    "merged_hit": 0.9913349454365079,
+    "own_hit": 0.9921571307094267
+   },
+   "w_attn_qkv": {
+    "share": 0.0693504,
+    "merged_hit": 0.9912764261874,
+    "own_hit": 0.9914393668481605
+   },
+   "w_ffn": {
+    "share": 0.8709925833333333,
+    "merged_hit": 0.9295941383350853,
+    "own_hit": 0.929744445776471
+   },
+   "w_other": {
+    "share": 0.00020906666666666666,
+    "merged_hit": 0.9834183673469388,
+    "own_hit": 0.9757653061224489
+   },
+   "unknown": {
+    "share": 0.0009014333333333334,
+    "merged_hit": 0.8915430980290648,
+    "own_hit": 0.9794401508708354
+   }
+  },
+  "per_sm_hit": 0.9025788666666666,
+  "per_sm_class": {
+a16: 80000000 requests (79870840 rd, 129160 wr), 1261 2MiB pages = 2522 MiB footprint
+  [chan] channel hash cost 682420 -> 671152; chan bit ^= {0: ['row7'], 1: ['row8'], 2: []}
+  [xor_chan] channel hash cost 620267 -> 619475; chan bit ^= {0: ['row3'], 1: [], 2: []}
+
+GDDR6 14 Gb/s, 8 x16 channels (128-bit), 16 GiB peak 224.0 GB/s {'identity_chan_max_over_mean': 1.000068, 'identity_inorder_hit': 0.95941995, 'xor_matrix': {0: ['row2', 'row1'], 1: ['row7'], 2: ['row6'], 3: ['row2']}, 'xor_chan_max_over_mean': 1.000068, 'xor_inorder_hit': 0.974201725, 'chan_chan_matrix': {0: ['row7'], 1: ['row8'], 2: []}, 'chan_chan_max_over_mean': 1.0000605, 'chan_inorder_hit': 0.95941995, 'xor_chan_chan_matrix': {0: ['row3'], 1: [], 2: []}, 'xor_chan_chan_max_over_mean': 1.0000494, 'xor_chan_inorder_hit': 0.974201725}
+scheme   policy          reads  writes    hit   conf  lat_ns   time_us    GB/s
+identity Open         79870840  129160  0.907  0.075    55.7   20122.8   127.2
+identity ClosedCAP    79870840  129160  0.751  0.041    84.8   32214.9    79.5
+xor      Open         79870840  129160  0.928  0.057    46.2   15788.1   162.1
+xor      ClosedCAP    79870840  129160  0.753  0.036    76.5   27546.0    92.9
+chan     Open         79870840  129160  0.907  0.075    55.7   20109.5   127.3
+chan     ClosedCAP    79870840  129160  0.751  0.041    84.9   32199.5    79.5
+xor_chan Open         79870840  129160  0.928  0.057    46.3   15715.7   162.9
+xor_chan ClosedCAP    79870840  129160  0.753  0.036    76.9   27462.4    93.2
+######## a16 short fa=off Fri Nov 13 14:55:27 IST 2026
+15945G
+wall 2.829367799
+q7_a16_short_faoff window 1379 1945
+warp instrs 161664660; L1 load sectors 1081845632; L2 reads 144716534 writes 1486082; DRAM reads 137141734 (4388.5 MB) writes 228850 (7.3 MB)
+1.54.486.638 I common_perf_print: prompt eval time =      80.28 ms /     5 tokens (   16.06 ms per token,    62.28 tokens per second)
+1.54.486.640 I common_perf_print:        eval time =  112104.60 ms /     2 runs   (56052.30 ms per token,     0.02 tokens per second)
+wall 114.948278470
+-rw-rw-r--. 1 adityaseshasai.s adityaseshasai.s 237123128 Nov 13 14:57 /home/adityaseshasai.s/gt/q7_a16_short_faoff.dram.gz
+-rw-rw-r--. 1 adityaseshasai.s adityaseshasai.s  69551600 Nov 13 14:57 /home/adityaseshasai.s/gt/q7_a16_short_faoff.dramlaunch.gz
+step 2, 417 tensors
+activation   read       3.6 MB  write    5.14 MB  (22 tensors)
+kv_cache     read      14.2 MB  write    0.49 MB  (56 tensors)
+w_attn_out   read     202.3 MB  write    0.00 MB  (28 tensors)
+w_attn_qkv   read     267.3 MB  write    0.00 MB  (168 tensors)
+w_embd       read       0.0 MB  write    0.00 MB  (1 tensors)
+w_ffn        read    3453.1 MB  write    0.00 MB  (84 tensors)
+w_other      read       0.8 MB  write    0.00 MB  (57 tensors)
+w_output     read     447.1 MB  write    0.00 MB  (1 tensors)
+unknown      read       0.2 MB  write    1.69 MB  (0 tensors)
+total read 4388.5 MB
+kernels 566
+dram__bytes_read.sum                                    5241.34 MB
+dram__bytes_write.sum                                   21.38 MB
+{
+ "xor_matrix": {
+  "0": [
+   "row2"
+  ],
+  "1": [
+   "row11"
+  ],
+  "2": [],
+  "3": [
+   "row2",
+   "row4"
+  ]
+ },
+ "layout": "gddr6x8 {'col': 7, 'bank': 4, 'row': 15, 'off': 5, 's': 8, 'W': 3}, 256 B channel interleave; XOR sources = intra row bits",
+ "identity": {
+  "overall": 0.9361896333333334,
+  "class": {
+   "activation": {
+    "share": 0.0022423,
+    "merged_hit": 0.8686393435311957,
+    "own_hit": 0.9684847403707503
+   },
+   "kv_k": {
+    "share": 0.0019114666666666667,
+    "merged_hit": 0.991455078125,
+    "own_hit": 0.9921875
+   },
+   "kv_v": {
+    "share": 0.0019114666666666667,
+    "merged_hit": 0.9293038504464286,
+    "own_hit": 0.9444667271205357
+   },
+   "w_attn_out": {
+    "share": 0.0526848,
+    "merged_hit": 0.9909395119655005,
+    "own_hit": 0.9921571307094267
+   },
+   "w_attn_qkv": {
+    "share": 0.0693504,
+    "merged_hit": 0.9912689760981912,
+    "own_hit": 0.9914364829426603
+   },
+   "w_ffn": {
+    "share": 0.8713643,
+    "merged_hit": 0.92860919365184,
+    "own_hit": 0.9287633006462778
+   },
+   "w_other": {
+    "share": 0.00020906666666666666,
+    "merged_hit": 0.9834183673469388,
+    "own_hit": 0.9757653061224489
+   },
+   "unknown": {
+    "share": 0.0003262,
+    "merged_hit": 0.7834661761700389,
+    "own_hit": 0.9471183323114654
+   }
+  },
+  "per_sm_hit": 0.9019993,
+a16: 80000000 requests (79861158 rd, 138842 wr), 1282 2MiB pages = 2564 MiB footprint
+  [chan] channel hash cost 687525 -> 677785; chan bit ^= {0: ['row0', 'row8'], 1: ['row0'], 2: ['row11']}
+  [xor_chan] channel hash cost 625090 -> 621730; chan bit ^= {0: ['row0'], 1: [], 2: ['row1']}
+
+
+GDDR6 14 Gb/s, 8 x16 channels (128-bit), 16 GiB peak 224.0 GB/s {'identity_chan_max_over_mean': 1.0059137, 'identity_inorder_hit': 0.95828805, 'xor_matrix': {0: ['row2', 'row3'], 1: ['row11'], 2: [], 3: ['row2']}, 'xor_chan_max_over_mean': 1.0059137, 'xor_inorder_hit': 0.9734647, 'chan_chan_matrix': {0: ['row0', 'row8'], 1: ['row0'], 2: ['row11']}, 'chan_chan_max_over_mean': 1.0005889, 'chan_inorder_hit': 0.95828805, 'xor_chan_chan_matrix': {0: ['row0'], 1: [], 2: ['row1']}, 'xor_chan_chan_max_over_mean': 1.0019786, 'xor_chan_inorder_hit': 0.9734647}
+scheme   policy          reads  writes    hit   conf  lat_ns   time_us    GB/s
+identity Open         79861158  138842  0.905  0.077    55.4   20118.3   127.2
+identity ClosedCAP    79861158  138842  0.749  0.043    84.1   32155.4    79.6
+xor      Open         79861158  138842  0.926  0.058    45.8   15710.3   163.0
+xor      ClosedCAP    79861158  138842  0.752  0.038    75.8   27437.6    93.3
+chan     Open         79861158  138842  0.905  0.077    55.3   20023.6   127.8
+chan     ClosedCAP    79861158  138842  0.749  0.043    84.3   31973.2    80.1
+xor_chan Open         79861158  138842  0.926  0.058    45.8   15673.3   163.3
+xor_chan ClosedCAP    79861158  138842  0.752  0.038    76.0   27392.7    93.5
+######## a16 8k fa=auto Fri Nov 13 15:16:34 IST 2026
+15957G
+wall 12.170768556
+q7_a16_8k_faauto window 10284 10822
+warp instrs 161389476; L1 load sectors 1098033664; L2 reads 155078635 writes 1200930; DRAM reads 149620842 (4787.9 MB) writes 241346 (7.7 MB)
+2.03.514.136 I common_perf_print: prompt eval time =    9410.28 ms /  6980 tokens (    1.35 ms per token,   741.74 tokens per second)
+2.03.514.139 I common_perf_print:        eval time =  111761.64 ms /     2 runs   (55880.82 ms per token,     0.02 tokens per second)
+wall 123.968219814
+-rw-rw-r--. 1 adityaseshasai.s adityaseshasai.s 256130039 Nov 13 15:18 /home/adityaseshasai.s/gt/q7_a16_8k_faauto.dram.gz
+-rw-rw-r--. 1 adityaseshasai.s adityaseshasai.s  71194063 Nov 13 15:18 /home/adityaseshasai.s/gt/q7_a16_8k_faauto.dramlaunch.gz
+step 15, 416 tensors
+activation   read       4.2 MB  write    4.91 MB  (21 tensors)
+kv_cache     read     411.0 MB  write    0.06 MB  (56 tensors)
+w_attn_out   read     202.3 MB  write    0.00 MB  (28 tensors)
+w_attn_qkv   read     267.3 MB  write    0.00 MB  (168 tensors)
+w_embd       read       0.0 MB  write    0.00 MB  (1 tensors)
+w_ffn        read    3453.1 MB  write    0.00 MB  (84 tensors)
+w_other      read       0.8 MB  write    0.00 MB  (57 tensors)
+w_output     read     447.1 MB  write    0.00 MB  (1 tensors)
+unknown      read       2.1 MB  write    2.75 MB  (0 tensors)
+total read 4787.9 MB
+kernels 538
+dram__bytes_read.sum                                    5679.06 MB
+dram__bytes_write.sum                                   22.80 MB
+{
+ "xor_matrix": {
+  "0": [
+   "row2",
+   "row0"
+  ],
+  "1": [
+   "row10"
+  ],
+  "2": [],
+  "3": [
+   "row2"
+  ]
+ },
+ "layout": "gddr6x8 {'col': 7, 'bank': 4, 'row': 15, 'off': 5, 's': 8, 'W': 3}, 256 B channel interleave; XOR sources = intra row bits",
+ "identity": {
+  "overall": 0.9407938166666666,
+  "class": {
+   "activation": {
+    "share": 0.0021280333333333333,
+    "merged_hit": 0.8645776225309754,
+    "own_hit": 0.970293385128679
+   },
+   "kv_k": {
+    "share": 0.049705066666666665,
+    "merged_hit": 0.9839251799950642,
+    "own_hit": 0.985342875843643
+   },
+   "kv_v": {
+    "share": 0.049705066666666665,
+    "merged_hit": 0.9858414836314474,
+    "own_hit": 0.9871481914653906
+   },
+   "w_attn_out": {
+    "share": 0.0489216,
+    "merged_hit": 0.9915013681754753,
+    "own_hit": 0.9921561573347287
+   },
+   "w_attn_qkv": {
+    "share": 0.0645024,
+    "merged_hit": 0.9913512262076036,
+    "own_hit": 0.9914346856344364
+   },
+   "w_ffn": {
+    "share": 0.78384325,
+    "merged_hit": 0.9281309113780083,
+    "own_hit": 0.9282882982875297
+   },
+   "w_other": {
+    "share": 0.00019413333333333333,
+    "merged_hit": 0.9842032967032966,
+    "own_hit": 0.9766483516483516
+   },
+   "unknown": {
+    "share": 0.00100045,
+    "merged_hit": 0.8955969813583887,
+    "own_hit": 0.9744614923284523
+   }
+  },
+  "per_sm_hit": 0.9111252166666667,
+a16: 80000000 requests (79867226 rd, 132774 wr), 1245 2MiB pages = 2490 MiB footprint
+  [chan] channel hash cost 699640 -> 686560; chan bit ^= {0: ['row7', 'row0'], 1: ['row0'], 2: []}
+  [xor_chan] channel hash cost 615457 -> 614826; chan bit ^= {0: [], 1: ['row8'], 2: []}
+
+GDDR6 14 Gb/s, 8 x16 channels (128-bit), 16 GiB peak 224.0 GB/s {'identity_chan_max_over_mean': 1.0000589, 'identity_inorder_hit': 0.9608166375, 'xor_matrix': {0: ['row2', 'row1'], 1: ['row9', 'row12'], 2: [], 3: ['row2']}, 'xor_chan_max_over_mean': 1.0000589, 'xor_inorder_hit': 0.97439835, 'chan_chan_matrix': {0: ['row7', 'row0'], 1: ['row0'], 2: []}, 'chan_chan_max_over_mean': 1.0000537, 'chan_inorder_hit': 0.9608166375, 'xor_chan_chan_matrix': {0: [], 1: ['row8'], 2: []}, 'xor_chan_chan_max_over_mean': 1.0000526, 'xor_chan_inorder_hit': 0.97439835}
+scheme   policy          reads  writes    hit   conf  lat_ns   time_us    GB/s
+identity Open         79867226  132774  0.912  0.071    55.2   20700.8   123.7
+identity ClosedCAP    79867226  132774  0.752  0.040    87.8   34950.2    73.2
+xor      Open         79867226  132774  0.931  0.054    46.9   16864.7   151.8
+xor      ClosedCAP    79867226  132774  0.754  0.035    80.8   30830.6    83.0
+chan     Open         79867226  132774  0.912  0.071    54.9   20618.8   124.2
+chan     ClosedCAP    79867226  132774  0.752  0.040    87.0   34575.3    74.0
+xor_chan Open         79867226  132774  0.931  0.054    46.9   16875.2   151.7
+xor_chan ClosedCAP    79867226  132774  0.754  0.035    80.8   30841.8    83.0
+######## a16 8k fa=off Fri Nov 13 15:38:49 IST 2026
+15957G
+wall 103.600020407
+q7_a16_8k_faoff window 13448 14014
+warp instrs 194611476; L1 load sectors 1256207232; L2 reads 287172926 writes 2665218; DRAM reads 187490202 (5999.7 MB) writes 1339586 (42.9 MB)
+3.52.395.256 I common_perf_print: prompt eval time =   96899.24 ms /  6980 tokens (   13.88 ms per token,    72.03 tokens per second)
+3.52.395.258 I common_perf_print:        eval time =  133162.83 ms /     2 runs   (66581.41 ms per token,     0.02 tokens per second)
+wall 232.984002483
+-rw-rw-r--. 1 adityaseshasai.s adityaseshasai.s 326026142 Nov 13 15:44 /home/adityaseshasai.s/gt/q7_a16_8k_faoff.dram.gz
+-rw-rw-r--. 1 adityaseshasai.s adityaseshasai.s 102204196 Nov 13 15:44 /home/adityaseshasai.s/gt/q7_a16_8k_faoff.dramlaunch.gz
+step 15, 417 tensors
+activation   read      27.1 MB  write   40.47 MB  (22 tensors)
+kv_cache     read    1601.8 MB  write    0.49 MB  (56 tensors)
+w_attn_out   read     202.3 MB  write    0.00 MB  (28 tensors)
+w_attn_qkv   read     267.3 MB  write    0.00 MB  (168 tensors)
+w_embd       read       0.0 MB  write    0.00 MB  (1 tensors)
+w_ffn        read    3453.1 MB  write    0.00 MB  (84 tensors)
+w_other      read       0.8 MB  write    0.00 MB  (57 tensors)
+w_output     read     447.1 MB  write    0.00 MB  (1 tensors)
+unknown      read       0.2 MB  write    1.91 MB  (0 tensors)
+total read 5999.7 MB
+kernels 566
+dram__bytes_read.sum                                    5931.82 MB
+dram__bytes_write.sum                                   71.45 MB
+{
+ "xor_matrix": {
+  "0": [
+   "row2",
+   "row3"
+  ],
+  "1": [
+   "row8"
+  ],
+  "2": [],
+  "3": [
+   "row2",
+   "row8"
+  ]
+ },
+ "layout": "gddr6x8 {'col': 7, 'bank': 4, 'row': 15, 'off': 5, 's': 8, 'W': 3}, 256 B channel interleave; XOR sources = intra row bits",
+ "identity": {
+  "overall": 0.88297525,
+  "class": {
+   "activation": {
+    "share": 0.012489283333333333,
+    "merged_hit": 0.8723345481526161,
+    "own_hit": 0.9710618570320955
+   },
+   "kv_k": {
+    "share": 0.2596524666666667,
+    "merged_hit": 0.7504555448089972,
+    "own_hit": 0.7504581765318616
+   },
+   "kv_v": {
+    "share": 0.038314666666666664,
+    "merged_hit": 0.9059354990256124,
+    "own_hit": 0.915948635857461
+   },
+   "w_attn_out": {
+    "share": 0.037632,
+    "merged_hit": 0.9905102926587301,
+    "own_hit": 0.992155612244898
+   },
+   "w_attn_qkv": {
+    "share": 0.049712,
+    "merged_hit": 0.9912958641776634,
+    "own_hit": 0.9914490800343311
+   },
+   "w_ffn": {
+    "share": 0.6017847833333333,
+    "merged_hit": 0.9232612146197228,
+    "own_hit": 0.9234155610503832
+   },
+   "w_other": {
+    "share": 0.00014933333333333332,
+    "merged_hit": 0.9848214285714286,
+    "own_hit": 0.9776785714285714
+   },
+   "unknown": {
+    "share": 0.00026546666666666665,
+    "merged_hit": 0.777373179306881,
+    "own_hit": 0.9343294826720241
+   }
+  },
+a16: 80000000 requests (79387494 rd, 612506 wr), 967 2MiB pages = 1934 MiB footprint
+  [chan] channel hash cost 1037371 -> 835907; chan bit ^= {0: ['row0', 'row3'], 1: ['row2', 'row1'], 2: ['row6']}
+  [xor_chan] channel hash cost 1002847 -> 806433; chan bit ^= {0: ['row0', 'row6'], 1: ['row2'], 2: []}
+
+GDDR6 14 Gb/s, 8 x16 channels (128-bit), 16 GiB peak 224.0 GB/s {'identity_chan_max_over_mean': 1.0103362, 'identity_inorder_hit': 0.90214645, 'xor_matrix': {0: ['row2'], 1: ['row9'], 2: [], 3: ['row2']}, 'xor_chan_max_over_mean': 1.0103362, 'xor_inorder_hit': 0.91277505, 'chan_chan_matrix': {0: ['row0', 'row3'], 1: ['row2', 'row1'], 2: ['row6']}, 'chan_chan_max_over_mean': 1.0034784, 'chan_inorder_hit': 0.90214645, 'xor_chan_chan_matrix': {0: ['row0', 'row6'], 1: ['row2'], 2: []}, 'xor_chan_chan_max_over_mean': 1.0031673, 'xor_chan_inorder_hit': 0.91277505}
+scheme   policy          reads  writes    hit   conf  lat_ns   time_us    GB/s
+identity Open         79387494  612506  0.861  0.120    58.8   39840.5    64.3
+identity ClosedCAP    79387494  612506  0.743  0.038    77.7   46575.5    55.0
+xor      Open         79387494  612506  0.875  0.107    52.5   36963.3    69.3
+xor      ClosedCAP    79387494  612506  0.745  0.034    72.1   43480.1    58.9
+chan     Open         79387494  612506  0.882  0.098    54.0   23162.5   110.5
+chan     ClosedCAP    79387494  612506  0.745  0.036    75.1   30993.2    82.6
+xor_chan Open         79387494  612506  0.894  0.087    48.2   20856.5   122.7
+xor_chan ClosedCAP    79387494  612506  0.747  0.032    70.0   28434.7    90.0
+######## a16 32k fa=auto Fri Nov 13 16:03:18 IST 2026

@@ -24,3 +24,15 @@ w_other      read       0.8 MB  write    0.00 MB  (57 tensors)
 w_output     read     447.1 MB  write    0.00 MB  (1 tensors)
 unknown      read       1.2 MB  write    1.71 MB  (0 tensors)
 total read 14828.3 MB
+v100: 468444993 requests (463384614 rd, 5060379 wr), 2995 2MiB pages = 5990 MiB footprint
+  search: baseline cost 2291877
+  bank bit 0 ^= row0  -> cost 2261330
+  bank bit 1 ^= row3  -> cost 2258701
+  bank bit 3 ^= row5  -> cost 2254436
+
+HBM2, 32 channels x 2 PC, 1.6 Gb/s, 16 GiB peak 819.2 GB/s {'identity_chan_max_over_mean': 1.0273098254675976, 'identity_inorder_hit': 0.7896560824164899, 'xor_matrix': {0: ['row0'], 1: ['row3'], 2: [], 3: ['row5'], 4: []}, 'xor_chan_max_over_mean': 1.0273098254675976, 'xor_inorder_hit': 0.7929074908481304}
+scheme   policy          reads  writes    hit   conf  lat_ns   time_us    GB/s
+identity Open        463384614 5060379  0.720  0.245    70.0  126420.7   118.6
+identity ClosedCAP   463384614 5060379  0.694  0.090    65.6  114226.7   131.2
+xor      Open        463384614 5060379  0.721  0.245    68.5  123275.0   121.6
+xor      ClosedCAP   463384614 5060379  0.695  0.089    64.2  110720.0   135.4
