@@ -54,6 +54,7 @@ LAYOUTS = {
     # 8 independent 32-bit subchannel controllers (4 DIMM channels x 2 subchannels), 256 B interleave:
     # same intra-channel layout as ddr5, 3 channel bits instead of 4 (added by memsys)
     "ddr5x8": dict(col=6, bank=5, row=16, s=8, W=3),
+    # Further layouts (LPDDR5/6, HBM3/4, GDDR6; 32 B transactions, `off`=5) are registered by dramtech_cfg.register().
 }
 
 
@@ -61,7 +62,8 @@ class Layout:
     def __init__(self, name):
         d = LAYOUTS[name]
         self.__dict__.update(d)
-        self.bank_lo = 6 + self.col
+        self.off = d.get("off", 6)  # transaction offset bits (6 = 64 B; the dramtech layouts use 5 = 32 B)
+        self.bank_lo = self.off + self.col
         self.row_lo = self.bank_lo + self.bank
         self.nbanks = 1 << self.bank
 
@@ -83,7 +85,7 @@ class Layout:
         u = np.uint64
         bank = (i >> u(self.bank_lo)) & u(self.nbanks - 1)
         row = i >> u(self.row_lo)
-        col = (i >> u(6)) & u((1 << self.col) - 1)
+        col = (i >> u(self.off)) & u((1 << self.col) - 1)
         return bank.astype(np.int64), row.astype(np.int64), col.astype(np.int64)
 
     def put_bank(self, i, bank):
@@ -151,7 +153,7 @@ def sources(L, allow_col):
     """Candidate XOR source bits as (name, bit position in the intra-channel address)."""
     c = [(f"row{k}", L.row_lo + k) for k in range(L.row)]
     if allow_col:
-        c += [(f"col{k}", 6 + k) for k in range(2, L.col)]
+        c += [(f"col{k}", L.off + k) for k in range(2, L.col)]
     return c
 
 
