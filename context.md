@@ -1444,3 +1444,56 @@ The batch-4 32k replay window was not the first 40M requests of the step: `logs/
 **Diagnosis of the low row hit (cheap, from the diag JSONs).** (1) Per class, in-order row hit on V100 with the merged stream: weights (ffn) 0.76 at every context, KV K/V 0.94/0.79 (8k FA on) and 0.75/0.78 (FA off); the same weight streams considered per SM are 0.87: the loss is concurrency. The V100 sees ~70 distinct SMs in every 1000 consecutive DRAM requests (A16: ~55 of 10 SM-groups... it has only 10 SMs, per-SM hit 0.91) and the merged in-order hit falls from per-SM 0.87-0.93 to 0.76-0.83. (2) The XOR was searched on the HBM2 layout (col 5 bits, bank region 5 = pseudo-channel+bank-group+bank, row 14 bits; sources = intra-channel row bits; fan-in <= 3), e.g. V100 32k FA on: bank bit0 ^= row0, bit2 ^= row1, bit3 ^= row1; matrices in `*_diag.json` and `*_sweep_*.json`. Its in-order gain is <0.1 point, bandwidth 1.00x. (3) The bottleneck at 32k is channel imbalance and bank-group conflicts on the 256 B channel interleave: channel max/mean load 1.29 (FA on, 32k), and a 2 KiB interleave (`--ib 5`) lifts the V100 32k FA-on stream from 128 to 297 GB/s (row hit 0.77 -> 0.80), 4 KiB 277 GB/s; with FA off 115 -> 128 (2 KiB) with the channel hash still adding +1.7x there. On the A16 (8 channels) a coarser interleave does not help FA-on (116/115/101 GB/s) but the bank XOR does (1.14-1.28x). (4) ClosedCAP is worse than Open on every FA-on cell (hit 0.60-0.69 vs 0.67-0.77 V100; bandwidth -7% to -50%); with FA off it is equal or slightly better at 8k/32k on the V100.
 
 **Caveats.** Saturated, open-loop replay of the first 80 M requests (the 32k streams are ~290 M, so a window of the step); CTA->SM mapping approximated; Ramulator has no 1.75 Gb/s HBM2 or 12.5 Gb/s GDDR6 bin (819 vs 900 GB/s, 224 vs 200 GB/s peaks); channel interleave and page mapping (2 MiB, first-touch packing) are assumptions, not measured GPU address maps; 4 KB pages, local/shared memory traffic, the CUDA memcpy of the host-mapped 0.5B embedding and A16 ECC traffic are not modelled. KV share/bytes differ from ncu by up to +32% at V100 32k FA on. Do not extrapolate the XOR/chan numbers beyond these streams.
+
+### dramtech-owner: LPDDR5/6, HBM3/4, GDDR6 (2026-11-13)
+
+**Question.** Does the KV-page bank-XOR gain (DDR5 x16, 7B 32k, THP: -16% Open / -29% ClosedCAP; DDR4-2933 6ch: -10%) hold on other DRAM technologies? Framing: LPDDR5/5X is the memory of NVIDIA Grace, Apple M-series and edge CPUs; HBM3/4 that of Xeon Max-style CPU+HBM; GDDR6 is GPU memory and the CPU stream on it is a what-if. LPDDR6 is the next LPDDR generation.
+
+**Layouts (verified).** Derived from `ramulator2-amcas` (same mapper code as the DDR5 check: `addr_mapper_base.cpp`, `ro_ba_ra_co_ch.cpp`, `cache_line_interleave.cpp`; level order after Channel: [Rank | PseudoChannel, Sid] BankGroup, Bank, Row, Column; tx bytes = prefetch x channel_width/8 or `data_payload_bytes`). All new standards have **32 B transactions**, so a 64 B LLC miss is replayed as two sector requests (addr, addr+32; same channel and row). `tools/dramtech_probe.py` classifies every address bit with synthetic replays (channel from per-channel counts, row from conflicts, col vs bank from a row-bit-paired flip): all 8 systems MATCH. Physical bits (256 B channel interleave, RoBaRaCoCh):
+
+| system | config, peak | off/col | bank region (phys) | row (phys) | channel (phys) |
+|---|---|---|---|---|---|
+| lpddr5x32 | LPDDR5-6400, 32 x16 ch, 410 GB/s (Grace-like; no 8533 preset) | 5 / 6 (row 2 KiB) | [16:19] 4 bits (BG2+bank2) | [20:34] | [8:12] |
+| lpddr5x8 | 8 x16 ch, 2 ranks, 102 GB/s (laptop) | same | [14:18] 5 bits | [19:33] | [8:10] |
+| lpddr6x32 | LPDDR6-10667 BL24, 32 x12 subch, 455 GB/s payload | 5 / 6 (2 KiB) | [16:19] | [20:34] | [8:12] |
+| lpddr6x8 | 8 subch, 2 ranks, 114 GB/s | same | [14:18] | [19:33] | [8:10] |
+| hbm3x16 | one stack, 16 ch x 2 PC, 6.4 Gb/s, 819 GB/s, 32 GiB | 5 / 5 (PC row 1 KiB) | [14:19] 6 bits (PC1+sid1+BG2+bank2) | [20:33] | [8:11] |
+| hbm4x32 | one stack, 32 ch x 2 PC, 8 Gb/s, 2.05 TB/s | 5 / 5 (1 KiB) | [15:20] 6 bits (PC,sid,BG1,bank3) | [21:33] | [8:12] |
+| gddr6x16 | 14 Gb/s (only preset), 16 x16 ch = 8 x 32-bit, 448 GB/s | 5 / 7 (row 4 KiB in the model) | [16:19] 4 bits | [20:33] | [8:11] |
+
+Caveats on configuration: GDDR6 32 Gb preset resolves no refresh timings, set to the 8 Gb values (210/105 ticks) by override; HBM controllers use the test-suite queue sizes (HBM3 128/64, HBM4 64/64), others the default 32/32; controllers are the standards' own (LPDDR5, LPDDR6, HBM34, GenericDDR), FRFCFS, AllBank refresh. The XOR-search cost model bus/tRC terms are taken from each standard's timing (`dramtech_cfg.cost_params`).
+
+**Method.** `tools/dramtech_study.py` (+ `dramtech_cfg.py`, `dramtech_probe.py`, `dramtech_report.py`, `scripts/29_dramtech.sh`; `remap.py` got a backward-compatible `off` field). Same placements (packed/THP/4k, 32 GB pool), window 8M requests from 30% of the step, schemes identity / xor_global (region_remap.search) / chan / xor_global_chan, all asserted injective with row/col unchanged. Replay saturated (LoadStoreTrace, issue 2x peak request rate) and closed loop with SimpleO3 4 cores (first 2M lines, 32 B LLC lines, 32 MSHRs): `fast` = policy-owner k=1 window 256 bubbles 52 (at 2.4 GHz-equivalent; instructions per line and window scaled by core clock / 2.4 GHz so wall-time compute per request is the same on every technology), `nat4` = k=4.5 window 1152 (native 4-thread-matched). I did not add `--dram` options to `ramulator_replay.py` (the sector expansion and the per-standard controllers live in `dramtech_study.py` instead; ramulator_replay.py is unchanged). Jobs: 124132 and 124133 (7B 32k), 124215 and 124219 (30B 32k), 124230 (7B 8k), 124245 (30B short); smoke 124131. 30B/8k/short runs use sat+fast and xor_global/chan only. Results `results/fullscale/dramtech/<tag>/<system>.json`; full per-condition tables via `tools/dramtech_report.py`.
+
+**Results.** Cycles ratio vs identity (<1 = gain), Open unless stated, "xor" = bank-XOR hash (`xor_global`), "chan" = channel hash.
+
+| stream | system | THP xor sat | sat ClosedCAP | fast | nat4 | packed xor sat | 4k chan sat | THP hit id->xor |
+|---|---|---|---|---|---|---|---|---|
+| 7B 32k | lpddr5x8 | 0.76 | 0.74 | 0.90 | 0.99 | 1.08 | 0.64 | 0.89->0.96 |
+| 7B 32k | lpddr5x32 | 0.64 | 0.60 | 0.93 | 1.00 | 0.95 | 0.61 | 0.89->0.95 |
+| 7B 32k | lpddr6x8 | 0.74 | 0.60 | 0.81 | 0.99 | 1.05 | 0.64 | 0.90->0.96 |
+| 7B 32k | lpddr6x32 | 0.58 | 0.59 | 0.88 | 1.00 | 0.97 | 0.62 | 0.88->0.95 |
+| 7B 32k | gddr6x16 | 0.45 | 0.59 | 0.93 | 1.00 | 1.03 | 0.65 | 0.86->0.96 |
+| 7B 32k | hbm3x16 | 0.74 | 0.64 | 0.79 | 1.00 | 1.03 | 0.55 | 0.92->0.94 |
+| 7B 32k | hbm4x32 | 0.69 | 0.61 | 0.81 | 1.00 | 1.00 | 0.58 | 0.91->0.94 |
+| 30B 32k | lpddr5x8 | 0.74 | 0.72 | 0.87 | - | 0.99 | 0.53 | 0.85->0.96 |
+| 30B 32k | lpddr5x32 | 0.62 | 0.59 | 0.91 | - | 0.99 | 0.49 | 0.84->0.95 |
+| 30B 32k | lpddr6x8 | 0.72 | 0.57 | 0.80 | - | 0.99 | 0.54 | 0.87->0.96 |
+| 30B 32k | lpddr6x32 | 0.55 | 0.57 | 0.88 | - | 0.99 | 0.50 | 0.84->0.95 |
+| 30B 32k | gddr6x16 | 0.44 | 0.59 | 0.91 | - | 0.97 | 0.52 | 0.80->0.96 |
+| 30B 32k | hbm3x16 | 0.71 | 0.61 | 0.78 | - | 1.02 | 0.44 | 0.90->0.93 |
+| 30B 32k | hbm4x32 | 0.63 | 0.56 | 0.77 | - | 0.98 | 0.45 | 0.89->0.93 |
+| 7B 8k | lpddr5x32 | 0.91 | 0.86 | 0.98 | - | 1.00 | 0.91 | 0.96->0.97 |
+| 7B 8k | lpddr6x8 | 0.91 | 0.82 | 0.94 | - | 1.01 | 0.92 | 0.97->0.98 |
+| 7B 8k | gddr6x16 | 0.69 | 0.81 | 0.98 | - | 0.97 | 0.96 | 0.95->0.97 |
+| 7B 8k | hbm3x16 | 0.94 | 0.89 | 0.94 | - | 1.00 | 0.88 | 0.96->0.96 |
+| 30B short | all four | 1.00 | 0.99-1.01 | 0.97-1.01 | - | - | 1.00-1.06 | unchanged |
+
+Closed-loop read latency (7B 32k, THP, identity -> xor): fast 0.74-0.76x on HBM3/4 and LPDDR6x8, 0.87-0.92x LPDDR5/GDDR6/LPDDR6x32; nat4 0.81-0.95x with cycles flat. Closed-loop demand of the fast point is 12-22 GB/s (a few percent of any of these peaks). DDR5 x16 reference (earlier jobs, policy-owner): sat -16% (12M window), fast -16%, nat4 -0.2%.
+
+**Verdict.**
+1. **The mechanism holds on every geometry and is larger when saturated**: THP + KV-heavy context only; packed placement and 4 KiB placement get nothing from the bank XOR (0.95-1.08; the small >1 values are search-cost-model artefacts), the 30B short control and the 8k stream get 0-9% (GDDR6 31% at 8k saturated). Saturated gain on 32k: -24..-26% (x8 LPDDR) / -36..-45% (x32 LPDDR) / -26..-31% (HBM) / -55% (GDDR6), versus -16% on the DDR5 x16 baseline and -10% DDR4. It grows because (a) rows are small (1-2 KiB vs DDR5's 8 KiB per bank-row seen at 64 B lines: the KV streams of different heads inside one 2 MiB page collide in a few rows, identity row hit 0.80-0.92 vs 0.95 packed), so every KV conflict costs a full tRC and the hash restoring 0.93-0.96 hit pays more; (b) many narrow channels leave few banks per channel to absorb conflicts (GDDR6: 16 banks per 16-bit channel, biggest gain; HBM with 64 banks per channel, smallest, 26-31%). Within a technology more channels (x32 vs x8) help the XOR more (LPDDR5 0.76 -> 0.64), because the interleaved channel stream spreads each head's page across more channels.
+2. **ClosedCAP gain is as large or larger** (-26..-41%), as on DDR5 (-29%).
+3. **Closed loop, the gain depends on demand, as before.** At the fast-core operating point -7..-10% (LPDDR5, GDDR6), -12..-20% (LPDDR6, 30B), **-19..-23% on HBM3/4** (HBM3 0.79 / HBM4 0.81 for 7B, 0.78 / 0.77 for 30B), larger than DDR5's -16%, with 13-26% lower read latency; at the native 4-thread operating point (about 9 GB/s) cycles do not move (0.99-1.00) while latency still drops 5-19% on THP. So the 4-thread native machine would see latency, not time, gains on any technology; time gains need cores that sustain 15-25 GB/s (the Grace/Xeon-Max-class many-core parts do, with 100+ GB/s demand headroom, but we only modelled 4 cores).
+4. **Channel hash**: unlike closed loop, the saturated channel-hash gains (-35..-55% for the 4 KiB placement) are again largest; in closed loop (fast) chan is 0.88-0.99 (HBM3/4 0.88) and the combination adds at most 1-2% over xor, consistent with the DDR5 finding that this is a saturated-replay artefact (policy-owner part 1-2).
+Caveats: 4 cores only (demand far below HBM/Grace peak); GDDR6 is a what-if; saturated numbers are upper bounds; one window per condition, matrices searched in sample; LPDDR5 uses 6400 not 8533; 30B/8k/short runs have fewer schemes/points; no region scheme and no held-out test here; row size is the model's (GDDR6 4 KiB), address interleave fixed at 256 B (a coarser interleave or a different channel/bank hash in real controllers would change the baseline).
