@@ -1,0 +1,385 @@
+{
+ "reads_total": 75356086,
+ "window": [
+  22606825,
+  22906825
+ ],
+ "o3_window": 100000,
+ "files": [
+  {
+   "key": "thp_x16_id",
+   "placement": "thp",
+   "dram": "x16",
+   "variant": "id"
+  },
+  {
+   "key": "thp_x16_xg",
+   "placement": "thp",
+   "dram": "x16",
+   "variant": "xg"
+  },
+  {
+   "key": "thp_x16_mxg",
+   "placement": "thp",
+   "dram": "x16",
+   "variant": "mxg"
+  },
+  {
+   "key": "thp_x8_id",
+   "placement": "thp",
+   "dram": "x8",
+   "variant": "id"
+  },
+  {
+   "key": "thp_x8_xg",
+   "placement": "thp",
+   "dram": "x8",
+   "variant": "xg"
+  },
+  {
+   "key": "thp_x8_mxg",
+   "placement": "thp",
+   "dram": "x8",
+   "variant": "mxg"
+  },
+  {
+   "key": "thp_d4r6_id",
+   "placement": "thp",
+   "dram": "d4r6",
+   "variant": "id"
+  },
+  {
+   "key": "thp_d4r6_xg",
+   "placement": "thp",
+   "dram": "d4r6",
+   "variant": "xg"
+  },
+  {
+   "key": "thp_d4r6_mxg",
+   "placement": "thp",
+   "dram": "d4r6",
+   "variant": "mxg"
+  },
+  {
+   "key": "thp_d4_id",
+   "placement": "thp",
+   "dram": "d4",
+   "variant": "id"
+  },
+  {
+   "key": "thp_d4_xg",
+   "placement": "thp",
+   "dram": "d4",
+   "variant": "xg"
+  },
+  {
+   "key": "thp_d4_mxg",
+   "placement": "thp",
+   "dram": "d4",
+   "variant": "mxg"
+  }
+ ],
+ "info": [
+  {
+   "placement": "thp",
+   "dram": "x16",
+   "xg_matrix": {
+    "0": [
+     "row8",
+     "row1"
+    ],
+    "1": [
+     "row3"
+    ],
+    "2": [
+     "row11"
+    ],
+    "3": [
+     "row9",
+     "row11"
+    ],
+    "4": []
+   },
+   "xg_cost": [
+    191737.25,
+    152424.25
+   ],
+   "mxg_matrix": {
+    "0": [
+     "row9"
+    ],
+    "1": [
+     "row9"
+    ],
+    "2": [
+     "row2",
+     "row8"
+    ],
+    "3": [
+     "row4",
+     "row5"
+    ],
+    "4": [
+     "row12"
+    ]
+   },
+   "mxg_cost": [
+    511580.30000000005,
+    426120.5
+   ],
+   "static": {
+    "id/RoBa": {
+     "inorder_hit": 0.9311,
+     "banks_used": 512,
+     "banks_total": 512,
+     "inorder_hit_W": 0.9311
+    },
+    "id/MOP": {
+     "inorder_hit": 0.5183966666666666,
+     "banks_used": 512,
+     "banks_total": 512,
+     "inorder_hit_W": 0.5183966666666666
+    },
+    "xg/RoBa": {
+     "inorder_hit": 0.9789666666666667,
+     "banks_used": 512,
+     "banks_total": 512,
+     "inorder_hit_W": 0.9789666666666667
+    },
+    "mxg/MOP": {
+     "inorder_hit": 0.6293,
+     "banks_used": 512,
+     "banks_total": 512,
+     "inorder_hit_W": 0.6293
+    }
+   },
+   "chan_load_max_over_mean": 1.0995733333333333
+  },
+  {
+   "placement": "thp",
+   "dram": "x8",
+   "xg_matrix": {
+    "0": [
+     "row9"
+    ],
+    "1": [
+     "row1"
+    ],
+    "2": [
+     "row11",
+     "row2"
+    ],
+    "3": [
+     "row3"
+    ],
+    "4": [
+     "row14"
+    ]
+   },
+   "xg_cost": [
+    249948.05,
+    227592.45
+   ],
+   "mxg_matrix": {
+    "0": [
+     "row8",
+     "row7",
+     "row1"
+    ],
+    "1": [
+     "row9",
+     "row1",
+     "row2"
+    ],
+    "2": [
+     "row1",
+     "row3",
+     "row8"
+    ],
+    "3": [
+     "row3",
+     "row6"
+    ],
+    "4": [
+     "row5"
+    ]
+   },
+   "mxg_cost": [
+    600717.4,
+    499901.2
+   ],
+   "static": {
+    "id/RoBa": {
+     "inorder_hit": 0.9539633333333334,
+     "banks_used": 256,
+     "banks_total": 256,
+     "inorder_hit_W": 0.9539633333333334
+    },
+    "id/MOP": {
+     "inorder_hit": 0.52659,
+     "banks_used": 256,
+     "banks_total": 256,
+     "inorder_hit_W": 0.52659
+    },
+    "xg/RoBa": {
+     "inorder_hit": 0.9797533333333334,
+     "banks_used": 256,
+     "banks_total": 256,
+     "inorder_hit_W": 0.9797533333333334
+    },
+    "mxg/MOP": {
+     "inorder_hit": 0.63217,
+     "banks_used": 256,
+     "banks_total": 256,
+     "inorder_hit_W": 0.63217
+    }
+   },
+   "chan_load_max_over_mean": 1.0992533333333334
+  },
+  {
+   "placement": "thp",
+   "dram": "d4r6",
+   "xg_matrix": {
+    "0": [
+     "row2",
+     "row13"
+    ],
+    "1": [
+     "row10"
+    ],
+    "2": [
+     "row10"
+    ],
+    "3": [
+     "row9"
+    ],
+    "4": [
+     "row2"
+    ]
+   },
+   "xg_cost": [
+    420844.2,
+    276455.2
+   ],
+   "mxg_matrix": {
+    "0": [
+     "row0",
+     "row7"
+    ],
+    "1": [
+     "row10",
+     "row12"
+    ],
+    "2": [
+     "row2",
+     "row13"
+    ],
+    "3": [],
+    "4": [
+     "row6"
+    ]
+   },
+   "mxg_cost": [
+    649988.75,
+    559323.55
+   ],
+   "static": {
+    "id/RoBa": {
+     "inorder_hit": 0.96172,
+     "banks_used": 192,
+     "banks_total": 192,
+     "inorder_hit_W": 0.96172
+    },
+    "id/MOP": {
+     "inorder_hit": 0.5576666666666666,
+     "banks_used": 192,
+     "banks_total": 192,
+     "inorder_hit_W": 0.5576666666666666
+    },
+    "xg/RoBa": {
+     "inorder_hit": 0.9844033333333333,
+     "banks_used": 192,
+     "banks_total": 192,
+     "inorder_hit_W": 0.9844033333333333
+    },
+    "mxg/MOP": {
+     "inorder_hit": 0.6408466666666667,
+     "banks_used": 192,
+     "banks_total": 192,
+     "inorder_hit_W": 0.6408466666666667
+    }
+   },
+   "chan_load_max_over_mean": 1.02498
+  },
+  {
+   "placement": "thp",
+   "dram": "d4",
+   "xg_matrix": {
+    "0": [
+     "row5",
+     "row6"
+    ],
+    "1": [
+     "row11"
+    ],
+    "2": [],
+    "3": [],
+    "4": [
+     "row7"
+    ]
+   },
+   "xg_cost": [
+    1868601.8,
+    1299802.9
+   ],
+   "mxg_matrix": {
+    "0": [
+     "row15"
+    ],
+    "1": [
+     "row4"
+    ],
+    "2": [
+     "row11"
+    ],
+    "3": [
+     "row13"
+    ],
+    "4": [
+     "row14"
+    ]
+   },
+   "mxg_cost": [
+    2225872.3,
+    1749456.8
+   ],
+   "static": {
+    "id/RoBa": {
+     "inorder_hit": 0.9025466666666667,
+     "banks_used": 32,
+     "banks_total": 32,
+     "inorder_hit_W": 0.9025466666666667
+    },
+    "id/MOP": {
+     "inorder_hit": 0.46651333333333334,
+     "banks_used": 32,
+     "banks_total": 32,
+     "inorder_hit_W": 0.46651333333333334
+    },
+    "xg/RoBa": {
+     "inorder_hit": 0.98514,
+     "banks_used": 32,
+     "banks_total": 32,
+     "inorder_hit_W": 0.98514
+    },
+    "mxg/MOP": {
+     "inorder_hit": 0.6199633333333333,
+     "banks_used": 32,
+     "banks_total": 32,
+     "inorder_hit_W": 0.6199633333333333
+    }
+   },
+   "chan_load_max_over_mean": 1.0
+  }
+ ]
+}

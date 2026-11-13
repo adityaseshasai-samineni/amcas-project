@@ -1,0 +1,14 @@
+  WARNING: window has 1 thread(s); 4 contiguous pseudo-threads
+75,356,086 reads, window [22,606,825,22,906,825), o3 window 100,000
+  [thp/x16 RoBa xor_global] n=300,000 cost 191737 -> 152424; bank bit ^= {0: ['row8', 'row1'], 1: ['row3'], 2: ['row11'], 3: ['row9', 'row11'], 4: []}
+  [thp/x16 MOP4CLXOR xor_global] n=300,000 cost 511580 -> 426120; bank bit ^= {0: ['row9'], 1: ['row9'], 2: ['row2', 'row8'], 3: ['row4', 'row5'], 4: ['row12']}
+  thp/x16: in-order hit id/RoBa 0.931 id/MOP 0.518 xg 0.979 mxg 0.629
+  [thp/x8 RoBa xor_global] n=300,000 cost 249948 -> 227592; bank bit ^= {0: ['row9'], 1: ['row1'], 2: ['row11', 'row2'], 3: ['row3'], 4: ['row14']}
+  [thp/x8 MOP4CLXOR xor_global] n=300,000 cost 600717 -> 499901; bank bit ^= {0: ['row8', 'row7', 'row1'], 1: ['row9', 'row1', 'row2'], 2: ['row1', 'row3', 'row8'], 3: ['row3', 'row6'], 4: ['row5']}
+  thp/x8: in-order hit id/RoBa 0.954 id/MOP 0.527 xg 0.980 mxg 0.632
+  [thp/d4r6 RoBa xor_global] n=300,000 cost 420844 -> 276455; bank bit ^= {0: ['row2', 'row13'], 1: ['row10'], 2: ['row10'], 3: ['row9'], 4: ['row2']}
+  [thp/d4r6 MOP4CLXOR xor_global] n=300,000 cost 649989 -> 559324; bank bit ^= {0: ['row0', 'row7'], 1: ['row10', 'row12'], 2: ['row2', 'row13'], 3: [], 4: ['row6']}
+  thp/d4r6: in-order hit id/RoBa 0.962 id/MOP 0.558 xg 0.984 mxg 0.641
+  [thp/d4 RoBa xor_global] n=300,000 cost 1868602 -> 1299803; bank bit ^= {0: ['row5', 'row6'], 1: ['row11'], 2: [], 3: [], 4: ['row7']}
+  [thp/d4 MOP4CLXOR xor_global] n=300,000 cost 2225872 -> 1749457; bank bit ^= {0: ['row15'], 1: ['row4'], 2: ['row11'], 3: ['row13'], 4: ['row14']}
+  thp/d4: in-order hit id/RoBa 0.903 id/MOP 0.467 xg 0.985 mxg 0.620
