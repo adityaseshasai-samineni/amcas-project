@@ -42,3 +42,8 @@ SLURM_JOB_GPUS =
   [4k/d4 RoBa xor_global] n=8,000,000 cost 4253773 -> 4095808; bank bit ^= {0: ['row8', 'row4'], 1: [], 2: [], 3: ['row1'], 4: ['row6', 'row11']}
   [4k/d4 MOP4CLXOR xor_global] n=8,000,000 cost 5045027 -> 4992098; bank bit ^= {0: ['row4'], 1: ['row4', 'row3'], 2: ['row5'], 3: [], 4: []}
   4k/d4: in-order hit id/RoBa 0.942 id/MOP 0.574 xg 0.943 mxg 0.579
+wrote analysis/tables.md and 3 figures; validation failures: none
+wrote analysis/fullscale/headline.md
+wrote analysis/fullscale/tables.md
+publish: pushed e2b7967
+/dev/sdc1       1.8T  1.2T  608G  67% /scratch
