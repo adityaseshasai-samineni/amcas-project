@@ -3,3 +3,22 @@ SLURM_JOB_ID = 124411
 SLURM_NODELIST = node04
 SLURM_JOB_GPUS = 0
 ==========================================
+wall 1101.611315994
+q7_v100_32k_faauto window 61325 61863
+34.58.003.635 I common_perf_print: prompt eval time = 1108719.79 ms / 31001 tokens (   35.76 ms per token,    27.96 tokens per second)
+34.58.003.638 I common_perf_print:        eval time =  986812.49 ms /     2 runs   (493406.25 ms per token,     0.00 tokens per second)
+wall 2098.585949743
+warp instrs 190684420; mean same-CTA run length 1.00
+base           L1 ld sectors 1478099420; L2 reads 536724672; DRAM reads 290492215 (9295.8 MB) writes 420622 (13.5 MB)
+h1             L1 ld sectors 1478099420; L2 reads 536724672; DRAM reads 203735487 (6519.5 MB) writes 422157 (13.5 MB)
+h2             L1 ld sectors 1478099420; L2 reads 536724672; DRAM reads 245193436 (7846.2 MB) writes 428323 (13.7 MB)
+fifo           L1 ld sectors 1478099420; L2 reads 536724672; DRAM reads 286851148 (9179.2 MB) writes 430202 (13.8 MB)
+rnd            L1 ld sectors 1478099420; L2 reads 536724672; DRAM reads 307944522 (9854.2 MB) writes 460617 (14.7 MB)
+srrip          L1 ld sectors 1478099420; L2 reads 536724672; DRAM reads 291823678 (9338.4 MB) writes 423016 (13.5 MB)
+w8             L1 ld sectors 1478099420; L2 reads 536724672; DRAM reads 290191153 (9286.1 MB) writes 421512 (13.5 MB)
+w32            L1 ld sectors 1478099420; L2 reads 536724672; DRAM reads 291046436 (9313.5 MB) writes 420115 (13.4 MB)
+l1_64          L1 ld sectors 1478099420; L2 reads 540921260; DRAM reads 290502537 (9296.1 MB) writes 420268 (13.4 MB)
+l1_32          L1 ld sectors 1478099420; L2 reads 564819713; DRAM reads 290485463 (9295.5 MB) writes 414361 (13.3 MB)
+nol1           L1 ld sectors 1478099420; L2 reads 1478099420; DRAM reads 290472072 (9295.1 MB) writes 414345 (13.3 MB)
+l1w8           L1 ld sectors 1478099420; L2 reads 534022590; DRAM reads 290483752 (9295.5 MB) writes 420506 (13.5 MB)
+-rw-rw-r-- 1 adityaseshasai.s adityaseshasai.s 83918 Nov 14 01:15 /scratch/adityaseshasai.s/gt/q7_v100_32k_faauto.perk.tsv

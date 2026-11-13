@@ -3,3 +3,13 @@ SLURM_JOB_ID = 124412
 SLURM_NODELIST = node04
 SLURM_JOB_GPUS = 1
 ==========================================
+wall 1098.005152431
+q7_v100_32k_faauto window 61325 61863
+kernels 538
+dram__bytes_read.sum                                    7562.64 MB
+dram__bytes_write.sum                                   590.08 MB
+l1tex__t_sectors_pipe_lsu_mem_global_op_ld.sum          1471586417 sectors = 47090.77 MB
+lts__t_sectors_srcunit_tex_op_read.sum                  532262252 sectors = 17032.39 MB
+lts__t_sectors_srcunit_tex_op_read_lookup_hit.sum       315716173 sectors = 10102.92 MB
+lts__t_sectors_srcunit_tex_op_read_lookup_miss.sum      243510388 sectors = 7792.33 MB
+lts__t_sectors_srcunit_tex_op_write.sum                 1385618 sectors = 44.34 MB
