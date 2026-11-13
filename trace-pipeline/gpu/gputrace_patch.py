@@ -58,11 +58,13 @@ sub(m, "    nvbit_enable_instrumented(ctx, func, true);\n\n}", "    nvbit_enable
 s = open(m).read()
 a = s.index("                std::stringstream ss;")
 b = s.index("                num_processed_bytes += sizeof(mem_access_t);")
-s = s[:a] + """                uint16_t hdr_y = ma->cta_id_y, hdr_z = ma->cta_id_z, w = ma->warp_id, op = ma->opcode_id;
+s = s[:a] + """                flockfile(fbin);
+                uint16_t hdr_y = ma->cta_id_y, hdr_z = ma->cta_id_z, w = ma->warp_id, op = ma->opcode_id;
                 fwrite(&ma->grid_launch_id, 8, 1, fbin); fwrite(&ma->cta_id_x, 4, 1, fbin);
                 fwrite(&hdr_y, 2, 1, fbin); fwrite(&hdr_z, 2, 1, fbin);
                 fwrite(&w, 2, 1, fbin); fwrite(&op, 2, 1, fbin); fwrite(&ma->mask, 4, 1, fbin);
                 for (int i = 0; i < 32; i++) if (ma->mask >> i & 1) fwrite(&ma->addrs[i], 8, 1, fbin);
+                funlockfile(fbin);
 """ + s[b:]
 s = s.replace("    ctx_state->channel_host.destroy(false);\n", """    ctx_state->channel_host.destroy(false);
     if (fbin) { fclose(fbin); fbin = nullptr; }
@@ -70,6 +72,34 @@ s = s.replace("    ctx_state->channel_host.destroy(false);\n", """    ctx_state-
       for (auto& kv : id_to_opcode_map) fprintf(fo, "%d %s\\n", kv.first, kv.second.c_str()); fclose(fo); }
     if (flog) { fclose(flog); flog = nullptr; }
 """, 1)
+open(m, 'w').write(s)
+# streaming format additions: op field = 0x4000|isstore<<8|width (self-describing), launch-info record op=0xFFFF
+sub(m, 'std::string out_prefix = "gputrace";\n', """std::string out_prefix = "gputrace";
+static uint16_t openc[4096];
+static uint16_t enc_op(const std::string& nm) {
+    int w = 4;
+    if (nm.find(".128") != std::string::npos) w = 16; else if (nm.find(".64") != std::string::npos) w = 8;
+    else if (nm.find(".U8") != std::string::npos || nm.find(".S8") != std::string::npos) w = 1;
+    else if (nm.find(".U16") != std::string::npos || nm.find(".S16") != std::string::npos) w = 2;
+    int st = (nm[0] == 'S' || nm[0] == 'R' || nm.compare(0, 4, "ATOM") == 0);
+    return 0x4000 | (st << 8) | w;
+}
+static inline void emit_info(uint64_t launch, uint32_t gx, uint32_t gy, uint32_t gz) {
+    if (!fbin) return;
+    flockfile(fbin);
+    uint16_t y = gy, z = gz, w = 0, op = 0xFFFF; uint32_t mk = 0;
+    fwrite(&launch, 8, 1, fbin); fwrite(&gx, 4, 1, fbin); fwrite(&y, 2, 1, fbin); fwrite(&z, 2, 1, fbin);
+    fwrite(&w, 2, 1, fbin); fwrite(&op, 2, 1, fbin); fwrite(&mk, 4, 1, fbin);
+    funlockfile(fbin);
+}
+""")
+sub(m, "id_to_opcode_map[opcode_id] = std::string(instr->getOpcode());", "id_to_opcode_map[opcode_id] = std::string(instr->getOpcode());\n                openc[opcode_id] = enc_op(id_to_opcode_map[opcode_id]);")
+sub(m, "op = ma->opcode_id;", "op = openc[ma->opcode_id];")
+mk = "            fprintf(flog,\n                \"MEMTRACE: CTX 0x%016lx - LAUNCH"
+parts = open(m).read().split(mk)
+assert len(parts) == 3
+open(m, 'w').write(parts[0] + "            if (in_win) emit_info(grid_launch_id, p->config->gridDimX, p->config->gridDimY, p->config->gridDimZ);\n" + mk + parts[1] + "            if (in_win) emit_info(grid_launch_id, p->gridDimX, p->gridDimY, p->gridDimZ);\n" + mk + parts[2])
+s = open(m).read()
 # graph node launch log
 s = s.replace("    printf(\n        \"MEMTRACE: CTX 0x%016lx - LAUNCH", "    fprintf(flog,\n        \"MEMTRACE: CTX 0x%016lx - LAUNCH")
 open(m, 'w').write(s)

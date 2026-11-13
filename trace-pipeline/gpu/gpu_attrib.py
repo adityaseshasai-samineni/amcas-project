@@ -20,11 +20,12 @@ def cls(n):
 start = np.array([t[0] for t in T], dtype=np.uint64); end = start + np.array([t[1] for t in T], dtype=np.uint64)
 names = [cls(t[2]) for t in T]; uc = sorted(set(names)) + ["unknown"]
 cid = np.array([uc.index(n) for n in names] + [len(uc) - 1])
-arr = np.fromfile(pre + ".dram", dtype=np.uint64)
+import os; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import gpu_io
+arr = gpu_io.load(pre, "dram", np.uint64)
 addr = (arr >> np.uint64(1)) << np.uint64(5); wr = (arr & np.uint64(1)).astype(bool)
 i = np.searchsorted(start, addr, side="right") - 1
 ok = (i >= 0) & (addr < end[np.clip(i, 0, None)])
-c = np.where(ok, cid[np.clip(i, 0, None)], len(uc) - 1)
+c = np.where(ok, cid[:-1][np.clip(i, 0, None)], len(uc) - 1)
 out = {}
 for k, n in enumerate(uc):
     m = c == k

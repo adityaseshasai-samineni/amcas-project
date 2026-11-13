@@ -21,6 +21,7 @@ TOOLS = os.path.join(os.environ.get("AMCAS_TOOLS", os.path.expanduser("~/amcas-p
 sys.path.insert(0, TOOLS)
 import remap as R
 import dramtech_cfg as C
+import memsys_study as MS
 
 SYS = {
     "v100": dict(std="HBM2", org="HBM2_2Gb", timing="HBM2_1600Mbps", ctrl="HBM12", nch=32, ib=2, tx=32, layout="hbm2x32",
@@ -77,10 +78,13 @@ def main():
     ap.add_argument("--gpu", required=True, choices=list(SYS))
     ap.add_argument("--schemes", default="identity,xor"); ap.add_argument("--policies", default="Open,ClosedCAP")
     ap.add_argument("--window", type=int, default=0); ap.add_argument("--procs", type=int, default=4)
+    ap.add_argument("--ib", type=int, default=2, help="channel interleave = 64 B << ib (2: 256 B, 5: 2 KiB, 6: 4 KiB)")
     ap.add_argument("--tmp", default="/tmp"); ap.add_argument("--fanin", type=int, default=3)
     a = ap.parse_args()
-    sd = SYS[a.gpu]; L = R.Layout(sd["layout"])
-    arr = np.fromfile(a.prefix + ".dram", dtype=np.uint64)
+    sd = dict(SYS[a.gpu]); sd["ib"] = a.ib
+    R.LAYOUTS[sd["layout"] + "_ib"] = dict(LAY[sd["layout"]], s=6 + a.ib)
+    L = R.Layout(sd["layout"] + "_ib")
+    import gpu_io; arr = gpu_io.load(a.prefix, "dram", np.uint64)
     if a.window: arr = arr[:a.window]
     st = (arr & np.uint64(1)).astype(bool); byte = (arr >> np.uint64(1)) << np.uint64(5)
     phys, npg = pack_pages(byte)
@@ -90,23 +94,33 @@ def main():
     tasks, info = [], {}
     os.makedirs(a.tmp, exist_ok=True)
     for sc in a.schemes.split(","):
+        chv = ch
         if sc == "identity":
             new = intra
+        elif sc in ("chan", "xor_chan"):
+            base = intra
+            if sc == "xor_chan":
+                cands = R.sources(L, False); Mx = R.search(L, R.sample(intra), cands, a.fanin); base = R.apply_matrix(L, intra, Mx, cands)
+                info["xor_matrix"] = {j: [cands[c][0] for c in Mx[j]] for j in range(L.bank)}
+            Mc, cc, sel, c0, c1 = MS.chan_search(L, base, chv, sd["nch"], a.fanin, sc)
+            new = base; chv = chv ^ MS.hash_bits(L, base, Mc, cc).astype(chv.dtype)
+            info[sc + "_chan_matrix"] = sel
         else:
             cands = R.sources(L, False)
             M = R.search(L, R.sample(intra), cands, a.fanin)
             new = R.apply_matrix(L, intra, M, cands)
             info["xor_matrix"] = {j: [cands[c][0] for c in M[j]] for j in range(L.bank)}
         b, r, _ = L.fields(new)
+        info[sc + "_chan_max_over_mean"] = float(np.bincount(chv.astype(np.int64)).max() / np.bincount(chv.astype(np.int64)).mean())
         info[sc + "_inorder_hit"] = R.inorder_hits(b, r) / len(b)
         path = f"{a.tmp}/gpu_{os.getpid()}_{sc}.trc"
-        write_trace(path, st, L.from_intra(new, ch))
+        write_trace(path, st, L.from_intra(new, chv))
         for pol in a.policies.split(","):
             tasks.append((sd, path, sc, pol))
     with multiprocessing.Pool(min(a.procs, len(tasks))) as pool:
         res = pool.map(replay, tasks)
     for t in set(t[1] for t in tasks): os.remove(t)
-    json.dump(dict(system=sd["what"], peak_GBps=sd["peak"], requests=len(arr), pages_2MiB=npg, info=info, results=res), open(a.out, "w"), indent=1)
+    json.dump(dict(ib=a.ib, system=sd["what"], peak_GBps=sd["peak"], requests=len(arr), pages_2MiB=npg, info=info, results=res), open(a.out, "w"), indent=1)
     print(sd["what"], "peak", sd["peak"], "GB/s", info)
     print(f"{'scheme':<9}{'policy':<11}{'reads':>10}{'writes':>8}{'hit':>7}{'conf':>7}{'lat_ns':>8}{'time_us':>10}{'GB/s':>8}")
     for r in res:
