@@ -71,3 +71,7 @@ publish: pushed 0edd6da
   [thp/x16 MOP4CLXOR xor_global] n=4,000,000 cost 1792446 -> 1583402; bank bit ^= {0: ['row11'], 1: [], 2: ['row12'], 3: ['row6'], 4: ['row6']}
   done thp/x16: identity:0.906/0.906 xor_global:0.956/0.956 region:0.956/0.956 chan:0.949/0.949 xor_global_chan:0.955/0.955 mop:0.310/0.310 mopxor:0.373/0.373 bitrev:0.855/0.855 chra:0.833/0.833 naive:0.934/0.934
 replay rc=0 for q7_B16P512 Sun Nov 15 00:52:17 IST 2026
+wrote analysis/tables.md and 3 figures; validation failures: none
+wrote analysis/fullscale/headline.md
+wrote analysis/fullscale/tables.md
+publish: pushed d68ee27
