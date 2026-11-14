@@ -1,0 +1,80 @@
+[
+ {
+  "key": "thp_xor_global",
+  "point": "plat:52:1024",
+  "policy": "CLOSE_PAGE",
+  "nch": 6,
+  "cycles": 10481110,
+  "reads_done": 3000000,
+  "reads_counted": 3000000,
+  "hit_rate": 0.0,
+  "avg_read_latency": 115.604387,
+  "acts": 3006384,
+  "GBps": 26.864330209300352
+ },
+ {
+  "key": "thp_identity",
+  "point": "plat:52:1024",
+  "policy": "CLOSE_PAGE",
+  "nch": 6,
+  "cycles": 10945181,
+  "reads_done": 3000000,
+  "reads_counted": 3000000,
+  "hit_rate": 0.0,
+  "avg_read_latency": 119.41250133333334,
+  "acts": 3006530,
+  "GBps": 25.725294081477504
+ },
+ {
+  "key": "thp_identity",
+  "point": "sat",
+  "policy": "CLOSE_PAGE",
+  "nch": 6,
+  "cycles": 11568765,
+  "reads_done": 3000000,
+  "reads_counted": 3000000,
+  "hit_rate": 0.0,
+  "avg_read_latency": 1156.0725293333333,
+  "acts": 3005442,
+  "GBps": 24.338639431261676
+ },
+ {
+  "key": "thp_identity",
+  "point": "fast:52:256",
+  "policy": "CLOSE_PAGE",
+  "nch": 6,
+  "cycles": 19922197,
+  "reads_done": 3000000,
+  "reads_counted": 3000000,
+  "hit_rate": 0.0,
+  "avg_read_latency": 91.08903866666667,
+  "acts": 3006257,
+  "GBps": 14.133380971988181
+ },
+ {
+  "key": "thp_xor_global",
+  "point": "fast:52:256",
+  "policy": "CLOSE_PAGE",
+  "nch": 6,
+  "cycles": 20012819,
+  "reads_done": 3000000,
+  "reads_counted": 3000000,
+  "hit_rate": 0.0,
+  "avg_read_latency": 90.99074366666666,
+  "acts": 3006273,
+  "GBps": 14.069382229460027
+ },
+ {
+  "key": "thp_xor_global",
+  "point": "sat",
+  "policy": "CLOSE_PAGE",
+  "nch": 6,
+  "cycles": 10635643,
+  "reads_done": 3000000,
+  "reads_counted": 3000000,
+  "hit_rate": 0.0,
+  "avg_read_latency": 1103.9514256666666,
+  "acts": 3005516,
+  "GBps": 26.47399879819208
+ }
+]

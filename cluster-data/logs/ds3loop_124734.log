@@ -1,0 +1,16 @@
+==========================================
+SLURM_JOB_ID = 124734
+SLURM_NODELIST = node01
+SLURM_JOB_GPUS = 
+==========================================
+  WARNING: window has 1 thread(s); 4 contiguous pseudo-threads
+179,460,712 reads, window [53,838,213,56,838,213), nch 6
+  [thp global] n=3,000,000 cost 998339 -> 843427; bank bit ^= {0: ['row2'], 1: ['row4'], 2: [], 3: ['row10'], 4: ['row10']}
+  thp_identity         in-order hit 0.872 banks 192/192 chan max/mean 1.096
+  thp_xor_global       in-order hit 0.940 banks 192/192 chan max/mean 1.096
+thp_xor_global    plat:52:1024  CLOSE_PAGE hit 0.000 lat   115.6 cyc   10.481M    26.9GB/s
+thp_identity      plat:52:1024  CLOSE_PAGE hit 0.000 lat   119.4 cyc   10.945M    25.7GB/s
+thp_identity      sat           CLOSE_PAGE hit 0.000 lat  1156.1 cyc   11.569M    24.3GB/s
+thp_identity      fast:52:256   CLOSE_PAGE hit 0.000 lat    91.1 cyc   19.922M    14.1GB/s
+thp_xor_global    fast:52:256   CLOSE_PAGE hit 0.000 lat    91.0 cyc   20.013M    14.1GB/s
+thp_xor_global    sat           CLOSE_PAGE hit 0.000 lat  1104.0 cyc   10.636M    26.5GB/s

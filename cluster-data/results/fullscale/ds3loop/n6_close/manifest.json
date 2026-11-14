@@ -1,0 +1,53 @@
+{
+ "reads_total": 179460712,
+ "window": [
+  53838213,
+  56838213
+ ],
+ "nch": 6,
+ "slot_bits": 3,
+ "files": [
+  {
+   "inorder_hit": 0.8721383333333333,
+   "banks_used": 192,
+   "banks_total": 192,
+   "inorder_hit_W": 0.8721383333333333,
+   "key": "thp_identity",
+   "placement": "thp",
+   "scheme": "identity",
+   "info": {},
+   "chan_load_max_over_mean": 1.09629
+  },
+  {
+   "inorder_hit": 0.9397203333333334,
+   "banks_used": 192,
+   "banks_total": 192,
+   "inorder_hit_W": 0.9397203333333334,
+   "key": "thp_xor_global",
+   "placement": "thp",
+   "scheme": "xor_global",
+   "info": {
+    "matrix": {
+     "0": [
+      "row2"
+     ],
+     "1": [
+      "row4"
+     ],
+     "2": [],
+     "3": [
+      "row10"
+     ],
+     "4": [
+      "row10"
+     ]
+    },
+    "cost": [
+     998339.2833333334,
+     843426.7333333334
+    ]
+   },
+   "chan_load_max_over_mean": 1.09629
+  }
+ ]
+}
