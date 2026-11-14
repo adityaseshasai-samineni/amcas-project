@@ -5,3 +5,26 @@ SLURM_JOB_GPUS =
 ==========================================
 run Qwen3-30B-A3B-Q4_K_M_B4_P32768t4 on node01.local: B=4 P=32768 threads=4 skip=1 ntrace=1 kvu=0
 === untraced
+drbatch: seq 0 evaluated and saved
+drbatch: seq 1 evaluated and saved
+drbatch: seq 2 evaluated and saved
+drbatch: seq 3 evaluated and saved
+untraced 13470.26 s, max RSS 44697048 KB
+=== traced (decode step 1, 1 step(s)), raw trace capped at 16 GB per thread
+drbatch: attaching at step 1
+drbatch: detached after step 1
+traced 80.76 s, max RSS 44565548 KB
+seq 0: identical
+seq 1: identical
+seq 2: identical
+seq 3: identical
+same tokens (positional check): yes
+B 0 13439109919008688	B 0 13439109970563826
+E 0 13439109926863810	E 0 13439109978438650
+B 1 13439109926864967	B 1 13439109978439863
+E 1 13439109934718657	E 1 13439110015457147
+B 2 13439109934719380	B 2 13439110015458527
+E 2 13439109942572306	E 2 13439110023319154
+B 3 13439109942573032	B 3 13439110023319897
+E 3 13439109950426239	E 3 13439110031186448
+101G	/scratch/adityaseshasai.s/bmiss/Qwen3-30B-A3B-Q4_K_M_B4_P32768t4/drmemtrace.llama-drbatch.1810896.5679.dir/raw
