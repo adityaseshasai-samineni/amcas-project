@@ -58,7 +58,7 @@ The engine is llama.cpp throughout.
 |---|---|---|---|---|
 | gem5 | simulated CPU, SE mode, 1 thread, SSE2 | requests at the DRAM controller (CommMonitor), plus a patched virtual-address field | gem5's own caches | text and instructions/token match native; counters match the trace |
 | DynamoRIO | native AVX-512 llama.cpp, 4 threads; one decode step attached by our driver `llama-drattr` / `llama-drbatch` | every load and store | drcachesim: 4 × 32 KiB L1, shared 22 MiB 11-way LLC (the node's real L3) | DRAM reads/token within **0.7%** of gem5 on Qwen 0.5B ("Phase split works; DynamoRIO matches gem5") |
-| NVBit | V100 and A16 GPUs, llama.cpp CUDA build | global loads/stores per warp (patched NVBit 1.7.7.3 mem_trace, streamed) | own L1/L2 model in 32 B sectors | 0.5B: 349 vs 354 MB DRAM reads (Nsight Compute), stores within 0.03%; V100 7B short context 4.39 vs 4.39 GB; 8k +1.7%; **32k +32% (FlashAttention on), +13% (off): pending l2fix-owner**; A16 L2 misses within 0.4% but DRAM reads +16% (likely inline ECC) |
+| NVBit | V100 and A16 GPUs, llama.cpp CUDA build | global loads/stores per warp (patched NVBit 1.7.7.3 mem_trace, streamed) | own L1/L2 model in 32 B sectors | 0.5B: 349 vs 354 MB DRAM reads (Nsight Compute), stores within 0.03%; V100 7B with the XOR-hashed L2 model (section 7): short 4.39 vs 4.39 GB, 8k 4.82 vs 4.81, 32k 7.32 vs 7.40 (FlashAttention on), 12.4 vs 13.1 (off); A16 L2 misses within 0.4%, DRAM reads +14.3% (inline ECC) |
 
 **Tensor attribution.**
 - Our llama.cpp hook dumps every tensor's address range.
