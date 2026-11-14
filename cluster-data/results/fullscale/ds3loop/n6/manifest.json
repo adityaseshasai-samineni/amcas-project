@@ -1,0 +1,138 @@
+{
+ "reads_total": 179460712,
+ "window": [
+  53838213,
+  56838213
+ ],
+ "nch": 6,
+ "slot_bits": 3,
+ "files": [
+  {
+   "inorder_hit": 0.9484403333333333,
+   "banks_used": 192,
+   "banks_total": 192,
+   "inorder_hit_W": 0.9484403333333333,
+   "key": "packed_identity",
+   "placement": "packed",
+   "scheme": "identity",
+   "info": {},
+   "chan_load_max_over_mean": 1.096266
+  },
+  {
+   "inorder_hit": 0.950476,
+   "banks_used": 192,
+   "banks_total": 192,
+   "inorder_hit_W": 0.950476,
+   "key": "packed_xor_global",
+   "placement": "packed",
+   "scheme": "xor_global",
+   "info": {
+    "matrix": {
+     "0": [
+      "row6",
+      "row5"
+     ],
+     "1": [
+      "row11"
+     ],
+     "2": [
+      "row9"
+     ],
+     "3": [
+      "row11"
+     ],
+     "4": []
+    },
+    "cost": [
+     864779.5333333334,
+     834085.9333333333
+    ]
+   },
+   "chan_load_max_over_mean": 1.096266
+  },
+  {
+   "inorder_hit": 0.8721383333333333,
+   "banks_used": 192,
+   "banks_total": 192,
+   "inorder_hit_W": 0.8721383333333333,
+   "key": "thp_identity",
+   "placement": "thp",
+   "scheme": "identity",
+   "info": {},
+   "chan_load_max_over_mean": 1.09629
+  },
+  {
+   "inorder_hit": 0.9397203333333334,
+   "banks_used": 192,
+   "banks_total": 192,
+   "inorder_hit_W": 0.9397203333333334,
+   "key": "thp_xor_global",
+   "placement": "thp",
+   "scheme": "xor_global",
+   "info": {
+    "matrix": {
+     "0": [
+      "row2"
+     ],
+     "1": [
+      "row4"
+     ],
+     "2": [],
+     "3": [
+      "row10"
+     ],
+     "4": [
+      "row10"
+     ]
+    },
+    "cost": [
+     998339.2833333334,
+     843426.7333333334
+    ]
+   },
+   "chan_load_max_over_mean": 1.09629
+  },
+  {
+   "inorder_hit": 0.7231516666666666,
+   "banks_used": 192,
+   "banks_total": 192,
+   "inorder_hit_W": 0.7231516666666666,
+   "key": "4k_identity",
+   "placement": "4k",
+   "scheme": "identity",
+   "info": {},
+   "chan_load_max_over_mean": 1.097792
+  },
+  {
+   "inorder_hit": 0.7231856666666666,
+   "banks_used": 192,
+   "banks_total": 192,
+   "inorder_hit_W": 0.7231856666666666,
+   "key": "4k_xor_global",
+   "placement": "4k",
+   "scheme": "xor_global",
+   "info": {
+    "matrix": {
+     "0": [
+      "row9"
+     ],
+     "1": [
+      "row5"
+     ],
+     "2": [],
+     "3": [
+      "row4"
+     ],
+     "4": [
+      "row6"
+     ]
+    },
+    "cost": [
+     1390584.7833333334,
+     1371513.2833333334
+    ]
+   },
+   "chan_load_max_over_mean": 1.097792
+  }
+ ]
+}

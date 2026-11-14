@@ -1,0 +1,58 @@
+==========================================
+SLURM_JOB_ID = 124729
+SLURM_NODELIST = node01
+SLURM_JOB_GPUS = 
+==========================================
+  WARNING: window has 1 thread(s); 4 contiguous pseudo-threads
+179,460,712 reads, window [53,838,213,56,838,213), nch 6
+  [packed global] n=3,000,000 cost 864780 -> 834086; bank bit ^= {0: ['row6', 'row5'], 1: ['row11'], 2: ['row9'], 3: ['row11'], 4: []}
+  packed_identity      in-order hit 0.948 banks 192/192 chan max/mean 1.096
+  packed_xor_global    in-order hit 0.950 banks 192/192 chan max/mean 1.096
+  [thp global] n=3,000,000 cost 998339 -> 843427; bank bit ^= {0: ['row2'], 1: ['row4'], 2: [], 3: ['row10'], 4: ['row10']}
+  thp_identity         in-order hit 0.872 banks 192/192 chan max/mean 1.096
+  thp_xor_global       in-order hit 0.940 banks 192/192 chan max/mean 1.096
+  [4k global] n=3,000,000 cost 1390585 -> 1371513; bank bit ^= {0: ['row9'], 1: ['row5'], 2: [], 3: ['row4'], 4: ['row6']}
+  4k_identity          in-order hit 0.723 banks 192/192 chan max/mean 1.098
+  4k_xor_global        in-order hit 0.723 banks 192/192 chan max/mean 1.098
+packed_identity   unl:0:100000000:100000OPEN_PAGE  hit 0.929 lat   224.1 cyc    2.859M    98.5GB/s
+packed_xor_global unl:0:100000000:100000OPEN_PAGE  hit 0.930 lat   227.6 cyc    2.873M    98.0GB/s
+thp_xor_global    unl:0:100000000:100000OPEN_PAGE  hit 0.922 lat   229.9 cyc    2.876M    97.9GB/s
+thp_identity      unl:0:100000000:100000OPEN_PAGE  hit 0.893 lat   229.3 cyc    2.947M    95.6GB/s
+4k_identity       unl:0:100000000:100000OPEN_PAGE  hit 0.717 lat   329.8 cyc    2.682M   105.0GB/s
+4k_xor_global     unl:0:100000000:100000OPEN_PAGE  hit 0.717 lat   328.7 cyc    2.682M   105.0GB/s
+4k_identity       k5:264:1280   OPEN_PAGE  hit 0.651 lat    55.6 cyc   27.985M    10.1GB/s
+4k_xor_global     k5:264:1280   OPEN_PAGE  hit 0.651 lat    55.6 cyc   28.005M    10.1GB/s
+4k_identity       k4:211:1024   OPEN_PAGE  hit 0.656 lat    54.2 cyc   22.661M    12.4GB/s
+4k_xor_global     k4:211:1024   OPEN_PAGE  hit 0.656 lat    54.2 cyc   22.645M    12.4GB/s
+packed_identity   k5:264:1280   OPEN_PAGE  hit 0.771 lat    51.1 cyc   27.950M    10.1GB/s
+packed_xor_global k5:264:1280   OPEN_PAGE  hit 0.770 lat    51.1 cyc   27.950M    10.1GB/s
+thp_identity      k5:264:1280   OPEN_PAGE  hit 0.738 lat    53.1 cyc   27.987M    10.1GB/s
+thp_xor_global    k5:264:1280   OPEN_PAGE  hit 0.774 lat    51.4 cyc   28.036M    10.0GB/s
+4k_identity       plat:52:1024  OPEN_PAGE  hit 0.677 lat    67.0 cyc    6.136M    45.9GB/s
+packed_identity   plat:52:1024  OPEN_PAGE  hit 0.821 lat    54.4 cyc    6.053M    46.5GB/s
+packed_xor_global plat:52:1024  OPEN_PAGE  hit 0.820 lat    54.5 cyc    6.050M    46.5GB/s
+4k_xor_global     plat:52:1024  OPEN_PAGE  hit 0.677 lat    67.1 cyc    6.133M    45.9GB/s
+packed_identity   k4:211:1024   OPEN_PAGE  hit 0.778 lat    48.8 cyc   22.535M    12.5GB/s
+packed_xor_global k4:211:1024   OPEN_PAGE  hit 0.784 lat    48.3 cyc   22.518M    12.5GB/s
+thp_identity      plat:52:1024  OPEN_PAGE  hit 0.780 lat    58.6 cyc    6.121M    46.0GB/s
+thp_xor_global    plat:52:1024  OPEN_PAGE  hit 0.819 lat    54.9 cyc    6.097M    46.2GB/s
+4k_identity       w512:52:512   OPEN_PAGE  hit 0.675 lat    62.6 cyc    7.240M    38.9GB/s
+4k_xor_global     w512:52:512   OPEN_PAGE  hit 0.675 lat    62.5 cyc    7.247M    38.9GB/s
+thp_identity      k4:211:1024   OPEN_PAGE  hit 0.749 lat    50.5 cyc   22.544M    12.5GB/s
+thp_xor_global    k4:211:1024   OPEN_PAGE  hit 0.783 lat    48.9 cyc   22.584M    12.5GB/s
+packed_identity   w512:52:512   OPEN_PAGE  hit 0.816 lat    51.1 cyc    6.983M    40.3GB/s
+packed_xor_global w512:52:512   OPEN_PAGE  hit 0.823 lat    50.4 cyc    6.929M    40.6GB/s
+thp_xor_global    w512:52:512   OPEN_PAGE  hit 0.818 lat    51.1 cyc    7.030M    40.1GB/s
+thp_identity      w512:52:512   OPEN_PAGE  hit 0.784 lat    54.0 cyc    7.131M    39.5GB/s
+4k_identity       fast:52:256   OPEN_PAGE  hit 0.669 lat    55.7 cyc   11.252M    25.0GB/s
+4k_xor_global     fast:52:256   OPEN_PAGE  hit 0.669 lat    55.7 cyc   11.258M    25.0GB/s
+packed_identity   fast:52:256   OPEN_PAGE  hit 0.815 lat    46.0 cyc    9.792M    28.8GB/s
+packed_xor_global fast:52:256   OPEN_PAGE  hit 0.816 lat    45.9 cyc    9.644M    29.2GB/s
+4k_xor_global     sat           OPEN_PAGE  hit 0.730 lat   512.5 cyc    2.427M   116.0GB/s
+4k_identity       sat           OPEN_PAGE  hit 0.730 lat   513.7 cyc    2.429M   115.9GB/s
+thp_xor_global    fast:52:256   OPEN_PAGE  hit 0.810 lat    46.7 cyc    9.847M    28.6GB/s
+thp_identity      fast:52:256   OPEN_PAGE  hit 0.773 lat    49.2 cyc   10.290M    27.4GB/s
+packed_xor_global sat           OPEN_PAGE  hit 0.964 lat   312.9 cyc    2.692M   104.6GB/s
+packed_identity   sat           OPEN_PAGE  hit 0.963 lat   312.0 cyc    2.680M   105.1GB/s
+thp_xor_global    sat           OPEN_PAGE  hit 0.961 lat   314.6 cyc    2.708M   104.0GB/s
+thp_identity      sat           OPEN_PAGE  hit 0.943 lat   310.3 cyc    2.782M   101.2GB/s

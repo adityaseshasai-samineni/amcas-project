@@ -1,0 +1,5 @@
+  WARNING: window has 1 thread(s); 4 contiguous pseudo-threads
+179,460,712 reads, window [53,838,213,54,138,213), nch 6
+  [thp global] n=300,000 cost 430965 -> 304911; bank bit ^= {0: ['row2', 'row11'], 1: ['row0'], 2: ['row12', 'row4'], 3: [], 4: []}
+  thp_identity         in-order hit 0.801 banks 192/192 chan max/mean 1.383
+  thp_xor_global       in-order hit 0.955 banks 192/192 chan max/mean 1.383

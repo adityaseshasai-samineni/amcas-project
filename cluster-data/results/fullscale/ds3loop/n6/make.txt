@@ -1,0 +1,11 @@
+  WARNING: window has 1 thread(s); 4 contiguous pseudo-threads
+179,460,712 reads, window [53,838,213,56,838,213), nch 6
+  [packed global] n=3,000,000 cost 864780 -> 834086; bank bit ^= {0: ['row6', 'row5'], 1: ['row11'], 2: ['row9'], 3: ['row11'], 4: []}
+  packed_identity      in-order hit 0.948 banks 192/192 chan max/mean 1.096
+  packed_xor_global    in-order hit 0.950 banks 192/192 chan max/mean 1.096
+  [thp global] n=3,000,000 cost 998339 -> 843427; bank bit ^= {0: ['row2'], 1: ['row4'], 2: [], 3: ['row10'], 4: ['row10']}
+  thp_identity         in-order hit 0.872 banks 192/192 chan max/mean 1.096
+  thp_xor_global       in-order hit 0.940 banks 192/192 chan max/mean 1.096
+  [4k global] n=3,000,000 cost 1390585 -> 1371513; bank bit ^= {0: ['row9'], 1: ['row5'], 2: [], 3: ['row4'], 4: ['row6']}
+  4k_identity          in-order hit 0.723 banks 192/192 chan max/mean 1.098
+  4k_xor_global        in-order hit 0.723 banks 192/192 chan max/mean 1.098
