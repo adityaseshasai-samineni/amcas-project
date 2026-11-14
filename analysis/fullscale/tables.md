@@ -479,6 +479,8 @@ Each remap rewrites the read stream with the named scheme (identity = no change)
 | 7B_prefill_P512u32 | thp | ddr4 | ClosedCAP | 1.00 (hit 73%) | 1.72 (hit 74%) | 1.00 (hit 74%) | 0.99 (hit 73%) |
 | 7B_prefill_P512u32 | thp | ddr5 | Open | 1.00 (hit 91%) | 1.43 (hit 85%) | 1.00 (hit 91%) | 1.00 (hit 91%) |
 | 7B_prefill_P512u32 | thp | ddr5 | ClosedCAP | 1.00 (hit 74%) | 1.56 (hit 73%) | 1.00 (hit 74%) | 1.00 (hit 74%) |
+| 7B_prefill_P512u64 | packed | ddr4 | Open | 1.00 (hit 88%) | - | - | 0.98 (hit 88%) |
+| 7B_prefill_P512u64 | packed | ddr4 | ClosedCAP | 1.00 (hit 72%) | - | - | 0.97 (hit 72%) |
 | Q30B_B16 | packed | ddr4 | Open | 1.00 (hit 97%) | 1.28 (hit 96%) | 0.99 (hit 98%) | 1.00 (hit 97%) |
 | Q30B_B16 | packed | ddr4 | ClosedCAP | 1.00 (hit 78%) | 1.83 (hit 78%) | 0.99 (hit 78%) | 1.00 (hit 78%) |
 | Q30B_B16 | packed | ddr5 | Open | 1.00 (hit 96%) | 1.73 (hit 93%) | 1.00 (hit 96%) | 1.00 (hit 96%) |
