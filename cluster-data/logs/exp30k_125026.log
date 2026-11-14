@@ -3,3 +3,6 @@ SLURM_JOB_ID = 125026
 SLURM_NODELIST = node01
 SLURM_JOB_GPUS = 
 ==========================================
+/var/spool/slurmd/job125026/slurm_script: line 4: 1842681 Killed                  tracing/mamba/envs/gem5/bin/python tools/moe_experts_touched.py /home/adityaseshasai.s/amcas-pro/results/fullscale/drbatch_miss/Qwen3-30B-A3B-Q4_K_M_B4_P32768t4/miss.gz /home/adityaseshasai.s/amcas-pro/results/fullscale/drbatch_miss/Qwen3-30B-A3B-Q4_K_M_B4_P32768t4/tensors.tsv results/fullscale/moe/Q30B_B4_P32768_experts.json --tokens 1
+head: cannot open 'results/fullscale/moe/Q30B_B4_P32768_experts.json' for reading: No such file or directory
+slurmstepd: error: Detected 1 oom-kill event(s) in StepId=125026.batch. Some of your processes may have been killed by the cgroup out-of-memory handler.
