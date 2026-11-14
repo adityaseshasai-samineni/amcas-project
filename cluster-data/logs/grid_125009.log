@@ -165,3 +165,9 @@ publish: pushed 8150e9a
   [thp/x16 MOP4CLXOR xor_global] n=4,000,000 cost 1337889 -> 1171086; bank bit ^= {0: ['row12', 'row9'], 1: ['row9'], 2: ['row9'], 3: ['row7'], 4: ['row5', 'row6', 'row7']}
   done thp/x16: identity:0.925/0.925 xor_global:0.966/0.966 region:0.966/0.966 chan:0.955/0.955 xor_global_chan:0.970/0.970 mop:0.541/0.541 mopxor:0.604/0.604 bitrev:0.965/0.965 chra:0.911/0.911 naive:0.963/0.963
 replay rc=0 for q7_8k Sat Nov 14 19:16:30 IST 2026
+wrote analysis/tables.md and 3 figures; validation failures: none
+wrote analysis/fullscale/headline.md
+wrote analysis/fullscale/tables.md
+publish: pushed 218e856
+=== q7_B16P512 (/home/adityaseshasai.s/amcas-pro/results/fullscale/drbatch_miss/qwen2.5-7b-instruct-q4_k_m-00001-of-00002_B16_P512t4) Sat Nov 14 19:20:13 IST 2026
+/dev/sdc1       1.8T  1.1T  729G  61% /scratch

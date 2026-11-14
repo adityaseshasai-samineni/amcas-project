@@ -3,3 +3,7 @@ SLURM_JOB_ID = 125025
 SLURM_NODELIST = node01
 SLURM_JOB_GPUS = 
 ==========================================
+/var/spool/slurmd/job125025/slurm_script: line 19: 1841211 Killed                  $E/bin/python $HOME/amcas-pro/tools/$TOOL "$@" $S --window ${WIN:-8000000} --placements ${PL:-packed,thp} 2>&1
+     1841212 Done                    | tee $R/make.txt
+cp: cannot stat '/scratch/adityaseshasai.s/mapstudy/moe-Q30B_B4_P32768/manifest.json': No such file or directory
+ls: cannot access '/scratch/adityaseshasai.s/mapstudy/moe-Q30B_B4_P32768/*.trc': No such file or directory
