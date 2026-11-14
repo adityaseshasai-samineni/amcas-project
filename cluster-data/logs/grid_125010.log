@@ -222,3 +222,4 @@ grid_gen failed for q30_n4
   done thp/x16: identity:0.957/0.957 xor_global:0.961/0.961 region:0.960/0.960 chan:0.959/0.959 xor_global_chan:0.961/0.961 mop:0.552/0.552 mopxor:0.571/0.571 bitrev:0.944/0.944 chra:0.904/0.904 naive:0.957/0.957 expert_hash:0.956/0.956 expert_lin:0.958/0.958
   [thp/d4r6 MOP4CLXOR xor_global] n=4,000,000 cost 1699622 -> 1579891; bank bit ^= {0: ['row5', 'row12'], 1: ['row4', 'row14'], 2: ['row1', 'row2', 'row12'], 3: ['row8', 'row14'], 4: ['row0', 'row14']}
   done thp/d4r6: identity:0.964/0.964 xor_global:0.966/0.966 region:0.968/0.968 chan:0.965/0.965 xor_global_chan:0.966/0.966 mop:0.562/0.562 mopxor:0.579/0.579 bitrev:0.927/0.927 chra:0.848/0.848 naive:0.967/0.967 expert_hash:0.963/0.963 expert_lin:0.964/0.964
+replay rc=0 for q30_B4P512 Sat Nov 14 22:21:15 IST 2026
