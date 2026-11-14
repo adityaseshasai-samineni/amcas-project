@@ -1,0 +1,480 @@
+{
+ "gpu": "a16",
+ "ib": 2,
+ "requests": 80000000,
+ "stream_requests": 193126767,
+ "reads": 79897844,
+ "writes": 102156,
+ "pages_2MiB": 1247,
+ "results": [
+  {
+   "scheme": "identity",
+   "policy": "Open",
+   "reads": 79897844,
+   "writes": 102156,
+   "cycles": 38316753,
+   "time_us": 21917.182716,
+   "GBps": 116.80333340156656,
+   "hit_rate": 0.9311074397950868,
+   "conflict_rate": 0.053715047419461565,
+   "avg_read_latency_ns": 55.25161454824261,
+   "chan_reads": [
+    9987357,
+    9987327,
+    9987205,
+    9987204,
+    9987335,
+    9987212,
+    9987141,
+    9987063
+   ],
+   "sim": "ram",
+   "cycles_unit_ns": 0.572,
+   "avg_read_latency_cycles": 96.59373172769688
+  },
+  {
+   "scheme": "identity",
+   "policy": "ClosedCAP",
+   "reads": 79897844,
+   "writes": 102156,
+   "cycles": 75629488,
+   "time_us": 43260.067136,
+   "GBps": 59.176977047953514,
+   "hit_rate": 0.7611821979871565,
+   "conflict_rate": 0.030220903964251828,
+   "avg_read_latency_ns": 99.75335197317172,
+   "chan_reads": [
+    9987357,
+    9987327,
+    9987205,
+    9987204,
+    9987335,
+    9987212,
+    9987141,
+    9987063
+   ],
+   "sim": "ram",
+   "cycles_unit_ns": 0.572,
+   "avg_read_latency_cycles": 174.39397198106946
+  },
+  {
+   "scheme": "xor",
+   "policy": "Open",
+   "reads": 79897844,
+   "writes": 102156,
+   "cycles": 34037894,
+   "time_us": 19469.675368,
+   "GBps": 131.48652720771958,
+   "hit_rate": 0.9445920177368625,
+   "conflict_rate": 0.041810965220918136,
+   "avg_read_latency_ns": 49.67804462711176,
+   "chan_reads": [
+    9987357,
+    9987327,
+    9987205,
+    9987204,
+    9987335,
+    9987212,
+    9987141,
+    9987063
+   ],
+   "sim": "ram",
+   "cycles_unit_ns": 0.572,
+   "avg_read_latency_cycles": 86.84972836907652
+  },
+  {
+   "scheme": "xor",
+   "policy": "ClosedCAP",
+   "reads": 79897844,
+   "writes": 102156,
+   "cycles": 72490172,
+   "time_us": 41464.378384,
+   "GBps": 61.7397414303897,
+   "hit_rate": 0.7628380599597696,
+   "conflict_rate": 0.026828199096062492,
+   "avg_read_latency_ns": 96.35802499036635,
+   "chan_reads": [
+    9987357,
+    9987327,
+    9987205,
+    9987204,
+    9987335,
+    9987212,
+    9987141,
+    9987063
+   ],
+   "sim": "ram",
+   "cycles_unit_ns": 0.572,
+   "avg_read_latency_cycles": 168.45808564749362
+  },
+  {
+   "scheme": "chan",
+   "policy": "Open",
+   "reads": 79897844,
+   "writes": 102156,
+   "cycles": 38309827,
+   "time_us": 21913.221044,
+   "GBps": 116.82445017369761,
+   "hit_rate": 0.9311363465592243,
+   "conflict_rate": 0.05366926655369962,
+   "avg_read_latency_ns": 55.25187545053968,
+   "chan_reads": [
+    9987357,
+    9987319,
+    9987181,
+    9987164,
+    9987335,
+    9987220,
+    9987165,
+    9987103
+   ],
+   "sim": "ram",
+   "cycles_unit_ns": 0.572,
+   "avg_read_latency_cycles": 96.59418785059385
+  },
+  {
+   "scheme": "chan",
+   "policy": "ClosedCAP",
+   "reads": 79897844,
+   "writes": 102156,
+   "cycles": 75561132,
+   "time_us": 43220.967504,
+   "GBps": 59.23051120415289,
+   "hit_rate": 0.7612018359686253,
+   "conflict_rate": 0.030180229968348394,
+   "avg_read_latency_ns": 99.6137699821903,
+   "chan_reads": [
+    9987357,
+    9987319,
+    9987181,
+    9987164,
+    9987335,
+    9987220,
+    9987165,
+    9987103
+   ],
+   "sim": "ram",
+   "cycles_unit_ns": 0.572,
+   "avg_read_latency_cycles": 174.14994752131173
+  },
+  {
+   "scheme": "xor_chan",
+   "policy": "Open",
+   "reads": 79897844,
+   "writes": 102156,
+   "cycles": 34035591,
+   "time_us": 19468.358052,
+   "GBps": 131.49542417302158,
+   "hit_rate": 0.9446054363797722,
+   "conflict_rate": 0.04180947685108725,
+   "avg_read_latency_ns": 49.66509552542833,
+   "chan_reads": [
+    9987375,
+    9987346,
+    9987217,
+    9987195,
+    9987317,
+    9987193,
+    9987129,
+    9987072
+   ],
+   "sim": "ram",
+   "cycles_unit_ns": 0.572,
+   "avg_read_latency_cycles": 86.82709007942016
+  },
+  {
+   "scheme": "xor_chan",
+   "policy": "ClosedCAP",
+   "reads": 79897844,
+   "writes": 102156,
+   "cycles": 72472961,
+   "time_us": 41454.533692,
+   "GBps": 61.754403487453416,
+   "hit_rate": 0.762823705107691,
+   "conflict_rate": 0.026825686794439425,
+   "avg_read_latency_ns": 96.31604579562025,
+   "chan_reads": [
+    9987375,
+    9987346,
+    9987217,
+    9987195,
+    9987317,
+    9987193,
+    9987129,
+    9987072
+   ],
+   "sim": "ram",
+   "cycles_unit_ns": 0.572,
+   "avg_read_latency_cycles": 168.38469544688857
+  },
+  {
+   "sim": "ds3",
+   "scheme": "identity",
+   "policy": "OPEN_PAGE",
+   "reads": 79897844,
+   "writes": 102156,
+   "cycles": 22165685,
+   "time_us": 14186.038400000001,
+   "GBps": 180.45911958055888,
+   "hit_rate": 0.9597050625,
+   "avg_read_latency_cycles": 159.9604614988109,
+   "cycles_unit_ns": 0.64,
+   "avg_read_latency_ns": 102.37469535923898,
+   "missing_callbacks": 0,
+   "acts": 3223162,
+   "inst_max_over_mean": 1.0000705
+  },
+  {
+   "sim": "ds3",
+   "scheme": "identity",
+   "policy": "CLOSE_PAGE",
+   "reads": 79897844,
+   "writes": 102156,
+   "cycles": 263748598,
+   "time_us": 168799.10272,
+   "GBps": 15.165957394018072,
+   "hit_rate": 0.0,
+   "avg_read_latency_cycles": 1519.0556822033896,
+   "cycles_unit_ns": 0.64,
+   "avg_read_latency_ns": 972.1956366101693,
+   "missing_callbacks": 0,
+   "acts": 80128026,
+   "inst_max_over_mean": 1.0000705
+  },
+  {
+   "sim": "ds3",
+   "scheme": "xor",
+   "policy": "OPEN_PAGE",
+   "reads": 79897844,
+   "writes": 102156,
+   "cycles": 21296744,
+   "time_us": 13629.91616,
+   "GBps": 187.82213844520084,
+   "hit_rate": 0.9635359625,
+   "avg_read_latency_cycles": 155.17846678065555,
+   "cycles_unit_ns": 0.64,
+   "avg_read_latency_ns": 99.31421873961956,
+   "missing_callbacks": 0,
+   "acts": 2916291,
+   "inst_max_over_mean": 1.0000705
+  },
+  {
+   "sim": "ds3",
+   "scheme": "xor",
+   "policy": "CLOSE_PAGE",
+   "reads": 79897844,
+   "writes": 102156,
+   "cycles": 255446392,
+   "time_us": 163485.69088,
+   "GBps": 15.658862780101432,
+   "hit_rate": 0.0,
+   "avg_read_latency_cycles": 1474.3846995921442,
+   "cycles_unit_ns": 0.64,
+   "avg_read_latency_ns": 943.6062077389723,
+   "missing_callbacks": 0,
+   "acts": 80133148,
+   "inst_max_over_mean": 1.0000705
+  },
+  {
+   "sim": "ds3",
+   "scheme": "chan",
+   "policy": "OPEN_PAGE",
+   "reads": 79897844,
+   "writes": 102156,
+   "cycles": 22119154,
+   "time_us": 14156.25856,
+   "GBps": 180.83874274757525,
+   "hit_rate": 0.9596742625,
+   "avg_read_latency_cycles": 160.04823421768427,
+   "cycles_unit_ns": 0.64,
+   "avg_read_latency_ns": 102.43086989931794,
+   "missing_callbacks": 0,
+   "acts": 3225748,
+   "inst_max_over_mean": 1.0000697
+  },
+  {
+   "sim": "ds3",
+   "scheme": "chan",
+   "policy": "CLOSE_PAGE",
+   "reads": 79897844,
+   "writes": 102156,
+   "cycles": 262535259,
+   "time_us": 168022.56576,
+   "GBps": 15.236048732029552,
+   "hit_rate": 0.0,
+   "avg_read_latency_cycles": 1516.1284477964136,
+   "cycles_unit_ns": 0.64,
+   "avg_read_latency_ns": 970.3222065897047,
+   "missing_callbacks": 0,
+   "acts": 80128081,
+   "inst_max_over_mean": 1.0000697
+  },
+  {
+   "sim": "ds3",
+   "scheme": "xor_chan",
+   "policy": "OPEN_PAGE",
+   "reads": 79897844,
+   "writes": 102156,
+   "cycles": 21262597,
+   "time_us": 13608.06208,
+   "GBps": 188.1237743442158,
+   "hit_rate": 0.963513275,
+   "avg_read_latency_cycles": 156.23830277572947,
+   "cycles_unit_ns": 0.64,
+   "avg_read_latency_ns": 99.99251377646686,
+   "missing_callbacks": 0,
+   "acts": 2917843,
+   "inst_max_over_mean": 1.0000541
+  },
+  {
+   "sim": "ds3",
+   "scheme": "xor_chan",
+   "policy": "CLOSE_PAGE",
+   "reads": 79897844,
+   "writes": 102156,
+   "cycles": 249338272,
+   "time_us": 159576.49408,
+   "GBps": 16.04246298779194,
+   "hit_rate": 0.0,
+   "avg_read_latency_cycles": 1454.4206923531003,
+   "cycles_unit_ns": 0.64,
+   "avg_read_latency_ns": 930.8292431059842,
+   "missing_callbacks": 0,
+   "acts": 80132781,
+   "inst_max_over_mean": 1.0000541
+  }
+ ],
+ "info": {
+  "ram:identity": {
+   "chan_max_over_mean": 1.0000705,
+   "inorder_hit": 0.9683934625
+  },
+  "ram:xor": {
+   "xor_matrix": {
+    "0": [
+     "row2",
+     "row4",
+     "row0"
+    ],
+    "1": [
+     "row7",
+     "row8"
+    ],
+    "2": [
+     "row7"
+    ],
+    "3": [
+     "row2"
+    ]
+   },
+   "chan_max_over_mean": 1.0000705,
+   "inorder_hit": 0.9782544
+  },
+  "ram:chan": {
+   "chan_matrix": {
+    "0": [],
+    "1": [
+     "row7"
+    ],
+    "2": []
+   },
+   "chan_max_over_mean": 1.0000697,
+   "inorder_hit": 0.9683934625
+  },
+  "ram:xor_chan": {
+   "xor_matrix": {
+    "0": [
+     "row2",
+     "row4",
+     "row0"
+    ],
+    "1": [
+     "row7",
+     "row8"
+    ],
+    "2": [
+     "row7"
+    ],
+    "3": [
+     "row2"
+    ]
+   },
+   "chan_matrix": {
+    "0": [],
+    "1": [
+     "row9"
+    ],
+    "2": [
+     "row1",
+     "row6"
+    ]
+   },
+   "chan_max_over_mean": 1.0000272,
+   "inorder_hit": 0.9782544
+  },
+  "ds3:identity": {
+   "chan_max_over_mean": 1.0000705,
+   "inorder_hit": 0.9683934625
+  },
+  "ds3:xor": {
+   "xor_matrix": {
+    "0": [
+     "row2",
+     "row4",
+     "row0"
+    ],
+    "1": [
+     "row7",
+     "row8"
+    ],
+    "2": [
+     "row7"
+    ],
+    "3": [
+     "row2"
+    ]
+   },
+   "chan_max_over_mean": 1.0000705,
+   "inorder_hit": 0.9782544
+  },
+  "ds3:chan": {
+   "chan_matrix": {
+    "0": [],
+    "1": [
+     "row7"
+    ],
+    "2": []
+   },
+   "chan_max_over_mean": 1.0000697,
+   "inorder_hit": 0.9683934625
+  },
+  "ds3:xor_chan": {
+   "xor_matrix": {
+    "0": [
+     "row2",
+     "row4",
+     "row0"
+    ],
+    "1": [
+     "row7",
+     "row8"
+    ],
+    "2": [
+     "row7"
+    ],
+    "3": [
+     "row2"
+    ]
+   },
+   "chan_matrix": {
+    "0": [],
+    "1": [
+     "row1"
+    ],
+    "2": []
+   },
+   "chan_max_over_mean": 1.0000541,
+   "inorder_hit": 0.9782544
+  }
+ }
+}

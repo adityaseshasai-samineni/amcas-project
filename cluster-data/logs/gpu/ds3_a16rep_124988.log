@@ -221,3 +221,28 @@ Traceback (most recent call last):
     raise self._value
 RuntimeError: /tmp/adityaseshasai.s/ds3study_1315649/ds3_xor_i7.bin:  
 ### q7_a16_32k_faauto ib2 Sat Nov 14 21:20:16 IST 2026
+a16 ib2: 80000000 of 193126767 requests (79897844 rd, 102156 wr), 1247 2MiB pages
+  [chan] channel hash cost 728531 -> 727520; chan bit ^= {0: [], 1: ['row7'], 2: []}
+  [xor_chan] channel hash cost 641244 -> 638745; chan bit ^= {0: [], 1: ['row9'], 2: ['row1', 'row6']}
+  [chan] channel hash cost 448796 -> 447736; chan bit ^= {0: [], 1: ['row7'], 2: []}
+  [xor_chan] channel hash cost 361609 -> 360141; chan bit ^= {0: [], 1: ['row1'], 2: []}
+
+
+sim  scheme   policy         hit  lat_cyc  lat_ns     cycles   time_us    GB/s
+ram  identity Open         0.931     96.6    55.3   38316753   21917.2   116.8
+ram  identity ClosedCAP    0.761    174.4    99.8   75629488   43260.1    59.2
+ram  xor      Open         0.945     86.8    49.7   34037894   19469.7   131.5
+ram  xor      ClosedCAP    0.763    168.5    96.4   72490172   41464.4    61.7
+ram  chan     Open         0.931     96.6    55.3   38309827   21913.2   116.8
+ram  chan     ClosedCAP    0.761    174.1    99.6   75561132   43221.0    59.2
+ram  xor_chan Open         0.945     86.8    49.7   34035591   19468.4   131.5
+ram  xor_chan ClosedCAP    0.763    168.4    96.3   72472961   41454.5    61.8
+ds3  identity OPEN_PAGE    0.960    160.0   102.4   22165685   14186.0   180.5
+ds3  identity CLOSE_PAGE   0.000   1519.1   972.2  263748598  168799.1    15.2
+ds3  xor      OPEN_PAGE    0.964    155.2    99.3   21296744   13629.9   187.8
+ds3  xor      CLOSE_PAGE   0.000   1474.4   943.6  255446392  163485.7    15.7
+ds3  chan     OPEN_PAGE    0.960    160.0   102.4   22119154   14156.3   180.8
+ds3  chan     CLOSE_PAGE   0.000   1516.1   970.3  262535259  168022.6    15.2
+ds3  xor_chan OPEN_PAGE    0.964    156.2   100.0   21262597   13608.1   188.1
+ds3  xor_chan CLOSE_PAGE   0.000   1454.4   930.8  249338272  159576.5    16.0
+### q7_a16_32k_faauto ib5 Sat Nov 14 21:49:17 IST 2026

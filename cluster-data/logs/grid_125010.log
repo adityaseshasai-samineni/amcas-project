@@ -69,3 +69,9 @@ publish: pushed 2801185
   [thp/x16 MOP4CLXOR xor_global] n=4,000,000 cost 1126801 -> 1030701; bank bit ^= {0: ['row8', 'row6', 'row7'], 1: ['row4', 'row11'], 2: ['row13', 'row7'], 3: [], 4: ['row3']}
   done thp/x16: identity:0.943/0.943 xor_global:0.961/0.961 region:0.969/0.969 chan:0.963/0.963 xor_global_chan:0.963/0.963 mop:0.624/0.624 mopxor:0.646/0.646 bitrev:0.919/0.919 chra:0.888/0.888 naive:0.966/0.966 expert_hash:0.941/0.941 expert_lin:0.941/0.941
 replay rc=0 for q30_1k Sat Nov 14 21:39:16 IST 2026
+wrote analysis/tables.md and 3 figures; validation failures: none
+wrote analysis/fullscale/headline.md
+wrote analysis/fullscale/tables.md
+publish: pushed e41059b
+=== q30_pf32 (/home/adityaseshasai.s/amcas-pro/results/fullscale/drattr/Qwen3-30B-A3B-Q4_K_M_s0n1t4_attr_pf32) Sat Nov 14 21:44:15 IST 2026
+/dev/sdc1       1.8T  1.3T  477G  73% /scratch
