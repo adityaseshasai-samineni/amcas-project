@@ -1632,3 +1632,11 @@ Home was at 97.7 of 100 GB (hard limit 102 GB) while the 30B batch-4 32k capture
 **Hardware row-buffer counters: none.** `ncu --query-metrics-mode all` on V100 lists, under dram__ and fbpa__, only bytes, sectors (read/write), cycles (active, elapsed, in frame/region), and throughput (listed in `results/measure/allmet_v100.txt` and `metrics_v100.txt`). No activate, precharge, row-hit or page counters; a real hardware row-hit rate cannot be measured on these GPUs. The A16 query was not run separately (same ncu counter families). The row hit rates in the GPU section therefore stay simulation outputs.
 
 **CPU branch: stopped.** `perf list` shows uncore_imc_0..5 cas_count_read/write, but `/proc/sys/kernel/perf_event_paranoid` is 2 on the login node and on node03, and `perf stat -a -e uncore_imc_0/cas_count_read/,uncore_imc_0/cas_count_write/ -- sleep 1` (also `-a -A`, `-C 0`, and per-process) prints `<not supported>` for every IMC counter as a normal user (perf 4.18; the event is forced to the user-only `/u` modifier). `/dev/cpu/0/msr` is root:root 0600 and `/sys/fs/resctrl` is empty, so no alternative route exists without root. No CPU DRAM bytes could be measured; the DynamoRIO + drcachesim figures (4.40 GB short, 9.8-11.5 GB at 32k) stay as the CPU numbers.
+
+### main session: provenance of the gem5 models (2026-11-14)
+
+The three gem5-era models were downloaded on 2026-10-31 before `10_fetch_models.sh` existed, so their source was never recorded. Identified by exact file size (Hugging Face API / resolve headers) and the GGUF `general.name`:
+- `stories15M.gguf` (19,077,344 B, Q4_0, llama, 6 layers): https://huggingface.co/ggml-org/models, file `tinyllamas/stories15M-q4_0.gguf` (Karpathy's llama2.c TinyStories 15M, converted by ggml-org).
+- `qwen25-05b-q4_0.gguf` (428,730,208 B, Q4_0, `general.name = qwen2.5-0.5b-instruct`): https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct-GGUF, file `qwen2.5-0.5b-instruct-q4_0.gguf`.
+- `tinymoe4.gguf` (1,979,016,640 B, Q8_0, `general.name = Tinyllama-moe4`, 22 layers, expert_count 2, expert_used_count 2): https://huggingface.co/israellaguan/Tinyllama-moe4-Q8_0-GGUF, file `tinyllama-moe4-q8_0.gguf` (GGUF of https://huggingface.co/aipib/Tinyllama-moe4).
+Full-scale models: `Qwen/Qwen2.5-7B-Instruct-GGUF` and `Qwen/Qwen3-30B-A3B-GGUF` (see `scripts/10_fetch_models.sh`).
