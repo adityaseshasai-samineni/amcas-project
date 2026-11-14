@@ -1,0 +1,722 @@
+[
+ {
+  "key": "packed_d4r6_bitrev",
+  "policy": "OPEN_PAGE",
+  "nch": 6,
+  "reads": 4000000,
+  "cycles": 5329375,
+  "hit_rate": 0.941704,
+  "avg_read_latency": 362.509428,
+  "acts": 233671,
+  "channel_cycles": [
+   5329375,
+   5291044,
+   5325986,
+   5297096,
+   5322606,
+   5293439
+  ]
+ },
+ {
+  "key": "packed_d4r6_bitrev",
+  "policy": "CLOSE_PAGE",
+  "nch": 6,
+  "reads": 4000000,
+  "cycles": 28645815,
+  "hit_rate": 0.0,
+  "avg_read_latency": 1858.08495225,
+  "acts": 4002100,
+  "channel_cycles": [
+   28644319,
+   28640715,
+   28645271,
+   28641123,
+   28645815,
+   28638199
+  ]
+ },
+ {
+  "key": "packed_d4r6_chan",
+  "policy": "OPEN_PAGE",
+  "nch": 6,
+  "reads": 4000000,
+  "cycles": 3395538,
+  "hit_rate": 0.98124275,
+  "avg_read_latency": 289.233452,
+  "acts": 75485,
+  "channel_cycles": [
+   3395538,
+   3382006,
+   3382193,
+   3394040,
+   3387037,
+   3379767
+  ]
+ },
+ {
+  "key": "packed_d4r6_chan",
+  "policy": "CLOSE_PAGE",
+  "nch": 6,
+  "reads": 4000000,
+  "cycles": 14950320,
+  "hit_rate": 0.0,
+  "avg_read_latency": 1247.80184075,
+  "acts": 4006306,
+  "channel_cycles": [
+   14950320,
+   14918515,
+   14939558,
+   14918690,
+   14924641,
+   14930154
+  ]
+ },
+ {
+  "key": "packed_d4r6_chra3",
+  "policy": "OPEN_PAGE",
+  "nch": 6,
+  "reads": 4000000,
+  "cycles": 11371487,
+  "hit_rate": 0.8304495,
+  "avg_read_latency": 703.268013,
+  "acts": 679560,
+  "channel_cycles": [
+   11293616,
+   11331591,
+   11369191,
+   11243953,
+   11371487,
+   11319301
+  ]
+ },
+ {
+  "key": "packed_d4r6_chra3",
+  "policy": "CLOSE_PAGE",
+  "nch": 6,
+  "reads": 4000000,
+  "cycles": 48816289,
+  "hit_rate": 0.0,
+  "avg_read_latency": 2947.3654805,
+  "acts": 4000006,
+  "channel_cycles": [
+   48810805,
+   48633893,
+   48813297,
+   48634369,
+   48816289,
+   48636681
+  ]
+ },
+ {
+  "key": "packed_d4r6_id",
+  "policy": "OPEN_PAGE",
+  "nch": 6,
+  "reads": 4000000,
+  "cycles": 3399046,
+  "hit_rate": 0.98119175,
+  "avg_read_latency": 289.520128,
+  "acts": 75740,
+  "channel_cycles": [
+   3399046,
+   3393137,
+   3396498,
+   3389625,
+   3398119,
+   3390053
+  ]
+ },
+ {
+  "key": "packed_d4r6_id",
+  "policy": "CLOSE_PAGE",
+  "nch": 6,
+  "reads": 4000000,
+  "cycles": 14938011,
+  "hit_rate": 0.0,
+  "avg_read_latency": 1248.0581045,
+  "acts": 4006605,
+  "channel_cycles": [
+   14938011,
+   14914517,
+   14937681,
+   14914770,
+   14937803,
+   14926268
+  ]
+ },
+ {
+  "key": "packed_d4r6_mop3",
+  "policy": "OPEN_PAGE",
+  "nch": 6,
+  "reads": 4000000,
+  "cycles": 2881785,
+  "hit_rate": 0.7165725,
+  "avg_read_latency": 579.84553775,
+  "acts": 1147309,
+  "channel_cycles": [
+   2881785,
+   2866487,
+   2864521,
+   2864960,
+   2876728,
+   2869078
+  ]
+ },
+ {
+  "key": "packed_d4r6_mop3",
+  "policy": "CLOSE_PAGE",
+  "nch": 6,
+  "reads": 4000000,
+  "cycles": 3277795,
+  "hit_rate": 0.0,
+  "avg_read_latency": 652.3706155,
+  "acts": 4014580,
+  "channel_cycles": [
+   3268848,
+   3264301,
+   3277795,
+   3259774,
+   3267562,
+   3264314
+  ]
+ },
+ {
+  "key": "packed_d4r6_mxg3",
+  "policy": "OPEN_PAGE",
+  "nch": 6,
+  "reads": 4000000,
+  "cycles": 2873148,
+  "hit_rate": 0.71899675,
+  "avg_read_latency": 589.33041025,
+  "acts": 1138350,
+  "channel_cycles": [
+   2869122,
+   2862106,
+   2866302,
+   2853022,
+   2873148,
+   2855804
+  ]
+ },
+ {
+  "key": "packed_d4r6_mxg3",
+  "policy": "CLOSE_PAGE",
+  "nch": 6,
+  "reads": 4000000,
+  "cycles": 3273512,
+  "hit_rate": 0.0,
+  "avg_read_latency": 649.59708925,
+  "acts": 4014509,
+  "channel_cycles": [
+   3263813,
+   3261125,
+   3273512,
+   3262604,
+   3272043,
+   3261012
+  ]
+ },
+ {
+  "key": "packed_d4r6_naive",
+  "policy": "OPEN_PAGE",
+  "nch": 6,
+  "reads": 4000000,
+  "cycles": 3469380,
+  "hit_rate": 0.97906225,
+  "avg_read_latency": 290.55010325,
+  "acts": 84182,
+  "channel_cycles": [
+   3464548,
+   3457984,
+   3469233,
+   3457728,
+   3469380,
+   3457974
+  ]
+ },
+ {
+  "key": "packed_d4r6_naive",
+  "policy": "CLOSE_PAGE",
+  "nch": 6,
+  "reads": 4000000,
+  "cycles": 15346418,
+  "hit_rate": 0.0,
+  "avg_read_latency": 1262.43223525,
+  "acts": 4006502,
+  "channel_cycles": [
+   15337838,
+   15323420,
+   15337435,
+   15323850,
+   15346418,
+   15326337
+  ]
+ },
+ {
+  "key": "packed_d4r6_region",
+  "policy": "OPEN_PAGE",
+  "nch": 6,
+  "reads": 4000000,
+  "cycles": 3396596,
+  "hit_rate": 0.981169,
+  "avg_read_latency": 289.32524725,
+  "acts": 75863,
+  "channel_cycles": [
+   3395569,
+   3390109,
+   3396596,
+   3389577,
+   3387653,
+   3390053
+  ]
+ },
+ {
+  "key": "packed_d4r6_region",
+  "policy": "CLOSE_PAGE",
+  "nch": 6,
+  "reads": 4000000,
+  "cycles": 14939693,
+  "hit_rate": 0.0,
+  "avg_read_latency": 1248.06289,
+  "acts": 4006592,
+  "channel_cycles": [
+   14936514,
+   14926274,
+   14939693,
+   14914787,
+   14937803,
+   14926369
+  ]
+ },
+ {
+  "key": "packed_d4r6_xgc",
+  "policy": "OPEN_PAGE",
+  "nch": 6,
+  "reads": 4000000,
+  "cycles": 3379645,
+  "hit_rate": 0.982038,
+  "avg_read_latency": 289.2302835,
+  "acts": 72341,
+  "channel_cycles": [
+   3378975,
+   3361900,
+   3379645,
+   3356909,
+   3379052,
+   3356431
+  ]
+ },
+ {
+  "key": "packed_d4r6_xgc",
+  "policy": "CLOSE_PAGE",
+  "nch": 6,
+  "reads": 4000000,
+  "cycles": 14771682,
+  "hit_rate": 0.0,
+  "avg_read_latency": 1239.36733725,
+  "acts": 4006196,
+  "channel_cycles": [
+   14764354,
+   14706152,
+   14771682,
+   14702810,
+   14760124,
+   14702405
+  ]
+ },
+ {
+  "key": "packed_d4r6_xg",
+  "policy": "OPEN_PAGE",
+  "nch": 6,
+  "reads": 4000000,
+  "cycles": 3378953,
+  "hit_rate": 0.982068,
+  "avg_read_latency": 289.23275725,
+  "acts": 72187,
+  "channel_cycles": [
+   3364325,
+   3356591,
+   3378953,
+   3356385,
+   3378890,
+   3367438
+  ]
+ },
+ {
+  "key": "packed_d4r6_xg",
+  "policy": "CLOSE_PAGE",
+  "nch": 6,
+  "reads": 4000000,
+  "cycles": 14770946,
+  "hit_rate": 0.0,
+  "avg_read_latency": 1239.540495,
+  "acts": 4006275,
+  "channel_cycles": [
+   14752447,
+   14711921,
+   14768970,
+   14700882,
+   14770946,
+   14717668
+  ]
+ },
+ {
+  "key": "thp_d4r6_bitrev",
+  "policy": "OPEN_PAGE",
+  "nch": 6,
+  "reads": 4000000,
+  "cycles": 4028979,
+  "hit_rate": 0.97967525,
+  "avg_read_latency": 296.5445315,
+  "acts": 81517,
+  "channel_cycles": [
+   4000495,
+   4027500,
+   4001806,
+   4026416,
+   4006549,
+   4028979
+  ]
+ },
+ {
+  "key": "thp_d4r6_bitrev",
+  "policy": "CLOSE_PAGE",
+  "nch": 6,
+  "reads": 4000000,
+  "cycles": 19298938,
+  "hit_rate": 0.0,
+  "avg_read_latency": 1435.2771425,
+  "acts": 4005805,
+  "channel_cycles": [
+   19232199,
+   19292905,
+   19230287,
+   19295618,
+   19234041,
+   19298938
+  ]
+ },
+ {
+  "key": "thp_d4r6_chan",
+  "policy": "OPEN_PAGE",
+  "nch": 6,
+  "reads": 4000000,
+  "cycles": 3437039,
+  "hit_rate": 0.97673925,
+  "avg_read_latency": 290.71726575,
+  "acts": 93522,
+  "channel_cycles": [
+   3428998,
+   3435913,
+   3428907,
+   3437039,
+   3434456,
+   3425797
+  ]
+ },
+ {
+  "key": "thp_d4r6_chan",
+  "policy": "CLOSE_PAGE",
+  "nch": 6,
+  "reads": 4000000,
+  "cycles": 15342675,
+  "hit_rate": 0.0,
+  "avg_read_latency": 1264.682189,
+  "acts": 4006429,
+  "channel_cycles": [
+   15286827,
+   15333953,
+   15284225,
+   15342675,
+   15302882,
+   15341380
+  ]
+ },
+ {
+  "key": "thp_d4r6_chra3",
+  "policy": "OPEN_PAGE",
+  "nch": 6,
+  "reads": 4000000,
+  "cycles": 4706318,
+  "hit_rate": 0.95254875,
+  "avg_read_latency": 326.06619825,
+  "acts": 190186,
+  "channel_cycles": [
+   4688505,
+   4699457,
+   4688172,
+   4692226,
+   4682655,
+   4706318
+  ]
+ },
+ {
+  "key": "thp_d4r6_chra3",
+  "policy": "CLOSE_PAGE",
+  "nch": 6,
+  "reads": 4000000,
+  "cycles": 25329475,
+  "hit_rate": 0.0,
+  "avg_read_latency": 1667.65487625,
+  "acts": 4007162,
+  "channel_cycles": [
+   25253451,
+   25324229,
+   25253025,
+   25324250,
+   25255197,
+   25329475
+  ]
+ },
+ {
+  "key": "thp_d4r6_id",
+  "policy": "OPEN_PAGE",
+  "nch": 6,
+  "reads": 4000000,
+  "cycles": 3436969,
+  "hit_rate": 0.976655,
+  "avg_read_latency": 291.10409,
+  "acts": 93913,
+  "channel_cycles": [
+   3425725,
+   3427734,
+   3436969,
+   3425467,
+   3435971,
+   3425657
+  ]
+ },
+ {
+  "key": "thp_d4r6_id",
+  "policy": "CLOSE_PAGE",
+  "nch": 6,
+  "reads": 4000000,
+  "cycles": 15366798,
+  "hit_rate": 0.0,
+  "avg_read_latency": 1265.17899075,
+  "acts": 4006310,
+  "channel_cycles": [
+   15366798,
+   15339881,
+   15366395,
+   15348571,
+   15366244,
+   15347756
+  ]
+ },
+ {
+  "key": "thp_d4r6_mop3",
+  "policy": "OPEN_PAGE",
+  "nch": 6,
+  "reads": 4000000,
+  "cycles": 2885125,
+  "hit_rate": 0.71545925,
+  "avg_read_latency": 584.795339,
+  "acts": 1151915,
+  "channel_cycles": [
+   2871932,
+   2866611,
+   2877837,
+   2873056,
+   2885125,
+   2866815
+  ]
+ },
+ {
+  "key": "thp_d4r6_mop3",
+  "policy": "CLOSE_PAGE",
+  "nch": 6,
+  "reads": 4000000,
+  "cycles": 3284083,
+  "hit_rate": 0.0,
+  "avg_read_latency": 650.8703405,
+  "acts": 4014487,
+  "channel_cycles": [
+   3276193,
+   3272796,
+   3284083,
+   3268477,
+   3273378,
+   3265449
+  ]
+ },
+ {
+  "key": "thp_d4r6_mxg3",
+  "policy": "OPEN_PAGE",
+  "nch": 6,
+  "reads": 4000000,
+  "cycles": 2866911,
+  "hit_rate": 0.71938775,
+  "avg_read_latency": 593.27886275,
+  "acts": 1136860,
+  "channel_cycles": [
+   2861769,
+   2859126,
+   2866372,
+   2859124,
+   2866911,
+   2861716
+  ]
+ },
+ {
+  "key": "thp_d4r6_mxg3",
+  "policy": "CLOSE_PAGE",
+  "nch": 6,
+  "reads": 4000000,
+  "cycles": 3276321,
+  "hit_rate": 0.0,
+  "avg_read_latency": 647.80410175,
+  "acts": 4014610,
+  "channel_cycles": [
+   3275278,
+   3261299,
+   3273576,
+   3263735,
+   3276321,
+   3262421
+  ]
+ },
+ {
+  "key": "thp_d4r6_naive",
+  "policy": "OPEN_PAGE",
+  "nch": 6,
+  "reads": 4000000,
+  "cycles": 3410894,
+  "hit_rate": 0.97960025,
+  "avg_read_latency": 290.36191275,
+  "acts": 82079,
+  "channel_cycles": [
+   3410894,
+   3399296,
+   3409647,
+   3407780,
+   3409648,
+   3405997
+  ]
+ },
+ {
+  "key": "thp_d4r6_naive",
+  "policy": "CLOSE_PAGE",
+  "nch": 6,
+  "reads": 4000000,
+  "cycles": 15134218,
+  "hit_rate": 0.0,
+  "avg_read_latency": 1253.9374445,
+  "acts": 4006167,
+  "channel_cycles": [
+   15133668,
+   15105538,
+   15133940,
+   15105537,
+   15134218,
+   15105479
+  ]
+ },
+ {
+  "key": "thp_d4r6_region",
+  "policy": "OPEN_PAGE",
+  "nch": 6,
+  "reads": 4000000,
+  "cycles": 3423021,
+  "hit_rate": 0.97918775,
+  "avg_read_latency": 290.1505695,
+  "acts": 83769,
+  "channel_cycles": [
+   3423018,
+   3414169,
+   3423021,
+   3414207,
+   3411873,
+   3413967
+  ]
+ },
+ {
+  "key": "thp_d4r6_region",
+  "policy": "CLOSE_PAGE",
+  "nch": 6,
+  "reads": 4000000,
+  "cycles": 15211351,
+  "hit_rate": 0.0,
+  "avg_read_latency": 1256.598319,
+  "acts": 4006380,
+  "channel_cycles": [
+   15211351,
+   15192578,
+   15210656,
+   15192445,
+   15204120,
+   15192209
+  ]
+ },
+ {
+  "key": "thp_d4r6_xgc",
+  "policy": "OPEN_PAGE",
+  "nch": 6,
+  "reads": 4000000,
+  "cycles": 3390612,
+  "hit_rate": 0.98083675,
+  "avg_read_latency": 289.1007035,
+  "acts": 77186,
+  "channel_cycles": [
+   3390612,
+   3378803,
+   3384331,
+   3390575,
+   3384512,
+   3390236
+  ]
+ },
+ {
+  "key": "thp_d4r6_xgc",
+  "policy": "CLOSE_PAGE",
+  "nch": 6,
+  "reads": 4000000,
+  "cycles": 14884011,
+  "hit_rate": 0.0,
+  "avg_read_latency": 1242.51538775,
+  "acts": 4006319,
+  "channel_cycles": [
+   14869095,
+   14879541,
+   14881776,
+   14868083,
+   14884011,
+   14872930
+  ]
+ },
+ {
+  "key": "thp_d4r6_xg",
+  "policy": "OPEN_PAGE",
+  "nch": 6,
+  "reads": 4000000,
+  "cycles": 3394059,
+  "hit_rate": 0.98081325,
+  "avg_read_latency": 289.40177975,
+  "acts": 77277,
+  "channel_cycles": [
+   3390164,
+   3387019,
+   3394059,
+   3384899,
+   3390606,
+   3386668
+  ]
+ },
+ {
+  "key": "thp_d4r6_xg",
+  "policy": "CLOSE_PAGE",
+  "nch": 6,
+  "reads": 4000000,
+  "cycles": 14880271,
+  "hit_rate": 0.0,
+  "avg_read_latency": 1241.96213425,
+  "acts": 4006342,
+  "channel_cycles": [
+   14878024,
+   14879868,
+   14880271,
+   14879365,
+   14877809,
+   14879263
+  ]
+ }
+]
