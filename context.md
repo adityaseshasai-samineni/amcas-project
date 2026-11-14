@@ -1640,3 +1640,33 @@ The three gem5-era models were downloaded on 2026-10-31 before `10_fetch_models.
 - `qwen25-05b-q4_0.gguf` (428,730,208 B, Q4_0, `general.name = qwen2.5-0.5b-instruct`): https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct-GGUF, file `qwen2.5-0.5b-instruct-q4_0.gguf`.
 - `tinymoe4.gguf` (1,979,016,640 B, Q8_0, `general.name = Tinyllama-moe4`, 22 layers, expert_count 2, expert_used_count 2): https://huggingface.co/israellaguan/Tinyllama-moe4-Q8_0-GGUF, file `tinyllama-moe4-q8_0.gguf` (GGUF of https://huggingface.co/aipib/Tinyllama-moe4).
 Full-scale models: `Qwen/Qwen2.5-7B-Instruct-GGUF` and `Qwen/Qwen3-30B-A3B-GGUF` (see `scripts/10_fetch_models.sh`).
+
+### extras-capture-owner: 30B batch x long context, prefill ub64 (2026-11-15)
+
+**Task A, Qwen3-30B-A3B Q4_K_M, B=4, one decode step traced, 4 threads, node01, scripts/19_batchmiss.sh (miss.gz kept in `results/fullscale/drbatch_miss/Qwen3-30B-A3B-Q4_K_M_B4_P{8192,32768}t4/`).** Jobs: P=8192 STRIDE=40000: capture 124713 (untraced prompt evaluation 1502 s, 15.1G instructions, 28 GB raw trace, 148.5M LL reads no-prefetch = 9.5 GB); region 124751, moe_remap 124752, experts touched 124860 (24M-request window of 148.5M). P=32768 STRIDE=70000: capture 124714 (prompt evaluation 13,470 s = 3.7 h, 47.4G instructions, raw trace about 100 GB under MAXTRACE_GB=48, 1.68G LL reads = 107 GB, step about 7.9 s native, miss.gz 5.1 GB); first replay attempts 125024-6 OOM-killed (150 GB, run together); rerun one at a time with 330 GB: region 125044 (1 h 53), moe_remap 125045 (2 h 20), experts touched 125046; windows are 40M requests starting at 30% of the step (503.9M to 543.9M). Positional token gate: all four sequences identical in both runs. Cost per 30B run: the 32k sbatch needs --mem >= 100 GB (RSS 44.7 GB for the model plus KV, the replay needs far more), and --time of days.
+
+Cycles relative to identity (identity Mcycles and in-order hit in brackets), THP placement:
+
+| run | DDR4 Open xor_global / region | DDR4 Closed xor_global / region | DDR5 Open xor_global / region | DDR5 Closed xor_global / region |
+|---|---|---|---|---|
+| 30B B=4 P=8192 | 0.850 / 0.860 (131.4, 0.862 -> 0.961) | 0.843 / 0.854 (144.8) | 0.942 / 0.959 (27.4, 0.955) | 0.992 / 0.992 |
+| 30B B=4 P=32768 | 0.872 / 0.862 (206.8, 0.702 -> 0.927) | 0.882 / 0.880 (209.0) | 0.942 / 0.916 (26.2, 0.951) | 0.969 / 0.978 |
+| 7B B=4 P=8192 (serving-owner) | 0.989 / 0.921 | | 0.963 / 0.963 | |
+| 7B B=4 P=32768 (serving-owner) | 0.885 / 0.872 | | 0.938 / 1.000 | |
+
+Packed placement: DDR4 no gain (0.993-1.005) at both lengths; DDR5 packed identity is bad (hit 0.885 at 8k, 0.851 at 32k, K class 0.587 at 32k) and xor_global / region give 0.849 / 0.853 (8k Open) and 0.740 / 0.725 (32k Open), 0.66 / 0.62 ClosedCAP (the VA-compaction aliasing effect already noted for 7B B=4, not a KV-row conflict effect).
+
+**Expert-aware mapping (moe_remap.py, expert_hash, expert_lin, region_expert): no effect.** expert_hash and expert_lin give 1.000 to 1.002 of identity in every case at both lengths (in-order hit unchanged); region_expert equals region (+-0.001). Reason: weights are already at hit 0.95-0.96 in identity (W class), and at B=4 long context the stream is 96% KV reads (class shares full step W 0.039 / K 0.959 / O 0.002 at 32k), so expert weights are not where row conflicts are. Experts touched per layer (gate tensor, one B=4 decode step): 24.5 of 128 at 8k and 24.5 at 32k (of at most 32 with 4 tokens x 8 experts; B=1 touches 8.0), so batching makes the expert union about 3x larger but weights remain a small share of reads at long context.
+
+**Answer.** For the batched MoE at long context the KV-page XOR gain appears, as for the dense 7B, and is larger at short per-sequence length: 30B B=4 xor_global 0.85 (8k) and 0.87 (32k) on DDR4 Open (vs 7B B=4 0.99 at 8k, 0.885 at 32k), 0.94 on DDR5 Open, 0.97-0.99 ClosedCAP DDR5. The 30B has 98 KB KV per token (7B 57 KB) and 4x as much KV per decode as the 7B at the same P, so its stream is KV-dominated already at 8k. Region-specific matrices tie xor_global (0.86 vs 0.87 at 32k DDR4; 0.916 vs 0.942 DDR5 Open at 32k). Expert-aware mapping does not matter. The single global XOR remains the proposal.
+
+**Task B, 7B Q4_K_M 512-token prefill, n_ubatch=64, last graph compute (compute 7 of 8, positions 448-511) traced, 4 threads, node01, job 124859 (7 h 5 min, scripts/26_prefill.sh with MAXTRACE_GB=40; raw trace 41 GB, 32 GB converted, 49.5G instructions, 12.4G per thread x 4 thread ids in basic_counts; the merged miss file carries a single thread id as in earlier runs).** Same tokens as untraced: yes. No code change was needed: the earlier estimate (55G instructions, about 80 GB raw) was too high; raising the per-thread cap to 40 GB was enough. 82.5M LL reads (no prefetch) = 5.3 GB (ub=32: 75.3M). Region replay 125047 (24M window of 82.5M, window class shares W 0.81 / K 0.006 / O 0.18), cycles relative to identity (identity Mcycles, hit):
+
+| DRAM, policy | THP identity | xor_global | region | packed xor_global / region |
+|---|---|---|---|---|
+| DDR4x1 Open | 109.1 (0.879) | 0.997 | 0.979 | 0.996 / 0.982 |
+| DDR4x1 ClosedCAP | 139.9 (0.724) | 0.968 | 0.963 | 0.967 / 0.970 |
+| DDR5x16 Open | 15.6 (0.904) | 1.003 | 1.004 | 1.002 / 1.008 |
+| DDR5x16 ClosedCAP | 21.2 (0.743) | 1.000 | 1.001 | 1.001 / 1.004 |
+
+Same picture as ub=32 (0.990-1.004, hit 0.898/0.908 Open, 0.73-0.74 ClosedCAP): prefill with 64-token micro-batches is mapping-insensitive; the only small effect is 2-4% on DDR4 (O class, 18% of the window, in-order hit 0.507 -> region fixes it). 30B prefill with ub=64 was not run (the 7B ub=64 trace alone took 7 h of wall time, mostly raw2trace; a 30B prefill would be longer).
