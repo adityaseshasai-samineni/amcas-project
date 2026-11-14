@@ -303,6 +303,4 @@ Citations fixed: Flatfish verified; AttAcc means the ASPLOS 2024 paper; RH+ is a
 ## 11. Open items
 
 - **Not evaluated:** a controller that switches to MOP4CLXOR-style column interleaving only when its queues saturate.
-- **Optional:**
-  - prefill with 64-token micro-batches.
 - **Running:** 30B MoE at batch 4 with 8k / 32k prompts, and 64-token prefill (extras-capture-owner).
