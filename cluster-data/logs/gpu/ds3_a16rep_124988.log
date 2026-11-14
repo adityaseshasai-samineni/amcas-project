@@ -184,3 +184,40 @@ ds3  chan     CLOSE_PAGE   0.000   1415.9   906.2  216752396  138721.5    18.5
 ds3  xor_chan OPEN_PAGE    0.941    180.7   115.6   21230211   13587.3   188.4
 ds3  xor_chan CLOSE_PAGE   0.000   1326.8   849.1  192966836  123498.8    20.7
 ### q7_a16_8k_faoff ib5 Sat Nov 14 19:48:24 IST 2026
+a16 ib5: 80000000 of 166323773 requests (79173154 rd, 826846 wr), 1110 2MiB pages
+  [chan] channel hash cost 767212 -> 764051; chan bit ^= {0: ['row7'], 1: ['row10'], 2: []}
+  [xor_chan] channel hash cost 714526 -> 702427; chan bit ^= {0: ['row0', 'row2', 'row7'], 1: ['row5'], 2: ['row1', 'row11']}
+  [chan] channel hash cost 482286 -> 479141; chan bit ^= {0: ['row7'], 1: ['row10'], 2: ['row8', 'row10']}
+  [xor_chan] channel hash cost 430350 -> 424341; chan bit ^= {0: ['row0', 'row9', 'row2'], 1: ['row8'], 2: []}
+
+
+
+multiprocessing.pool.RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "/home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/lib/python3.12/multiprocessing/pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+                    ^^^^^^^^^^^^^^^^^^^
+  File "/home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/lib/python3.12/multiprocessing/pool.py", line 48, in mapstar
+    return list(map(*args))
+           ^^^^^^^^^^^^^^^^
+  File "/home/adityaseshasai.s/amcas-pro/gpu/gpu_ds3_study.py", line 56, in ds3_run
+    raise RuntimeError(f"{tr}: {r.stdout[-300:]} {r.stderr[-300:]}")
+RuntimeError: /tmp/adityaseshasai.s/ds3study_1315649/ds3_xor_i7.bin:  
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/adityaseshasai.s/amcas-pro/gpu/gpu_ds3_study.py", line 181, in <module>
+    main()
+  File "/home/adityaseshasai.s/amcas-pro/gpu/gpu_ds3_study.py", line 159, in main
+    rs = pool.map(ds3_run, [t for _, t in flat], chunksize=1)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/lib/python3.12/multiprocessing/pool.py", line 367, in map
+    return self._map_async(func, iterable, mapstar, chunksize).get()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/lib/python3.12/multiprocessing/pool.py", line 774, in get
+    raise self._value
+RuntimeError: /tmp/adityaseshasai.s/ds3study_1315649/ds3_xor_i7.bin:  
+### q7_a16_32k_faauto ib2 Sat Nov 14 21:20:16 IST 2026

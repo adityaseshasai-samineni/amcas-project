@@ -2,3 +2,7 @@
 [Ramulator::LoadStoreTrace] [[32minfo[0m] Loading trace file /scratch/adityaseshasai.s/region/Q30B_B4_P32768/packed_ddr5_bitrev.trc ...
 [Ramulator::LoadStoreTrace] [[32minfo[0m] Loaded 40000000 lines.
 [Ramulator::LoadStoreTrace] [[32minfo[0m] Loaded 40000000 lines.
+ddr5, 16 channel(s), interleave 64 B << 2, issue 4/cycle
+mapper      policy          reads   writes    hit  conflict  rd_lat  Mcycles    GB/s
+RoBaRaCoCh  Open         40000000        0  0.906     0.091   572.4     54.0   113.9
+RoBaRaCoCh  ClosedCAP    40000000        0  0.770     0.040   774.2     86.1    71.4

@@ -40,3 +40,445 @@ thp    x16  mopxor         OracleRec  hit 0.341 lat   263.6 cyc    3.079M
 thp    x16  chra           OracleRec  hit 0.882 lat   301.5 cyc    4.336M
 thp    x16  mop            OracleRec  hit 0.263 lat   280.1 cyc    3.092M
 packed x16  chra           OracleRec  hit 0.856 lat   561.3 cyc    7.540M
+packed x16  bitrev         OracleRec  hit 0.868 lat   538.2 cyc    6.958M
+main: 440 replays
+packed d4r6 xor_global     HAPPYcnt   hit 0.922 lat   155.7 cyc    4.055M
+packed d4r6 identity       Timeout64  hit 0.841 lat   154.2 cyc    3.961M
+packed d4r6 region         HAPPY      hit 0.963 lat   149.8 cyc    3.682M
+packed d4r6 region         Open       hit 0.963 lat   150.2 cyc    3.679M
+packed d4r6 region         HAPPYcnt   hit 0.924 lat   152.7 cyc    3.965M
+packed d4r6 identity       Adaptive7_4hit 0.963 lat   154.6 cyc    3.796M
+packed d4r6 xor_global     Adaptive7_4hit 0.962 lat   153.9 cyc    3.802M
+packed d4r6 xor_global     Adaptive   hit 0.963 lat   154.1 cyc    3.799M
+packed d4r6 xor_global     HAPPY      hit 0.962 lat   153.5 cyc    3.804M
+packed d4r6 xor_global     Open       hit 0.963 lat   153.7 cyc    3.801M
+packed d4r6 identity       HAPPY      hit 0.963 lat   154.0 cyc    3.800M
+packed d4r6 identity       Open       hit 0.964 lat   154.6 cyc    3.794M
+packed d4r6 identity       Adaptive   hit 0.964 lat   154.6 cyc    3.795M
+packed d4r6 region         Timeout256 hit 0.958 lat   149.9 cyc    3.680M
+packed d4r6 identity       HAPPYcnt   hit 0.924 lat   156.0 cyc    4.038M
+packed d4r6 region         Timeout64  hit 0.846 lat   148.8 cyc    3.861M
+packed d4r6 xor_global     Timeout256 hit 0.958 lat   153.3 cyc    3.799M
+packed d4r6 identity       Timeout256 hit 0.959 lat   153.9 cyc    3.793M
+packed d4r6 xor_global     Timeout64  hit 0.841 lat   153.7 cyc    3.964M
+packed d4r6 region         Region     hit 0.887 lat   157.5 cyc    3.865M
+packed d4r6 xor_global     Region     hit 0.885 lat   159.6 cyc    3.948M
+packed d4r6 identity       Region     hit 0.886 lat   160.0 cyc    3.943M
+packed d4r6 region         ClosedCAP  hit 0.762 lat   166.6 cyc    4.033M
+packed d4r6 region         Timeout16  hit 0.652 lat   154.8 cyc    4.394M
+packed d4r6 identity       ClosedCAP  hit 0.761 lat   168.9 cyc    4.110M
+packed d4r6 xor_global     ClosedCAP  hit 0.761 lat   169.5 cyc    4.123M
+packed d4r6 identity       Timeout16  hit 0.642 lat   159.3 cyc    4.489M
+packed d4r6 region         Adaptive   hit 0.963 lat   150.8 cyc    3.678M
+packed d4r6 xor_global     Timeout16  hit 0.643 lat   159.1 cyc    4.489M
+packed d4r6 region         Adaptive7_4hit 0.963 lat   150.2 cyc    3.685M
+packed d4r6 xor_global     Oracle     hit 0.963 lat   153.7 cyc    3.789M
+packed d4r6 identity       Oracle     hit 0.964 lat   154.5 cyc    3.784M
+packed d4r6 chan           Open       hit 0.964 lat   155.7 cyc    3.612M
+packed d4r6 chan           HAPPY      hit 0.963 lat   155.1 cyc    3.618M
+packed d4r6 mop            Timeout256 hit 0.306 lat   169.1 cyc    3.322M
+packed d4r6 mop            Timeout16  hit 0.103 lat   168.3 cyc    3.450M
+packed d4r6 chan           Adaptive   hit 0.964 lat   155.7 cyc    3.613M
+packed d4r6 chan           Adaptive7_4hit 0.964 lat   155.2 cyc    3.615M
+packed d4r6 xor_global_chanOpen       hit 0.963 lat   155.2 cyc    3.641M
+packed d4r6 chan           HAPPYcnt   hit 0.925 lat   158.9 cyc    3.852M
+packed d4r6 chan           Timeout256 hit 0.959 lat   155.0 cyc    3.611M
+packed d4r6 chan           Timeout64  hit 0.849 lat   154.4 cyc    3.753M
+packed d4r6 xor_global_chanHAPPY      hit 0.962 lat   154.8 cyc    3.647M
+packed d4r6 xor_global_chanTimeout64  hit 0.845 lat   154.9 cyc    3.782M
+packed d4r6 xor_global_chanTimeout256 hit 0.958 lat   154.7 cyc    3.640M
+packed d4r6 chan           Region     hit 0.886 lat   163.8 cyc    3.762M
+packed d4r6 xor_global_chanAdaptive7_4hit 0.963 lat   155.0 cyc    3.644M
+packed d4r6 xor_global_chanHAPPYcnt   hit 0.923 lat   157.7 cyc    3.894M
+packed d4r6 xor_global_chanAdaptive   hit 0.963 lat   155.1 cyc    3.642M
+packed d4r6 chan           Timeout16  hit 0.653 lat   162.7 cyc    4.268M
+packed d4r6 chan           ClosedCAP  hit 0.761 lat   173.2 cyc    3.931M
+packed d4r6 xor_global_chanRegion     hit 0.885 lat   162.9 cyc    3.794M
+packed d4r6 region         Oracle     hit 0.963 lat   150.3 cyc    3.670M
+packed d4r6 xor_global_chanClosedCAP  hit 0.761 lat   173.4 cyc    3.968M
+packed d4r6 xor_global_chanTimeout16  hit 0.653 lat   163.1 cyc    4.286M
+packed d4r6 chan           Oracle     hit 0.964 lat   155.1 cyc    3.600M
+packed d4r6 mop            Open       hit 0.323 lat   169.1 cyc    3.320M
+packed d4r6 mop            HAPPY      hit 0.143 lat   167.9 cyc    3.535M
+packed d4r6 mop            ClosedCAP  hit 0.309 lat   170.0 cyc    3.321M
+packed d4r6 mop            Timeout64  hit 0.168 lat   168.8 cyc    3.368M
+packed d4r6 xor_global_chanOracle     hit 0.963 lat   154.9 cyc    3.630M
+packed d4r6 mop            Region     hit 0.323 lat   169.3 cyc    3.320M
+packed d4r6 mop            Adaptive7_4hit 0.097 lat   173.8 cyc    3.574M
+packed d4r6 mop            Oracle     hit 0.322 lat   168.6 cyc    3.318M
+packed d4r6 mop            Adaptive   hit 0.096 lat   173.1 cyc    3.567M
+packed d4r6 mop            HAPPYcnt   hit 0.107 lat   173.6 cyc    3.568M
+packed d4r6 mopxor         Open       hit 0.336 lat   172.4 cyc    3.312M
+packed d4r6 mopxor         Adaptive   hit 0.098 lat   180.8 cyc    3.438M
+packed d4r6 mopxor         ClosedCAP  hit 0.321 lat   173.2 cyc    3.313M
+packed d4r6 mopxor         HAPPY      hit 0.155 lat   176.4 cyc    3.411M
+packed d4r6 mopxor         Adaptive7_4hit 0.100 lat   181.2 cyc    3.446M
+packed d4r6 mopxor         Region     hit 0.335 lat   172.5 cyc    3.313M
+packed d4r6 mopxor         HAPPYcnt   hit 0.116 lat   179.1 cyc    3.429M
+packed d4r6 mopxor         Timeout64  hit 0.159 lat   172.7 cyc    3.361M
+packed d4r6 mopxor         Timeout256 hit 0.308 lat   172.9 cyc    3.314M
+packed d4r6 mopxor         Timeout16  hit 0.091 lat   170.7 cyc    3.435M
+packed d4r6 mopxor         Oracle     hit 0.335 lat   172.2 cyc    3.311M
+packed d4r6 naive          Open       hit 0.937 lat   158.2 cyc    4.049M
+packed d4r6 naive          Timeout256 hit 0.931 lat   158.0 cyc    4.048M
+packed d4r6 naive          Timeout64  hit 0.820 lat   159.3 cyc    4.214M
+packed d4r6 chra           Timeout256 hit 0.874 lat   395.5 cyc    9.957M
+packed d4r6 naive          HAPPY      hit 0.933 lat   158.1 cyc    4.093M
+packed d4r6 naive          Region     hit 0.871 lat   166.7 cyc    4.298M
+packed d4r6 naive          Timeout16  hit 0.654 lat   165.6 cyc    4.647M
+packed d4r6 naive          ClosedCAP  hit 0.751 lat   179.5 cyc    4.492M
+packed d4r6 naive          HAPPYcnt   hit 0.875 lat   171.3 cyc    4.708M
+packed d4r6 chra           Region     hit 0.819 lat   435.4 cyc   12.018M
+packed d4r6 bitrev         Open       hit 0.874 lat   377.9 cyc    9.236M
+packed d4r6 bitrev         HAPPY      hit 0.873 lat   378.5 cyc    9.289M
+packed d4r6 bitrev         Timeout64  hit 0.867 lat   377.3 cyc    9.241M
+packed d4r6 bitrev         Timeout256 hit 0.873 lat   377.6 cyc    9.244M
+packed d4r6 bitrev         Timeout16  hit 0.860 lat   376.0 cyc    9.350M
+thp    d4r6 identity       Open       hit 0.910 lat   169.5 cyc    4.325M
+packed d4r6 chra           Open       hit 0.874 lat   395.5 cyc    9.957M
+packed d4r6 chra           Timeout16  hit 0.874 lat   395.5 cyc    9.955M
+packed d4r6 naive          Adaptive   hit 0.934 lat   159.8 cyc    4.097M
+packed d4r6 chra           Timeout64  hit 0.874 lat   395.2 cyc    9.955M
+packed d4r6 bitrev         Oracle     hit 0.851 lat   376.7 cyc   10.063M
+packed d4r6 naive          Adaptive7_4hit 0.930 lat   160.0 cyc    4.173M
+packed d4r6 bitrev         Region     hit 0.796 lat   445.1 cyc   11.920M
+thp    d4r6 identity       HAPPY      hit 0.899 lat   175.7 cyc    4.433M
+thp    d4r6 identity       Timeout64  hit 0.802 lat   170.0 cyc    4.474M
+thp    d4r6 identity       Timeout256 hit 0.905 lat   168.5 cyc    4.328M
+packed d4r6 bitrev         ClosedCAP  hit 0.755 lat   502.7 cyc   13.208M
+thp    d4r6 identity       ClosedCAP  hit 0.738 lat   188.2 cyc    4.763M
+packed d4r6 naive          Oracle     hit 0.936 lat   158.0 cyc    4.046M
+thp    d4r6 identity       Timeout16  hit 0.659 lat   174.9 cyc    4.839M
+thp    d4r6 xor_global     ClosedCAP  hit 0.758 lat   169.3 cyc    4.153M
+packed d4r6 chra           HAPPY      hit 0.873 lat   396.2 cyc   10.020M
+packed d4r6 chra           ClosedCAP  hit 0.755 lat   498.4 cyc   14.117M
+thp    d4r6 identity       Region     hit 0.860 lat   177.9 cyc    4.576M
+thp    d4r6 xor_global     Open       hit 0.952 lat   151.9 cyc    3.758M
+thp    d4r6 xor_global     Adaptive7_4hit 0.951 lat   151.9 cyc    3.778M
+thp    d4r6 identity       Adaptive   hit 0.901 lat   173.6 cyc    4.465M
+thp    d4r6 identity       HAPPYcnt   hit 0.838 lat   195.3 cyc    5.264M
+thp    d4r6 identity       Adaptive7_4hit 0.891 lat   179.3 cyc    4.657M
+packed d4r6 bitrev         HAPPYcnt   hit 0.641 lat   579.0 cyc   17.730M
+packed d4r6 bitrev         Adaptive   hit 0.667 lat   569.3 cyc   19.725M
+thp    d4r6 xor_global     Timeout16  hit 0.654 lat   158.4 cyc    4.460M
+thp    d4r6 identity       Oracle     hit 0.909 lat   168.8 cyc    4.321M
+thp    d4r6 xor_global     Timeout64  hit 0.836 lat   151.0 cyc    3.953M
+thp    d4r6 xor_global     HAPPY      hit 0.951 lat   151.1 cyc    3.771M
+packed d4r6 chra           Adaptive   hit 0.793 lat   460.3 cyc   13.886M
+thp    d4r6 xor_global     Timeout256 hit 0.946 lat   151.5 cyc    3.765M
+packed d4r6 chra           Oracle     hit 0.845 lat   406.5 cyc   10.966M
+packed d4r6 bitrev         Adaptive7_4hit 0.655 lat   603.2 cyc   20.171M
+thp    d4r6 xor_global     Adaptive   hit 0.952 lat   151.9 cyc    3.759M
+thp    d4r6 xor_global     Region     hit 0.880 lat   159.0 cyc    3.956M
+thp    d4r6 xor_global     HAPPYcnt   hit 0.902 lat   158.0 cyc    4.184M
+thp    d4r6 region         Region     hit 0.879 lat   160.4 cyc    4.016M
+thp    d4r6 region         Open       hit 0.951 lat   153.6 cyc    3.831M
+thp    d4r6 region         Timeout64  hit 0.834 lat   154.3 cyc    4.011M
+thp    d4r6 region         Timeout256 hit 0.946 lat   152.5 cyc    3.835M
+thp    d4r6 region         HAPPY      hit 0.950 lat   152.5 cyc    3.845M
+thp    d4r6 region         Oracle     hit 0.951 lat   153.0 cyc    3.827M
+thp    d4r6 region         Timeout16  hit 0.650 lat   160.9 cyc    4.486M
+thp    d4r6 xor_global     Oracle     hit 0.952 lat   151.5 cyc    3.752M
+thp    d4r6 region         ClosedCAP  hit 0.757 lat   171.4 cyc    4.200M
+thp    d4r6 region         Adaptive   hit 0.951 lat   153.0 cyc    3.833M
+thp    d4r6 region         Adaptive7_4hit 0.950 lat   152.6 cyc    3.858M
+thp    d4r6 region         HAPPYcnt   hit 0.902 lat   158.9 cyc    4.222M
+packed d4r6 chra           Adaptive7_4hit 0.658 lat   560.9 cyc   20.868M
+thp    d4r6 xor_global_chanRegion     hit 0.881 lat   160.2 cyc    3.858M
+packed d4r6 chra           HAPPYcnt   hit 0.642 lat   621.1 cyc   18.730M
+thp    d4r6 chan           Open       hit 0.913 lat   170.6 cyc    4.120M
+thp    d4r6 chan           Timeout64  hit 0.809 lat   171.3 cyc    4.269M
+thp    d4r6 xor_global_chanOpen       hit 0.953 lat   151.7 cyc    3.670M
+thp    d4r6 chan           Timeout256 hit 0.908 lat   170.6 cyc    4.122M
+thp    d4r6 chan           Timeout16  hit 0.666 lat   176.2 cyc    4.646M
+thp    d4r6 chan           ClosedCAP  hit 0.742 lat   189.1 cyc    4.499M
+thp    d4r6 chan           HAPPY      hit 0.905 lat   173.4 cyc    4.235M
+thp    d4r6 xor_global_chanTimeout64  hit 0.838 lat   152.2 cyc    3.847M
+thp    d4r6 xor_global_chanTimeout256 hit 0.946 lat   151.3 cyc    3.673M
+thp    d4r6 chan           Adaptive   hit 0.908 lat   172.0 cyc    4.204M
+thp    d4r6 chan           Adaptive7_4hit 0.902 lat   174.0 cyc    4.322M
+thp    d4r6 chan           Region     hit 0.864 lat   179.2 cyc    4.310M
+thp    d4r6 xor_global_chanClosedCAP  hit 0.759 lat   171.6 cyc    4.050M
+thp    d4r6 xor_global_chanTimeout16  hit 0.659 lat   158.5 cyc    4.361M
+thp    d4r6 chan           HAPPYcnt   hit 0.842 lat   192.8 cyc    5.047M
+thp    d4r6 xor_global_chanHAPPY      hit 0.951 lat   151.1 cyc    3.685M
+thp    d4r6 xor_global_chanOracle     hit 0.952 lat   151.4 cyc    3.665M
+thp    d4r6 chan           Oracle     hit 0.913 lat   170.5 cyc    4.115M
+thp    d4r6 xor_global_chanAdaptive   hit 0.952 lat   152.1 cyc    3.668M
+thp    d4r6 xor_global_chanAdaptive7_4hit 0.951 lat   151.5 cyc    3.691M
+thp    d4r6 mop            HAPPYcnt   hit 0.095 lat   180.2 cyc    3.600M
+thp    d4r6 xor_global_chanHAPPYcnt   hit 0.903 lat   159.1 cyc    4.082M
+thp    d4r6 mop            Open       hit 0.309 lat   173.7 cyc    3.345M
+thp    d4r6 mop            ClosedCAP  hit 0.300 lat   173.9 cyc    3.346M
+thp    d4r6 mop            Timeout64  hit 0.156 lat   173.0 cyc    3.388M
+thp    d4r6 mop            Region     hit 0.309 lat   173.3 cyc    3.347M
+thp    d4r6 mop            Timeout256 hit 0.292 lat   172.9 cyc    3.347M
+thp    d4r6 mop            Timeout16  hit 0.101 lat   172.6 cyc    3.468M
+thp    d4r6 mop            HAPPY      hit 0.126 lat   177.6 cyc    3.577M
+thp    d4r6 mop            Adaptive   hit 0.069 lat   181.7 cyc    3.604M
+thp    d4r6 mop            Adaptive7_4hit 0.076 lat   181.5 cyc    3.613M
+thp    d4r6 bitrev         Timeout64  hit 0.798 lat   170.7 cyc    5.098M
+thp    d4r6 mopxor         Open       hit 0.322 lat   173.3 cyc    3.323M
+thp    d4r6 mopxor         ClosedCAP  hit 0.311 lat   173.8 cyc    3.324M
+thp    d4r6 mopxor         HAPPY      hit 0.135 lat   177.3 cyc    3.433M
+thp    d4r6 mopxor         Adaptive   hit 0.073 lat   181.1 cyc    3.457M
+thp    d4r6 mopxor         HAPPYcnt   hit 0.103 lat   179.8 cyc    3.453M
+thp    d4r6 mopxor         Adaptive7_4hit 0.081 lat   181.4 cyc    3.467M
+thp    d4r6 mopxor         Timeout64  hit 0.152 lat   173.1 cyc    3.368M
+thp    d4r6 mop            Oracle     hit 0.308 lat   173.3 cyc    3.343M
+thp    d4r6 mopxor         Region     hit 0.320 lat   172.9 cyc    3.324M
+thp    d4r6 mopxor         Timeout256 hit 0.297 lat   173.4 cyc    3.324M
+thp    d4r6 mopxor         Timeout16  hit 0.089 lat   171.6 cyc    3.442M
+thp    d4r6 bitrev         Open       hit 0.851 lat   166.6 cyc    5.059M
+thp    d4r6 bitrev         HAPPYcnt   hit 0.751 lat   209.4 cyc    6.547M
+thp    d4r6 mopxor         Oracle     hit 0.320 lat   173.0 cyc    3.320M
+thp    d4r6 bitrev         HAPPY      hit 0.848 lat   168.2 cyc    5.110M
+thp    d4r6 bitrev         Timeout256 hit 0.850 lat   166.5 cyc    5.064M
+thp    d4r6 bitrev         Timeout16  hit 0.695 lat   176.7 cyc    5.349M
+thp    d4r6 bitrev         Adaptive   hit 0.837 lat   174.6 cyc    5.541M
+thp    d4r6 bitrev         ClosedCAP  hit 0.738 lat   201.5 cyc    5.916M
+thp    d4r6 bitrev         Region     hit 0.794 lat   183.6 cyc    5.549M
+thp    d4r6 naive          Timeout256 hit 0.946 lat   149.6 cyc    3.700M
+thp    d4r6 bitrev         Adaptive7_4hit 0.824 lat   185.6 cyc    6.101M
+thp    d4r6 bitrev         Oracle     hit 0.851 lat   167.0 cyc    5.061M
+thp    d4r6 chra           HAPPYcnt   hit 0.703 lat   274.6 cyc    8.511M
+thp    d4r6 naive          Open       hit 0.953 lat   149.8 cyc    3.697M
+thp    d4r6 chra           Open       hit 0.829 lat   222.7 cyc    5.943M
+thp    d4r6 naive          HAPPY      hit 0.952 lat   149.0 cyc    3.707M
+thp    d4r6 naive          Timeout64  hit 0.841 lat   148.8 cyc    3.888M
+thp    d4r6 naive          Adaptive   hit 0.953 lat   149.8 cyc    3.695M
+thp    d4r6 naive          Region     hit 0.879 lat   157.4 cyc    3.922M
+thp    d4r6 naive          ClosedCAP  hit 0.759 lat   169.5 cyc    4.131M
+thp    d4r6 naive          HAPPYcnt   hit 0.904 lat   154.9 cyc    4.109M
+thp    d4r6 naive          Timeout16  hit 0.660 lat   157.4 cyc    4.394M
+thp    d4r6 chra           Timeout16  hit 0.689 lat   217.7 cyc    6.616M
+thp    d4r6 chra           HAPPY      hit 0.823 lat   225.7 cyc    6.057M
+thp    d4r6 chra           Timeout256 hit 0.827 lat   223.0 cyc    5.947M
+thp    d4r6 naive          Adaptive7_4hit 0.952 lat   150.0 cyc    3.700M
+thp    d4r6 chra           Timeout64  hit 0.776 lat   227.5 cyc    6.063M
+thp    d4r6 chra           Region     hit 0.787 lat   236.0 cyc    6.455M
+thp    d4r6 chra           ClosedCAP  hit 0.729 lat   266.7 cyc    7.303M
+thp    d4r6 naive          Oracle     hit 0.953 lat   149.7 cyc    3.691M
+packed x16  identity       HAPPY      hit 0.907 lat   258.4 cyc    3.491M
+thp    d4r6 chra           Adaptive   hit 0.779 lat   266.8 cyc    7.878M
+thp    d4r6 chra           Oracle     hit 0.827 lat   223.2 cyc    5.986M
+thp    d4r6 chra           Adaptive7_4hit 0.751 lat   289.1 cyc    8.986M
+packed x16  identity       Adaptive7_4hit 0.896 lat   266.1 cyc    3.531M
+packed x16  identity       Open       hit 0.909 lat   257.9 cyc    3.471M
+packed x16  identity       Timeout256 hit 0.902 lat   258.1 cyc    3.477M
+packed x16  identity       Timeout64  hit 0.787 lat   274.0 cyc    3.586M
+packed x16  identity       Timeout16  hit 0.713 lat   280.2 cyc    3.722M
+packed x16  xor_global     Open       hit 0.956 lat   223.6 cyc    3.061M
+packed x16  identity       Adaptive   hit 0.907 lat   259.4 cyc    3.474M
+packed x16  xor_global     HAPPY      hit 0.956 lat   224.2 cyc    3.061M
+packed x16  xor_global     Timeout256 hit 0.949 lat   223.7 cyc    3.068M
+packed x16  xor_global     HAPPYcnt   hit 0.912 lat   228.1 cyc    3.255M
+packed x16  xor_global     Adaptive   hit 0.956 lat   223.6 cyc    3.061M
+packed x16  xor_global     Adaptive7_4hit 0.956 lat   224.2 cyc    3.061M
+packed x16  region         Open       hit 0.957 lat   224.4 cyc    3.053M
+packed x16  identity       Region     hit 0.858 lat   305.8 cyc    4.344M
+packed x16  region         Region     hit 0.882 lat   248.0 cyc    3.335M
+packed x16  xor_global     Timeout64  hit 0.794 lat   239.7 cyc    3.152M
+packed x16  identity       ClosedCAP  hit 0.741 lat   333.3 cyc    4.486M
+packed x16  region         Adaptive7_4hit 0.957 lat   223.2 cyc    3.054M
+packed x16  identity       HAPPYcnt   hit 0.802 lat   315.7 cyc    4.752M
+packed x16  xor_global     Region     hit 0.882 lat   247.2 cyc    3.393M
+packed x16  xor_global     ClosedCAP  hit 0.765 lat   274.4 cyc    3.527M
+packed x16  xor_global     Timeout16  hit 0.669 lat   257.8 cyc    3.339M
+packed x16  identity       Oracle     hit 0.909 lat   258.0 cyc    3.471M
+packed x16  region         Timeout256 hit 0.949 lat   223.6 cyc    3.062M
+packed x16  region         Timeout64  hit 0.794 lat   240.0 cyc    3.140M
+packed x16  xor_global     Oracle     hit 0.956 lat   222.9 cyc    3.060M
+packed x16  region         HAPPY      hit 0.956 lat   223.1 cyc    3.054M
+packed x16  region         ClosedCAP  hit 0.766 lat   275.1 cyc    3.478M
+packed x16  region         Timeout16  hit 0.670 lat   256.7 cyc    3.318M
+packed x16  region         HAPPYcnt   hit 0.913 lat   229.7 cyc    3.227M
+packed x16  region         Adaptive   hit 0.957 lat   224.4 cyc    3.053M
+packed x16  chan           Open       hit 0.949 lat   236.1 cyc    2.576M
+packed x16  xor_global_chanTimeout256 hit 0.950 lat   230.9 cyc    2.623M
+packed x16  xor_global_chanClosedCAP  hit 0.767 lat   292.9 cyc    3.064M
+packed x16  region         Oracle     hit 0.957 lat   224.0 cyc    3.053M
+packed x16  chan           Timeout64  hit 0.821 lat   251.7 cyc    2.675M
+packed x16  xor_global_chanOpen       hit 0.958 lat   230.1 cyc    2.617M
+packed x16  chan           HAPPY      hit 0.948 lat   235.8 cyc    2.583M
+packed x16  chan           Adaptive7_4hit 0.948 lat   235.6 cyc    2.583M
+packed x16  chan           Timeout256 hit 0.942 lat   235.4 cyc    2.586M
+packed x16  chan           Adaptive   hit 0.949 lat   236.1 cyc    2.576M
+packed x16  chan           Timeout16  hit 0.725 lat   262.5 cyc    2.828M
+packed x16  xor_global_chanHAPPY      hit 0.958 lat   229.4 cyc    2.619M
+packed x16  chan           HAPPYcnt   hit 0.885 lat   257.3 cyc    3.142M
+packed x16  xor_global_chanAdaptive   hit 0.958 lat   230.1 cyc    2.617M
+packed x16  xor_global_chanHAPPYcnt   hit 0.915 lat   236.3 cyc    2.828M
+packed x16  xor_global_chanTimeout64  hit 0.809 lat   248.8 cyc    2.699M
+packed x16  chan           ClosedCAP  hit 0.767 lat   306.8 cyc    3.144M
+packed x16  xor_global_chanAdaptive7_4hit 0.958 lat   229.9 cyc    2.622M
+packed x16  chan           Region     hit 0.883 lat   279.9 cyc    2.994M
+packed x16  xor_global_chanRegion     hit 0.884 lat   267.0 cyc    2.918M
+packed x16  xor_global_chanTimeout16  hit 0.689 lat   265.2 cyc    2.940M
+packed x16  chan           Oracle     hit 0.949 lat   235.2 cyc    2.577M
+packed x16  mop            Adaptive   hit 0.096 lat   278.1 cyc    3.161M
+packed x16  xor_global_chanOracle     hit 0.958 lat   230.4 cyc    2.613M
+packed x16  mop            Adaptive7_4hit 0.108 lat   277.6 cyc    3.155M
+packed x16  mop            Open       hit 0.324 lat   265.6 cyc    3.077M
+packed x16  mop            Timeout64  hit 0.070 lat   271.7 cyc    3.072M
+packed x16  mop            HAPPY      hit 0.171 lat   273.0 cyc    3.118M
+packed x16  mop            ClosedCAP  hit 0.314 lat   265.1 cyc    3.076M
+packed x16  mop            Timeout256 hit 0.228 lat   266.2 cyc    3.072M
+packed x16  mop            Region     hit 0.324 lat   265.5 cyc    3.077M
+packed x16  mop            Timeout16  hit 0.042 lat   268.8 cyc    3.064M
+packed x16  mop            HAPPYcnt   hit 0.134 lat   275.0 cyc    3.116M
+packed x16  mopxor         Open       hit 0.353 lat   260.6 cyc    3.063M
+packed x16  mopxor         HAPPY      hit 0.178 lat   271.6 cyc    3.081M
+packed x16  mopxor         Adaptive   hit 0.128 lat   272.6 cyc    3.106M
+packed x16  mopxor         Adaptive7_4hit 0.135 lat   272.7 cyc    3.099M
+packed x16  mopxor         ClosedCAP  hit 0.337 lat   261.7 cyc    3.061M
+packed x16  mopxor         Timeout64  hit 0.058 lat   270.0 cyc    3.059M
+packed x16  mopxor         HAPPYcnt   hit 0.153 lat   271.5 cyc    3.078M
+packed x16  mopxor         Timeout256 hit 0.228 lat   262.5 cyc    3.062M
+packed x16  mopxor         Region     hit 0.347 lat   261.4 cyc    3.063M
+packed x16  mop            Oracle     hit 0.323 lat   264.0 cyc    3.076M
+packed x16  mopxor         Timeout16  hit 0.036 lat   268.8 cyc    3.053M
+packed x16  mopxor         Oracle     hit 0.352 lat   259.4 cyc    3.062M
+packed x16  naive          Open       hit 0.955 lat   233.4 cyc    3.166M
+packed x16  naive          Timeout256 hit 0.947 lat   233.3 cyc    3.174M
+packed x16  naive          Timeout64  hit 0.783 lat   253.5 cyc    3.256M
+packed x16  naive          HAPPY      hit 0.954 lat   232.6 cyc    3.170M
+packed x16  bitrev         HAPPYcnt   hit 0.663 lat   787.2 cyc   13.933M
+packed x16  naive          ClosedCAP  hit 0.764 lat   278.0 cyc    3.603M
+packed x16  bitrev         Adaptive7_4hit 0.729 lat   733.0 cyc   14.770M
+packed x16  naive          Region     hit 0.880 lat   250.8 cyc    3.443M
+packed x16  naive          Timeout16  hit 0.669 lat   264.6 cyc    3.377M
+packed x16  naive          HAPPYcnt   hit 0.909 lat   238.0 cyc    3.383M
+packed x16  bitrev         Open       hit 0.868 lat   538.2 cyc    6.958M
+packed x16  bitrev         Timeout16  hit 0.859 lat   539.6 cyc    7.026M
+packed x16  bitrev         HAPPY      hit 0.863 lat   542.0 cyc    7.143M
+packed x16  bitrev         Timeout256 hit 0.865 lat   538.5 cyc    6.976M
+packed x16  bitrev         Timeout64  hit 0.861 lat   537.4 cyc    6.979M
+packed x16  naive          Adaptive   hit 0.955 lat   233.4 cyc    3.166M
+thp    x16  identity       ClosedCAP  hit 0.766 lat   274.6 cyc    3.540M
+thp    x16  identity       Timeout64  hit 0.785 lat   255.5 cyc    3.284M
+packed x16  chra           Open       hit 0.856 lat   561.3 cyc    7.540M
+packed x16  bitrev         Oracle     hit 0.827 lat   524.4 cyc    7.902M
+packed x16  naive          Adaptive7_4hit 0.954 lat   234.4 cyc    3.176M
+packed x16  chra           Timeout16  hit 0.853 lat   561.8 cyc    7.572M
+thp    x16  identity       Open       hit 0.955 lat   235.4 cyc    3.206M
+packed x16  bitrev         Region     hit 0.796 lat   622.6 cyc    9.749M
+packed x16  chra           Timeout64  hit 0.854 lat   560.5 cyc    7.541M
+packed x16  chra           Timeout256 hit 0.856 lat   560.7 cyc    7.534M
+packed x16  chra           HAPPY      hit 0.850 lat   567.2 cyc    7.755M
+thp    x16  identity       HAPPY      hit 0.955 lat   235.5 cyc    3.207M
+thp    x16  identity       Timeout256 hit 0.948 lat   234.4 cyc    3.214M
+packed x16  naive          Oracle     hit 0.955 lat   234.3 cyc    3.164M
+thp    x16  identity       HAPPYcnt   hit 0.910 lat   238.6 cyc    3.405M
+thp    x16  identity       Region     hit 0.883 lat   246.8 cyc    3.399M
+packed x16  bitrev         ClosedCAP  hit 0.738 lat   754.8 cyc   10.950M
+thp    x16  identity       Adaptive   hit 0.955 lat   235.4 cyc    3.206M
+thp    x16  identity       Timeout16  hit 0.666 lat   267.2 cyc    3.411M
+packed x16  bitrev         Adaptive   hit 0.755 lat   699.1 cyc   13.149M
+thp    x16  xor_global     Open       hit 0.957 lat   222.3 cyc    3.086M
+thp    x16  identity       Adaptive7_4hit 0.955 lat   235.9 cyc    3.206M
+thp    x16  xor_global     Timeout64  hit 0.791 lat   238.2 cyc    3.192M
+thp    x16  xor_global     Timeout16  hit 0.669 lat   255.5 cyc    3.373M
+packed x16  chra           Region     hit 0.794 lat   616.9 cyc   10.108M
+packed x16  chra           Oracle     hit 0.820 lat   496.3 cyc    8.454M
+thp    x16  identity       Oracle     hit 0.955 lat   236.0 cyc    3.205M
+thp    x16  xor_global     Timeout256 hit 0.949 lat   220.5 cyc    3.092M
+thp    x16  xor_global     HAPPY      hit 0.957 lat   222.1 cyc    3.087M
+packed x16  chra           ClosedCAP  hit 0.730 lat   762.0 cyc   11.553M
+thp    x16  xor_global     Adaptive   hit 0.957 lat   222.3 cyc    3.086M
+thp    x16  xor_global     Adaptive7_4hit 0.957 lat   221.4 cyc    3.086M
+thp    x16  xor_global     HAPPYcnt   hit 0.913 lat   228.8 cyc    3.299M
+thp    x16  region         Open       hit 0.956 lat   223.7 cyc    3.119M
+thp    x16  xor_global     ClosedCAP  hit 0.766 lat   274.3 cyc    3.570M
+thp    x16  xor_global     Region     hit 0.883 lat   246.5 cyc    3.439M
+packed x16  chra           Adaptive   hit 0.745 lat   705.3 cyc   13.684M
+thp    x16  chan           Timeout64  hit 0.797 lat   245.9 cyc    2.944M
+thp    x16  region         Timeout256 hit 0.948 lat   222.1 cyc    3.127M
+thp    x16  xor_global     Oracle     hit 0.957 lat   221.5 cyc    3.084M
+thp    x16  region         HAPPY      hit 0.955 lat   223.3 cyc    3.121M
+thp    x16  chan           Timeout16  hit 0.681 lat   262.9 cyc    3.156M
+thp    x16  region         Timeout64  hit 0.791 lat   240.3 cyc    3.217M
+thp    x16  region         Adaptive   hit 0.956 lat   223.7 cyc    3.119M
+thp    x16  region         HAPPYcnt   hit 0.911 lat   229.1 cyc    3.335M
+thp    x16  region         ClosedCAP  hit 0.766 lat   275.5 cyc    3.662M
+thp    x16  region         Adaptive7_4hit 0.956 lat   223.5 cyc    3.121M
+thp    x16  chan           Open       hit 0.954 lat   225.6 cyc    2.858M
+thp    x16  region         Timeout16  hit 0.671 lat   256.3 cyc    3.419M
+packed x16  chra           Adaptive7_4hit 0.696 lat   734.9 cyc   17.360M
+thp    x16  region         Region     hit 0.882 lat   247.9 cyc    3.523M
+packed x16  chra           HAPPYcnt   hit 0.650 lat   823.1 cyc   14.694M
+thp    x16  chan           Timeout256 hit 0.947 lat   226.2 cyc    2.864M
+thp    x16  region         Oracle     hit 0.956 lat   222.8 cyc    3.119M
+thp    x16  chan           HAPPY      hit 0.954 lat   225.8 cyc    2.861M
+thp    x16  chan           Region     hit 0.882 lat   251.8 cyc    3.135M
+thp    x16  chan           ClosedCAP  hit 0.765 lat   279.3 cyc    3.284M
+thp    x16  xor_global_chanHAPPY      hit 0.957 lat   226.0 cyc    2.808M
+thp    x16  chan           HAPPYcnt   hit 0.906 lat   235.0 cyc    3.084M
+thp    x16  chan           Adaptive   hit 0.954 lat   225.6 cyc    2.858M
+thp    x16  chan           Adaptive7_4hit 0.954 lat   226.0 cyc    2.861M
+thp    x16  xor_global_chanOpen       hit 0.958 lat   227.2 cyc    2.805M
+thp    x16  xor_global_chanOracle     hit 0.958 lat   225.5 cyc    2.803M
+thp    x16  xor_global_chanTimeout256 hit 0.949 lat   226.8 cyc    2.811M
+thp    x16  xor_global_chanTimeout64  hit 0.801 lat   244.1 cyc    2.895M
+thp    x16  chan           Oracle     hit 0.954 lat   225.5 cyc    2.856M
+thp    x16  xor_global_chanAdaptive   hit 0.958 lat   227.2 cyc    2.805M
+thp    x16  xor_global_chanHAPPYcnt   hit 0.915 lat   232.8 cyc    3.005M
+thp    x16  xor_global_chanAdaptive7_4hit 0.958 lat   226.6 cyc    2.807M
+thp    x16  xor_global_chanTimeout16  hit 0.679 lat   259.0 cyc    3.112M
+thp    x16  xor_global_chanRegion     hit 0.884 lat   258.0 cyc    3.116M
+thp    x16  xor_global_chanClosedCAP  hit 0.766 lat   284.8 cyc    3.250M
+thp    x16  mopxor         Timeout256 hit 0.215 lat   266.9 cyc    3.080M
+thp    x16  mop            ClosedCAP  hit 0.256 lat   279.9 cyc    3.091M
+thp    x16  mop            Open       hit 0.263 lat   280.1 cyc    3.092M
+thp    x16  mop            HAPPY      hit 0.083 lat   302.2 cyc    3.308M
+thp    x16  mop            Adaptive   hit 0.028 lat   306.0 cyc    3.336M
+thp    x16  mop            HAPPYcnt   hit 0.070 lat   304.5 cyc    3.314M
+thp    x16  mop            Timeout64  hit 0.073 lat   284.4 cyc    3.083M
+thp    x16  mop            Adaptive7_4hit 0.037 lat   306.8 cyc    3.330M
+thp    x16  mopxor         Adaptive7_4hit 0.120 lat   276.7 cyc    3.134M
+thp    x16  mop            Region     hit 0.263 lat   279.9 cyc    3.092M
+thp    x16  mop            Timeout256 hit 0.161 lat   280.9 cyc    3.084M
+thp    x16  mopxor         Open       hit 0.341 lat   263.6 cyc    3.079M
+thp    x16  mop            Timeout16  hit 0.067 lat   282.5 cyc    3.086M
+thp    x16  mopxor         ClosedCAP  hit 0.327 lat   263.9 cyc    3.080M
+thp    x16  mopxor         Timeout64  hit 0.061 lat   272.7 cyc    3.069M
+thp    x16  mopxor         HAPPYcnt   hit 0.138 lat   276.1 cyc    3.109M
+thp    x16  mopxor         Adaptive   hit 0.115 lat   275.3 cyc    3.140M
+thp    x16  mopxor         HAPPY      hit 0.160 lat   274.9 cyc    3.111M
+thp    x16  mopxor         Region     hit 0.334 lat   263.8 cyc    3.081M
+thp    x16  mop            Oracle     hit 0.260 lat   278.5 cyc    3.090M
+thp    x16  mopxor         Timeout16  hit 0.037 lat   269.9 cyc    3.061M
+thp    x16  bitrev         Open       hit 0.903 lat   251.0 cyc    3.492M
+thp    x16  bitrev         Adaptive   hit 0.902 lat   253.8 cyc    3.537M
+thp    x16  bitrev         HAPPY      hit 0.902 lat   250.4 cyc    3.501M
+thp    x16  bitrev         Timeout256 hit 0.900 lat   250.8 cyc    3.493M
+thp    x16  bitrev         Timeout64  hit 0.817 lat   261.0 cyc    3.586M
+thp    x16  bitrev         Timeout16  hit 0.742 lat   263.4 cyc    3.838M
+thp    x16  bitrev         Region     hit 0.830 lat   277.4 cyc    4.334M
+thp    x16  mopxor         Oracle     hit 0.340 lat   261.6 cyc    3.077M
+thp    x16  bitrev         HAPPYcnt   hit 0.818 lat   282.5 cyc    4.563M
+thp    x16  bitrev         ClosedCAP  hit 0.760 lat   302.5 cyc    4.614M
+thp    x16  chra           Region     hit 0.816 lat   328.1 cyc    5.356M
+thp    x16  bitrev         Adaptive7_4hit 0.896 lat   256.8 cyc    3.815M
+thp    x16  naive          Adaptive   hit 0.957 lat   221.0 cyc    3.076M
+thp    x16  naive          Open       hit 0.957 lat   221.0 cyc    3.076M
+thp    x16  naive          Timeout256 hit 0.949 lat   220.6 cyc    3.084M
+thp    x16  naive          Timeout64  hit 0.793 lat   236.9 cyc    3.184M
+thp    x16  naive          HAPPY      hit 0.956 lat   222.2 cyc    3.077M
+thp    x16  naive          Region     hit 0.883 lat   249.2 cyc    3.466M
+thp    x16  naive          ClosedCAP  hit 0.766 lat   277.1 cyc    3.617M
+thp    x16  chra           Open       hit 0.882 lat   301.5 cyc    4.336M
+thp    x16  chra           Timeout16  hit 0.738 lat   309.1 cyc    4.771M
+thp    x16  bitrev         Oracle     hit 0.903 lat   250.8 cyc    3.487M
+thp    x16  naive          Adaptive7_4hit 0.957 lat   221.6 cyc    3.076M
+thp    x16  chra           Timeout256 hit 0.875 lat   301.5 cyc    4.356M
+thp    x16  chra           HAPPY      hit 0.879 lat   301.5 cyc    4.383M
+thp    x16  chra           Timeout64  hit 0.787 lat   305.3 cyc    4.570M
+thp    x16  chra           ClosedCAP  hit 0.747 lat   375.8 cyc    5.888M
+thp    x16  naive          HAPPYcnt   hit 0.913 lat   228.5 cyc    3.307M
+thp    x16  chra           Adaptive7_4hit 0.850 lat   340.4 cyc    6.176M
+thp    x16  chra           Adaptive   hit 0.866 lat   323.4 cyc    5.007M
+thp    x16  naive          Timeout16  hit 0.672 lat   255.1 cyc    3.382M
+thp    x16  chra           HAPPYcnt   hit 0.774 lat   361.3 cyc    6.362M
+thp    x16  naive          Oracle     hit 0.957 lat   221.9 cyc    3.074M
+thp    x16  chra           Oracle     hit 0.878 lat   301.0 cyc    4.414M

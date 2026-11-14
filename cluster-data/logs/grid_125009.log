@@ -404,3 +404,4 @@ publish: pushed 99c208a
   done packed/x16: identity:0.817/0.817 xor_global:0.955/0.955 region:0.955/0.955 chan:0.903/0.903 xor_global_chan:0.956/0.956 mop:0.413/0.413 mopxor:0.437/0.437 bitrev:0.594/0.594 chra:0.584/0.584 naive:0.951/0.951
   [thp/x16 MOP4CLXOR xor_global] n=4,000,000 cost 1956910 -> 1534862; bank bit ^= {0: ['row1', 'row0'], 1: ['row6', 'row11', 'row12'], 2: ['row0', 'row2'], 3: ['row2'], 4: []}
   done thp/x16: identity:0.954/0.954 xor_global:0.954/0.954 region:0.954/0.954 chan:0.948/0.948 xor_global_chan:0.954/0.954 mop:0.231/0.231 mopxor:0.416/0.416 bitrev:0.873/0.873 chra:0.817/0.817 naive:0.953/0.953
+replay rc=0 for q7_B4P8192 Sat Nov 14 21:29:31 IST 2026

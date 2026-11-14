@@ -179,3 +179,11 @@ ds3  chan     CLOSE_PAGE   0.000    750.3   855.3   10402156   11858.5   215.9
 ds3  xor_chan OPEN_PAGE    0.795    222.2   253.3    2803357    3195.8   801.0
 ds3  xor_chan CLOSE_PAGE   0.000    749.2   854.1   10353469   11803.0   216.9
 ### q7_v100_8k_faoff ib5 Sat Nov 14 20:02:06 IST 2026
+v100 ib5: 80000000 of 151047503 requests (79395124 rd, 604876 wr), 1236 2MiB pages
+  [chan] channel hash cost 403327 -> 376273; chan bit ^= {0: ['row0', 'row2'], 1: ['row0'], 2: ['row2', 'row0'], 3: ['row0'], 4: ['row0', 'row4']}
+  [xor_chan] channel hash cost 392536 -> 375366; chan bit ^= {0: ['row0', 'row2', 'row5'], 1: ['row0'], 2: ['row2', 'row0', 'row11'], 3: ['row1', 'row0'], 4: ['row3']}
+  [chan] channel hash cost 459699 -> 427699; chan bit ^= {0: ['row0', 'row2'], 1: ['row0'], 2: ['row2', 'row0'], 3: ['row0'], 4: ['row0', 'row4']}
+  [xor_chan] channel hash cost 446047 -> 428197; chan bit ^= {0: ['row0'], 1: ['row0', 'row4'], 2: ['row1', 'row0'], 3: ['row0'], 4: ['row3']}
+
+
+### q7_v100_32k_faauto ib2 Sat Nov 14 21:21:46 IST 2026
