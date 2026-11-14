@@ -7,49 +7,22 @@
   [packed/x16 region O] n=87,125 cost 47396 -> 45966; bank bit ^= {0: ['row0'], 1: ['row1'], 2: ['row1'], 3: [], 4: ['row0']}
   [packed/x16 chan] channel hash cost 452715 -> 434059; chan bit ^= {0: ['row5'], 1: ['row5', 'row6'], 2: ['row6', 'row2'], 3: ['row2']}
   [packed/x16 bank+chan] channel hash cost 425962 -> 425962; chan bit ^= {0: [], 1: [], 2: [], 3: []}
-  [thp/x16 xor_global] n=4,000,000 cost 453837 -> 435060; bank bit ^= {0: ['row12', 'row7'], 1: [], 2: [], 3: ['row4'], 4: []}
-  [thp/x16 region K] n=5,343 cost 9040 -> 4511; bank bit ^= {0: ['row9'], 1: ['row13', 'row0'], 2: ['row11', 'row3'], 3: ['row7', 'row0'], 4: ['row3']}
-  [thp/x16 region O] n=70,431 cost 49857 -> 40892; bank bit ^= {0: ['row4', 'row9', 'row6'], 1: ['row9', 'row0', 'row2'], 2: ['row11', 'row1', 'row6'], 3: ['row7', 'row6'], 4: []}
-  [thp/x16 chan] channel hash cost 454161 -> 430821; chan bit ^= {0: ['row5', 'row11', 'row9'], 1: ['row5', 'row4', 'row11'], 2: ['row4', 'row12'], 3: ['row3']}
   [thp/d4r6 xor_global] n=4,000,000 cost 918645 -> 763952; bank bit ^= {0: ['row13', 'row11', 'row3'], 1: ['row2'], 2: [], 3: ['row2', 'row6'], 4: []}
   [thp/d4r6 region K] n=5,343 cost 37861 -> 5564; bank bit ^= {0: ['row1'], 1: ['row6', 'row11'], 2: ['row5'], 3: ['row4'], 4: ['row14']}
   [thp/d4r6 region O] n=70,431 cost 87224 -> 69674; bank bit ^= {0: ['row0', 'row7'], 1: ['row12', 'row0'], 2: ['row4'], 3: ['row10'], 4: ['row6']}
   [thp/d4r6 chan] channel hash cost 918879 -> 781327; chan bit ^= {0: ['row12'], 1: ['row9'], 2: ['row3']}
+  [packed/d4r6 MOP4CLXOR xor_global] n=4,000,000 cost 1473376 -> 1404154; bank bit ^= {0: ['row3'], 1: ['row4', 'row1'], 2: ['row6'], 3: ['row3', 'row7'], 4: ['row5']}
+  [packed/d4r6] region not injective: skipped
+  [thp/x16 xor_global] n=4,000,000 cost 453837 -> 435060; bank bit ^= {0: ['row12', 'row7'], 1: [], 2: [], 3: ['row4'], 4: []}
+  [thp/x16 region K] n=5,343 cost 9040 -> 4511; bank bit ^= {0: ['row9'], 1: ['row13', 'row0'], 2: ['row11', 'row3'], 3: ['row7', 'row0'], 4: ['row3']}
+  [thp/x16 region O] n=70,431 cost 49857 -> 40892; bank bit ^= {0: ['row4', 'row9', 'row6'], 1: ['row9', 'row0', 'row2'], 2: ['row11', 'row1', 'row6'], 3: ['row7', 'row6'], 4: []}
+  [thp/x16 chan] channel hash cost 454161 -> 430821; chan bit ^= {0: ['row5', 'row11', 'row9'], 1: ['row5', 'row4', 'row11'], 2: ['row4', 'row12'], 3: ['row3']}
   [thp/d4r6 bank+chan] channel hash cost 764186 -> 751459; chan bit ^= {0: ['row4', 'row14'], 1: [], 2: ['row5']}
   [thp/x16 bank+chan] channel hash cost 435384 -> 431720; chan bit ^= {0: [], 1: ['row6'], 2: ['row7'], 3: ['row4', 'row3']}
+  done packed/d4r6: identity:0.977/0.977 xor_global:0.979/0.979 chan:0.977/0.977 xor_global_chan:0.979/0.979 mop:0.669/0.669 mopxor:0.677/0.677 bitrev:0.869/0.869 chra:0.641/0.641 naive:0.975/0.975
   [packed/x16 MOP4CLXOR xor_global] n=4,000,000 cost 1054026 -> 1005747; bank bit ^= {0: ['row2', 'row4'], 1: [], 2: ['row6', 'row2'], 3: ['row2'], 4: []}
   done packed/x16: identity:0.965/0.965 xor_global:0.961/0.961 region:0.965/0.965 chan:0.965/0.965 xor_global_chan:0.961/0.961 mop:0.697/0.697 mopxor:0.702/0.702 bitrev:0.885/0.885 chra:0.717/0.717 naive:0.965/0.965
-  [thp/d4r6 MOP4CLXOR xor_global] n=4,000,000 cost 1529085 -> 1442985; bank bit ^= {0: ['row9', 'row3'], 1: ['row1', 'row6', 'row3'], 2: ['row7', 'row14'], 3: ['row14'], 4: []}
-  done thp/d4r6: identity:0.976/0.976 xor_global:0.977/0.977 region:0.977/0.977 chan:0.977/0.977 xor_global_chan:0.976/0.976 mop:0.668/0.668 mopxor:0.668/0.668 bitrev:0.900/0.900 chra:0.862/0.862 naive:0.974/0.974
   [thp/x16 MOP4CLXOR xor_global] n=4,000,000 cost 1064826 -> 1004170; bank bit ^= {0: ['row12', 'row5', 'row13'], 1: ['row12', 'row1', 'row10'], 2: ['row12'], 3: ['row13', 'row12'], 4: ['row3', 'row5']}
   done thp/x16: identity:0.964/0.964 xor_global:0.964/0.964 region:0.964/0.964 chan:0.964/0.964 xor_global_chan:0.964/0.964 mop:0.680/0.680 mopxor:0.685/0.685 bitrev:0.917/0.917 chra:0.885/0.885 naive:0.962/0.962
-  [packed/d4r6 MOP4CLXOR xor_global] n=4,000,000 cost 1473376 -> 1404154; bank bit ^= {0: ['row3'], 1: ['row4', 'row1'], 2: ['row6'], 3: ['row3', 'row7'], 4: ['row5']}
-multiprocessing.pool.RemoteTraceback: 
-"""
-Traceback (most recent call last):
-  File "/home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/lib/python3.12/multiprocessing/pool.py", line 125, in worker
-    result = (True, func(*args, **kwds))
-                    ^^^^^^^^^^^^^^^^^^^
-  File "/home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/lib/python3.12/multiprocessing/pool.py", line 48, in mapstar
-    return list(map(*args))
-           ^^^^^^^^^^^^^^^^
-  File "/home/adityaseshasai.s/amcas-pro/tools/grid_gen.py", line 207, in combo
-    assert np.unique(L.from_intra(arr, c_.astype(U))).size == nuniq, f"{sk} not injective"
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-AssertionError: region not injective
-"""
-
-The above exception was the direct cause of the following exception:
-
-Traceback (most recent call last):
-  File "/home/adityaseshasai.s/amcas-pro/tools/grid_gen.py", line 292, in <module>
-    main()
-  File "/home/adityaseshasai.s/amcas-pro/tools/grid_gen.py", line 287, in main
-    mans = pool.map(combo, jobs, chunksize=1)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/lib/python3.12/multiprocessing/pool.py", line 367, in map
-    return self._map_async(func, iterable, mapstar, chunksize).get()
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/lib/python3.12/multiprocessing/pool.py", line 774, in get
-    raise self._value
-AssertionError: region not injective
+  [thp/d4r6 MOP4CLXOR xor_global] n=4,000,000 cost 1529085 -> 1442985; bank bit ^= {0: ['row9', 'row3'], 1: ['row1', 'row6', 'row3'], 2: ['row7', 'row14'], 3: ['row14'], 4: []}
+  done thp/d4r6: identity:0.976/0.976 xor_global:0.977/0.977 region:0.977/0.977 chan:0.977/0.977 xor_global_chan:0.976/0.976 mop:0.668/0.668 mopxor:0.668/0.668 bitrev:0.900/0.900 chra:0.862/0.862 naive:0.974/0.974
