@@ -1,0 +1,8 @@
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loading trace file /scratch/adityaseshasai.s/mapstudy/moe-Q30B_B4_P32768/packed_ddr5_identity.trc ...
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loading trace file /scratch/adityaseshasai.s/mapstudy/moe-Q30B_B4_P32768/packed_ddr5_identity.trc ...
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loaded 40000000 lines.
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loaded 40000000 lines.
+ddr5, 16 channel(s), interleave 64 B << 2, issue 4/cycle
+mapper      policy          reads   writes    hit  conflict  rd_lat  Mcycles    GB/s
+RoBaRaCoCh  Open         40000000        0  0.851     0.124   301.8     32.3   190.8
+RoBaRaCoCh  ClosedCAP    40000000        0  0.714     0.116   433.0     43.8   140.4
