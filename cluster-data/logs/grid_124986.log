@@ -21,3 +21,7 @@ SLURM_JOB_GPUS =
   [thp/x16 MOP4CLXOR xor_global] n=4,000,000 cost 2705788 -> 1103354; bank bit ^= {0: ['row1', 'row10', 'row3'], 1: ['row7'], 2: ['row7', 'row3'], 3: ['row4'], 4: ['row3', 'row6']}
   done thp/x16: identity:0.552/0.552 xor_global:0.952/0.952 region:0.958/0.958 chan:0.678/0.678 xor_global_chan:0.952/0.952 mop:0.302/0.302 mopxor:0.579/0.579 bitrev:0.915/0.915 chra:0.844/0.844 naive:0.947/0.947
 replay rc=0 for q05_32k Sat Nov 14 16:47:05 IST 2026
+wrote analysis/tables.md and 3 figures; validation failures: none
+wrote analysis/fullscale/headline.md
+wrote analysis/fullscale/tables.md
+publish: pushed e0fdec8

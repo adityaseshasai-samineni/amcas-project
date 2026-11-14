@@ -4,3 +4,30 @@ SLURM_NODELIST = node05
 SLURM_JOB_GPUS = 
 ==========================================
 ### q7_a16_short_faauto ib2 Sat Nov 14 16:41:50 IST 2026
+a16 ib2: 80000000 of 137464781 requests (79867868 rd, 132132 wr), 1261 2MiB pages
+  [chan] channel hash cost 731668 -> 728531; chan bit ^= {0: ['row0'], 1: ['row11'], 2: ['row6']}
+  [xor_chan] channel hash cost 651858 -> 649057; chan bit ^= {0: ['row0'], 1: [], 2: ['row5']}
+  [chan] channel hash cost 451916 -> 449256; chan bit ^= {0: ['row0'], 1: ['row11'], 2: ['row6']}
+  [xor_chan] channel hash cost 372106 -> 369581; chan bit ^= {0: ['row0'], 1: [], 2: ['row5']}
+
+
+
+
+sim  scheme   policy         hit  lat_cyc  lat_ns     cycles   time_us    GB/s
+ram  identity Open         0.907     97.4    55.7   35280381   20180.4   126.9
+ram  identity ClosedCAP    0.751    148.2    84.8   56281692   32193.1    79.5
+ram  xor      Open         0.927     80.9    46.3   27729850   15861.5   161.4
+ram  xor      ClosedCAP    0.753    133.8    76.5   48115863   27522.3    93.0
+ram  chan     Open         0.907     97.4    55.7   35101818   20078.2   127.5
+ram  chan     ClosedCAP    0.751    148.7    85.0   55964086   32011.5    80.0
+ram  xor_chan Open         0.927     80.9    46.3   27660206   15821.6   161.8
+ram  xor_chan ClosedCAP    0.753    134.2    76.8   48015776   27465.0    93.2
+ds3  identity OPEN_PAGE    0.946    172.1   110.1   22453046   14369.9   178.1
+ds3  identity CLOSE_PAGE   0.000   1509.8   966.3  248883275  159285.3    16.1
+ds3  xor      OPEN_PAGE    0.952    164.1   105.1   20711033   13255.1   193.1
+ds3  xor      CLOSE_PAGE   0.000   1410.1   902.5  225514744  144329.4    17.7
+ds3  chan     OPEN_PAGE    0.945    172.4   110.3   22475369   14384.2   178.0
+ds3  chan     CLOSE_PAGE   0.000   1499.1   959.4  245795578  157309.2    16.3
+ds3  xor_chan OPEN_PAGE    0.951    165.0   105.6   20773023   13294.7   192.6
+ds3  xor_chan CLOSE_PAGE   0.000   1398.4   895.0  222540400  142425.9    18.0
+### q7_a16_short_faauto ib5 Sat Nov 14 17:09:08 IST 2026

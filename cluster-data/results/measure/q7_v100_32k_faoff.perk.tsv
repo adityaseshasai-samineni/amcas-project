@@ -1,1 +1,567 @@
 id	class	name	rd_B	wr_B	time_s	dram_pct	sm_pct	sol_mem_pct	l2hit_pct
+0	norm	void rms_norm_f32<1024, 1, 1, 1, 0, 0>(const float *, float 	32384	32256	6.272e-06	1.8	0.3	1.8	36.2
+1	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17376	24448	4.704e-06	2.1	1.2	2.1	100.0
+2	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	7252096	3706720	2.381e-05	64.9	38.3	64.9	27.5
+3	other	void rope_neox<1, 0, float, float>(const T3 *, T4 *, int, in	18176	5504	4.992e-06	1.1	1.0	1.1	59.1
+4	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17632	0	5.152e-06	0.9	1.2	0.9	100.0
+5	mul_mat_vec	void mul_mat_vec_q<14, 1, 1, 0, 0>(const void *, const void 	1519584	715200	1.066e-05	34.0	15.2	34.0	33.4
+6	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17632	0	4.928e-06	0.9	1.2	0.9	100.0
+7	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	1046560	579264	1.034e-05	27.1	15.8	27.1	42.1
+8	other	void rope_neox<1, 0, float, __half>(const T3 *, T4 *, int, i	5952	6784	4.832e-06	0.5	0.1	0.5	77.4
+9	other	void k_set_rows<float, long, __half>(const T1 *, const T2 *,	8800	45312	4.960e-06	2.0	0.1	2.0	74.7
+10	other	void mul_mat_f<__half2, 32, 1, 1, 0>(const T1 *, const float	168904992	7235808	2.241e-04	88.5	21.8	88.5	24.7
+11	soft_max	void soft_max_f32<0, 0, 0, float>(const float *, const T4 *,	3628544	7584384	4.102e-05	33.2	10.4	33.2	83.0
+12	mul_mat_vec	void mul_mat_vec_f<__half, __half, 1, 256, 0, 0>(const T1 *,	138652992	3993216	2.820e-04	57.2	22.8	83.2	77.5
+13	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17376	24064	4.512e-06	2.1	1.2	2.1	100.0
+14	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	7252672	3677088	2.365e-05	65.4	39.0	65.4	27.6
+15	norm	void rms_norm_f32<1024, 1, 1, 1, 0, 0>(const float *, float 	32384	32640	5.984e-06	1.9	0.3	1.9	36.2
+16	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17376	24064	4.480e-06	2.1	1.2	2.1	100.0
+17	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	76460928	3862208	1.117e-04	84.4	53.2	84.4	23.2
+18	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	78688	128480	4.064e-06	10.0	6.0	10.0	100.0
+19	mul_mat_vec	void mul_mat_vec_q<14, 1, 1, 0, 0>(const void *, const void 	55983424	3841760	8.733e-05	80.5	32.6	80.5	22.9
+20	norm	void rms_norm_f32<1024, 1, 1, 1, 0, 0>(const float *, float 	32384	32736	6.080e-06	1.9	0.3	1.9	36.2
+21	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17376	9984	4.480e-06	1.4	1.2	1.4	100.2
+22	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	7252736	3701344	2.358e-05	63.1	38.8	63.1	27.5
+23	other	void rope_neox<1, 0, float, float>(const T3 *, T4 *, int, in	18112	14464	4.480e-06	1.4	0.9	1.4	57.8
+24	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17632	0	5.056e-06	0.9	1.2	0.9	100.0
+25	mul_mat_vec	void mul_mat_vec_q<14, 1, 1, 0, 0>(const void *, const void 	1519648	737632	1.101e-05	33.4	14.7	33.4	33.4
+26	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17632	0	4.704e-06	0.9	1.2	0.9	100.0
+27	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	1046752	558752	1.030e-05	26.4	16.4	26.4	42.1
+28	other	void rope_neox<1, 0, float, __half>(const T3 *, T4 *, int, i	5952	7552	4.800e-06	0.6	0.1	0.6	77.8
+29	other	void k_set_rows<float, long, __half>(const T1 *, const T2 *,	8800	45440	4.928e-06	2.0	0.1	2.0	74.8
+30	other	void mul_mat_f<__half2, 32, 1, 1, 0>(const T1 *, const float	170721120	7242976	2.265e-04	89.0	21.6	89.0	24.6
+31	soft_max	void soft_max_f32<0, 0, 0, float>(const float *, const T4 *,	3628608	7475232	4.112e-05	33.1	10.4	33.1	83.0
+32	mul_mat_vec	void mul_mat_vec_f<__half, __half, 1, 256, 0, 0>(const T1 *,	135052928	3987616	2.774e-04	55.9	23.0	83.7	78.4
+33	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17056	12032	4.224e-06	1.5	1.2	1.5	100.0
+34	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	7252096	3676416	2.387e-05	65.6	38.9	65.6	27.5
+35	norm	void rms_norm_f32<1024, 1, 1, 1, 0, 0>(const float *, float 	32320	27264	5.632e-06	1.7	0.3	1.7	36.2
+36	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17312	23168	4.160e-06	2.1	1.2	2.1	100.0
+37	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	76462208	3874688	1.113e-04	84.2	52.8	84.2	23.2
+38	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	78816	131680	4.960e-06	9.4	6.0	9.4	100.0
+39	mul_mat_vec	void mul_mat_vec_q<14, 1, 1, 0, 0>(const void *, const void 	55977920	3844256	8.816e-05	80.1	31.8	80.1	22.7
+40	norm	void rms_norm_f32<1024, 1, 1, 1, 0, 0>(const float *, float 	32384	32128	6.112e-06	1.8	0.3	1.8	36.2
+41	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17376	10240	4.896e-06	1.4	1.2	1.4	100.0
+42	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	7252096	3674912	2.374e-05	65.2	38.9	65.2	27.5
+43	other	void rope_neox<1, 0, float, float>(const T3 *, T4 *, int, in	18176	16512	4.832e-06	1.6	0.9	1.6	57.6
+44	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17632	0	4.736e-06	0.9	1.2	0.9	100.0
+45	mul_mat_vec	void mul_mat_vec_q<14, 1, 1, 0, 0>(const void *, const void 	1519584	739552	1.075e-05	35.9	15.0	35.9	33.4
+46	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17632	0	4.736e-06	0.9	1.2	0.9	100.0
+47	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	1046560	561824	1.024e-05	27.1	15.9	27.1	42.1
+48	other	void rope_neox<1, 0, float, __half>(const T3 *, T4 *, int, i	5952	7552	4.736e-06	0.6	0.1	0.6	68.1
+49	other	void k_set_rows<float, long, __half>(const T1 *, const T2 *,	8736	44032	4.544e-06	2.0	0.1	2.0	74.9
+50	other	void mul_mat_f<__half2, 32, 1, 1, 0>(const T1 *, const float	170231008	7244896	2.254e-04	89.2	21.6	89.2	24.9
+51	soft_max	void soft_max_f32<0, 0, 0, float>(const float *, const T4 *,	3628480	7524736	3.987e-05	32.9	10.2	32.9	83.1
+52	mul_mat_vec	void mul_mat_vec_f<__half, __half, 1, 256, 0, 0>(const T1 *,	135958080	3995584	2.772e-04	56.2	23.0	83.3	77.8
+53	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17312	9088	4.448e-06	1.3	1.2	1.3	100.0
+54	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	7252160	3696288	2.352e-05	63.2	38.6	63.2	27.5
+55	norm	void rms_norm_f32<1024, 1, 1, 1, 0, 0>(const float *, float 	32384	33024	5.952e-06	1.8	0.3	1.8	36.2
+56	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17376	23680	4.512e-06	2.1	1.2	2.1	100.0
+57	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	76468032	3875040	1.116e-04	83.8	53.0	83.8	23.2
+58	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	78816	134656	4.864e-06	10.3	6.0	10.3	99.3
+59	mul_mat_vec	void mul_mat_vec_q<14, 1, 1, 0, 0>(const void *, const void 	56001280	3838816	8.656e-05	80.3	32.5	80.3	22.8
+60	norm	void rms_norm_f32<1024, 1, 1, 1, 0, 0>(const float *, float 	32384	33408	5.888e-06	1.9	0.3	1.9	36.2
+61	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17376	9088	4.480e-06	1.4	1.2	1.4	100.0
+62	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	7252032	3698304	2.378e-05	63.3	38.8	63.3	27.5
+63	other	void rope_neox<1, 0, float, float>(const T3 *, T4 *, int, in	18176	16512	4.896e-06	1.6	0.9	1.6	56.5
+64	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17632	0	4.704e-06	0.9	1.2	0.9	100.0
+65	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	1046560	575328	1.072e-05	27.1	15.3	27.1	42.1
+66	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17632	0	4.736e-06	0.9	1.2	0.9	100.0
+67	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	1046496	566464	9.728e-06	26.2	15.8	26.2	42.1
+68	other	void rope_neox<1, 0, float, __half>(const T3 *, T4 *, int, i	5952	7296	4.800e-06	0.6	0.1	0.6	78.3
+69	other	void k_set_rows<float, long, __half>(const T1 *, const T2 *,	8800	47744	5.024e-06	2.1	0.1	2.1	75.1
+70	other	void mul_mat_f<__half2, 32, 1, 1, 0>(const T1 *, const float	171505376	7248736	2.273e-04	89.6	21.7	89.6	25.0
+71	soft_max	void soft_max_f32<0, 0, 0, float>(const float *, const T4 *,	3628864	7517632	4.122e-05	31.7	10.2	31.7	83.1
+72	mul_mat_vec	void mul_mat_vec_f<__half, __half, 1, 256, 0, 0>(const T1 *,	136313376	3954144	2.790e-04	56.3	22.8	83.3	78.0
+73	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17376	9984	4.672e-06	1.4	1.2	1.4	100.0
+74	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	7252736	3674688	2.330e-05	65.8	38.1	65.8	27.5
+75	norm	void rms_norm_f32<1024, 1, 1, 1, 0, 0>(const float *, float 	32384	46848	6.112e-06	2.2	0.3	2.2	36.2
+76	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17312	24064	4.160e-06	2.1	1.2	2.1	100.0
+77	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	76457024	3864224	1.120e-04	83.8	52.6	83.8	23.2
+78	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	78816	133120	4.928e-06	9.1	6.0	9.1	100.0
+79	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	38391712	3811136	6.518e-05	77.3	47.6	77.3	29.3
+80	norm	void rms_norm_f32<1024, 1, 1, 1, 0, 0>(const float *, float 	32384	33024	6.144e-06	1.9	0.3	1.9	34.1
+81	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17120	11648	4.800e-06	1.5	1.2	1.5	100.0
+82	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	7252000	3652672	2.221e-05	62.7	38.4	62.7	27.5
+83	other	void rope_neox<1, 0, float, float>(const T3 *, T4 *, int, in	18176	16384	4.928e-06	1.6	0.9	1.6	56.5
+84	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17376	0	4.736e-06	0.9	1.2	0.9	100.2
+85	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	1046560	570080	1.040e-05	26.5	15.5	26.5	42.1
+86	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17504	0	4.064e-06	0.9	1.2	0.9	100.0
+87	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	1046560	539584	1.043e-05	26.5	15.9	26.5	42.1
+88	other	void rope_neox<1, 0, float, __half>(const T3 *, T4 *, int, i	5952	7680	4.960e-06	0.6	0.1	0.6	63.8
+89	other	void k_set_rows<float, long, __half>(const T1 *, const T2 *,	9568	44576	4.896e-06	2.1	0.1	2.1	74.9
+90	other	void mul_mat_f<__half2, 32, 1, 1, 0>(const T1 *, const float	171708256	7237184	2.272e-04	89.8	21.6	89.8	24.4
+91	soft_max	void soft_max_f32<0, 0, 0, float>(const float *, const T4 *,	3628352	7501504	4.093e-05	33.1	10.4	33.1	82.9
+92	mul_mat_vec	void mul_mat_vec_f<__half, __half, 1, 256, 0, 0>(const T1 *,	141822720	3990848	2.828e-04	58.7	23.0	82.2	78.1
+93	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17376	9472	4.544e-06	1.4	1.2	1.4	100.0
+94	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	7252544	3709792	2.483e-05	65.7	38.8	65.7	27.5
+95	norm	void rms_norm_f32<1024, 1, 1, 1, 0, 0>(const float *, float 	32384	47360	6.112e-06	2.2	0.3	2.2	36.2
+96	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17376	23680	4.512e-06	2.1	1.2	2.1	100.0
+97	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	76475104	3878848	1.124e-04	84.0	52.7	84.0	23.2
+98	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	78816	128736	4.640e-06	9.1	6.0	9.1	100.0
+99	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	38391584	3808256	6.416e-05	78.4	47.4	78.4	29.3
+100	norm	void rms_norm_f32<1024, 1, 1, 1, 0, 0>(const float *, float 	32384	30720	6.144e-06	1.8	0.3	1.8	36.2
+101	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17376	10624	4.576e-06	1.4	1.2	1.4	100.0
+102	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	7252096	3674432	2.317e-05	63.9	38.8	63.9	27.6
+103	other	void rope_neox<1, 0, float, float>(const T3 *, T4 *, int, in	18176	9984	5.152e-06	1.2	0.9	1.2	56.6
+104	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17632	0	4.704e-06	0.9	1.2	0.9	100.0
+105	mul_mat_vec	void mul_mat_vec_q<14, 1, 1, 0, 0>(const void *, const void 	1519648	747040	1.114e-05	36.3	15.1	36.3	33.4
+106	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17376	0	4.704e-06	0.9	1.2	0.9	100.0
+107	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	1046560	536864	1.040e-05	25.8	15.9	25.8	42.1
+108	other	void rope_neox<1, 0, float, __half>(const T3 *, T4 *, int, i	5952	7552	4.736e-06	0.6	0.1	0.6	62.9
+109	other	void k_set_rows<float, long, __half>(const T1 *, const T2 *,	8800	44288	4.992e-06	2.0	0.1	2.0	74.9
+110	other	void mul_mat_f<__half2, 32, 1, 1, 0>(const T1 *, const float	170469088	7248800	2.260e-04	89.1	21.5	89.1	24.7
+111	soft_max	void soft_max_f32<0, 0, 0, float>(const float *, const T4 *,	3628352	7427392	4.138e-05	32.6	10.4	32.6	83.0
+112	mul_mat_vec	void mul_mat_vec_f<__half, __half, 1, 256, 0, 0>(const T1 *,	140940288	3963616	2.798e-04	57.9	22.8	83.0	78.9
+113	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17120	13696	4.480e-06	1.6	1.2	1.6	100.0
+114	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	7252096	3697728	2.403e-05	64.4	38.3	64.4	27.5
+115	norm	void rms_norm_f32<1024, 1, 1, 1, 0, 0>(const float *, float 	32256	39040	5.504e-06	2.0	0.3	2.0	36.2
+116	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17312	23424	4.160e-06	2.0	1.2	2.0	100.0
+117	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	76456640	3863712	1.114e-04	84.1	52.8	84.1	23.2
+118	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	78816	135584	4.864e-06	9.5	6.0	9.5	100.0
+119	mul_mat_vec	void mul_mat_vec_q<14, 1, 1, 0, 0>(const void *, const void 	56006976	3808096	8.771e-05	79.0	31.7	79.0	22.9
+120	norm	void rms_norm_f32<1024, 1, 1, 1, 0, 0>(const float *, float 	32384	30720	6.048e-06	1.8	0.3	1.8	36.3
+121	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17312	14016	4.096e-06	1.6	1.2	1.6	100.0
+122	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	7252288	3685824	2.333e-05	63.1	36.9	63.1	27.5
+123	other	void rope_neox<1, 0, float, float>(const T3 *, T4 *, int, in	18112	16128	4.608e-06	1.6	0.9	1.6	56.5
+124	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17632	0	4.832e-06	0.9	1.2	0.9	100.0
+125	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	1046560	577120	1.046e-05	27.9	16.0	27.9	42.1
+126	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17568	0	4.736e-06	0.9	1.2	0.9	100.0
+127	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	1046560	552224	1.018e-05	26.2	15.7	26.2	42.1
+128	other	void rope_neox<1, 0, float, __half>(const T3 *, T4 *, int, i	5952	7936	4.864e-06	0.6	0.1	0.6	63.4
+129	other	void k_set_rows<float, long, __half>(const T1 *, const T2 *,	8800	43008	4.992e-06	2.0	0.1	2.0	71.6
+130	other	void mul_mat_f<__half2, 32, 1, 1, 0>(const T1 *, const float	171065568	7240480	2.269e-04	89.5	21.5	89.5	24.8
+131	soft_max	void soft_max_f32<0, 0, 0, float>(const float *, const T4 *,	3628608	7621984	4.080e-05	32.1	10.3	32.1	83.2
+132	mul_mat_vec	void mul_mat_vec_f<__half, __half, 1, 256, 0, 0>(const T1 *,	136340896	3993728	2.796e-04	56.3	22.8	82.7	78.3
+133	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17376	9472	4.736e-06	1.4	1.2	1.4	100.0
+134	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	7252480	3686784	2.285e-05	65.6	38.6	65.6	27.5
+135	norm	void rms_norm_f32<1024, 1, 1, 1, 0, 0>(const float *, float 	32384	35712	5.952e-06	1.9	0.3	1.9	36.2
+136	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17312	23680	4.160e-06	2.0	1.2	2.0	100.0
+137	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	76462976	3869952	1.117e-04	84.3	52.8	84.3	23.2
+138	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	78752	133120	4.608e-06	9.1	6.0	9.1	100.0
+139	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	38391520	3804960	6.589e-05	78.1	47.2	78.1	29.2
+140	norm	void rms_norm_f32<1024, 1, 1, 1, 0, 0>(const float *, float 	32384	31104	6.048e-06	1.8	0.3	1.8	36.2
+141	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17376	9984	4.736e-06	1.4	1.2	1.4	100.0
+142	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	7252640	3671744	2.301e-05	64.7	38.8	64.7	27.5
+143	other	void rope_neox<1, 0, float, float>(const T3 *, T4 *, int, in	18176	9568	4.864e-06	1.2	0.9	1.2	56.6
+144	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17632	0	4.736e-06	0.9	1.2	0.9	100.0
+145	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	1046560	565920	1.002e-05	26.7	16.1	26.7	42.1
+146	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17632	0	4.992e-06	0.9	1.2	0.9	100.0
+147	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	1046560	536736	1.011e-05	26.2	16.0	26.2	42.1
+148	other	void rope_neox<1, 0, float, __half>(const T3 *, T4 *, int, i	5952	6272	4.864e-06	0.5	0.1	0.5	78.5
+149	other	void k_set_rows<float, long, __half>(const T1 *, const T2 *,	8800	46624	4.832e-06	2.0	0.1	2.0	71.6
+150	other	void mul_mat_f<__half2, 32, 1, 1, 0>(const T1 *, const float	171397216	7229568	2.284e-04	88.9	21.4	88.9	24.9
+151	soft_max	void soft_max_f32<0, 0, 0, float>(const float *, const T4 *,	3628352	7637856	4.054e-05	32.6	10.0	32.6	83.3
+152	mul_mat_vec	void mul_mat_vec_f<__half, __half, 1, 256, 0, 0>(const T1 *,	140222848	3996384	2.812e-04	57.3	23.0	82.6	78.2
+153	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17376	10112	4.736e-06	1.4	1.2	1.4	100.0
+154	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	7252320	3689088	2.368e-05	62.9	38.9	62.9	27.5
+155	norm	void rms_norm_f32<1024, 1, 1, 1, 0, 0>(const float *, float 	32384	41728	5.920e-06	2.1	0.3	2.1	36.2
+156	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17376	23680	4.576e-06	2.1	1.2	2.1	100.0
+157	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	76462336	3864096	1.115e-04	84.4	52.9	84.4	23.2
+158	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	78752	133728	4.448e-06	8.9	6.0	8.9	100.0
+159	mul_mat_vec	void mul_mat_vec_q<14, 1, 1, 0, 0>(const void *, const void 	55987136	3833696	8.819e-05	79.7	32.4	79.7	23.1
+160	norm	void rms_norm_f32<1024, 1, 1, 1, 0, 0>(const float *, float 	32384	32256	5.952e-06	1.9	0.3	1.9	36.2
+161	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17120	12032	4.448e-06	1.5	1.2	1.5	100.0
+162	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	7252224	3685760	2.266e-05	64.5	39.0	64.5	27.5
+163	other	void rope_neox<1, 0, float, float>(const T3 *, T4 *, int, in	18176	16000	5.024e-06	1.5	0.9	1.5	56.4
+164	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	18144	0	4.768e-06	0.9	1.2	0.9	100.0
+165	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	1046560	578656	1.024e-05	27.1	16.4	27.1	42.1
+166	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17632	0	4.736e-06	0.9	1.2	0.9	100.0
+167	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	1046496	570144	1.014e-05	27.6	15.7	27.6	42.1
+168	other	void rope_neox<1, 0, float, __half>(const T3 *, T4 *, int, i	5952	7424	4.800e-06	0.6	0.1	0.6	77.4
+169	other	void k_set_rows<float, long, __half>(const T1 *, const T2 *,	8800	43200	4.864e-06	1.9	0.1	1.9	74.8
+170	other	void mul_mat_f<__half2, 32, 1, 1, 0>(const T1 *, const float	171946208	7236256	2.281e-04	89.7	21.6	89.7	24.8
+171	soft_max	void soft_max_f32<0, 0, 0, float>(const float *, const T4 *,	3627968	7478592	4.026e-05	31.9	10.3	31.9	83.2
+172	mul_mat_vec	void mul_mat_vec_f<__half, __half, 1, 256, 0, 0>(const T1 *,	137643008	3979648	2.784e-04	56.7	22.6	83.5	77.9
+173	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17120	11264	4.480e-06	1.4	1.2	1.4	83.2
+174	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	7252128	3682688	2.307e-05	63.3	38.6	63.3	27.6
+175	norm	void rms_norm_f32<1024, 1, 1, 1, 0, 0>(const float *, float 	32384	37376	5.952e-06	2.0	0.3	2.0	36.2
+176	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17312	23648	4.256e-06	2.1	1.2	2.1	100.0
+177	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	76463680	3857152	1.114e-04	84.0	52.5	84.0	23.2
+178	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	78816	130368	4.736e-06	8.6	6.0	8.6	99.4
+179	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	38391200	3813376	6.496e-05	78.4	47.3	78.4	29.2
+180	norm	void rms_norm_f32<1024, 1, 1, 1, 0, 0>(const float *, float 	32384	20352	5.920e-06	1.5	0.3	1.5	36.2
+181	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17376	10496	4.448e-06	1.4	1.2	1.4	100.0
+182	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	7252160	3665568	2.275e-05	64.3	39.0	64.3	27.6
+183	other	void rope_neox<1, 0, float, float>(const T3 *, T4 *, int, in	18176	12416	4.800e-06	1.4	1.0	1.4	56.5
+184	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17632	0	4.960e-06	0.9	1.2	0.9	100.0
+185	mul_mat_vec	void mul_mat_vec_q<14, 1, 1, 0, 0>(const void *, const void 	1521952	753056	1.104e-05	34.9	15.2	34.9	33.4
+186	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17568	0	4.448e-06	0.8	1.2	0.8	100.0
+187	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	1046560	559520	1.072e-05	27.1	16.0	27.1	42.1
+188	other	void rope_neox<1, 0, float, __half>(const T3 *, T4 *, int, i	5952	6528	4.832e-06	0.5	0.1	0.5	63.8
+189	other	void k_set_rows<float, long, __half>(const T1 *, const T2 *,	8800	47360	4.992e-06	2.0	0.1	2.0	74.9
+190	other	void mul_mat_f<__half2, 32, 1, 1, 0>(const T1 *, const float	171562720	7224192	2.274e-04	90.3	21.7	90.3	24.6
+191	soft_max	void soft_max_f32<0, 0, 0, float>(const float *, const T4 *,	3628736	7560928	4.144e-05	32.6	10.6	32.6	83.0
+192	mul_mat_vec	void mul_mat_vec_f<__half, __half, 1, 256, 0, 0>(const T1 *,	133907392	4000800	2.794e-04	55.7	23.0	84.2	78.6
+193	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17120	12672	4.512e-06	1.5	1.2	1.5	100.0
+194	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	7252160	3675072	2.422e-05	62.2	39.2	62.2	27.6
+195	norm	void rms_norm_f32<1024, 1, 1, 1, 0, 0>(const float *, float 	32384	44544	6.016e-06	2.2	0.3	2.2	37.0
+196	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17120	24576	4.544e-06	2.0	1.2	2.0	100.0
+197	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	76459136	3861632	1.116e-04	83.8	53.4	83.8	23.2
+198	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	78816	133632	4.832e-06	9.8	6.0	9.8	100.0
+199	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	38389920	3822912	6.525e-05	77.9	47.3	77.9	29.3
+200	norm	void rms_norm_f32<1024, 1, 1, 1, 0, 0>(const float *, float 	32384	30336	6.144e-06	1.8	0.3	1.8	36.3
+201	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17376	10880	4.512e-06	1.4	1.2	1.4	100.0
+202	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	7252224	3646400	2.371e-05	62.9	38.1	62.9	27.5
+203	other	void rope_neox<1, 0, float, float>(const T3 *, T4 *, int, in	18176	15232	5.024e-06	1.5	0.9	1.5	56.5
+204	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17632	0	5.056e-06	0.9	1.2	0.9	100.0
+205	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	1046496	582368	1.037e-05	27.8	15.9	27.8	42.1
+206	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17632	0	4.928e-06	0.9	1.2	0.9	100.0
+207	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	1046560	545568	1.018e-05	26.5	15.9	26.5	42.1
+208	other	void rope_neox<1, 0, float, __half>(const T3 *, T4 *, int, i	5952	6400	4.832e-06	0.6	0.1	0.6	62.7
+209	other	void k_set_rows<float, long, __half>(const T1 *, const T2 *,	8736	44416	4.544e-06	2.0	0.1	2.0	74.0
+210	other	void mul_mat_f<__half2, 32, 1, 1, 0>(const T1 *, const float	169640928	7240096	2.252e-04	89.1	21.6	89.1	25.1
+211	soft_max	void soft_max_f32<0, 0, 0, float>(const float *, const T4 *,	3628864	7516384	4.035e-05	32.6	10.4	32.6	82.8
+212	mul_mat_vec	void mul_mat_vec_f<__half, __half, 1, 256, 0, 0>(const T1 *,	136494496	3983488	2.794e-04	56.4	22.5	83.5	79.0
+213	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17376	10368	4.672e-06	1.4	1.2	1.4	100.0
+214	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	7252160	3659584	2.349e-05	63.7	38.3	63.7	27.6
+215	norm	void rms_norm_f32<1024, 1, 1, 1, 0, 0>(const float *, float 	32384	46464	5.952e-06	2.2	0.3	2.2	36.2
+216	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17376	23424	4.640e-06	2.0	1.2	2.0	99.8
+217	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	76461184	3864256	1.120e-04	83.7	53.0	83.7	23.2
+218	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	78816	134848	4.992e-06	9.3	6.0	9.3	100.4
+219	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	38389984	3827360	6.470e-05	77.3	47.2	77.3	29.1
+220	norm	void rms_norm_f32<1024, 1, 1, 1, 0, 0>(const float *, float 	32320	24192	5.792e-06	1.6	0.3	1.6	36.2
+221	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17376	10624	4.480e-06	1.4	1.2	1.4	100.0
+222	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	7255744	3719520	2.224e-05	64.6	39.0	64.6	27.6
+223	other	void rope_neox<1, 0, float, float>(const T3 *, T4 *, int, in	18112	16000	4.480e-06	1.5	0.9	1.5	56.7
+224	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17632	0	4.800e-06	0.9	1.2	0.9	100.0
+225	mul_mat_vec	void mul_mat_vec_q<14, 1, 1, 0, 0>(const void *, const void 	1519584	732960	1.053e-05	36.0	15.6	36.0	33.4
+226	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17312	0	4.352e-06	0.9	1.2	0.9	100.0
+227	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	1046496	571552	1.030e-05	26.9	16.3	26.9	42.1
+228	other	void rope_neox<1, 0, float, __half>(const T3 *, T4 *, int, i	5888	6272	4.384e-06	0.5	0.1	0.5	63.4
+229	other	void k_set_rows<float, long, __half>(const T1 *, const T2 *,	8800	45952	4.896e-06	2.1	0.1	2.1	74.9
+230	other	void mul_mat_f<__half2, 32, 1, 1, 0>(const T1 *, const float	170194400	7236000	2.260e-04	89.1	21.8	89.1	25.2
+231	soft_max	void soft_max_f32<0, 0, 0, float>(const float *, const T4 *,	3628928	7517696	4.138e-05	33.2	10.3	33.2	83.1
+232	mul_mat_vec	void mul_mat_vec_f<__half, __half, 1, 256, 0, 0>(const T1 *,	139480768	3992320	2.806e-04	57.0	22.7	83.4	77.1
+233	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17312	8960	4.448e-06	1.4	1.2	1.4	100.0
+234	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	7251936	3648032	2.406e-05	64.0	38.8	64.0	27.6
+235	norm	void rms_norm_f32<1024, 1, 1, 1, 0, 0>(const float *, float 	32320	37248	5.632e-06	1.9	0.3	1.9	36.2
+236	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17376	23296	4.896e-06	2.0	1.2	2.0	100.0
+237	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	76456832	3849824	1.113e-04	84.5	53.1	84.5	23.2
+238	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	78752	130944	4.416e-06	8.8	6.0	8.8	100.0
+239	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	38390944	3832928	6.486e-05	78.4	47.5	78.4	29.3
+240	norm	void rms_norm_f32<1024, 1, 1, 1, 0, 0>(const float *, float 	32256	28160	5.248e-06	1.7	0.3	1.7	36.2
+241	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17312	12416	4.128e-06	1.5	1.2	1.5	100.0
+242	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	7252224	3691168	2.314e-05	64.2	37.9	64.2	27.6
+243	other	void rope_neox<1, 0, float, float>(const T3 *, T4 *, int, in	18176	16128	5.056e-06	1.5	1.0	1.5	56.5
+244	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17632	0	4.992e-06	0.9	1.2	0.9	100.0
+245	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	1046432	578400	9.920e-06	28.1	15.8	28.1	42.1
+246	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17632	0	4.736e-06	0.9	1.2	0.9	100.0
+247	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	1046496	544416	1.040e-05	25.9	15.8	25.9	42.1
+248	other	void rope_neox<1, 0, float, __half>(const T3 *, T4 *, int, i	5952	6272	4.864e-06	0.5	0.1	0.5	63.4
+249	other	void k_set_rows<float, long, __half>(const T1 *, const T2 *,	8800	41088	4.864e-06	1.9	0.1	1.9	74.9
+250	other	void mul_mat_f<__half2, 32, 1, 1, 0>(const T1 *, const float	170900896	7246944	2.273e-04	89.1	21.5	89.1	25.6
+251	soft_max	void soft_max_f32<0, 0, 0, float>(const float *, const T4 *,	3627520	7491296	4.163e-05	32.7	10.2	32.7	82.8
+252	mul_mat_vec	void mul_mat_vec_f<__half, __half, 1, 256, 0, 0>(const T1 *,	137988608	3982656	2.819e-04	57.1	22.7	82.7	77.4
+253	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17376	14592	4.576e-06	1.6	1.2	1.6	100.0
+254	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	7252160	3690112	2.317e-05	65.4	39.0	65.4	27.5
+255	norm	void rms_norm_f32<1024, 1, 1, 1, 0, 0>(const float *, float 	32320	40448	5.600e-06	2.0	0.3	2.0	36.2
+256	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17312	23296	4.288e-06	2.0	1.2	2.0	100.0
+257	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	76460672	3835008	1.104e-04	84.2	53.0	84.2	23.2
+258	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	78816	133408	4.736e-06	9.1	6.0	9.1	100.0
+259	mul_mat_vec	void mul_mat_vec_q<14, 1, 1, 0, 0>(const void *, const void 	55998272	3842656	8.774e-05	78.7	32.1	78.7	22.6
+260	norm	void rms_norm_f32<1024, 1, 1, 1, 0, 0>(const float *, float 	32320	18944	5.600e-06	1.5	0.3	1.5	36.2
+261	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17376	10112	4.768e-06	1.4	1.2	1.4	100.0
+262	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	7252032	3684064	2.227e-05	65.4	39.5	65.4	27.6
+263	other	void rope_neox<1, 0, float, float>(const T3 *, T4 *, int, in	18176	12544	4.832e-06	1.4	1.0	1.4	56.7
+264	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17632	0	4.736e-06	0.9	1.2	0.9	100.1
+265	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	1046432	561312	9.952e-06	27.1	16.3	27.1	42.1
+266	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17376	0	4.736e-06	0.9	1.2	0.9	100.0
+267	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	1046496	557600	1.005e-05	26.3	16.4	26.3	42.1
+268	other	void rope_neox<1, 0, float, __half>(const T3 *, T4 *, int, i	5952	6400	4.736e-06	0.5	0.1	0.5	63.4
+269	other	void k_set_rows<float, long, __half>(const T1 *, const T2 *,	8800	46208	4.864e-06	2.1	0.1	2.1	74.9
+270	other	void mul_mat_f<__half2, 32, 1, 1, 0>(const T1 *, const float	170997920	7239840	2.259e-04	89.3	21.7	89.3	24.6
+271	soft_max	void soft_max_f32<0, 0, 0, float>(const float *, const T4 *,	3628544	7530752	4.061e-05	32.8	10.3	32.8	83.0
+272	mul_mat_vec	void mul_mat_vec_f<__half, __half, 1, 256, 0, 0>(const T1 *,	136685984	3995552	2.820e-04	55.7	22.9	82.6	78.5
+273	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17120	13184	4.512e-06	1.5	1.2	1.5	100.0
+274	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	7252224	3691360	2.416e-05	64.2	38.5	64.2	27.5
+275	norm	void rms_norm_f32<1024, 1, 1, 1, 0, 0>(const float *, float 	32320	30336	5.600e-06	1.8	0.3	1.8	36.2
+276	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17376	23424	4.640e-06	2.1	1.2	2.1	100.1
+277	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	76461312	3866016	1.115e-04	84.0	52.6	84.0	23.2
+278	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	78816	132032	5.024e-06	8.9	6.0	8.9	100.0
+279	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	38389792	3820224	6.422e-05	78.2	47.2	78.2	29.3
+280	norm	void rms_norm_f32<1024, 1, 1, 1, 0, 0>(const float *, float 	32320	32128	5.664e-06	1.9	0.3	1.9	36.2
+281	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17376	14208	4.576e-06	1.6	1.2	1.6	100.0
+282	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	7252032	3704640	2.269e-05	64.9	39.8	64.9	27.6
+283	other	void rope_neox<1, 0, float, float>(const T3 *, T4 *, int, in	18176	16640	5.024e-06	1.6	0.9	1.6	56.5
+284	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17632	0	5.056e-06	0.9	1.2	0.9	100.1
+285	mul_mat_vec	void mul_mat_vec_q<14, 1, 1, 0, 0>(const void *, const void 	1519520	740896	1.078e-05	34.1	15.5	34.1	33.4
+286	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17632	0	4.864e-06	0.9	1.2	0.9	100.0
+287	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	1046496	554272	1.018e-05	26.7	16.5	26.7	42.1
+288	other	void rope_neox<1, 0, float, __half>(const T3 *, T4 *, int, i	5952	7552	4.768e-06	0.6	0.1	0.6	63.4
+289	other	void k_set_rows<float, long, __half>(const T1 *, const T2 *,	8800	42912	4.960e-06	2.0	0.1	2.0	74.9
+290	other	void mul_mat_f<__half2, 32, 1, 1, 0>(const T1 *, const float	171545184	7248448	2.275e-04	90.2	21.4	90.2	24.4
+291	soft_max	void soft_max_f32<0, 0, 0, float>(const float *, const T4 *,	3628672	7531232	4.042e-05	32.7	10.1	32.7	83.0
+292	mul_mat_vec	void mul_mat_vec_f<__half, __half, 1, 256, 0, 0>(const T1 *,	135741280	3991200	2.795e-04	56.2	23.0	83.5	78.2
+293	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17376	10496	4.640e-06	1.4	1.2	1.4	99.9
+294	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	7252032	3684416	2.394e-05	65.7	37.8	65.7	27.5
+295	norm	void rms_norm_f32<1024, 1, 1, 1, 0, 0>(const float *, float 	32320	25728	5.632e-06	1.6	0.3	1.6	36.2
+296	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17376	23552	4.448e-06	2.0	1.2	2.0	100.0
+297	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	76464832	3861312	1.112e-04	84.3	52.6	84.3	23.2
+298	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	78816	131424	4.736e-06	10.0	6.0	10.0	100.0
+299	mul_mat_vec	void mul_mat_vec_q<14, 1, 1, 0, 0>(const void *, const void 	55989632	3835968	8.749e-05	79.2	32.4	79.2	22.7
+300	norm	void rms_norm_f32<1024, 1, 1, 1, 0, 0>(const float *, float 	32320	33536	5.568e-06	1.9	0.3	1.9	36.2
+301	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17376	10496	4.832e-06	1.4	1.2	1.4	100.0
+302	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	7252288	3739936	2.336e-05	63.9	39.0	63.9	27.5
+303	other	void rope_neox<1, 0, float, float>(const T3 *, T4 *, int, in	18176	13952	4.992e-06	1.5	1.0	1.5	56.5
+304	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17376	0	4.704e-06	0.9	1.2	0.9	100.0
+305	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	1046432	563776	9.536e-06	26.6	15.7	26.6	42.1
+306	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17568	0	4.544e-06	0.9	1.2	0.9	100.0
+307	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	1046496	563488	9.952e-06	27.6	16.1	27.6	42.1
+308	other	void rope_neox<1, 0, float, __half>(const T3 *, T4 *, int, i	5888	6144	4.640e-06	0.5	0.1	0.5	63.4
+309	other	void k_set_rows<float, long, __half>(const T1 *, const T2 *,	8800	47520	4.896e-06	2.1	0.1	2.1	74.9
+310	other	void mul_mat_f<__half2, 32, 1, 1, 0>(const T1 *, const float	170901984	7235456	2.272e-04	89.6	21.6	89.6	24.6
+311	soft_max	void soft_max_f32<0, 0, 0, float>(const float *, const T4 *,	3628928	7502016	4.019e-05	31.8	10.3	31.8	83.0
+312	mul_mat_vec	void mul_mat_vec_f<__half, __half, 1, 256, 0, 0>(const T1 *,	140183232	3981856	2.797e-04	57.4	22.9	83.0	78.1
+313	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17312	9344	4.320e-06	1.4	1.2	1.4	100.0
+314	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	7252288	3712416	2.285e-05	65.9	38.0	65.9	27.5
+315	norm	void rms_norm_f32<1024, 1, 1, 1, 0, 0>(const float *, float 	32320	40128	5.728e-06	2.0	0.3	2.0	36.2
+316	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17376	23840	4.800e-06	2.0	1.2	2.0	100.0
+317	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	76458240	3872992	1.118e-04	83.7	52.4	83.7	23.2
+318	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	78816	134048	4.768e-06	9.2	6.0	9.2	100.0
+319	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	38388576	3814720	6.454e-05	78.7	47.7	78.7	29.1
+320	norm	void rms_norm_f32<1024, 1, 1, 1, 0, 0>(const float *, float 	32320	20352	5.600e-06	1.5	0.3	1.5	36.2
+321	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17120	12032	4.448e-06	1.5	1.2	1.5	100.0
+322	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	7252096	3638560	2.179e-05	63.4	38.3	63.4	27.5
+323	other	void rope_neox<1, 0, float, float>(const T3 *, T4 *, int, in	18176	12032	4.864e-06	1.4	0.9	1.4	56.5
+324	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17568	0	4.384e-06	0.9	1.2	0.9	100.0
+325	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	1046432	550176	1.024e-05	27.4	15.3	27.4	42.1
+326	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17568	0	4.384e-06	0.9	1.2	0.9	100.0
+327	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	1046496	577952	1.002e-05	27.7	16.5	27.7	42.1
+328	other	void rope_neox<1, 0, float, __half>(const T3 *, T4 *, int, i	5888	6528	4.544e-06	0.5	0.1	0.5	77.4
+329	other	void k_set_rows<float, long, __half>(const T1 *, const T2 *,	8736	44832	4.672e-06	1.9	0.1	1.9	74.9
+330	other	void mul_mat_f<__half2, 32, 1, 1, 0>(const T1 *, const float	169459424	7247104	2.254e-04	88.5	21.7	88.5	24.9
+331	soft_max	void soft_max_f32<0, 0, 0, float>(const float *, const T4 *,	3627264	7520416	4.048e-05	32.1	10.2	32.1	83.1
+332	mul_mat_vec	void mul_mat_vec_f<__half, __half, 1, 256, 0, 0>(const T1 *,	137755168	3996704	2.815e-04	56.2	22.8	82.4	78.6
+333	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17312	9984	4.096e-06	1.3	1.2	1.3	100.0
+334	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	7252384	3716960	2.378e-05	65.5	38.5	65.5	27.5
+335	norm	void rms_norm_f32<1024, 1, 1, 1, 0, 0>(const float *, float 	32320	26496	5.568e-06	1.7	0.3	1.7	37.0
+336	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17376	23552	4.640e-06	2.0	1.2	2.0	100.0
+337	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	76460352	3865280	1.121e-04	84.0	52.8	84.0	23.2
+338	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	78752	126912	4.608e-06	9.0	6.0	9.0	100.0
+339	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	38391072	3818144	6.470e-05	77.0	47.2	77.0	29.4
+340	norm	void rms_norm_f32<1024, 1, 1, 1, 0, 0>(const float *, float 	32320	32512	5.728e-06	1.8	0.3	1.8	36.2
+341	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17376	10624	4.640e-06	1.4	1.2	1.4	100.0
+342	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	7252032	3702400	2.282e-05	63.6	39.1	63.6	27.5
+343	other	void rope_neox<1, 0, float, float>(const T3 *, T4 *, int, in	18176	11264	4.864e-06	1.3	0.9	1.3	56.5
+344	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17632	0	4.800e-06	0.9	1.2	0.9	100.0
+345	mul_mat_vec	void mul_mat_vec_q<14, 1, 1, 0, 0>(const void *, const void 	1519584	735200	1.085e-05	35.5	15.1	35.5	33.4
+346	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17568	0	4.352e-06	0.9	1.2	0.9	100.0
+347	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	1046496	561504	9.984e-06	25.5	15.9	25.5	42.1
+348	other	void rope_neox<1, 0, float, __half>(const T3 *, T4 *, int, i	5888	7200	4.352e-06	0.5	0.1	0.5	62.7
+349	other	void k_set_rows<float, long, __half>(const T1 *, const T2 *,	8800	45344	4.864e-06	2.0	0.1	2.0	74.9
+350	other	void mul_mat_f<__half2, 32, 1, 1, 0>(const T1 *, const float	171716704	7252672	2.270e-04	89.5	21.6	89.5	24.6
+351	soft_max	void soft_max_f32<0, 0, 0, float>(const float *, const T4 *,	3628864	7435808	4.102e-05	32.5	10.5	32.5	83.0
+352	mul_mat_vec	void mul_mat_vec_f<__half, __half, 1, 256, 0, 0>(const T1 *,	134951808	3989856	2.792e-04	56.1	22.9	82.8	78.1
+353	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17376	12672	4.480e-06	1.5	1.2	1.5	100.0
+354	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	7252288	3737984	2.378e-05	65.6	38.6	65.6	27.5
+355	norm	void rms_norm_f32<1024, 1, 1, 1, 0, 0>(const float *, float 	32320	41984	5.824e-06	2.1	0.3	2.1	36.2
+356	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17312	23936	4.160e-06	2.1	1.2	2.1	100.0
+357	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	76456960	3860448	1.108e-04	84.2	52.3	84.2	23.2
+358	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	78816	130848	4.992e-06	9.3	6.0	9.3	99.5
+359	mul_mat_vec	void mul_mat_vec_q<14, 1, 1, 0, 0>(const void *, const void 	55989952	3835264	8.858e-05	79.3	32.5	79.3	22.6
+360	norm	void rms_norm_f32<1024, 1, 1, 1, 0, 0>(const float *, float 	32320	28672	5.600e-06	1.8	0.3	1.8	36.2
+361	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17312	9728	4.288e-06	1.4	1.2	1.4	100.0
+362	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	7252288	3695232	2.355e-05	63.9	38.0	63.9	27.6
+363	other	void rope_neox<1, 0, float, float>(const T3 *, T4 *, int, in	18176	13824	4.960e-06	1.5	0.9	1.5	56.6
+364	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17632	0	4.800e-06	0.9	1.2	0.9	100.0
+365	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	1046496	569920	1.037e-05	25.7	16.1	25.7	42.1
+366	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17504	0	4.192e-06	0.9	1.2	0.9	100.0
+367	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	1046432	540064	9.728e-06	26.2	16.2	26.2	42.1
+368	other	void rope_neox<1, 0, float, __half>(const T3 *, T4 *, int, i	5888	5888	4.832e-06	0.5	0.1	0.5	63.4
+369	other	void k_set_rows<float, long, __half>(const T1 *, const T2 *,	8800	45600	5.056e-06	2.1	0.1	2.1	77.5
+370	other	void mul_mat_f<__half2, 32, 1, 1, 0>(const T1 *, const float	170319712	7242624	2.265e-04	89.5	21.7	89.5	25.0
+371	soft_max	void soft_max_f32<0, 0, 0, float>(const float *, const T4 *,	3628416	7603840	4.122e-05	33.1	10.3	33.1	83.0
+372	mul_mat_vec	void mul_mat_vec_f<__half, __half, 1, 256, 0, 0>(const T1 *,	140852064	3994912	2.814e-04	57.9	22.9	82.5	78.1
+373	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17376	11776	4.640e-06	1.5	1.2	1.5	100.0
+374	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	7252416	3719872	2.374e-05	63.4	39.1	63.4	27.5
+375	norm	void rms_norm_f32<1024, 1, 1, 1, 0, 0>(const float *, float 	32320	28800	5.600e-06	1.7	0.3	1.7	36.2
+376	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17056	23808	4.096e-06	2.1	1.2	2.1	100.0
+377	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	76469504	3856896	1.115e-04	84.1	52.8	84.1	23.2
+378	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	78816	129568	5.056e-06	10.0	6.0	10.0	100.0
+379	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	38389024	3811488	6.506e-05	77.6	47.7	77.6	29.4
+380	norm	void rms_norm_f32<1024, 1, 1, 1, 0, 0>(const float *, float 	32320	29696	5.664e-06	1.8	0.3	1.8	36.2
+381	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17376	10240	4.736e-06	1.4	1.2	1.4	100.1
+382	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	7252480	3665888	2.298e-05	64.9	38.7	64.9	27.5
+383	other	void rope_neox<1, 0, float, float>(const T3 *, T4 *, int, in	18176	12032	4.992e-06	1.4	1.0	1.4	57.4
+384	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17632	0	4.704e-06	0.9	1.2	0.9	100.0
+385	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	1046496	566432	1.014e-05	27.6	16.0	27.6	42.1
+386	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17504	0	4.128e-06	0.9	1.2	0.9	100.0
+387	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	1046432	568640	1.014e-05	26.9	16.3	26.9	42.1
+388	other	void rope_neox<1, 0, float, __half>(const T3 *, T4 *, int, i	5888	8064	4.544e-06	0.6	0.1	0.6	62.9
+389	other	void k_set_rows<float, long, __half>(const T1 *, const T2 *,	8800	46368	4.864e-06	2.0	0.1	2.0	77.7
+390	other	void mul_mat_f<__half2, 32, 1, 1, 0>(const T1 *, const float	170069984	7245600	2.258e-04	88.9	21.4	88.9	25.0
+391	soft_max	void soft_max_f32<0, 0, 0, float>(const float *, const T4 *,	3628480	7506176	3.994e-05	33.0	10.3	33.0	83.3
+392	mul_mat_vec	void mul_mat_vec_f<__half, __half, 1, 256, 0, 0>(const T1 *,	137137504	3997760	2.812e-04	56.6	22.9	82.4	77.5
+393	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17376	10496	4.736e-06	1.3	1.2	1.3	100.0
+394	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	7252160	3676320	2.403e-05	64.6	37.8	64.6	27.5
+395	norm	void rms_norm_f32<1024, 1, 1, 1, 0, 0>(const float *, float 	32320	41088	5.760e-06	2.1	0.3	2.1	36.2
+396	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17376	23552	4.928e-06	2.1	1.2	2.1	100.0
+397	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	76460544	3863104	1.114e-04	83.9	52.9	83.9	23.2
+398	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	78816	129088	4.832e-06	8.4	6.0	8.4	100.0
+399	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	38389408	3812000	6.547e-05	77.7	47.0	77.7	29.2
+400	norm	void rms_norm_f32<1024, 1, 1, 1, 0, 0>(const float *, float 	32320	30208	5.792e-06	1.8	0.3	1.8	36.2
+401	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17120	12544	4.480e-06	1.5	1.2	1.5	100.0
+402	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	7252512	3683936	2.390e-05	64.9	38.4	64.9	27.5
+403	other	void rope_neox<1, 0, float, float>(const T3 *, T4 *, int, in	18176	15872	4.960e-06	1.6	0.9	1.6	56.6
+404	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17632	0	4.736e-06	0.9	1.2	0.9	100.0
+405	mul_mat_vec	void mul_mat_vec_q<14, 1, 1, 0, 0>(const void *, const void 	1519520	738848	1.021e-05	35.8	14.8	35.8	33.4
+406	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17568	0	4.384e-06	0.9	1.2	0.9	100.0
+407	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	1046752	565696	1.018e-05	26.2	15.7	26.2	42.1
+408	other	void rope_neox<1, 0, float, __half>(const T3 *, T4 *, int, i	5952	7424	4.704e-06	0.6	0.1	0.6	77.4
+409	other	void k_set_rows<float, long, __half>(const T1 *, const T2 *,	8800	45312	5.024e-06	2.0	0.1	2.0	71.5
+410	other	void mul_mat_f<__half2, 32, 1, 1, 0>(const T1 *, const float	172108320	7248384	2.277e-04	90.0	21.6	90.0	24.4
+411	soft_max	void soft_max_f32<0, 0, 0, float>(const float *, const T4 *,	3627968	7497984	4.032e-05	31.9	10.1	31.9	82.9
+412	mul_mat_vec	void mul_mat_vec_f<__half, __half, 1, 256, 0, 0>(const T1 *,	135844160	3997792	2.781e-04	55.6	22.7	83.6	77.5
+413	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17248	9216	3.776e-06	1.3	1.2	1.3	100.0
+414	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	7252608	3694944	2.390e-05	64.5	38.6	64.5	27.5
+415	norm	void rms_norm_f32<1024, 1, 1, 1, 0, 0>(const float *, float 	32320	32640	5.632e-06	1.8	0.3	1.8	36.2
+416	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17312	23040	4.288e-06	2.0	1.2	2.0	100.0
+417	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	76461056	3860096	1.111e-04	84.3	53.1	84.3	23.2
+418	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	78816	130720	4.992e-06	10.1	6.0	10.1	101.2
+419	mul_mat_vec	void mul_mat_vec_q<14, 1, 1, 0, 0>(const void *, const void 	56093568	3836768	8.899e-05	79.4	32.8	79.4	22.8
+420	norm	void rms_norm_f32<1024, 1, 1, 1, 0, 0>(const float *, float 	32320	32384	5.696e-06	1.8	0.3	1.8	36.2
+421	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17312	9600	4.288e-06	1.4	1.2	1.4	100.0
+422	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	7252032	3700736	2.259e-05	65.0	38.8	65.0	27.6
+423	other	void rope_neox<1, 0, float, float>(const T3 *, T4 *, int, in	18176	16128	5.024e-06	1.5	0.9	1.5	56.6
+424	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17632	0	4.736e-06	0.9	1.2	0.9	100.0
+425	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	1046432	556448	9.632e-06	27.6	16.5	27.6	42.1
+426	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17632	0	4.736e-06	0.9	1.2	0.9	100.0
+427	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	1046496	576544	9.792e-06	27.6	16.3	27.6	42.1
+428	other	void rope_neox<1, 0, float, __half>(const T3 *, T4 *, int, i	5888	7296	4.480e-06	0.5	0.1	0.5	63.4
+429	other	void k_set_rows<float, long, __half>(const T1 *, const T2 *,	8736	40640	4.512e-06	1.9	0.1	1.9	74.9
+430	other	void mul_mat_f<__half2, 32, 1, 1, 0>(const T1 *, const float	169164384	7250464	2.257e-04	88.2	21.7	88.2	24.8
+431	soft_max	void soft_max_f32<0, 0, 0, float>(const float *, const T4 *,	3628800	7457120	4.093e-05	32.8	10.2	32.8	82.8
+432	mul_mat_vec	void mul_mat_vec_f<__half, __half, 1, 256, 0, 0>(const T1 *,	135570592	3981120	2.757e-04	55.2	23.0	84.2	78.8
+433	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17376	15488	4.704e-06	1.7	1.2	1.7	100.0
+434	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	7252416	3672512	2.378e-05	65.8	39.0	65.8	27.5
+435	norm	void rms_norm_f32<1024, 1, 1, 1, 0, 0>(const float *, float 	32320	23552	5.632e-06	1.6	0.3	1.6	36.3
+436	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17376	24064	4.736e-06	2.1	1.2	2.1	100.0
+437	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	76468032	3874976	1.108e-04	84.3	52.8	84.3	23.2
+438	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	78816	132448	4.800e-06	10.2	6.0	10.2	100.0
+439	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	38389984	3821344	6.474e-05	78.5	47.4	78.5	29.1
+440	norm	void rms_norm_f32<1024, 1, 1, 1, 0, 0>(const float *, float 	32320	18560	5.664e-06	1.4	0.3	1.4	36.2
+441	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17376	11136	4.480e-06	1.5	1.2	1.5	100.0
+442	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	7252128	3687808	2.285e-05	65.3	39.0	65.3	27.5
+443	other	void rope_neox<1, 0, float, float>(const T3 *, T4 *, int, in	18176	14080	5.152e-06	1.5	0.9	1.5	55.1
+444	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17632	0	4.768e-06	0.9	1.2	0.9	100.0
+445	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	1046496	543552	1.021e-05	26.1	16.1	26.1	42.1
+446	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17568	0	4.416e-06	0.9	1.2	0.9	99.8
+447	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	1046432	540448	9.504e-06	27.3	15.8	27.3	42.1
+448	other	void rope_neox<1, 0, float, __half>(const T3 *, T4 *, int, i	5888	6272	4.416e-06	0.5	0.1	0.5	63.4
+449	other	void k_set_rows<float, long, __half>(const T1 *, const T2 *,	8736	41344	4.640e-06	1.9	0.1	1.9	74.8
+450	other	void mul_mat_f<__half2, 32, 1, 1, 0>(const T1 *, const float	171617504	7241728	2.268e-04	89.4	21.6	89.4	24.9
+451	soft_max	void soft_max_f32<0, 0, 0, float>(const float *, const T4 *,	3628864	7542240	3.965e-05	32.8	10.4	32.8	82.9
+452	mul_mat_vec	void mul_mat_vec_f<__half, __half, 1, 256, 0, 0>(const T1 *,	137262656	4002112	2.821e-04	57.0	23.0	82.2	77.8
+453	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17120	11904	4.480e-06	1.5	1.2	1.5	100.0
+454	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	7252160	3698656	2.352e-05	63.3	38.5	63.3	27.6
+455	norm	void rms_norm_f32<1024, 1, 1, 1, 0, 0>(const float *, float 	32320	47008	5.600e-06	2.2	0.3	2.2	36.2
+456	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17376	24064	4.800e-06	2.1	1.2	2.1	100.0
+457	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	76458304	3870400	1.118e-04	84.7	52.7	84.7	23.2
+458	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	78752	133024	4.256e-06	9.4	6.0	9.4	100.0
+459	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	38391968	3818944	6.538e-05	77.6	47.4	77.6	29.3
+460	norm	void rms_norm_f32<1024, 1, 1, 1, 0, 0>(const float *, float 	32320	19584	5.888e-06	1.5	0.3	1.5	36.2
+461	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17376	10624	4.768e-06	1.4	1.2	1.4	100.0
+462	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	7252096	3657984	2.221e-05	63.0	39.1	63.0	27.5
+463	other	void rope_neox<1, 0, float, float>(const T3 *, T4 *, int, in	18112	15616	4.480e-06	1.5	1.0	1.5	56.5
+464	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17632	0	4.736e-06	0.8	1.2	0.8	100.0
+465	mul_mat_vec	void mul_mat_vec_q<14, 1, 1, 0, 0>(const void *, const void 	1519584	719520	1.056e-05	34.6	15.1	34.6	33.4
+466	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17312	0	4.512e-06	0.9	1.2	0.9	100.0
+467	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	1046496	562240	1.021e-05	27.5	16.3	27.5	42.1
+468	other	void rope_neox<1, 0, float, __half>(const T3 *, T4 *, int, i	5888	7296	4.352e-06	0.6	0.1	0.6	55.4
+469	other	void k_set_rows<float, long, __half>(const T1 *, const T2 *,	8736	44288	4.608e-06	2.0	0.1	2.0	71.4
+470	other	void mul_mat_f<__half2, 32, 1, 1, 0>(const T1 *, const float	171047008	7251872	2.277e-04	89.8	21.5	89.8	24.5
+471	soft_max	void soft_max_f32<0, 0, 0, float>(const float *, const T4 *,	3628928	7558912	3.987e-05	32.9	9.9	32.9	83.0
+472	mul_mat_vec	void mul_mat_vec_f<__half, __half, 1, 256, 0, 0>(const T1 *,	137096384	4004288	2.818e-04	56.2	22.8	82.9	77.5
+473	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17376	10112	4.768e-06	1.4	1.2	1.4	100.0
+474	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	7252096	3710816	2.387e-05	65.3	38.6	65.3	27.5
+475	norm	void rms_norm_f32<1024, 1, 1, 1, 0, 0>(const float *, float 	32256	41472	5.312e-06	2.1	0.3	2.1	36.2
+476	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17376	23360	4.576e-06	2.0	1.2	2.0	100.0
+477	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	76457856	3846784	1.113e-04	83.7	52.6	83.7	23.2
+478	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	78816	128064	5.056e-06	8.9	6.0	8.9	100.0
+479	mul_mat_vec	void mul_mat_vec_q<14, 1, 1, 0, 0>(const void *, const void 	55985664	3839264	8.749e-05	80.3	32.4	80.3	22.9
+480	norm	void rms_norm_f32<1024, 1, 1, 1, 0, 0>(const float *, float 	32320	22016	5.696e-06	1.6	0.3	1.6	36.2
+481	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17376	11776	4.512e-06	1.5	1.2	1.5	100.0
+482	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	7252192	3697632	2.342e-05	65.1	40.2	65.1	27.6
+483	other	void rope_neox<1, 0, float, float>(const T3 *, T4 *, int, in	18112	5888	4.320e-06	1.0	0.9	1.0	56.5
+484	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17632	0	5.184e-06	0.9	1.2	0.9	100.0
+485	mul_mat_vec	void mul_mat_vec_q<14, 1, 1, 0, 0>(const void *, const void 	1519584	757888	1.082e-05	35.9	15.4	35.9	33.4
+486	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17568	0	4.544e-06	0.9	1.2	0.9	100.0
+487	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	1046496	560032	1.043e-05	26.8	15.9	26.8	42.1
+488	other	void rope_neox<1, 0, float, __half>(const T3 *, T4 *, int, i	5888	6528	4.448e-06	0.5	0.1	0.5	77.4
+489	other	void k_set_rows<float, long, __half>(const T1 *, const T2 *,	8736	43808	4.544e-06	2.0	0.1	2.0	74.9
+490	other	void mul_mat_f<__half2, 32, 1, 1, 0>(const T1 *, const float	170672096	7237792	2.266e-04	89.0	21.7	89.0	25.1
+491	soft_max	void soft_max_f32<0, 0, 0, float>(const float *, const T4 *,	3628352	7510560	4.198e-05	32.3	10.5	32.3	83.1
+492	mul_mat_vec	void mul_mat_vec_f<__half, __half, 1, 256, 0, 0>(const T1 *,	137231904	3988320	2.776e-04	56.6	22.7	83.1	78.8
+493	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17376	9728	4.576e-06	1.4	1.2	1.4	100.0
+494	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	7252224	3684864	2.368e-05	65.7	38.9	65.7	27.6
+495	norm	void rms_norm_f32<1024, 1, 1, 1, 0, 0>(const float *, float 	32320	41856	5.760e-06	2.1	0.3	2.1	36.2
+496	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17376	24256	4.512e-06	2.1	1.2	2.1	100.0
+497	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	76465792	3864256	1.111e-04	83.9	53.2	83.9	23.2
+498	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	78816	131200	4.768e-06	9.2	6.0	9.2	100.0
+499	mul_mat_vec	void mul_mat_vec_q<14, 1, 1, 0, 0>(const void *, const void 	55985216	3843840	8.810e-05	79.3	32.3	79.3	22.7
+500	norm	void rms_norm_f32<1024, 1, 1, 1, 0, 0>(const float *, float 	32320	28928	5.632e-06	1.7	0.3	1.7	36.2
+501	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17376	10464	4.448e-06	1.4	1.2	1.4	100.0
+502	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	7252544	3705056	2.307e-05	65.4	38.7	65.4	27.5
+503	other	void rope_neox<1, 0, float, float>(const T3 *, T4 *, int, in	18176	12928	4.960e-06	1.4	0.9	1.4	55.0
+504	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17632	0	4.704e-06	0.9	1.2	0.9	100.0
+505	mul_mat_vec	void mul_mat_vec_q<14, 1, 1, 0, 0>(const void *, const void 	1519520	747040	1.037e-05	36.3	14.8	36.3	33.4
+506	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17632	0	4.704e-06	0.9	1.2	0.9	100.0
+507	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	1046496	569632	9.952e-06	27.9	16.5	27.9	42.1
+508	other	void rope_neox<1, 0, float, __half>(const T3 *, T4 *, int, i	5888	7840	4.416e-06	0.6	0.1	0.6	67.6
+509	other	void k_set_rows<float, long, __half>(const T1 *, const T2 *,	8800	48544	5.056e-06	2.2	0.1	2.2	74.7
+510	other	void mul_mat_f<__half2, 32, 1, 1, 0>(const T1 *, const float	170827808	7228128	2.260e-04	89.4	21.6	89.4	25.2
+511	soft_max	void soft_max_f32<0, 0, 0, float>(const float *, const T4 *,	3628928	7511232	4.032e-05	32.5	10.4	32.5	83.2
+512	mul_mat_vec	void mul_mat_vec_f<__half, __half, 1, 256, 0, 0>(const T1 *,	140497216	3995136	2.809e-04	57.4	23.0	82.3	77.7
+513	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17376	11776	4.480e-06	1.5	1.2	1.5	100.0
+514	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	7252032	3707872	2.326e-05	65.7	38.2	65.7	27.6
+515	norm	void rms_norm_f32<1024, 1, 1, 1, 0, 0>(const float *, float 	32320	38784	5.824e-06	2.0	0.3	2.0	36.2
+516	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17312	23808	4.160e-06	2.1	1.2	2.1	100.2
+517	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	76464384	3874528	1.114e-04	84.2	52.9	84.2	23.2
+518	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	78816	130976	4.992e-06	9.3	6.0	9.3	100.0
+519	mul_mat_vec	void mul_mat_vec_q<14, 1, 1, 0, 0>(const void *, const void 	55985408	3826720	8.941e-05	78.7	32.0	78.7	22.7
+520	norm	void rms_norm_f32<1024, 1, 1, 1, 0, 0>(const float *, float 	32256	35328	5.408e-06	1.9	0.3	1.9	36.2
+521	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17376	10240	4.640e-06	1.4	1.2	1.4	100.0
+522	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	7252032	3647296	2.269e-05	65.2	37.3	65.2	27.5
+523	other	void rope_neox<1, 0, float, float>(const T3 *, T4 *, int, in	18176	11520	4.800e-06	1.4	0.9	1.4	55.1
+524	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17632	0	4.768e-06	0.9	1.2	0.9	100.0
+525	mul_mat_vec	void mul_mat_vec_q<14, 1, 1, 0, 0>(const void *, const void 	1519520	740448	1.056e-05	35.0	14.5	35.0	33.4
+526	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17568	0	4.384e-06	0.9	1.2	0.9	100.0
+527	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	1046496	576544	1.059e-05	27.8	15.8	27.8	42.1
+528	other	void rope_neox<1, 0, float, __half>(const T3 *, T4 *, int, i	5952	7168	4.864e-06	0.6	0.1	0.6	63.4
+529	other	void k_set_rows<float, long, __half>(const T1 *, const T2 *,	8800	44800	4.992e-06	2.0	0.1	2.0	77.5
+530	other	void mul_mat_f<__half2, 32, 1, 1, 0>(const T1 *, const float	170452576	7256064	2.265e-04	89.1	21.6	89.1	24.9
+531	soft_max	void soft_max_f32<0, 0, 0, float>(const float *, const T4 *,	3628608	7503264	4.029e-05	32.2	10.5	32.2	83.3
+532	mul_mat_vec	void mul_mat_vec_f<__half, __half, 1, 256, 0, 0>(const T1 *,	137940480	3979904	2.771e-04	57.0	22.9	83.7	78.8
+533	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17376	12160	4.832e-06	1.5	1.2	1.5	100.0
+534	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	7252288	3670848	2.285e-05	64.1	38.5	64.1	27.5
+535	norm	void rms_norm_f32<1024, 1, 1, 1, 0, 0>(const float *, float 	32320	32896	5.824e-06	1.8	0.3	1.8	36.3
+536	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17312	23808	4.416e-06	2.0	1.2	2.0	100.0
+537	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	76462400	3858336	1.115e-04	84.6	52.8	84.6	23.2
+538	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	78816	134560	4.768e-06	10.2	6.0	10.2	100.0
+539	mul_mat_vec	void mul_mat_vec_q<14, 1, 1, 0, 0>(const void *, const void 	56018944	3833248	8.867e-05	79.4	32.4	79.4	23.0
+540	norm	void rms_norm_f32<1024, 1, 1, 1, 0, 0>(const float *, float 	32320	32640	5.600e-06	1.8	0.3	1.8	36.2
+541	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17376	11392	4.608e-06	1.5	1.2	1.5	100.0
+542	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	7252384	3689280	2.272e-05	62.9	39.4	62.9	27.6
+543	other	void rope_neox<1, 0, float, float>(const T3 *, T4 *, int, in	18176	10496	5.056e-06	1.3	0.9	1.3	56.5
+544	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17632	0	4.896e-06	0.9	1.2	0.9	100.0
+545	mul_mat_vec	void mul_mat_vec_q<14, 1, 1, 0, 0>(const void *, const void 	1519520	740128	1.034e-05	36.1	15.0	36.1	33.4
+546	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17632	0	5.088e-06	0.9	1.2	0.9	100.0
+547	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	1046496	564256	1.008e-05	27.6	16.1	27.6	42.1
+548	other	void rope_neox<1, 0, float, __half>(const T3 *, T4 *, int, i	5952	7552	4.800e-06	0.6	0.1	0.6	64.1
+549	other	void k_set_rows<float, long, __half>(const T1 *, const T2 *,	8736	45696	4.608e-06	2.1	0.1	2.1	74.9
+550	other	void mul_mat_f<__half2, 32, 1, 1, 0>(const T1 *, const float	170184672	7242016	2.256e-04	88.7	21.6	88.7	24.5
+551	soft_max	void soft_max_f32<0, 0, 0, float>(const float *, const T4 *,	3628928	7527872	4.038e-05	31.8	10.3	31.8	82.8
+552	mul_mat_vec	void mul_mat_vec_f<__half, __half, 1, 256, 0, 0>(const T1 *,	140963872	3994880	2.806e-04	57.7	22.8	82.4	78.2
+553	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17376	9344	4.768e-06	1.4	1.2	1.4	100.0
+554	mul_mat_vec	void mul_mat_vec_q<12, 1, 0, 0, 0>(const void *, const void 	7236864	3442912	2.099e-05	67.8	36.1	67.8	24.4
+555	other	void k_get_rows_float<float, float>(const T1 *, const int *,	19424	16512	5.536e-06	1.4	1.4	1.4	58.6
+556	other	void k_get_rows_float<float, float>(const T1 *, const int *,	19360	25216	5.184e-06	1.7	1.4	1.7	55.3
+557	other	void k_bin_bcast<&op_add, float, float, float, const float *	16736	12928	4.256e-06	1.2	0.6	1.2	69.7
+558	norm	void rms_norm_f32<1024, 1, 1, 1, 0, 0>(const float *, float 	32256	24832	5.248e-06	1.6	0.3	1.6	36.2
+559	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17312	24224	4.288e-06	2.1	1.2	2.1	100.0
+560	mul_mat_vec	void mul_mat_vec_q<12, 1, 1, 0, 0>(const void *, const void 	76463232	3859040	1.115e-04	84.2	52.7	84.2	23.2
+561	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	78816	118016	4.960e-06	9.5	6.0	9.5	100.1
+562	mul_mat_vec	void mul_mat_vec_q<14, 1, 1, 0, 0>(const void *, const void 	55980800	3840576	8.694e-05	80.9	32.7	80.9	22.8
+563	norm	void rms_norm_f32<1024, 1, 1, 1, 0, 0>(const float *, float 	32320	32640	5.760e-06	1.9	0.3	1.9	57.9
+564	quantize_q8	quantize_q8_1(const float *, void *, long, long, long, long,	17376	24448	4.608e-06	2.1	1.2	2.1	100.0
+565	mul_mat_vec	void mul_mat_vec_q<14, 1, 0, 0, 0>(const void *, const void 	447140544	4457184	5.316e-04	95.1	49.7	95.1	19.2

@@ -15,3 +15,21 @@ q7_v100_8k_faoff run1 0.05.750.088 I common_perf_print:        eval time =     6
 q7_v100_8k_faoff run2 0.05.736.834 I common_perf_print: prompt eval time =    3197.93 ms /  6980 tokens (    0.46 ms per token,  2182.66 tokens per second)
 q7_v100_8k_faoff run2 0.05.736.836 I common_perf_print:        eval time =     653.76 ms /    63 runs   (   10.38 ms per token,    96.37 tokens per second)
 3963
+q7_v100_32k_faauto window 61325 61863
+q7_v100_32k_faauto run1 0.20.147.846 I common_perf_print: prompt eval time =   17341.08 ms / 31001 tokens (    0.56 ms per token,  1787.72 tokens per second)
+q7_v100_32k_faauto run1 0.20.147.849 I common_perf_print:        eval time =     877.83 ms /    63 runs   (   13.93 ms per token,    71.77 tokens per second)
+q7_v100_32k_faauto run2 0.20.149.718 I common_perf_print: prompt eval time =   17337.88 ms / 31001 tokens (    0.56 ms per token,  1788.05 tokens per second)
+q7_v100_32k_faauto run2 0.20.149.721 I common_perf_print:        eval time =     879.19 ms /    63 runs   (   13.96 ms per token,    71.66 tokens per second)
+3767
+q7_v100_32k_faoff window 71629 72195
+q7_v100_32k_faoff run1 0.36.372.929 I common_perf_print: prompt eval time =   33014.85 ms / 31001 tokens (    1.06 ms per token,   939.00 tokens per second)
+q7_v100_32k_faoff run1 0.36.372.934 I common_perf_print:        eval time =    1411.97 ms /    63 runs   (   22.41 ms per token,    44.62 tokens per second)
+q7_v100_32k_faoff run2 0.36.499.364 I common_perf_print: prompt eval time =   33140.32 ms / 31001 tokens (    1.07 ms per token,   935.45 tokens per second)
+q7_v100_32k_faoff run2 0.36.499.368 I common_perf_print:        eval time =    1407.60 ms /    63 runs   (   22.34 ms per token,    44.76 tokens per second)
+3963
+q05_v100_8k_faauto window 12468 12930
+q05_v100_8k_faauto run1 0.01.303.116 I common_perf_print: prompt eval time =     428.44 ms /  6980 tokens (    0.06 ms per token, 16291.74 tokens per second)
+q05_v100_8k_faauto run1 0.01.303.118 I common_perf_print:        eval time =     160.73 ms /    63 runs   (    2.55 ms per token,   391.97 tokens per second)
+q05_v100_8k_faauto run2 0.01.322.051 I common_perf_print: prompt eval time =     427.30 ms /  6980 tokens (    0.06 ms per token, 16335.05 tokens per second)
+q05_v100_8k_faauto run2 0.01.322.053 I common_perf_print:        eval time =     160.32 ms /    63 runs   (    2.54 ms per token,   392.96 tokens per second)
+3235

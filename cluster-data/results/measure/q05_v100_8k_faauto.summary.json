@@ -1,12 +1,70 @@
 {
  "tag": "q05_v100_8k_faauto",
- "kernels": 0,
- "dram_read_GB": 0.0,
- "dram_write_GB": 0.0,
- "kernel_time_ms": 0.0,
- "bw_GBps_kernel_time": 0.0,
- "dram_pct_time_weighted": 0.0,
- "sm_pct_time_weighted": 0.0,
- "l2hit_pct_time_weighted": 0.0,
- "classes": {}
+ "kernels": 462,
+ "dram_read_GB": 0.440826048,
+ "dram_write_GB": 0.132984384,
+ "kernel_time_ms": 3.5332159999999986,
+ "bw_GBps_kernel_time": 162.40457192540737,
+ "dram_pct_time_weighted": 21.797490512892505,
+ "sm_pct_time_weighted": 12.229680472408141,
+ "l2hit_pct_time_weighted": 49.88446251800062,
+ "classes": {
+  "norm": {
+   "n": 49,
+   "rd_GB": 0.000435712,
+   "wr_GB": 0.000459616,
+   "time_ms": 0.215008,
+   "time_share": 0.0608533415449268,
+   "bw_GBps": 4.1641613335317755,
+   "dram_pct": 0.6375799970233668,
+   "sm_pct": 0.09812025599047479,
+   "l2hit_pct": 65.94837922309867
+  },
+  "quantize_q8": {
+   "n": 145,
+   "rd_GB": 0.001286752,
+   "wr_GB": 0.001344608,
+   "time_ms": 0.5172160000000002,
+   "time_share": 0.14638674793729012,
+   "bw_GBps": 5.087545628905523,
+   "dram_pct": 0.8344954525768731,
+   "sm_pct": 0.5668019550825958,
+   "l2hit_pct": 99.67981500958983
+  },
+  "mul_mat_vec": {
+   "n": 145,
+   "rd_GB": 0.347783488,
+   "wr_GB": 0.091952256,
+   "time_ms": 1.7589439999999998,
+   "time_share": 0.4978308713647851,
+   "bw_GBps": 249.99985445812942,
+   "dram_pct": 32.72734531628067,
+   "sm_pct": 15.91186166245202,
+   "l2hit_pct": 21.569154037877272
+  },
+  "other": {
+   "n": 75,
+   "rd_GB": 0.000336992,
+   "wr_GB": 0.000386304,
+   "time_ms": 0.27724799999999994,
+   "time_share": 0.07846902085805114,
+   "bw_GBps": 2.608841181902124,
+   "dram_pct": 0.395549399815328,
+   "sm_pct": 0.13448522622345335,
+   "l2hit_pct": 75.80593605724842
+  },
+  "flash_attn": {
+   "n": 48,
+   "rd_GB": 0.090983104,
+   "wr_GB": 0.0388416,
+   "time_ms": 0.7648000000000001,
+   "time_share": 0.21646001829494727,
+   "bw_GBps": 169.74987447698743,
+   "dram_pct": 24.544076987447696,
+   "sm_pct": 19.443629288702923,
+   "l2hit_pct": 67.41785899581589
+  }
+ },
+ "token_ms_unprofiled": 2.544761904761905,
+ "tok_per_s_unprofiled": 392.96
 }
