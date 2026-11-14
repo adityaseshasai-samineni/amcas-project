@@ -7,7 +7,7 @@ Final report, 2026-11-14. It replaces the 2026-11-08/11 draft. `ANALYSIS.md` cov
 - The dated sections of `context.md`, cited in brackets. Read later sections over earlier ones: they correct them (see section 9).
 - The main session's checks against raw files ("main session: verification of the 2026-11-11/12 agent results", "check of serving-owner results").
 
-One run is still going, and its results are marked **Pending**: l2fix-owner's fix to the GPU L2 model at 32k. The MOP4CLXOR comparison is folded in (section 3).
+All runs are complete. The MOP4CLXOR comparison is in section 3 and the GPU L2 fix in section 7.
 
 ## 0. Summary
 
@@ -36,7 +36,7 @@ One run is still going, and its results are marked **Pending**: l2fix-owner's fi
    - the bank XOR does nothing on the V100;
    - channel interleaving or a channel hash is the lever there.
 
-   The GPU 32k numbers are overstated by up to 32%; pending the L2 fix.
+   With an XOR-hashed L2 model, the GPU traffic matches Nsight Compute within 1% (−5.5% at 32k with FlashAttention off). At 32k with FlashAttention on, 2 KiB channel interleaving gives 1.82× and a channel hash 1.35×.
 
 **Contribution, relative to published work** (`related_work_2023_2026.md`):
 - The measurement and the cause are the new parts.
@@ -222,20 +222,45 @@ Sources: H5 and "dramtech-owner: LPDDR5/6, HBM3/4, GDDR6". Each standard's bit l
 
 ## 7. GPU (V100 HBM2, A16 GDDR6)
 
-Source: "gpu-owner: GPU trace route". Results are for 7B decode, 2 MiB pages, 256 B channel interleave, saturated replay of the first 80M requests.
+Sources: "gpu-owner: GPU trace route" and "l2fix-owner: GPU L2 model fix and 32k rerun (2026-11-14)" (commit 857f817; jobs 124411/12, 124442/43, 124450, 124471/72, 124561, 124562). Results are for 7B decode, 2 MiB pages, 256 B channel interleave, saturated replay of the first 80M requests.
+
+**L2 model fix.** The first V100 filter chose the L2 set with `line % 3072` and overcounted 32k DRAM reads by 32%. Checked kernel by kernel against Nsight Compute:
+- `mul_mat_vec_q` matched (4,373 vs 4,381 MB);
+- the whole error was in `flash_attn_ext_vec` (4,917 vs 3,167 MB);
+- L2 read requests matched within 0.8%, so the L1 model was fine.
+
+An XOR-hashed set index, `(line ^ line>>13) % sets`, matches every case:
+
+| V100 DRAM reads per token | Model | Nsight Compute |
+|---|---|---|
+| short | 4.39 GB | 4.39 GB |
+| 8k, FlashAttention on / off | 4.82 / 4.80 GB | 4.81 / 4.80 GB |
+| 32k, FlashAttention on | 7.32 GB | 7.40 GB |
+| 32k, FlashAttention off | 12.4 GB | 13.1 GB (−5.5%) |
+
+- **What mattered:** replacement policy, L1 size, associativity and thread-block order didn't change the result. The shift of 13 is calibrated and not unique: an ideal hash gives −10% to −14%, plain modulo +13% to +32%. **Treat 32k GPU miss counts as ±10%.**
+- **A parallel with our CPU result:** the KV cache's power-of-two layout also defeats a cache indexed by plain address bits. The V100's L2 hashes its index to avoid that, much as our proposal hashes DRAM bank bits.
+
+**Results with the fixed L2 model:**
 
 | | V100 32k, FlashAttention on | V100 32k, FlashAttention off | A16 32k, FlashAttention on / off |
 |---|---|---|---|
-| DRAM per token (model) | 9.75 GB (Nsight Compute: 7.40) | +13% vs Nsight Compute | × ~1.16 for ECC |
-| KV share of reads | 55% | 69% | 29% / 73% |
-| Bank XOR | 0.99–1.01× | ~1× | 1.14–1.28× (FlashAttention on) |
-| Channel hash | 1.46× | 1.7–2.1× | 1.7–2.1× (off) |
-| 2 KiB channel interleave | 2.3× (128 → 297 of 819 GB/s); channel hash adds 1.07× on top | – | – |
+| DRAM per token | 7.32 GB | 12.4 GB | × 1.143 for inline ECC (see below) |
+| KV share of reads | **40%** (was 55%) | 69% | 29% / 73% |
+| Baseline bandwidth (of 819 GB/s peak) | 156 GB/s (was 128) | – | – |
+| Bank XOR | ~1.0× | ~1.0× | 1.14–1.28× (FlashAttention on) |
+| Channel hash | **1.35×** (was 1.46×) | **1.8×** (was 2.1×) | 1.7–2.1× (off) |
+| 2 KiB channel interleave | **1.82×** (was 2.3×) | no effect alone | – |
 
 - **Why GPU row hit is low:** about 70 streaming multiprocessors read different rows at the same moment. A single multiprocessor's weight stream hits 0.87; merged, 0.76. A static bank hash can't fix that.
-- **The lever:** channel parallelism (interleave granularity, channel hash).
+- **The lever:** channel parallelism, through interleave granularity and a channel hash. The conclusions survive the fix; the sizes shrink by 10–25%.
 - **Closed page:** worse than open with FlashAttention on.
-- **Pending: l2fix-owner.** The 32k model reads 32% more than Nsight Compute measures (FlashAttention on), so the 32k KV shares and bandwidth figures are overstated. The relative comparisons above are indicative until the L2 model is fixed. It is also checking whether ECC explains the A16's +16%.
+- **A16 ECC, strongly supported:**
+  - ECC is enabled;
+  - 15,356 of 16,384 MiB is usable, the 1/16 inline-ECC reservation;
+  - DRAM reads run 14.3% above L2 misses.
+
+  It can't be isolated directly: there's no DRAM-ECC counter, and turning ECC off needs admin rights.
 
 ## 8. Limits
 
@@ -255,7 +280,7 @@ Source: "gpu-owner: GPU trace route". Results are for 7B decode, 2 MiB pages, 25
 - (c) **The batch-4 32k replay window starts at 30% of the step,** not at its start.
 - (d) **The batch-4 contiguous-page DDR5 −35%** is an artifact of the placement model and is not claimed.
 - (e) **The 4-thread native 32k rate is 8.4–10 GB/s;** the earlier 4.8 GB/s came from an unoptimised binary.
-- (f) **GPU 32k traffic is overstated** (pending the L2 fix). A16 absolute bytes need × ~1.16.
+- (f) **The first GPU 32k figures were overstated by 13–32%,** because the L2 model indexed sets by plain modulo. With an XOR-hashed index the model matches Nsight Compute, and the GPU numbers in section 7 are the corrected ones. A16 absolute bytes need × 1.143 for inline ECC.
 
 ## 10. Position against related work
 
@@ -275,7 +300,6 @@ Still to do before claiming novelty:
 
 ## 11. Open items
 
-- **Pending:** l2fix-owner (GPU L2 at 32k). Its per-kernel check found the whole 32k overcount is in `flash_attn_ext_vec`, and an XOR-hashed L2 set index brings it into Nsight Compute's range.
 - **Not evaluated:** a controller that switches to MOP4CLXOR-style column interleaving only when its queues saturate.
 - **Optional:**
   - DRAMsim3 in closed loop;
