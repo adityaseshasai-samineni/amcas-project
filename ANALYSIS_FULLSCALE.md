@@ -29,7 +29,7 @@ All runs are complete. The MOP4CLXOR comparison is in section 3 and the GPU L2 f
    - DRAM cycles fall 16.7% (open page) and 29.1% (closed page) on DDR5 with 16 sub-channels.
    - Other memory systems: −14.7% / −27.7% on 8-channel DDR5-4800; 24–55% on LPDDR5/6, HBM3/4 and GDDR6; −9.9% on the node's real DDR4-2933 (6 channels).
    - Qwen3-30B-A3B (MoE): −22.4% / −34.4%.
-   - Token time depends on whether decode is memory-bound. On the 4-thread test node it is 0% (compute-bound: 8.4–10 GB/s). At the native plateau of about 43 GB/s it is 1–2%. With cores fast enough to make memory the limit (~19 GB/s demand at the model's latency) it is up to 16%.
+   - Token time depends on whether decode is memory-bound. On the 4-thread test node it is 0% (compute-bound: 8.4–10 GB/s). At about 32 GB/s, the native rate with 16 threads, the closed-loop model gives about −7%. At the native plateau of about 43 GB/s (24–32 threads) it is 1–2%. With cores fast enough to make memory the limit (~19 GB/s demand at the model's latency) it is up to 16%.
    - The gain needs huge pages and long context: 17% at 32k, 6% at 8k, 2–4% at 1k, under 2% for prefill.
 4. **GPU.** The V100 (HBM2) and A16 (GDDR6) behave differently from the CPU:
    - row hit is low because about 70 streaming multiprocessors read different rows at once;
@@ -136,7 +136,8 @@ The engine is llama.cpp throughout.
 | Placement sweep (random to fully contiguous 2 MiB) | never hurts: all ratios ≤ 0.874 | transfer-owner |
 | Closed loop, ~19 GB/s demand | −16.4% cycles, −21% latency | H3 |
 | Real node DDR4-2933, 6 ch | −9.9% saturated, −4.6% at fast core, −1.2% at the plateau | H4 |
-| DRAMsim3, same streams | −2.7% (6 ch), −6.6% (12 ch): same direction and mechanism, a third to a half of Ramulator's size | validation-owner |
+| DRAMsim3, same streams, saturated | −2.7% (6 ch), −6.6% (12 ch): same direction and mechanism, a third to a half of Ramulator's size | validation-owner |
+| DRAMsim3, closed loop (DDR4-2933) | fast core −4.3% (6 ch) / −9.2% (12 ch) vs Ramulator −4.6% / −7.2%; plateau −0.4% / −1.0%; 4-thread native ~0%. The saturated gap mostly disappears | extras-sim-owner (`tools/dramsim3_loop.cc`; jobs 124729/30, 124734/35) |
 | Writes included | unchanged (−19.9% with and without) | policy-owner part 3 |
 
 **Why the gain exists.**
@@ -145,6 +146,8 @@ The engine is llama.cpp throughout.
 - The XOR folds row bits into the bank bits and spreads them.
 - With 4 KiB pages the stride pattern is already broken up, so there's nothing to fix.
 - This is a property of the layout, not of fragmentation: random and contiguous 2 MiB placements give the same default conflicts (transfer-owner, fragmentation sweep).
+
+**Hardware cost** (`docs/xor_hardware_cost.md`, from 458 searched matrices): a fixed bank hash is 5–6 two-input XOR gates typical (at most 13, 11 with sharing), at most 2 logic levels (~3–5 FO4). A channel hash adds about 3–4 gates. A programmable version is about 144 register bits and ~800 gate equivalents. Gate counts and depths are exact; area and delay are estimates good to about 2×. Shipping Intel controllers already apply XOR functions of address bits for channel and bank selection (DRAMA, Pessl et al. 2016; Sudoku, DRAMSec 2025), so this asks only for a different choice of row bits.
 
 **Negative results:**
 - **`region`:** equal to the global XOR within 0.5–2%. At batch 4 it's slightly ahead on DDR4 (0.872 vs 0.885 at 32k) and behind on DDR5 (1.000 vs 0.938). Not worth a tag table and allocator support.
@@ -200,7 +203,7 @@ The full tables are in `analysis/fullscale/headline.md` (H1–H5). For the propo
 | ms per token | 1,149 | 576 | 358 | 264 |
 | GB/s (11.5 GB/token) | ~10 | ~20 | ~32 | ~43 |
 
-Bandwidth plateaus at about 43 GB/s, roughly 15% of the modelled DRAM peak, set by the cores and the two-socket layout. **On this server the proposal saves 1–2% of token time at best.** The DRAM-side gains (row hit, latency, DRAM busy time) are large. They turn into token time only where decode is memory-bound: more or faster cores per channel, fewer channels, or the LPDDR and HBM systems in section 6.
+Bandwidth plateaus at about 43 GB/s, roughly 15% of the modelled DRAM peak, set by the cores and the two-socket layout. **On this server the proposal saves about 7% of token time at 16 threads and 1–2% at the 24–32-thread plateau.** The 16-thread native rate (358 ms × 11.5 GB ≈ 32 GB/s) matches the closed-loop point at 32 GB/s demand (window 512 in H3: −7.1% DDR5 16 sub-ch, −7.9% 8 ch). At 4 threads the saving is about 0%. The DRAM-side gains (row hit, latency, DRAM busy time) are large. They turn into token time only where decode is memory-bound: more or faster cores per channel, fewer channels, or the LPDDR and HBM systems in section 6.
 
 ## 6. Other DRAM technologies (CPU streams)
 
@@ -284,25 +287,22 @@ An XOR-hashed set index, `(line ^ line>>13) % sets`, matches every case:
 
 ## 10. Position against related work
 
-From `related_work_2023_2026.md`:
+From `related_work_2023_2026.md`, including its section 9 (the 2025–26 conference program check, novelty-owner). Programs read at title level: ISCA 2025/2026, MICRO 2025/2026, HPCA 2026. ASPLOS 2026 and DBLP were not fully checked.
 
-| Claim | Status |
-|---|---|
-| (1) Decode is a weight sweep with high row hit | Assumed in the literature; we give a full-scale measurement |
-| (2) KV in 2 MiB pages loses row locality, and a bank XOR recovers it | Looks new as a measurement and explanation. XOR mapping itself is old (permutation-based interleaving, Rotaru 2026, Flatfish), and the textbook permutation captures most of the gain on DDR5 open page |
-| (3) Per-region mapping equals the global XOR | New, as a negative result |
-| (4) MoE routing gives no mapping benefit | Partly published (expert reuse); the DRAM-level negative looks new |
+| Claim | Verdict | Prior work to cite |
+|---|---|---|
+| (1) Decode is a weight sweep with high row hit | Partly published: the idea is in RoMe (HPCA 2026). Our CPU row-hit measurement is new | RoMe |
+| (2) KV head layout in 2 MiB pages causes bank conflicts, and a bank XOR recovers them | New as a finding; its ingredients are published | **FACIL (HPCA 2025, per-huge-page mapping), the closest precedent;** STARC (ASPLOS 2026) and REFLEX for KV row placement on PIM; RH+ (arXiv 2606.05511); Rotaru 2026, Flatfish (TCAD 2022) and Sudoku (DRAMSec 2025) for XOR mappings |
+| (3) Region-aware, expert-aware and row policies give nothing | New, as negative results | – |
+| (4) GPU bottleneck is channel parallelism | Partly published: GPU channel hashing is known; no attention-specific bank-vs-channel study found | SGDRC |
 
-Still to do before claiming novelty:
-- check the 2025–26 ISCA, MICRO, HPCA and ASPLOS programs by hand;
-- verify the Flatfish, AttAcc and RH+ citations;
-- drop UMDAM (withdrawn).
+Citations fixed: Flatfish verified; AttAcc means the ASPLOS 2024 paper; RH+ is a June 2026 preprint; UMDAM is withdrawn and dropped.
+
+**Before claiming "first":** read DUALign (MICRO 2026; only its title is verified) and FACIL closely, and check ASPLOS 2026 by hand. Don't claim the hash-search method itself.
 
 ## 11. Open items
 
 - **Not evaluated:** a controller that switches to MOP4CLXOR-style column interleaving only when its queues saturate.
 - **Optional:**
-  - DRAMsim3 in closed loop;
-  - 30B MoE at batch 4 with 8k / 32k prompts;
-  - prefill with 64-token micro-batches;
-  - a gate-level cost estimate of the XOR.
+  - prefill with 64-token micro-batches.
+- **Running:** 30B MoE at batch 4 with 8k / 32k prompts, and 64-token prefill (extras-capture-owner).
