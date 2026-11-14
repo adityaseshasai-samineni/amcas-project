@@ -128,3 +128,28 @@ ds3  chan     CLOSE_PAGE   0.000    738.8   842.3   10524286   11997.7   213.4
 ds3  xor_chan OPEN_PAGE    0.806    214.1   244.0    2837171    3234.4   791.5
 ds3  xor_chan CLOSE_PAGE   0.000    739.2   842.7   10532472   12007.0   213.2
 ### q7_v100_8k_faauto ib5 Sat Nov 14 19:13:03 IST 2026
+v100 ib5: 80000000 of 151176648 requests (79758705 rd, 241295 wr), 1233 2MiB pages
+  [chan] channel hash cost 396531 -> 382918; chan bit ^= {0: ['row0', 'row5'], 1: ['row2', 'row0'], 2: ['row0', 'row3'], 3: ['row0'], 4: ['row7']}
+  [xor_chan] channel hash cost 392632 -> 382009; chan bit ^= {0: ['row0'], 1: ['row0'], 2: ['row1'], 3: ['row0'], 4: []}
+  [chan] channel hash cost 452329 -> 434937; chan bit ^= {0: ['row0', 'row5'], 1: ['row2', 'row0'], 2: ['row0'], 3: ['row0'], 4: ['row0', 'row3', 'row4']}
+  [xor_chan] channel hash cost 447609 -> 434766; chan bit ^= {0: ['row0'], 1: ['row0'], 2: ['row1'], 3: ['row0'], 4: []}
+
+
+sim  scheme   policy         hit  lat_cyc  lat_ns     cycles   time_us    GB/s
+ram  identity Open         0.825     48.4    60.5    7435281    9294.1   275.4
+ram  identity ClosedCAP    0.685     59.2    74.0    8835576   11044.5   231.8
+ram  xor      Open         0.824     48.5    60.6    7442179    9302.7   275.2
+ram  xor      ClosedCAP    0.684     59.2    74.0    8847847   11059.8   231.5
+ram  chan     Open         0.829     48.0    60.0    6923750    8654.7   295.8
+ram  chan     ClosedCAP    0.685     59.0    73.7    8361313   10451.6   244.9
+ram  xor_chan Open         0.829     47.9    59.9    6893050    8616.3   297.1
+ram  xor_chan ClosedCAP    0.685     58.9    73.6    8327055   10408.8   245.9
+ds3  identity OPEN_PAGE    0.840    215.2   245.3    2782270    3171.8   807.1
+ds3  identity CLOSE_PAGE   0.000    763.2   870.1   10627982   12115.9   211.3
+ds3  xor      OPEN_PAGE    0.840    213.7   243.6    2780104    3169.3   807.7
+ds3  xor      CLOSE_PAGE   0.000    760.0   866.4   10605355   12090.1   211.7
+ds3  chan     OPEN_PAGE    0.843    210.3   239.7    2774306    3162.7   809.4
+ds3  chan     CLOSE_PAGE   0.000    750.4   855.4   10621652   12108.7   211.4
+ds3  xor_chan OPEN_PAGE    0.844    214.4   244.5    2762956    3149.8   812.8
+ds3  xor_chan CLOSE_PAGE   0.000    762.1   868.8   10527293   12001.1   213.3
+### q7_v100_8k_faoff ib2 Sat Nov 14 19:37:26 IST 2026

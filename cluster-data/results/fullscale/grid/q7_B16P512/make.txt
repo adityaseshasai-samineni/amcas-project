@@ -1,0 +1,57 @@
+79,610,355 reads, window [23,883,106,27,883,106), moe=False, window class shares W/K/O [0.8773, 0.0682, 0.0545]
+  [packed/d4r6 xor_global] n=4,000,000 cost 859798 -> 780108; bank bit ^= {0: ['row0', 'row4'], 1: ['row6'], 2: ['row2'], 3: ['row9'], 4: []}
+  [packed/d4r6 region K] n=800,000 cost 750560 -> 750560; bank bit ^= {0: [], 1: [], 2: [], 3: [], 4: []}
+  [packed/d4r6 region O] n=800,000 cost 775682 -> 747394; bank bit ^= {0: [], 1: ['row0'], 2: ['row4'], 3: [], 4: []}
+  [packed/d4r6 chan] channel hash cost 862153 -> 831242; chan bit ^= {0: ['row2'], 1: ['row1', 'row5'], 2: []}
+  [packed/d4r6 bank+chan] channel hash cost 782463 -> 777484; chan bit ^= {0: ['row1'], 1: [], 2: []}
+  [packed/x16 xor_global] n=4,000,000 cost 474414 -> 437465; bank bit ^= {0: [], 1: ['row4'], 2: ['row6', 'row9'], 3: ['row0'], 4: ['row2', 'row8']}
+  [packed/x16 region K] n=800,000 cost 429187 -> 412870; bank bit ^= {0: [], 1: [], 2: [], 3: ['row2', 'row3'], 4: ['row3', 'row0']}
+  [packed/x16 region O] n=800,000 cost 422426 -> 412709; bank bit ^= {0: ['row3'], 1: ['row1', 'row0'], 2: ['row3'], 3: ['row3'], 4: []}
+  [packed/x16 chan] channel hash cost 480146 -> 471721; chan bit ^= {0: ['row2', 'row5'], 1: ['row3'], 2: ['row3'], 3: []}
+  [thp/d4r6 xor_global] n=4,000,000 cost 923626 -> 789140; bank bit ^= {0: ['row7', 'row0'], 1: ['row9'], 2: [], 3: ['row7'], 4: ['row2']}
+  [thp/d4r6 region K] n=800,000 cost 2003195 -> 759312; bank bit ^= {0: ['row6'], 1: ['row7'], 2: [], 3: [], 4: []}
+  [thp/d4r6 region O] n=800,000 cost 1459500 -> 757589; bank bit ^= {0: ['row2'], 1: ['row0'], 2: [], 3: [], 4: []}
+  [thp/d4r6 chan] channel hash cost 925881 -> 867456; chan bit ^= {0: ['row8'], 1: [], 2: []}
+  [packed/x16 bank+chan] channel hash cost 443197 -> 439255; chan bit ^= {0: ['row3', 'row5'], 1: ['row2'], 2: [], 3: []}
+  [thp/d4r6 bank+chan] channel hash cost 791395 -> 777817; chan bit ^= {0: ['row12'], 1: ['row5'], 2: ['row1']}
+  [thp/x16 xor_global] n=4,000,000 cost 920282 -> 435930; bank bit ^= {0: ['row12', 'row0'], 1: ['row10'], 2: ['row5', 'row10'], 3: ['row1', 'row12'], 4: ['row12']}
+  [thp/x16 region K] n=800,000 cost 4523962 -> 413374; bank bit ^= {0: ['row7', 'row0'], 1: ['row4'], 2: ['row13'], 3: ['row0'], 4: ['row2']}
+  [thp/x16 region O] n=800,000 cost 2950369 -> 440896; bank bit ^= {0: ['row11'], 1: ['row2', 'row0'], 2: [], 3: [], 4: []}
+  [thp/x16 chan] channel hash cost 926014 -> 482110; chan bit ^= {0: ['row12', 'row4', 'row0'], 1: ['row6', 'row12'], 2: ['row12', 'row5', 'row11'], 3: ['row12', 'row6', 'row9']}
+  [packed/d4r6 MOP4CLXOR xor_global] n=4,000,000 cost 2084986 -> 1919457; bank bit ^= {0: ['row3', 'row2'], 1: ['row0', 'row3'], 2: ['row2', 'row3'], 3: ['row3'], 4: ['row0']}
+  done packed/d4r6: identity:0.940/0.940 xor_global:0.948/0.948 region:0.940/0.940 chan:0.942/0.942 xor_global_chan:0.950/0.950 mop:0.386/0.386 mopxor:0.408/0.408 bitrev:0.475/0.475 chra:0.465/0.465 naive:0.946/0.946
+  [thp/x16 bank+chan] channel hash cost 441662 -> 438691; chan bit ^= {0: ['row4'], 1: ['row5'], 2: [], 3: []}
+  [packed/x16 MOP4CLXOR xor_global] n=4,000,000 cost 1599960 -> 1546692; bank bit ^= {0: ['row0'], 1: [], 2: ['row1', 'row4'], 3: ['row1'], 4: ['row0']}
+  done packed/x16: identity:0.956/0.956 xor_global:0.958/0.958 region:0.956/0.956 chan:0.955/0.955 xor_global_chan:0.959/0.959 mop:0.382/0.382 mopxor:0.399/0.399 bitrev:0.653/0.653 chra:0.647/0.647 naive:0.951/0.951
+  [thp/x16 MOP4CLXOR xor_global] n=4,000,000 cost 1792446 -> 1583402; bank bit ^= {0: ['row11'], 1: [], 2: ['row12'], 3: ['row6'], 4: ['row6']}
+  done thp/x16: identity:0.906/0.906 xor_global:0.956/0.956 region:0.956/0.956 chan:0.949/0.949 xor_global_chan:0.955/0.955 mop:0.310/0.310 mopxor:0.373/0.373 bitrev:0.855/0.855 chra:0.833/0.833 naive:0.934/0.934
+  [thp/d4r6 MOP4CLXOR xor_global] n=4,000,000 cost 2132497 -> 1996880; bank bit ^= {0: ['row11', 'row3'], 1: ['row4', 'row11'], 2: ['row14'], 3: ['row7'], 4: ['row9']}
+multiprocessing.pool.RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "/home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/lib/python3.12/multiprocessing/pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+                    ^^^^^^^^^^^^^^^^^^^
+  File "/home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/lib/python3.12/multiprocessing/pool.py", line 48, in mapstar
+    return list(map(*args))
+           ^^^^^^^^^^^^^^^^
+  File "/home/adityaseshasai.s/amcas-pro/tools/grid_gen.py", line 207, in combo
+    assert np.unique(L.from_intra(arr, c_.astype(U))).size == nuniq, f"{sk} not injective"
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: region not injective
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/adityaseshasai.s/amcas-pro/tools/grid_gen.py", line 292, in <module>
+    main()
+  File "/home/adityaseshasai.s/amcas-pro/tools/grid_gen.py", line 287, in main
+    mans = pool.map(combo, jobs, chunksize=1)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/lib/python3.12/multiprocessing/pool.py", line 367, in map
+    return self._map_async(func, iterable, mapstar, chunksize).get()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/lib/python3.12/multiprocessing/pool.py", line 774, in get
+    raise self._value
+AssertionError: region not injective

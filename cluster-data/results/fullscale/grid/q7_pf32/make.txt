@@ -1,0 +1,29 @@
+74,654,357 reads, window [22,396,307,26,396,307), moe=False, window class shares W/K/O [0.913, 0.0006, 0.0864]
+  [packed/d4r6 xor_global] n=4,000,000 cost 781839 -> 779071; bank bit ^= {0: ['row11'], 1: [], 2: [], 3: ['row9'], 4: ['row9']}
+  [packed/d4r6 region K] n=48,899 cost 43083 -> 43083; bank bit ^= {0: [], 1: [], 2: [], 3: [], 4: []}
+  [packed/d4r6 region O] n=800,000 cost 799402 -> 784076; bank bit ^= {0: ['row5', 'row6', 'row7'], 1: ['row5', 'row6'], 2: [], 3: [], 4: ['row5']}
+  [packed/d4r6 chan] channel hash cost 782090 -> 778101; chan bit ^= {0: ['row9', 'row4'], 1: [], 2: []}
+  [packed/d4r6 bank+chan] channel hash cost 779322 -> 777484; chan bit ^= {0: ['row4'], 1: [], 2: []}
+  [packed/x16 xor_global] n=4,000,000 cost 511631 -> 457878; bank bit ^= {0: ['row9', 'row3', 'row5'], 1: ['row1', 'row6'], 2: ['row7', 'row8'], 3: ['row5', 'row10'], 4: ['row9']}
+  [packed/x16 region K] n=48,899 cost 23310 -> 23310; bank bit ^= {0: [], 1: [], 2: [], 3: [], 4: []}
+  [packed/x16 region O] n=800,000 cost 481521 -> 461446; bank bit ^= {0: ['row3'], 1: ['row1'], 2: ['row3'], 3: ['row3', 'row0'], 4: []}
+  [packed/x16 chan] channel hash cost 512051 -> 479881; chan bit ^= {0: ['row1', 'row0'], 1: ['row5', 'row6'], 2: ['row6'], 3: []}
+  [thp/x16 xor_global] n=4,000,000 cost 699332 -> 458366; bank bit ^= {0: ['row1', 'row10'], 1: ['row0'], 2: ['row11'], 3: ['row8', 'row11'], 4: []}
+  [thp/x16 region K] n=46,297 cost 26762 -> 24982; bank bit ^= {0: ['row11', 'row5', 'row12'], 1: ['row12'], 2: ['row8', 'row0'], 3: [], 4: ['row0']}
+  [thp/x16 region O] n=800,000 cost 2773307 -> 479565; bank bit ^= {0: ['row0'], 1: ['row11'], 2: [], 3: ['row0'], 4: []}
+  [thp/x16 chan] channel hash cost 699752 -> 484758; chan bit ^= {0: ['row8', 'row1'], 1: ['row1', 'row11', 'row3'], 2: ['row1'], 3: []}
+  [thp/d4r6 xor_global] n=4,000,000 cost 862083 -> 788106; bank bit ^= {0: ['row3'], 1: ['row3', 'row6'], 2: [], 3: ['row2'], 4: ['row2']}
+  [thp/d4r6 region K] n=46,297 cost 42894 -> 42297; bank bit ^= {0: ['row1'], 1: ['row0'], 2: ['row4'], 3: [], 4: ['row7']}
+  [thp/d4r6 region O] n=800,000 cost 1628810 -> 803198; bank bit ^= {0: ['row3', 'row1'], 1: ['row2', 'row6'], 2: ['row14'], 3: ['row9'], 4: []}
+  [thp/d4r6 chan] channel hash cost 862334 -> 813020; chan bit ^= {0: ['row10'], 1: ['row4'], 2: ['row13']}
+  [packed/x16 bank+chan] channel hash cost 458298 -> 457792; chan bit ^= {0: [], 1: ['row2'], 2: [], 3: []}
+  [thp/d4r6 bank+chan] channel hash cost 788357 -> 783446; chan bit ^= {0: ['row0'], 1: ['row0'], 2: []}
+  [thp/x16 bank+chan] channel hash cost 458786 -> 457406; chan bit ^= {0: [], 1: ['row1'], 2: [], 3: ['row6']}
+  [packed/d4r6 MOP4CLXOR xor_global] n=4,000,000 cost 1583216 -> 1540403; bank bit ^= {0: ['row0'], 1: ['row4'], 2: ['row3'], 3: ['row10', 'row3', 'row11'], 4: []}
+  done packed/d4r6: identity:0.952/0.952 xor_global:0.950/0.950 region:0.952/0.952 chan:0.952/0.952 xor_global_chan:0.951/0.951 mop:0.574/0.574 mopxor:0.574/0.574 bitrev:0.761/0.761 chra:0.602/0.602 naive:0.942/0.942
+  [thp/x16 MOP4CLXOR xor_global] n=4,000,000 cost 1509950 -> 1178286; bank bit ^= {0: ['row4', 'row0'], 1: ['row0'], 2: ['row4'], 3: ['row2'], 4: ['row0']}
+  done thp/x16: identity:0.914/0.914 xor_global:0.937/0.937 region:0.932/0.932 chan:0.926/0.926 xor_global_chan:0.935/0.935 mop:0.547/0.547 mopxor:0.569/0.569 bitrev:0.835/0.835 chra:0.823/0.823 naive:0.933/0.933
+  [thp/d4r6 MOP4CLXOR xor_global] n=4,000,000 cost 1634695 -> 1580881; bank bit ^= {0: ['row4'], 1: ['row7'], 2: ['row3'], 3: ['row13', 'row14'], 4: ['row14']}
+  done thp/d4r6: identity:0.935/0.935 xor_global:0.947/0.947 region:0.944/0.944 chan:0.941/0.941 xor_global_chan:0.947/0.947 mop:0.556/0.556 mopxor:0.566/0.566 bitrev:0.832/0.832 chra:0.772/0.772 naive:0.944/0.944
+  [packed/x16 MOP4CLXOR xor_global] n=4,000,000 cost 1191154 -> 1125887; bank bit ^= {0: ['row3'], 1: ['row0', 'row1'], 2: ['row8', 'row1'], 3: ['row5'], 4: ['row8']}
+  done packed/x16: identity:0.932/0.932 xor_global:0.941/0.941 region:0.932/0.932 chan:0.931/0.931 xor_global_chan:0.939/0.939 mop:0.584/0.584 mopxor:0.586/0.586 bitrev:0.777/0.777 chra:0.701/0.701 naive:0.929/0.929
