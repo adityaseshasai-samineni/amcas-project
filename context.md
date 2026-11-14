@@ -1569,3 +1569,27 @@ Updated `related_work_2023_2026.md` (new section 9, corrected BibTeX). Programs 
 - Citations: Flatfish verified (TCAD 41(11):4758-4770, 2022). AttAcc was two papers: CAL 2023 (Choi et al., DOI 10.1109/LCA.2023.3305386) and ASPLOS 2024 "AttAcc!" (Park et al., DOI 10.1145/3620665.3640422); cite the latter. RH+ = arXiv:2606.05511 (Jung, Anik, Lee, Ryoo; preprint). UMDAM confirmed withdrawn, dropped.
 - New must-cites: FACIL (HPCA 2025, per-huge-page DRAM mapping, closest precedent), RoMe (HPCA 2026), PFM/Dual-View Memory (MICRO 2026), REFLEX (DAC 2026), Sudoku (DRAMSec 2025), SGDRC (GPU channel hash). Unread but to watch: DUALign (MICRO 2026, memory mapping for PNM LLM serving; title only).
 - Verdicts: claim 1 partly published (idea yes, CPU row-hit measurement new); claim 2 new as finding, ingredients published (XOR hashing, FACIL huge-page mapping, KV row placement on PIM); claim 3 new as negative results; claim 4 partly published (GPU channel hash known, attention-specific bank vs channel comparison and L2 set-hash correction not found).
+
+### extras-sim-owner: DRAMsim3 closed loop and XOR hardware cost (2026-11-14)
+
+**Task A: closed-loop DRAMsim3.** New `tools/dramsim3_loop.cc` (built with the gem5 env g++, the system g++ cannot link libdramsim3.so), `tools/dramsim3_loop_run.py`, `scripts/32_ds3loop.sh`. N per-channel DRAMsim3 instances ticked together (channel decode as in dramsim3_replay), 4 SimpleO3-style cores (ipc 4, core clock = 2x memory clock, in-order retire, window W instructions, `bubbles` non-memory instructions per read, MSHR 16/core, stall when window/MSHR/transaction queue full, loads complete through the DRAMsim3 read callback; no LLC, the stream is post-LLC). Run ends when every core has retired min(len)*(bubbles+1) instructions (as SimpleO3). Modes: `sat` (per-channel in-order, 1 req/cycle: reproduces the old `dramsim3_drain` exactly, e.g. 6ch THP identity 2.782 Mcycles, 4k 2.429, packed 2.680 = validation-owner's numbers) and closed loop. Same streams as validation-owner (7B 32k attr, 3M reads from 30%, 32 GB pool, DDR4-2933 16Gb x8 2 ranks, rochrababgco, OPEN_PAGE). Jobs: smoke 124724, 6ch 124729 (11m), 12ch 124730 (15m), CLOSE_PAGE 124734/124735. Results `cluster-data/results/fullscale/ds3loop/{n6,n12,n6_close,n12_close}/loop.json`.
+
+Calibration vs Ramulator (identity, THP, 6ch, GB/s DRAMsim3 / Ramulator): k5 (264,1280) 10.1 / 10.5; plateau (52,1024) 46.0 / 46.6; w512 39.5 / 36.2; fast k1 (52,256) 27.4 / 22.9. So native and plateau points match within 5%; DRAMsim3 sustains 15-20% more at the fast point (better reordering, row hit 0.77 vs 0.77 but lower latency 49 vs ~53 cycles).
+
+**xor_global / identity cycles (Open), THP; Ramulator DDR4 value in brackets; hit identity -> xor:**
+
+| point | 6ch DRAMsim3 [Ramulator] | 12ch DRAMsim3 [Ramulator] |
+|---|---|---|
+| saturated (1 req/cyc/ch) | 0.973 [0.90] | 0.934 [0.87] |
+| unlimited window, 4 cores | 0.976 | 0.910 |
+| fast k1 (52,256) | 0.957 [0.954] hit .773->.810, lat -5% | 0.908 [0.928] hit .813->.865, lat -9% |
+| w512 | 0.986 [0.962] | 0.970 [0.948] |
+| plateau w1024 | 0.996 [0.988] | 0.990 [0.990] |
+| k4 (211,1024) | 1.002 | 0.996 |
+| native k5 (264,1280) | 1.002 [1.000] | 0.999 [1.000] |
+
+Packed: 0.985-1.005 at 6ch, 0.987-1.000 at 12ch in the closed-loop points (only the saturated 12ch point shows +5%, identity packed is already the best there). 4 KiB: 0.999-1.001 everywhere. CLOSE_PAGE (DRAMsim3 auto-precharge every access, hit 0, not ClosedCAP), THP xor/id: sat 0.919 / 0.866 (6ch/12ch), fast 1.005 / 0.987, plateau 0.958 / 0.940 (GB/s identity 14 at fast, 26 at plateau: 2x lower than Open).
+
+**Verdict A.** DRAMsim3 closed loop agrees with Ramulator's closed-loop conclusion (on DDR4-2933, where Ramulator's own k1 gain is -4.6% at 6ch / -7.2% at 12ch, smaller than its DDR5 -16%): fast-core THP bank XOR -4.3% (6ch) / -9.2% (12ch) cycles, -5/-9% read latency; ~-0.4..-1% at the plateau; 0 at the native k4/k5 rates; packed and 4 KiB flat. The saturated gap seen before (DRAMsim3 -2.7% vs Ramulator -9.9%) mostly disappears once the loop is closed (the two simulators then differ by <=2 points, DRAMsim3 slightly larger at 12ch fast, Ramulator slightly larger at w512). So the mapping effect is not a Ramulator-controller artefact; the gain exists only in the memory-demanding closed-loop regime on THP. Caveats: 3M-read window, DDR4 only (no DRAMsim3 DDR5 config), reads only, no LLC/MSHR merging, same assumed address map; the core model is the calibrated Ramulator one, not re-calibrated for DRAMsim3 (its fast point sustains 15-20% more bandwidth).
+
+**Task B: XOR hash hardware cost.** `tools/xorcost.py` over 458 searched matrices (335 bank, 123 channel) and the note `docs/xor_hardware_cost.md`. Bank hash: median 5 XOR2 gates (DDR4 0-10, DDR5 x16 1-13, x8 1-12; 11 after sharing at worst), max 3 row bits per output bit so at most 2 XOR levels (about 3-5 FO4); channel hash 3-4 outputs, median 3-4 gates, depth <=2. Programmable form: 16-bit row mask per output (row bits 0-15 appear), ~144 register bits and ~280 gates (~800 GE), depth 4 XOR + AND. Negligible area and off the DRAM-timing critical path; Intel servers already use XOR channel/rank/bank hashes (DRAMA, Pessl et al. 2016; Zhang et al. MICRO 2000 permutation interleaving). ps/mm^2 values are scaled estimates (factor ~2).
