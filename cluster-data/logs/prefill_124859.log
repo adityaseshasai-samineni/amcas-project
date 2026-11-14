@@ -1,0 +1,36 @@
+==========================================
+SLURM_JOB_ID = 124859
+SLURM_NODELIST = node01
+SLURM_JOB_GPUS = 
+==========================================
+run qwen2.5-7b-instruct-q4_k_m-00001-of-00002_prefill_P512u64c7n1t4 on node01.local: B=1 P=512 threads=4 skip=0 ntrace=1 kvu=0
+=== untraced
+drbatch: prefill P=512 ubatch=64 computes=8 trace from 999999 count 1
+drbatch: prefill done, 8 graph computes
+untraced 17.91 s, max RSS 7686116 KB
+=== traced (decode step 0, 1 step(s)), raw trace capped at 16 GB per thread
+drbatch: prefill P=512 ubatch=64 computes=8 trace from 7 count 1
+drbatch: attaching at step -1
+drbatch: detached after graph compute 7
+drbatch: prefill done, 8 graph computes
+traced 32.05 s, max RSS 7686080 KB
+same tokens: yes
+B 0 13439113599493944	B 0 13439113631555189
+E 0 13439113599694523	E 0 13439113631757643
+B 1 13439113599694730	B 1 13439113631757854
+E 1 13439113599892821	E 1 13439113631955881
+B 2 13439113599893021	B 2 13439113631956085
+E 2 13439113600090940	E 2 13439113632154798
+41G	/scratch/adityaseshasai.s/prefill/qwen2.5-7b-instruct-q4_k_m-00001-of-00002_prefill_P512u64c7n1t4/drmemtrace.llama-drbatch.1814031.4326.dir/raw
+raw2trace 3984.18 s
+32G	/scratch/adityaseshasai.s/prefill/qwen2.5-7b-instruct-q4_k_m-00001-of-00002_prefill_P512u64c7n1t4/drmemtrace.llama-drbatch.1814031.4326.dir/trace
+ 49506684267 total (fetched) instructions
+Thread 1814036 counts:
+ 12397868226 (fetched) instructions
+Thread 1814037 counts:
+ 12394263339 (fetched) instructions
+Thread 1814035 counts:
+ 12387383257 (fetched) instructions
+Thread 1814031 counts:
+ 12327169445 (fetched) instructions
+=== cache simulation without prefetch, keep miss stream

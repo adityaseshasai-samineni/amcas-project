@@ -1,0 +1,55 @@
+rec: 6 replays
+] [[32minfo[0m] 
+thp    d4r6 xor_global     OracleRec  hit 0.974 lat   191.5 cyc    3.867M
+thp    d4r6 mop            OracleRec  hit 0.471 lat   179.0 cyc    3.006M
+thp    d4r6 identity       OracleRec  hit 0.950 lat   207.6 cyc    4.275M
+thp    x16  xor_global     OracleRec  hit 0.960 lat   274.4 cyc    2.279M
+thp    x16  mop            OracleRec  hit 0.325 lat   314.2 cyc    2.236M
+thp    x16  identity       OracleRec  hit 0.925 lat   322.4 cyc    2.596M
+main: 42 replays
+
+
+
+
+thp    d4r6 xor_global     Open       hit 0.974 lat   191.5 cyc    3.867M
+thp    d4r6 xor_global     Adaptive   hit 0.973 lat   190.4 cyc    3.907M
+thp    d4r6 xor_global     Adaptive15_10hit 0.974 lat   191.3 cyc    3.869M
+thp    d4r6 xor_global     Adaptive15_6hit 0.974 lat   191.4 cyc    3.868M
+thp    d4r6 identity       Adaptive15_6hit 0.950 lat   207.9 cyc    4.279M
+thp    d4r6 identity       Open       hit 0.950 lat   207.6 cyc    4.275M
+thp    d4r6 identity       Adaptive15_10hit 0.949 lat   207.6 cyc    4.325M
+thp    d4r6 identity       Adaptive   hit 0.944 lat   207.5 cyc    4.608M
+thp    d4r6 mop            Adaptive   hit 0.281 lat   187.6 cyc    3.086M
+thp    d4r6 mop            Open       hit 0.471 lat   179.0 cyc    3.006M
+thp    d4r6 xor_global     OracleH64  hit 0.974 lat   190.2 cyc    3.855M
+thp    d4r6 xor_global     Oracle     hit 0.974 lat   190.2 cyc    3.855M
+thp    d4r6 xor_global     OracleH1   hit 0.965 lat   201.2 cyc    4.120M
+thp    d4r6 identity       OracleH64  hit 0.950 lat   207.2 cyc    4.262M
+thp    d4r6 identity       Oracle     hit 0.950 lat   207.0 cyc    4.263M
+thp    d4r6 mop            Adaptive15_6hit 0.300 lat   186.4 cyc    3.074M
+thp    d4r6 mop            Adaptive15_10hit 0.263 lat   188.6 cyc    3.092M
+thp    x16  identity       Adaptive   hit 0.905 lat   313.8 cyc    3.280M
+thp    x16  identity       Adaptive15_6hit 0.925 lat   322.4 cyc    2.596M
+thp    d4r6 mop            OracleH1   hit 0.403 lat   184.0 cyc    3.052M
+thp    d4r6 mop            OracleH64  hit 0.469 lat   178.7 cyc    3.001M
+thp    d4r6 mop            Oracle     hit 0.469 lat   178.7 cyc    3.001M
+thp    d4r6 identity       OracleH1   hit 0.813 lat   407.9 cyc    8.470M
+thp    x16  xor_global     Open       hit 0.960 lat   274.4 cyc    2.279M
+thp    x16  identity       Open       hit 0.925 lat   322.4 cyc    2.596M
+thp    x16  identity       Adaptive15_10hit 0.925 lat   322.6 cyc    2.608M
+thp    x16  xor_global     Adaptive15_10hit 0.960 lat   273.1 cyc    2.280M
+thp    x16  xor_global     Adaptive15_6hit 0.960 lat   274.4 cyc    2.279M
+thp    x16  xor_global     Adaptive   hit 0.960 lat   273.2 cyc    2.284M
+thp    x16  xor_global     OracleH1   hit 0.947 lat   288.6 cyc    2.447M
+thp    x16  identity       Oracle     hit 0.925 lat   321.0 cyc    2.589M
+thp    x16  identity       OracleH64  hit 0.925 lat   321.6 cyc    2.585M
+thp    x16  xor_global     OracleH64  hit 0.960 lat   272.2 cyc    2.274M
+thp    x16  mop            Adaptive   hit 0.189 lat   332.6 cyc    2.316M
+thp    x16  xor_global     Oracle     hit 0.960 lat   270.6 cyc    2.274M
+thp    x16  mop            Open       hit 0.325 lat   314.2 cyc    2.236M
+thp    x16  mop            Adaptive15_6hit 0.206 lat   330.0 cyc    2.313M
+thp    x16  mop            Oracle     hit 0.319 lat   311.0 cyc    2.231M
+thp    x16  mop            Adaptive15_10hit 0.168 lat   335.0 cyc    2.325M
+thp    x16  mop            OracleH1   hit 0.269 lat   326.0 cyc    2.299M
+thp    x16  mop            OracleH64  hit 0.320 lat   311.7 cyc    2.233M
+thp    x16  identity       OracleH1   hit 0.548 lat   925.9 cyc    7.335M

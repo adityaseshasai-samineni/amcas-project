@@ -1,0 +1,250 @@
+==========================================
+SLURM_JOB_ID = 124985
+SLURM_NODELIST = node03
+SLURM_JOB_GPUS = 
+==========================================
+Configuring Ramulator in /home/adityaseshasai.s/amcas-pro/tracing/ramulator2-grid/build (Release)
+Configuring Ramulator ...
+-- Build type: Release
+Configuring yaml-cpp...
+Done configuring yaml-cpp.
+Configuring fmt...
+-- Version: 10.2.1
+-- Build type: Release
+Done configuring fmt.
+Configuring nanobind...
+Done configuring nanobind.
+CMake Warning (policy) at CMakeLists.txt:92 (add_custom_target):
+  Policy CMP0171 is not set: 'codegen' is a reserved target name.  Run "cmake
+  --help-policy CMP0171" for policy details.  Use the cmake_policy command to
+  set the policy and suppress this warning.
+
+  The target name "codegen" is reserved.
+This warning is for project developers.  Use -Wno-author or -Wno-policy to
+suppress it.
+
+-- Configuring done (1.3s)
+-- Generating done (0.5s)
+-- Build files have been written to: /home/adityaseshasai.s/amcas-pro/tracing/ramulator2-grid/build
+Building Ramulator with 16 job(s)
+[  1%] Running ramulator codegen...
+[  7%] Building CXX object src/ramulator/dram/CMakeFiles/ramulator-dram.dir/impl/DDR4_PUM.cpp.o
+[  7%] Building CXX object src/ramulator/dram/CMakeFiles/ramulator-dram.dir/impl/DDR4.cpp.o
+[  7%] Built target ramulator-translation
+[  7%] Building CXX object src/ramulator/dram/CMakeFiles/ramulator-dram.dir/impl/DDR5.cpp.o
+[  7%] Built target ramulator-power
+[  9%] Building CXX object src/ramulator/dram/CMakeFiles/ramulator-dram.dir/impl/DDR3.cpp.o
+[  9%] Building CXX object src/ramulator/dram/CMakeFiles/ramulator-dram.dir/impl/DDR5_VRR.cpp.o
+[  9%] Building CXX object src/ramulator/dram/CMakeFiles/ramulator-dram.dir/impl/DDR4_VRR.cpp.o
+[  9%] Built target ramulator-memorysystem
+[ 17%] Built target fmt
+[ 19%] Building CXX object src/ramulator/dram/CMakeFiles/ramulator-dram.dir/impl/HBM3.cpp.o
+[ 20%] Building CXX object src/ramulator/dram/CMakeFiles/ramulator-dram.dir/impl/HBM2.cpp.o
+[ 20%] Building CXX object src/ramulator/dram/CMakeFiles/ramulator-dram.dir/impl/HBM1.cpp.o
+[ 22%] Built target ramulator-base
+[ 26%] Built target ramulator-frontend
+[ 27%] Building CXX object src/ramulator/dram/CMakeFiles/ramulator-dram.dir/impl/HBM4.cpp.o
+[ 33%] Building CXX object src/ramulator/dram/CMakeFiles/ramulator-dram.dir/impl/LPDDR6.cpp.o
+[ 33%] Building CXX object src/ramulator/dram/CMakeFiles/ramulator-dram.dir/impl/LPDDR5.cpp.o
+[ 36%] Built target nanobind-static
+[ 37%] Building CXX object src/ramulator/dram/CMakeFiles/ramulator-dram.dir/impl/GDDR6.cpp.o
+[ 60%] Built target yaml-cpp
+[ 60%] Building CXX object src/ramulator/dram/CMakeFiles/ramulator-dram.dir/impl/GDDR7.cpp.o
+[ 60%] Building CXX object src/ramulator/controller/CMakeFiles/ramulator-controller.dir/rowpolicy/impl/region.cpp.o
+  unchanged python/ramulator/__init__.py
+  unchanged python/ramulator/addr_mapper/__init__.py
+  unchanged python/ramulator/addr_mapper/ch_ra_ba_ro_co.py
+  unchanged python/ramulator/addr_mapper/mop4_clxor.py
+  unchanged python/ramulator/addr_mapper/pass_through_addr_mapper.py
+  unchanged python/ramulator/addr_mapper/rit_addr_mapper.py
+  unchanged python/ramulator/addr_mapper/ro_ba_ra_co_ch.py
+  unchanged python/ramulator/channel_mapper/__init__.py
+  unchanged python/ramulator/channel_mapper/cache_line_interleave.py
+  unchanged python/ramulator/channel_mapper/gem5_port_interleave.py
+  unchanged python/ramulator/channel_mapper/pass_through_channel_mapper.py
+  unchanged python/ramulator/controller/__init__.py
+  unchanged python/ramulator/controller/block_hammer.py
+  unchanged python/ramulator/controller/gddr7.py
+  unchanged python/ramulator/controller/generic_ddr.py
+  unchanged python/ramulator/controller/hbm12.py
+  unchanged python/ramulator/controller/hbm34.py
+  unchanged python/ramulator/controller/lpddr5.py
+  unchanged python/ramulator/controller/lpddr6.py
+  unchanged python/ramulator/controller/prac.py
+  unchanged python/ramulator/controller/pum.py
+  unchanged python/ramulator/controller_plugin/__init__.py
+  unchanged python/ramulator/controller_plugin/aqua.py
+  unchanged python/ramulator/controller_plugin/ayna.py
+  unchanged python/ramulator/controller_plugin/bin_trace_recorder.py
+  unchanged python/ramulator/controller_plugin/cmd_trace_recorder.py
+  unchanged python/ramulator/controller_plugin/command_counter.py
+  unchanged python/ramulator/controller_plugin/graphene.py
+  unchanged python/ramulator/controller_plugin/hydra.py
+  unchanged python/ramulator/controller_plugin/hynix_trr.py
+  unchanged python/ramulator/controller_plugin/ideal_trr.py
+  unchanged python/ramulator/controller_plugin/issued_command_validation_hook.py
+  unchanged python/ramulator/controller_plugin/live_trace_streamer.py
+  unchanged python/ramulator/controller_plugin/oracle_rh.py
+  unchanged python/ramulator/controller_plugin/para.py
+  unchanged python/ramulator/controller_plugin/rfm_manager.py
+  unchanged python/ramulator/controller_plugin/rrs.py
+  unchanged python/ramulator/controller_plugin/samsung_trr.py
+  unchanged python/ramulator/controller_plugin/t_wi_ce_ideal.py
+  unchanged python/ramulator/dram/__init__.py
+  unchanged python/ramulator/frontend/__init__.py
+  unchanged python/ramulator/frontend/bho3.py
+  unchanged python/ramulator/frontend/external.py
+  unchanged python/ramulator/frontend/latency_throughput_trace.py
+  unchanged python/ramulator/frontend/load_store_trace.py
+  unchanged python/ramulator/frontend/pum_trace.py
+  unchanged python/ramulator/frontend/read_write_trace.py
+  unchanged python/ramulator/frontend/simple_o3.py
+  unchanged python/ramulator/memory_system/__init__.py
+  unchanged python/ramulator/memory_system/generic_dram.py
+  unchanged python/ramulator/refresh_manager/__init__.py
+  unchanged python/ramulator/refresh_manager/all_bank.py
+  unchanged python/ramulator/refresh_manager/hbm34_per_bank_refresh.py
+  unchanged python/ramulator/refresh_manager/hbm_per_bank_refresh.py
+  unchanged python/ramulator/refresh_manager/no_refresh.py
+  unchanged python/ramulator/refresh_manager/per_bank.py
+  unchanged python/ramulator/row_policy/__init__.py
+  unchanged python/ramulator/row_policy/adaptive.py
+  unchanged python/ramulator/row_policy/closed_cap.py
+  unchanged python/ramulator/row_policy/happy.py
+  unchanged python/ramulator/row_policy/open.py
+  wrote python/ramulator/row_policy/oracle.py
+  unchanged python/ramulator/row_policy/region.py
+  unchanged python/ramulator/row_policy/timeout.py
+  unchanged python/ramulator/scheduler/__init__.py
+  unchanged python/ramulator/scheduler/frfcfs.py
+  unchanged python/ramulator/scheduler/frfcfs_row_hit.py
+  unchanged python/ramulator/translation/__init__.py
+  unchanged python/ramulator/translation/no_translation.py
+  unchanged src/ramulator/dram/impl/DDR3.cpp
+  unchanged src/ramulator/dram/impl/DDR4.cpp
+  unchanged src/ramulator/dram/impl/DDR4_PUM.cpp
+  unchanged src/ramulator/dram/impl/DDR4_VRR.cpp
+  unchanged src/ramulator/dram/impl/DDR5.cpp
+  unchanged src/ramulator/dram/impl/DDR5_VRR.cpp
+  unchanged src/ramulator/dram/impl/GDDR6.cpp
+  unchanged src/ramulator/dram/impl/GDDR7.cpp
+  unchanged src/ramulator/dram/impl/HBM1.cpp
+  unchanged src/ramulator/dram/impl/HBM2.cpp
+  unchanged src/ramulator/dram/impl/HBM3.cpp
+  unchanged src/ramulator/dram/impl/HBM4.cpp
+  unchanged src/ramulator/dram/impl/LPDDR5.cpp
+  unchanged src/ramulator/dram/impl/LPDDR6.cpp
+
+Generated 14 DRAM standard(s): DDR3, DDR4, DDR4_PUM, DDR4_VRR, DDR5, DDR5_VRR, GDDR6, GDDR7, HBM1, HBM2, HBM3, HBM4, LPDDR5, LPDDR6
+Generated 57 Python component wrapper(s)
+[ 60%] Built target codegen
+[ 61%] Building CXX object src/ramulator/controller/CMakeFiles/ramulator-controller.dir/rowpolicy/impl/happy.cpp.o
+[ 62%] Building CXX object src/ramulator/controller/CMakeFiles/ramulator-controller.dir/rowpolicy/impl/timeout.cpp.o
+[ 63%] Building CXX object src/ramulator/controller/CMakeFiles/ramulator-controller.dir/rowpolicy/impl/adaptive.cpp.o
+[ 63%] Building CXX object src/ramulator/controller/CMakeFiles/ramulator-controller.dir/rowpolicy/impl/oracle.cpp.o
+[ 64%] Formatting generated C++ files...
+[ 64%] Built target codegen_format
+[ 95%] Built target ramulator-controller
+[ 97%] Built target ramulator-dram
+[ 98%] Linking CXX shared library /home/adityaseshasai.s/amcas-pro/tracing/ramulator2-grid/libramulator.so
+[ 98%] Built target ramulator
+[ 99%] Linking CXX shared module /home/adityaseshasai.s/amcas-pro/tracing/ramulator2-grid/python/ramulator/_ramulator_test.cpython-312-x86_64-linux-gnu.so
+[ 99%] Linking CXX shared module /home/adityaseshasai.s/amcas-pro/tracing/ramulator2-grid/python/ramulator/_ramulator.cpython-312-x86_64-linux-gnu.so
+[ 99%] Built target _ramulator
+[100%] Built target _ramulator_test
+  unchanged python/ramulator/__init__.py
+  unchanged python/ramulator/addr_mapper/__init__.py
+  unchanged python/ramulator/addr_mapper/ch_ra_ba_ro_co.py
+  unchanged python/ramulator/addr_mapper/mop4_clxor.py
+  unchanged python/ramulator/addr_mapper/pass_through_addr_mapper.py
+  unchanged python/ramulator/addr_mapper/rit_addr_mapper.py
+  unchanged python/ramulator/addr_mapper/ro_ba_ra_co_ch.py
+  unchanged python/ramulator/channel_mapper/__init__.py
+  unchanged python/ramulator/channel_mapper/cache_line_interleave.py
+  unchanged python/ramulator/channel_mapper/gem5_port_interleave.py
+  unchanged python/ramulator/channel_mapper/pass_through_channel_mapper.py
+  unchanged python/ramulator/controller/__init__.py
+  unchanged python/ramulator/controller/block_hammer.py
+  unchanged python/ramulator/controller/gddr7.py
+  unchanged python/ramulator/controller/generic_ddr.py
+  unchanged python/ramulator/controller/hbm12.py
+  unchanged python/ramulator/controller/hbm34.py
+  unchanged python/ramulator/controller/lpddr5.py
+  unchanged python/ramulator/controller/lpddr6.py
+  unchanged python/ramulator/controller/prac.py
+  unchanged python/ramulator/controller/pum.py
+  unchanged python/ramulator/controller_plugin/__init__.py
+  unchanged python/ramulator/controller_plugin/aqua.py
+  unchanged python/ramulator/controller_plugin/ayna.py
+  unchanged python/ramulator/controller_plugin/bin_trace_recorder.py
+  unchanged python/ramulator/controller_plugin/cmd_trace_recorder.py
+  unchanged python/ramulator/controller_plugin/command_counter.py
+  unchanged python/ramulator/controller_plugin/graphene.py
+  unchanged python/ramulator/controller_plugin/hydra.py
+  unchanged python/ramulator/controller_plugin/hynix_trr.py
+  unchanged python/ramulator/controller_plugin/ideal_trr.py
+  unchanged python/ramulator/controller_plugin/issued_command_validation_hook.py
+  unchanged python/ramulator/controller_plugin/live_trace_streamer.py
+  unchanged python/ramulator/controller_plugin/oracle_rh.py
+  unchanged python/ramulator/controller_plugin/para.py
+  unchanged python/ramulator/controller_plugin/rfm_manager.py
+  unchanged python/ramulator/controller_plugin/rrs.py
+  unchanged python/ramulator/controller_plugin/samsung_trr.py
+  unchanged python/ramulator/controller_plugin/t_wi_ce_ideal.py
+  unchanged python/ramulator/dram/__init__.py
+  unchanged python/ramulator/frontend/__init__.py
+  unchanged python/ramulator/frontend/bho3.py
+  unchanged python/ramulator/frontend/external.py
+  unchanged python/ramulator/frontend/latency_throughput_trace.py
+  unchanged python/ramulator/frontend/load_store_trace.py
+  unchanged python/ramulator/frontend/pum_trace.py
+  unchanged python/ramulator/frontend/read_write_trace.py
+  unchanged python/ramulator/frontend/simple_o3.py
+  unchanged python/ramulator/memory_system/__init__.py
+  unchanged python/ramulator/memory_system/generic_dram.py
+  unchanged python/ramulator/refresh_manager/__init__.py
+  unchanged python/ramulator/refresh_manager/all_bank.py
+  unchanged python/ramulator/refresh_manager/hbm34_per_bank_refresh.py
+  unchanged python/ramulator/refresh_manager/hbm_per_bank_refresh.py
+  unchanged python/ramulator/refresh_manager/no_refresh.py
+  unchanged python/ramulator/refresh_manager/per_bank.py
+  unchanged python/ramulator/row_policy/__init__.py
+  unchanged python/ramulator/row_policy/adaptive.py
+  unchanged python/ramulator/row_policy/closed_cap.py
+  unchanged python/ramulator/row_policy/happy.py
+  unchanged python/ramulator/row_policy/open.py
+  unchanged python/ramulator/row_policy/oracle.py
+  unchanged python/ramulator/row_policy/region.py
+  unchanged python/ramulator/row_policy/timeout.py
+  unchanged python/ramulator/scheduler/__init__.py
+  unchanged python/ramulator/scheduler/frfcfs.py
+  unchanged python/ramulator/scheduler/frfcfs_row_hit.py
+  unchanged python/ramulator/translation/__init__.py
+  unchanged python/ramulator/translation/no_translation.py
+  wrote src/ramulator/dram/impl/DDR3.cpp
+  wrote src/ramulator/dram/impl/DDR4.cpp
+  wrote src/ramulator/dram/impl/DDR4_PUM.cpp
+  wrote src/ramulator/dram/impl/DDR4_VRR.cpp
+  wrote src/ramulator/dram/impl/DDR5.cpp
+  wrote src/ramulator/dram/impl/DDR5_VRR.cpp
+  wrote src/ramulator/dram/impl/GDDR6.cpp
+  wrote src/ramulator/dram/impl/GDDR7.cpp
+  wrote src/ramulator/dram/impl/HBM1.cpp
+  wrote src/ramulator/dram/impl/HBM2.cpp
+  wrote src/ramulator/dram/impl/HBM3.cpp
+  wrote src/ramulator/dram/impl/HBM4.cpp
+  wrote src/ramulator/dram/impl/LPDDR5.cpp
+  wrote src/ramulator/dram/impl/LPDDR6.cpp
+
+Generated 14 DRAM standard(s): DDR3, DDR4, DDR4_PUM, DDR4_VRR, DDR5, DDR5_VRR, GDDR6, GDDR7, HBM1, HBM2, HBM3, HBM4, LPDDR5, LPDDR6
+Generated 57 Python component wrapper(s)
+adaptive.py
+closed_cap.py
+happy.py
+__init__.py
+open.py
+oracle.py
+__pycache__
+region.py
+timeout.py
+-rwxrwxr-x 1 adityaseshasai.s adityaseshasai.s 3268888 Nov 14 16:38 libramulator.so

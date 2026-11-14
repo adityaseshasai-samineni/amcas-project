@@ -1,0 +1,372 @@
+==========================================
+SLURM_JOB_ID = 124964
+SLURM_NODELIST = node03
+SLURM_JOB_GPUS = 
+==========================================
+Configuring Ramulator in /home/adityaseshasai.s/amcas-pro/tracing/ramulator2-grid/build (Release)
+-- The CXX compiler identification is GNU 13.4.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+Configuring Ramulator ...
+-- Build type: Release
+Configuring yaml-cpp...
+Done configuring yaml-cpp.
+Configuring fmt...
+-- Version: 10.2.1
+-- Build type: Release
+Done configuring fmt.
+-- Found Python: /home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/bin/python3.12 (found suitable version "3.12.16", minimum required is "3.10") found components: Interpreter Development.Module
+Configuring nanobind...
+Done configuring nanobind.
+CMake Warning (policy) at CMakeLists.txt:92 (add_custom_target):
+  Policy CMP0171 is not set: 'codegen' is a reserved target name.  Run "cmake
+  --help-policy CMP0171" for policy details.  Use the cmake_policy command to
+  set the policy and suppress this warning.
+
+  The target name "codegen" is reserved.
+This warning is for project developers.  Use -Wno-author or -Wno-policy to
+suppress it.
+
+-- Configuring done (138.8s)
+-- Generating done (0.7s)
+-- Build files have been written to: /home/adityaseshasai.s/amcas-pro/tracing/ramulator2-grid/build
+Building Ramulator with 16 job(s)
+[  3%] Running ramulator codegen...
+[  3%] Building CXX object _deps/fmt-build/CMakeFiles/fmt.dir/src/format.cc.o
+[  3%] Building CXX object _deps/fmt-build/CMakeFiles/fmt.dir/src/os.cc.o
+[  3%] Building CXX object src/ramulator/translation/CMakeFiles/ramulator-translation.dir/impl/no_translation.cpp.o
+[  3%] Building CXX object src/ramulator/power/CMakeFiles/ramulator-power.dir/ayna.cpp.o
+[  6%] Building CXX object src/ramulator/power/CMakeFiles/ramulator-power.dir/hbm/calculation.cpp.o
+[  6%] Building CXX object src/ramulator/memory_system/CMakeFiles/ramulator-memorysystem.dir/channel_mapper/impl/gem5_port_interleave.cpp.o
+[  6%] Building CXX object src/ramulator/memory_system/CMakeFiles/ramulator-memorysystem.dir/channel_mapper/impl/passthrough_channel_mapper.cpp.o
+[  6%] Building CXX object src/ramulator/memory_system/CMakeFiles/ramulator-memorysystem.dir/channel_mapper/impl/cache_line_interleave.cpp.o
+[  6%] Building CXX object src/ramulator/memory_system/CMakeFiles/ramulator-memorysystem.dir/impl/generic_dram_system.cpp.o
+[  6%] Building CXX object src/ramulator/base/CMakeFiles/ramulator-base.dir/factory.cpp.o
+[  8%] Building CXX object src/ramulator/dram/CMakeFiles/ramulator-dram.dir/node.cpp.o
+[  9%] Building CXX object src/ramulator/frontend/CMakeFiles/ramulator-frontend.dir/impl/external.cpp.o
+[ 11%] Building CXX object _deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/binary.cpp.o
+[ 11%] Building CXX object CMakeFiles/nanobind-static.dir/ext/nanobind/src/nb_internals.cpp.o
+[ 12%] Building CXX object src/ramulator/controller/CMakeFiles/ramulator-controller.dir/controller_base.cpp.o
+[ 13%] Building CXX object _deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/convert.cpp.o
+[ 13%] Building CXX object _deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/depthguard.cpp.o
+  unchanged python/ramulator/__init__.py
+  unchanged python/ramulator/addr_mapper/__init__.py
+  unchanged python/ramulator/addr_mapper/ch_ra_ba_ro_co.py
+  unchanged python/ramulator/addr_mapper/mop4_clxor.py
+  unchanged python/ramulator/addr_mapper/pass_through_addr_mapper.py
+  unchanged python/ramulator/addr_mapper/rit_addr_mapper.py
+  unchanged python/ramulator/addr_mapper/ro_ba_ra_co_ch.py
+  unchanged python/ramulator/channel_mapper/__init__.py
+  unchanged python/ramulator/channel_mapper/cache_line_interleave.py
+  unchanged python/ramulator/channel_mapper/gem5_port_interleave.py
+  unchanged python/ramulator/channel_mapper/pass_through_channel_mapper.py
+  unchanged python/ramulator/controller/__init__.py
+  unchanged python/ramulator/controller/block_hammer.py
+  unchanged python/ramulator/controller/gddr7.py
+  unchanged python/ramulator/controller/generic_ddr.py
+  unchanged python/ramulator/controller/hbm12.py
+  unchanged python/ramulator/controller/hbm34.py
+  unchanged python/ramulator/controller/lpddr5.py
+  unchanged python/ramulator/controller/lpddr6.py
+  unchanged python/ramulator/controller/prac.py
+  unchanged python/ramulator/controller/pum.py
+  unchanged python/ramulator/controller_plugin/__init__.py
+  unchanged python/ramulator/controller_plugin/aqua.py
+  unchanged python/ramulator/controller_plugin/ayna.py
+  unchanged python/ramulator/controller_plugin/bin_trace_recorder.py
+  unchanged python/ramulator/controller_plugin/cmd_trace_recorder.py
+  unchanged python/ramulator/controller_plugin/command_counter.py
+  unchanged python/ramulator/controller_plugin/graphene.py
+  unchanged python/ramulator/controller_plugin/hydra.py
+  unchanged python/ramulator/controller_plugin/hynix_trr.py
+  unchanged python/ramulator/controller_plugin/ideal_trr.py
+  unchanged python/ramulator/controller_plugin/issued_command_validation_hook.py
+  unchanged python/ramulator/controller_plugin/live_trace_streamer.py
+  unchanged python/ramulator/controller_plugin/oracle_rh.py
+  unchanged python/ramulator/controller_plugin/para.py
+  unchanged python/ramulator/controller_plugin/rfm_manager.py
+  unchanged python/ramulator/controller_plugin/rrs.py
+  unchanged python/ramulator/controller_plugin/samsung_trr.py
+  unchanged python/ramulator/controller_plugin/t_wi_ce_ideal.py
+  unchanged python/ramulator/dram/__init__.py
+  unchanged python/ramulator/frontend/__init__.py
+  unchanged python/ramulator/frontend/bho3.py
+  unchanged python/ramulator/frontend/external.py
+  unchanged python/ramulator/frontend/latency_throughput_trace.py
+  unchanged python/ramulator/frontend/load_store_trace.py
+  unchanged python/ramulator/frontend/pum_trace.py
+  unchanged python/ramulator/frontend/read_write_trace.py
+  unchanged python/ramulator/frontend/simple_o3.py
+  unchanged python/ramulator/memory_system/__init__.py
+  unchanged python/ramulator/memory_system/generic_dram.py
+  unchanged python/ramulator/refresh_manager/__init__.py
+  unchanged python/ramulator/refresh_manager/all_bank.py
+  unchanged python/ramulator/refresh_manager/hbm34_per_bank_refresh.py
+  unchanged python/ramulator/refresh_manager/hbm_per_bank_refresh.py
+  unchanged python/ramulator/refresh_manager/no_refresh.py
+  unchanged python/ramulator/refresh_manager/per_bank.py
+  wrote python/ramulator/row_policy/__init__.py
+  wrote python/ramulator/row_policy/adaptive.py
+  unchanged python/ramulator/row_policy/closed_cap.py
+  unchanged python/ramulator/row_policy/happy.py
+  unchanged python/ramulator/row_policy/open.py
+  wrote python/ramulator/row_policy/oracle.py
+  unchanged python/ramulator/row_policy/region.py
+  unchanged python/ramulator/row_policy/timeout.py
+  unchanged python/ramulator/scheduler/__init__.py
+  unchanged python/ramulator/scheduler/frfcfs.py
+  unchanged python/ramulator/scheduler/frfcfs_row_hit.py
+  unchanged python/ramulator/translation/__init__.py
+  unchanged python/ramulator/translation/no_translation.py
+  unchanged src/ramulator/dram/impl/DDR3.cpp
+  unchanged src/ramulator/dram/impl/DDR4.cpp
+  unchanged src/ramulator/dram/impl/DDR4_PUM.cpp
+  unchanged src/ramulator/dram/impl/DDR4_VRR.cpp
+  unchanged src/ramulator/dram/impl/DDR5.cpp
+  unchanged src/ramulator/dram/impl/DDR5_VRR.cpp
+  unchanged src/ramulator/dram/impl/GDDR6.cpp
+  unchanged src/ramulator/dram/impl/GDDR7.cpp
+  unchanged src/ramulator/dram/impl/HBM1.cpp
+  unchanged src/ramulator/dram/impl/HBM2.cpp
+  unchanged src/ramulator/dram/impl/HBM3.cpp
+  unchanged src/ramulator/dram/impl/HBM4.cpp
+  unchanged src/ramulator/dram/impl/LPDDR5.cpp
+  unchanged src/ramulator/dram/impl/LPDDR6.cpp
+
+Generated 14 DRAM standard(s): DDR3, DDR4, DDR4_PUM, DDR4_VRR, DDR5, DDR5_VRR, GDDR6, GDDR7, HBM1, HBM2, HBM3, HBM4, LPDDR5, LPDDR6
+Generated 57 Python component wrapper(s)
+[ 13%] Built target codegen
+[ 14%] Formatting generated C++ files...
+[ 15%] Building CXX object _deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/directives.cpp.o
+[ 16%] Building CXX object src/ramulator/controller/CMakeFiles/ramulator-controller.dir/scheduler/impl/frfcfs.cpp.o
+[ 16%] Built target codegen_format
+[ 16%] Building CXX object src/ramulator/controller/CMakeFiles/ramulator-controller.dir/scheduler/impl/frfcfs_rowhit.cpp.o
+[ 17%] Building CXX object _deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/emit.cpp.o
+[ 17%] Building CXX object CMakeFiles/nanobind-static.dir/ext/nanobind/src/nb_func.cpp.o
+[ 18%] Building CXX object _deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/emitfromevents.cpp.o
+[ 19%] Building CXX object CMakeFiles/nanobind-static.dir/ext/nanobind/src/nb_type.cpp.o
+[ 19%] Building CXX object _deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/emitter.cpp.o
+[ 20%] Building CXX object src/ramulator/base/CMakeFiles/ramulator-base.dir/logger.cpp.o
+[ 20%] Built target ramulator-translation
+[ 21%] Building CXX object src/ramulator/base/CMakeFiles/ramulator-base.dir/utils.cpp.o
+[ 21%] Building CXX object src/ramulator/dram/CMakeFiles/ramulator-dram.dir/device.cpp.o
+[ 22%] Building CXX object src/ramulator/frontend/CMakeFiles/ramulator-frontend.dir/impl/memory_trace/loadstore_trace.cpp.o
+[ 22%] Building CXX object src/ramulator/frontend/CMakeFiles/ramulator-frontend.dir/impl/memory_trace/readwrite_trace.cpp.o
+[ 23%] Building CXX object _deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/emitterstate.cpp.o
+[ 24%] Building CXX object _deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/emitterutils.cpp.o
+[ 24%] Building CXX object src/ramulator/base/CMakeFiles/ramulator-base.dir/config.cpp.o
+[ 25%] Building CXX object src/ramulator/base/CMakeFiles/ramulator-base.dir/request.cpp.o
+[ 25%] Built target ramulator-memorysystem
+[ 25%] Building CXX object _deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/exceptions.cpp.o
+[ 26%] Building CXX object _deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/exp.cpp.o
+[ 27%] Building CXX object src/ramulator/controller/CMakeFiles/ramulator-controller.dir/refresh/impl/all_bank.cpp.o
+[ 28%] Building CXX object CMakeFiles/nanobind-static.dir/ext/nanobind/src/nb_enum.cpp.o
+[ 29%] Building CXX object _deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/fptostring.cpp.o
+[ 30%] Building CXX object _deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/memory.cpp.o
+[ 31%] Building CXX object src/ramulator/controller/CMakeFiles/ramulator-controller.dir/refresh/impl/per_bank.cpp.o
+[ 31%] Building CXX object _deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/node.cpp.o
+[ 32%] Building CXX object src/ramulator/controller/CMakeFiles/ramulator-controller.dir/refresh/impl/hbm_per_bank_refresh.cpp.o
+[ 33%] Building CXX object src/ramulator/dram/CMakeFiles/ramulator-dram.dir/dram_spec.cpp.o
+[ 34%] Building CXX object _deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/node_data.cpp.o
+[ 35%] Building CXX object _deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/nodebuilder.cpp.o
+[ 35%] Building CXX object _deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/nodeevents.cpp.o
+[ 36%] Building CXX object _deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/null.cpp.o
+[ 37%] Building CXX object _deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/ostream_wrapper.cpp.o
+[ 37%] Built target ramulator-power
+[ 38%] Building CXX object _deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/parse.cpp.o
+[ 38%] Building CXX object _deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/parser.cpp.o
+[ 39%] Linking CXX static library libfmt.a
+[ 40%] Building CXX object CMakeFiles/nanobind-static.dir/ext/nanobind/src/nb_ndarray.cpp.o
+[ 40%] Built target fmt
+[ 40%] Building CXX object CMakeFiles/nanobind-static.dir/ext/nanobind/src/nb_static_property.cpp.o
+[ 41%] Building CXX object CMakeFiles/nanobind-static.dir/ext/nanobind/src/common.cpp.o
+[ 43%] Building CXX object _deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/scanner.cpp.o
+[ 43%] Building CXX object _deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/regex_yaml.cpp.o
+[ 43%] Building CXX object _deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/scanscalar.cpp.o
+[ 43%] Built target ramulator-base
+[ 44%] Building CXX object _deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/scantag.cpp.o
+[ 45%] Building CXX object _deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/scantoken.cpp.o
+[ 46%] Building CXX object src/ramulator/frontend/CMakeFiles/ramulator-frontend.dir/impl/memory_trace/latency_throughput_trace.cpp.o
+[ 47%] Building CXX object _deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/simplekey.cpp.o
+[ 47%] Building CXX object _deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/singledocparser.cpp.o
+[ 48%] Building CXX object _deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/stream.cpp.o
+[ 49%] Building CXX object CMakeFiles/nanobind-static.dir/ext/nanobind/src/error.cpp.o
+[ 49%] Building CXX object src/ramulator/controller/CMakeFiles/ramulator-controller.dir/refresh/impl/no_refresh.cpp.o
+[ 49%] Building CXX object CMakeFiles/nanobind-static.dir/ext/nanobind/src/trampoline.cpp.o
+[ 50%] Building CXX object src/ramulator/controller/CMakeFiles/ramulator-controller.dir/rowpolicy/impl/open.cpp.o
+[ 51%] Building CXX object _deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/tag.cpp.o
+[ 52%] Building CXX object src/ramulator/controller/CMakeFiles/ramulator-controller.dir/rowpolicy/impl/closed_cap.cpp.o
+[ 52%] Building CXX object src/ramulator/controller/CMakeFiles/ramulator-controller.dir/rowpolicy/impl/region.cpp.o
+[ 53%] Building CXX object CMakeFiles/nanobind-static.dir/ext/nanobind/src/implicit.cpp.o
+[ 54%] Building CXX object src/ramulator/controller/CMakeFiles/ramulator-controller.dir/rowpolicy/impl/happy.cpp.o
+[ 55%] Building CXX object src/ramulator/dram/CMakeFiles/ramulator-dram.dir/impl/DDR3.cpp.o
+[ 56%] Building CXX object src/ramulator/dram/CMakeFiles/ramulator-dram.dir/impl/DDR4.cpp.o
+[ 56%] Building CXX object src/ramulator/dram/CMakeFiles/ramulator-dram.dir/impl/DDR4_PUM.cpp.o
+[ 57%] Building CXX object src/ramulator/dram/CMakeFiles/ramulator-dram.dir/impl/DDR4_VRR.cpp.o
+[ 58%] Building CXX object src/ramulator/controller/CMakeFiles/ramulator-controller.dir/rowpolicy/impl/timeout.cpp.o
+[ 59%] Building CXX object src/ramulator/controller/CMakeFiles/ramulator-controller.dir/rowpolicy/impl/adaptive.cpp.o
+[ 59%] Building CXX object src/ramulator/controller/CMakeFiles/ramulator-controller.dir/rowpolicy/impl/oracle.cpp.o
+[ 60%] Linking CXX static library libnanobind-static.a
+[ 60%] Built target nanobind-static
+[ 61%] Building CXX object src/ramulator/controller/CMakeFiles/ramulator-controller.dir/addr_mapper/addr_mapper_base.cpp.o
+[ 62%] Building CXX object src/ramulator/controller/CMakeFiles/ramulator-controller.dir/addr_mapper/impl/ch_ra_ba_ro_co.cpp.o
+[ 63%] Building CXX object src/ramulator/dram/CMakeFiles/ramulator-dram.dir/impl/DDR5.cpp.o
+[ 63%] Building CXX object src/ramulator/controller/CMakeFiles/ramulator-controller.dir/addr_mapper/impl/ro_ba_ra_co_ch.cpp.o
+[ 64%] Building CXX object src/ramulator/controller/CMakeFiles/ramulator-controller.dir/addr_mapper/impl/mop4clxor.cpp.o
+[ 65%] Linking CXX static library libyaml-cpp.a
+[ 65%] Built target yaml-cpp
+[ 66%] Building CXX object src/ramulator/controller/CMakeFiles/ramulator-controller.dir/addr_mapper/impl/passthrough_addr_mapper.cpp.o
+[ 66%] Building CXX object src/ramulator/dram/CMakeFiles/ramulator-dram.dir/impl/DDR5_VRR.cpp.o
+[ 67%] Building CXX object src/ramulator/controller/CMakeFiles/ramulator-controller.dir/addr_mapper/impl/rit_addr_mapper.cpp.o
+[ 68%] Building CXX object src/ramulator/dram/CMakeFiles/ramulator-dram.dir/impl/HBM1.cpp.o
+[ 68%] Building CXX object src/ramulator/controller/CMakeFiles/ramulator-controller.dir/plugin/impl/command_counter.cpp.o
+[ 69%] Building CXX object src/ramulator/frontend/CMakeFiles/ramulator-frontend.dir/impl/memory_trace/pum_trace.cpp.o
+[ 70%] Building CXX object src/ramulator/frontend/CMakeFiles/ramulator-frontend.dir/impl/processor/simpleO3/simpleO3.cpp.o
+[ 70%] Building CXX object src/ramulator/frontend/CMakeFiles/ramulator-frontend.dir/impl/processor/simpleO3/core.cpp.o
+[ 71%] Building CXX object src/ramulator/frontend/CMakeFiles/ramulator-frontend.dir/impl/processor/simpleO3/llc.cpp.o
+[ 72%] Building CXX object src/ramulator/controller/CMakeFiles/ramulator-controller.dir/plugin/impl/cmd_trace_recorder.cpp.o
+[ 73%] Building CXX object src/ramulator/controller/CMakeFiles/ramulator-controller.dir/plugin/impl/issued_command_validation_hook.cpp.o
+[ 73%] Building CXX object src/ramulator/controller/CMakeFiles/ramulator-controller.dir/plugin/impl/rfm_manager.cpp.o
+[ 74%] Building CXX object src/ramulator/dram/CMakeFiles/ramulator-dram.dir/impl/HBM2.cpp.o
+[ 75%] Building CXX object src/ramulator/frontend/CMakeFiles/ramulator-frontend.dir/impl/processor/bhO3/bhO3.cpp.o
+[ 75%] Building CXX object src/ramulator/frontend/CMakeFiles/ramulator-frontend.dir/impl/processor/bhO3/bhcore.cpp.o
+[ 77%] Building CXX object src/ramulator/frontend/CMakeFiles/ramulator-frontend.dir/impl/processor/bhO3/bhllc.cpp.o
+[ 77%] Building CXX object src/ramulator/controller/CMakeFiles/ramulator-controller.dir/plugin/impl/para.cpp.o
+[ 78%] Building CXX object src/ramulator/dram/CMakeFiles/ramulator-dram.dir/impl/HBM3.cpp.o
+[ 79%] Building CXX object src/ramulator/controller/CMakeFiles/ramulator-controller.dir/plugin/impl/oracle_rh.cpp.o
+[ 80%] Building CXX object src/ramulator/controller/CMakeFiles/ramulator-controller.dir/plugin/impl/twice.cpp.o
+[ 80%] Building CXX object src/ramulator/controller/CMakeFiles/ramulator-controller.dir/plugin/impl/graphene.cpp.o
+[ 81%] Building CXX object src/ramulator/controller/CMakeFiles/ramulator-controller.dir/plugin/impl/hydra.cpp.o
+[ 82%] Building CXX object src/ramulator/controller/CMakeFiles/ramulator-controller.dir/plugin/impl/rrs.cpp.o
+[ 83%] Building CXX object src/ramulator/controller/CMakeFiles/ramulator-controller.dir/plugin/impl/aqua.cpp.o
+[ 83%] Building CXX object src/ramulator/dram/CMakeFiles/ramulator-dram.dir/impl/HBM4.cpp.o
+[ 83%] Building CXX object src/ramulator/controller/CMakeFiles/ramulator-controller.dir/plugin/impl/samsung_trr.cpp.o
+[ 84%] Building CXX object src/ramulator/controller/CMakeFiles/ramulator-controller.dir/plugin/impl/hynix_trr.cpp.o
+[ 85%] Building CXX object src/ramulator/dram/CMakeFiles/ramulator-dram.dir/impl/LPDDR5.cpp.o
+[ 86%] Building CXX object src/ramulator/dram/CMakeFiles/ramulator-dram.dir/impl/LPDDR6.cpp.o
+[ 87%] Building CXX object src/ramulator/dram/CMakeFiles/ramulator-dram.dir/impl/GDDR6.cpp.o
+[ 88%] Building CXX object src/ramulator/controller/CMakeFiles/ramulator-controller.dir/plugin/impl/ideal_trr.cpp.o
+[ 88%] Building CXX object src/ramulator/controller/CMakeFiles/ramulator-controller.dir/plugin/impl/bin_trace_recorder.cpp.o
+[ 88%] Building CXX object src/ramulator/dram/CMakeFiles/ramulator-dram.dir/impl/GDDR7.cpp.o
+[ 89%] Building CXX object src/ramulator/controller/CMakeFiles/ramulator-controller.dir/plugin/impl/live_trace_streamer.cpp.o
+[ 90%] Building CXX object src/ramulator/controller/CMakeFiles/ramulator-controller.dir/impl/generic_ddr_controller.cpp.o
+[ 90%] Built target ramulator-frontend
+[ 91%] Building CXX object src/ramulator/controller/CMakeFiles/ramulator-controller.dir/impl/pum_controller.cpp.o
+[ 91%] Building CXX object src/ramulator/controller/CMakeFiles/ramulator-controller.dir/impl/lpddr_controller_base.cpp.o
+[ 92%] Building CXX object src/ramulator/controller/CMakeFiles/ramulator-controller.dir/impl/lpddr5_controller.cpp.o
+[ 93%] Building CXX object src/ramulator/controller/CMakeFiles/ramulator-controller.dir/impl/lpddr6_controller.cpp.o
+[ 93%] Building CXX object src/ramulator/controller/CMakeFiles/ramulator-controller.dir/impl/hbm_controller_base.cpp.o
+[ 94%] Building CXX object src/ramulator/controller/CMakeFiles/ramulator-controller.dir/impl/hbm12_controller.cpp.o
+[ 94%] Built target ramulator-dram
+[ 95%] Building CXX object src/ramulator/controller/CMakeFiles/ramulator-controller.dir/impl/hbm34_controller.cpp.o
+[ 96%] Building CXX object src/ramulator/controller/CMakeFiles/ramulator-controller.dir/impl/gddr7_controller.cpp.o
+[ 96%] Building CXX object src/ramulator/controller/CMakeFiles/ramulator-controller.dir/impl/prac_controller.cpp.o
+[ 97%] Building CXX object src/ramulator/controller/CMakeFiles/ramulator-controller.dir/impl/blockhammer_controller.cpp.o
+[ 97%] Built target ramulator-controller
+[ 98%] Linking CXX shared library /home/adityaseshasai.s/amcas-pro/tracing/ramulator2-grid/libramulator.so
+[ 98%] Built target ramulator
+[ 99%] Building CXX object CMakeFiles/_ramulator.dir/src/ramulator/python/bindings.cpp.o
+[ 99%] Building CXX object CMakeFiles/_ramulator_test.dir/tests/utils/test_harness.cpp.o
+[100%] Linking CXX shared module /home/adityaseshasai.s/amcas-pro/tracing/ramulator2-grid/python/ramulator/_ramulator.cpython-312-x86_64-linux-gnu.so
+[100%] Built target _ramulator
+[100%] Linking CXX shared module /home/adityaseshasai.s/amcas-pro/tracing/ramulator2-grid/python/ramulator/_ramulator_test.cpython-312-x86_64-linux-gnu.so
+[100%] Built target _ramulator_test
+  unchanged python/ramulator/__init__.py
+  unchanged python/ramulator/addr_mapper/__init__.py
+  unchanged python/ramulator/addr_mapper/ch_ra_ba_ro_co.py
+  unchanged python/ramulator/addr_mapper/mop4_clxor.py
+  unchanged python/ramulator/addr_mapper/pass_through_addr_mapper.py
+  unchanged python/ramulator/addr_mapper/rit_addr_mapper.py
+  unchanged python/ramulator/addr_mapper/ro_ba_ra_co_ch.py
+  unchanged python/ramulator/channel_mapper/__init__.py
+  unchanged python/ramulator/channel_mapper/cache_line_interleave.py
+  unchanged python/ramulator/channel_mapper/gem5_port_interleave.py
+  unchanged python/ramulator/channel_mapper/pass_through_channel_mapper.py
+  unchanged python/ramulator/controller/__init__.py
+  unchanged python/ramulator/controller/block_hammer.py
+  unchanged python/ramulator/controller/gddr7.py
+  unchanged python/ramulator/controller/generic_ddr.py
+  unchanged python/ramulator/controller/hbm12.py
+  unchanged python/ramulator/controller/hbm34.py
+  unchanged python/ramulator/controller/lpddr5.py
+  unchanged python/ramulator/controller/lpddr6.py
+  unchanged python/ramulator/controller/prac.py
+  unchanged python/ramulator/controller/pum.py
+  unchanged python/ramulator/controller_plugin/__init__.py
+  unchanged python/ramulator/controller_plugin/aqua.py
+  unchanged python/ramulator/controller_plugin/ayna.py
+  unchanged python/ramulator/controller_plugin/bin_trace_recorder.py
+  unchanged python/ramulator/controller_plugin/cmd_trace_recorder.py
+  unchanged python/ramulator/controller_plugin/command_counter.py
+  unchanged python/ramulator/controller_plugin/graphene.py
+  unchanged python/ramulator/controller_plugin/hydra.py
+  unchanged python/ramulator/controller_plugin/hynix_trr.py
+  unchanged python/ramulator/controller_plugin/ideal_trr.py
+  unchanged python/ramulator/controller_plugin/issued_command_validation_hook.py
+  unchanged python/ramulator/controller_plugin/live_trace_streamer.py
+  unchanged python/ramulator/controller_plugin/oracle_rh.py
+  unchanged python/ramulator/controller_plugin/para.py
+  unchanged python/ramulator/controller_plugin/rfm_manager.py
+  unchanged python/ramulator/controller_plugin/rrs.py
+  unchanged python/ramulator/controller_plugin/samsung_trr.py
+  unchanged python/ramulator/controller_plugin/t_wi_ce_ideal.py
+  unchanged python/ramulator/dram/__init__.py
+  unchanged python/ramulator/frontend/__init__.py
+  unchanged python/ramulator/frontend/bho3.py
+  unchanged python/ramulator/frontend/external.py
+  unchanged python/ramulator/frontend/latency_throughput_trace.py
+  unchanged python/ramulator/frontend/load_store_trace.py
+  unchanged python/ramulator/frontend/pum_trace.py
+  unchanged python/ramulator/frontend/read_write_trace.py
+  unchanged python/ramulator/frontend/simple_o3.py
+  unchanged python/ramulator/memory_system/__init__.py
+  unchanged python/ramulator/memory_system/generic_dram.py
+  unchanged python/ramulator/refresh_manager/__init__.py
+  unchanged python/ramulator/refresh_manager/all_bank.py
+  unchanged python/ramulator/refresh_manager/hbm34_per_bank_refresh.py
+  unchanged python/ramulator/refresh_manager/hbm_per_bank_refresh.py
+  unchanged python/ramulator/refresh_manager/no_refresh.py
+  unchanged python/ramulator/refresh_manager/per_bank.py
+  unchanged python/ramulator/row_policy/__init__.py
+  unchanged python/ramulator/row_policy/adaptive.py
+  unchanged python/ramulator/row_policy/closed_cap.py
+  unchanged python/ramulator/row_policy/happy.py
+  unchanged python/ramulator/row_policy/open.py
+  unchanged python/ramulator/row_policy/oracle.py
+  unchanged python/ramulator/row_policy/region.py
+  unchanged python/ramulator/row_policy/timeout.py
+  unchanged python/ramulator/scheduler/__init__.py
+  unchanged python/ramulator/scheduler/frfcfs.py
+  unchanged python/ramulator/scheduler/frfcfs_row_hit.py
+  unchanged python/ramulator/translation/__init__.py
+  unchanged python/ramulator/translation/no_translation.py
+  wrote src/ramulator/dram/impl/DDR3.cpp
+  wrote src/ramulator/dram/impl/DDR4.cpp
+  wrote src/ramulator/dram/impl/DDR4_PUM.cpp
+  wrote src/ramulator/dram/impl/DDR4_VRR.cpp
+  wrote src/ramulator/dram/impl/DDR5.cpp
+  wrote src/ramulator/dram/impl/DDR5_VRR.cpp
+  wrote src/ramulator/dram/impl/GDDR6.cpp
+  wrote src/ramulator/dram/impl/GDDR7.cpp
+  wrote src/ramulator/dram/impl/HBM1.cpp
+  wrote src/ramulator/dram/impl/HBM2.cpp
+  wrote src/ramulator/dram/impl/HBM3.cpp
+  wrote src/ramulator/dram/impl/HBM4.cpp
+  wrote src/ramulator/dram/impl/LPDDR5.cpp
+  wrote src/ramulator/dram/impl/LPDDR6.cpp
+
+Generated 14 DRAM standard(s): DDR3, DDR4, DDR4_PUM, DDR4_VRR, DDR5, DDR5_VRR, GDDR6, GDDR7, HBM1, HBM2, HBM3, HBM4, LPDDR5, LPDDR6
+Generated 57 Python component wrapper(s)
+adaptive.py
+closed_cap.py
+happy.py
+__init__.py
+open.py
+oracle.py
+__pycache__
+region.py
+timeout.py
+-rwxrwxr-x 1 adityaseshasai.s adityaseshasai.s 3268368 Nov 14 16:07 libramulator.so

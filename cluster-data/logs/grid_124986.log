@@ -1,0 +1,23 @@
+==========================================
+SLURM_JOB_ID = 124986
+SLURM_NODELIST = node03
+SLURM_JOB_GPUS = 
+==========================================
+=== q05_32k (/home/adityaseshasai.s/amcas-pro/results/fullscale/drattr/qwen25-05b-q4_0_s1n1t4_attr_c32k) Sat Nov 14 16:38:50 IST 2026
+/dev/sdc1       1.8T  1.1T  728G  61% /scratch
+11,649,327 reads, window [3,494,798,7,494,798), moe=False, window class shares W/K/O [0.4116, 0.5824, 0.006]
+  [thp/d4r6 xor_global] n=4,000,000 cost 1918265 -> 752166; bank bit ^= {0: ['row10'], 1: ['row13'], 2: ['row13'], 3: ['row9'], 4: ['row7']}
+  [thp/d4r6 region K] n=800,000 cost 3916037 -> 746487; bank bit ^= {0: ['row2', 'row11', 'row13'], 1: ['row6', 'row8'], 2: ['row10'], 3: ['row10'], 4: ['row12']}
+  [thp/d4r6 region O] n=124,813 cost 130530 -> 122393; bank bit ^= {0: ['row1', 'row10'], 1: ['row13', 'row14'], 2: ['row6'], 3: [], 4: []}
+  [thp/d4r6 chan] channel hash cost 1918396 -> 890445; chan bit ^= {0: ['row10'], 1: ['row10'], 2: ['row3']}
+  [thp/d4r6 bank+chan] channel hash cost 752297 -> 752297; chan bit ^= {0: [], 1: [], 2: []}
+  [thp/x16 xor_global] n=4,000,000 cost 3119319 -> 437711; bank bit ^= {0: ['row1'], 1: ['row7'], 2: ['row9'], 3: ['row10'], 4: ['row5', 'row7']}
+  [thp/x16 region K] n=800,000 cost 8977080 -> 432053; bank bit ^= {0: ['row2', 'row4'], 1: ['row4', 'row6', 'row5'], 2: ['row0', 'row9'], 3: ['row5', 'row11'], 4: ['row7']}
+  [thp/x16 region O] n=124,813 cost 78256 -> 70443; bank bit ^= {0: ['row10', 'row3', 'row1'], 1: ['row7', 'row1'], 2: [], 3: ['row7'], 4: ['row5']}
+  [thp/x16 chan] channel hash cost 3119543 -> 819464; chan bit ^= {0: ['row1', 'row9', 'row2'], 1: ['row5', 'row3', 'row13'], 2: ['row1', 'row13'], 3: ['row9']}
+  [thp/x16 bank+chan] channel hash cost 437935 -> 437935; chan bit ^= {0: [], 1: [], 2: [], 3: []}
+  [thp/d4r6 MOP4CLXOR xor_global] n=4,000,000 cost 2215672 -> 1461962; bank bit ^= {0: ['row10', 'row1'], 1: [], 2: ['row10', 'row6'], 3: ['row3'], 4: ['row1']}
+  done thp/d4r6: identity:0.817/0.817 xor_global:0.969/0.969 region:0.970/0.970 chan:0.860/0.860 xor_global_chan:0.969/0.969 mop:0.465/0.465 mopxor:0.569/0.569 bitrev:0.897/0.897 chra:0.833/0.833 naive:0.944/0.944
+  [thp/x16 MOP4CLXOR xor_global] n=4,000,000 cost 2705788 -> 1103354; bank bit ^= {0: ['row1', 'row10', 'row3'], 1: ['row7'], 2: ['row7', 'row3'], 3: ['row4'], 4: ['row3', 'row6']}
+  done thp/x16: identity:0.552/0.552 xor_global:0.952/0.952 region:0.958/0.958 chan:0.678/0.678 xor_global_chan:0.952/0.952 mop:0.302/0.302 mopxor:0.579/0.579 bitrev:0.915/0.915 chra:0.844/0.844 naive:0.947/0.947
+replay rc=0 for q05_32k Sat Nov 14 16:47:05 IST 2026

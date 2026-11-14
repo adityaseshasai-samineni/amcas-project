@@ -1,0 +1,82 @@
+==========================================
+SLURM_JOB_ID = 124956
+SLURM_NODELIST = node04
+SLURM_JOB_GPUS = 0
+==========================================
+wall 1.508903844
+q05_v100_short_faauto window 1111 1573
+q05_v100_short_faauto run1 0.00.872.526 I common_perf_print: prompt eval time =      26.16 ms /     5 tokens (    5.23 ms per token,   191.14 tokens per second)
+q05_v100_short_faauto run1 0.00.872.529 I common_perf_print:        eval time =     148.34 ms /    63 runs   (    2.35 ms per token,   424.71 tokens per second)
+q05_v100_short_faauto run2 0.00.852.333 I common_perf_print: prompt eval time =      26.58 ms /     5 tokens (    5.32 ms per token,   188.13 tokens per second)
+q05_v100_short_faauto run2 0.00.852.336 I common_perf_print:        eval time =     139.84 ms /    63 runs   (    2.22 ms per token,   450.50 tokens per second)
+3235
+{
+ "tag": "q05_v100_short_faauto",
+ "kernels": 462,
+ "dram_read_GB": 0.35387296,
+ "dram_write_GB": 0.095151552,
+ "kernel_time_ms": 3038688000.0,
+ "bw_GBps_kernel_time": 1.4776920565717835e-07,
+ "dram_pct_time_weighted": 19.71899977885192,
+ "sm_pct_time_weighted": 9.869005254899482,
+ "l2hit_pct_time_weighted": 48.32739729778117,
+ "classes": {
+  "norm": {
+   "n": 49,
+   "rd_GB": 0.000435072,
+   "wr_GB": 0.000471168,
+   "time_ms": 203840000.0,
+   "time_share": 0.06708158257774408,
+   "bw_GBps": 4.4458398744113026e-09,
+   "dram_pct": 0.6525525902668758,
+   "sm_pct": 0.0997708006279435,
+   "l2hit_pct": 70.59399372056517
+  },
+  "quantize_q8": {
+   "n": 145,
+   "rd_GB": 0.00124912,
+   "wr_GB": 0.001557536,
+   "time_ms": 466912000.0,
+   "time_share": 0.15365578828757676,
+   "bw_GBps": 6.0111027345624015e-09,
+   "dram_pct": 0.8642587896648616,
+   "sm_pct": 0.5639222808580628,
+   "l2hit_pct": 99.02091905969435
+  },
+  "mul_mat_vec": {
+   "n": 145,
+   "rd_GB": 0.347775424,
+   "wr_GB": 0.090470304,
+   "time_ms": 1761408000.0,
+   "time_share": 0.579660695668657,
+   "bw_GBps": 2.4880421117651333e-07,
+   "dram_pct": 32.917684034590515,
+   "sm_pct": 16.055467262553588,
+   "l2hit_pct": 21.647485284499673
+  },
+  "other": {
+   "n": 75,
+   "rd_GB": 0.000325024,
+   "wr_GB": 0.000450304,
+   "time_ms": 258784000.0,
+   "time_share": 0.08516307037774197,
+   "bw_GBps": 2.9960430320267095e-09,
+   "dram_pct": 0.4349894893038209,
+   "sm_pct": 0.14109805861258812,
+   "l2hit_pct": 75.91601088166192
+  },
+  "flash_attn": {
+   "n": 48,
+   "rd_GB": 0.00408832,
+   "wr_GB": 0.00220224,
+   "time_ms": 347744000.0,
+   "time_share": 0.1144388630882802,
+   "bw_GBps": 1.8089629152479985e-08,
+   "dram_pct": 3.707608355571915,
+   "sm_pct": 3.9927247630440785,
+   "l2hit_pct": 81.81893714916721
+  }
+ },
+ "token_ms_unprofiled": 2.2196825396825397,
+ "tok_per_s_unprofiled": 450.5
+}

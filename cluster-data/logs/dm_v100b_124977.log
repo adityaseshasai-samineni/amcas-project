@@ -1,0 +1,17 @@
+==========================================
+SLURM_JOB_ID = 124977
+SLURM_NODELIST = node04
+SLURM_JOB_GPUS = 0
+==========================================
+q7_v100_8k_faauto window 14456 14994
+q7_v100_8k_faauto run1 0.05.084.102 I common_perf_print: prompt eval time =    2601.83 ms /  6980 tokens (    0.37 ms per token,  2682.72 tokens per second)
+q7_v100_8k_faauto run1 0.05.084.105 I common_perf_print:        eval time =     588.89 ms /    63 runs   (    9.35 ms per token,   106.98 tokens per second)
+q7_v100_8k_faauto run2 0.05.057.135 I common_perf_print: prompt eval time =    2586.87 ms /  6980 tokens (    0.37 ms per token,  2698.24 tokens per second)
+q7_v100_8k_faauto run2 0.05.057.149 I common_perf_print:        eval time =     588.89 ms /    63 runs   (    9.35 ms per token,   106.98 tokens per second)
+3767
+q7_v100_8k_faoff window 16836 17402
+q7_v100_8k_faoff run1 0.05.750.086 I common_perf_print: prompt eval time =    3195.18 ms /  6980 tokens (    0.46 ms per token,  2184.54 tokens per second)
+q7_v100_8k_faoff run1 0.05.750.088 I common_perf_print:        eval time =     653.26 ms /    63 runs   (   10.37 ms per token,    96.44 tokens per second)
+q7_v100_8k_faoff run2 0.05.736.834 I common_perf_print: prompt eval time =    3197.93 ms /  6980 tokens (    0.46 ms per token,  2182.66 tokens per second)
+q7_v100_8k_faoff run2 0.05.736.836 I common_perf_print:        eval time =     653.76 ms /    63 runs   (   10.38 ms per token,    96.37 tokens per second)
+3963

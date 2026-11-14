@@ -1,0 +1,35 @@
+==========================================
+SLURM_JOB_ID = 124957
+SLURM_NODELIST = node04
+SLURM_JOB_GPUS = 0
+==========================================
+q05_v100_short_faauto window 1111 1573
+q05_v100_short_faauto run1 0.00.822.952 I common_perf_print: prompt eval time =      26.96 ms /     5 tokens (    5.39 ms per token,   185.49 tokens per second)
+q05_v100_short_faauto run1 0.00.822.956 I common_perf_print:        eval time =     146.02 ms /    63 runs   (    2.32 ms per token,   431.46 tokens per second)
+q05_v100_short_faauto run2 0.00.824.377 I common_perf_print: prompt eval time =      26.49 ms /     5 tokens (    5.30 ms per token,   188.74 tokens per second)
+q05_v100_short_faauto run2 0.00.824.379 I common_perf_print:        eval time =     139.78 ms /    63 runs   (    2.22 ms per token,   450.71 tokens per second)
+3235
+q7_v100_short_faauto window 1295 1833
+q7_v100_short_faauto run1 0.02.752.482 I common_perf_print: prompt eval time =      36.61 ms /     5 tokens (    7.32 ms per token,   136.57 tokens per second)
+q7_v100_short_faauto run1 0.02.752.484 I common_perf_print:        eval time =     496.53 ms /    63 runs   (    7.88 ms per token,   126.88 tokens per second)
+q7_v100_short_faauto run2 0.02.413.817 I common_perf_print: prompt eval time =      35.89 ms /     5 tokens (    7.18 ms per token,   139.31 tokens per second)
+q7_v100_short_faauto run2 0.02.413.819 I common_perf_print:        eval time =     491.74 ms /    63 runs   (    7.81 ms per token,   128.12 tokens per second)
+3767
+wall 2.640853922
+q7_v100_short_faoff window 1379 1945
+q7_v100_short_faoff run1 0.02.484.496 I common_perf_print: prompt eval time =      38.05 ms /     5 tokens (    7.61 ms per token,   131.42 tokens per second)
+q7_v100_short_faoff run1 0.02.484.499 I common_perf_print:        eval time =     534.12 ms /    63 runs   (    8.48 ms per token,   117.95 tokens per second)
+q7_v100_short_faoff run2 0.02.485.558 I common_perf_print: prompt eval time =      38.54 ms /     5 tokens (    7.71 ms per token,   129.74 tokens per second)
+q7_v100_short_faoff run2 0.02.485.560 I common_perf_print:        eval time =     533.60 ms /    63 runs   (    8.47 ms per token,   118.07 tokens per second)
+3963
+q7_v100_8k_faauto window 14456 14994
+0
+q7_v100_8k_faoff window 16836 17402
+0
+q7_v100_32k_faauto window 61325 61863
+0
+q7_v100_32k_faoff window 71629 72195
+0
+wall 291.881378108
+q05_v100_8k_faauto window 12468 12930
+0

@@ -1,0 +1,78 @@
+==========================================
+SLURM_JOB_ID = 124966
+SLURM_NODELIST = node05
+SLURM_JOB_GPUS = 1
+==========================================
+######## a16 short fa=auto Sat Nov 14 16:05:21 IST 2026
+ 218G
+wall 2.827978022
+q7_a16_short_faauto_x13 window 1295 1833
+warp instrs 159819348; mean same-CTA run length 1.01
+x13            L1 ld sectors 1073136064; L2 reads 138610993; DRAM reads 137245495 (4391.9 MB) writes 219286 (7.0 MB)
+2.34.418.522 I common_perf_print: prompt eval time =      80.06 ms /     5 tokens (   16.01 ms per token,    62.45 tokens per second)
+2.34.418.525 I common_perf_print:        eval time =  152006.85 ms /     2 runs   (76003.42 ms per token,     0.01 tokens per second)
+wall 154.671332274
+-rw-rw-r--. 1 adityaseshasai.s adityaseshasai.s 9205 Nov 14 16:07 /tmp/adityaseshasai.s/gt/q7_a16_short_faauto_x13.perk.tsv
+-rw-rw-r--. 1 adityaseshasai.s adityaseshasai.s 236687495 Nov 14 16:07 /tmp/adityaseshasai.s/gt/q7_a16_short_faauto_x13.dram.gz
+######## a16 short fa=off Sat Nov 14 16:07:59 IST 2026
+ 218G
+wall 2.751190775
+q7_a16_short_faoff_x13 window 1379 1945
+warp instrs 161664660; mean same-CTA run length 1.01
+x13            L1 ld sectors 1081845632; L2 reads 141179551; DRAM reads 137189896 (4390.1 MB) writes 246450 (7.9 MB)
+2.31.317.947 I common_perf_print: prompt eval time =      81.49 ms /     5 tokens (   16.30 ms per token,    61.36 tokens per second)
+2.31.317.950 I common_perf_print:        eval time =  148887.51 ms /     2 runs   (74443.76 ms per token,     0.01 tokens per second)
+wall 151.572037779
+-rw-rw-r--. 1 adityaseshasai.s adityaseshasai.s 9920 Nov 14 16:10 /tmp/adityaseshasai.s/gt/q7_a16_short_faoff_x13.perk.tsv
+-rw-rw-r--. 1 adityaseshasai.s adityaseshasai.s 237286097 Nov 14 16:10 /tmp/adityaseshasai.s/gt/q7_a16_short_faoff_x13.dram.gz
+######## a16 8k fa=auto Sat Nov 14 16:10:34 IST 2026
+ 218G
+wall 12.246268270
+q7_a16_8k_faauto_x13 window 10284 10822
+warp instrs 161389476; mean same-CTA run length 1.01
+x13            L1 ld sectors 1098033664; L2 reads 154175471; DRAM reads 149667135 (4789.3 MB) writes 245122 (7.8 MB)
+2.40.830.756 I common_perf_print: prompt eval time =    9532.52 ms /  6980 tokens (    1.37 ms per token,   732.23 tokens per second)
+2.40.830.759 I common_perf_print:        eval time =  148949.69 ms /     2 runs   (74474.85 ms per token,     0.01 tokens per second)
+wall 161.083543934
+-rw-rw-r--. 1 adityaseshasai.s adityaseshasai.s 9945 Nov 14 16:13 /tmp/adityaseshasai.s/gt/q7_a16_8k_faauto_x13.perk.tsv
+-rw-rw-r--. 1 adityaseshasai.s adityaseshasai.s 256231666 Nov 14 16:13 /tmp/adityaseshasai.s/gt/q7_a16_8k_faauto_x13.dram.gz
+######## a16 8k fa=off Sat Nov 14 16:13:27 IST 2026
+ 218G
+wall 100.612883855
+q7_a16_8k_faoff_x13 window 13448 14014
+warp instrs 194611476; mean same-CTA run length 1.01
+x13            L1 ld sectors 1256207232; L2 reads 235875445; DRAM reads 164759383 (5272.3 MB) writes 1564390 (50.1 MB)
+4.39.767.470 I common_perf_print: prompt eval time =   98422.70 ms /  6980 tokens (   14.10 ms per token,    70.92 tokens per second)
+4.39.767.473 I common_perf_print:        eval time =  178806.25 ms /     2 runs   (89403.12 ms per token,     0.01 tokens per second)
+wall 280.291061049
+-rw-rw-r--. 1 adityaseshasai.s adityaseshasai.s 11040 Nov 14 16:19 /tmp/adityaseshasai.s/gt/q7_a16_8k_faoff_x13.perk.tsv
+-rw-rw-r--. 1 adityaseshasai.s adityaseshasai.s 289129759 Nov 14 16:19 /tmp/adityaseshasai.s/gt/q7_a16_8k_faoff_x13.dram.gz
+######## a16 32k fa=auto Sat Nov 14 16:19:49 IST 2026
+ 217G
+wall 59.264850090
+q7_a16_32k_faauto_x13 window 42987 43525
+warp instrs 166821924; mean same-CTA run length 1.02
+x13            L1 ld sectors 1184615936; L2 reads 208301617; DRAM reads 192881465 (6172.2 MB) writes 245302 (7.8 MB)
+3.36.690.934 I common_perf_print: prompt eval time =   56228.03 ms / 31001 tokens (    1.81 ms per token,   551.34 tokens per second)
+3.36.690.936 I common_perf_print:        eval time =  157743.77 ms /     2 runs   (78871.89 ms per token,     0.01 tokens per second)
+wall 217.019629669
+-rw-rw-r--. 1 adityaseshasai.s adityaseshasai.s 10001 Nov 14 16:24 /tmp/adityaseshasai.s/gt/q7_a16_32k_faauto_x13.perk.tsv
+-rw-rw-r--. 1 adityaseshasai.s adityaseshasai.s 320031745 Nov 14 16:24 /tmp/adityaseshasai.s/gt/q7_a16_32k_faauto_x13.dram.gz
+######## a16 32k fa=off Sat Nov 14 16:24:26 IST 2026
+ 217G
+wall 314.724150298
+q7_a16_32k_faoff_x13 window 56679 57245
+warp instrs 314406676; mean same-CTA run length 1.01
+x13            L1 ld sectors 1880195968; L2 reads 791411897; DRAM reads 535292279 (17129.4 MB) writes 6347425 (203.1 MB)
+10.31.679.730 I common_perf_print: prompt eval time =  315022.26 ms / 31001 tokens (   10.16 ms per token,    98.41 tokens per second)
+10.31.679.732 I common_perf_print:        eval time =  313968.28 ms /     2 runs   (156984.14 ms per token,     0.01 tokens per second)
+wall 632.219205125
+-rw-rw-r--. 1 adityaseshasai.s adityaseshasai.s 11246 Nov 14 16:40 /tmp/adityaseshasai.s/gt/q7_a16_32k_faoff_x13.perk.tsv
+-rw-rw-r--. 1 adityaseshasai.s adityaseshasai.s 976126538 Nov 14 16:40 /tmp/adityaseshasai.s/gt/q7_a16_32k_faoff_x13.dram.gz
+######## done Sat Nov 14 16:40:13 IST 2026
+-rw-rw-r--. 1 adityaseshasai.s adityaseshasai.s 320031745 Nov 14 16:24 /tmp/adityaseshasai.s/gt/q7_a16_32k_faauto_x13.dram.gz
+-rw-rw-r--. 1 adityaseshasai.s adityaseshasai.s 976126538 Nov 14 16:40 /tmp/adityaseshasai.s/gt/q7_a16_32k_faoff_x13.dram.gz
+-rw-rw-r--. 1 adityaseshasai.s adityaseshasai.s 256231666 Nov 14 16:13 /tmp/adityaseshasai.s/gt/q7_a16_8k_faauto_x13.dram.gz
+-rw-rw-r--. 1 adityaseshasai.s adityaseshasai.s 289129759 Nov 14 16:19 /tmp/adityaseshasai.s/gt/q7_a16_8k_faoff_x13.dram.gz
+-rw-rw-r--. 1 adityaseshasai.s adityaseshasai.s 236687495 Nov 14 16:07 /tmp/adityaseshasai.s/gt/q7_a16_short_faauto_x13.dram.gz
+-rw-rw-r--. 1 adityaseshasai.s adityaseshasai.s 237286097 Nov 14 16:10 /tmp/adityaseshasai.s/gt/q7_a16_short_faoff_x13.dram.gz

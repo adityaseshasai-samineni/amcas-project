@@ -1,0 +1,174 @@
+==========================================
+SLURM_JOB_ID = 124987
+SLURM_NODELIST = node05
+SLURM_JOB_GPUS = 
+==========================================
+### q7_a16_short_faauto ib2 Sat Nov 14 16:41:20 IST 2026
+gzip: /tmp/$USER/gt/q7_a16_short_faauto_x13.dram.gz: No such file or directory
+Traceback (most recent call last):
+  File "/home/adityaseshasai.s/amcas-pro/gpu/gpu_ds3_study.py", line 181, in <module>
+    main()
+  File "/home/adityaseshasai.s/amcas-pro/gpu/gpu_ds3_study.py", line 103, in main
+    arr = gpu_io.load(a.prefix, "dram", np.uint64)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/adityaseshasai.s/amcas-pro/gpu/gpu_io.py", line 8, in load
+    out = subprocess.run(["gzip", "-dc", p + ".gz"], stdout=subprocess.PIPE, check=True).stdout
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['gzip', '-dc', '/tmp/$USER/gt/q7_a16_short_faauto_x13.dram.gz']' returned non-zero exit status 1.
+### q7_a16_short_faauto ib5 Sat Nov 14 16:41:20 IST 2026
+gzip: /tmp/$USER/gt/q7_a16_short_faauto_x13.dram.gz: No such file or directory
+Traceback (most recent call last):
+  File "/home/adityaseshasai.s/amcas-pro/gpu/gpu_ds3_study.py", line 181, in <module>
+    main()
+  File "/home/adityaseshasai.s/amcas-pro/gpu/gpu_ds3_study.py", line 103, in main
+    arr = gpu_io.load(a.prefix, "dram", np.uint64)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/adityaseshasai.s/amcas-pro/gpu/gpu_io.py", line 8, in load
+    out = subprocess.run(["gzip", "-dc", p + ".gz"], stdout=subprocess.PIPE, check=True).stdout
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['gzip', '-dc', '/tmp/$USER/gt/q7_a16_short_faauto_x13.dram.gz']' returned non-zero exit status 1.
+### q7_a16_short_faoff ib2 Sat Nov 14 16:41:20 IST 2026
+gzip: /tmp/$USER/gt/q7_a16_short_faoff_x13.dram.gz: No such file or directory
+Traceback (most recent call last):
+  File "/home/adityaseshasai.s/amcas-pro/gpu/gpu_ds3_study.py", line 181, in <module>
+    main()
+  File "/home/adityaseshasai.s/amcas-pro/gpu/gpu_ds3_study.py", line 103, in main
+    arr = gpu_io.load(a.prefix, "dram", np.uint64)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/adityaseshasai.s/amcas-pro/gpu/gpu_io.py", line 8, in load
+    out = subprocess.run(["gzip", "-dc", p + ".gz"], stdout=subprocess.PIPE, check=True).stdout
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['gzip', '-dc', '/tmp/$USER/gt/q7_a16_short_faoff_x13.dram.gz']' returned non-zero exit status 1.
+### q7_a16_short_faoff ib5 Sat Nov 14 16:41:21 IST 2026
+gzip: /tmp/$USER/gt/q7_a16_short_faoff_x13.dram.gz: No such file or directory
+Traceback (most recent call last):
+  File "/home/adityaseshasai.s/amcas-pro/gpu/gpu_ds3_study.py", line 181, in <module>
+    main()
+  File "/home/adityaseshasai.s/amcas-pro/gpu/gpu_ds3_study.py", line 103, in main
+    arr = gpu_io.load(a.prefix, "dram", np.uint64)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/adityaseshasai.s/amcas-pro/gpu/gpu_io.py", line 8, in load
+    out = subprocess.run(["gzip", "-dc", p + ".gz"], stdout=subprocess.PIPE, check=True).stdout
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['gzip', '-dc', '/tmp/$USER/gt/q7_a16_short_faoff_x13.dram.gz']' returned non-zero exit status 1.
+### q7_a16_8k_faauto ib2 Sat Nov 14 16:41:21 IST 2026
+gzip: /tmp/$USER/gt/q7_a16_8k_faauto_x13.dram.gz: No such file or directory
+Traceback (most recent call last):
+  File "/home/adityaseshasai.s/amcas-pro/gpu/gpu_ds3_study.py", line 181, in <module>
+    main()
+  File "/home/adityaseshasai.s/amcas-pro/gpu/gpu_ds3_study.py", line 103, in main
+    arr = gpu_io.load(a.prefix, "dram", np.uint64)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/adityaseshasai.s/amcas-pro/gpu/gpu_io.py", line 8, in load
+    out = subprocess.run(["gzip", "-dc", p + ".gz"], stdout=subprocess.PIPE, check=True).stdout
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['gzip', '-dc', '/tmp/$USER/gt/q7_a16_8k_faauto_x13.dram.gz']' returned non-zero exit status 1.
+### q7_a16_8k_faauto ib5 Sat Nov 14 16:41:21 IST 2026
+gzip: /tmp/$USER/gt/q7_a16_8k_faauto_x13.dram.gz: No such file or directory
+Traceback (most recent call last):
+  File "/home/adityaseshasai.s/amcas-pro/gpu/gpu_ds3_study.py", line 181, in <module>
+    main()
+  File "/home/adityaseshasai.s/amcas-pro/gpu/gpu_ds3_study.py", line 103, in main
+    arr = gpu_io.load(a.prefix, "dram", np.uint64)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/adityaseshasai.s/amcas-pro/gpu/gpu_io.py", line 8, in load
+    out = subprocess.run(["gzip", "-dc", p + ".gz"], stdout=subprocess.PIPE, check=True).stdout
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['gzip', '-dc', '/tmp/$USER/gt/q7_a16_8k_faauto_x13.dram.gz']' returned non-zero exit status 1.
+### q7_a16_8k_faoff ib2 Sat Nov 14 16:41:21 IST 2026
+gzip: /tmp/$USER/gt/q7_a16_8k_faoff_x13.dram.gz: No such file or directory
+Traceback (most recent call last):
+  File "/home/adityaseshasai.s/amcas-pro/gpu/gpu_ds3_study.py", line 181, in <module>
+    main()
+  File "/home/adityaseshasai.s/amcas-pro/gpu/gpu_ds3_study.py", line 103, in main
+    arr = gpu_io.load(a.prefix, "dram", np.uint64)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/adityaseshasai.s/amcas-pro/gpu/gpu_io.py", line 8, in load
+    out = subprocess.run(["gzip", "-dc", p + ".gz"], stdout=subprocess.PIPE, check=True).stdout
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['gzip', '-dc', '/tmp/$USER/gt/q7_a16_8k_faoff_x13.dram.gz']' returned non-zero exit status 1.
+### q7_a16_8k_faoff ib5 Sat Nov 14 16:41:21 IST 2026
+gzip: /tmp/$USER/gt/q7_a16_8k_faoff_x13.dram.gz: No such file or directory
+Traceback (most recent call last):
+  File "/home/adityaseshasai.s/amcas-pro/gpu/gpu_ds3_study.py", line 181, in <module>
+    main()
+  File "/home/adityaseshasai.s/amcas-pro/gpu/gpu_ds3_study.py", line 103, in main
+    arr = gpu_io.load(a.prefix, "dram", np.uint64)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/adityaseshasai.s/amcas-pro/gpu/gpu_io.py", line 8, in load
+    out = subprocess.run(["gzip", "-dc", p + ".gz"], stdout=subprocess.PIPE, check=True).stdout
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['gzip', '-dc', '/tmp/$USER/gt/q7_a16_8k_faoff_x13.dram.gz']' returned non-zero exit status 1.
+### q7_a16_32k_faauto ib2 Sat Nov 14 16:41:21 IST 2026
+gzip: /tmp/$USER/gt/q7_a16_32k_faauto_x13.dram.gz: No such file or directory
+Traceback (most recent call last):
+  File "/home/adityaseshasai.s/amcas-pro/gpu/gpu_ds3_study.py", line 181, in <module>
+    main()
+  File "/home/adityaseshasai.s/amcas-pro/gpu/gpu_ds3_study.py", line 103, in main
+    arr = gpu_io.load(a.prefix, "dram", np.uint64)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/adityaseshasai.s/amcas-pro/gpu/gpu_io.py", line 8, in load
+    out = subprocess.run(["gzip", "-dc", p + ".gz"], stdout=subprocess.PIPE, check=True).stdout
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['gzip', '-dc', '/tmp/$USER/gt/q7_a16_32k_faauto_x13.dram.gz']' returned non-zero exit status 1.
+### q7_a16_32k_faauto ib5 Sat Nov 14 16:41:21 IST 2026
+gzip: /tmp/$USER/gt/q7_a16_32k_faauto_x13.dram.gz: No such file or directory
+Traceback (most recent call last):
+  File "/home/adityaseshasai.s/amcas-pro/gpu/gpu_ds3_study.py", line 181, in <module>
+    main()
+  File "/home/adityaseshasai.s/amcas-pro/gpu/gpu_ds3_study.py", line 103, in main
+    arr = gpu_io.load(a.prefix, "dram", np.uint64)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/adityaseshasai.s/amcas-pro/gpu/gpu_io.py", line 8, in load
+    out = subprocess.run(["gzip", "-dc", p + ".gz"], stdout=subprocess.PIPE, check=True).stdout
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['gzip', '-dc', '/tmp/$USER/gt/q7_a16_32k_faauto_x13.dram.gz']' returned non-zero exit status 1.
+### q7_a16_32k_faoff ib2 Sat Nov 14 16:41:21 IST 2026
+gzip: /tmp/$USER/gt/q7_a16_32k_faoff_x13.dram.gz: No such file or directory
+Traceback (most recent call last):
+  File "/home/adityaseshasai.s/amcas-pro/gpu/gpu_ds3_study.py", line 181, in <module>
+    main()
+  File "/home/adityaseshasai.s/amcas-pro/gpu/gpu_ds3_study.py", line 103, in main
+    arr = gpu_io.load(a.prefix, "dram", np.uint64)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/adityaseshasai.s/amcas-pro/gpu/gpu_io.py", line 8, in load
+    out = subprocess.run(["gzip", "-dc", p + ".gz"], stdout=subprocess.PIPE, check=True).stdout
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['gzip', '-dc', '/tmp/$USER/gt/q7_a16_32k_faoff_x13.dram.gz']' returned non-zero exit status 1.
+### q7_a16_32k_faoff ib5 Sat Nov 14 16:41:21 IST 2026
+gzip: /tmp/$USER/gt/q7_a16_32k_faoff_x13.dram.gz: No such file or directory
+Traceback (most recent call last):
+  File "/home/adityaseshasai.s/amcas-pro/gpu/gpu_ds3_study.py", line 181, in <module>
+    main()
+  File "/home/adityaseshasai.s/amcas-pro/gpu/gpu_ds3_study.py", line 103, in main
+    arr = gpu_io.load(a.prefix, "dram", np.uint64)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/adityaseshasai.s/amcas-pro/gpu/gpu_io.py", line 8, in load
+    out = subprocess.run(["gzip", "-dc", p + ".gz"], stdout=subprocess.PIPE, check=True).stdout
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['gzip', '-dc', '/tmp/$USER/gt/q7_a16_32k_faoff_x13.dram.gz']' returned non-zero exit status 1.
+### replays done Sat Nov 14 16:41:22 IST 2026

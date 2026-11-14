@@ -1,0 +1,32 @@
+==========================================
+SLURM_JOB_ID = 124965
+SLURM_NODELIST = node04
+SLURM_JOB_GPUS = 0
+==========================================
+ 474G
+wall 2.648728782
+q7_v100_short_faoff_x13 window 1379 1945
+warp instrs 161664660; mean same-CTA run length 1.00
+x13            L1 ld sectors 1081845632; L2 reads 148458483; DRAM reads 137213403 (4390.8 MB) writes 224115 (7.2 MB)
+2.19.637.898 I common_perf_print: prompt eval time =      32.39 ms /     5 tokens (    6.48 ms per token,   154.35 tokens per second)
+2.19.637.900 I common_perf_print:        eval time =  137337.73 ms /     2 runs   (68668.86 ms per token,     0.01 tokens per second)
+wall 139.861274245
+-rw-rw-r-- 1 adityaseshasai.s adityaseshasai.s 9435 Nov 14 16:07 /scratch/adityaseshasai.s/gt/q7_v100_short_faoff_x13.perk.tsv
+-rw-rw-r-- 1 adityaseshasai.s adityaseshasai.s 272622963 Nov 14 16:07 /scratch/adityaseshasai.s/gt/q7_v100_short_faoff_x13.dram.gz
+### offline q7_v100_short_faauto Sat Nov 14 16:07:44 IST 2026
+warp instrs 160033156; mean same-CTA run length 1.00
+x13            L1 ld sectors 1075696720; L2 reads 146095769; DRAM reads 137213135 (4390.8 MB) writes 219930 (7.0 MB)
+-rw-rw-r-- 1 adityaseshasai.s adityaseshasai.s 272394077 Nov 14 16:16 /scratch/adityaseshasai.s/gt/q7_v100_short_faauto_x13.dram.gz
+### offline q7_v100_8k_faauto Sat Nov 14 16:16:30 IST 2026
+warp instrs 167101700; mean same-CTA run length 1.00
+x13            L1 ld sectors 1166807516; L2 reads 233588631; DRAM reads 150755507 (4824.2 MB) writes 421141 (13.5 MB)
+-rw-rw-r-- 1 adityaseshasai.s adityaseshasai.s 293528382 Nov 14 16:27 /scratch/adityaseshasai.s/gt/q7_v100_8k_faauto_x13.dram.gz
+### offline q7_v100_8k_faoff Sat Nov 14 16:27:44 IST 2026
+warp instrs 194611476; mean same-CTA run length 1.00
+x13            L1 ld sectors 1256207232; L2 reads 292573188; DRAM reads 150028553 (4800.9 MB) writes 1018950 (32.6 MB)
+-rw-rw-r-- 1 adityaseshasai.s adityaseshasai.s 297006977 Nov 14 16:41 /scratch/adityaseshasai.s/gt/q7_v100_8k_faoff_x13.dram.gz
+### gzip existing q7_v100_32k_faauto_x13 Sat Nov 14 16:41:49 IST 2026
+-rw-rw-r-- 1 adityaseshasai.s adityaseshasai.s 417896080 Nov 14 05:31 /scratch/adityaseshasai.s/gt/q7_v100_32k_faauto_x13.dram.gz
+### gzip existing q7_v100_32k_faoff_x13 Sat Nov 14 16:42:24 IST 2026
+-rw-rw-r-- 1 adityaseshasai.s adityaseshasai.s 758195563 Nov 14 06:29 /scratch/adityaseshasai.s/gt/q7_v100_32k_faoff_x13.dram.gz
+### done Sat Nov 14 16:43:26 IST 2026

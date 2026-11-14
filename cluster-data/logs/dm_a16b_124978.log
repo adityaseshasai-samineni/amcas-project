@@ -1,0 +1,23 @@
+==========================================
+SLURM_JOB_ID = 124978
+SLURM_NODELIST = node05
+SLURM_JOB_GPUS = 0
+==========================================
+q7_a16_8k_faauto window 10284 10822
+q7_a16_8k_faauto run1 0.13.791.401 I common_perf_print: prompt eval time =    9283.88 ms /  6980 tokens (    1.33 ms per token,   751.84 tokens per second)
+q7_a16_8k_faauto run1 0.13.791.404 I common_perf_print:        eval time =    2541.98 ms /    63 runs   (   40.35 ms per token,    24.78 tokens per second)
+q7_a16_8k_faauto run2 0.13.763.798 I common_perf_print: prompt eval time =    9283.02 ms /  6980 tokens (    1.33 ms per token,   751.91 tokens per second)
+q7_a16_8k_faauto run2 0.13.763.801 I common_perf_print:        eval time =    2551.93 ms /    63 runs   (   40.51 ms per token,    24.69 tokens per second)
+3767
+q7_a16_8k_faoff window 13448 14014
+q7_a16_8k_faoff run1 0.18.598.601 I common_perf_print: prompt eval time =   13556.97 ms /  6980 tokens (    1.94 ms per token,   514.86 tokens per second)
+q7_a16_8k_faoff run1 0.18.598.603 I common_perf_print:        eval time =    3112.79 ms /    63 runs   (   49.41 ms per token,    20.24 tokens per second)
+q7_a16_8k_faoff run2 0.18.605.708 I common_perf_print: prompt eval time =   13567.46 ms /  6980 tokens (    1.94 ms per token,   514.47 tokens per second)
+q7_a16_8k_faoff run2 0.18.605.711 I common_perf_print:        eval time =    3111.29 ms /    63 runs   (   49.39 ms per token,    20.25 tokens per second)
+3963
+q7_a16_32k_faauto window 42987 43525
+q7_a16_32k_faauto run1 1.00.221.188 I common_perf_print: prompt eval time =   55226.62 ms / 31001 tokens (    1.78 ms per token,   561.34 tokens per second)
+q7_a16_32k_faauto run1 1.00.221.191 I common_perf_print:        eval time =    3023.00 ms /    63 runs   (   47.98 ms per token,    20.84 tokens per second)
+q7_a16_32k_faauto run2 1.00.255.105 I common_perf_print: prompt eval time =   55273.46 ms / 31001 tokens (    1.78 ms per token,   560.87 tokens per second)
+q7_a16_32k_faauto run2 1.00.255.108 I common_perf_print:        eval time =    3024.03 ms /    63 runs   (   48.00 ms per token,    20.83 tokens per second)
+3767
