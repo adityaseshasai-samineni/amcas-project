@@ -9,3 +9,8 @@ SLURM_JOB_GPUS =
   thp_identity         in-order hit 0.893 banks 384/384 chan max/mean 1.302
   thp_xor_global       in-order hit 0.959 banks 384/384 chan max/mean 1.302
 thp_identity      plat:52:1024  CLOSE_PAGE hit 0.000 lat   114.8 cyc   10.410M    27.0GB/s
+thp_xor_global    plat:52:1024  CLOSE_PAGE hit 0.000 lat   110.2 cyc    9.781M    28.8GB/s
+thp_xor_global    fast:52:256   CLOSE_PAGE hit 0.000 lat    88.0 cyc   19.266M    14.6GB/s
+thp_xor_global    sat           CLOSE_PAGE hit 0.000 lat  1238.7 cyc    6.656M    42.3GB/s
+thp_identity      sat           CLOSE_PAGE hit 0.000 lat  1332.5 cyc    7.686M    36.6GB/s
+thp_identity      fast:52:256   CLOSE_PAGE hit 0.000 lat    88.5 cyc   19.527M    14.4GB/s
