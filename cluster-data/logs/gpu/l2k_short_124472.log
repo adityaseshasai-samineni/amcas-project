@@ -1,0 +1,54 @@
+==========================================
+SLURM_JOB_ID = 124472
+SLURM_NODELIST = node04
+SLURM_JOB_GPUS = 1
+==========================================
+wall 2.919948742
+q7_v100_short_faauto window 1295 1833
+warp instrs 160033156; mean same-CTA run length 1.00
+base           L1 ld sectors 1075696720; L2 reads 146095769; DRAM reads 137213007 (4390.8 MB) writes 220435 (7.1 MB)
+h1             L1 ld sectors 1075696720; L2 reads 146095769; DRAM reads 137213079 (4390.8 MB) writes 220971 (7.1 MB)
+h7             L1 ld sectors 1075696720; L2 reads 146095769; DRAM reads 137214026 (4390.8 MB) writes 219518 (7.0 MB)
+h9             L1 ld sectors 1075696720; L2 reads 146095769; DRAM reads 137213230 (4390.8 MB) writes 218905 (7.0 MB)
+s5             L1 ld sectors 1075696720; L2 reads 146095769; DRAM reads 137229569 (4391.3 MB) writes 223870 (7.2 MB)
+h3             L1 ld sectors 1075696720; L2 reads 146095769; DRAM reads 137215340 (4390.9 MB) writes 218970 (7.0 MB)
+8.33.845.126 I common_perf_print: prompt eval time =      35.38 ms /     5 tokens (    7.08 ms per token,   141.31 tokens per second)
+8.33.845.129 I common_perf_print:        eval time =  511402.94 ms /     2 runs   (255701.47 ms per token,     0.00 tokens per second)
+wall 514.154345373
+-rw-rw-r-- 1 adityaseshasai.s adityaseshasai.s 39677 Nov 14 03:31 /scratch/adityaseshasai.s/gt/q7_v100_short_faauto.perk.tsv
+warp instrs 190684420; mean same-CTA run length 1.00
+x8             L1 ld sectors 1478099420; L2 reads 536713952; DRAM reads 216022447 (6912.7 MB) writes 422086 (13.5 MB)
+x9             L1 ld sectors 1478099420; L2 reads 536713952; DRAM reads 207184679 (6629.9 MB) writes 422325 (13.5 MB)
+x10            L1 ld sectors 1478099420; L2 reads 536713952; DRAM reads 207319341 (6634.2 MB) writes 421941 (13.5 MB)
+x11            L1 ld sectors 1478099420; L2 reads 536713952; DRAM reads 207794244 (6649.4 MB) writes 421941 (13.5 MB)
+x12            L1 ld sectors 1478099420; L2 reads 536713952; DRAM reads 207312117 (6634.0 MB) writes 422229 (13.5 MB)
+x13            L1 ld sectors 1478099420; L2 reads 536713952; DRAM reads 228680401 (7317.8 MB) writes 422828 (13.5 MB)
+x14            L1 ld sectors 1478099420; L2 reads 536713952; DRAM reads 275915878 (8829.3 MB) writes 423556 (13.6 MB)
+x15            L1 ld sectors 1478099420; L2 reads 536713952; DRAM reads 303538106 (9713.2 MB) writes 423623 (13.6 MB)
+x16            L1 ld sectors 1478099420; L2 reads 536713952; DRAM reads 216560095 (6929.9 MB) writes 422629 (13.5 MB)
+x17            L1 ld sectors 1478099420; L2 reads 536713952; DRAM reads 208833628 (6682.7 MB) writes 422514 (13.5 MB)
+x18            L1 ld sectors 1478099420; L2 reads 536713952; DRAM reads 254347377 (8139.1 MB) writes 421781 (13.5 MB)
+y6             L1 ld sectors 1478099420; L2 reads 536713952; DRAM reads 253507720 (8112.2 MB) writes 421945 (13.5 MB)
+y7             L1 ld sectors 1478099420; L2 reads 536713952; DRAM reads 297305212 (9513.8 MB) writes 420725 (13.5 MB)
+y8             L1 ld sectors 1478099420; L2 reads 536713952; DRAM reads 208143964 (6660.6 MB) writes 422142 (13.5 MB)
+y9             L1 ld sectors 1478099420; L2 reads 536713952; DRAM reads 206585906 (6610.7 MB) writes 422054 (13.5 MB)
+y10            L1 ld sectors 1478099420; L2 reads 536713952; DRAM reads 208884650 (6684.3 MB) writes 422092 (13.5 MB)
+              L1 ld sectors 1478099420; L2 reads 536713952; DRAM reads 304843898 (9755.0 MB) writes 421692 (13.5 MB)
+warp instrs 314406676; mean same-CTA run length 1.00
+x8             L1 ld sectors 1880195968; L2 reads 830823860; DRAM reads 343704601 (10998.5 MB) writes 6202600 (198.5 MB)
+x9             L1 ld sectors 1880195968; L2 reads 830823860; DRAM reads 355033353 (11361.1 MB) writes 6205381 (198.6 MB)
+x10            L1 ld sectors 1880195968; L2 reads 830823860; DRAM reads 355082090 (11362.6 MB) writes 6213090 (198.8 MB)
+x11            L1 ld sectors 1880195968; L2 reads 830823860; DRAM reads 373844899 (11963.0 MB) writes 6197758 (198.3 MB)
+x12            L1 ld sectors 1880195968; L2 reads 830823860; DRAM reads 382595279 (12243.0 MB) writes 6220752 (199.1 MB)
+x13            L1 ld sectors 1880195968; L2 reads 830823860; DRAM reads 387960179 (12414.7 MB) writes 6212096 (198.8 MB)
+x14            L1 ld sectors 1880195968; L2 reads 830823860; DRAM reads 385805563 (12345.8 MB) writes 6199732 (198.4 MB)
+x15            L1 ld sectors 1880195968; L2 reads 830823860; DRAM reads 381046595 (12193.5 MB) writes 6205212 (198.6 MB)
+x16            L1 ld sectors 1880195968; L2 reads 830823860; DRAM reads 446371678 (14283.9 MB) writes 5459486 (174.7 MB)
+x17            L1 ld sectors 1880195968; L2 reads 830823860; DRAM reads 461693038 (14774.2 MB) writes 5076732 (162.5 MB)
+x18            L1 ld sectors 1880195968; L2 reads 830823860; DRAM reads 463568216 (14834.2 MB) writes 5055657 (161.8 MB)
+y6             L1 ld sectors 1880195968; L2 reads 830823860; DRAM reads 400837201 (12826.8 MB) writes 5069431 (162.2 MB)
+y7             L1 ld sectors 1880195968; L2 reads 830823860; DRAM reads 400712616 (12822.8 MB) writes 5069819 (162.2 MB)
+y8             L1 ld sectors 1880195968; L2 reads 830823860; DRAM reads 400057804 (12801.8 MB) writes 5833224 (186.7 MB)
+y9             L1 ld sectors 1880195968; L2 reads 830823860; DRAM reads 354698756 (11350.4 MB) writes 6198661 (198.4 MB)
+y10            L1 ld sectors 1880195968; L2 reads 830823860; DRAM reads 355153113 (11364.9 MB) writes 6210001 (198.7 MB)
+<              L1 ld sectors 1880195968; L2 reads 830823860; DRAM reads 463259833 (14824.3 MB) writes 5058354 (161.9 MB)

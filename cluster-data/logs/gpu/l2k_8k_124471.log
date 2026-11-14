@@ -1,0 +1,31 @@
+==========================================
+SLURM_JOB_ID = 124471
+SLURM_NODELIST = node04
+SLURM_JOB_GPUS = 0
+==========================================
+wall 302.389102664
+q7_v100_8k_faauto window 14456 14994
+warp instrs 167101700; mean same-CTA run length 1.00
+base           L1 ld sectors 1166807516; L2 reads 233588631; DRAM reads 152696750 (4886.3 MB) writes 419214 (13.4 MB)
+h1             L1 ld sectors 1166807516; L2 reads 233588631; DRAM reads 150177599 (4805.7 MB) writes 421028 (13.5 MB)
+h7             L1 ld sectors 1166807516; L2 reads 233588631; DRAM reads 150127195 (4804.1 MB) writes 420775 (13.5 MB)
+h9             L1 ld sectors 1166807516; L2 reads 233588631; DRAM reads 150177675 (4805.7 MB) writes 421486 (13.5 MB)
+s5             L1 ld sectors 1166807516; L2 reads 233588631; DRAM reads 150216696 (4806.9 MB) writes 424545 (13.6 MB)
+h3             L1 ld sectors 1166807516; L2 reads 233588631; DRAM reads 150149746 (4804.8 MB) writes 421241 (13.5 MB)
+21.31.796.755 I common_perf_print: prompt eval time =  296430.28 ms /  6980 tokens (   42.47 ms per token,    23.55 tokens per second)
+21.31.796.758 I common_perf_print:        eval time =  992896.91 ms /     2 runs   (496448.46 ms per token,     0.00 tokens per second)
+wall 1292.808401212
+-rw-rw-r-- 1 adityaseshasai.s adityaseshasai.s 41714 Nov 14 03:48 /scratch/adityaseshasai.s/gt/q7_v100_8k_faauto.perk.tsv
+wall 300.752126960
+q7_v100_8k_faoff window 16836 17402
+warp instrs 194611476; mean same-CTA run length 1.00
+base           L1 ld sectors 1256207232; L2 reads 292573188; DRAM reads 162396484 (5196.7 MB) writes 1218956 (39.0 MB)
+h1             L1 ld sectors 1256207232; L2 reads 292573188; DRAM reads 149991156 (4799.7 MB) writes 1016868 (32.5 MB)
+h7             L1 ld sectors 1256207232; L2 reads 292573188; DRAM reads 150431235 (4813.8 MB) writes 1114944 (35.7 MB)
+h9             L1 ld sectors 1256207232; L2 reads 292573188; DRAM reads 149970956 (4799.1 MB) writes 1020372 (32.7 MB)
+s5             L1 ld sectors 1256207232; L2 reads 292573188; DRAM reads 150172543 (4805.5 MB) writes 1122762 (35.9 MB)
+h3             L1 ld sectors 1256207232; L2 reads 292573188; DRAM reads 149968427 (4799.0 MB) writes 1021284 (32.7 MB)
+29.45.664.622 I common_perf_print: prompt eval time =  295184.78 ms /  6980 tokens (   42.29 ms per token,    23.65 tokens per second)
+29.45.664.626 I common_perf_print:        eval time = 1488021.58 ms /     2 runs   (744010.79 ms per token,     0.00 tokens per second)
+wall 1786.245093690
+-rw-rw-r-- 1 adityaseshasai.s adityaseshasai.s 46907 Nov 14 04:23 /scratch/adityaseshasai.s/gt/q7_v100_8k_faoff.perk.tsv
