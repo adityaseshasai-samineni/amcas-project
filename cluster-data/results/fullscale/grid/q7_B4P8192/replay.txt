@@ -1,0 +1,42 @@
+rec: 40 replays
+
+
+packed x16  xor_global     OracleRec  hit 0.956 lat   223.6 cyc    3.061M
+thp    d4r6 xor_global_chanOracleRec  hit 0.953 lat   151.7 cyc    3.670M
+packed d4r6 region         OracleRec  hit 0.963 lat   150.2 cyc    3.679M
+thp    d4r6 naive          OracleRec  hit 0.953 lat   149.8 cyc    3.697M
+packed d4r6 xor_global     OracleRec  hit 0.963 lat   153.7 cyc    3.801M
+packed d4r6 xor_global_chanOracleRec  hit 0.963 lat   155.2 cyc    3.641M
+thp    d4r6 xor_global     OracleRec  hit 0.952 lat   151.9 cyc    3.758M
+packed d4r6 identity       OracleRec  hit 0.964 lat   154.6 cyc    3.794M
+packed d4r6 chan           OracleRec  hit 0.964 lat   155.7 cyc    3.612M
+thp    d4r6 region         OracleRec  hit 0.951 lat   153.6 cyc    3.831M
+packed d4r6 naive          OracleRec  hit 0.937 lat   158.2 cyc    4.049M
+thp    d4r6 identity       OracleRec  hit 0.910 lat   169.5 cyc    4.325M
+packed d4r6 mop            OracleRec  hit 0.323 lat   169.1 cyc    3.320M
+thp    d4r6 chan           OracleRec  hit 0.913 lat   170.6 cyc    4.120M
+packed d4r6 mopxor         OracleRec  hit 0.336 lat   172.4 cyc    3.312M
+thp    d4r6 mopxor         OracleRec  hit 0.322 lat   173.3 cyc    3.323M
+thp    d4r6 mop            OracleRec  hit 0.309 lat   173.7 cyc    3.345M
+thp    d4r6 bitrev         OracleRec  hit 0.851 lat   166.6 cyc    5.059M
+packed x16  xor_global_chanOracleRec  hit 0.958 lat   230.1 cyc    2.617M
+packed x16  region         OracleRec  hit 0.957 lat   224.4 cyc    3.053M
+packed x16  naive          OracleRec  hit 0.955 lat   233.4 cyc    3.166M
+packed x16  chan           OracleRec  hit 0.949 lat   236.1 cyc    2.576M
+packed x16  identity       OracleRec  hit 0.909 lat   257.9 cyc    3.471M
+thp    d4r6 chra           OracleRec  hit 0.829 lat   222.7 cyc    5.943M
+packed x16  mopxor         OracleRec  hit 0.353 lat   260.6 cyc    3.063M
+thp    x16  identity       OracleRec  hit 0.955 lat   235.4 cyc    3.206M
+packed x16  mop            OracleRec  hit 0.324 lat   265.6 cyc    3.077M
+thp    x16  xor_global     OracleRec  hit 0.957 lat   222.3 cyc    3.086M
+thp    x16  naive          OracleRec  hit 0.957 lat   221.0 cyc    3.076M
+thp    x16  xor_global_chanOracleRec  hit 0.958 lat   227.2 cyc    2.805M
+thp    x16  chan           OracleRec  hit 0.954 lat   225.6 cyc    2.858M
+thp    x16  region         OracleRec  hit 0.956 lat   223.7 cyc    3.119M
+packed d4r6 bitrev         OracleRec  hit 0.874 lat   377.9 cyc    9.236M
+thp    x16  bitrev         OracleRec  hit 0.903 lat   251.0 cyc    3.492M
+packed d4r6 chra           OracleRec  hit 0.874 lat   395.5 cyc    9.957M
+thp    x16  mopxor         OracleRec  hit 0.341 lat   263.6 cyc    3.079M
+thp    x16  chra           OracleRec  hit 0.882 lat   301.5 cyc    4.336M
+thp    x16  mop            OracleRec  hit 0.263 lat   280.1 cyc    3.092M
+packed x16  chra           OracleRec  hit 0.856 lat   561.3 cyc    7.540M

@@ -32,3 +32,4 @@ SLURM_JOB_GPUS =
   done thp/x16: identity:0.962/0.962 xor_global:0.964/0.964 region:0.962/0.962 chan:0.962/0.962 xor_global_chan:0.964/0.964 mop:0.596/0.596 mopxor:0.599/0.599 bitrev:0.961/0.961 chra:0.922/0.922 naive:0.960/0.960 expert_hash:0.960/0.960 expert_lin:0.965/0.965
   [thp/d4r6 MOP4CLXOR xor_global] n=4,000,000 cost 1603415 -> 1527101; bank bit ^= {0: ['row4', 'row0'], 1: ['row9'], 2: ['row3', 'row11'], 3: ['row0', 'row13'], 4: ['row0', 'row14']}
   done thp/d4r6: identity:0.968/0.968 xor_global:0.971/0.971 region:0.969/0.969 chan:0.971/0.971 xor_global_chan:0.971/0.971 mop:0.607/0.607 mopxor:0.613/0.613 bitrev:0.961/0.961 chra:0.895/0.895 naive:0.971/0.971 expert_hash:0.967/0.967 expert_lin:0.969/0.969
+replay rc=0 for q30_short Sat Nov 14 21:09:08 IST 2026
