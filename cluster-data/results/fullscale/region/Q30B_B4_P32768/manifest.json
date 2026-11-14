@@ -1,0 +1,495 @@
+{
+ "reads_total": 1679566634,
+ "window": [
+  503869990,
+  543869990
+ ],
+ "files": [
+  {
+   "inorder_hit": 0.901180975,
+   "banks_used": 32,
+   "banks_total": 32,
+   "inorder_hit_W": 0.9496842840500354,
+   "inorder_hit_K": 0.9003247399389201,
+   "inorder_hit_O": 0.9570435595494775,
+   "placement": "packed",
+   "dram": "ddr4",
+   "scheme": "identity",
+   "file": "packed_ddr4_identity.trc",
+   "info": {}
+  },
+  {
+   "inorder_hit": 0.2058523,
+   "banks_used": 6,
+   "banks_total": 32,
+   "inorder_hit_W": 0.4952425927200516,
+   "inorder_hit_K": 0.1934218951378154,
+   "inorder_hit_O": 0.5495529454337108,
+   "placement": "packed",
+   "dram": "ddr4",
+   "scheme": "bitrev",
+   "file": "packed_ddr4_bitrev.trc",
+   "info": {}
+  },
+  {
+   "inorder_hit": 0.9331764,
+   "banks_used": 32,
+   "banks_total": 32,
+   "inorder_hit_W": 0.9601365595756125,
+   "inorder_hit_K": 0.933265831772539,
+   "inorder_hit_O": 0.961280400464394,
+   "placement": "packed",
+   "dram": "ddr4",
+   "scheme": "xor_global",
+   "file": "packed_ddr4_xor_global.trc",
+   "info": {
+    "matrix": {
+     "0": [
+      "row5",
+      "row1"
+     ],
+     "1": [],
+     "2": [],
+     "3": [
+      "row1"
+     ],
+     "4": [
+      "row10"
+     ]
+    },
+    "cost": [
+     3813846.0,
+     3664782.25
+    ]
+   }
+  },
+  {
+   "inorder_hit": 0.90539085,
+   "banks_used": 32,
+   "banks_total": 32,
+   "inorder_hit_W": 0.9496842840500354,
+   "inorder_hit_K": 0.9046932004537002,
+   "inorder_hit_O": 0.9640094688117244,
+   "placement": "packed",
+   "dram": "ddr4",
+   "scheme": "region",
+   "file": "packed_ddr4_region.trc",
+   "info": {
+    "K": {
+     "matrix": {
+      "0": [
+       "row3"
+      ],
+      "1": [
+       "row3"
+      ],
+      "2": [
+       "row3"
+      ],
+      "3": [],
+      "4": []
+     },
+     "cost": [
+      4546231.65,
+      3886546.45
+     ],
+     "reads_full": 1610637255,
+     "reads_window": 38364545
+    },
+    "O": {
+     "matrix": {
+      "0": [
+       "row3"
+      ],
+      "1": [],
+      "2": [
+       "row3"
+      ],
+      "3": [],
+      "4": []
+     },
+     "cost": [
+      3580450.05,
+      3525395.8
+     ],
+     "reads_full": 3614760,
+     "reads_window": 66323
+    }
+   }
+  },
+  {
+   "inorder_hit": 0.601280925,
+   "banks_used": 512,
+   "banks_total": 512,
+   "inorder_hit_W": 0.9611199057823051,
+   "inorder_hit_K": 0.5866197552975019,
+   "inorder_hit_O": 0.9659997286009379,
+   "placement": "packed",
+   "dram": "ddr5",
+   "scheme": "identity",
+   "file": "packed_ddr5_identity.trc",
+   "info": {}
+  },
+  {
+   "inorder_hit": 0.497341725,
+   "banks_used": 85,
+   "banks_total": 512,
+   "inorder_hit_W": 0.7548204994863402,
+   "inorder_hit_K": 0.48652554070431436,
+   "inorder_hit_O": 0.662289100312109,
+   "placement": "packed",
+   "dram": "ddr5",
+   "scheme": "bitrev",
+   "file": "packed_ddr5_bitrev.trc",
+   "info": {}
+  },
+  {
+   "inorder_hit": 0.934107575,
+   "banks_used": 512,
+   "banks_total": 512,
+   "inorder_hit_W": 0.959610153894,
+   "inorder_hit_K": 0.9339778954761486,
+   "inorder_hit_O": 0.9780468314159492,
+   "placement": "packed",
+   "dram": "ddr5",
+   "scheme": "xor_global",
+   "file": "packed_ddr5_xor_global.trc",
+   "info": {
+    "matrix": {
+     "0": [
+      "row6",
+      "row5"
+     ],
+     "1": [
+      "row6"
+     ],
+     "2": [
+      "row6"
+     ],
+     "3": [
+      "row6"
+     ],
+     "4": []
+    },
+    "cost": [
+     1301139.25,
+     499436.4
+    ]
+   }
+  },
+  {
+   "inorder_hit": 0.9502372,
+   "banks_used": 512,
+   "banks_total": 512,
+   "inorder_hit_W": 0.9611199057823051,
+   "inorder_hit_K": 0.9506747440898882,
+   "inorder_hit_O": 0.9814694751443692,
+   "placement": "packed",
+   "dram": "ddr5",
+   "scheme": "region",
+   "file": "packed_ddr5_region.trc",
+   "info": {
+    "K": {
+     "matrix": {
+      "0": [
+       "row6",
+       "row0"
+      ],
+      "1": [
+       "row6"
+      ],
+      "2": [
+       "row6",
+       "row2",
+       "row1"
+      ],
+      "3": [
+       "row0",
+       "row1"
+      ],
+      "4": [
+       "row6",
+       "row0"
+      ]
+     },
+     "cost": [
+      1617953.7000000002,
+      452571.05000000005
+     ],
+     "reads_full": 1610637255,
+     "reads_window": 38364545
+    },
+    "O": {
+     "matrix": {
+      "0": [
+       "row2"
+      ],
+      "1": [
+       "row1"
+      ],
+      "2": [],
+      "3": [
+       "row1"
+      ],
+      "4": []
+     },
+     "cost": [
+      421521.95,
+      390541.05000000005
+     ],
+     "reads_full": 3614760,
+     "reads_window": 66323
+    }
+   }
+  },
+  {
+   "inorder_hit": 0.723056775,
+   "banks_used": 32,
+   "banks_total": 32,
+   "inorder_hit_W": 0.9619713319210876,
+   "inorder_hit_K": 0.7138185530416169,
+   "inorder_hit_O": 0.8928275258959939,
+   "placement": "thp",
+   "dram": "ddr4",
+   "scheme": "identity",
+   "file": "thp_ddr4_identity.trc",
+   "info": {}
+  },
+  {
+   "inorder_hit": 0.8930713,
+   "banks_used": 32,
+   "banks_total": 32,
+   "inorder_hit_W": 0.8958003533163558,
+   "inorder_hit_K": 0.8942754827406398,
+   "inorder_hit_O": 0.6412707507199614,
+   "placement": "thp",
+   "dram": "ddr4",
+   "scheme": "bitrev",
+   "file": "thp_ddr4_bitrev.trc",
+   "info": {}
+  },
+  {
+   "inorder_hit": 0.92538675,
+   "banks_used": 32,
+   "banks_total": 32,
+   "inorder_hit_W": 0.9641266636586342,
+   "inorder_hit_K": 0.9250616943326189,
+   "inorder_hit_O": 0.8990998597771512,
+   "placement": "thp",
+   "dram": "ddr4",
+   "scheme": "xor_global",
+   "file": "thp_ddr4_xor_global.trc",
+   "info": {
+    "matrix": {
+     "0": [
+      "row2"
+     ],
+     "1": [
+      "row2"
+     ],
+     "2": [],
+     "3": [
+      "row1"
+     ],
+     "4": []
+    },
+    "cost": [
+     4810614.35,
+     3813508.05
+    ]
+   }
+  },
+  {
+   "inorder_hit": 0.9021136,
+   "banks_used": 32,
+   "banks_total": 32,
+   "inorder_hit_W": 0.9619713319210876,
+   "inorder_hit_K": 0.9007689000351757,
+   "inorder_hit_O": 0.9619136649427801,
+   "placement": "thp",
+   "dram": "ddr4",
+   "scheme": "region",
+   "file": "thp_ddr4_region.trc",
+   "info": {
+    "K": {
+     "matrix": {
+      "0": [
+       "row2"
+      ],
+      "1": [
+       "row9"
+      ],
+      "2": [
+       "row3",
+       "row2"
+      ],
+      "3": [
+       "row1"
+      ],
+      "4": [
+       "row1"
+      ]
+     },
+     "cost": [
+      7635432.05,
+      3815027.4
+     ],
+     "reads_full": 1610670527,
+     "reads_window": 38364545
+    },
+    "O": {
+     "matrix": {
+      "0": [
+       "row10",
+       "row1"
+      ],
+      "1": [
+       "row5"
+      ],
+      "2": [
+       "row10",
+       "row14"
+      ],
+      "3": [
+       "row5"
+      ],
+      "4": [
+       "row15"
+      ]
+     },
+     "cost": [
+      4461201.8,
+      3509398.65
+     ],
+     "reads_full": 3545208,
+     "reads_window": 66323
+    }
+   }
+  },
+  {
+   "inorder_hit": 0.9417075,
+   "banks_used": 512,
+   "banks_total": 512,
+   "inorder_hit_W": 0.9597146702763056,
+   "inorder_hit_K": 0.9419912056822256,
+   "inorder_hit_O": 0.8882438972905327,
+   "placement": "thp",
+   "dram": "ddr5",
+   "scheme": "identity",
+   "file": "thp_ddr5_identity.trc",
+   "info": {}
+  },
+  {
+   "inorder_hit": 0.921108725,
+   "banks_used": 512,
+   "banks_total": 512,
+   "inorder_hit_W": 0.9524424968708814,
+   "inorder_hit_K": 0.9206926864374385,
+   "inorder_hit_O": 0.7635963391282059,
+   "placement": "thp",
+   "dram": "ddr5",
+   "scheme": "bitrev",
+   "file": "thp_ddr5_bitrev.trc",
+   "info": {}
+  },
+  {
+   "inorder_hit": 0.94849625,
+   "banks_used": 512,
+   "banks_total": 512,
+   "inorder_hit_W": 0.9565766296270805,
+   "inorder_hit_K": 0.949093935559512,
+   "inorder_hit_O": 0.9366283189843644,
+   "placement": "thp",
+   "dram": "ddr5",
+   "scheme": "xor_global",
+   "file": "thp_ddr5_xor_global.trc",
+   "info": {
+    "matrix": {
+     "0": [
+      "row5",
+      "row10"
+     ],
+     "1": [
+      "row5"
+     ],
+     "2": [
+      "row5"
+     ],
+     "3": [
+      "row10"
+     ],
+     "4": []
+    },
+    "cost": [
+     533446.05,
+     457499.45
+    ]
+   }
+  },
+  {
+   "inorder_hit": 0.93542795,
+   "banks_used": 512,
+   "banks_total": 512,
+   "inorder_hit_W": 0.9597146702763056,
+   "inorder_hit_K": 0.9353582063856094,
+   "inorder_hit_O": 0.9758002502902462,
+   "placement": "thp",
+   "dram": "ddr5",
+   "scheme": "region",
+   "file": "thp_ddr5_region.trc",
+   "info": {
+    "K": {
+     "matrix": {
+      "0": [
+       "row13"
+      ],
+      "1": [
+       "row10",
+       "row4"
+      ],
+      "2": [
+       "row10"
+      ],
+      "3": [
+       "row4"
+      ],
+      "4": []
+     },
+     "cost": [
+      494591.55,
+      451011.15
+     ],
+     "reads_full": 1610670527,
+     "reads_window": 38364545
+    },
+    "O": {
+     "matrix": {
+      "0": [
+       "row7",
+       "row10"
+      ],
+      "1": [
+       "row13",
+       "row7"
+      ],
+      "2": [
+       "row7"
+      ],
+      "3": [
+       "row0"
+      ],
+      "4": [
+       "row10"
+      ]
+     },
+     "cost": [
+      1065268.1,
+      399588.2
+     ],
+     "reads_full": 3545208,
+     "reads_window": 66323
+    }
+   }
+  }
+ ]
+}

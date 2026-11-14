@@ -1,0 +1,1417 @@
+{
+ "reads_total": 30348314,
+ "window": [
+  9104494,
+  13104494
+ ],
+ "moe": true,
+ "combos": [
+  {
+   "key": "packed_d4r6",
+   "placement": "packed",
+   "dram": "d4r6",
+   "info": {
+    "xor_global": {
+     "matrix": {
+      "0": [
+       "row1"
+      ],
+      "1": [
+       "row0"
+      ],
+      "2": [
+       "row7"
+      ],
+      "3": [],
+      "4": []
+     },
+     "cost": [
+      891661.5333333334,
+      795550.0833333334
+     ]
+    },
+    "region": {
+     "K": "identity (too few reads)",
+     "O": {
+      "matrix": {
+       "0": [
+        "row3"
+       ],
+       "1": [
+        "row3"
+       ],
+       "2": [
+        "row0"
+       ],
+       "3": [],
+       "4": [
+        "row0"
+       ]
+      },
+      "cost": [
+       350823.5333333333,
+       333790.0333333333
+      ],
+      "reads_window": 34390
+     }
+    },
+    "chan": {
+     "matrix": {
+      "0": [
+       "row6",
+       "row9"
+      ],
+      "1": [
+       "row7"
+      ],
+      "2": [
+       "row10"
+      ]
+     }
+    },
+    "xor_global_chan": {
+     "matrix": {
+      "0": [
+       "row4",
+       "row1"
+      ],
+      "1": [
+       "row10",
+       "row4"
+      ],
+      "2": [
+       "row10"
+      ]
+     },
+     "bank": {
+      "0": [
+       "row1"
+      ],
+      "1": [
+       "row0"
+      ],
+      "2": [
+       "row7"
+      ],
+      "3": [],
+      "4": []
+     }
+    },
+    "mopxor": {
+     "matrix": {
+      "0": [
+       "row2",
+       "row1"
+      ],
+      "1": [
+       "row9"
+      ],
+      "2": [],
+      "3": [
+       "row7"
+      ],
+      "4": [
+       "row3",
+       "row1",
+       "row7"
+      ]
+     },
+     "cost": [
+      1596710.5833333335,
+      1533640.9333333336
+     ]
+    }
+   },
+   "mappings": {
+    "identity": {
+     "n": 4000000,
+     "hits": 3886555,
+     "conflicts": 113253,
+     "cold": 192,
+     "hit_rate": 0.97163875,
+     "conflict_rate": 0.02831325,
+     "lat_open": 22.1901645,
+     "lat_closed": 42.0,
+     "lat_oracle": 21.59558625,
+     "oracle_hit_rate": 0.97163875,
+     "banks_used": 192,
+     "banks_total": 192,
+     "chan_load_max_over_mean": 1.000251,
+     "stream": "id",
+     "mapper": "RoBaRaCoCh"
+    },
+    "xor_global": {
+     "n": 4000000,
+     "hits": 3902881,
+     "conflicts": 96927,
+     "cold": 192,
+     "hit_rate": 0.97572025,
+     "conflict_rate": 0.02423175,
+     "lat_open": 22.0187415,
+     "lat_closed": 42.0,
+     "lat_oracle": 21.50987475,
+     "oracle_hit_rate": 0.97572025,
+     "banks_used": 192,
+     "banks_total": 192,
+     "chan_load_max_over_mean": 1.000251,
+     "stream": "xg",
+     "mapper": "RoBaRaCoCh"
+    },
+    "region": {
+     "n": 4000000,
+     "hits": 3886575,
+     "conflicts": 113233,
+     "cold": 192,
+     "hit_rate": 0.97164375,
+     "conflict_rate": 0.02830825,
+     "lat_open": 22.1899545,
+     "lat_closed": 42.0,
+     "lat_oracle": 21.59548125,
+     "oracle_hit_rate": 0.97164375,
+     "banks_used": 192,
+     "banks_total": 192,
+     "chan_load_max_over_mean": 1.000251,
+     "stream": "region",
+     "mapper": "RoBaRaCoCh"
+    },
+    "chan": {
+     "n": 4000000,
+     "hits": 3889117,
+     "conflicts": 110691,
+     "cold": 192,
+     "hit_rate": 0.97227925,
+     "conflict_rate": 0.02767275,
+     "lat_open": 22.1632635,
+     "lat_closed": 42.0,
+     "lat_oracle": 21.58213575,
+     "oracle_hit_rate": 0.97227925,
+     "banks_used": 192,
+     "banks_total": 192,
+     "chan_load_max_over_mean": 1.0001385,
+     "stream": "chan",
+     "mapper": "RoBaRaCoCh"
+    },
+    "xor_global_chan": {
+     "n": 4000000,
+     "hits": 3901876,
+     "conflicts": 97932,
+     "cold": 192,
+     "hit_rate": 0.975469,
+     "conflict_rate": 0.024483,
+     "lat_open": 22.029294,
+     "lat_closed": 42.0,
+     "lat_oracle": 21.515151,
+     "oracle_hit_rate": 0.975469,
+     "banks_used": 192,
+     "banks_total": 192,
+     "chan_load_max_over_mean": 1.000221,
+     "stream": "xgc",
+     "mapper": "RoBaRaCoCh"
+    },
+    "mop": {
+     "n": 4000000,
+     "hits": 2423467,
+     "conflicts": 1576341,
+     "cold": 192,
+     "hit_rate": 0.60586675,
+     "conflict_rate": 0.39408525,
+     "lat_open": 37.5525885,
+     "lat_closed": 42.0,
+     "lat_oracle": 29.27679825,
+     "oracle_hit_rate": 0.60586675,
+     "banks_used": 192,
+     "banks_total": 192,
+     "chan_load_max_over_mean": 1.000251,
+     "stream": "id",
+     "mapper": "MOP4CLXOR"
+    },
+    "mopxor": {
+     "n": 4000000,
+     "hits": 2439085,
+     "conflicts": 1560723,
+     "cold": 192,
+     "hit_rate": 0.60977125,
+     "conflict_rate": 0.39018075,
+     "lat_open": 37.3885995,
+     "lat_closed": 42.0,
+     "lat_oracle": 29.19480375,
+     "oracle_hit_rate": 0.60977125,
+     "banks_used": 192,
+     "banks_total": 192,
+     "chan_load_max_over_mean": 1.000251,
+     "stream": "mxg",
+     "mapper": "MOP4CLXOR"
+    },
+    "bitrev": {
+     "n": 4000000,
+     "hits": 3439890,
+     "conflicts": 560032,
+     "cold": 78,
+     "hit_rate": 0.8599725,
+     "conflict_rate": 0.140008,
+     "lat_open": 26.8807455,
+     "lat_closed": 42.0,
+     "lat_oracle": 23.9405775,
+     "oracle_hit_rate": 0.8599725,
+     "banks_used": 78,
+     "banks_total": 192,
+     "chan_load_max_over_mean": 1.000251,
+     "stream": "bitrev",
+     "mapper": "RoBaRaCoCh"
+    },
+    "chra": {
+     "n": 4000000,
+     "hits": 2354037,
+     "conflicts": 1645957,
+     "cold": 6,
+     "hit_rate": 0.58850925,
+     "conflict_rate": 0.41148925,
+     "lat_open": 38.28258,
+     "lat_closed": 42.0,
+     "lat_oracle": 29.64130575,
+     "oracle_hit_rate": 0.58850925,
+     "banks_used": 6,
+     "banks_total": 192,
+     "chan_load_max_over_mean": 1.000251,
+     "stream": "id",
+     "mapper": "ChRaBaRoCo"
+    },
+    "naive": {
+     "n": 4000000,
+     "hits": 3880325,
+     "conflicts": 119483,
+     "cold": 192,
+     "hit_rate": 0.97008125,
+     "conflict_rate": 0.02987075,
+     "lat_open": 22.2555795,
+     "lat_closed": 42.0,
+     "lat_oracle": 21.62829375,
+     "oracle_hit_rate": 0.97008125,
+     "banks_used": 192,
+     "banks_total": 192,
+     "chan_load_max_over_mean": 1.000251,
+     "stream": "naive",
+     "mapper": "RoBaRaCoCh"
+    },
+    "expert_hash": {
+     "n": 4000000,
+     "hits": 3885704,
+     "conflicts": 114104,
+     "cold": 192,
+     "hit_rate": 0.971426,
+     "conflict_rate": 0.028526,
+     "lat_open": 22.1991,
+     "lat_closed": 42.0,
+     "lat_oracle": 21.600054,
+     "oracle_hit_rate": 0.971426,
+     "banks_used": 192,
+     "banks_total": 192,
+     "chan_load_max_over_mean": 1.000251,
+     "stream": "eh",
+     "mapper": "RoBaRaCoCh"
+    },
+    "expert_lin": {
+     "n": 4000000,
+     "hits": 3882850,
+     "conflicts": 116958,
+     "cold": 192,
+     "hit_rate": 0.9707125,
+     "conflict_rate": 0.0292395,
+     "lat_open": 22.229067,
+     "lat_closed": 42.0,
+     "lat_oracle": 21.6150375,
+     "oracle_hit_rate": 0.9707125,
+     "banks_used": 192,
+     "banks_total": 192,
+     "chan_load_max_over_mean": 1.000251,
+     "stream": "el",
+     "mapper": "RoBaRaCoCh"
+    }
+   },
+   "ranges": {
+    "id": 26,
+    "xg": 26,
+    "region": 26,
+    "chan": 26,
+    "xgc": 26,
+    "bitrev": 117,
+    "naive": 26,
+    "mxg": 26,
+    "eh": 26,
+    "el": 26
+   }
+  },
+  {
+   "key": "packed_x16",
+   "placement": "packed",
+   "dram": "x16",
+   "info": {
+    "xor_global": {
+     "matrix": {
+      "0": [
+       "row8",
+       "row1",
+       "row9"
+      ],
+      "1": [
+       "row1",
+       "row9"
+      ],
+      "2": [
+       "row7",
+       "row4"
+      ],
+      "3": [
+       "row9",
+       "row0"
+      ],
+      "4": []
+     },
+     "cost": [
+      515904.35,
+      423545.9
+     ]
+    },
+    "region": {
+     "K": "identity (too few reads)",
+     "O": {
+      "matrix": {
+       "0": [
+        "row1"
+       ],
+       "1": [
+        "row1",
+        "row2"
+       ],
+       "2": [
+        "row1"
+       ],
+       "3": [],
+       "4": [
+        "row1"
+       ]
+      },
+      "cost": [
+       207346.90000000002,
+       193772.0
+      ],
+      "reads_window": 34390
+     }
+    },
+    "chan": {
+     "matrix": {
+      "0": [
+       "row0",
+       "row8"
+      ],
+      "1": [
+       "row0",
+       "row7"
+      ],
+      "2": [
+       "row0"
+      ],
+      "3": [
+       "row6",
+       "row0"
+      ]
+     }
+    },
+    "xor_global_chan": {
+     "matrix": {
+      "0": [],
+      "1": [],
+      "2": [],
+      "3": [
+       "row0"
+      ]
+     },
+     "bank": {
+      "0": [
+       "row8",
+       "row1",
+       "row9"
+      ],
+      "1": [
+       "row1",
+       "row9"
+      ],
+      "2": [
+       "row7",
+       "row4"
+      ],
+      "3": [
+       "row9",
+       "row0"
+      ],
+      "4": []
+     }
+    },
+    "mopxor": {
+     "matrix": {
+      "0": [
+       "row2",
+       "row5"
+      ],
+      "1": [
+       "row2"
+      ],
+      "2": [
+       "row1",
+       "row2"
+      ],
+      "3": [
+       "row4"
+      ],
+      "4": [
+       "row4"
+      ]
+     },
+     "cost": [
+      1241738.15,
+      1155549.85
+     ]
+    }
+   },
+   "mappings": {
+    "identity": {
+     "n": 4000000,
+     "hits": 3847943,
+     "conflicts": 151545,
+     "cold": 512,
+     "hit_rate": 0.96198575,
+     "conflict_rate": 0.03788625,
+     "lat_open": 42.9601195,
+     "lat_closed": 79.0,
+     "lat_oracle": 41.48255575,
+     "oracle_hit_rate": 0.96198575,
+     "banks_used": 512,
+     "banks_total": 512,
+     "chan_load_max_over_mean": 1.00082,
+     "stream": "id",
+     "mapper": "RoBaRaCoCh"
+    },
+    "xor_global": {
+     "n": 4000000,
+     "hits": 3853730,
+     "conflicts": 145758,
+     "cold": 512,
+     "hit_rate": 0.9634325,
+     "conflict_rate": 0.0364395,
+     "lat_open": 42.847273,
+     "lat_closed": 79.0,
+     "lat_oracle": 41.4261325,
+     "oracle_hit_rate": 0.9634325,
+     "banks_used": 512,
+     "banks_total": 512,
+     "chan_load_max_over_mean": 1.00082,
+     "stream": "xg",
+     "mapper": "RoBaRaCoCh"
+    },
+    "region": {
+     "n": 4000000,
+     "hits": 3847652,
+     "conflicts": 151836,
+     "cold": 512,
+     "hit_rate": 0.961913,
+     "conflict_rate": 0.037959,
+     "lat_open": 42.965794,
+     "lat_closed": 79.0,
+     "lat_oracle": 41.485393,
+     "oracle_hit_rate": 0.961913,
+     "banks_used": 512,
+     "banks_total": 512,
+     "chan_load_max_over_mean": 1.00082,
+     "stream": "region",
+     "mapper": "RoBaRaCoCh"
+    },
+    "chan": {
+     "n": 4000000,
+     "hits": 3848667,
+     "conflicts": 150821,
+     "cold": 512,
+     "hit_rate": 0.96216675,
+     "conflict_rate": 0.03770525,
+     "lat_open": 42.9460015,
+     "lat_closed": 79.0,
+     "lat_oracle": 41.47549675,
+     "oracle_hit_rate": 0.96216675,
+     "banks_used": 512,
+     "banks_total": 512,
+     "chan_load_max_over_mean": 1.000876,
+     "stream": "chan",
+     "mapper": "RoBaRaCoCh"
+    },
+    "xor_global_chan": {
+     "n": 4000000,
+     "hits": 3852700,
+     "conflicts": 146788,
+     "cold": 512,
+     "hit_rate": 0.963175,
+     "conflict_rate": 0.036697,
+     "lat_open": 42.867358,
+     "lat_closed": 79.0,
+     "lat_oracle": 41.436175,
+     "oracle_hit_rate": 0.963175,
+     "banks_used": 512,
+     "banks_total": 512,
+     "chan_load_max_over_mean": 1.00102,
+     "stream": "xgc",
+     "mapper": "RoBaRaCoCh"
+    },
+    "mop": {
+     "n": 4000000,
+     "hits": 2411092,
+     "conflicts": 1588396,
+     "cold": 512,
+     "hit_rate": 0.602773,
+     "conflict_rate": 0.397099,
+     "lat_open": 70.978714,
+     "lat_closed": 79.0,
+     "lat_oracle": 55.491853,
+     "oracle_hit_rate": 0.602773,
+     "banks_used": 512,
+     "banks_total": 512,
+     "chan_load_max_over_mean": 1.00082,
+     "stream": "id",
+     "mapper": "MOP4CLXOR"
+    },
+    "mopxor": {
+     "n": 4000000,
+     "hits": 2445970,
+     "conflicts": 1553518,
+     "cold": 512,
+     "hit_rate": 0.6114925,
+     "conflict_rate": 0.3883795,
+     "lat_open": 70.298593,
+     "lat_closed": 79.0,
+     "lat_oracle": 55.1517925,
+     "oracle_hit_rate": 0.6114925,
+     "banks_used": 512,
+     "banks_total": 512,
+     "chan_load_max_over_mean": 1.00082,
+     "stream": "mxg",
+     "mapper": "MOP4CLXOR"
+    },
+    "bitrev": {
+     "n": 4000000,
+     "hits": 3508147,
+     "conflicts": 491581,
+     "cold": 272,
+     "hit_rate": 0.87703675,
+     "conflict_rate": 0.12289525,
+     "lat_open": 49.5884815,
+     "lat_closed": 79.0,
+     "lat_oracle": 44.79556675,
+     "oracle_hit_rate": 0.87703675,
+     "banks_used": 272,
+     "banks_total": 512,
+     "chan_load_max_over_mean": 1.00082,
+     "stream": "bitrev",
+     "mapper": "RoBaRaCoCh"
+    },
+    "chra": {
+     "n": 4000000,
+     "hits": 2753452,
+     "conflicts": 1246532,
+     "cold": 16,
+     "hit_rate": 0.688363,
+     "conflict_rate": 0.311633,
+     "lat_open": 64.30753,
+     "lat_closed": 79.0,
+     "lat_oracle": 52.153843,
+     "oracle_hit_rate": 0.688363,
+     "banks_used": 16,
+     "banks_total": 512,
+     "chan_load_max_over_mean": 1.00082,
+     "stream": "id",
+     "mapper": "ChRaBaRoCo"
+    },
+    "naive": {
+     "n": 4000000,
+     "hits": 3840950,
+     "conflicts": 158538,
+     "cold": 512,
+     "hit_rate": 0.9602375,
+     "conflict_rate": 0.0396345,
+     "lat_open": 43.096483,
+     "lat_closed": 79.0,
+     "lat_oracle": 41.5507375,
+     "oracle_hit_rate": 0.9602375,
+     "banks_used": 512,
+     "banks_total": 512,
+     "chan_load_max_over_mean": 1.00082,
+     "stream": "naive",
+     "mapper": "RoBaRaCoCh"
+    },
+    "expert_hash": {
+     "n": 4000000,
+     "hits": 3861563,
+     "conflicts": 137925,
+     "cold": 512,
+     "hit_rate": 0.96539075,
+     "conflict_rate": 0.03448125,
+     "lat_open": 42.6945295,
+     "lat_closed": 79.0,
+     "lat_oracle": 41.34976075,
+     "oracle_hit_rate": 0.96539075,
+     "banks_used": 512,
+     "banks_total": 512,
+     "chan_load_max_over_mean": 1.00082,
+     "stream": "eh",
+     "mapper": "RoBaRaCoCh"
+    },
+    "expert_lin": {
+     "n": 4000000,
+     "hits": 3852946,
+     "conflicts": 146542,
+     "cold": 512,
+     "hit_rate": 0.9632365,
+     "conflict_rate": 0.0366355,
+     "lat_open": 42.862561,
+     "lat_closed": 79.0,
+     "lat_oracle": 41.4337765,
+     "oracle_hit_rate": 0.9632365,
+     "banks_used": 512,
+     "banks_total": 512,
+     "chan_load_max_over_mean": 1.00082,
+     "stream": "el",
+     "mapper": "RoBaRaCoCh"
+    }
+   },
+   "ranges": {
+    "id": 23,
+    "xg": 23,
+    "region": 23,
+    "chan": 23,
+    "xgc": 23,
+    "bitrev": 9,
+    "naive": 23,
+    "mxg": 23,
+    "eh": 23,
+    "el": 23
+   }
+  },
+  {
+   "key": "thp_d4r6",
+   "placement": "thp",
+   "dram": "d4r6",
+   "info": {
+    "xor_global": {
+     "matrix": {
+      "0": [
+       "row1",
+       "row0"
+      ],
+      "1": [
+       "row5",
+       "row0"
+      ],
+      "2": [
+       "row5"
+      ],
+      "3": [
+       "row10"
+      ],
+      "4": [
+       "row9"
+      ]
+     },
+     "cost": [
+      946995.6333333334,
+      768269.6833333333
+     ]
+    },
+    "region": {
+     "K": {
+      "matrix": {
+       "0": [
+        "row11"
+       ],
+       "1": [
+        "row14"
+       ],
+       "2": [
+        "row9"
+       ],
+       "3": [],
+       "4": [
+        "row6"
+       ]
+      },
+      "cost": [
+       160347.15,
+       42675.21666666667
+      ],
+      "reads_window": 7440
+     },
+     "O": {
+      "matrix": {
+       "0": [
+        "row12",
+        "row7"
+       ],
+       "1": [
+        "row3"
+       ],
+       "2": [
+        "row4"
+       ],
+       "3": [
+        "row12"
+       ],
+       "4": []
+      },
+      "cost": [
+       726279.5833333334,
+       330751.38333333336
+      ],
+      "reads_window": 27167
+     }
+    },
+    "chan": {
+     "matrix": {
+      "0": [
+       "row13",
+       "row5"
+      ],
+      "1": [
+       "row2"
+      ],
+      "2": [
+       "row7"
+      ]
+     }
+    },
+    "xor_global_chan": {
+     "matrix": {
+      "0": [
+       "row10"
+      ],
+      "1": [],
+      "2": []
+     },
+     "bank": {
+      "0": [
+       "row1",
+       "row0"
+      ],
+      "1": [
+       "row5",
+       "row0"
+      ],
+      "2": [
+       "row5"
+      ],
+      "3": [
+       "row10"
+      ],
+      "4": [
+       "row9"
+      ]
+     }
+    },
+    "mopxor": {
+     "matrix": {
+      "0": [
+       "row4",
+       "row0"
+      ],
+      "1": [
+       "row9"
+      ],
+      "2": [
+       "row3",
+       "row11"
+      ],
+      "3": [
+       "row0",
+       "row13"
+      ],
+      "4": [
+       "row0",
+       "row14"
+      ]
+     },
+     "cost": [
+      1603415.4833333334,
+      1527101.0833333335
+     ]
+    }
+   },
+   "mappings": {
+    "identity": {
+     "n": 4000000,
+     "hits": 3870888,
+     "conflicts": 128920,
+     "cold": 192,
+     "hit_rate": 0.967722,
+     "conflict_rate": 0.03223,
+     "lat_open": 22.354668,
+     "lat_closed": 42.0,
+     "lat_oracle": 21.677838,
+     "oracle_hit_rate": 0.967722,
+     "banks_used": 192,
+     "banks_total": 192,
+     "chan_load_max_over_mean": 1.0001250000000002,
+     "stream": "id",
+     "mapper": "RoBaRaCoCh"
+    },
+    "xor_global": {
+     "n": 4000000,
+     "hits": 3885472,
+     "conflicts": 114336,
+     "cold": 192,
+     "hit_rate": 0.971368,
+     "conflict_rate": 0.028584,
+     "lat_open": 22.201536,
+     "lat_closed": 42.0,
+     "lat_oracle": 21.601272,
+     "oracle_hit_rate": 0.971368,
+     "banks_used": 192,
+     "banks_total": 192,
+     "chan_load_max_over_mean": 1.0001250000000002,
+     "stream": "xg",
+     "mapper": "RoBaRaCoCh"
+    },
+    "region": {
+     "n": 4000000,
+     "hits": 3874511,
+     "conflicts": 125297,
+     "cold": 192,
+     "hit_rate": 0.96862775,
+     "conflict_rate": 0.03132425,
+     "lat_open": 22.3166265,
+     "lat_closed": 42.0,
+     "lat_oracle": 21.65881725,
+     "oracle_hit_rate": 0.96862775,
+     "banks_used": 192,
+     "banks_total": 192,
+     "chan_load_max_over_mean": 1.0001250000000002,
+     "stream": "region",
+     "mapper": "RoBaRaCoCh"
+    },
+    "chan": {
+     "n": 4000000,
+     "hits": 3883144,
+     "conflicts": 116664,
+     "cold": 192,
+     "hit_rate": 0.970786,
+     "conflict_rate": 0.029166,
+     "lat_open": 22.22598,
+     "lat_closed": 42.0,
+     "lat_oracle": 21.613494,
+     "oracle_hit_rate": 0.970786,
+     "banks_used": 192,
+     "banks_total": 192,
+     "chan_load_max_over_mean": 1.0001520000000002,
+     "stream": "chan",
+     "mapper": "RoBaRaCoCh"
+    },
+    "xor_global_chan": {
+     "n": 4000000,
+     "hits": 3884855,
+     "conflicts": 114953,
+     "cold": 192,
+     "hit_rate": 0.97121375,
+     "conflict_rate": 0.02873825,
+     "lat_open": 22.2080145,
+     "lat_closed": 42.0,
+     "lat_oracle": 21.60451125,
+     "oracle_hit_rate": 0.97121375,
+     "banks_used": 192,
+     "banks_total": 192,
+     "chan_load_max_over_mean": 1.0001325,
+     "stream": "xgc",
+     "mapper": "RoBaRaCoCh"
+    },
+    "mop": {
+     "n": 4000000,
+     "hits": 2427358,
+     "conflicts": 1572450,
+     "cold": 192,
+     "hit_rate": 0.6068395,
+     "conflict_rate": 0.3931125,
+     "lat_open": 37.511733,
+     "lat_closed": 42.0,
+     "lat_oracle": 29.2563705,
+     "oracle_hit_rate": 0.6068395,
+     "banks_used": 192,
+     "banks_total": 192,
+     "chan_load_max_over_mean": 1.0001250000000002,
+     "stream": "id",
+     "mapper": "MOP4CLXOR"
+    },
+    "mopxor": {
+     "n": 4000000,
+     "hits": 2451186,
+     "conflicts": 1548622,
+     "cold": 192,
+     "hit_rate": 0.6127965,
+     "conflict_rate": 0.3871555,
+     "lat_open": 37.261539,
+     "lat_closed": 42.0,
+     "lat_oracle": 29.1312735,
+     "oracle_hit_rate": 0.6127965,
+     "banks_used": 192,
+     "banks_total": 192,
+     "chan_load_max_over_mean": 1.0001250000000002,
+     "stream": "mxg",
+     "mapper": "MOP4CLXOR"
+    },
+    "bitrev": {
+     "n": 4000000,
+     "hits": 3844709,
+     "conflicts": 155159,
+     "cold": 132,
+     "hit_rate": 0.96117725,
+     "conflict_rate": 0.03878975,
+     "lat_open": 22.6298625,
+     "lat_closed": 42.0,
+     "lat_oracle": 21.81527775,
+     "oracle_hit_rate": 0.96117725,
+     "banks_used": 132,
+     "banks_total": 192,
+     "chan_load_max_over_mean": 1.0001250000000002,
+     "stream": "bitrev",
+     "mapper": "RoBaRaCoCh"
+    },
+    "chra": {
+     "n": 4000000,
+     "hits": 3581022,
+     "conflicts": 418942,
+     "cold": 36,
+     "hit_rate": 0.8952555,
+     "conflict_rate": 0.1047355,
+     "lat_open": 25.39908,
+     "lat_closed": 42.0,
+     "lat_oracle": 23.1996345,
+     "oracle_hit_rate": 0.8952555,
+     "banks_used": 36,
+     "banks_total": 192,
+     "chan_load_max_over_mean": 1.0001250000000002,
+     "stream": "id",
+     "mapper": "ChRaBaRoCo"
+    },
+    "naive": {
+     "n": 4000000,
+     "hits": 3883426,
+     "conflicts": 116382,
+     "cold": 192,
+     "hit_rate": 0.9708565,
+     "conflict_rate": 0.0290955,
+     "lat_open": 22.223019,
+     "lat_closed": 42.0,
+     "lat_oracle": 21.6120135,
+     "oracle_hit_rate": 0.9708565,
+     "banks_used": 192,
+     "banks_total": 192,
+     "chan_load_max_over_mean": 1.0001250000000002,
+     "stream": "naive",
+     "mapper": "RoBaRaCoCh"
+    },
+    "expert_hash": {
+     "n": 4000000,
+     "hits": 3867263,
+     "conflicts": 132545,
+     "cold": 192,
+     "hit_rate": 0.96681575,
+     "conflict_rate": 0.03313625,
+     "lat_open": 22.3927305,
+     "lat_closed": 42.0,
+     "lat_oracle": 21.69686925,
+     "oracle_hit_rate": 0.96681575,
+     "banks_used": 192,
+     "banks_total": 192,
+     "chan_load_max_over_mean": 1.0001250000000002,
+     "stream": "eh",
+     "mapper": "RoBaRaCoCh"
+    },
+    "expert_lin": {
+     "n": 4000000,
+     "hits": 3877517,
+     "conflicts": 122291,
+     "cold": 192,
+     "hit_rate": 0.96937925,
+     "conflict_rate": 0.03057275,
+     "lat_open": 22.2850635,
+     "lat_closed": 42.0,
+     "lat_oracle": 21.64303575,
+     "oracle_hit_rate": 0.96937925,
+     "banks_used": 192,
+     "banks_total": 192,
+     "chan_load_max_over_mean": 1.0001250000000002,
+     "stream": "el",
+     "mapper": "RoBaRaCoCh"
+    }
+   },
+   "ranges": {
+    "id": 792,
+    "xg": 792,
+    "region": 792,
+    "chan": 792,
+    "xgc": 792,
+    "bitrev": 4813,
+    "naive": 792,
+    "mxg": 792,
+    "eh": 792,
+    "el": 792
+   }
+  },
+  {
+   "key": "thp_x16",
+   "placement": "thp",
+   "dram": "x16",
+   "info": {
+    "xor_global": {
+     "matrix": {
+      "0": [
+       "row5"
+      ],
+      "1": [
+       "row5"
+      ],
+      "2": [],
+      "3": [
+       "row10"
+      ],
+      "4": []
+     },
+     "cost": [
+      455356.2,
+      435367.95
+     ]
+    },
+    "region": {
+     "K": {
+      "matrix": {
+       "0": [
+        "row11"
+       ],
+       "1": [
+        "row13"
+       ],
+       "2": [
+        "row4"
+       ],
+       "3": [
+        "row9",
+        "row3"
+       ],
+       "4": [
+        "row6"
+       ]
+      },
+      "cost": [
+       368361.25,
+       36838.5
+      ],
+      "reads_window": 7440
+     },
+     "O": {
+      "matrix": {
+       "0": [
+        "row4"
+       ],
+       "1": [
+        "row1",
+        "row8"
+       ],
+       "2": [
+        "row5",
+        "row11"
+       ],
+       "3": [
+        "row0"
+       ],
+       "4": []
+      },
+      "cost": [
+       666652.35,
+       207486.55
+      ],
+      "reads_window": 27167
+     }
+    },
+    "chan": {
+     "matrix": {
+      "0": [
+       "row7",
+       "row13"
+      ],
+      "1": [
+       "row2"
+      ],
+      "2": [
+       "row7"
+      ],
+      "3": []
+     }
+    },
+    "xor_global_chan": {
+     "matrix": {
+      "0": [],
+      "1": [],
+      "2": [],
+      "3": []
+     },
+     "bank": {
+      "0": [
+       "row5"
+      ],
+      "1": [
+       "row5"
+      ],
+      "2": [],
+      "3": [
+       "row10"
+      ],
+      "4": []
+     }
+    },
+    "mopxor": {
+     "matrix": {
+      "0": [
+       "row6",
+       "row9"
+      ],
+      "1": [
+       "row12"
+      ],
+      "2": [
+       "row11",
+       "row4",
+       "row9"
+      ],
+      "3": [
+       "row7"
+      ],
+      "4": []
+     },
+     "cost": [
+      1241154.7000000002,
+      1163197.05
+     ]
+    }
+   },
+   "mappings": {
+    "identity": {
+     "n": 4000000,
+     "hits": 3846670,
+     "conflicts": 152818,
+     "cold": 512,
+     "hit_rate": 0.9616675,
+     "conflict_rate": 0.0382045,
+     "lat_open": 42.984943,
+     "lat_closed": 79.0,
+     "lat_oracle": 41.4949675,
+     "oracle_hit_rate": 0.9616675,
+     "banks_used": 512,
+     "banks_total": 512,
+     "chan_load_max_over_mean": 1.00082,
+     "stream": "id",
+     "mapper": "RoBaRaCoCh"
+    },
+    "xor_global": {
+     "n": 4000000,
+     "hits": 3854994,
+     "conflicts": 144494,
+     "cold": 512,
+     "hit_rate": 0.9637485,
+     "conflict_rate": 0.0361235,
+     "lat_open": 42.822625,
+     "lat_closed": 79.0,
+     "lat_oracle": 41.4138085,
+     "oracle_hit_rate": 0.9637485,
+     "banks_used": 512,
+     "banks_total": 512,
+     "chan_load_max_over_mean": 1.00082,
+     "stream": "xg",
+     "mapper": "RoBaRaCoCh"
+    },
+    "region": {
+     "n": 4000000,
+     "hits": 3849939,
+     "conflicts": 149549,
+     "cold": 512,
+     "hit_rate": 0.96248475,
+     "conflict_rate": 0.03738725,
+     "lat_open": 42.9211975,
+     "lat_closed": 79.0,
+     "lat_oracle": 41.46309475,
+     "oracle_hit_rate": 0.96248475,
+     "banks_used": 512,
+     "banks_total": 512,
+     "chan_load_max_over_mean": 1.00082,
+     "stream": "region",
+     "mapper": "RoBaRaCoCh"
+    },
+    "chan": {
+     "n": 4000000,
+     "hits": 3848140,
+     "conflicts": 151348,
+     "cold": 512,
+     "hit_rate": 0.962035,
+     "conflict_rate": 0.037837,
+     "lat_open": 42.956278,
+     "lat_closed": 79.0,
+     "lat_oracle": 41.480635,
+     "oracle_hit_rate": 0.962035,
+     "banks_used": 512,
+     "banks_total": 512,
+     "chan_load_max_over_mean": 1.000616,
+     "stream": "chan",
+     "mapper": "RoBaRaCoCh"
+    },
+    "xor_global_chan": {
+     "n": 4000000,
+     "hits": 3854994,
+     "conflicts": 144494,
+     "cold": 512,
+     "hit_rate": 0.9637485,
+     "conflict_rate": 0.0361235,
+     "lat_open": 42.822625,
+     "lat_closed": 79.0,
+     "lat_oracle": 41.4138085,
+     "oracle_hit_rate": 0.9637485,
+     "banks_used": 512,
+     "banks_total": 512,
+     "chan_load_max_over_mean": 1.00082,
+     "stream": "xgc",
+     "mapper": "RoBaRaCoCh"
+    },
+    "mop": {
+     "n": 4000000,
+     "hits": 2383495,
+     "conflicts": 1615993,
+     "cold": 512,
+     "hit_rate": 0.59587375,
+     "conflict_rate": 0.40399825,
+     "lat_open": 71.5168555,
+     "lat_closed": 79.0,
+     "lat_oracle": 55.76092375,
+     "oracle_hit_rate": 0.59587375,
+     "banks_used": 512,
+     "banks_total": 512,
+     "chan_load_max_over_mean": 1.00082,
+     "stream": "id",
+     "mapper": "MOP4CLXOR"
+    },
+    "mopxor": {
+     "n": 4000000,
+     "hits": 2397873,
+     "conflicts": 1601615,
+     "cold": 512,
+     "hit_rate": 0.59946825,
+     "conflict_rate": 0.40040375,
+     "lat_open": 71.2364845,
+     "lat_closed": 79.0,
+     "lat_oracle": 55.62073825,
+     "oracle_hit_rate": 0.59946825,
+     "banks_used": 512,
+     "banks_total": 512,
+     "chan_load_max_over_mean": 1.00082,
+     "stream": "mxg",
+     "mapper": "MOP4CLXOR"
+    },
+    "bitrev": {
+     "n": 4000000,
+     "hits": 3844939,
+     "conflicts": 154549,
+     "cold": 512,
+     "hit_rate": 0.96123475,
+     "conflict_rate": 0.03863725,
+     "lat_open": 43.0186975,
+     "lat_closed": 79.0,
+     "lat_oracle": 41.51184475,
+     "oracle_hit_rate": 0.96123475,
+     "banks_used": 512,
+     "banks_total": 512,
+     "chan_load_max_over_mean": 1.00082,
+     "stream": "bitrev",
+     "mapper": "RoBaRaCoCh"
+    },
+    "chra": {
+     "n": 4000000,
+     "hits": 3686289,
+     "conflicts": 313583,
+     "cold": 128,
+     "hit_rate": 0.92157225,
+     "conflict_rate": 0.07839575,
+     "lat_open": 46.1161165,
+     "lat_closed": 79.0,
+     "lat_oracle": 43.05868225,
+     "oracle_hit_rate": 0.92157225,
+     "banks_used": 128,
+     "banks_total": 512,
+     "chan_load_max_over_mean": 1.00082,
+     "stream": "id",
+     "mapper": "ChRaBaRoCo"
+    },
+    "naive": {
+     "n": 4000000,
+     "hits": 3839990,
+     "conflicts": 159498,
+     "cold": 512,
+     "hit_rate": 0.9599975,
+     "conflict_rate": 0.0398745,
+     "lat_open": 43.115203,
+     "lat_closed": 79.0,
+     "lat_oracle": 41.5600975,
+     "oracle_hit_rate": 0.9599975,
+     "banks_used": 512,
+     "banks_total": 512,
+     "chan_load_max_over_mean": 1.00082,
+     "stream": "naive",
+     "mapper": "RoBaRaCoCh"
+    },
+    "expert_hash": {
+     "n": 4000000,
+     "hits": 3841615,
+     "conflicts": 157873,
+     "cold": 512,
+     "hit_rate": 0.96040375,
+     "conflict_rate": 0.03946825,
+     "lat_open": 43.0835155,
+     "lat_closed": 79.0,
+     "lat_oracle": 41.54425375,
+     "oracle_hit_rate": 0.96040375,
+     "banks_used": 512,
+     "banks_total": 512,
+     "chan_load_max_over_mean": 1.00082,
+     "stream": "eh",
+     "mapper": "RoBaRaCoCh"
+    },
+    "expert_lin": {
+     "n": 4000000,
+     "hits": 3858688,
+     "conflicts": 140800,
+     "cold": 512,
+     "hit_rate": 0.964672,
+     "conflict_rate": 0.0352,
+     "lat_open": 42.750592,
+     "lat_closed": 79.0,
+     "lat_oracle": 41.377792,
+     "oracle_hit_rate": 0.964672,
+     "banks_used": 512,
+     "banks_total": 512,
+     "chan_load_max_over_mean": 1.00082,
+     "stream": "el",
+     "mapper": "RoBaRaCoCh"
+    }
+   },
+   "ranges": {
+    "id": 787,
+    "xg": 787,
+    "region": 787,
+    "chan": 787,
+    "xgc": 787,
+    "bitrev": 3386,
+    "naive": 787,
+    "mxg": 787,
+    "eh": 787,
+    "el": 787
+   }
+  }
+ ]
+}
