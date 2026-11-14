@@ -28,3 +28,16 @@ E 2 13439097979824252	E 2 13439098010150218
 B 3 13439097979825004	B 3 13439098010150962
 E 3 13439097981703540	E 3 13439098012012546
 28G	/scratch/adityaseshasai.s/bmiss/Qwen3-30B-A3B-Q4_K_M_B4_P8192t4/drmemtrace.llama-drbatch.1801289.5829.dir/raw
+raw2trace 1089.89 s
+6.0G	/scratch/adityaseshasai.s/bmiss/Qwen3-30B-A3B-Q4_K_M_B4_P8192t4/drmemtrace.llama-drbatch.1801289.5829.dir/trace
+ 15056282623 total (fetched) instructions
+Thread 1801289 counts:
+  3767511985 (fetched) instructions
+Thread 1801304 counts:
+  3764195872 (fetched) instructions
+Thread 1801306 counts:
+  3763510833 (fetched) instructions
+Thread 1801305 counts:
+  3761063933 (fetched) instructions
+=== cache simulation without prefetch, keep miss stream
+-rw-rw-r-- 1 adityaseshasai.s adityaseshasai.s 496655485 Nov 14 10:19 /home/adityaseshasai.s/amcas-pro/results/fullscale/drbatch_miss/Qwen3-30B-A3B-Q4_K_M_B4_P8192t4/miss.gz
