@@ -4,3 +4,75 @@ SLURM_NODELIST = node05
 SLURM_JOB_GPUS = 
 ==========================================
 ### q7_v100_short_faauto ib2 Sat Nov 14 17:14:20 IST 2026
+v100 ib2: 80000000 of 137433065 requests (79867066 rd, 132934 wr), 1261 2MiB pages
+  [chan] channel hash cost 449756 -> 446657; chan bit ^= {0: ['row4'], 1: ['row4'], 2: [], 3: ['row3'], 4: []}
+  [xor_chan] channel hash cost 447987 -> 445883; chan bit ^= {0: [], 1: ['row5'], 2: [], 3: ['row0'], 4: ['row2']}
+  [chan] channel hash cost 516907 -> 512612; chan bit ^= {0: ['row4'], 1: ['row4'], 2: [], 3: ['row3'], 4: ['row7']}
+  [xor_chan] channel hash cost 514768 -> 512219; chan bit ^= {0: [], 1: ['row5'], 2: [], 3: ['row0'], 4: ['row2']}
+sim  scheme   policy         hit  lat_cyc  lat_ns     cycles   time_us    GB/s
+ram  identity Open         0.671     50.2    62.7    5149268    6436.6   397.7
+ram  identity ClosedCAP    0.600     53.9    67.3    5513619    6892.0   371.4
+ram  xor      Open         0.671     50.2    62.7    5153609    6442.0   397.4
+ram  xor      ClosedCAP    0.600     53.8    67.3    5517162    6896.5   371.2
+ram  chan     Open         0.671     50.0    62.5    5165474    6456.8   396.5
+ram  chan     ClosedCAP    0.600     53.7    67.1    5527878    6909.8   370.5
+ram  xor_chan Open         0.671     50.0    62.5    5149167    6436.5   397.7
+ram  xor_chan ClosedCAP    0.600     53.6    67.0    5511154    6888.9   371.6
+ds3  identity OPEN_PAGE    0.793    220.2   251.1    2841463    3239.3   790.3
+ds3  identity CLOSE_PAGE   0.000    746.5   851.1   10451273   11914.5   214.9
+ds3  xor      OPEN_PAGE    0.793    220.4   251.2    2840441    3238.1   790.6
+ds3  xor      CLOSE_PAGE   0.000    747.1   851.7   10443831   11906.0   215.0
+ds3  chan     OPEN_PAGE    0.793    220.7   251.6    2823935    3219.3   795.2
+ds3  chan     CLOSE_PAGE   0.000    750.1   855.1   10407704   11864.8   215.8
+ds3  xor_chan OPEN_PAGE    0.794    223.5   254.8    2805319    3198.1   800.5
+ds3  xor_chan CLOSE_PAGE   0.000    757.1   863.1   10372676   11824.9   216.5
+### q7_v100_short_faauto ib5 Sat Nov 14 17:37:45 IST 2026
+v100 ib5: 80000000 of 137433065 requests (79867066 rd, 132934 wr), 1261 2MiB pages
+  [chan] channel hash cost 388503 -> 386429; chan bit ^= {0: ['row7'], 1: ['row2'], 2: [], 3: [], 4: ['row8']}
+  [xor_chan] channel hash cost 387803 -> 386307; chan bit ^= {0: ['row5'], 1: ['row2'], 2: [], 3: [], 4: []}
+  [chan] channel hash cost 442665 -> 440202; chan bit ^= {0: ['row7'], 1: ['row2'], 2: [], 3: [], 4: ['row8']}
+  [xor_chan] channel hash cost 441820 -> 439995; chan bit ^= {0: ['row5'], 1: ['row2'], 2: [], 3: [], 4: []}
+
+sim  scheme   policy         hit  lat_cyc  lat_ns     cycles   time_us    GB/s
+ram  identity Open         0.825     48.5    60.7    6799929    8499.9   301.2
+ram  identity ClosedCAP    0.678     60.4    75.5    8412589   10515.7   243.4
+ram  xor      Open         0.825     48.4    60.5    6782484    8478.1   302.0
+ram  xor      ClosedCAP    0.678     60.2    75.3    8382807   10478.5   244.3
+ram  chan     Open         0.826     48.3    60.4    6767270    8459.1   302.6
+ram  chan     ClosedCAP    0.679     60.1    75.1    8358251   10447.8   245.0
+ram  xor_chan Open         0.826     48.2    60.3    6760601    8450.8   302.9
+ram  xor_chan ClosedCAP    0.679     60.1    75.1    8351489   10439.4   245.2
+ds3  identity OPEN_PAGE    0.841    210.6   240.1    2783829    3173.6   806.7
+ds3  identity CLOSE_PAGE   0.000    755.7   861.5   10709893   12209.3   209.7
+ds3  xor      OPEN_PAGE    0.841    210.2   239.6    2776050    3164.7   808.9
+ds3  xor      CLOSE_PAGE   0.000    755.6   861.4   10624828   12112.3   211.4
+ds3  chan     OPEN_PAGE    0.842    211.8   241.4    2768731    3156.4   811.1
+ds3  chan     CLOSE_PAGE   0.000    757.9   864.0   10580218   12061.4   212.2
+ds3  xor_chan OPEN_PAGE    0.842    211.1   240.7    2767828    3155.3   811.3
+ds3  xor_chan CLOSE_PAGE   0.000    758.0   864.1   10578952   12060.0   212.3
+### q7_v100_short_faoff ib2 Sat Nov 14 18:01:19 IST 2026
+v100 ib2: 80000000 of 137437518 requests (79864300 rd, 135700 wr), 1282 2MiB pages
+  [chan] channel hash cost 448818 -> 439261; chan bit ^= {0: ['row0', 'row9', 'row6'], 1: ['row8', 'row7'], 2: ['row2', 'row3'], 3: [], 4: ['row0']}
+  [xor_chan] channel hash cost 452512 -> 441149; chan bit ^= {0: ['row8', 'row3'], 1: [], 2: ['row1', 'row8', 'row2'], 3: ['row4', 'row6', 'row2'], 4: []}
+  [chan] channel hash cost 515737 -> 504200; chan bit ^= {0: ['row0', 'row9', 'row6'], 1: ['row8', 'row7'], 2: ['row2', 'row3'], 3: [], 4: ['row0']}
+  [xor_chan] channel hash cost 520208 -> 506644; chan bit ^= {0: ['row8', 'row6'], 1: [], 2: ['row1', 'row8', 'row2'], 3: ['row4', 'row6', 'row2'], 4: []}
+
+
+sim  scheme   policy         hit  lat_cyc  lat_ns     cycles   time_us    GB/s
+ram  identity Open         0.671     50.1    62.7    5159546    6449.4   396.9
+ram  identity ClosedCAP    0.600     53.7    67.1    5487456    6859.3   373.2
+ram  xor      Open         0.669     50.2    62.8    5146735    6433.4   397.9
+ram  xor      ClosedCAP    0.599     53.8    67.3    5477276    6846.6   373.9
+ram  chan     Open         0.668     50.2    62.7    5222821    6528.5   392.1
+ram  chan     ClosedCAP    0.598     53.8    67.2    5553895    6942.4   368.8
+ram  xor_chan Open         0.665     50.5    63.1    5227509    6534.4   391.8
+ram  xor_chan ClosedCAP    0.597     54.0    67.5    5555137    6943.9   368.7
+ds3  identity OPEN_PAGE    0.793    221.4   252.4    2930073    3340.3   766.4
+ds3  identity CLOSE_PAGE   0.000    748.1   852.9   10708648   12207.9   209.7
+ds3  xor      OPEN_PAGE    0.793    220.7   251.6    2892556    3297.5   776.3
+ds3  xor      CLOSE_PAGE   0.000    753.2   858.7   10602448   12086.8   211.8
+ds3  chan     OPEN_PAGE    0.793    221.1   252.1    2811678    3205.3   798.7
+ds3  chan     CLOSE_PAGE   0.000    753.7   859.2   10385996   11840.0   216.2
+ds3  xor_chan OPEN_PAGE    0.791    219.8   250.6    2825074    3220.6   794.9
+ds3  xor_chan CLOSE_PAGE   0.000    752.5   857.8   10384116   11837.9   216.3
+### q7_v100_short_faoff ib5 Sat Nov 14 18:25:48 IST 2026

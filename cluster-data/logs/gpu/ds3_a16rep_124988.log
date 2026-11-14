@@ -31,3 +31,80 @@ ds3  chan     CLOSE_PAGE   0.000   1499.1   959.4  245795578  157309.2    16.3
 ds3  xor_chan OPEN_PAGE    0.951    165.0   105.6   20773023   13294.7   192.6
 ds3  xor_chan CLOSE_PAGE   0.000   1398.4   895.0  222540400  142425.9    18.0
 ### q7_a16_short_faauto ib5 Sat Nov 14 17:09:08 IST 2026
+a16 ib5: 80000000 of 137464781 requests (79867868 rd, 132132 wr), 1261 2MiB pages
+  [chan] channel hash cost 707574 -> 687855; chan bit ^= {0: ['row10', 'row2', 'row6'], 1: ['row1', 'row5', 'row3'], 2: ['row0', 'row7']}
+  [xor_chan] channel hash cost 613263 -> 604736; chan bit ^= {0: ['row1'], 1: ['row1'], 2: []}
+  [chan] channel hash cost 427016 -> 407168; chan bit ^= {0: ['row10', 'row2', 'row6'], 1: ['row1', 'row5', 'row3'], 2: ['row0', 'row11']}
+  [xor_chan] channel hash cost 332983 -> 324490; chan bit ^= {0: ['row1'], 1: ['row1'], 2: []}
+] [[32minfo[0m] 
+
+
+
+sim  scheme   policy         hit  lat_cyc  lat_ns     cycles   time_us    GB/s
+ram  identity Open         0.952     87.9    50.3   43885164   25102.3   102.0
+ram  identity ClosedCAP    0.768    169.3    96.8   88953810   50881.6    50.3
+ram  xor      Open         0.966     78.1    44.7   35448904   20276.8   126.3
+ram  xor      ClosedCAP    0.770    159.8    91.4   81366526   46541.7    55.0
+ram  chan     Open         0.951     88.0    50.3   44482130   25443.8   100.6
+ram  chan     ClosedCAP    0.767    169.3    96.8   89548270   51221.6    50.0
+ram  xor_chan Open         0.965     78.0    44.6   35629848   20380.3   125.6
+ram  xor_chan ClosedCAP    0.770    159.6    91.3   81565108   46655.2    54.9
+ds3  identity OPEN_PAGE    0.971    151.9    97.2   22431519   14356.2   178.3
+ds3  identity CLOSE_PAGE   0.000   1254.0   802.6  210311431  134599.3    19.0
+ds3  xor      OPEN_PAGE    0.979    154.5    98.9   20985685   13430.8   190.6
+ds3  xor      CLOSE_PAGE   0.000   1165.4   745.8  183333866  117333.7    21.8
+ds3  chan     OPEN_PAGE    0.971    150.4    96.2   22296983   14270.1   179.4
+ds3  chan     CLOSE_PAGE   0.000   1233.7   789.5  208377923  133361.9    19.2
+ds3  xor_chan OPEN_PAGE    0.980    154.5    98.9   20978608   13426.3   190.7
+ds3  xor_chan CLOSE_PAGE   0.000   1159.6   742.2  182736076  116951.1    21.9
+### q7_a16_short_faoff ib2 Sat Nov 14 17:35:10 IST 2026
+a16 ib2: 80000000 of 137436346 requests (79849430 rd, 150570 wr), 1281 2MiB pages
+  [chan] channel hash cost 734771 -> 733925; chan bit ^= {0: ['row12'], 1: [], 2: []}
+  [xor_chan] channel hash cost 656558 -> 653112; chan bit ^= {0: ['row1'], 1: ['row4'], 2: ['row8']}
+  [chan] channel hash cost 455148 -> 454356; chan bit ^= {0: ['row12'], 1: [], 2: []}
+  [xor_chan] channel hash cost 376970 -> 373179; chan bit ^= {0: ['row1', 'row3'], 1: ['row4'], 2: ['row8']}
+
+
+sim  scheme   policy         hit  lat_cyc  lat_ns     cycles   time_us    GB/s
+ram  identity Open         0.905     96.9    55.4   35261514   20169.6   126.9
+ram  identity ClosedCAP    0.749    147.1    84.2   56282851   32193.8    79.5
+ram  xor      Open         0.926     80.6    46.1   27811441   15908.1   160.9
+ram  xor      ClosedCAP    0.752    132.7    75.9   48143339   27538.0    93.0
+ram  chan     Open         0.905     96.9    55.4   35263266   20170.6   126.9
+ram  chan     ClosedCAP    0.749    147.1    84.2   56281820   32193.2    79.5
+ram  xor_chan Open         0.926     80.8    46.2   27608827   15792.2   162.1
+ram  xor_chan ClosedCAP    0.752    133.8    76.5   47909250   27404.1    93.4
+ds3  identity OPEN_PAGE    0.945    172.5   110.4   22621741   14477.9   176.8
+ds3  identity CLOSE_PAGE   0.000   1499.4   959.6  246463969  157736.9    16.2
+ds3  xor      OPEN_PAGE    0.951    164.9   105.5   20876882   13361.2   191.6
+ds3  xor      CLOSE_PAGE   0.000   1401.4   896.9  223521165  143053.5    17.9
+ds3  chan     OPEN_PAGE    0.945    172.6   110.4   22605923   14467.8   176.9
+ds3  chan     CLOSE_PAGE   0.000   1499.4   959.6  246474628  157743.8    16.2
+ds3  xor_chan OPEN_PAGE    0.951    165.7   106.1   20722513   13262.4   193.0
+ds3  xor_chan CLOSE_PAGE   0.000   1384.9   886.4  218477143  139825.4    18.3
+### q7_a16_short_faoff ib5 Sat Nov 14 18:02:38 IST 2026
+a16 ib5: 80000000 of 137436346 requests (79849430 rd, 150570 wr), 1281 2MiB pages
+  [chan] channel hash cost 716337 -> 686770; chan bit ^= {0: ['row3', 'row7'], 1: ['row0', 'row1', 'row7'], 2: ['row1', 'row7']}
+  [xor_chan] channel hash cost 616322 -> 600655; chan bit ^= {0: ['row4', 'row3'], 1: ['row1', 'row0'], 2: ['row0']}
+  [chan] channel hash cost 435856 -> 408434; chan bit ^= {0: ['row3'], 1: ['row0', 'row1', 'row7'], 2: ['row1', 'row8']}
+  [xor_chan] channel hash cost 336089 -> 320620; chan bit ^= {0: ['row4', 'row3'], 1: ['row1', 'row0'], 2: ['row0', 'row5']}
+
+
+sim  scheme   policy         hit  lat_cyc  lat_ns     cycles   time_us    GB/s
+ram  identity Open         0.952     87.3    49.9   43848901   25081.6   102.1
+ram  identity ClosedCAP    0.767    167.2    95.6   88109355   50398.6    50.8
+ram  xor      Open         0.964     77.9    44.6   35709915   20426.1   125.3
+ram  xor      ClosedCAP    0.769    158.0    90.4   80881910   46264.5    55.3
+ram  chan     Open         0.950     87.8    50.2   44535311   25474.2   100.5
+ram  chan     ClosedCAP    0.767    167.6    95.9   88878821   50838.7    50.4
+ram  xor_chan Open         0.964     78.0    44.6   35930961   20552.5   124.6
+ram  xor_chan ClosedCAP    0.769    158.1    90.4   81147835   46416.6    55.2
+ds3  identity OPEN_PAGE    0.970    152.8    97.8   22536274   14423.2   177.5
+ds3  identity CLOSE_PAGE   0.000   1239.7   793.4  206341555  132058.6    19.4
+ds3  xor      OPEN_PAGE    0.979    154.6    99.0   21163460   13544.6   189.0
+ds3  xor      CLOSE_PAGE   0.000   1151.7   737.1  181088762  115896.8    22.1
+ds3  chan     OPEN_PAGE    0.970    151.8    97.1   22281369   14260.1   179.5
+ds3  chan     CLOSE_PAGE   0.000   1223.1   782.8  203940449  130521.9    19.6
+ds3  xor_chan OPEN_PAGE    0.980    154.6    98.9   20798073   13310.8   192.3
+ds3  xor_chan CLOSE_PAGE   0.000   1139.8   729.5  176719457  113100.5    22.6
+### q7_a16_8k_faauto ib2 Sat Nov 14 18:28:52 IST 2026

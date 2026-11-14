@@ -1,5 +1,365 @@
 [
  {
+  "key": "packed_d4r6_bitrev",
+  "policy": "OPEN_PAGE",
+  "nch": 6,
+  "reads": 4000000,
+  "cycles": 5979971,
+  "hit_rate": 0.936425,
+  "avg_read_latency": 400.89081425,
+  "acts": 254852,
+  "channel_cycles": [
+   5979971,
+   5979751,
+   5977553,
+   5975173,
+   5978271,
+   5978836
+  ]
+ },
+ {
+  "key": "packed_d4r6_bitrev",
+  "policy": "CLOSE_PAGE",
+  "nch": 6,
+  "reads": 4000000,
+  "cycles": 34650765,
+  "hit_rate": 0.0,
+  "avg_read_latency": 2197.2722555,
+  "acts": 4003017,
+  "channel_cycles": [
+   34638541,
+   34650765,
+   34642091,
+   34648596,
+   34645245,
+   34646957
+  ]
+ },
+ {
+  "key": "packed_d4r6_chan",
+  "policy": "OPEN_PAGE",
+  "nch": 6,
+  "reads": 4000000,
+  "cycles": 3261734,
+  "hit_rate": 0.97999875,
+  "avg_read_latency": 291.5185505,
+  "acts": 80629,
+  "channel_cycles": [
+   3250655,
+   3253684,
+   3261718,
+   3261734,
+   3238857,
+   3250274
+  ]
+ },
+ {
+  "key": "packed_d4r6_chan",
+  "policy": "CLOSE_PAGE",
+  "nch": 6,
+  "reads": 4000000,
+  "cycles": 16314305,
+  "hit_rate": 0.0,
+  "avg_read_latency": 1307.5945345,
+  "acts": 4007059,
+  "channel_cycles": [
+   16307093,
+   16314305,
+   16303470,
+   16303116,
+   16302879,
+   16306677
+  ]
+ },
+ {
+  "key": "packed_d4r6_chra3",
+  "policy": "OPEN_PAGE",
+  "nch": 6,
+  "reads": 4000000,
+  "cycles": 10236641,
+  "hit_rate": 0.86724925,
+  "avg_read_latency": 636.58506875,
+  "acts": 532069,
+  "channel_cycles": [
+   10162062,
+   10236641,
+   10228202,
+   10211916,
+   10216914,
+   10204567
+  ]
+ },
+ {
+  "key": "packed_d4r6_chra3",
+  "policy": "CLOSE_PAGE",
+  "nch": 6,
+  "reads": 4000000,
+  "cycles": 48732725,
+  "hit_rate": 0.0,
+  "avg_read_latency": 2947.3599465,
+  "acts": 4000006,
+  "channel_cycles": [
+   48715017,
+   48731449,
+   48722949,
+   48732725,
+   48722949,
+   48721045
+  ]
+ },
+ {
+  "key": "packed_d4r6_id",
+  "policy": "OPEN_PAGE",
+  "nch": 6,
+  "reads": 4000000,
+  "cycles": 3261920,
+  "hit_rate": 0.979966,
+  "avg_read_latency": 291.403417,
+  "acts": 80756,
+  "channel_cycles": [
+   3261837,
+   3261920,
+   3261710,
+   3238826,
+   3250131,
+   3238819
+  ]
+ },
+ {
+  "key": "packed_d4r6_id",
+  "policy": "CLOSE_PAGE",
+  "nch": 6,
+  "reads": 4000000,
+  "cycles": 16314910,
+  "hit_rate": 0.0,
+  "avg_read_latency": 1307.95354825,
+  "acts": 4007006,
+  "channel_cycles": [
+   16314047,
+   16314502,
+   16314295,
+   16314709,
+   16313128,
+   16314910
+  ]
+ },
+ {
+  "key": "packed_d4r6_mop3",
+  "policy": "OPEN_PAGE",
+  "nch": 6,
+  "reads": 4000000,
+  "cycles": 2869016,
+  "hit_rate": 0.677064,
+  "avg_read_latency": 620.01551625,
+  "acts": 1308183,
+  "channel_cycles": [
+   2867701,
+   2869016,
+   2867705,
+   2861206,
+   2866595,
+   2867193
+  ]
+ },
+ {
+  "key": "packed_d4r6_mop3",
+  "policy": "CLOSE_PAGE",
+  "nch": 6,
+  "reads": 4000000,
+  "cycles": 3286220,
+  "hit_rate": 0.0,
+  "avg_read_latency": 593.0236655,
+  "acts": 4014042,
+  "channel_cycles": [
+   3286220,
+   3283237,
+   3285483,
+   3285032,
+   3279540,
+   3279518
+  ]
+ },
+ {
+  "key": "packed_d4r6_mxg3",
+  "policy": "OPEN_PAGE",
+  "nch": 6,
+  "reads": 4000000,
+  "cycles": 2866431,
+  "hit_rate": 0.68045525,
+  "avg_read_latency": 623.63418825,
+  "acts": 1294576,
+  "channel_cycles": [
+   2856184,
+   2858597,
+   2859640,
+   2858156,
+   2866431,
+   2861592
+  ]
+ },
+ {
+  "key": "packed_d4r6_mxg3",
+  "policy": "CLOSE_PAGE",
+  "nch": 6,
+  "reads": 4000000,
+  "cycles": 3301037,
+  "hit_rate": 0.0,
+  "avg_read_latency": 591.48521675,
+  "acts": 4013786,
+  "channel_cycles": [
+   3295654,
+   3292942,
+   3297841,
+   3297560,
+   3297134,
+   3301037
+  ]
+ },
+ {
+  "key": "packed_d4r6_naive",
+  "policy": "OPEN_PAGE",
+  "nch": 6,
+  "reads": 4000000,
+  "cycles": 3378582,
+  "hit_rate": 0.9778825,
+  "avg_read_latency": 293.511958,
+  "acts": 88937,
+  "channel_cycles": [
+   3378471,
+   3378518,
+   3378513,
+   3378534,
+   3378552,
+   3378582
+  ]
+ },
+ {
+  "key": "packed_d4r6_naive",
+  "policy": "CLOSE_PAGE",
+  "nch": 6,
+  "reads": 4000000,
+  "cycles": 16322880,
+  "hit_rate": 0.0,
+  "avg_read_latency": 1295.6387445,
+  "acts": 4007387,
+  "channel_cycles": [
+   16302248,
+   16321959,
+   16321776,
+   16322880,
+   16311987,
+   16322880
+  ]
+ },
+ {
+  "key": "packed_d4r6_region",
+  "policy": "OPEN_PAGE",
+  "nch": 6,
+  "reads": 4000000,
+  "cycles": 3261818,
+  "hit_rate": 0.9799445,
+  "avg_read_latency": 291.183848,
+  "acts": 80832,
+  "channel_cycles": [
+   3250399,
+   3261818,
+   3261694,
+   3238845,
+   3250208,
+   3238839
+  ]
+ },
+ {
+  "key": "packed_d4r6_region",
+  "policy": "CLOSE_PAGE",
+  "nch": 6,
+  "reads": 4000000,
+  "cycles": 16317065,
+  "hit_rate": 0.0,
+  "avg_read_latency": 1308.21197325,
+  "acts": 4007152,
+  "channel_cycles": [
+   16315678,
+   16316871,
+   16315457,
+   16317065,
+   16315235,
+   16314660
+  ]
+ },
+ {
+  "key": "packed_d4r6_xgc",
+  "policy": "OPEN_PAGE",
+  "nch": 6,
+  "reads": 4000000,
+  "cycles": 3270514,
+  "hit_rate": 0.98055475,
+  "avg_read_latency": 292.06527025,
+  "acts": 78391,
+  "channel_cycles": [
+   3270299,
+   3270364,
+   3269553,
+   3258939,
+   3270514,
+   3270435
+  ]
+ },
+ {
+  "key": "packed_d4r6_xgc",
+  "policy": "CLOSE_PAGE",
+  "nch": 6,
+  "reads": 4000000,
+  "cycles": 16028982,
+  "hit_rate": 0.0,
+  "avg_read_latency": 1289.1456165,
+  "acts": 4007321,
+  "channel_cycles": [
+   16026292,
+   16026629,
+   16028982,
+   16027265,
+   16028132,
+   16027820
+  ]
+ },
+ {
+  "key": "packed_d4r6_xg",
+  "policy": "OPEN_PAGE",
+  "nch": 6,
+  "reads": 4000000,
+  "cycles": 3281815,
+  "hit_rate": 0.98056875,
+  "avg_read_latency": 292.3498705,
+  "acts": 78351,
+  "channel_cycles": [
+   3270299,
+   3270389,
+   3259307,
+   3281815,
+   3270498,
+   3270435
+  ]
+ },
+ {
+  "key": "packed_d4r6_xg",
+  "policy": "CLOSE_PAGE",
+  "nch": 6,
+  "reads": 4000000,
+  "cycles": 16027992,
+  "hit_rate": 0.0,
+  "avg_read_latency": 1289.180128,
+  "acts": 4007305,
+  "channel_cycles": [
+   16026151,
+   16027060,
+   16026784,
+   16027992,
+   16027620,
+   16027815
+  ]
+ },
+ {
   "key": "thp_d4r6_bitrev",
   "policy": "OPEN_PAGE",
   "nch": 6,

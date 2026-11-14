@@ -1,3 +1,13 @@
+split packed_d4r6_bitrev: channel reads [666541, 666771, 666646, 666778, 666646, 666618]
+split packed_d4r6_chan: channel reads [666643, 666592, 666710, 666668, 666755, 666632]
+split packed_d4r6_chra3: channel reads [666541, 666771, 666646, 666778, 666646, 666618]
+split packed_d4r6_id: channel reads [666541, 666771, 666646, 666778, 666646, 666618]
+split packed_d4r6_mop3: channel reads [666541, 666771, 666646, 666778, 666646, 666618]
+split packed_d4r6_mxg3: channel reads [666541, 666771, 666646, 666778, 666646, 666618]
+split packed_d4r6_naive: channel reads [666541, 666771, 666646, 666778, 666646, 666618]
+split packed_d4r6_region: channel reads [666541, 666771, 666646, 666778, 666646, 666618]
+split packed_d4r6_xgc: channel reads [666703, 666586, 666632, 666684, 666696, 666699]
+split packed_d4r6_xg: channel reads [666541, 666771, 666646, 666778, 666646, 666618]
 split thp_d4r6_bitrev: channel reads [666628, 666756, 666636, 666687, 666569, 666724]
 split thp_d4r6_chan: channel reads [666672, 666679, 666654, 666629, 666644, 666722]
 split thp_d4r6_chra3: channel reads [666628, 666756, 666636, 666687, 666569, 666724]
@@ -8,6 +18,26 @@ split thp_d4r6_naive: channel reads [666628, 666756, 666636, 666687, 666569, 666
 split thp_d4r6_region: channel reads [666628, 666756, 666636, 666687, 666569, 666724]
 split thp_d4r6_xgc: channel reads [666628, 666756, 666636, 666687, 666569, 666724]
 split thp_d4r6_xg: channel reads [666628, 666756, 666636, 666687, 666569, 666724]
+packed_d4r6_bitrevOPEN_PAGE  reads   4000000 hit 0.936 lat   400.9 cyc    5.980M
+packed_d4r6_bitrevCLOSE_PAGE reads   4000000 hit 0.000 lat  2197.3 cyc   34.651M
+packed_d4r6_chan  OPEN_PAGE  reads   4000000 hit 0.980 lat   291.5 cyc    3.262M
+packed_d4r6_chan  CLOSE_PAGE reads   4000000 hit 0.000 lat  1307.6 cyc   16.314M
+packed_d4r6_chra3 OPEN_PAGE  reads   4000000 hit 0.867 lat   636.6 cyc   10.237M
+packed_d4r6_chra3 CLOSE_PAGE reads   4000000 hit 0.000 lat  2947.4 cyc   48.733M
+packed_d4r6_id    OPEN_PAGE  reads   4000000 hit 0.980 lat   291.4 cyc    3.262M
+packed_d4r6_id    CLOSE_PAGE reads   4000000 hit 0.000 lat  1308.0 cyc   16.315M
+packed_d4r6_mop3  OPEN_PAGE  reads   4000000 hit 0.677 lat   620.0 cyc    2.869M
+packed_d4r6_mop3  CLOSE_PAGE reads   4000000 hit 0.000 lat   593.0 cyc    3.286M
+packed_d4r6_mxg3  OPEN_PAGE  reads   4000000 hit 0.680 lat   623.6 cyc    2.866M
+packed_d4r6_mxg3  CLOSE_PAGE reads   4000000 hit 0.000 lat   591.5 cyc    3.301M
+packed_d4r6_naive OPEN_PAGE  reads   4000000 hit 0.978 lat   293.5 cyc    3.379M
+packed_d4r6_naive CLOSE_PAGE reads   4000000 hit 0.000 lat  1295.6 cyc   16.323M
+packed_d4r6_regionOPEN_PAGE  reads   4000000 hit 0.980 lat   291.2 cyc    3.262M
+packed_d4r6_regionCLOSE_PAGE reads   4000000 hit 0.000 lat  1308.2 cyc   16.317M
+packed_d4r6_xgc   OPEN_PAGE  reads   4000000 hit 0.981 lat   292.1 cyc    3.271M
+packed_d4r6_xgc   CLOSE_PAGE reads   4000000 hit 0.000 lat  1289.1 cyc   16.029M
+packed_d4r6_xg    OPEN_PAGE  reads   4000000 hit 0.981 lat   292.3 cyc    3.282M
+packed_d4r6_xg    CLOSE_PAGE reads   4000000 hit 0.000 lat  1289.2 cyc   16.028M
 thp_d4r6_bitrev   OPEN_PAGE  reads   4000000 hit 0.964 lat   327.7 cyc    4.514M
 thp_d4r6_bitrev   CLOSE_PAGE reads   4000000 hit 0.000 lat  1822.4 cyc   26.830M
 thp_d4r6_chan     OPEN_PAGE  reads   4000000 hit 0.961 lat   306.6 cyc    3.709M
