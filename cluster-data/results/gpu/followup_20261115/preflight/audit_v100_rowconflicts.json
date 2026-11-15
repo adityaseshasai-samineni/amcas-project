@@ -1,0 +1,325 @@
+{
+  "gpu": "v100",
+  "ib": 2,
+  "requests": 256,
+  "reads": 256,
+  "writes": 0,
+  "stream_sha256": "14f9082bb4522456ca73a8ab1c8fd47c39159f18ef301aa13e4a380492af5c7f",
+  "pages": 4,
+  "timing": "matched",
+  "feed": "independent",
+  "mapping": {
+    "bank": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "bank_sources": [
+      [
+        "row0",
+        15
+      ],
+      [
+        "row1",
+        16
+      ],
+      [
+        "row2",
+        17
+      ],
+      [
+        "row3",
+        18
+      ],
+      [
+        "row4",
+        19
+      ],
+      [
+        "row5",
+        20
+      ],
+      [
+        "row6",
+        21
+      ],
+      [
+        "row7",
+        22
+      ],
+      [
+        "row8",
+        23
+      ],
+      [
+        "row9",
+        24
+      ],
+      [
+        "row10",
+        25
+      ],
+      [
+        "row11",
+        26
+      ],
+      [
+        "row12",
+        27
+      ],
+      [
+        "row13",
+        28
+      ]
+    ],
+    "chan": [
+      [
+        0
+      ],
+      [
+        1
+      ],
+      [
+        2
+      ],
+      [],
+      []
+    ],
+    "chan_sources": [
+      [
+        "row0",
+        15
+      ],
+      [
+        "row1",
+        16
+      ],
+      [
+        "row2",
+        17
+      ]
+    ],
+    "chan_selected": {
+      "0": [
+        "row0"
+      ],
+      "1": [
+        "row1"
+      ],
+      "2": [
+        "row2"
+      ],
+      "3": [],
+      "4": []
+    }
+  },
+  "results": [
+    {
+      "sim": "ram",
+      "scheme": "identity",
+      "policy": "Open",
+      "reads": 256,
+      "writes": 0,
+      "cycles": 645,
+      "time_us": 0.80625,
+      "GBps": 10.16062015503876,
+      "hit_rate": 0.0,
+      "avg_read_latency_ns": 132.39154875000003
+    },
+    {
+      "sim": "ds3",
+      "scheme": "identity",
+      "policy": "OPEN_PAGE",
+      "cycles": 551,
+      "reads": 256,
+      "writes": 0,
+      "accepted": 256,
+      "time_us": 0.68875,
+      "GBps": 11.894010889292195,
+      "hit_rate": 0.0,
+      "missing_callbacks": 0,
+      "unissued": 0,
+      "instances": [
+        {
+          "fallback_unified": 0,
+          "missing": 0,
+          "unissued": 0,
+          "cycles": 551,
+          "reqs": 128,
+          "writes": 0,
+          "reads_done": 128,
+          "writes_done": 0,
+          "hits": 0,
+          "rd_hits": 0,
+          "lat": 224.8359375,
+          "acts": 128
+        },
+        {
+          "fallback_unified": 0,
+          "missing": 0,
+          "unissued": 0,
+          "cycles": 551,
+          "reqs": 128,
+          "writes": 0,
+          "reads_done": 128,
+          "writes_done": 0,
+          "hits": 0,
+          "rd_hits": 0,
+          "lat": 224.8359375,
+          "acts": 128
+        }
+      ],
+      "instance_counts": [
+        128,
+        128,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "scheme": "identity",
+      "decoder_roundtrip": true,
+      "ram_accepted": 256,
+      "ds3_accepted": 256,
+      "expected": 256,
+      "ds3_unissued": 0,
+      "ds3_missing_callbacks": 0
+    }
+  ],
+  "configuration": {
+    "ram_org": {
+      "pseudochannel_density": 2048,
+      "channel_density": 4096,
+      "die_density": 8192,
+      "stack_height": 4,
+      "dq": 64,
+      "channel_width": 128,
+      "pseudochannel": 2,
+      "sid": 1,
+      "bankgroup": 4,
+      "bank": 4,
+      "row": 16384,
+      "column": 128
+    },
+    "ram_timing": {
+      "rate": 1600,
+      "nBL": 2,
+      "nCL": 12,
+      "nRCDRD": 12,
+      "nRCDWR": 10,
+      "nRP": 12,
+      "nRAS": 28,
+      "nWR": 13,
+      "nRTPL": 4,
+      "nCWL": 4,
+      "nWTRS": 5,
+      "nWTRL": 7,
+      "tCK_ps": 1250,
+      "nRC": 40,
+      "nCCDS": 2,
+      "nCCDL": 4,
+      "nCCDR": 2,
+      "nRTW": 14,
+      "nRRDS": 4,
+      "nRRDL": 4,
+      "nFAW": 12,
+      "nRFC": 208,
+      "nRFCpb": 128,
+      "nRREFD": 7,
+      "nREFI": 3120,
+      "nREFIpb": 195
+    },
+    "ds3_overrides": {
+      "tCK": 1.25,
+      "CL": 12,
+      "CWL": 4,
+      "tRCDRD": 12,
+      "tRCDWR": 10,
+      "tRP": 12,
+      "tRAS": 28,
+      "tRFC": 208,
+      "tREFI": 3120,
+      "tRRD_S": 4,
+      "tRRD_L": 4,
+      "tWTR_S": 5,
+      "tWTR_L": 7,
+      "tFAW": 12,
+      "tWR": 13,
+      "tCCD_S": 2,
+      "tCCD_L": 4,
+      "unified_queue": "True"
+    },
+    "ds3_config": "[dram_structure]\nprotocol = HBM\nbankgroups = 4\nbanks_per_group = 4\nrows = 16384\ncolumns = 64\ndevice_width = 64\nBL = 4\nnum_dies = 1\n\n[timing]\ntCK = 1.25\nCL = 12\nCWL = 4\ntRCDRD = 12\ntRCDWR = 10\ntRP = 12\ntRAS = 28\ntRFC = 208\ntREFI = 3120\ntREFIb = 128\ntRPRE = 1\ntWPRE = 1\ntRRD_S = 4\ntRRD_L = 4\ntWTR_S = 5\ntWTR_L = 7\ntFAW = 12\ntWR = 13\ntCCD_S = 2\ntCCD_L = 4\ntXS = 268\ntCKE = 8\ntCKSRE = 10\ntXP = 8\ntRTP_L = 6\ntRTP_S = 4\n\n[power]\nVDD = 1.2\nIDD0 = 65\nIDD2P = 28\nIDD2N = 40\nIDD3P = 40\nIDD3N = 55\nIDD4W = 500\nIDD4R = 390\nIDD5AB = 250\nIDD6x = 31\n\n[system]\nchannel_size = 256\nchannels = 1\nbus_width = 64\naddress_mapping = rochrababgco\nqueue_structure = PER_BANK\nrow_buf_policy = OPEN_PAGE\ncmd_queue_size = 8\ntrans_queue_size = 32\nunified_queue = True\n\n[other]\nepoch_period = 1000000000\noutput_level = 1\n\n",
+    "remaining_differences": [
+      "Ramulator controller vs DRAMsim3 controller and queue implementation",
+      "HBM2: Ramulator couples two PCs in one controller; DS3 uses independent PC instances",
+      "Only timing fields available in both models are aligned",
+      "Global Ramulator feed vs independently fed DS3 channels unless feed=independent"
+    ]
+  },
+  "validated": true
+}

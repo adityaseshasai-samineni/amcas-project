@@ -1,0 +1,330 @@
+{
+  "gpu": "a16",
+  "ib": 2,
+  "requests": 512,
+  "reads": 438,
+  "writes": 74,
+  "stream_sha256": "1293f27d4daf48216dee768b91fce758b6ddae89100541c2fad1f32a78e490f9",
+  "pages": 1,
+  "timing": "matched",
+  "feed": "independent",
+  "mapping": {
+    "bank": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "bank_sources": [
+      [
+        "row0",
+        16
+      ],
+      [
+        "row1",
+        17
+      ],
+      [
+        "row2",
+        18
+      ],
+      [
+        "row3",
+        19
+      ],
+      [
+        "row4",
+        20
+      ],
+      [
+        "row5",
+        21
+      ],
+      [
+        "row6",
+        22
+      ],
+      [
+        "row7",
+        23
+      ],
+      [
+        "row8",
+        24
+      ],
+      [
+        "row9",
+        25
+      ],
+      [
+        "row10",
+        26
+      ],
+      [
+        "row11",
+        27
+      ],
+      [
+        "row12",
+        28
+      ],
+      [
+        "row13",
+        29
+      ],
+      [
+        "row14",
+        30
+      ]
+    ],
+    "chan": [
+      [],
+      [],
+      []
+    ],
+    "chan_sources": [],
+    "chan_selected": {
+      "0": [],
+      "1": [],
+      "2": []
+    }
+  },
+  "results": [
+    {
+      "sim": "ram",
+      "scheme": "identity",
+      "policy": "Open",
+      "reads": 438,
+      "writes": 74,
+      "cycles": 121,
+      "time_us": 0.069212,
+      "GBps": 236.72195573022023,
+      "hit_rate": 0.9565217391304348,
+      "avg_read_latency_ns": 30.3683099067032
+    },
+    {
+      "sim": "ds3",
+      "scheme": "identity",
+      "policy": "OPEN_PAGE",
+      "cycles": 340,
+      "reads": 438,
+      "writes": 74,
+      "accepted": 512,
+      "time_us": 0.19448,
+      "GBps": 84.24516659810777,
+      "hit_rate": 0.951171875,
+      "missing_callbacks": 0,
+      "unissued": 0,
+      "instances": [
+        {
+          "fallback_unified": 0,
+          "missing": 0,
+          "unissued": 0,
+          "cycles": 278,
+          "reqs": 64,
+          "writes": 10,
+          "reads_done": 54,
+          "writes_done": 10,
+          "hits": 57,
+          "rd_hits": 54,
+          "lat": 128.66666666666666,
+          "acts": 1
+        },
+        {
+          "fallback_unified": 0,
+          "missing": 0,
+          "unissued": 0,
+          "cycles": 340,
+          "reqs": 64,
+          "writes": 9,
+          "reads_done": 55,
+          "writes_done": 9,
+          "hits": 63,
+          "rd_hits": 55,
+          "lat": 128.21818181818182,
+          "acts": 1
+        },
+        {
+          "fallback_unified": 0,
+          "missing": 0,
+          "unissued": 0,
+          "cycles": 340,
+          "reqs": 64,
+          "writes": 9,
+          "reads_done": 55,
+          "writes_done": 9,
+          "hits": 63,
+          "rd_hits": 55,
+          "lat": 129.01818181818183,
+          "acts": 1
+        },
+        {
+          "fallback_unified": 0,
+          "missing": 0,
+          "unissued": 0,
+          "cycles": 340,
+          "reqs": 64,
+          "writes": 9,
+          "reads_done": 55,
+          "writes_done": 9,
+          "hits": 63,
+          "rd_hits": 55,
+          "lat": 129.8181818181818,
+          "acts": 1
+        },
+        {
+          "fallback_unified": 0,
+          "missing": 0,
+          "unissued": 0,
+          "cycles": 340,
+          "reqs": 64,
+          "writes": 9,
+          "reads_done": 55,
+          "writes_done": 9,
+          "hits": 63,
+          "rd_hits": 55,
+          "lat": 130.61818181818182,
+          "acts": 1
+        },
+        {
+          "fallback_unified": 0,
+          "missing": 0,
+          "unissued": 0,
+          "cycles": 340,
+          "reqs": 64,
+          "writes": 9,
+          "reads_done": 55,
+          "writes_done": 9,
+          "hits": 63,
+          "rd_hits": 55,
+          "lat": 131.4181818181818,
+          "acts": 1
+        },
+        {
+          "fallback_unified": 0,
+          "missing": 0,
+          "unissued": 0,
+          "cycles": 282,
+          "reqs": 64,
+          "writes": 9,
+          "reads_done": 55,
+          "writes_done": 9,
+          "hits": 58,
+          "rd_hits": 55,
+          "lat": 129.45454545454547,
+          "acts": 1
+        },
+        {
+          "fallback_unified": 0,
+          "missing": 0,
+          "unissued": 0,
+          "cycles": 278,
+          "reqs": 64,
+          "writes": 10,
+          "reads_done": 54,
+          "writes_done": 10,
+          "hits": 57,
+          "rd_hits": 54,
+          "lat": 128.66666666666666,
+          "acts": 1
+        }
+      ],
+      "instance_counts": [
+        64,
+        64,
+        64,
+        64,
+        64,
+        64,
+        64,
+        64
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "scheme": "identity",
+      "decoder_roundtrip": true,
+      "ram_accepted": 512,
+      "ds3_accepted": 512,
+      "expected": 512,
+      "ds3_unissued": 0,
+      "ds3_missing_callbacks": 0
+    }
+  ],
+  "configuration": {
+    "ram_org": {
+      "device_density": 32768,
+      "channel_density": 16384,
+      "channels_per_device": 2,
+      "bank_group_mode": "on",
+      "dq": 16,
+      "channel_width": 16,
+      "bankgroup": 4,
+      "bank": 4,
+      "row": 32768,
+      "column": 2048
+    },
+    "ram_timing": {
+      "rate": 14000,
+      "nBL": 2,
+      "nCL": 24,
+      "nRCDRD": 27,
+      "nRCDWR": 16,
+      "nRP": 27,
+      "nRAS": 53,
+      "nRC": 79,
+      "nWR": 27,
+      "nCWL": 6,
+      "nCCDS": 2,
+      "nRTPL": 4,
+      "nRTPS": 2,
+      "nCCDL": 4,
+      "nRRDS": 7,
+      "nRRDL": 7,
+      "nFAW": 28,
+      "nRREFD": 14,
+      "nWTRS": 9,
+      "nWTRL": 11,
+      "tCK_ps": 572,
+      "nPPD": 1,
+      "nRTP": 4,
+      "nRTW": 25,
+      "nRFCpb": 105,
+      "nREFI": 3321,
+      "nREFIpb": 207,
+      "nRFCab": 210
+    },
+    "ds3_overrides": {
+      "tCK": 0.572,
+      "bankgroup_enable": "true",
+      "CL": 24,
+      "CWL": 6,
+      "tRCDRD": 27,
+      "tRCDWR": 16,
+      "tRP": 27,
+      "tRAS": 53,
+      "tRFC": 210,
+      "tREFI": 3321,
+      "tRRD_S": 7,
+      "tRRD_L": 7,
+      "tWTR_S": 9,
+      "tWTR_L": 11,
+      "tFAW": 28,
+      "tWR": 27,
+      "tCCD_S": 2,
+      "tCCD_L": 4,
+      "tRTP_S": 2,
+      "tRTP_L": 4,
+      "unified_queue": "True"
+    },
+    "ds3_config": "[dram_structure]\nprotocol = GDDR6\nbankgroups = 4\nbanks_per_group = 4\nrows = 32768\ncolumns = 128\ndevice_width = 16\nBL = 16\nbankgroup_enable = true\n\n[timing]\ntCK = 0.572\nCL = 24\nCWL = 6\ntRCDRD = 27\ntRCDWR = 16\ntRP = 27\ntRAS = 53\ntRFC = 210\ntREFI = 3321\ntRPRE = 1; read preamble\ntWPRE = 1; TODO figure this out, should be 1 or 2\ntRRD_S = 7\ntRRD_L = 7\ntWTR_S = 9\ntWTR_L = 11\ntFAW = 28\ntWR = 27\ntCCD_S = 2\ntCCD_L = 4\ntXS = 132\ntCKESR = 8\ntXP = 12\ntRTRS = 1\ntRTP_L = 4\ntRTP_S = 2\ntPPD = 2\nt32AW = 420\ntRFCb = 30\ntREFIb = 238\n\n[power]\nVDD = 1.35\nIDD0 = 71\nIDD2P = 45\nIDD2N = 60\nIDD3P = 50\nIDD3N = 61\nIDD4W = 231\nIDD4R = 248\nIDD5AB = 286\nIDD5PB = 45\nIDD6x = 35\n\n[system]\nunified_queue = True\nchannel_size = 2048\nchannels = 1\nbus_width = 16\naddress_mapping = rochrababgco\nqueue_structure = PER_BANK\nrow_buf_policy = OPEN_PAGE\ncmd_queue_size = 8\ntrans_queue_size = 32\n\n[other]\nepoch_period = 1000000000\noutput_level = 1\n\n;16n prefetch",
+    "remaining_differences": [
+      "Ramulator controller vs DRAMsim3 controller and queue implementation",
+      "HBM2: Ramulator couples two PCs in one controller; DS3 uses independent PC instances",
+      "Only timing fields available in both models are aligned",
+      "Global Ramulator feed vs independently fed DS3 channels unless feed=independent"
+    ]
+  },
+  "validated": true
+}

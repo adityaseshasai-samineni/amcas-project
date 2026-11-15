@@ -1,0 +1,25 @@
+{
+  "created": "2026-11-15T22:33:19.748882",
+  "jobs": {
+    "audit": "125717",
+    "compare": "125718",
+    "windows": "125719",
+    "moe-smoke": "125720",
+    "moe-replay": "125721"
+  },
+  "dependencies": {
+    "compare": [
+      "audit"
+    ],
+    "windows": [
+      "compare"
+    ],
+    "moe-smoke": [
+      "audit"
+    ],
+    "moe-replay": [
+      "compare",
+      "moe-smoke"
+    ]
+  }
+}
