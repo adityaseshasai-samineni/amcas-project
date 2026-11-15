@@ -1,0 +1,28 @@
+JobId=125717 JobName=gf_audit
+   UserId=adityaseshasai.s(10161) GroupId=adityaseshasai.s(10161) MCS_label=N/A
+   Priority=1 Nice=0 Account=default QOS=normal
+   JobState=RUNNING Reason=None Dependency=(null)
+   Requeue=1 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0
+   RunTime=00:00:00 TimeLimit=01:00:00 TimeMin=N/A
+   SubmitTime=2026-11-15T22:33:19 EligibleTime=2026-11-15T22:33:19
+   AccrueTime=2026-11-15T22:33:19
+   StartTime=2026-11-15T22:33:26 EndTime=2026-11-15T23:33:26 Deadline=N/A
+   SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-11-15T22:33:26 Scheduler=Backfill
+   Partition=debug AllocNode:Sid=node00:3285569
+   ReqNodeList=node05 ExcNodeList=(null)
+   NodeList=node05
+   BatchHost=node05
+   NumNodes=1 NumCPUs=4 NumTasks=1 CPUs/Task=4 ReqB:S:C:T=0:0:*:*
+   TRES=cpu=4,mem=16G,node=1,billing=4
+   Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=*
+   MinCPUsNode=4 MinMemoryNode=16G MinTmpDiskNode=0
+   Features=(null) DelayBoot=00:00:00
+   OverSubscribe=OK Contiguous=0 Licenses=(null) Network=(null)
+   Command=/home/adityaseshasai.s/amcas-pro/gpu/68_followup_job.sh audit
+   WorkDir=/home/adityaseshasai.s
+   StdErr=/home/adityaseshasai.s/amcas-pro/logs/gpu/followup_audit_125717.log
+   StdIn=/dev/null
+   StdOut=/home/adityaseshasai.s/amcas-pro/logs/gpu/followup_audit_125717.log
+   Power=
+   
+
