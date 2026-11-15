@@ -1694,3 +1694,7 @@ Nov16 01:45 IST check: audit 125717, compare 125718 (48m48s), windows 125719 (29
 ### GPU follow-up cluster update (2026-11-16T01:56:09+05:30)
 
 cache audit: node01 private L2 1MiB 16-way, most full CPU traces require recapture; GPU compare/window jobs completed, gains depend on feed and window. See cluster-data/results/gpu/followup_20261115/ for source snapshots, manifests, validation gates and results. Saturated memory replay results are not measured token-time speedups.
+
+### GPU follow-up cluster update (2026-11-16T02:29:27+05:30)
+
+CPU presentation tables: recovered saved response IDs using vocabulary only; exact prompt counts and missing stdout documented; step0 after windowed prefill is decode, not full-prefill timing. See cluster-data/results/gpu/followup_20261115/ for source snapshots, manifests, validation gates and results. Saturated memory replay results are not measured token-time speedups.
