@@ -1,0 +1,38 @@
+==========================================
+SLURM_JOB_ID = 125100
+SLURM_NODELIST = node04
+SLURM_JOB_GPUS = 
+==========================================
+=== q30_pf32 (/home/adityaseshasai.s/amcas-pro/results/fullscale/drattr/Qwen3-30B-A3B-Q4_K_M_s0n1t4_attr_pf32) Sun Nov 15 17:18:53 IST 2026
+/dev/sdc1       1.8T  1.3T  467G  74% /scratch
+125,308,049 reads, window [37,592,414,41,592,414), moe=True, window class shares W/K/O [0.9335, 0.0008, 0.0657]
+  [packed/d4r6 xor_global] n=4,000,000 cost 776455 -> 744932; bank bit ^= {0: ['row9'], 1: ['row11'], 2: ['row4'], 3: ['row0'], 4: []}
+  [packed/d4r6 region K] n=159,605 cost 140828 -> 140828; bank bit ^= {0: [], 1: [], 2: [], 3: [], 4: []}
+  [packed/d4r6 region O] n=800,000 cost 795964 -> 790158; bank bit ^= {0: [], 1: [], 2: ['row3'], 3: ['row2'], 4: ['row2']}
+  [packed/d4r6 chan] channel hash cost 776969 -> 762424; chan bit ^= {0: ['row6'], 1: ['row6'], 2: []}
+  [packed/x16 xor_global] n=4,000,000 cost 445221 -> 432451; bank bit ^= {0: ['row4', 'row8'], 1: ['row9'], 2: ['row11'], 3: [], 4: ['row8']}
+  [packed/x16 region K] n=159,605 cost 76402 -> 75668; bank bit ^= {0: [], 1: [], 2: [], 3: [], 4: ['row0']}
+  [packed/x16 region O] n=800,000 cost 464463 -> 458685; bank bit ^= {0: ['row2'], 1: ['row2'], 2: ['row3'], 3: [], 4: []}
+  [packed/x16 chan] channel hash cost 447565 -> 443557; chan bit ^= {0: ['row10'], 1: ['row4'], 2: [], 3: ['row6']}
+  [packed/d4r6 bank+chan] channel hash cost 745447 -> 744419; chan bit ^= {0: [], 1: ['row0'], 2: []}
+  [packed/x16 bank+chan] channel hash cost 434795 -> 434342; chan bit ^= {0: [], 1: [], 2: [], 3: ['row11']}
+  [thp/d4r6 xor_global] n=4,000,000 cost 813753 -> 748069; bank bit ^= {0: ['row10'], 1: ['row11'], 2: [], 3: [], 4: []}
+  [thp/d4r6 region K] n=79,865 cost 128873 -> 73411; bank bit ^= {0: ['row0'], 1: ['row11'], 2: ['row12'], 3: ['row0'], 4: []}
+  [thp/d4r6 region O] n=800,000 cost 1465441 -> 804284; bank bit ^= {0: ['row10', 'row11'], 1: ['row6'], 2: ['row14'], 3: ['row8'], 4: ['row4']}
+  [thp/d4r6 chan] channel hash cost 814651 -> 756657; chan bit ^= {0: ['row7'], 1: ['row9'], 2: []}
+  [thp/d4r6 bank+chan] channel hash cost 748968 -> 748027; chan bit ^= {0: ['row10'], 1: [], 2: []}
+  [packed/d4r6 MOP4CLXOR xor_global] n=4,000,000 cost 1253539 -> 1253539; bank bit ^= {0: [], 1: [], 2: [], 3: [], 4: []}
+  [packed/d4r6] region not injective: skipped
+  [thp/x16 xor_global] n=4,000,000 cost 666467 -> 433575; bank bit ^= {0: ['row7'], 1: ['row3'], 2: ['row8', 'row4'], 3: [], 4: []}
+  [thp/x16 region K] n=79,865 cost 43569 -> 41855; bank bit ^= {0: ['row11'], 1: ['row3', 'row10'], 2: ['row5'], 3: [], 4: []}
+  [thp/x16 region O] n=800,000 cost 2849357 -> 482443; bank bit ^= {0: ['row1', 'row9'], 1: ['row12'], 2: ['row2'], 3: ['row0', 'row4', 'row1'], 4: []}
+  [thp/x16 chan] channel hash cost 668811 -> 448338; chan bit ^= {0: ['row6', 'row5', 'row7'], 1: ['row10', 'row8'], 2: ['row7'], 3: ['row9']}
+  [thp/x16 bank+chan] channel hash cost 435919 -> 432676; chan bit ^= {0: [], 1: [], 2: ['row3'], 3: ['row2']}
+  done packed/d4r6: identity:0.976/0.976 xor_global:0.979/0.979 chan:0.976/0.976 xor_global_chan:0.979/0.979 mop:0.746/0.746 mopxor:0.746/0.746 bitrev:0.875/0.875 chra:0.823/0.823 naive:0.977/0.977 expert_hash:0.979/0.979 expert_lin:0.979/0.979
+  [packed/x16 MOP4CLXOR xor_global] n=4,000,000 cost 883862 -> 864574; bank bit ^= {0: [], 1: [], 2: ['row9'], 3: ['row1'], 4: ['row11']}
+  done packed/x16: identity:0.965/0.965 xor_global:0.966/0.966 region:0.965/0.965 chan:0.965/0.965 xor_global_chan:0.966/0.966 mop:0.751/0.751 mopxor:0.748/0.748 bitrev:0.873/0.873 chra:0.823/0.823 naive:0.965/0.965 expert_hash:0.965/0.965 expert_lin:0.965/0.965
+  [thp/d4r6 MOP4CLXOR xor_global] n=4,000,000 cost 1297511 -> 1252247; bank bit ^= {0: ['row6'], 1: ['row10'], 2: ['row14', 'row2'], 3: ['row14'], 4: ['row2']}
+  done thp/d4r6: identity:0.974/0.974 xor_global:0.977/0.977 region:0.977/0.977 chan:0.976/0.976 xor_global_chan:0.977/0.977 mop:0.733/0.733 mopxor:0.737/0.737 bitrev:0.933/0.933 chra:0.913/0.913 naive:0.975/0.975 expert_hash:0.975/0.975 expert_lin:0.974/0.974
+  [thp/x16 MOP4CLXOR xor_global] n=4,000,000 cost 1083128 -> 940113; bank bit ^= {0: ['row1', 'row13'], 1: ['row10'], 2: ['row8'], 3: ['row12'], 4: ['row2', 'row8']}
+  done thp/x16: identity:0.956/0.956 xor_global:0.965/0.965 region:0.965/0.965 chan:0.963/0.963 xor_global_chan:0.965/0.965 mop:0.710/0.710 mopxor:0.717/0.717 bitrev:0.928/0.928 chra:0.913/0.913 naive:0.965/0.965 expert_hash:0.956/0.956 expert_lin:0.955/0.955
+replay rc=0 for q30_pf32 Sun Nov 15 17:46:29 IST 2026

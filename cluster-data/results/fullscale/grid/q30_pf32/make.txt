@@ -14,44 +14,17 @@
   [thp/d4r6 region O] n=800,000 cost 1465441 -> 804284; bank bit ^= {0: ['row10', 'row11'], 1: ['row6'], 2: ['row14'], 3: ['row8'], 4: ['row4']}
   [thp/d4r6 chan] channel hash cost 814651 -> 756657; chan bit ^= {0: ['row7'], 1: ['row9'], 2: []}
   [thp/d4r6 bank+chan] channel hash cost 748968 -> 748027; chan bit ^= {0: ['row10'], 1: [], 2: []}
+  [packed/d4r6 MOP4CLXOR xor_global] n=4,000,000 cost 1253539 -> 1253539; bank bit ^= {0: [], 1: [], 2: [], 3: [], 4: []}
+  [packed/d4r6] region not injective: skipped
   [thp/x16 xor_global] n=4,000,000 cost 666467 -> 433575; bank bit ^= {0: ['row7'], 1: ['row3'], 2: ['row8', 'row4'], 3: [], 4: []}
   [thp/x16 region K] n=79,865 cost 43569 -> 41855; bank bit ^= {0: ['row11'], 1: ['row3', 'row10'], 2: ['row5'], 3: [], 4: []}
   [thp/x16 region O] n=800,000 cost 2849357 -> 482443; bank bit ^= {0: ['row1', 'row9'], 1: ['row12'], 2: ['row2'], 3: ['row0', 'row4', 'row1'], 4: []}
   [thp/x16 chan] channel hash cost 668811 -> 448338; chan bit ^= {0: ['row6', 'row5', 'row7'], 1: ['row10', 'row8'], 2: ['row7'], 3: ['row9']}
   [thp/x16 bank+chan] channel hash cost 435919 -> 432676; chan bit ^= {0: [], 1: [], 2: ['row3'], 3: ['row2']}
+  done packed/d4r6: identity:0.976/0.976 xor_global:0.979/0.979 chan:0.976/0.976 xor_global_chan:0.979/0.979 mop:0.746/0.746 mopxor:0.746/0.746 bitrev:0.875/0.875 chra:0.823/0.823 naive:0.977/0.977 expert_hash:0.979/0.979 expert_lin:0.979/0.979
   [packed/x16 MOP4CLXOR xor_global] n=4,000,000 cost 883862 -> 864574; bank bit ^= {0: [], 1: [], 2: ['row9'], 3: ['row1'], 4: ['row11']}
   done packed/x16: identity:0.965/0.965 xor_global:0.966/0.966 region:0.965/0.965 chan:0.965/0.965 xor_global_chan:0.966/0.966 mop:0.751/0.751 mopxor:0.748/0.748 bitrev:0.873/0.873 chra:0.823/0.823 naive:0.965/0.965 expert_hash:0.965/0.965 expert_lin:0.965/0.965
   [thp/d4r6 MOP4CLXOR xor_global] n=4,000,000 cost 1297511 -> 1252247; bank bit ^= {0: ['row6'], 1: ['row10'], 2: ['row14', 'row2'], 3: ['row14'], 4: ['row2']}
   done thp/d4r6: identity:0.974/0.974 xor_global:0.977/0.977 region:0.977/0.977 chan:0.976/0.976 xor_global_chan:0.977/0.977 mop:0.733/0.733 mopxor:0.737/0.737 bitrev:0.933/0.933 chra:0.913/0.913 naive:0.975/0.975 expert_hash:0.975/0.975 expert_lin:0.974/0.974
   [thp/x16 MOP4CLXOR xor_global] n=4,000,000 cost 1083128 -> 940113; bank bit ^= {0: ['row1', 'row13'], 1: ['row10'], 2: ['row8'], 3: ['row12'], 4: ['row2', 'row8']}
   done thp/x16: identity:0.956/0.956 xor_global:0.965/0.965 region:0.965/0.965 chan:0.963/0.963 xor_global_chan:0.965/0.965 mop:0.710/0.710 mopxor:0.717/0.717 bitrev:0.928/0.928 chra:0.913/0.913 naive:0.965/0.965 expert_hash:0.956/0.956 expert_lin:0.955/0.955
-  [packed/d4r6 MOP4CLXOR xor_global] n=4,000,000 cost 1253539 -> 1253539; bank bit ^= {0: [], 1: [], 2: [], 3: [], 4: []}
-multiprocessing.pool.RemoteTraceback: 
-"""
-Traceback (most recent call last):
-  File "/home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/lib/python3.12/multiprocessing/pool.py", line 125, in worker
-    result = (True, func(*args, **kwds))
-                    ^^^^^^^^^^^^^^^^^^^
-  File "/home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/lib/python3.12/multiprocessing/pool.py", line 48, in mapstar
-    return list(map(*args))
-           ^^^^^^^^^^^^^^^^
-  File "/home/adityaseshasai.s/amcas-pro/tools/grid_gen.py", line 207, in combo
-    assert np.unique(L.from_intra(arr, c_.astype(U))).size == nuniq, f"{sk} not injective"
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-AssertionError: region not injective
-"""
-
-The above exception was the direct cause of the following exception:
-
-Traceback (most recent call last):
-  File "/home/adityaseshasai.s/amcas-pro/tools/grid_gen.py", line 292, in <module>
-    main()
-  File "/home/adityaseshasai.s/amcas-pro/tools/grid_gen.py", line 287, in main
-    mans = pool.map(combo, jobs, chunksize=1)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/lib/python3.12/multiprocessing/pool.py", line 367, in map
-    return self._map_async(func, iterable, mapstar, chunksize).get()
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/lib/python3.12/multiprocessing/pool.py", line 774, in get
-    raise self._value
-AssertionError: region not injective

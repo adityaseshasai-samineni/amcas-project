@@ -4,3 +4,77 @@ SLURM_NODELIST = node05
 SLURM_JOB_GPUS = 
 ==========================================
 ### q7_v100_8k_faoff ib5 Sun Nov 15 01:09:21 IST 2026
+v100 ib5: 80000000 of 151047503 requests (79395124 rd, 604876 wr), 1236 2MiB pages
+  [chan] channel hash cost 403327 -> 376273; chan bit ^= {0: ['row0', 'row2'], 1: ['row0'], 2: ['row2', 'row0'], 3: ['row0'], 4: ['row0', 'row4']}
+  [xor_chan] channel hash cost 392536 -> 375366; chan bit ^= {0: ['row0', 'row2', 'row5'], 1: ['row0'], 2: ['row2', 'row0', 'row11'], 3: ['row1', 'row0'], 4: ['row3']}
+  [chan] channel hash cost 459699 -> 427699; chan bit ^= {0: ['row0', 'row2'], 1: ['row0'], 2: ['row2', 'row0'], 3: ['row0'], 4: ['row0', 'row4']}
+  [xor_chan] channel hash cost 446047 -> 428197; chan bit ^= {0: ['row0'], 1: ['row0', 'row4'], 2: ['row1', 'row0'], 3: ['row0'], 4: ['row3']}
+sim  scheme   policy         hit  lat_cyc  lat_ns     cycles   time_us    GB/s
+ram  identity Open         0.825     48.8    61.0   10365461   12956.8   197.6
+ram  identity ClosedCAP    0.684     59.8    74.8   11783552   14729.4   173.8
+ram  xor      Open         0.823     49.1    61.4    9311332   11639.2   219.9
+ram  xor      ClosedCAP    0.684     60.1    75.2   10781582   13477.0   190.0
+ram  chan     Open         0.827     48.4    60.5    8060808   10076.0   254.1
+ram  chan     ClosedCAP    0.685     59.7    74.6    9658297   12072.9   212.0
+ram  xor_chan Open         0.827     48.5    60.6    7720127    9650.2   265.3
+ram  xor_chan ClosedCAP    0.685     59.7    74.6    9329882   11662.4   219.5
+ds3  identity OPEN_PAGE    0.840    216.0   246.2    2816316    3210.6   797.4
+ds3  identity CLOSE_PAGE   0.000    762.7   869.4   10700443   12198.5   209.9
+ds3  xor      OPEN_PAGE    0.838    209.0   238.2    2802738    3195.1   801.2
+ds3  xor      CLOSE_PAGE   0.000    745.0   849.3   10687930   12184.2   210.1
+ds3  chan     OPEN_PAGE    0.842    213.6   243.5    2787509    3177.8   805.6
+ds3  chan     CLOSE_PAGE   0.000    753.3   858.7   10616202   12102.5   211.5
+ds3  xor_chan OPEN_PAGE    0.841    212.1   241.8    2769516    3157.2   810.8
+ds3  xor_chan CLOSE_PAGE   0.000    749.9   854.9   10592186   12075.1   212.0
+### q7_v100_32k_faoff ib2 Sun Nov 15 01:34:39 IST 2026
+v100 ib2: 80000000 of 394172275 requests (78674904 rd, 1325096 wr), 586 2MiB pages
+  [chan] channel hash cost 519785 -> 477000; chan bit ^= {0: ['row0', 'row2'], 1: ['row2', 'row3'], 2: ['row1'], 3: ['row3'], 4: ['row3']}
+  [xor_chan] channel hash cost 500638 -> 474884; chan bit ^= {0: ['row0', 'row5', 'row2'], 1: ['row3'], 2: ['row2', 'row1'], 3: [], 4: ['row0']}
+  [chan] channel hash cost 599692 -> 549719; chan bit ^= {0: ['row0', 'row2'], 1: ['row2', 'row3'], 2: ['row1'], 3: ['row3'], 4: ['row3']}
+  [xor_chan] channel hash cost 576680 -> 548480; chan bit ^= {0: ['row0', 'row4'], 1: ['row3', 'row1'], 2: ['row2'], 3: [], 4: ['row0']}
+
+
+sim  scheme   policy         hit  lat_cyc  lat_ns     cycles   time_us    GB/s
+ram  identity Open         0.723     55.7    69.7   14422746   18028.4   142.0
+ram  identity ClosedCAP    0.693     52.6    65.8   13023268   16279.1   157.3
+ram  xor      Open         0.725     54.5    68.1   14090956   17613.7   145.3
+ram  xor      ClosedCAP    0.694     51.5    64.4   12665726   15832.2   161.7
+ram  chan     Open         0.724     54.1    67.6    7949343    9936.7   257.6
+ram  chan     ClosedCAP    0.694     50.8    63.5    7271517    9089.4   281.6
+ram  xor_chan Open         0.726     52.9    66.2    7724485    9655.6   265.1
+ram  xor_chan ClosedCAP    0.695     49.7    62.1    7017891    8772.4   291.8
+ds3  identity OPEN_PAGE    0.776    242.6   276.5    2998614    3418.4   748.9
+ds3  identity CLOSE_PAGE   0.000    782.1   891.6   11162769   12725.6   201.2
+ds3  xor      OPEN_PAGE    0.778    249.5   284.5    2916854    3325.2   769.9
+ds3  xor      CLOSE_PAGE   0.000    788.6   899.0   10836773   12353.9   207.2
+ds3  chan     OPEN_PAGE    0.777    240.2   273.8    2911807    3319.5   771.2
+ds3  chan     CLOSE_PAGE   0.000    781.2   890.5   10743792   12247.9   209.0
+ds3  xor_chan OPEN_PAGE    0.780    252.4   287.7    2866062    3267.3   783.5
+ds3  xor_chan CLOSE_PAGE   0.000    790.7   901.4   10554865   12032.5   212.8
+### q7_v100_32k_faoff ib5 Sun Nov 15 02:02:23 IST 2026
+v100 ib5: 80000000 of 394172275 requests (78674904 rd, 1325096 wr), 586 2MiB pages
+  [chan] channel hash cost 509967 -> 431979; chan bit ^= {0: ['row0', 'row4'], 1: ['row3'], 2: ['row0'], 3: ['row2'], 4: ['row4']}
+  [xor_chan] channel hash cost 486957 -> 428224; chan bit ^= {0: ['row0', 'row1'], 1: ['row3'], 2: ['row0', 'row2'], 3: ['row4'], 4: ['row3']}
+  [chan] channel hash cost 582515 -> 493801; chan bit ^= {0: ['row0', 'row5'], 1: ['row3'], 2: ['row0', 'row8'], 3: ['row4'], 4: ['row2']}
+  [xor_chan] channel hash cost 554860 -> 490212; chan bit ^= {0: ['row0', 'row1'], 1: ['row3'], 2: ['row0', 'row2'], 3: ['row4'], 4: ['row3']}
+
+
+
+sim  scheme   policy         hit  lat_cyc  lat_ns     cycles   time_us    GB/s
+ram  identity Open         0.787     53.5    66.9   14582078   18227.6   140.4
+ram  identity ClosedCAP    0.718     54.8    68.5   14522923   18153.7   141.0
+ram  xor      Open         0.787     53.1    66.3   14687360   18359.2   139.4
+ram  xor      ClosedCAP    0.719     54.3    67.9   14643009   18303.8   139.9
+ram  chan     Open         0.806     49.6    62.0    9127379   11409.2   224.4
+ram  chan     ClosedCAP    0.722     52.3    65.4    9477254   11846.6   216.1
+ram  xor_chan Open         0.806     49.6    62.0    9051583   11314.5   226.3
+ram  xor_chan ClosedCAP    0.722     52.3    65.4    9389361   11736.7   218.1
+ds3  identity OPEN_PAGE    0.801    228.0   260.0    3148183    3588.9   713.3
+ds3  identity CLOSE_PAGE   0.000    771.9   880.0   12005994   13686.8   187.0
+ds3  xor      OPEN_PAGE    0.801    228.7   260.7    3128760    3566.8   717.7
+ds3  xor      CLOSE_PAGE   0.000    775.0   883.5   11901271   13567.4   188.7
+ds3  chan     OPEN_PAGE    0.819    235.0   267.9    2814504    3208.5   797.9
+ds3  chan     CLOSE_PAGE   0.000    780.2   889.4   10638077   12127.4   211.1
+ds3  xor_chan OPEN_PAGE    0.820    232.6   265.2    2822101    3217.2   795.7
+ds3  xor_chan CLOSE_PAGE   0.000    776.9   885.7   10580708   12062.0   212.2
+### reruns done Sun Nov 15 02:30:17 IST 2026

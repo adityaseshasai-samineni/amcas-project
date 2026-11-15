@@ -1,0 +1,29 @@
+==========================================
+SLURM_JOB_ID = 125122
+SLURM_NODELIST = node04
+SLURM_JOB_GPUS = 0,1
+==========================================
+GPU 0: Tesla V100-PCIE-16GB (UUID: GPU-981281e7-4522-5b6d-1c9f-7195b3990a95)
+GPU 1: Tesla V100-PCIE-16GB (UUID: GPU-0bec2fd8-2e79-fd77-b8e6-6713440ae130)
+index, memory.used [MiB], memory.total [MiB]
+0, 0 MiB, 16384 MiB
+1, 0 MiB, 16384 MiB
+=== A: plain run
+The capital of France is Paris. The capital of Italy is Rome
+0.51.865.564 I common_perf_print: prompt eval time =     145.95 ms /     5 tokens (   29.19 ms per token,    34.26 tokens per second)
+0.51.865.566 I common_perf_print:        eval time =      56.97 ms /     7 runs   (    8.14 ms per token,   122.86 tokens per second)
+index, memory.used [MiB]
+0, 0 MiB
+1, 0 MiB
+=== B: NVBit launch census (no instrumentation window)
+node04.local
+The capital of France is Paris. The
+1.30.913.202 I common_perf_print: prompt eval time =   84527.12 ms /     5 tokens (16905.42 ms per token,     0.06 tokens per second)
+1.30.913.204 I common_perf_print:        eval time =      58.40 ms /     2 runs   (   29.20 ms per token,    34.24 tokens per second)
+wall 91.533377185
+-rw-rw-r-- 1 adityaseshasai.s adityaseshasai.s       0 Nov 15 17:19 /scratch/adityaseshasai.s/gt/moe_probe.bin
+-rw-rw-r-- 1 adityaseshasai.s adityaseshasai.s 1416069 Nov 15 17:21 /scratch/adityaseshasai.s/gt/moe_probe.launch.txt
+-rw-rw-r-- 1 adityaseshasai.s adityaseshasai.s       0 Nov 15 17:21 /scratch/adityaseshasai.s/gt/moe_probe.opcodes.txt
+-rw-rw-r-- 1 adityaseshasai.s adityaseshasai.s  164305 Nov 15 17:21 /scratch/adityaseshasai.s/gt/moe_probe.tensors.tsv
+3424 /scratch/adityaseshasai.s/gt/moe_probe.launch.txt
+contexts and launches: {'0x000056025554f7b0': 1775, '0x0000560255577b90': 1649}
