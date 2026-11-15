@@ -1690,3 +1690,7 @@ windows job 125719 exited 0. See cluster-data/results/gpu/followup_20261115/ for
 ### GPU follow-up cluster update (2026-11-16T01:46:09+05:30)
 
 Nov16 01:45 IST check: audit 125717, compare 125718 (48m48s), windows 125719 (29m24s) completed; MoE smoke 125720 pending Priority, replay 125721 pending Dependency. Nonempty converted CPU 0.5B and 7B short-context traces remain on node01 scratch; no trace.gz found in node03 scratch search. 21 retained miss.gz files cannot substitute for original pre-cache traces when adding L2. L2 runtimes are estimates, not measured: representative short-trace sensitivity about 1-3 hours including configuration/validation, broad recapture campaign several days. No L2 jobs submitted.. See cluster-data/results/gpu/followup_20261115/ for source snapshots, manifests, validation gates and results. Saturated memory replay results are not measured token-time speedups.
+
+### GPU follow-up cluster update (2026-11-16T01:56:09+05:30)
+
+cache audit: node01 private L2 1MiB 16-way, most full CPU traces require recapture; GPU compare/window jobs completed, gains depend on feed and window. See cluster-data/results/gpu/followup_20261115/ for source snapshots, manifests, validation gates and results. Saturated memory replay results are not measured token-time speedups.
