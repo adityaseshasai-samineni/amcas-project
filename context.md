@@ -1670,3 +1670,7 @@ Packed placement: DDR4 no gain (0.993-1.005) at both lengths; DDR5 packed identi
 | DDR5x16 ClosedCAP | 21.2 (0.743) | 1.000 | 1.001 | 1.001 / 1.004 |
 
 Same picture as ub=32 (0.990-1.004, hit 0.898/0.908 Open, 0.73-0.74 ClosedCAP): prefill with 64-token micro-batches is mapping-insensitive; the only small effect is 2-4% on DDR4 (O class, 18% of the window, in-order hit 0.507 -> region fixes it). 30B prefill with ub=64 was not run (the 7B ub=64 trace alone took 7 h of wall time, mostly raw2trace; a 30B prefill would be longer).
+
+### GPU follow-up cluster update (2026-11-15T22:33:34+05:30)
+
+scheduled audit=125717 compare=125718 windows=125719 moe-smoke=125720 moe-replay=125721. See cluster-data/results/gpu/followup_20261115/ for source snapshots, manifests, validation gates and results. Saturated memory replay results are not measured token-time speedups.
