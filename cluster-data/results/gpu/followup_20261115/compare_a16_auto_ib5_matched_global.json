@@ -1,0 +1,704 @@
+{
+  "gpu": "a16",
+  "ib": 5,
+  "requests": 8000000,
+  "reads": 7990162,
+  "writes": 9838,
+  "stream_sha256": "a9c945b20d23e1fcb46be80c699fca08f70ec6b012f91de4a4ee181efb104e7f",
+  "pages": 149,
+  "timing": "matched",
+  "feed": "global",
+  "mapping": {
+    "bank": [
+      [
+        2,
+        3
+      ],
+      [],
+      [],
+      [
+        0
+      ]
+    ],
+    "bank_sources": [
+      [
+        "row0",
+        16
+      ],
+      [
+        "row1",
+        17
+      ],
+      [
+        "row2",
+        18
+      ],
+      [
+        "row3",
+        19
+      ],
+      [
+        "row4",
+        20
+      ],
+      [
+        "row5",
+        21
+      ],
+      [
+        "row6",
+        22
+      ],
+      [
+        "row7",
+        23
+      ],
+      [
+        "row8",
+        24
+      ],
+      [
+        "row9",
+        25
+      ],
+      [
+        "row10",
+        26
+      ],
+      [
+        "row11",
+        27
+      ],
+      [
+        "row12",
+        28
+      ],
+      [
+        "row13",
+        29
+      ],
+      [
+        "row14",
+        30
+      ]
+    ],
+    "chan": [
+      [
+        4,
+        2
+      ],
+      [],
+      [
+        0
+      ]
+    ],
+    "chan_sources": [
+      [
+        "row0",
+        16
+      ],
+      [
+        "row1",
+        17
+      ],
+      [
+        "row2",
+        18
+      ],
+      [
+        "row3",
+        19
+      ],
+      [
+        "row4",
+        20
+      ],
+      [
+        "row5",
+        21
+      ],
+      [
+        "row6",
+        22
+      ],
+      [
+        "row7",
+        23
+      ],
+      [
+        "row8",
+        24
+      ],
+      [
+        "row9",
+        25
+      ]
+    ],
+    "chan_selected": {
+      "0": [
+        "row4",
+        "row2"
+      ],
+      "1": [],
+      "2": [
+        "row0"
+      ]
+    }
+  },
+  "results": [
+    {
+      "sim": "ram",
+      "scheme": "identity",
+      "policy": "Open",
+      "reads": 7990162,
+      "writes": 9838,
+      "cycles": 3817505,
+      "time_us": 2183.6128599999997,
+      "GBps": 117.23689885211613,
+      "hit_rate": 0.9491905773361654,
+      "avg_read_latency_ns": 51.380305674650614
+    },
+    {
+      "sim": "ds3",
+      "scheme": "identity",
+      "policy": "OPEN_PAGE",
+      "cycles": 2590355,
+      "reads": 7990162,
+      "writes": 9838,
+      "accepted": 8000000,
+      "time_us": 1481.6830599999998,
+      "GBps": 172.77649108035294,
+      "hit_rate": 0.964240875,
+      "missing_callbacks": 0,
+      "unissued": 0,
+      "instances": [
+        {
+          "fallback_unified": 0,
+          "missing": 0,
+          "unissued": 0,
+          "cycles": 2590355,
+          "reqs": 1000952,
+          "writes": 1902,
+          "reads_done": 999050,
+          "writes_done": 1902,
+          "hits": 965227,
+          "rd_hits": 963486,
+          "lat": 173.9340363345178,
+          "acts": 36133
+        },
+        {
+          "fallback_unified": 0,
+          "missing": 0,
+          "unissued": 0,
+          "cycles": 2586907,
+          "reqs": 1000450,
+          "writes": 1574,
+          "reads_done": 998876,
+          "writes_done": 1574,
+          "hits": 964637,
+          "rd_hits": 963207,
+          "lat": 173.69064228192488,
+          "acts": 36226
+        },
+        {
+          "fallback_unified": 0,
+          "missing": 0,
+          "unissued": 0,
+          "cycles": 2582835,
+          "reqs": 1000266,
+          "writes": 1194,
+          "reads_done": 999072,
+          "writes_done": 1194,
+          "hits": 964570,
+          "rd_hits": 963494,
+          "lat": 173.5905270090644,
+          "acts": 36092
+        },
+        {
+          "fallback_unified": 0,
+          "missing": 0,
+          "unissued": 0,
+          "cycles": 2578631,
+          "reqs": 1000214,
+          "writes": 1184,
+          "reads_done": 999030,
+          "writes_done": 1184,
+          "hits": 964563,
+          "rd_hits": 963493,
+          "lat": 173.4611112779396,
+          "acts": 36050
+        },
+        {
+          "fallback_unified": 0,
+          "missing": 0,
+          "unissued": 0,
+          "cycles": 2581162,
+          "reqs": 1000004,
+          "writes": 1216,
+          "reads_done": 998788,
+          "writes_done": 1216,
+          "hits": 964182,
+          "rd_hits": 963074,
+          "lat": 173.841524928213,
+          "acts": 36181
+        },
+        {
+          "fallback_unified": 0,
+          "missing": 0,
+          "unissued": 0,
+          "cycles": 2577080,
+          "reqs": 999814,
+          "writes": 1232,
+          "reads_done": 998582,
+          "writes_done": 1232,
+          "hits": 964086,
+          "rd_hits": 962968,
+          "lat": 173.57179380361353,
+          "acts": 36134
+        },
+        {
+          "fallback_unified": 0,
+          "missing": 0,
+          "unissued": 0,
+          "cycles": 2572515,
+          "reqs": 999596,
+          "writes": 1088,
+          "reads_done": 998508,
+          "writes_done": 1088,
+          "hits": 963769,
+          "rd_hits": 962780,
+          "lat": 173.45959271232678,
+          "acts": 36207
+        },
+        {
+          "fallback_unified": 0,
+          "missing": 0,
+          "unissued": 0,
+          "cycles": 2571621,
+          "reqs": 998704,
+          "writes": 448,
+          "reads_done": 998256,
+          "writes_done": 448,
+          "hits": 962893,
+          "rd_hits": 962493,
+          "lat": 173.65077294802134,
+          "acts": 36195
+        }
+      ],
+      "instance_counts": [
+        1000952,
+        1000450,
+        1000266,
+        1000214,
+        1000004,
+        999814,
+        999596,
+        998704
+      ]
+    },
+    {
+      "sim": "ram",
+      "scheme": "xor",
+      "policy": "Open",
+      "reads": 7990162,
+      "writes": 9838,
+      "cycles": 3412573,
+      "time_us": 1951.991756,
+      "GBps": 131.1480948693105,
+      "hit_rate": 0.953555237103309,
+      "avg_read_latency_ns": 49.175945598714286
+    },
+    {
+      "sim": "ds3",
+      "scheme": "xor",
+      "policy": "OPEN_PAGE",
+      "cycles": 2473908,
+      "reads": 7990162,
+      "writes": 9838,
+      "accepted": 8000000,
+      "time_us": 1415.075376,
+      "GBps": 180.9090910221591,
+      "hit_rate": 0.96866425,
+      "missing_callbacks": 0,
+      "unissued": 0,
+      "instances": [
+        {
+          "fallback_unified": 0,
+          "missing": 0,
+          "unissued": 0,
+          "cycles": 2473908,
+          "reqs": 1000952,
+          "writes": 1902,
+          "reads_done": 999050,
+          "writes_done": 1902,
+          "hits": 969629,
+          "rd_hits": 967878,
+          "lat": 171.25932836194386,
+          "acts": 31679
+        },
+        {
+          "fallback_unified": 0,
+          "missing": 0,
+          "unissued": 0,
+          "cycles": 2473205,
+          "reqs": 1000450,
+          "writes": 1574,
+          "reads_done": 998876,
+          "writes_done": 1574,
+          "hits": 969207,
+          "rd_hits": 967763,
+          "lat": 171.00115029292925,
+          "acts": 31590
+        },
+        {
+          "fallback_unified": 0,
+          "missing": 0,
+          "unissued": 0,
+          "cycles": 2468845,
+          "reqs": 1000266,
+          "writes": 1194,
+          "reads_done": 999072,
+          "writes_done": 1194,
+          "hits": 969072,
+          "rd_hits": 967988,
+          "lat": 171.47009124467505,
+          "acts": 31547
+        },
+        {
+          "fallback_unified": 0,
+          "missing": 0,
+          "unissued": 0,
+          "cycles": 2471946,
+          "reqs": 1000214,
+          "writes": 1184,
+          "reads_done": 999030,
+          "writes_done": 1184,
+          "hits": 968826,
+          "rd_hits": 967753,
+          "lat": 171.29460776953644,
+          "acts": 31754
+        },
+        {
+          "fallback_unified": 0,
+          "missing": 0,
+          "unissued": 0,
+          "cycles": 2467135,
+          "reqs": 1000004,
+          "writes": 1216,
+          "reads_done": 998788,
+          "writes_done": 1216,
+          "hits": 968469,
+          "rd_hits": 967358,
+          "lat": 171.34954264568657,
+          "acts": 31903
+        },
+        {
+          "fallback_unified": 0,
+          "missing": 0,
+          "unissued": 0,
+          "cycles": 2469292,
+          "reqs": 999814,
+          "writes": 1232,
+          "reads_done": 998582,
+          "writes_done": 1232,
+          "hits": 968528,
+          "rd_hits": 967393,
+          "lat": 171.32117542675513,
+          "acts": 31667
+        },
+        {
+          "fallback_unified": 0,
+          "missing": 0,
+          "unissued": 0,
+          "cycles": 2468435,
+          "reqs": 999596,
+          "writes": 1088,
+          "reads_done": 998508,
+          "writes_done": 1088,
+          "hits": 968186,
+          "rd_hits": 967182,
+          "lat": 171.69427786257094,
+          "acts": 31766
+        },
+        {
+          "fallback_unified": 0,
+          "missing": 0,
+          "unissued": 0,
+          "cycles": 2462095,
+          "reqs": 998704,
+          "writes": 448,
+          "reads_done": 998256,
+          "writes_done": 448,
+          "hits": 967397,
+          "rd_hits": 967002,
+          "lat": 171.78813550832652,
+          "acts": 31658
+        }
+      ],
+      "instance_counts": [
+        1000952,
+        1000450,
+        1000266,
+        1000214,
+        1000004,
+        999814,
+        999596,
+        998704
+      ]
+    },
+    {
+      "sim": "ram",
+      "scheme": "chan",
+      "policy": "Open",
+      "reads": 7990162,
+      "writes": 9838,
+      "cycles": 3855189,
+      "time_us": 2205.168108,
+      "GBps": 116.09092253387513,
+      "hit_rate": 0.9483760480763521,
+      "avg_read_latency_ns": 51.51461332601704
+    },
+    {
+      "sim": "ds3",
+      "scheme": "chan",
+      "policy": "OPEN_PAGE",
+      "cycles": 2556573,
+      "reads": 7990162,
+      "writes": 9838,
+      "accepted": 8000000,
+      "time_us": 1462.3597559999998,
+      "GBps": 175.05952208383943,
+      "hit_rate": 0.96820175,
+      "missing_callbacks": 0,
+      "unissued": 0,
+      "instances": [
+        {
+          "fallback_unified": 0,
+          "missing": 0,
+          "unissued": 0,
+          "cycles": 2546566,
+          "reqs": 1000756,
+          "writes": 1758,
+          "reads_done": 998998,
+          "writes_done": 1758,
+          "hits": 968789,
+          "rd_hits": 967190,
+          "lat": 173.13815042672758,
+          "acts": 32315
+        },
+        {
+          "fallback_unified": 0,
+          "missing": 0,
+          "unissued": 0,
+          "cycles": 2556573,
+          "reqs": 1000646,
+          "writes": 1718,
+          "reads_done": 998928,
+          "writes_done": 1718,
+          "hits": 968481,
+          "rd_hits": 966906,
+          "lat": 173.2674887479378,
+          "acts": 32490
+        },
+        {
+          "fallback_unified": 0,
+          "missing": 0,
+          "unissued": 0,
+          "cycles": 2547529,
+          "reqs": 1000236,
+          "writes": 1210,
+          "reads_done": 999026,
+          "writes_done": 1210,
+          "hits": 968181,
+          "rd_hits": 967085,
+          "lat": 173.4156798721955,
+          "acts": 32406
+        },
+        {
+          "fallback_unified": 0,
+          "missing": 0,
+          "unissued": 0,
+          "cycles": 2544620,
+          "reqs": 1000116,
+          "writes": 1168,
+          "reads_done": 998948,
+          "writes_done": 1168,
+          "hits": 968213,
+          "rd_hits": 967153,
+          "lat": 173.21444259360848,
+          "acts": 32261
+        },
+        {
+          "fallback_unified": 0,
+          "missing": 0,
+          "unissued": 0,
+          "cycles": 2535274,
+          "reqs": 999698,
+          "writes": 1168,
+          "reads_done": 998530,
+          "writes_done": 1168,
+          "hits": 967975,
+          "rd_hits": 966908,
+          "lat": 172.92755650806686,
+          "acts": 32072
+        },
+        {
+          "fallback_unified": 0,
+          "missing": 0,
+          "unissued": 0,
+          "cycles": 2539203,
+          "reqs": 1000120,
+          "writes": 1280,
+          "reads_done": 998840,
+          "writes_done": 1280,
+          "hits": 968515,
+          "rd_hits": 967351,
+          "lat": 172.3897280845781,
+          "acts": 31924
+        },
+        {
+          "fallback_unified": 0,
+          "missing": 0,
+          "unissued": 0,
+          "cycles": 2529333,
+          "reqs": 999196,
+          "writes": 640,
+          "reads_done": 998556,
+          "writes_done": 640,
+          "hits": 967857,
+          "rd_hits": 967279,
+          "lat": 172.81001165683247,
+          "acts": 31668
+        },
+        {
+          "fallback_unified": 0,
+          "missing": 0,
+          "unissued": 0,
+          "cycles": 2539445,
+          "reqs": 999232,
+          "writes": 896,
+          "reads_done": 998336,
+          "writes_done": 896,
+          "hits": 967603,
+          "rd_hits": 966793,
+          "lat": 172.91032878710175,
+          "acts": 32002
+        }
+      ],
+      "instance_counts": [
+        1000756,
+        1000646,
+        1000236,
+        1000116,
+        999698,
+        1000120,
+        999196,
+        999232
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "scheme": "identity",
+      "decoder_roundtrip": true,
+      "ram_accepted": 8000000,
+      "ds3_accepted": 8000000,
+      "expected": 8000000,
+      "ds3_unissued": 0,
+      "ds3_missing_callbacks": 0
+    },
+    {
+      "scheme": "xor",
+      "decoder_roundtrip": true,
+      "ram_accepted": 8000000,
+      "ds3_accepted": 8000000,
+      "expected": 8000000,
+      "ds3_unissued": 0,
+      "ds3_missing_callbacks": 0
+    },
+    {
+      "scheme": "chan",
+      "decoder_roundtrip": true,
+      "ram_accepted": 8000000,
+      "ds3_accepted": 8000000,
+      "expected": 8000000,
+      "ds3_unissued": 0,
+      "ds3_missing_callbacks": 0
+    }
+  ],
+  "configuration": {
+    "ram_org": {
+      "device_density": 32768,
+      "channel_density": 16384,
+      "channels_per_device": 2,
+      "bank_group_mode": "on",
+      "dq": 16,
+      "channel_width": 16,
+      "bankgroup": 4,
+      "bank": 4,
+      "row": 32768,
+      "column": 2048
+    },
+    "ram_timing": {
+      "rate": 14000,
+      "nBL": 2,
+      "nCL": 24,
+      "nRCDRD": 27,
+      "nRCDWR": 16,
+      "nRP": 27,
+      "nRAS": 53,
+      "nRC": 79,
+      "nWR": 27,
+      "nCWL": 6,
+      "nCCDS": 2,
+      "nRTPL": 4,
+      "nRTPS": 2,
+      "nCCDL": 4,
+      "nRRDS": 7,
+      "nRRDL": 7,
+      "nFAW": 28,
+      "nRREFD": 14,
+      "nWTRS": 9,
+      "nWTRL": 11,
+      "tCK_ps": 572,
+      "nPPD": 1,
+      "nRTP": 4,
+      "nRTW": 25,
+      "nRFCpb": 105,
+      "nREFI": 3321,
+      "nREFIpb": 207,
+      "nRFCab": 210
+    },
+    "ds3_overrides": {
+      "tCK": 0.572,
+      "bankgroup_enable": "true",
+      "CL": 24,
+      "CWL": 6,
+      "tRCDRD": 27,
+      "tRCDWR": 16,
+      "tRP": 27,
+      "tRAS": 53,
+      "tRFC": 210,
+      "tREFI": 3321,
+      "tRRD_S": 7,
+      "tRRD_L": 7,
+      "tWTR_S": 9,
+      "tWTR_L": 11,
+      "tFAW": 28,
+      "tWR": 27,
+      "tCCD_S": 2,
+      "tCCD_L": 4,
+      "tRTP_S": 2,
+      "tRTP_L": 4,
+      "unified_queue": "True"
+    },
+    "ds3_config": "[dram_structure]\nprotocol = GDDR6\nbankgroups = 4\nbanks_per_group = 4\nrows = 32768\ncolumns = 128\ndevice_width = 16\nBL = 16\nbankgroup_enable = true\n\n[timing]\ntCK = 0.572\nCL = 24\nCWL = 6\ntRCDRD = 27\ntRCDWR = 16\ntRP = 27\ntRAS = 53\ntRFC = 210\ntREFI = 3321\ntRPRE = 1; read preamble\ntWPRE = 1; TODO figure this out, should be 1 or 2\ntRRD_S = 7\ntRRD_L = 7\ntWTR_S = 9\ntWTR_L = 11\ntFAW = 28\ntWR = 27\ntCCD_S = 2\ntCCD_L = 4\ntXS = 132\ntCKESR = 8\ntXP = 12\ntRTRS = 1\ntRTP_L = 4\ntRTP_S = 2\ntPPD = 2\nt32AW = 420\ntRFCb = 30\ntREFIb = 238\n\n[power]\nVDD = 1.35\nIDD0 = 71\nIDD2P = 45\nIDD2N = 60\nIDD3P = 50\nIDD3N = 61\nIDD4W = 231\nIDD4R = 248\nIDD5AB = 286\nIDD5PB = 45\nIDD6x = 35\n\n[system]\nunified_queue = True\nchannel_size = 2048\nchannels = 1\nbus_width = 16\naddress_mapping = rochrababgco\nqueue_structure = PER_BANK\nrow_buf_policy = OPEN_PAGE\ncmd_queue_size = 8\ntrans_queue_size = 32\n\n[other]\nepoch_period = 1000000000\noutput_level = 1\n\n;16n prefetch",
+    "remaining_differences": [
+      "Ramulator controller vs DRAMsim3 controller and queue implementation",
+      "HBM2: Ramulator couples two PCs in one controller; DS3 uses independent PC instances",
+      "Only timing fields available in both models are aligned",
+      "Global Ramulator feed vs independently fed DS3 channels unless feed=independent"
+    ]
+  },
+  "validated": true
+}
