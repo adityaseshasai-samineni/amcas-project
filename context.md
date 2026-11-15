@@ -1682,3 +1682,7 @@ audit job 125717 exited 0. See cluster-data/results/gpu/followup_20261115/ for s
 ### GPU follow-up cluster update (2026-11-15T23:23:12+05:30)
 
 compare job 125718 exited 0. See cluster-data/results/gpu/followup_20261115/ for source snapshots, manifests, validation gates and results. Saturated memory replay results are not measured token-time speedups.
+
+### GPU follow-up cluster update (2026-11-15T23:52:45+05:30)
+
+windows job 125719 exited 0. See cluster-data/results/gpu/followup_20261115/ for source snapshots, manifests, validation gates and results. Saturated memory replay results are not measured token-time speedups.
