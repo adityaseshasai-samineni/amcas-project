@@ -6,3 +6,7 @@ Exit code 0. Results: results/gpu/followup_20261115.
 ### GPU follow-up compare, job 125718 (2026-11-15T23:23:03+05:30)
 
 Exit code 0. Results: results/gpu/followup_20261115.
+
+### GPU follow-up windows, job 125719 (2026-11-15T23:52:37+05:30)
+
+Exit code 0. Results: results/gpu/followup_20261115.
