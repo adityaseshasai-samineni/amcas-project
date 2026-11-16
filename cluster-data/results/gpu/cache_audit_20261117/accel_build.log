@@ -1,0 +1,13 @@
+==========================================
+SLURM_JOB_ID = 126567
+SLURM_NODELIST = node05
+SLURM_JOB_GPUS = 
+==========================================
+No $GPGPUSIM_ROOT, testing for local folder in: "/home/adityaseshasai.s/amcas-pro/tracing/accel-sim-audit-20261117/gpu-simulator/gpgpu-sim"
+Found /home/adityaseshasai.s/amcas-pro/tracing/accel-sim-audit-20261117/gpu-simulator/gpgpu-sim, using existing local location. Not sycning anything.
+GPGPU-Sim version 4.2.0 (build gpgpu-sim_git-commit-4195dd4-modified_625.0) /usr/bin/which: no nvcc in (/home/adityaseshasai.s/amcas-pro/tracing/accel-sim-audit-20261117/gpu-simulator/gpgpu-sim/bin:/usr/local/cuda-12.6/bin:/home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/bin:/usr/local/cuda-12.6/bin:/home/adityaseshasai.s/.local/bin:/home/adityaseshasai.s/bin:/usr/share/Modules/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin)
+
+ERROR ** nvcc (from CUDA Toolkit) was not found in PATH but required to build GPGPU-Sim.
+         Try adding /usr/local/cuda-12.6/bin/ to your PATH environment variable.
+         Please also be sure to read the README file if you have not done so.
+
