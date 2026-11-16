@@ -1,0 +1,15 @@
+==========================================
+SLURM_JOB_ID = 125720
+SLURM_NODELIST = node04
+SLURM_JOB_GPUS = 0,1
+==========================================
+stage=moe-smoke job=125720 host=node04.local date=2026-11-16T17:34:24+05:30
+GPU 0: Tesla V100-PCIE-16GB (UUID: GPU-981281e7-4522-5b6d-1c9f-7195b3990a95)
+GPU 1: Tesla V100-PCIE-16GB (UUID: GPU-0bec2fd8-2e79-fd77-b8e6-6713440ae130)
+Traceback (most recent call last):
+  File "/home/adityaseshasai.s/amcas-pro/results/gpu/followup_20261115/code/gpu_moe_followup.py", line 133, in <module>
+    capture(ap.parse_args().root)
+  File "/home/adityaseshasai.s/amcas-pro/results/gpu/followup_20261115/code/gpu_moe_followup.py", line 107, in capture
+    assert reads>0 and n==reads+writes,'stream/per-launch count mismatch'
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: stream/per-launch count mismatch
