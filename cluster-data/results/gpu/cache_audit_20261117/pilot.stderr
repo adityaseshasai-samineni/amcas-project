@@ -1,0 +1,27 @@
+contexts seen 1; warp instrs 160033156; mean same-CTA run length 1.00
+original       L1 ld sectors 1075696720; L2 reads 146095769; DRAM reads 137213135 (4390.8 MB) writes 219930 (7.0 MB)
+boundary       L1 ld sectors 1075696720; L2 reads 147631773; DRAM reads 137220351 (4391.1 MB) writes 219690 (7.0 MB)
+bypass         L1 ld sectors 1075696720; L2 reads 1075696720; DRAM reads 137220686 (4391.1 MB) writes 213689 (6.8 MB)
+	Command being timed: "./filter input pilot --var original:hash=113 --var boundary:hash=113,invalidate=1 --var bypass:l1kb=0,hash=113"
+	User time (seconds): 115.61
+	System time (seconds): 17.86
+	Percent of CPU this job got: 24%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 8:55.78
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 93664
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 7208
+	Voluntary context switches: 27420
+	Involuntary context switches: 831
+	Swaps: 0
+	File system inputs: 70212784
+	File system outputs: 80
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
