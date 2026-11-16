@@ -1702,3 +1702,7 @@ CPU presentation tables: recovered saved response IDs using vocabulary only; exa
 ### GPU follow-up cluster update (2026-11-16T17:38:01+05:30)
 
 moe-smoke job 125720 exited 1. See cluster-data/results/gpu/followup_20261115/ for source snapshots, manifests, validation gates and results. Saturated memory replay results are not measured token-time speedups.
+
+### GPU follow-up cluster update (2026-11-16T22:45:23+05:30)
+
+Schedule repaired MoE validation: smoke 126467 and replay 126468. See cluster-data/results/gpu/followup_20261116/ for source snapshots, manifests, validation gates and results. Saturated memory replay results are not measured token-time speedups.
