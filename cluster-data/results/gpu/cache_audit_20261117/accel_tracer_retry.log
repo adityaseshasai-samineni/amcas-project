@@ -119,3 +119,7 @@ nvcc -ccbin=g++ -D_FORCE_INLINES -dc -c -std=c++17 -I../../nvbit_release/core -I
 g++ -std=c++17 -I../../nvbit_release/core -I../../include -Wall -O3 -fPIC -c bb_pattern_matcher.cpp -o bb_pattern_matcher.o
 nvcc -ccbin=g++ -D_FORCE_INLINES -arch=sm_70 -O3 inject_funcs.o spinlock_tool.o bb_pattern_matcher.o -L../../nvbit_release/core -lnvbit -L /usr/local/cuda-12.6/lib64 -lcuda -lcudart_static -shared -o spinlock_tool.so
 make[1]: Leaving directory '/home/adityaseshasai.s/amcas-pro/tracing/accel-sim-audit-20261117/util/tracer_nvbit/others/spinlock_tool'
+wrote analysis/tables.md and 3 figures; validation failures: none
+wrote analysis/fullscale/headline.md
+wrote analysis/fullscale/tables.md
+publish: pushed d0fa773
