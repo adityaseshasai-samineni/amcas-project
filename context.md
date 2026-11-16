@@ -1698,3 +1698,7 @@ cache audit: node01 private L2 1MiB 16-way, most full CPU traces require recaptu
 ### GPU follow-up cluster update (2026-11-16T02:29:27+05:30)
 
 CPU presentation tables: recovered saved response IDs using vocabulary only; exact prompt counts and missing stdout documented; step0 after windowed prefill is decode, not full-prefill timing. See cluster-data/results/gpu/followup_20261115/ for source snapshots, manifests, validation gates and results. Saturated memory replay results are not measured token-time speedups.
+
+### GPU follow-up cluster update (2026-11-16T17:38:01+05:30)
+
+moe-smoke job 125720 exited 1. See cluster-data/results/gpu/followup_20261115/ for source snapshots, manifests, validation gates and results. Saturated memory replay results are not measured token-time speedups.
