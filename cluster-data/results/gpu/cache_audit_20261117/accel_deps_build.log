@@ -1,0 +1,323 @@
+==========================================
+SLURM_JOB_ID = 126606
+SLURM_NODELIST = node04
+SLURM_JOB_GPUS = 
+==========================================
+Fetch Shard Index for conda-forge/linux-64                                                      ⧖ Starting
+Fetch Shard Index for conda-forge/linux-64                                                ✔ Done (0.2 sec)
+Fetch Shard Index for conda-forge/noarch                                                        ⧖ Starting
+Fetch Shard Index for conda-forge/noarch                                                  ✔ Done (0.3 sec)
+Fetching and Parsing Packages' Shards                                                           ⧖ Starting
+Fetching and Parsing Packages' Shards                                                     ✔ Done (3.4 sec)
+
+Resolving Environment                                                                           ⧖ Starting
+Resolving Environment                                                                     ✔ Done (0.1 sec)
+
+Transaction
+
+  Prefix: /home/adityaseshasai.s/amcas-pro/tracing/accel-build-deps
+
+  Updating specs:
+
+   - xorg-makedepend
+   - libgl-devel
+   - libglx-devel
+
+
+  Package            Version  Build          Channel          Size
+────────────────────────────────────────────────────────────────────
+  Install:
+────────────────────────────────────────────────────────────────────
+
+  + _openmp_mutex        4.5  20_gnu         conda-forge      29kB
+  + libgcc            16.2.0  ha9f2e26_7     conda-forge       1MB
+  + libgl              1.7.0  ha4b6fd6_5     conda-forge     132kB
+  + libgl-devel        1.7.0  ha4b6fd6_5     conda-forge     116kB
+  + libglvnd           1.7.0  ha4b6fd6_5     conda-forge     134kB
+  + libglx             1.7.0  ha4b6fd6_5     conda-forge      80kB
+  + libglx-devel       1.7.0  ha4b6fd6_5     conda-forge      28kB
+  + libgomp           16.2.0  he0feb66_7     conda-forge     641kB
+  + libstdcxx         16.2.0  h934c35e_7     conda-forge       7MB
+  + libxcb            1.17.0  hb83e432_3     conda-forge     399kB
+  + pthread-stubs        0.4  h7cc23a3_1004  conda-forge      10kB
+  + xorg-libx11       1.8.14  hb83e432_0     conda-forge     847kB
+  + xorg-libxau       1.0.12  h7cc23a3_2     conda-forge      19kB
+  + xorg-libxdmcp      1.1.5  h7cc23a3_2     conda-forge      23kB
+  + xorg-makedepend   1.0.10  hd2095e1_0     conda-forge      27kB
+  + xorg-xorgproto    2025.1  hebe6cf0_3     conda-forge     596kB
+
+  Summary:
+
+  Install: 16 packages
+
+  Total download: 11MB
+
+────────────────────────────────────────────────────────────────────
+
+
+warning  libmamba Security Warning: This transaction includes executing package scripts (pre/post-link/unlink) if present. These scripts can contain arbitrary code. Please ensure you trust the package sources.
+
+Transaction starting
+Linking libglvnd-1.7.0-ha4b6fd6_5
+Linking libgomp-16.2.0-he0feb66_7
+Linking _openmp_mutex-4.5-20_gnu
+Linking libgcc-16.2.0-ha9f2e26_7
+Linking xorg-libxau-1.0.12-h7cc23a3_2
+Linking xorg-libxdmcp-1.1.5-h7cc23a3_2
+Linking pthread-stubs-0.4-h7cc23a3_1004
+Linking xorg-xorgproto-2025.1-hebe6cf0_3
+Linking libstdcxx-16.2.0-h934c35e_7
+Linking libxcb-1.17.0-hb83e432_3
+Linking xorg-makedepend-1.0.10-hd2095e1_0
+Linking xorg-libx11-1.8.14-hb83e432_0
+Linking libglx-1.7.0-ha4b6fd6_5
+Linking libgl-1.7.0-ha4b6fd6_5
+Linking libglx-devel-1.7.0-ha4b6fd6_5
+Linking libgl-devel-1.7.0-ha4b6fd6_5
+
+Transaction finished
+
+
+To activate this environment, use:
+
+    micromamba activate /home/adityaseshasai.s/amcas-pro/tracing/accel-build-deps
+
+Or to execute a single command in this environment, use:
+
+    micromamba run -p /home/adityaseshasai.s/amcas-pro/tracing/accel-build-deps mycommand
+
+No $GPGPUSIM_ROOT, testing for local folder in: "/home/adityaseshasai.s/amcas-pro/tracing/accel-sim-audit-20261117/gpu-simulator/gpgpu-sim"
+Found /home/adityaseshasai.s/amcas-pro/tracing/accel-sim-audit-20261117/gpu-simulator/gpgpu-sim, using existing local location. Not sycning anything.
+GPGPU-Sim version 4.2.0 (build gpgpu-sim_git-commit-4195dd4-modified_625.0) configured with AccelWattch.
+setup_environment succeeded
+Using GPGPU-Sim in /home/adityaseshasai.s/amcas-pro/tracing/accel-sim-audit-20261117/gpu-simulator/gpgpu-sim
+Accel-Sim setup succeeded.
+-- Found CUDAToolkit: /usr/local/cuda-12.6/targets/x86_64-linux/include;/usr/local/cuda-12.6/targets/x86_64-linux/include (found version "12.6.85")
+-- Found OpenGL: /home/adityaseshasai.s/amcas-pro/tracing/accel-build-deps/lib/libGL.so
+-- Could NOT find Doxygen (missing: DOXYGEN_EXECUTABLE) 
+-- Found Python3: /home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/bin/python3.12 (found version "3.12.16") found components: Interpreter
+-- Additional settings for Accel-Sim
+--   Checking for OS
+--   Checking for OS - Linux
+--   Checking GPGPU-Sim version
+--   Checking GPGPU-Sim version - 1.2.0
+--   Checking git commit hash
+--   Checking git commit hash - 4195dd4f229cbf03f4f38c49139ae94d01d23f03
+--   Checking CXX compiler
+--   Checking CXX compiler - /home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/bin/c++
+--   Checking CXX compiler version
+--   Checking CXX compiler version - 13.4.0
+--   Checking CUDA compiler
+--   Checking CUDA compiler - /usr/local/cuda-12.6/bin/nvcc
+--   Checking CUDA compiler version
+--   Checking CUDA compiler version - 12.6.85
+--   Checking for GPGPU-Sim power model
+--   Checking for GPGPU-Sim power model - /home/adityaseshasai.s/amcas-pro/tracing/accel-sim-audit-20261117/gpu-simulator/gpgpu-sim/src/accelwattch/
+--   Checking for CMAKE_BUILD_TYPE
+--   Checking for CMAKE_BUILD_TYPE - Release
+--   Setting binary directory to /home/adityaseshasai.s/amcas-pro/tracing/accel-sim-audit-20261117/gpu-simulator/build-cmake
+-- Additional settings for Accel-Sim - done
+-- Be sure to run 'source setup' before you run CUDA program with GPGPU-Sim or building with external simulator like SST
+-- Writing setup commands to 'setup'
+-- pybind11 v3.2.0 
+-- Found Python: /home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/bin/python3.12 (found suitable version "3.12.16", minimum required is "3.9") found components: Interpreter Development.Module Development.Embed Development.SABIModule
+Using compatibility mode for Python, set PYBIND11_FINDPYTHON to NEW/OLD to silence this message
+-- Performing Test HAS_FLTO_AUTO
+-- Performing Test HAS_FLTO_AUTO - Success
+-- Configuring done (1.5s)
+-- Generating done (0.3s)
+-- Build files have been written to: /home/adityaseshasai.s/amcas-pro/tracing/accel-sim-audit-20261117/gpu-simulator/build-cmake
+[  1%] [BISON][cuobjdump_parser] Building parser with bison 3.0.4
+[  2%] Building CXX object gpgpu-sim/src/CMakeFiles/gpgpusim_entrypoint.dir/abstract_hardware_model.cc.o
+[  2%] Building CXX object trace-parser/CMakeFiles/trace-parser.dir/trace_parser.cc.o
+[  3%] Building CXX object gpgpu-sim/src/accelwattch/CMakeFiles/accelwattch.dir/cacti/Ucache.cc.o
+[  4%] [FLEX][cuobjdump_lexer] Building scanner with flex 2.6.1
+[  4%] Building CXX object gpgpu-sim/libcuda/CMakeFiles/cuda.dir/cuda_runtime_api.cc.o
+[  5%] Linking CXX static library libtrace-parser.a
+[  5%] Built target trace-parser
+[  6%] [BISON][ptx_parser] Building parser with bison 3.0.4
+/home/adityaseshasai.s/amcas-pro/tracing/accel-sim-audit-20261117/gpu-simulator/gpgpu-sim/src/cuda-sim/ptx.y: warning: 1 reduce/reduce conflict [-Wconflicts-rr]
+[  7%] Generating ptx_parser_decode.def
+[  7%] Built target gen_ptx_parser_decode
+[  8%] Generating build string file to /home/adityaseshasai.s/amcas-pro/tracing/accel-sim-audit-20261117/gpu-simulator/build-cmake/gpgpu-sim
+[  8%] Built target gen_build_string
+[  8%] Generating instructions.h
+[  8%] Built target gen_instructions_h
+[  8%] Building CXX object gpgpu-sim/src/gpgpu-sim/CMakeFiles/gpgpusim.dir/addrdec.cc.o
+[  9%] Building CXX object gpgpu-sim/src/CMakeFiles/gpgpusim_entrypoint.dir/debug.cc.o
+[ 10%] Building CXX object gpgpu-sim/libcuda/CMakeFiles/cuda.dir/cuobjdump_parser.c.o
+[ 11%] Building CXX object gpgpu-sim/src/gpgpu-sim/CMakeFiles/gpgpusim.dir/dram.cc.o
+[ 11%] Building CXX object gpgpu-sim/src/accelwattch/CMakeFiles/accelwattch.dir/XML_Parse.cc.o
+[ 11%] Building CXX object gpgpu-sim/libcuda/CMakeFiles/cuda.dir/cuobjdump_lexer.c.o
+[ 12%] Linking CXX static library libcuda.a
+[ 12%] Built target cuda
+[ 12%] [BISON][intersim_config_parser] Building parser with bison 3.0.4
+[ 13%] [FLEX][intersim_config_lexer] Building scanner with flex 2.6.1
+[ 13%] Building CXX object gpgpu-sim/src/intersim2/CMakeFiles/intersim.dir/y.tab.c.o
+[ 14%] Building CXX object gpgpu-sim/src/intersim2/CMakeFiles/intersim.dir/lex.yy.c.o
+[ 15%] Building CXX object gpgpu-sim/src/CMakeFiles/gpgpusim_entrypoint.dir/gpgpusim_entrypoint.cc.o
+[ 16%] Building CXX object gpgpu-sim/src/intersim2/CMakeFiles/intersim.dir/allocators/allocator.cpp.o
+[ 16%] Building CXX object gpgpu-sim/src/gpgpu-sim/CMakeFiles/gpgpusim.dir/dram_sched.cc.o
+[ 16%] Building CXX object gpgpu-sim/src/intersim2/CMakeFiles/intersim.dir/allocators/islip.cpp.o
+[ 17%] Building CXX object gpgpu-sim/src/intersim2/CMakeFiles/intersim.dir/allocators/loa.cpp.o
+[ 18%] Building CXX object gpgpu-sim/src/gpgpu-sim/CMakeFiles/gpgpusim.dir/gpu-cache.cc.o
+[ 18%] Building CXX object gpgpu-sim/src/intersim2/CMakeFiles/intersim.dir/allocators/maxsize.cpp.o
+[ 18%] Building CXX object gpgpu-sim/src/CMakeFiles/gpgpusim_entrypoint.dir/option_parser.cc.o
+[ 19%] Building CXX object gpgpu-sim/src/intersim2/CMakeFiles/intersim.dir/allocators/pim.cpp.o
+[ 20%] Building CXX object gpgpu-sim/src/intersim2/CMakeFiles/intersim.dir/allocators/selalloc.cpp.o
+[ 20%] Building CXX object gpgpu-sim/src/intersim2/CMakeFiles/intersim.dir/allocators/separable.cpp.o
+[ 21%] Building CXX object gpgpu-sim/src/CMakeFiles/gpgpusim_entrypoint.dir/statwrapper.cc.o
+[ 22%] Building CXX object gpgpu-sim/src/accelwattch/CMakeFiles/accelwattch.dir/cacti/arbiter.cc.o
+[ 23%] Building CXX object gpgpu-sim/src/intersim2/CMakeFiles/intersim.dir/allocators/separable_input_first.cpp.o
+[ 23%] Building CXX object gpgpu-sim/src/CMakeFiles/gpgpusim_entrypoint.dir/stream_manager.cc.o
+[ 23%] Building CXX object gpgpu-sim/src/accelwattch/CMakeFiles/accelwattch.dir/cacti/area.cc.o
+[ 23%] Building CXX object gpgpu-sim/src/intersim2/CMakeFiles/intersim.dir/allocators/separable_output_first.cpp.o
+[ 24%] Building CXX object gpgpu-sim/src/accelwattch/CMakeFiles/accelwattch.dir/array.cc.o
+[ 25%] Building CXX object gpgpu-sim/src/intersim2/CMakeFiles/intersim.dir/allocators/wavefront.cpp.o
+[ 26%] Building CXX object gpgpu-sim/src/gpgpu-sim/CMakeFiles/gpgpusim.dir/gpu-misc.cc.o
+[ 26%] Building CXX object gpgpu-sim/src/gpgpu-sim/CMakeFiles/gpgpusim.dir/gpu-sim.cc.o
+[ 27%] Building CXX object gpgpu-sim/src/intersim2/CMakeFiles/intersim.dir/arbiters/arbiter.cpp.o
+[ 27%] Building CXX object gpgpu-sim/src/intersim2/CMakeFiles/intersim.dir/arbiters/matrix_arb.cpp.o
+[ 29%] Building CXX object gpgpu-sim/src/CMakeFiles/gpgpusim_entrypoint.dir/trace.cc.o
+[ 29%] Building CXX object gpgpu-sim/src/intersim2/CMakeFiles/intersim.dir/arbiters/prio_arb.cpp.o
+[ 30%] Building CXX object gpgpu-sim/src/CMakeFiles/gpgpusim_entrypoint.dir/utils.cc.o
+[ 30%] Built target gpgpusim_entrypoint
+[ 31%] Building CXX object trace-driven/CMakeFiles/trace-driven.dir/trace_driven.cc.o
+[ 31%] Building CXX object gpgpu-sim/src/intersim2/CMakeFiles/intersim.dir/arbiters/roundrobin_arb.cpp.o
+[ 32%] Building CXX object gpgpu-sim/src/intersim2/CMakeFiles/intersim.dir/arbiters/tree_arb.cpp.o
+[ 33%] Building CXX object gpgpu-sim/src/intersim2/CMakeFiles/intersim.dir/batchtrafficmanager.cpp.o
+[ 34%] Building CXX object gpgpu-sim/src/accelwattch/CMakeFiles/accelwattch.dir/cacti/bank.cc.o
+[ 34%] Building CXX object gpgpu-sim/src/accelwattch/CMakeFiles/accelwattch.dir/cacti/basic_circuit.cc.o
+[ 34%] Building CXX object gpgpu-sim/src/intersim2/CMakeFiles/intersim.dir/booksim_config.cpp.o
+[ 35%] Building CXX object gpgpu-sim/src/accelwattch/CMakeFiles/accelwattch.dir/basic_components.cc.o
+[ 35%] Building CXX object gpgpu-sim/src/accelwattch/CMakeFiles/accelwattch.dir/cacti/cacti_interface.cc.o
+[ 36%] Building CXX object gpgpu-sim/src/gpgpu-sim/CMakeFiles/gpgpusim.dir/hashing.cc.o
+[ 37%] Building CXX object gpgpu-sim/src/intersim2/CMakeFiles/intersim.dir/buffer.cpp.o
+[ 38%] Building CXX object gpgpu-sim/src/accelwattch/CMakeFiles/accelwattch.dir/cacti/component.cc.o
+[ 38%] Building CXX object gpgpu-sim/src/intersim2/CMakeFiles/intersim.dir/buffer_state.cpp.o
+[ 38%] Building CXX object gpgpu-sim/src/gpgpu-sim/CMakeFiles/gpgpusim.dir/histogram.cc.o
+[ 39%] Building CXX object gpgpu-sim/src/accelwattch/CMakeFiles/accelwattch.dir/core.cc.o
+[ 40%] Building CXX object gpgpu-sim/src/gpgpu-sim/CMakeFiles/gpgpusim.dir/icnt_wrapper.cc.o
+[ 41%] Building CXX object gpgpu-sim/src/gpgpu-sim/CMakeFiles/gpgpusim.dir/l2cache.cc.o
+[ 42%] Building CXX object gpgpu-sim/src/intersim2/CMakeFiles/intersim.dir/config_utils.cpp.o
+[ 43%] Building CXX object gpgpu-sim/src/intersim2/CMakeFiles/intersim.dir/credit.cpp.o
+[ 43%] Building CXX object gpgpu-sim/src/intersim2/CMakeFiles/intersim.dir/flitchannel.cpp.o
+[ 43%] Building CXX object gpgpu-sim/src/gpgpu-sim/CMakeFiles/gpgpusim.dir/local_interconnect.cc.o
+[ 44%] Building CXX object gpgpu-sim/src/intersim2/CMakeFiles/intersim.dir/flit.cpp.o
+[ 44%] Linking CXX static library libtrace-driven.a
+[ 44%] Built target trace-driven
+[ 45%] [BISON][ptxinfo_parser] Building parser with bison 3.0.4
+/home/adityaseshasai.s/amcas-pro/tracing/accel-sim-audit-20261117/gpu-simulator/gpgpu-sim/src/cuda-sim/ptxinfo.y: warning: 2 reduce/reduce conflicts [-Wconflicts-rr]
+[ 45%] [FLEX][ptx_lexer] Building scanner with flex 2.6.1
+[ 46%] [FLEX][ptxinfo_lexer] Building scanner with flex 2.6.1
+[ 46%] Building CXX object gpgpu-sim/src/cuda-sim/CMakeFiles/ptxsim.dir/cuda_device_printf.cc.o
+[ 46%] Building CXX object gpgpu-sim/src/intersim2/CMakeFiles/intersim.dir/gputrafficmanager.cpp.o
+[ 47%] Building CXX object gpgpu-sim/src/gpgpu-sim/CMakeFiles/gpgpusim.dir/mem_fetch.cc.o
+[ 47%] Building CXX object gpgpu-sim/src/accelwattch/CMakeFiles/accelwattch.dir/cacti/crossbar.cc.o
+[ 48%] Building CXX object gpgpu-sim/src/cuda-sim/CMakeFiles/ptxsim.dir/cuda_device_runtime.cc.o
+[ 49%] Building CXX object gpgpu-sim/src/accelwattch/CMakeFiles/accelwattch.dir/cacti/decoder.cc.o
+[ 50%] Building CXX object gpgpu-sim/src/intersim2/CMakeFiles/intersim.dir/injection.cpp.o
+[ 51%] Building CXX object gpgpu-sim/src/intersim2/CMakeFiles/intersim.dir/interconnect_interface.cpp.o
+[ 51%] Building CXX object gpgpu-sim/src/accelwattch/CMakeFiles/accelwattch.dir/cacti/htree2.cc.o
+[ 51%] Building CXX object gpgpu-sim/src/gpgpu-sim/CMakeFiles/gpgpusim.dir/mem_latency_stat.cc.o
+[ 52%] Building CXX object gpgpu-sim/src/accelwattch/CMakeFiles/accelwattch.dir/interconnect.cc.o
+[ 52%] Building CXX object gpgpu-sim/src/cuda-sim/CMakeFiles/ptxsim.dir/cuda-sim.cc.o
+[ 53%] Building CXX object gpgpu-sim/src/accelwattch/CMakeFiles/accelwattch.dir/cacti/io.cc.o
+[ 53%] Building CXX object gpgpu-sim/src/intersim2/CMakeFiles/intersim.dir/intersim_config.cpp.o
+[ 54%] Building CXX object gpgpu-sim/src/gpgpu-sim/CMakeFiles/gpgpusim.dir/power_interface.cc.o
+[ 55%] Building CXX object gpgpu-sim/src/intersim2/CMakeFiles/intersim.dir/main.cpp.o
+[ 55%] Building CXX object gpgpu-sim/src/accelwattch/CMakeFiles/accelwattch.dir/iocontrollers.cc.o
+[ 55%] Building CXX object gpgpu-sim/src/intersim2/CMakeFiles/intersim.dir/misc_utils.cpp.o
+[ 56%] Building CXX object gpgpu-sim/src/intersim2/CMakeFiles/intersim.dir/module.cpp.o
+[ 57%] Building CXX object gpgpu-sim/src/intersim2/CMakeFiles/intersim.dir/networks/anynet.cpp.o
+[ 58%] Building CXX object gpgpu-sim/src/accelwattch/CMakeFiles/accelwattch.dir/logic.cc.o
+[ 59%] Building CXX object gpgpu-sim/src/gpgpu-sim/CMakeFiles/gpgpusim.dir/power_stat.cc.o
+[ 59%] Building CXX object gpgpu-sim/src/intersim2/CMakeFiles/intersim.dir/networks/cmesh.cpp.o
+[ 60%] Building CXX object gpgpu-sim/src/cuda-sim/CMakeFiles/ptxsim.dir/instructions.cc.o
+[ 60%] Building CXX object gpgpu-sim/src/gpgpu-sim/CMakeFiles/gpgpusim.dir/scoreboard.cc.o
+[ 61%] Building CXX object gpgpu-sim/src/intersim2/CMakeFiles/intersim.dir/networks/dragonfly.cpp.o
+[ 61%] Building CXX object gpgpu-sim/src/accelwattch/CMakeFiles/accelwattch.dir/main.cc.o
+[ 62%] Building CXX object gpgpu-sim/src/accelwattch/CMakeFiles/accelwattch.dir/cacti/mat.cc.o
+[ 62%] Building CXX object gpgpu-sim/src/intersim2/CMakeFiles/intersim.dir/networks/fattree.cpp.o
+[ 63%] Building CXX object gpgpu-sim/src/intersim2/CMakeFiles/intersim.dir/networks/flatfly_onchip.cpp.o
+[ 64%] Building CXX object gpgpu-sim/src/gpgpu-sim/CMakeFiles/gpgpusim.dir/shader.cc.o
+[ 65%] Building CXX object gpgpu-sim/src/accelwattch/CMakeFiles/accelwattch.dir/memoryctrl.cc.o
+[ 66%] Building CXX object gpgpu-sim/src/intersim2/CMakeFiles/intersim.dir/networks/fly.cpp.o
+[ 66%] Building CXX object gpgpu-sim/src/intersim2/CMakeFiles/intersim.dir/networks/kncube.cpp.o
+[ 66%] Building CXX object gpgpu-sim/src/accelwattch/CMakeFiles/accelwattch.dir/noc.cc.o
+[ 67%] Building CXX object gpgpu-sim/src/intersim2/CMakeFiles/intersim.dir/networks/network.cpp.o
+[ 68%] Building CXX object gpgpu-sim/src/cuda-sim/CMakeFiles/ptxsim.dir/memory.cc.o
+[ 68%] Building CXX object gpgpu-sim/src/intersim2/CMakeFiles/intersim.dir/networks/qtree.cpp.o
+[ 69%] Building CXX object gpgpu-sim/src/intersim2/CMakeFiles/intersim.dir/networks/tree4.cpp.o
+[ 70%] Building CXX object gpgpu-sim/src/accelwattch/CMakeFiles/accelwattch.dir/cacti/nuca.cc.o
+[ 71%] Building CXX object gpgpu-sim/src/intersim2/CMakeFiles/intersim.dir/outputset.cpp.o
+[ 71%] Building CXX object gpgpu-sim/src/intersim2/CMakeFiles/intersim.dir/packet_reply_info.cpp.o
+[ 72%] Building CXX object gpgpu-sim/src/intersim2/CMakeFiles/intersim.dir/power/buffer_monitor.cpp.o
+[ 72%] Building CXX object gpgpu-sim/src/accelwattch/CMakeFiles/accelwattch.dir/cacti/parameter.cc.o
+[ 72%] Building CXX object gpgpu-sim/src/cuda-sim/CMakeFiles/ptxsim.dir/ptx_ir.cc.o
+[ 72%] Building CXX object gpgpu-sim/src/intersim2/CMakeFiles/intersim.dir/power/power_module.cpp.o
+[ 73%] Building CXX object gpgpu-sim/src/accelwattch/CMakeFiles/accelwattch.dir/processor.cc.o
+[ 74%] Building CXX object gpgpu-sim/src/intersim2/CMakeFiles/intersim.dir/power/switch_monitor.cpp.o
+[ 75%] Building CXX object gpgpu-sim/src/intersim2/CMakeFiles/intersim.dir/rng_double_wrapper.cpp.o
+[ 75%] Building CXX object gpgpu-sim/src/intersim2/CMakeFiles/intersim.dir/rng_wrapper.cpp.o
+[ 76%] Building CXX object gpgpu-sim/src/intersim2/CMakeFiles/intersim.dir/routefunc.cpp.o
+[ 77%] Building CXX object gpgpu-sim/src/accelwattch/CMakeFiles/accelwattch.dir/cacti/router.cc.o
+[ 77%] Building CXX object gpgpu-sim/src/intersim2/CMakeFiles/intersim.dir/routers/chaos_router.cpp.o
+[ 77%] Building CXX object gpgpu-sim/src/accelwattch/CMakeFiles/accelwattch.dir/sharedcache.cc.o
+[ 77%] Building CXX object gpgpu-sim/src/gpgpu-sim/CMakeFiles/gpgpusim.dir/stack.cc.o
+[ 78%] Building CXX object gpgpu-sim/src/accelwattch/CMakeFiles/accelwattch.dir/cacti/subarray.cc.o
+[ 79%] Building CXX object gpgpu-sim/src/cuda-sim/CMakeFiles/ptxsim.dir/ptx_loader.cc.o
+[ 80%] Building CXX object gpgpu-sim/src/gpgpu-sim/CMakeFiles/gpgpusim.dir/stat-tool.cc.o
+[ 80%] Building CXX object gpgpu-sim/src/accelwattch/CMakeFiles/accelwattch.dir/cacti/technology.cc.o
+[ 81%] Building CXX object gpgpu-sim/src/intersim2/CMakeFiles/intersim.dir/routers/event_router.cpp.o
+[ 82%] Building CXX object gpgpu-sim/src/accelwattch/CMakeFiles/accelwattch.dir/cacti/uca.cc.o
+[ 82%] Building CXX object gpgpu-sim/src/cuda-sim/CMakeFiles/ptxsim.dir/ptx_parser.cc.o
+[ 83%] Building CXX object gpgpu-sim/src/accelwattch/CMakeFiles/accelwattch.dir/cacti/wire.cc.o
+[ 84%] Building CXX object gpgpu-sim/src/gpgpu-sim/CMakeFiles/gpgpusim.dir/traffic_breakdown.cc.o
+[ 85%] Building CXX object gpgpu-sim/src/intersim2/CMakeFiles/intersim.dir/routers/iq_router.cpp.o
+[ 85%] Building CXX object gpgpu-sim/src/accelwattch/CMakeFiles/accelwattch.dir/xmlParser.cc.o
+[ 85%] Building CXX object gpgpu-sim/src/gpgpu-sim/CMakeFiles/gpgpusim.dir/visualizer.cc.o
+[ 86%] Building CXX object gpgpu-sim/src/accelwattch/CMakeFiles/accelwattch.dir/gpgpu_sim_wrapper.cc.o
+[ 86%] Linking CXX static library libaccelwattch.a
+[ 86%] Built target accelwattch
+[ 86%] Building CXX object gpgpu-sim/src/intersim2/CMakeFiles/intersim.dir/routers/router.cpp.o
+[ 87%] Building CXX object gpgpu-sim/src/cuda-sim/CMakeFiles/ptxsim.dir/ptx_sim.cc.o
+[ 88%] Linking CXX static library libgpgpusim.a
+[ 88%] Built target gpgpusim
+[ 89%] Building CXX object gpgpu-sim/src/cuda-sim/CMakeFiles/ptxsim.dir/ptx-stats.cc.o
+[ 90%] Building CXX object gpgpu-sim/src/intersim2/CMakeFiles/intersim.dir/stats.cpp.o
+[ 90%] Building CXX object gpgpu-sim/src/intersim2/CMakeFiles/intersim.dir/traffic.cpp.o
+[ 91%] Building CXX object gpgpu-sim/src/intersim2/CMakeFiles/intersim.dir/trafficmanager.cpp.o
+[ 92%] Building CXX object gpgpu-sim/src/intersim2/CMakeFiles/intersim.dir/vc.cpp.o
+[ 92%] Building CXX object gpgpu-sim/src/cuda-sim/CMakeFiles/ptxsim.dir/decuda_pred_table/decuda_pred_table.cc.o
+[ 93%] Building CXX object gpgpu-sim/src/cuda-sim/CMakeFiles/ptxsim.dir/ptx.tab.c.o
+[ 93%] Building CXX object gpgpu-sim/src/cuda-sim/CMakeFiles/ptxsim.dir/lex.ptx_.c.o
+[ 94%] Building CXX object gpgpu-sim/src/cuda-sim/CMakeFiles/ptxsim.dir/ptxinfo.tab.c.o
+[ 95%] Building CXX object gpgpu-sim/src/cuda-sim/CMakeFiles/ptxsim.dir/lex.ptxinfo_.c.o
+[ 95%] Linking CXX static library libptxsim.a
+[ 96%] Built target ptxsim
+[ 96%] Linking CXX static library libintersim.a
+[ 96%] Built target intersim
+[ 96%] Linking CXX static library libentrypoint.a
+[ 97%] Linking CXX shared library libcudart.so
+/home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/bin/x86_64-conda-linux-gnu-ld: cannot find -lGL: No such file or directory
+[ 97%] Built target entrypoint
+collect2: error: ld returned 1 exit status
+gmake[2]: *** [gpgpu-sim/CMakeFiles/cudart.dir/build.make:112: gpgpu-sim/libcudart.so] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:498: gpgpu-sim/CMakeFiles/cudart.dir/all] Error 2
+gmake[1]: *** Waiting for unfinished jobs....
+[ 98%] Building CXX object CMakeFiles/accel-sim.out.dir/accel-sim.cc.o
+[ 98%] Building CXX object CMakeFiles/accel-sim.out.dir/main.cc.o
+[ 99%] Building CXX object CMakeFiles/accel_sim.dir/accel-sim.cc.o
+[ 99%] Building CXX object CMakeFiles/accel_sim.dir/python_wrapper/python_wrapper.cc.o
+[ 99%] Linking CXX executable accel-sim.out
+/home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/bin/x86_64-conda-linux-gnu-ld: cannot find -lGL: No such file or directory
+collect2: error: ld returned 1 exit status
+gmake[2]: *** [CMakeFiles/accel-sim.out.dir/build.make:132: accel-sim.out] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:358: CMakeFiles/accel-sim.out.dir/all] Error 2
+[100%] Linking CXX shared module accel_sim.cpython-312-x86_64-linux-gnu.so
+/home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/bin/x86_64-conda-linux-gnu-ld: cannot find -lGL: No such file or directory
+collect2: error: ld returned 1 exit status
+gmake[2]: *** [CMakeFiles/accel_sim.dir/build.make:132: accel_sim.cpython-312-x86_64-linux-gnu.so] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:397: CMakeFiles/accel_sim.dir/all] Error 2
+gmake: *** [Makefile:136: all] Error 2
