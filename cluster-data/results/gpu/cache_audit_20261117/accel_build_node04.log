@@ -16,3 +16,7 @@ touch ./build/release/main.makedepend
 makedepend -f./build/release/main.makedepend -p./build/release/ main.cc 2> /dev/null
 Makefile:90: build/release/main.makedepend: No such file or directory
 make: *** [Makefile:74: depend] Error 127
+wrote analysis/tables.md and 3 figures; validation failures: none
+wrote analysis/fullscale/headline.md
+wrote analysis/fullscale/tables.md
+publish: pushed 5f18eaa

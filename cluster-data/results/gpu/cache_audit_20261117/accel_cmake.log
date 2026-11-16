@@ -1,0 +1,40 @@
+==========================================
+SLURM_JOB_ID = 126599
+SLURM_NODELIST = node04
+SLURM_JOB_GPUS = 
+==========================================
+No $GPGPUSIM_ROOT, testing for local folder in: "/home/adityaseshasai.s/amcas-pro/tracing/accel-sim-audit-20261117/gpu-simulator/gpgpu-sim"
+Found /home/adityaseshasai.s/amcas-pro/tracing/accel-sim-audit-20261117/gpu-simulator/gpgpu-sim, using existing local location. Not sycning anything.
+GPGPU-Sim version 4.2.0 (build gpgpu-sim_git-commit-4195dd4-modified_625.0) configured with AccelWattch.
+setup_environment succeeded
+Using GPGPU-Sim in /home/adityaseshasai.s/amcas-pro/tracing/accel-sim-audit-20261117/gpu-simulator/gpgpu-sim
+Accel-Sim setup succeeded.
+-- The CXX compiler identification is GNU 13.4.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found Git: /usr/bin/git (found version "2.43.7")
+-- Found BISON: /usr/bin/bison (found version "3.0.4")
+-- Found FLEX: /usr/bin/flex (found version "2.6.1")
+-- Found ZLIB: /usr/lib64/libz.so (found version "1.2.11")
+-- Found CUDAToolkit: /usr/local/cuda-12.6/targets/x86_64-linux/include (found version "12.6.85")
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Failed
+-- Looking for pthread_create in pthreads
+-- Looking for pthread_create in pthreads - not found
+-- Looking for pthread_create in pthread
+-- Looking for pthread_create in pthread - found
+-- Found Threads: TRUE
+CMake Error at /home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/share/cmake-4.4/Modules/FindPackageHandleStandardArgs.cmake:290 (message):
+  Could NOT find OpenGL (missing: OPENGL_opengl_LIBRARY OPENGL_glx_LIBRARY
+  OPENGL_INCLUDE_DIR)
+Call Stack (most recent call first):
+  /home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/share/cmake-4.4/Modules/FindPackageHandleStandardArgs.cmake:654 (_FPHSA_FAILURE_MESSAGE)
+  /home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/share/cmake-4.4/Modules/FindOpenGL.cmake:702 (find_package_handle_standard_args)
+  gpgpu-sim/gpgpusim_check.cmake:11 (find_package)
+  gpgpu-sim/CMakeLists.txt:25 (include)
+
+
+-- Configuring incomplete, errors occurred!
