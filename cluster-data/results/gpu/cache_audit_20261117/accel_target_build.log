@@ -1,0 +1,143 @@
+==========================================
+SLURM_JOB_ID = 126608
+SLURM_NODELIST = node04
+SLURM_JOB_GPUS = 
+==========================================
+Using Cached Shard Index for conda-forge/linux-64                                                   ✔ Done
+Using Cached Shard Index for conda-forge/noarch                                                     ✔ Done
+Fetching and Parsing Packages' Shards                                                           ⧖ Starting
+Fetching and Parsing Packages' Shards                                                     ✔ Done (0.2 sec)
+
+Resolving Environment                                                                           ⧖ Starting
+Resolving Environment                                                                     ✔ Done (0.1 sec)
+
+Transaction
+
+  Prefix: /home/adityaseshasai.s/amcas-pro/tracing/accel-build-deps
+
+  Updating specs:
+
+   - xorg-makedepend
+   - libgl-devel
+   - libglx-devel
+
+
+  Package            Version  Build          Channel           Size
+─────────────────────────────────────────────────────────────────────
+  Install:
+─────────────────────────────────────────────────────────────────────
+
+  + _openmp_mutex        4.5  20_gnu         conda-forge     Cached
+  + libgcc            16.2.0  ha9f2e26_7     conda-forge     Cached
+  + libgl              1.7.0  ha4b6fd6_5     conda-forge     Cached
+  + libgl-devel        1.7.0  ha4b6fd6_5     conda-forge     Cached
+  + libglvnd           1.7.0  ha4b6fd6_5     conda-forge     Cached
+  + libglx             1.7.0  ha4b6fd6_5     conda-forge     Cached
+  + libglx-devel       1.7.0  ha4b6fd6_5     conda-forge     Cached
+  + libgomp           16.2.0  he0feb66_7     conda-forge     Cached
+  + libstdcxx         16.2.0  h934c35e_7     conda-forge     Cached
+  + libxcb            1.17.0  hb83e432_3     conda-forge     Cached
+  + pthread-stubs        0.4  h7cc23a3_1004  conda-forge     Cached
+  + xorg-libx11       1.8.14  hb83e432_0     conda-forge     Cached
+  + xorg-libxau       1.0.12  h7cc23a3_2     conda-forge     Cached
+  + xorg-libxdmcp      1.1.5  h7cc23a3_2     conda-forge     Cached
+  + xorg-makedepend   1.0.10  hd2095e1_0     conda-forge     Cached
+  + xorg-xorgproto    2025.1  hebe6cf0_3     conda-forge     Cached
+
+  Summary:
+
+  Install: 16 packages
+
+  Total download: 0 B
+
+─────────────────────────────────────────────────────────────────────
+
+
+warning  libmamba Security Warning: This transaction includes executing package scripts (pre/post-link/unlink) if present. These scripts can contain arbitrary code. Please ensure you trust the package sources.
+
+Transaction starting
+Linking libglvnd-1.7.0-ha4b6fd6_5
+Linking libgomp-16.2.0-he0feb66_7
+Linking _openmp_mutex-4.5-20_gnu
+Linking libgcc-16.2.0-ha9f2e26_7
+Linking xorg-libxau-1.0.12-h7cc23a3_2
+Linking xorg-libxdmcp-1.1.5-h7cc23a3_2
+Linking pthread-stubs-0.4-h7cc23a3_1004
+Linking xorg-xorgproto-2025.1-hebe6cf0_3
+Linking libstdcxx-16.2.0-h934c35e_7
+Linking libxcb-1.17.0-hb83e432_3
+Linking xorg-makedepend-1.0.10-hd2095e1_0
+Linking xorg-libx11-1.8.14-hb83e432_0
+Linking libglx-1.7.0-ha4b6fd6_5
+Linking libgl-1.7.0-ha4b6fd6_5
+Linking libglx-devel-1.7.0-ha4b6fd6_5
+Linking libgl-devel-1.7.0-ha4b6fd6_5
+
+Transaction finished
+
+
+To activate this environment, use:
+
+    micromamba activate /home/adityaseshasai.s/amcas-pro/tracing/accel-build-deps
+
+Or to execute a single command in this environment, use:
+
+    micromamba run -p /home/adityaseshasai.s/amcas-pro/tracing/accel-build-deps mycommand
+
+No $GPGPUSIM_ROOT, testing for local folder in: "/home/adityaseshasai.s/amcas-pro/tracing/accel-sim-audit-20261117/gpu-simulator/gpgpu-sim"
+Found /home/adityaseshasai.s/amcas-pro/tracing/accel-sim-audit-20261117/gpu-simulator/gpgpu-sim, using existing local location. Not sycning anything.
+GPGPU-Sim version 4.2.0 (build gpgpu-sim_git-commit-4195dd4-modified_625.0) configured with AccelWattch.
+setup_environment succeeded
+Using GPGPU-Sim in /home/adityaseshasai.s/amcas-pro/tracing/accel-sim-audit-20261117/gpu-simulator/gpgpu-sim
+Accel-Sim setup succeeded.
+-- Found CUDAToolkit: /usr/local/cuda-12.6/targets/x86_64-linux/include;/usr/local/cuda-12.6/targets/x86_64-linux/include;/usr/local/cuda-12.6/targets/x86_64-linux/include (found version "12.6.85")
+-- Could NOT find Doxygen (missing: DOXYGEN_EXECUTABLE) 
+-- Additional settings for Accel-Sim
+--   Checking for OS
+--   Checking for OS - Linux
+--   Checking GPGPU-Sim version
+--   Checking GPGPU-Sim version - 1.2.0
+--   Checking git commit hash
+--   Checking git commit hash - 4195dd4f229cbf03f4f38c49139ae94d01d23f03
+--   Checking CXX compiler
+--   Checking CXX compiler - /home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/bin/c++
+--   Checking CXX compiler version
+--   Checking CXX compiler version - 13.4.0
+--   Checking CUDA compiler
+--   Checking CUDA compiler - /usr/local/cuda-12.6/bin/nvcc
+--   Checking CUDA compiler version
+--   Checking CUDA compiler version - 12.6.85
+--   Checking for GPGPU-Sim power model
+--   Checking for GPGPU-Sim power model - /home/adityaseshasai.s/amcas-pro/tracing/accel-sim-audit-20261117/gpu-simulator/gpgpu-sim/src/accelwattch/
+--   Checking for CMAKE_BUILD_TYPE
+--   Checking for CMAKE_BUILD_TYPE - Release
+--   Setting binary directory to /home/adityaseshasai.s/amcas-pro/tracing/accel-sim-audit-20261117/gpu-simulator/build-cmake
+-- Additional settings for Accel-Sim - done
+-- Be sure to run 'source setup' before you run CUDA program with GPGPU-Sim or building with external simulator like SST
+-- Writing setup commands to 'setup'
+-- pybind11 v3.2.0 
+Using compatibility mode for Python, set PYBIND11_FINDPYTHON to NEW/OLD to silence this message
+-- Configuring done (0.7s)
+-- Generating done (0.3s)
+-- Build files have been written to: /home/adityaseshasai.s/amcas-pro/tracing/accel-sim-audit-20261117/gpu-simulator/build-cmake
+[  4%] Built target trace-parser
+[  6%] Built target cuda
+[ 11%] Built target gpgpusim_entrypoint
+[ 13%] Built target gen_ptx_parser_decode
+[ 14%] Generating build string file to /home/adityaseshasai.s/amcas-pro/tracing/accel-sim-audit-20261117/gpu-simulator/build-cmake/gpgpu-sim
+[ 14%] Built target gen_instructions_h
+[ 35%] Built target accelwattch
+[ 48%] Built target gpgpusim
+[ 49%] Built target trace-driven
+[ 86%] Built target intersim
+[ 86%] Built target gen_build_string
+[ 98%] Built target ptxsim
+[ 98%] Built target entrypoint
+[ 98%] Building CXX object CMakeFiles/accel-sim.out.dir/accel-sim.cc.o
+[ 98%] Linking CXX executable accel-sim.out
+/home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/bin/x86_64-conda-linux-gnu-ld: cannot find -lGL: No such file or directory
+collect2: error: ld returned 1 exit status
+gmake[3]: *** [CMakeFiles/accel-sim.out.dir/build.make:132: accel-sim.out] Error 1
+gmake[2]: *** [CMakeFiles/Makefile2:358: CMakeFiles/accel-sim.out.dir/all] Error 2
+gmake[1]: *** [CMakeFiles/Makefile2:365: CMakeFiles/accel-sim.out.dir/rule] Error 2
+gmake: *** [Makefile:169: accel-sim.out] Error 2
