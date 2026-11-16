@@ -1,0 +1,18 @@
+==========================================
+SLURM_JOB_ID = 126574
+SLURM_NODELIST = node04
+SLURM_JOB_GPUS = 
+==========================================
+No $GPGPUSIM_ROOT, testing for local folder in: "/home/adityaseshasai.s/amcas-pro/tracing/accel-sim-audit-20261117/gpu-simulator/gpgpu-sim"
+Found /home/adityaseshasai.s/amcas-pro/tracing/accel-sim-audit-20261117/gpu-simulator/gpgpu-sim, using existing local location. Not sycning anything.
+GPGPU-Sim version 4.2.0 (build gpgpu-sim_git-commit-4195dd4-modified_625.0) configured with AccelWattch.
+setup_environment succeeded
+Cloning into '/home/adityaseshasai.s/amcas-pro/tracing/accel-sim-audit-20261117/gpu-simulator/extern/pybind11'...
+Using GPGPU-Sim in /home/adityaseshasai.s/amcas-pro/tracing/accel-sim-audit-20261117/gpu-simulator/gpgpu-sim
+Accel-Sim setup succeeded.
+if [ ! -d ./bin/release ]; then mkdir -p ./bin/release; fi;
+if [ ! -d ./build/release ]; then mkdir -p ./build/release; fi;
+touch ./build/release/main.makedepend
+makedepend -f./build/release/main.makedepend -p./build/release/ main.cc 2> /dev/null
+Makefile:90: build/release/main.makedepend: No such file or directory
+make: *** [Makefile:74: depend] Error 127
