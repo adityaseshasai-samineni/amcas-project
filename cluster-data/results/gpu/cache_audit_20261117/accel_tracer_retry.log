@@ -24,4 +24,98 @@ Saving to: ‘nvbit-Linux-x86_64-1.8.tar.bz2’
    300K .......... .......... .......... .......... .......... 38% 63.1K 6s
    350K .......... .......... .......... .......... .......... 43% 48.8K 6s
    400K .......... .......... .......... .......... .......... 49% 77.9K 5s
-   450K .......... .......... .......... .......... ...
+   450K .......... .......... .......... .......... .......... 54% 75.4K 5s
+   500K .......... .......... .......... .......... .......... 60% 33.4K 5s
+   550K .......... .......... .......... .......... .......... 65% 54.7K 4s
+   600K .......... .......... .......... .......... .......... 70% 41.7K 4s
+   650K .......... .......... .......... .......... .......... 76% 27.0K 4s
+   700K .......... .......... .......... .......... .......... 81% 24.3K 3s
+   750K .......... .......... .......... .......... .......... 87% 42.9K 2s
+   800K .......... .......... .......... .......... .......... 92% 25.6K 1s
+   850K .......... .......... .......... .......... .......... 98% 35.6K 0s
+   900K .......... .....                                      100%  102K=18s
+
+2026-11-17 00:32:44 (50.5 KB/s) - ‘nvbit-Linux-x86_64-1.8.tar.bz2’ saved [937918/937918]
+
+make -C tracer_tool
+make[1]: Entering directory '/home/adityaseshasai.s/amcas-pro/tracing/accel-sim-audit-20261117/util/tracer_nvbit/tracer_tool'
+nvcc -ccbin=g++ -D_FORCE_INLINES -I../nvbit_release/core -I..//include  -Xptxas -astoolspatch --keep-device-functions -arch=sm_70 -Xcompiler -Wall -Xcompiler -fPIC -c inject_funcs.cu -o inject_funcs.o
+nvcc -ccbin=g++ -D_FORCE_INLINES -dc -c -std=c++17 -I../nvbit_release/core -I..//include -Xptxas -cloning=no -Xcompiler -Wall -arch=sm_70 -O3 -Xcompiler -fPIC tracer_tool.cu -o tracer_tool.o
+tracer_tool.cu: In function 'void instrument_function_if_needed(CUcontext, CUfunction)':
+tracer_tool.cu:427:8: warning: format '%lx' expects argument of type 'long unsigned int', but argument 2 has type 'uint32_t' {aka 'unsigned int'} [-Wformat=]
+  427 |           printf(
+      |        ^  ~~~~~~~                                                                         
+      |                                                                                         |
+      |                                                                                         uint32_t {aka unsigned int}
+tracer_tool.cu: In function 'void enter_kernel_launch(CUcontext, CUfunction, nvbit_api_cuda_t, void*, bool, bool)':
+tracer_tool.cu:661:105: warning: comparison of integer expressions of different signedness: 'std::unordered_map<CUctx_st*, int>::mapped_type' {aka 'int'} and 'uint64_t' {aka 'long unsigned int'} [-Wsign-compare]
+  661 |   if (terminate_after_limit_number_of_kernels_reached && g_max_kernel_id != 0 &&
+tracer_tool.cu:716:17: warning: format '%lx' expects argument of type 'long unsigned int', but argument 5 has type 'CUcontext' {aka 'CUctx_st*'} [-Wformat=]
+  716 |   sprintf(buffer, "%s/kernel-%d-ctx_0x%lx.trace", trace_filename.c_str(),
+      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~                                                
+      |                                                                                            |
+      |                                                                                            CUcontext {aka CUctx_st*}
+tracer_tool.cu:775:17: warning: format '%lx' expects argument of type 'long unsigned int', but argument 4 has type 'CUcontext' {aka 'CUctx_st*'} [-Wformat=]
+  775 |   sprintf(buffer, "kernel-%d-ctx_0x%lx.trace%s", ctx_kernelid[ctx], ctx,
+      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~                     ~~~
+      |                                                                   |
+      |                                                                   CUcontext {aka CUctx_st*}
+tracer_tool.cu: In function 'void nvbit_at_cuda_event(CUcontext, int, nvbit_api_cuda_t, const char*, void*, CUresult*)':
+tracer_tool.cu:1013:17: warning: format '%llu' expects argument of type 'long long unsigned int', but argument 4 has type 'size_t' {aka 'long unsigned int'} [-Wformat=]
+ 1013 |       sprintf(buffer, "MemcpyHtoD,0x%016llx,%llu", p->dstDevice, p->ByteCount);
+      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~                ~~~~~~~~~~~~
+      |                                                               |
+      |                                                               size_t {aka long unsigned int}
+tracer_tool.cu: In function 'bool base_stride_compress(const uint64_t*, const std::bitset<32>&, uint64_t&, int&)':
+tracer_tool.cu:1087:12: warning: comparison of integer expressions of different signedness: 'int' and 'long unsigned int' [-Wsign-compare]
+ 1087 |         if (stride != addrs[s] - addrs[s - 1]) {
+      |         ~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+tracer_tool.cu: In function 'void* recv_thread_fun(void*)':
+tracer_tool.cu:1288:31: warning: comparison of integer expressions of different signedness: 'std::map<unsigned int, long unsigned int>::mapped_type' {aka 'long unsigned int'} and 'int' [-Wsign-compare]
+ 1288 |               if (counter[trace->instr_idx] > spinlock_iter_to_keep) {
+tracer_tool.cu:1323:31: warning: comparison of integer expressions of different signedness: 'std::map<unsigned int, long unsigned int>::mapped_type' {aka 'long unsigned int'} and 'int' [-Wsign-compare]
+ 1323 |               if (counter[trace->instr_idx] > spinlock_iter_to_keep) {
+tracer_tool.cu:1470:19: warning: comparison of integer expressions of different signedness: 'int' and 'std::vector<long long int>::size_type' {aka 'long unsigned int'} [-Wsign-compare]
+ 1470 |             for (int s = 0; s < deltas.size(); s++) {
+      |                 ~~^~~~~~~~~~~~~~~
+tracer_tool.cu:1528:31: warning: format '%ld' expects argument of type 'long int', but argument 3 has type 'uint32_t' {aka 'unsigned int'} [-Wformat=]
+ 1528 |               fprintf(ctx_resultsFile[ctx], "%ld ",
+      |                               ^~~~~~  ~~~~~~~~~~~~~                                            
+      |                                                                          |
+      |                                                                          uint32_t {aka unsigned int}
+tracer_tool.cu:1531:31: warning: format '%ld' expects argument of type 'long int', but argument 3 has type 'int' [-Wformat=]
+ 1531 |               fprintf(ctx_resultsFile[ctx], "%ld ", 0);
+      |                               ^~~~~~  ~
+      |                                       |
+      |                                       int
+tracer_tool.cu: In function 'void nvbit_at_ctx_init(CUcontext)':
+tracer_tool.cu:1690:17: warning: format '%lx' expects argument of type 'long unsigned int', but argument 3 has type 'CUcontext' {aka 'CUctx_st*'} [-Wformat=]
+ 1690 |   sprintf(buffer, "kernelslist_ctx_0x%lx", ctx);
+      |                 ^~~~~~~~~~~~~~~~~~~~~~~  ~~~
+      |                                          |
+      |                                          CUcontext {aka CUctx_st*}
+tracer_tool.cu:1693:17: warning: format '%lx' expects argument of type 'long unsigned int', but argument 3 has type 'CUcontext' {aka 'CUctx_st*'} [-Wformat=]
+ 1693 |   sprintf(buffer, "stats_ctx_0x%lx", ctx);
+      |                 ^~~~~~~~~~~~~~~~~  ~~~
+      |                                    |
+      |                                    CUcontext {aka CUctx_st*}
+tracer_tool.cu: In function 'void enter_kernel_launch(CUcontext, CUfunction, nvbit_api_cuda_t, void*, bool, bool)':
+tracer_tool.cu:725:21: warning: '%s' directive writing up to 2047 bytes into a region of size 1027 [-Wformat-overflow=]
+  725 |       sprintf(cmd_buffer, "xz -1 -T0 > %s.xz", buffer);
+      |                     ^~~~~~~~~~~~~~~~~~~  ~~~~~~
+tracer_tool.cu:725:8: note: 'sprintf' output between 16 and 2063 bytes into a destination of size 1039
+  725 |       sprintf(cmd_buffer, "xz -1 -T0 > %s.xz", buffer);
+      |       ~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+nvcc -ccbin=g++ -D_FORCE_INLINES -arch=sm_70 -O3 inject_funcs.o tracer_tool.o -L../nvbit_release/core -lnvbit -L /usr/local/cuda-12.6/lib64 -lcuda -lcudart_static -shared -o tracer_tool.so
+make[1]: Leaving directory '/home/adityaseshasai.s/amcas-pro/tracing/accel-sim-audit-20261117/util/tracer_nvbit/tracer_tool'
+make -C tracer_tool/traces-processing
+make[1]: Entering directory '/home/adityaseshasai.s/amcas-pro/tracing/accel-sim-audit-20261117/util/tracer_nvbit/tracer_tool/traces-processing'
+g++ -std=c++17 -O3 -g -pthread -o post-traces-processing post-traces-processing.cpp -lzstd
+make[1]: Leaving directory '/home/adityaseshasai.s/amcas-pro/tracing/accel-sim-audit-20261117/util/tracer_nvbit/tracer_tool/traces-processing'
+make -C others/spinlock_tool
+make[1]: Entering directory '/home/adityaseshasai.s/amcas-pro/tracing/accel-sim-audit-20261117/util/tracer_nvbit/others/spinlock_tool'
+nvcc -ccbin=g++ -D_FORCE_INLINES -I../../nvbit_release/core -I../../include  -Xptxas -astoolspatch --keep-device-functions -arch=sm_70 -Xcompiler -Wall -Xcompiler -fPIC -c inject_funcs.cu -o inject_funcs.o
+nvcc -ccbin=g++ -D_FORCE_INLINES -dc -c -std=c++17 -I../../nvbit_release/core -I../../include -Xptxas -cloning=no -Xcompiler -Wall -arch=sm_70 -O3 -Xcompiler -fPIC spinlock_tool.cu -o spinlock_tool.o
+g++ -std=c++17 -I../../nvbit_release/core -I../../include -Wall -O3 -fPIC -c bb_pattern_matcher.cpp -o bb_pattern_matcher.o
+nvcc -ccbin=g++ -D_FORCE_INLINES -arch=sm_70 -O3 inject_funcs.o spinlock_tool.o bb_pattern_matcher.o -L../../nvbit_release/core -lnvbit -L /usr/local/cuda-12.6/lib64 -lcuda -lcudart_static -shared -o spinlock_tool.so
+make[1]: Leaving directory '/home/adityaseshasai.s/amcas-pro/tracing/accel-sim-audit-20261117/util/tracer_nvbit/others/spinlock_tool'
