@@ -1,0 +1,6 @@
+==========================================
+SLURM_JOB_ID = 126717
+SLURM_NODELIST = node04
+SLURM_JOB_GPUS = 
+==========================================
+g++ -std=c++17 -O3 -g -pthread -o post-traces-processing post-traces-processing.cpp -lzstd

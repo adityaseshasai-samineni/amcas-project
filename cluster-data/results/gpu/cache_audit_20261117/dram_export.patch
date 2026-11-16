@@ -1,0 +1,30 @@
+diff --git a/src/gpgpu-sim/dram.cc b/src/gpgpu-sim/dram.cc
+index ef2dfd7..bbd8d51 100644
+--- a/src/gpgpu-sim/dram.cc
++++ b/src/gpgpu-sim/dram.cc
+@@ -246,6 +246,25 @@ dram_req_t::dram_req_t(class mem_fetch *mf, unsigned banks,
+ }
+ 
+ void dram_t::push(class mem_fetch *data) {
++  // Optional AMCAS controller-admission export; no change to simulation decisions.
++  static FILE *amcas_out = nullptr;
++  static bool amcas_initialized = false;
++  static unsigned long long amcas_seq = 0;
++  if (!amcas_initialized) {
++    amcas_initialized = true;
++    const char *path = getenv("AMCAS_DRAM_EXPORT");
++    if (path && *path) {
++      amcas_out = fopen(path, "w");
++      if (!amcas_out) { perror("AMCAS_DRAM_EXPORT"); abort(); }
++      setvbuf(amcas_out, nullptr, _IOFBF, 1 << 20);
++      fprintf(amcas_out,"sequence,core_cycle,partition,address_hex,write,bytes,access_type\n");
++    }
++  }
++  if (amcas_out) fprintf(amcas_out,"%llu,%llu,%u,0x%llx,%u,%u,%u\n",
++      amcas_seq++, (unsigned long long)(m_gpu->gpu_sim_cycle + m_gpu->gpu_tot_sim_cycle),
++      id, (unsigned long long)data->get_addr(), data->get_is_write() ? 1 : 0,
++      data->get_data_size(), (unsigned)data->get_access_type());
++
+   assert(id == data->get_tlx_addr()
+                    .chip);  // Ensure request is in correct memory partition
+ 
