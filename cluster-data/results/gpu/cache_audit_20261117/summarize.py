@@ -9,6 +9,7 @@ with opener(p,'rt') as f:
   assert int(x['sequence'])==last+1;last+=1
   k='write' if int(x['write']) else 'read';counts[k+'_requests']+=1;counts[k+'_bytes']+=int(x['bytes']);types[x['access_type']]=types.get(x['access_type'],0)+1
 log=(r/'simulation.log').read_text(errors='replace')
+(r/'simulation_final_stats.log').write_text(log[-1000000:])
 nreq=[int(x) for x in re.findall(r'(?m)^n_req = (\d+)\s*$',log)]
 assert len(nreq)>=32
 controller=sum(nreq[-32:]);assert controller==last+1,(controller,last+1)
