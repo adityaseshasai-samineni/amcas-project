@@ -1,0 +1,61 @@
+==========================================
+SLURM_JOB_ID = 126624
+SLURM_NODELIST = node04
+SLURM_JOB_GPUS = 
+==========================================
+No $GPGPUSIM_ROOT, testing for local folder in: "/home/adityaseshasai.s/amcas-pro/tracing/accel-sim-audit-20261117/gpu-simulator/gpgpu-sim"
+Found /home/adityaseshasai.s/amcas-pro/tracing/accel-sim-audit-20261117/gpu-simulator/gpgpu-sim, using existing local location. Not sycning anything.
+GPGPU-Sim version 4.2.0 (build gpgpu-sim_git-commit-4195dd4-modified_625.0) configured with AccelWattch.
+setup_environment succeeded
+Using GPGPU-Sim in /home/adityaseshasai.s/amcas-pro/tracing/accel-sim-audit-20261117/gpu-simulator/gpgpu-sim
+Accel-Sim setup succeeded.
+-- Found CUDAToolkit: /usr/local/cuda-12.6/targets/x86_64-linux/include;/usr/local/cuda-12.6/targets/x86_64-linux/include;/usr/local/cuda-12.6/targets/x86_64-linux/include;/usr/local/cuda-12.6/targets/x86_64-linux/include;/usr/local/cuda-12.6/targets/x86_64-linux/include (found version "12.6.85")
+-- Could NOT find Doxygen (missing: DOXYGEN_EXECUTABLE) 
+-- Additional settings for Accel-Sim
+--   Checking for OS
+--   Checking for OS - Linux
+--   Checking GPGPU-Sim version
+--   Checking GPGPU-Sim version - 1.2.0
+--   Checking git commit hash
+--   Checking git commit hash - 4195dd4f229cbf03f4f38c49139ae94d01d23f03
+--   Checking CXX compiler
+--   Checking CXX compiler - /home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/bin/c++
+--   Checking CXX compiler version
+--   Checking CXX compiler version - 13.4.0
+--   Checking CUDA compiler
+--   Checking CUDA compiler - /usr/local/cuda-12.6/bin/nvcc
+--   Checking CUDA compiler version
+--   Checking CUDA compiler version - 12.6.85
+--   Checking for GPGPU-Sim power model
+--   Checking for GPGPU-Sim power model - /home/adityaseshasai.s/amcas-pro/tracing/accel-sim-audit-20261117/gpu-simulator/gpgpu-sim/src/accelwattch/
+--   Checking for CMAKE_BUILD_TYPE
+--   Checking for CMAKE_BUILD_TYPE - Release
+--   Setting binary directory to /home/adityaseshasai.s/amcas-pro/tracing/accel-sim-audit-20261117/gpu-simulator/build-cmake
+-- Additional settings for Accel-Sim - done
+-- Be sure to run 'source setup' before you run CUDA program with GPGPU-Sim or building with external simulator like SST
+-- Writing setup commands to 'setup'
+-- pybind11 v3.2.0 
+Using compatibility mode for Python, set PYBIND11_FINDPYTHON to NEW/OLD to silence this message
+-- Configuring done (0.6s)
+-- Generating done (0.3s)
+-- Build files have been written to: /home/adityaseshasai.s/amcas-pro/tracing/accel-sim-audit-20261117/gpu-simulator/build-cmake
+[  8%] Built target trace-parser
+[ 10%] Built target cuda
+[ 11%] Built target gpgpusim_entrypoint
+[ 12%] Generating build string file to /home/adityaseshasai.s/amcas-pro/tracing/accel-sim-audit-20261117/gpu-simulator/build-cmake/gpgpu-sim
+[ 12%] Built target gen_instructions_h
+[ 14%] Built target gen_ptx_parser_decode
+[ 35%] Built target accelwattch
+[ 36%] Built target trace-driven
+[ 37%] Building CXX object gpgpu-sim/src/gpgpu-sim/CMakeFiles/gpgpusim.dir/dram.cc.o
+[ 74%] Built target intersim
+[ 74%] Built target gen_build_string
+[ 74%] Building CXX object gpgpu-sim/src/cuda-sim/CMakeFiles/ptxsim.dir/cuda-sim.cc.o
+[ 75%] Linking CXX static library libgpgpusim.a
+[ 86%] Built target gpgpusim
+[ 86%] Linking CXX static library libptxsim.a
+[ 98%] Built target ptxsim
+[ 98%] Built target entrypoint
+[ 98%] Building CXX object CMakeFiles/accel-sim.out.dir/accel-sim.cc.o
+[ 98%] Linking CXX executable accel-sim.out
+[100%] Built target accel-sim.out
