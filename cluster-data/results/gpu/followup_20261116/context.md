@@ -5,3 +5,7 @@
 ### GPU follow-up moe-smoke, job 126467 (2026-11-17T18:06:58+05:30)
 
 Exit code 0. Results: results/gpu/followup_20261116.
+
+### GPU follow-up moe-replay, job 126468 (2026-11-17T18:11:56+05:30)
+
+Exit code 1. Results: results/gpu/followup_20261116.
