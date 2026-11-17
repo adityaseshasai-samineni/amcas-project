@@ -1714,3 +1714,7 @@ Cross-checked V100 hardware writes are about9.75/10.35MB per token; earlier larg
 ### GPU follow-up cluster update (2026-11-17T18:07:07+05:30)
 
 moe-smoke job 126467 exited 0. See cluster-data/results/gpu/followup_20261116/ for source snapshots, manifests, validation gates and results. Saturated memory replay results are not measured token-time speedups.
+
+### GPU follow-up cluster update (2026-11-17T18:12:04+05:30)
+
+moe-replay job 126468 exited 1. See cluster-data/results/gpu/followup_20261116/ for source snapshots, manifests, validation gates and results. Saturated memory replay results are not measured token-time speedups.
