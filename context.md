@@ -1706,3 +1706,7 @@ moe-smoke job 125720 exited 1. See cluster-data/results/gpu/followup_20261115/ f
 ### GPU follow-up cluster update (2026-11-16T22:45:23+05:30)
 
 Schedule repaired MoE validation: smoke 126467 and replay 126468. See cluster-data/results/gpu/followup_20261116/ for source snapshots, manifests, validation gates and results. Saturated memory replay results are not measured token-time speedups.
+
+### Accel-Sim audit cluster update (2026-11-17T07:55:44+05:30)
+
+Cross-checked V100 hardware writes are about9.75/10.35MB per token; earlier large multi-metric write volumes superseded; full replay126821 running. See cluster-data/results/gpu/cache_audit_20261117/ for source snapshots, manifests, validation gates and results. Saturated memory replay results are not measured token-time speedups.
