@@ -22,6 +22,9 @@ def run(t):
  mem=rm.memory_system.GenericDRAM(clock_ratio=1,controllers=[ctrl() for _ in range(32)],channel_mapper=rm.channel_mapper.CacheLineInterleave(interleave_bits=sd['ib']))
  fe=rm.frontend.LoadStoreTrace(clock_ratio=32,path=path);sim=rm.Simulation(fe,mem);sim.run()
  cs=sim.stats['memory_system']['controller'];tot=lambda k:sum(x[k] for x in cs)
+ assert tot('num_read_reqs')+tot('num_write_reqs') == sum(1 for _ in open(path)), 'input acceptance mismatch'
+ assert tot('num_read_reqs_served')+tot('num_read_reqs_forwarded') == tot('num_read_reqs'), 'reads not drained'
+ assert tot('num_write_reqs_served')+tot('num_write_reqs_coalesced') == tot('num_write_reqs'), 'writes not drained'
  n=max(1,tot('row_hits')+tot('row_misses')+tot('row_conflicts'))
  return dict(window=window,mapping=sc,policy=pol,reads=tot('num_read_reqs'),writes=tot('num_write_reqs'),cycles=max(x['cycles'] for x in cs),time_us=max(x['cycles'] for x in cs)*1.25e-3,row_hit=tot('row_hits')/n,row_conflict=tot('row_conflicts')/n)
 def main():
@@ -41,7 +44,7 @@ def main():
  xtrain=R.apply_matrix(L,train,M,cands)
  Mxc,cxc,selxc,_,_=MS.chan_search(L,xtrain,chtrain,32,3,'xor_global_chan')
  assert all(bit>=L.row_lo for _,bit in cc+cxc)
- info=dict(size=a.size,total_canonical_bursts=N,ib=a.ib,channel_interleave_bytes=64<<a.ib,training='first 1000000 bursts; fixed for middle/end',xor_matrix={j:[cands[c][0] for c in M[j]] for j in range(L.bank)},channel_matrix=sel,xor_channel_matrix=selxc,units='32B canonical bursts; HBM2 1600Mbps tCK1.25ns; saturated open-loop',limitations=['missing dirty masks: contiguous write offsets are convention','synthetic first-touch2MiB placement','cold replay windows; no timestamps','Region/expert mappings require new attribution; MOP/ChRa require HBM decoder audit'])
+ info=dict(size=a.size,total_canonical_bursts=N,ib=a.ib,channel_interleave_bytes=64<<a.ib,training='first 1000000 bursts; fixed for middle/end',xor_matrix={j:[cands[c][0] for c in M[j]] for j in range(L.bank)},channel_matrix=sel,xor_channel_matrix=selxc,drain='callback completion plus4096frontend ticks=128memorycycles guard included in reported cycles',units='32B canonical bursts; HBM2 1600Mbps tCK1.25ns; saturated open-loop',limitations=['missing dirty masks: contiguous write offsets are convention','synthetic first-touch2MiB placement','cold replay windows; no timestamps','Region/expert mappings require new attribution; MOP/ChRa require HBM decoder audit'])
  json.dump(info,open(a.out+'/manifest.json','w'),indent=2)
  starts={'begin':0,'middle':max(0,N//2-a.size//2),'end':max(0,N-a.size)};tasks=[]
  for name in a.windows.split(','):
