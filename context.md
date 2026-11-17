@@ -1718,3 +1718,7 @@ moe-smoke job 126467 exited 0. See cluster-data/results/gpu/followup_20261116/ f
 ### GPU follow-up cluster update (2026-11-17T18:12:04+05:30)
 
 moe-replay job 126468 exited 1. See cluster-data/results/gpu/followup_20261116/ for source snapshots, manifests, validation gates and results. Saturated memory replay results are not measured token-time speedups.
+
+### Accel-Sim audit cluster update (2026-11-17T19:12:18+05:30)
+
+V100 trace asset publication exit=0; see reconciled simulation summary and trace_asset.json. See cluster-data/results/gpu/cache_audit_20261117/ for source snapshots, manifests, validation gates and results. Saturated memory replay results are not measured token-time speedups.
