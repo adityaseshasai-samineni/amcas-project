@@ -3,6 +3,8 @@
   "total_canonical_bursts": 137452723,
   "ib": 2,
   "channel_interleave_bytes": 256,
+  "ramulator_interleave_bits": 3,
+  "tx_offset_bits": 5,
   "training": "first 1000000 bursts; fixed for middle/end",
   "xor_matrix": {
     "0": [
@@ -55,6 +57,7 @@
       "row0"
     ]
   },
+  "drain": "callback completion plus4096frontend ticks=128memorycycles guard included in reported cycles",
   "units": "32B canonical bursts; HBM2 1600Mbps tCK1.25ns; saturated open-loop",
   "limitations": [
     "missing dirty masks: contiguous write offsets are convention",

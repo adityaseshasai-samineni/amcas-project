@@ -1,0 +1,38 @@
+{
+  "size": 1000,
+  "total_canonical_bursts": 1000,
+  "ib": 2,
+  "channel_interleave_bytes": 256,
+  "ramulator_interleave_bits": 3,
+  "tx_offset_bits": 5,
+  "training": "first 1000000 bursts; fixed for middle/end",
+  "xor_matrix": {
+    "0": [],
+    "1": [],
+    "2": [],
+    "3": [],
+    "4": []
+  },
+  "channel_matrix": {
+    "0": [],
+    "1": [],
+    "2": [],
+    "3": [],
+    "4": []
+  },
+  "xor_channel_matrix": {
+    "0": [],
+    "1": [],
+    "2": [],
+    "3": [],
+    "4": []
+  },
+  "drain": "callback completion plus4096frontend ticks=128memorycycles guard included in reported cycles",
+  "units": "32B canonical bursts; HBM2 1600Mbps tCK1.25ns; saturated open-loop",
+  "limitations": [
+    "missing dirty masks: contiguous write offsets are convention",
+    "synthetic first-touch2MiB placement",
+    "cold replay windows; no timestamps",
+    "Region/expert mappings require new attribution; MOP/ChRa require HBM decoder audit"
+  ]
+}

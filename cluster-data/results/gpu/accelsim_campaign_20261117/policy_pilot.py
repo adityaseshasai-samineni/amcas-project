@@ -19,7 +19,7 @@ def run(t):
   if pol.startswith('HAPPY'):return rm.row_policy.HAPPY(mode='count' if pol=='HAPPYcnt' else 'binary')
   return getattr(rm.row_policy,pol)()
  def ctrl():return rm.controller.HBM12(dram=rm.dram.HBM2(org_preset=sd['org'],timing_preset=sd['timing']),scheduler=rm.scheduler.FRFCFS(),refresh_manager=rm.refresh_manager.AllBank(),row_policy=rp(),addr_mapper=rm.addr_mapper.RoBaRaCoCh())
- mem=rm.memory_system.GenericDRAM(clock_ratio=1,controllers=[ctrl() for _ in range(32)],channel_mapper=rm.channel_mapper.CacheLineInterleave(interleave_bits=sd['ib']))
+ mem=rm.memory_system.GenericDRAM(clock_ratio=1,controllers=[ctrl() for _ in range(32)],channel_mapper=rm.channel_mapper.CacheLineInterleave(interleave_bits=sd['ib']+1))
  fe=rm.frontend.LoadStoreTrace(clock_ratio=32,path=path);sim=rm.Simulation(fe,mem);sim.run()
  cs=sim.stats['memory_system']['controller'];tot=lambda k:sum(x[k] for x in cs)
  assert tot('num_read_reqs')+tot('num_write_reqs') == sum(1 for _ in open(path)), 'input acceptance mismatch'
@@ -44,7 +44,7 @@ def main():
  xtrain=R.apply_matrix(L,train,M,cands)
  Mxc,cxc,selxc,_,_=MS.chan_search(L,xtrain,chtrain,32,3,'xor_global_chan')
  assert all(bit>=L.row_lo for _,bit in cc+cxc)
- info=dict(size=a.size,total_canonical_bursts=N,ib=a.ib,channel_interleave_bytes=64<<a.ib,training='first 1000000 bursts; fixed for middle/end',xor_matrix={j:[cands[c][0] for c in M[j]] for j in range(L.bank)},channel_matrix=sel,xor_channel_matrix=selxc,drain='callback completion plus4096frontend ticks=128memorycycles guard included in reported cycles',units='32B canonical bursts; HBM2 1600Mbps tCK1.25ns; saturated open-loop',limitations=['missing dirty masks: contiguous write offsets are convention','synthetic first-touch2MiB placement','cold replay windows; no timestamps','Region/expert mappings require new attribution; MOP/ChRa require HBM decoder audit'])
+ info=dict(size=a.size,total_canonical_bursts=N,ib=a.ib,channel_interleave_bytes=64<<a.ib,ramulator_interleave_bits=a.ib+1,tx_offset_bits=5,training='first 1000000 bursts; fixed for middle/end',xor_matrix={j:[cands[c][0] for c in M[j]] for j in range(L.bank)},channel_matrix=sel,xor_channel_matrix=selxc,drain='callback completion plus4096frontend ticks=128memorycycles guard included in reported cycles',units='32B canonical bursts; HBM2 1600Mbps tCK1.25ns; saturated open-loop',limitations=['missing dirty masks: contiguous write offsets are convention','synthetic first-touch2MiB placement','cold replay windows; no timestamps','Region/expert mappings require new attribution; MOP/ChRa require HBM decoder audit'])
  json.dump(info,open(a.out+'/manifest.json','w'),indent=2)
  starts={'begin':0,'middle':max(0,N//2-a.size//2),'end':max(0,N-a.size)};tasks=[]
  for name in a.windows.split(','):
