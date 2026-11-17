@@ -1,0 +1,36 @@
+{
+  "validated_export_counts": true,
+  "kernels_completed": 538,
+  "captured_native_output": "The capital of France is Paris. The",
+  "response_text": " Paris. The",
+  "generated_tokens": 3,
+  "controller_requests": 137288021,
+  "counts": {
+    "read_requests": 137233077,
+    "write_requests": 54944,
+    "read_bytes": 4391458464,
+    "write_bytes": 7028672
+  },
+  "access_type_counts": {
+    "0": 137233077,
+    "9": 54944
+  },
+  "request_size_counts": {
+    "read_32": 137233077,
+    "write_128": 54881,
+    "write_64": 57,
+    "write_32": 5,
+    "write_96": 1
+  },
+  "addresses_unaligned_to_32B": 0,
+  "scope": "one selected decode step; cold-start caches; V100 model; not hardware DRAM trace",
+  "prompt": "The capital of France is",
+  "prefill_tokens": 5,
+  "generation_limit": 3,
+  "kernel_window_official_inclusive": [
+    1296,
+    1833
+  ],
+  "expected_kernel_count": 538,
+  "raw_export": "/scratch/adityaseshasai.s/accel-q7short-20261117/dram.csv.gz"
+}
