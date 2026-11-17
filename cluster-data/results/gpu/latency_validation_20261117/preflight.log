@@ -1,0 +1,5 @@
+GPU=Tesla V100-PCIE-16GB SM=80 L2=6291456 clock_kHz=1380000
+seed=101 case=floor bytes=8192 sm=0 mhz=1334.96 pointer=PASS
+seed=101 case=l1 bytes=8192 sm=0 mhz=1092.04 pointer=PASS
+seed=101 case=l2 bytes=1048576 sm=0 mhz=1282.35 pointer=PASS
+seed=101 case=dram bytes=67108864 sm=0 mhz=1365.80 pointer=PASS
