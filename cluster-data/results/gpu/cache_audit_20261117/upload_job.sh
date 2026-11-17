@@ -8,4 +8,4 @@ set -Eeuo pipefail
 R=$HOME/amcas-pro/results/gpu/cache_audit_20261117
 export PATH=$HOME/amcas-pro/tracing/mamba/envs/gem5/bin:$PATH
 trap 'rc=$?; bash "$R/publish_context.sh" "V100 trace asset publication exit=$rc; see reconciled simulation summary and trace_asset.json"' EXIT
-python "$R/upload_trace.py" > "$R/upload_trace.stdout" 2> "$R/upload_trace.stderr"
+python "$R/upload_trace.py" < "$HOME/.config/amcas/gh_token" > "$R/upload_trace.stdout" 2> "$R/upload_trace.stderr"

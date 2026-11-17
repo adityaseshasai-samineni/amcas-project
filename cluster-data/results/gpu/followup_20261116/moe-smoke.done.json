@@ -1,0 +1,37 @@
+{
+  "validated": true,
+  "full_step": false,
+  "visible_devices": "0,1",
+  "prefixes": [
+    "/scratch/adityaseshasai.s/gpu_followup_20261116/moe_smoke_dev0",
+    "/scratch/adityaseshasai.s/gpu_followup_20261116/moe_smoke_dev1"
+  ],
+  "streams": [
+    {
+      "device": 0,
+      "prefix": "/scratch/adityaseshasai.s/gpu_followup_20261116/moe_smoke_dev0",
+      "requests": 147985,
+      "reads": 147985,
+      "writes": 0,
+      "launch_start": 2314,
+      "launch_end": 2318
+    },
+    {
+      "device": 1,
+      "prefix": "/scratch/adityaseshasai.s/gpu_followup_20261116/moe_smoke_dev1",
+      "requests": 147985,
+      "reads": 147985,
+      "writes": 0,
+      "launch_start": 2889,
+      "launch_end": 2893
+    }
+  ],
+  "native_stdout_sha256": "feadf33d7daaadcc6d2449a410cbe9ba12d202205a98fb9a14de7d29a7734596",
+  "decode_start": 2314,
+  "decode_end": 3424,
+  "limitations": [
+    "Device ordinal inferred from stable CUDA-context launch partition",
+    "Private L1/CTA placement and hashed L2 remain models",
+    "Peer transfers, local/shared traffic and physical placement not measured"
+  ]
+}

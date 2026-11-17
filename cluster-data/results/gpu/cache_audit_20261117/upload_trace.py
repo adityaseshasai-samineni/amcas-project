@@ -1,8 +1,8 @@
 from pathlib import Path
-import http.client,json,os,hashlib,urllib.parse
+import http.client,json,os,hashlib,urllib.parse,sys
 r=Path.home()/'amcas-pro/results/gpu/cache_audit_20261117';s=Path('/scratch')/Path.home().name/'accel-q7short-20261117';meta=json.loads((r/'accelsim_summary.json').read_text());assert meta['validated_export_counts']
 p=s/'dram.csv.gz';assert p.is_file() and p.stat().st_size<2000000000,'gzip asset exceeds GitHub limit; split with manifest before uploading'
-tokpath=Path.home()/'.config/amcas/gh_token';assert (tokpath.stat().st_mode&0o777)==0o600;token=tokpath.read_text().strip();repo='adityaseshasai-samineni/amcas-project'
+tokpath=Path.home()/'.config/amcas/gh_token';assert (tokpath.stat().st_mode&0o777)==0o600;token=sys.stdin.readline().strip();assert token,"missing token on stdin";repo='adityaseshasai-samineni/amcas-project'
 headers={'Authorization':'Bearer '+token,'Accept':'application/vnd.github+json','User-Agent':'amcas-cluster'}
 def api(path):
  c=http.client.HTTPSConnection('api.github.com',timeout=60);c.request('GET',path,headers=headers);v=c.getresponse();b=v.read();assert v.status==200,(v.status,b[:200]);c.close();return json.loads(b)
