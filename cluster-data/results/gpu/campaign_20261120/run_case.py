@@ -1,8 +1,21 @@
 #!/usr/bin/env python3
 """Native/official-SASS workload execution with bounded resources and token gates."""
-import argparse,json,os,pathlib,subprocess,time,signal,shutil,re
+import argparse,json,os,pathlib,subprocess,time,signal,shutil,re,hashlib,sys
 p=argparse.ArgumentParser();p.add_argument('case');p.add_argument('--mode',choices=['native','capture'],required=True);a=p.parse_args()
 A=pathlib.Path.home()/'amcas-pro';R=A/'results/gpu/campaign_20261120';case=json.load(open(R/'cases'/f'{a.case}.json'));out=R/'runs'/a.case;out.mkdir(parents=True,exist_ok=True)
+driver=R/('llama-gpu-batch-v2' if (R/'llama-gpu-batch-v2').is_file() else 'llama-gpu-batch');driver_hash=hashlib.sha256(driver.read_bytes()).hexdigest();environment_hash=hashlib.sha256(json.dumps(case['environment'],sort_keys=True).encode()).hexdigest()
+if a.mode=='capture' and case['gpu_devices']==2 and not (R/'capacity_retry.json').is_file():
+ subprocess.call([sys.executable,str(R/'repair_capacity.py')])
+if a.mode=='capture':
+ old=json.load(open(out/'native.status.json'))
+ if old.get('driver_sha256')!=driver_hash or old.get('environment_sha256')!=environment_hash:
+  subprocess.check_call([sys.executable,__file__,a.case,'--mode','native'])
+if a.mode=='native' and (out/'native.status.json').is_file():
+ previous=json.load(open(out/'native.status.json'));tag=previous.get('driver_sha256','legacy131044')[:8]+'_'+previous.get('environment_sha256','legacy')[:8]
+ archive=out/('native_history_'+tag);archive.mkdir(exist_ok=True)
+ for f in out.glob('native.*'):
+  if f.is_file() and not (archive/f.name).exists():shutil.copy2(f,archive/f.name)
+
 env=os.environ.copy();env.update(case['environment']);
 visible=env.get('CUDA_VISIBLE_DEVICES','').split(',');
 if visible and visible[0]:env['CUDA_VISIBLE_DEVICES']=','.join(visible[:case['gpu_devices']])
@@ -16,11 +29,15 @@ if a.mode=='capture':
  assert json.load(open(R/'roi_fixture_validation.json'))['pass_roi']
  if shutil.disk_usage(S).free<90*1024**3:raise SystemExit('scratch free below90GiB; old results preserved')
  env.update(ACTIVE_FROM_START='0',TOOL_TRACE_CORE='1',TOOL_COMPRESS='1',LD_PRELOAD=str(W/'accel-sim-audit-20261117/util/tracer_nvbit/tracer_tool-amcas20/tracer_tool-amcas20.so'))
-start=time.time();reason=None
+start=time.time();reason=None;peak_rss_kib=0
 with open(out/(a.mode+'.stdout'),'w') as so,open(out/(a.mode+'.stderr'),'w') as se:
- proc=subprocess.Popen([str(R/'llama-gpu-batch')],cwd=S,env=env,stdout=so,stderr=se,start_new_session=True)
+ proc=subprocess.Popen([str(driver)],cwd=S,env=env,stdout=so,stderr=se,start_new_session=True)
  while proc.poll() is None:
   time.sleep(5)
+  try:
+   stat=pathlib.Path(f'/proc/{proc.pid}/status').read_text();m=re.search(r'^VmRSS:\s+(\d+)',stat,re.M)
+   if m:peak_rss_kib=max(peak_rss_kib,int(m[1]))
+  except FileNotFoundError:pass
   if time.time()-start>(1800 if a.mode=='native' else 6*3600):reason='runtime_limit'
   if a.mode=='capture':
    size=sum(f.stat().st_size for f in S.rglob('*') if f.is_file())
@@ -30,7 +47,7 @@ with open(out/(a.mode+'.stdout'),'w') as so,open(out/(a.mode+'.stderr'),'w') as 
    try:proc.wait(timeout=30)
    except subprocess.TimeoutExpired:os.killpg(proc.pid,signal.SIGKILL);proc.wait()
    break
-rc=proc.returncode;status=dict(passed=rc==0,exit_code=rc,stop_reason=reason,seconds=time.time()-start,scratch=str(S),gpu_devices=case['gpu_devices'],scope='selected graph windows; native output and official trace are separate executions')
+rc=proc.returncode;status=dict(environment_sha256=environment_hash,peak_rss_kib=peak_rss_kib,driver=str(driver),driver_sha256=driver_hash,passed=rc==0,exit_code=rc,stop_reason=reason,seconds=time.time()-start,scratch=str(S),gpu_devices=case['gpu_devices'],scope='selected graph windows; native output and official trace are separate executions')
 if rc==0:
  log=(out/(a.mode+'.stderr')).read_text(errors='replace')
  off=re.findall(r'offloaded (\d+)/(\d+) layers to GPU',log)

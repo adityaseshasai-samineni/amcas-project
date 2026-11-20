@@ -33,8 +33,17 @@
 #include <cuda_profiler_api.h>
 static void dr_app_setup() {}
 static void dr_app_cleanup() {}
-static void dr_app_start() { if(cudaDeviceSynchronize()!=cudaSuccess || cudaProfilerStart()!=cudaSuccess) abort(); }
-static void dr_app_stop_and_cleanup() { if(cudaDeviceSynchronize()!=cudaSuccess || cudaProfilerStop()!=cudaSuccess) abort(); }
+static void dr_app_start() {
+    int old=0,n=0; if(cudaGetDevice(&old)!=cudaSuccess || cudaGetDeviceCount(&n)!=cudaSuccess) abort();
+    for(int i=0;i<n;i++) if(cudaSetDevice(i)!=cudaSuccess || cudaDeviceSynchronize()!=cudaSuccess || cudaProfilerStart()!=cudaSuccess) abort();
+    if(cudaSetDevice(old)!=cudaSuccess) abort();
+}
+static void dr_app_stop_and_cleanup() {
+    int old=0,n=0; if(cudaGetDevice(&old)!=cudaSuccess || cudaGetDeviceCount(&n)!=cudaSuccess) abort();
+    for(int i=0;i<n;i++) if(cudaSetDevice(i)!=cudaSuccess || cudaDeviceSynchronize()!=cudaSuccess) abort();
+    for(int i=0;i<n;i++) if(cudaSetDevice(i)!=cudaSuccess || cudaProfilerStop()!=cudaSuccess) abort();
+    if(cudaSetDevice(old)!=cudaSuccess) abort();
+}
 
 #include "llama.h"
 #include "ggml.h"
@@ -155,7 +164,7 @@ int main() {
     const int UB = env_long("AMCAS_UBATCH", 512);
     const int cs = ((P + NGEN + 8 + 255) / 256) * 256;
     llama_context_params cp = llama_context_default_params();
-    cp.n_ctx = env_long("AMCAS_CTX", B * cs); cp.n_batch = 2048; cp.n_ubatch = UB; cp.n_seq_max = B;
+    cp.n_ctx = env_long("AMCAS_CTX", B * cs); cp.n_batch = env_long("AMCAS_N_BATCH", 2048); cp.n_ubatch = UB; cp.n_seq_max = B;
     cp.flash_attn_type = (llama_flash_attn_type)env_long("AMCAS_FA", -1);
     cp.n_threads = cp.n_threads_batch = T; cp.no_perf = true; cp.kv_unified = env_long("AMCAS_KVU", 0) != 0;
     llama_context *ctx = llama_init_from_model(m, cp);
@@ -225,8 +234,8 @@ int main() {
             }
         }
         if (!ok) {
-            for (int i = 0; i < P - 1; i += 2048) {
-                int n = std::min(2048, P - 1 - i);
+            for (int i = 0; i < P - 1; i += cp.n_batch) {
+                int n = std::min(int(cp.n_batch), P - 1 - i);
                 llama_batch_ext_clear(batch);
                 for (int j = 0; j < n; j++) {
                     int idx = llama_batch_ext_add_token(batch, b, prompt[b][i + j]);

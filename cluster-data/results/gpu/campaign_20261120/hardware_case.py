@@ -6,7 +6,7 @@ env=os.environ.copy();env.update(case['environment']);v=env.get('CUDA_VISIBLE_DE
 if v and v[0]:env['CUDA_VISIBLE_DEVICES']=','.join(v[:case['gpu_devices']])
 env.update(PATH='/usr/local/cuda-12.6/bin:'+str(W/'mamba/envs/gem5/bin')+':'+env['PATH'],LD_LIBRARY_PATH=':'.join(map(str,[W/'cudalibs',pathlib.Path('/usr/local/cuda-12.6/lib64'),W/'mamba/envs/gem5/lib',W/'llama.cpp/build-cuda/bin'])),GGML_CUDA_DISABLE_GRAPHS='1',CUDA_MODULE_LOADING='EAGER',NOBANNER='1')
 env.pop('LD_PRELOAD',None);env.update(AMCAS_OUT=str(O/'hardware.tokens'),AMCAS_STEPS=str(O/'hardware.steps'),AMCAS_TENSORS=str(O/'hardware.tensors.tsv'),AMCAS_PROMPT_TOKENS=str(O/'hardware.prompt_tokens'))
-cmd=['/opt/nvidia/nsight-compute/2024.3.2/ncu','--csv','--profile-from-start','off','--replay-mode','application','--cache-control','none','--clock-control','none','--metrics','dram__bytes_read.sum,dram__bytes_write.sum',str(R/'llama-gpu-batch')]
+cmd=['/opt/nvidia/nsight-compute/2024.3.2/ncu','--csv','--profile-from-start','off','--replay-mode','application','--cache-control','none','--clock-control','none','--metrics','dram__bytes_read.sum,dram__bytes_write.sum',str(pathlib.Path(json.load(open(O/'capture.status.json')).get('driver',str(R/'llama-gpu-batch'))))]
 start=time.time()
 with open(O/'hardware.raw','w') as out,open(O/'hardware.stderr','w') as err:rc=subprocess.call(cmd,env=env,stdout=out,stderr=err)
 rows=[];header=None

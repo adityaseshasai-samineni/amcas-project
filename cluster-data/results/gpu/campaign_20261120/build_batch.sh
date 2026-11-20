@@ -11,4 +11,4 @@ export LD_LIBRARY_PATH=/usr/local/cuda-12.6/lib64:$W/mamba/envs/gem5/lib:$W/llam
 B=$W/llama.cpp/build-cuda/bin
 c++ -O3 -std=c++17 -rdynamic -I"$W/llama.cpp/include" -I"$W/llama.cpp/ggml/include" -I/usr/local/cuda-12.6/include \
  "$R/gpu_batch_main.cpp" -L"$B" -L/usr/local/cuda-12.6/lib64 -L/usr/local/cuda-12.6/lib64/stubs -Wl,-rpath,"$B":/usr/local/cuda-12.6/lib64 \
- -lllama -lggml -lggml-base -lggml-cpu -lggml-cuda -lcudart -lcuda -ldl -lpthread -o "$R/llama-gpu-batch"
+ -lllama -lggml -lggml-base -lggml-cpu -lggml-cuda -lcudart -lcuda -ldl -lpthread -o "$R/${AMCAS_BINARY_NAME:-llama-gpu-batch}"

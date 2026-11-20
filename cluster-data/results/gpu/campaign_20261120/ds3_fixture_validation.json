@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "random_requests": 1000,
+  "decoder_all_fields": true,
+  "early_write_ack_test": true,
+  "write_callbacks": 32,
+  "physical_write_commands": 1,
+  "global_issue_per_cycle": 32,
+  "policies": 2,
+  "scope": "synthetic validation only; no realGPUperformance claim"
+}

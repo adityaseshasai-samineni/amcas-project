@@ -1,0 +1,81 @@
+==========================================
+SLURM_JOB_ID = 131075
+SLURM_NODELIST = node03
+SLURM_JOB_GPUS = 
+==========================================
+CMake Warning (deprecated) at CMakeLists.txt:1 (cmake_minimum_required):
+  Compatibility with CMake < 3.10 will be removed from a future version of
+  CMake.
+
+  Update the VERSION argument <min> value.  Or, use the <min>...<max> syntax
+  to tell CMake that the project requires at least <min> but has been updated
+  to work with policies introduced by <max> or earlier.
+This warning is for project developers.  Use -Wno-author or -Wno-deprecated
+to suppress it.
+
+-- The C compiler identification is GNU 13.4.0
+-- The CXX compiler identification is GNU 13.4.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+CMake Warning (policy) at CMakeLists.txt:114 (add_custom_command):
+  The following keywords are not supported when using
+  add_custom_command(TARGET): DEPENDS.
+
+  Policy CMP0175 is not set: add_custom_command() rejects invalid arguments.
+  Run "cmake --help-policy CMP0175" for policy details.  Use the cmake_policy
+  command to set the policy and suppress this warning.
+This warning is for project developers.  Use -Wno-author or -Wno-policy to
+suppress it.
+
+-- Configuring done (1.4s)
+-- Generating done (0.1s)
+-- Build files have been written to: /home/adityaseshasai.s/amcas-pro/tracing/DRAMsim3-gpu-drain/build-amcas
+[ 30%] Building CXX object CMakeFiles/dramsim3.dir/src/channel_state.cc.o
+[ 30%] Building CXX object CMakeFiles/dramsim3.dir/src/command_queue.cc.o
+[ 30%] Building CXX object CMakeFiles/dramsim3.dir/src/bankstate.cc.o
+[ 30%] Building CXX object CMakeFiles/dramsim3.dir/src/common.cc.o
+In file included from /home/adityaseshasai.s/amcas-pro/tracing/DRAMsim3-gpu-drain/src/common.cc:2:
+/home/adityaseshasai.s/amcas-pro/tracing/DRAMsim3-gpu-drain/ext/fmt/include/fmt/format.h:404:6: warning: identifier 'char8_t' is a keyword in C++20 [-Wc++20-compat]
+  404 | enum char8_t: unsigned char {};
+      |      ^~~~~~~
+[ 38%] Building CXX object CMakeFiles/dramsim3.dir/src/configuration.cc.o
+/home/adityaseshasai.s/amcas-pro/tracing/DRAMsim3-gpu-drain/src/command_queue.cc: In member function 'bool dramsim3::CommandQueue::QueueEmpty() const':
+/home/adityaseshasai.s/amcas-pro/tracing/DRAMsim3-gpu-drain/src/command_queue.cc:118:21: warning: loop variable 'q' creates a copy from type 'const std::vector<dramsim3::Command>' [-Wrange-loop-construct]
+  118 |     for (const auto q : queues_) {
+      |                     ^
+/home/adityaseshasai.s/amcas-pro/tracing/DRAMsim3-gpu-drain/src/command_queue.cc:118:21: note: use reference type to prevent copying
+  118 |     for (const auto q : queues_) {
+      |                     ^
+      |                     &
+[ 46%] Building CXX object CMakeFiles/dramsim3.dir/src/controller.cc.o
+[ 53%] Building CXX object CMakeFiles/dramsim3.dir/src/dram_system.cc.o
+In file included from /home/adityaseshasai.s/amcas-pro/tracing/DRAMsim3-gpu-drain/src/configuration.h:8,
+                 from /home/adityaseshasai.s/amcas-pro/tracing/DRAMsim3-gpu-drain/src/configuration.cc:1:
+In function 'char* strncpy0(char*, const char*, size_t)',
+    inlined from 'int ini_parse_stream(ini_reader, void*, ini_handler, void*)' at /home/adityaseshasai.s/amcas-pro/tracing/DRAMsim3-gpu-drain/ext/headers/INIReader.h:257:25,
+    inlined from 'int ini_parse_file(FILE*, ini_handler, void*)' at /home/adityaseshasai.s/amcas-pro/tracing/DRAMsim3-gpu-drain/ext/headers/INIReader.h:283:28,
+    inlined from 'int ini_parse(const char*, ini_handler, void*)' at /home/adityaseshasai.s/amcas-pro/tracing/DRAMsim3-gpu-drain/ext/headers/INIReader.h:295:27,
+    inlined from 'INIReader::INIReader(std::string)' at /home/adityaseshasai.s/amcas-pro/tracing/DRAMsim3-gpu-drain/ext/headers/INIReader.h:370:23,
+    inlined from 'dramsim3::Config::Config(std::string, std::string)' at /home/adityaseshasai.s/amcas-pro/tracing/DRAMsim3-gpu-drain/src/configuration.cc:12:61:
+/home/adityaseshasai.s/amcas-pro/tracing/DRAMsim3-gpu-drain/ext/headers/INIReader.h:163:12: warning: 'char* strncpy(char*, const char*, size_t)' output may be truncated copying 49 bytes from a string of length 199 [-Wstringop-truncation]
+  163 |     strncpy(dest, src, size);
+      |     ~~~~~~~^~~~~~~~~~~~~~~~~
+[ 61%] Building CXX object CMakeFiles/dramsim3.dir/src/hmc.cc.o
+[ 69%] Building CXX object CMakeFiles/dramsim3.dir/src/refresh.cc.o
+[ 76%] Building CXX object CMakeFiles/dramsim3.dir/src/simple_stats.cc.o
+In file included from /home/adityaseshasai.s/amcas-pro/tracing/DRAMsim3-gpu-drain/src/simple_stats.cc:3:
+/home/adityaseshasai.s/amcas-pro/tracing/DRAMsim3-gpu-drain/ext/fmt/include/fmt/format.h:404:6: warning: identifier 'char8_t' is a keyword in C++20 [-Wc++20-compat]
+  404 | enum char8_t: unsigned char {};
+      |      ^~~~~~~
+[ 84%] Building CXX object CMakeFiles/dramsim3.dir/src/timing.cc.o
+[ 92%] Building CXX object CMakeFiles/dramsim3.dir/src/memory_system.cc.o
+[100%] Linking CXX shared library /home/adityaseshasai.s/amcas-pro/tracing/DRAMsim3-gpu-drain/libdramsim3.so
+[100%] Built target dramsim3

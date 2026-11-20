@@ -22,7 +22,7 @@ def replay(t):
  cyc=max(c['cycles'] for c in cs);events=total('row_hits')+total('row_misses')+total('row_conflicts')
  return dict(meta,mapper=mapper,policy=pol,cycles=cyc,time_us=cyc*0.00125,row_hit_rate=total('row_hits')/max(events,1),row_conflict_rate=total('row_conflicts')/max(events,1),read_forwarded=total('num_read_reqs_forwarded'),write_coalesced=total('num_write_reqs_coalesced'),drain_guard_memory_cycles=128)
 def main():
- ap=argparse.ArgumentParser();ap.add_argument('binary');ap.add_argument('tensors');ap.add_argument('out');ap.add_argument('--size',type=int,default=4000000);ap.add_argument('--procs',type=int,default=2);ap.add_argument('--smoke',action='store_true');ap.add_argument('--source-metadata');a=ap.parse_args();out=pathlib.Path(a.out);out.mkdir(parents=True,exist_ok=True)
+ ap=argparse.ArgumentParser();ap.add_argument('binary');ap.add_argument('tensors');ap.add_argument('out');ap.add_argument('--size',type=int,default=4000000);ap.add_argument('--procs',type=int,default=2);ap.add_argument('--smoke',action='store_true');ap.add_argument('--source-metadata');ap.add_argument('--ds3',action='store_true');a=ap.parse_args();out=pathlib.Path(a.out);out.mkdir(parents=True,exist_ok=True)
  arr=np.memmap(a.binary,dtype=np.uint64,mode='r');packed=np.memmap(a.binary+'.packed',dtype=np.uint64,mode='r');assert len(arr)==len(packed)
  n=len(arr);w=min(a.size,n);start=min(int(n*.3),n-w);v=(np.asarray(arr[start:start+w])>>np.uint64(1))<<np.uint64(5);pa=np.asarray(packed[start:start+w]);st=(arr[start:start+w]&np.uint64(1)).astype(bool)
  rows=X.load_tensors(a.tensors);semantic_va=v.view(np.int64);cls,tix=X.classify(semantic_va,rows);grp=np.array([0,1,0,2,2],dtype=np.int8)[cls];coverage=float((tix>=0).mean());features=P.expert_features(dict(rows=rows,tix=tix,cls=cls,va=semantic_va));hasexpert=bool((features[0]>=0).any());assert not hasexpert or features[0].max()<128
@@ -63,6 +63,12 @@ def main():
     pols=[p for p in POLS if p!='Region' or coverage>=.5]
     with mp.get_context('spawn').Pool(a.procs) as pool:
      for r in pool.imap_unordered(replay,[(str(path),mapper,p,meta) for p in pols]):results.append(r);json.dump(results,open(out/'results.json','w'),indent=1);print(r,flush=True)
+    if a.ds3:
+     assert json.load(open(pathlib.Path(__file__).parent/'ds3_fixture_validation.json'))['passed']
+     import ds3_cross
+     view=ML if mapper=='MOP4CLXOR' else GG.ChRaView(L) if mapper=='ChRaBaRoCo' else L
+     ds=ds3_cross.cross(view,i,c,st,out/f'ds3_{pl}_s{shift}_{name}',meta)
+     dp=out/'dramsim3_results.json';old=json.load(open(dp)) if dp.is_file() else [];json.dump(old+ds,open(dp,'w'),indent=1)
     path.unlink();path.with_suffix('.ranges').unlink()
  json.dump(dict(passed=True,replays=len(results)),open(out/'complete.json','w'),indent=2)
 if __name__=='__main__':main()

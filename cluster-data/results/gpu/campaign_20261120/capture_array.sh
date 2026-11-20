@@ -2,7 +2,7 @@
 #SBATCH -J gpu-capture-grid
 #SBATCH -w node04
 #SBATCH -c 4
-#SBATCH --mem=16G
+#SBATCH --mem=10G
 #SBATCH -t 07:00:00
 set -Eeuo pipefail
 A=$HOME/amcas-pro;R=$A/results/gpu/campaign_20261120;E=$A/tracing/mamba/envs/gem5
