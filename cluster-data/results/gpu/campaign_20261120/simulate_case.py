@@ -11,7 +11,7 @@ for ctx in contexts:
  for pat in ['*.config','*.icnt','*.xml']:
   for p in (A/'results/gpu/cache_audit_20261117/preflight').glob(pat):shutil.copy2(p,d/p.name)
  subset=[x for x in entries if not x.startswith('kernel-') or ctx in x]
- path=d/'kernelslist.g';path.write_text('\n'.join(str((S/'traces'/x).resolve()) if x.startswith('kernel-') else x for x in subset)+'\n')
+ path=S/'traces'/f'kernelslist_sim_{ctx}.g';path.write_text('\n'.join(subset)+'\n')
  n=sum(x.startswith('kernel-') for x in subset);csv=d/'dram.csv';env.update(AMCAS_DRAM_EXPORT=str(csv),AMCAS_DRAM_EXPORT_MASKS='1')
  start=time.time()
  with open(ro/'simulation.log','w') as log,open(ro/'simulation.stderr','w') as err:
@@ -22,6 +22,7 @@ for ctx in contexts:
  uid=re.findall(r'(?m)^kernel_launch_uid = (.*?)\s*$',log);assert uid and int(uid[-1].split()[-1])==n
  counts=[int(x) for x in re.findall(r'(?m)^n_req = (\d+)\s*$',log)];assert len(counts)>=32
  with open(ro/'conversion.json','w') as out:subprocess.check_call([str(R/'export_masked_sectors'),str(csv),str(d/'masked.dram')],stdout=out,env=env)
+ assert (d/'masked.dram.packed').is_file(), 'streaming packed output missing'
  conv=json.load(open(ro/'conversion.json'));assert conv['controller_packets']==sum(counts[-32:])
  (ro/'simulation_final_stats.log').write_text(log[-1000000:])
  subprocess.check_call(['gzip','-1',str(csv)])

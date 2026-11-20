@@ -8,3 +8,7 @@ Traceback (most recent call last):
     launched=len(re.findall(r'(?m)^launching kernel name:',log));assert launched==n,(launched,n)
                                                                         ^^^^^^^^^^^
 AssertionError: (0, 462)
+wrote analysis/tables.md and 3 figures; validation failures: none
+wrote analysis/fullscale/headline.md
+wrote analysis/fullscale/tables.md
+publish: pushed 9c85517

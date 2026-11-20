@@ -1,0 +1,23 @@
+==========================================
+SLURM_JOB_ID = 131065
+SLURM_NODELIST = node03
+SLURM_JOB_GPUS = 
+==========================================
+  [global] n=32 cost 65 -> 65; bank bit ^= {0: [], 1: [], 2: [], 3: [], 4: []}
+  [channel] channel hash cost 75 -> 75; chan bit ^= {0: [], 1: [], 2: [], 3: [], 4: []}
+  [joint] channel hash cost 75 -> 75; chan bit ^= {0: [], 1: [], 2: [], 3: [], 4: []}
+  [MOP] n=32 cost 76 -> 76; bank bit ^= {0: [], 1: [], 2: [], 3: [], 4: []}
+Traceback (most recent call last):
+  File "/home/adityaseshasai.s/amcas-pro/results/gpu/campaign_20261120/policy_grid.py", line 68, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/adityaseshasai.s/amcas-pro/results/gpu/campaign_20261120/policy_grid.py", line 55, in main
+    maps['expert_hash']=(MR.expert_xor(L,intra,*features,'hash'),ch,'RoBaRaCoCh');maps['expert_lin']=(MR.expert_xor(L,intra,*features,'lin'),ch,'RoBaRaCoCh')
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/adityaseshasai.s/amcas-pro/tools/moe_remap.py", line 55, in expert_xor
+    hv = hash5((wrest // 128) // 3, (wrest // 128) % 3, wrest % 128, mode).astype(np.int64)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/adityaseshasai.s/amcas-pro/tools/moe_remap.py", line 36, in hash5
+    return ((((k * 128 + e) * 2654435761) & 0xFFFFFFFF) >> 15) & 31
+             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~
+TypeError: ufunc 'bitwise_and' not supported for the input types, and the inputs could not be safely coerced to any supported types according to the casting rule ''safe''

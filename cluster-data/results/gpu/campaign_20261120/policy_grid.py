@@ -22,11 +22,12 @@ def replay(t):
  cyc=max(c['cycles'] for c in cs);events=total('row_hits')+total('row_misses')+total('row_conflicts')
  return dict(meta,mapper=mapper,policy=pol,cycles=cyc,time_us=cyc*0.00125,row_hit_rate=total('row_hits')/max(events,1),row_conflict_rate=total('row_conflicts')/max(events,1),read_forwarded=total('num_read_reqs_forwarded'),write_coalesced=total('num_write_reqs_coalesced'),drain_guard_memory_cycles=128)
 def main():
- ap=argparse.ArgumentParser();ap.add_argument('binary');ap.add_argument('tensors');ap.add_argument('out');ap.add_argument('--size',type=int,default=4000000);ap.add_argument('--procs',type=int,default=2);ap.add_argument('--smoke',action='store_true');a=ap.parse_args();out=pathlib.Path(a.out);out.mkdir(parents=True,exist_ok=True)
+ ap=argparse.ArgumentParser();ap.add_argument('binary');ap.add_argument('tensors');ap.add_argument('out');ap.add_argument('--size',type=int,default=4000000);ap.add_argument('--procs',type=int,default=2);ap.add_argument('--smoke',action='store_true');ap.add_argument('--source-metadata');a=ap.parse_args();out=pathlib.Path(a.out);out.mkdir(parents=True,exist_ok=True)
  arr=np.memmap(a.binary,dtype=np.uint64,mode='r');packed=np.memmap(a.binary+'.packed',dtype=np.uint64,mode='r');assert len(arr)==len(packed)
  n=len(arr);w=min(a.size,n);start=min(int(n*.3),n-w);v=(np.asarray(arr[start:start+w])>>np.uint64(1))<<np.uint64(5);pa=np.asarray(packed[start:start+w]);st=(arr[start:start+w]&np.uint64(1)).astype(bool)
  rows=X.load_tensors(a.tensors);cls,tix=X.classify(v,rows);grp=np.array([0,1,0,2,2],dtype=np.int8)[cls];coverage=float((tix>=0).mean());features=P.expert_features(dict(rows=rows,tix=tix,cls=cls,va=v));hasexpert=bool((features[0]>=0).any());assert not hasexpert or features[0].max()<128
  manifest=dict(total_bursts=n,window=[start,start+w],reads=int((~st).sum()),writes=int(st.sum()),tensor_coverage=coverage,expert_accesses=int((features[0]>=0).sum()),request_bytes=32,tck_ps=1250,scope='cold saturated open-loop DRAM-model characterization; not native GPU token speedup',training='learned mappings fit selected evaluation window, as CPU grid; no held-out claim',placement='first-touch2MiB packed and seed1 2MiB shuffled across16GiB',mask_positions='actual exported sector masks; ascending sector order within each controller packet',excluded=[])
+ if a.source_metadata:manifest['source']=json.load(open(a.source_metadata))
  if coverage<.5:manifest['excluded'].append('Region mapping/policy: tensor coverage below50%')
  if not hasexpert:manifest['excluded'].append('expert mappings: no attributed expert accesses in selected window')
  json.dump(manifest,open(out/'manifest.json','w'),indent=2);results=[]
