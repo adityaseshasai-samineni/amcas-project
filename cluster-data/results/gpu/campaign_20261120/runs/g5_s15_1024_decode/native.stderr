@@ -604,7 +604,7 @@ llama_graph_n_input_tensors: input tensor '                      inp_tokens' [i3
 sched_reserve:      CUDA0 compute buffer size =    67.27 MiB
 sched_reserve:  CUDA_Host compute buffer size =     4.77 MiB
 sched_reserve: graph: nodes = 225, splits = 2, input objects = 4, input tensors = 9
-sched_reserve: reserve took 4.29 ms, sched copies = 1
+sched_reserve: reserve took 4.41 ms, sched copies = 1
 drbatch: seq 0 evaluated
 gpu-batch: selected graph begins at step 1
 gpu-batch: selected graph ends after step 4
