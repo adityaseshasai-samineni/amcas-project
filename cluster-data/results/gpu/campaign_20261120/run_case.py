@@ -38,7 +38,7 @@ with open(out/(a.mode+'.stdout'),'w') as so,open(out/(a.mode+'.stderr'),'w') as 
    stat=pathlib.Path(f'/proc/{proc.pid}/status').read_text();m=re.search(r'^VmRSS:\s+(\d+)',stat,re.M)
    if m:peak_rss_kib=max(peak_rss_kib,int(m[1]))
   except FileNotFoundError:pass
-  if time.time()-start>(1800 if a.mode=='native' else 6*3600):reason='runtime_limit'
+  if time.time()-start>(1800 if a.mode=='native' else int(env.get('AMCAS_CAPTURE_SECONDS',6*3600))):reason='runtime_limit'
   if a.mode=='capture':
    size=sum(f.stat().st_size for f in S.rglob('*') if f.is_file())
    if size>80*1024**3 or shutil.disk_usage(S).free<25*1024**3:reason='scratch_trace_budget'

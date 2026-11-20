@@ -26,6 +26,7 @@ def main():
  arr=np.memmap(a.binary,dtype=np.uint64,mode='r');packed=np.memmap(a.binary+'.packed',dtype=np.uint64,mode='r');assert len(arr)==len(packed)
  n=len(arr);w=min(a.size,n);start=min(int(n*.3),n-w);v=(np.asarray(arr[start:start+w])>>np.uint64(1))<<np.uint64(5);pa=np.asarray(packed[start:start+w]);st=(arr[start:start+w]&np.uint64(1)).astype(bool)
  rows=X.load_tensors(a.tensors);semantic_va=v.view(np.int64);cls,tix=X.classify(semantic_va,rows);grp=np.array([0,1,0,2,2],dtype=np.int8)[cls];coverage=float((tix>=0).mean());features=P.expert_features(dict(rows=rows,tix=tix,cls=cls,va=semantic_va));hasexpert=bool((features[0]>=0).any());assert not hasexpert or features[0].max()<128
+ if hasexpert and a.source_metadata:assert json.load(open(pathlib.Path(__file__).parent/'expert_fixture_validation.json'))['passed']
  manifest=dict(total_bursts=n,window=[start,start+w],reads=int((~st).sum()),writes=int(st.sum()),tensor_coverage=coverage,expert_accesses=int((features[0]>=0).sum()),request_bytes=32,tck_ps=1250,scope='cold saturated open-loop DRAM-model characterization; not native GPU token speedup',training='learned mappings fit selected evaluation window, as CPU grid; no held-out claim',placement='first-touch2MiB packed and seed1 2MiB shuffled across16GiB',mask_positions='actual exported sector masks; ascending sector order within each controller packet',excluded=[])
  if a.source_metadata:manifest['source']=json.load(open(a.source_metadata))
  if coverage<.5:manifest['excluded'].append('Region mapping/policy: tensor coverage below50%')

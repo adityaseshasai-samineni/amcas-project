@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import json,pathlib,sys,hashlib,subprocess
 import numpy as np
-A=pathlib.Path.home()/'amcas-pro';R=A/'results/gpu/campaign_20261120';name=sys.argv[1];O=R/'runs'/name;sim=json.load(open(O/'simulation.status.json'));assert sim['passed'];assert json.load(open(R/'policy_fixture_validation.json'))['passed']
+A=pathlib.Path.home()/'amcas-pro';R=A/'results/gpu/campaign_20261120';name=sys.argv[1];O=R/'runs'/name;sim=json.load(open(O/'simulation.status.json'));assert sim['passed'];assert json.load(open(R/'policy_fixture_validation.json'))['passed'];subprocess.check_call([sys.executable,str(R/'reconcile_case.py'),name])
 for c in sim['contexts']:
  src=pathlib.Path(c['stream']);a=np.memmap(src,dtype=np.uint64,mode='r');p=np.memmap(str(src)+'.packed',dtype=np.uint64,mode='r');assert len(a)==len(p);n=len(a);w=min(4000000,n);s=min(int(n*.3),n-w)
  d=A/'tracing/campaign20-grid-input'/name/c['context'];d.mkdir(parents=True,exist_ok=True);dst=d/'window.dram';np.asarray(a[s:s+w]).tofile(dst);np.asarray(p[s:s+w]).tofile(str(dst)+'.packed')

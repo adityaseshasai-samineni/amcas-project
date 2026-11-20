@@ -14,5 +14,6 @@ if [ ! -s "$R/runs/$1/hardware_job.txt" ]; then
  sbatch --gres="gpu:$DEV" --mem="$MEM" -J "ncu-$1" -o "$R/runs/$1/hardware_job.log" "$R/hardware_case.sh" "$1" | tee "$R/runs/$1/hardware_job.txt"
 fi
 python "$R/simulate_case.py" "$1"
+python "$R/reconcile_case.py" "$1"
 python "$R/prepare_policy.py" "$1"
 sbatch -J "upload-$1" -o "$R/runs/$1/upload_job.log" "$R/upload_case.sh" "$1" | tee "$R/runs/$1/upload_job.txt"

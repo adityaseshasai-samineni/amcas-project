@@ -1,0 +1,87 @@
+[
+  {
+    "run": "s15_l3-22m_stride",
+    "model": "stories15M",
+    "ctx": "short",
+    "llc": "22 MiB",
+    "pf": "stride",
+    "native": "native/stories15M.n9.out"
+  },
+  {
+    "run": "s15_l3-2m_stride",
+    "model": "stories15M",
+    "ctx": "short",
+    "llc": "2 MiB",
+    "pf": "stride",
+    "native": "native/stories15M.n9.out"
+  },
+  {
+    "run": "s15_l3-2m_nopf",
+    "model": "stories15M",
+    "ctx": "short",
+    "llc": "2 MiB",
+    "pf": "none",
+    "native": "native/stories15M.n9.out"
+  },
+  {
+    "run": "s15_c1024_l3-2m",
+    "model": "stories15M",
+    "ctx": "1024",
+    "llc": "2 MiB",
+    "pf": "stride",
+    "native": "sessions/stories15M.1024.n5.out",
+    "prompt": "sessions/stories15M.1024.prompt"
+  },
+  {
+    "run": "s15_c4096_l3-2m",
+    "model": "stories15M",
+    "ctx": "4096",
+    "llc": "2 MiB",
+    "pf": "stride",
+    "native": "sessions/stories15M.4096.n5.out",
+    "prompt": "sessions/stories15M.4096.prompt"
+  },
+  {
+    "run": "s15_c4096_l3-22m",
+    "model": "stories15M",
+    "ctx": "4096",
+    "llc": "22 MiB",
+    "pf": "stride",
+    "native": "sessions/stories15M.4096.n5.out",
+    "prompt": "sessions/stories15M.4096.prompt"
+  },
+  {
+    "run": "qwen_l3-22m_stride",
+    "model": "Qwen2.5-0.5B",
+    "ctx": "short",
+    "llc": "22 MiB",
+    "pf": "stride",
+    "native": "native/qwen25-05b-q4_0.n9.out"
+  },
+  {
+    "run": "qwen_c1024_l3-22m",
+    "model": "Qwen2.5-0.5B",
+    "ctx": "1024",
+    "llc": "22 MiB",
+    "pf": "stride",
+    "native": "sessions/qwen25-05b-q4_0.1024.n5.out",
+    "prompt": "sessions/qwen25-05b-q4_0.1024.prompt"
+  },
+  {
+    "run": "moe_c1024_l3-22m",
+    "model": "tinymoe4",
+    "ctx": "1024",
+    "llc": "22 MiB",
+    "pf": "stride",
+    "native": "sessions/tinymoe4.1024.n5.out",
+    "prompt": "sessions/tinymoe4.1024.prompt"
+  },
+  {
+    "run": "moe_l3-22m_stride",
+    "model": "tinymoe4",
+    "ctx": "short",
+    "llc": "22 MiB",
+    "pf": "stride",
+    "native": "native/tinymoe4.n9.out"
+  }
+]

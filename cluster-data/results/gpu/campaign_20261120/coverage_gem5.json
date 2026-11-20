@@ -1,0 +1,479 @@
+{
+  "cpu_rows": [
+    {
+      "cpu_run": "s15_l3-22m_stride",
+      "model": "stories15M",
+      "cpu_llc": "22 MiB",
+      "cpu_prefetch": "stride",
+      "cpu_context": "short",
+      "cpu_phase_ids": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "gpu_targets": [
+        "g5_s15_short_prefill",
+        "g5_s15_short_decode"
+      ],
+      "cache_knob_translation": "not applicable: realV100cachegeometry and cacheoperators replace CPU2/22MiBLLC and stride-prefetch choices; duplicate workloads share GPUtargets"
+    },
+    {
+      "cpu_run": "s15_l3-2m_stride",
+      "model": "stories15M",
+      "cpu_llc": "2 MiB",
+      "cpu_prefetch": "stride",
+      "cpu_context": "short",
+      "cpu_phase_ids": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "gpu_targets": [
+        "g5_s15_short_prefill",
+        "g5_s15_short_decode"
+      ],
+      "cache_knob_translation": "not applicable: realV100cachegeometry and cacheoperators replace CPU2/22MiBLLC and stride-prefetch choices; duplicate workloads share GPUtargets"
+    },
+    {
+      "cpu_run": "s15_l3-2m_nopf",
+      "model": "stories15M",
+      "cpu_llc": "2 MiB",
+      "cpu_prefetch": "none",
+      "cpu_context": "short",
+      "cpu_phase_ids": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "gpu_targets": [
+        "g5_s15_short_prefill",
+        "g5_s15_short_decode"
+      ],
+      "cache_knob_translation": "not applicable: realV100cachegeometry and cacheoperators replace CPU2/22MiBLLC and stride-prefetch choices; duplicate workloads share GPUtargets"
+    },
+    {
+      "cpu_run": "s15_c1024_l3-2m",
+      "model": "stories15M",
+      "cpu_llc": "2 MiB",
+      "cpu_prefetch": "stride",
+      "cpu_context": "1024",
+      "cpu_phase_ids": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "gpu_targets": [
+        "g5_s15_1024_decode"
+      ],
+      "cache_knob_translation": "not applicable: realV100cachegeometry and cacheoperators replace CPU2/22MiBLLC and stride-prefetch choices; duplicate workloads share GPUtargets"
+    },
+    {
+      "cpu_run": "s15_c4096_l3-2m",
+      "model": "stories15M",
+      "cpu_llc": "2 MiB",
+      "cpu_prefetch": "stride",
+      "cpu_context": "4096",
+      "cpu_phase_ids": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "gpu_targets": [
+        "g5_s15_4096_decode"
+      ],
+      "cache_knob_translation": "not applicable: realV100cachegeometry and cacheoperators replace CPU2/22MiBLLC and stride-prefetch choices; duplicate workloads share GPUtargets"
+    },
+    {
+      "cpu_run": "s15_c4096_l3-22m",
+      "model": "stories15M",
+      "cpu_llc": "22 MiB",
+      "cpu_prefetch": "stride",
+      "cpu_context": "4096",
+      "cpu_phase_ids": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "gpu_targets": [
+        "g5_s15_4096_decode"
+      ],
+      "cache_knob_translation": "not applicable: realV100cachegeometry and cacheoperators replace CPU2/22MiBLLC and stride-prefetch choices; duplicate workloads share GPUtargets"
+    },
+    {
+      "cpu_run": "qwen_l3-22m_stride",
+      "model": "Qwen2.5-0.5B",
+      "cpu_llc": "22 MiB",
+      "cpu_prefetch": "stride",
+      "cpu_context": "short",
+      "cpu_phase_ids": [
+        1,
+        2
+      ],
+      "gpu_targets": [
+        "g5_q05_short_decode"
+      ],
+      "cache_knob_translation": "not applicable: realV100cachegeometry and cacheoperators replace CPU2/22MiBLLC and stride-prefetch choices; duplicate workloads share GPUtargets"
+    },
+    {
+      "cpu_run": "qwen_c1024_l3-22m",
+      "model": "Qwen2.5-0.5B",
+      "cpu_llc": "22 MiB",
+      "cpu_prefetch": "stride",
+      "cpu_context": "1024",
+      "cpu_phase_ids": [
+        1,
+        2
+      ],
+      "gpu_targets": [
+        "g5_q05_1024_decode"
+      ],
+      "cache_knob_translation": "not applicable: realV100cachegeometry and cacheoperators replace CPU2/22MiBLLC and stride-prefetch choices; duplicate workloads share GPUtargets"
+    },
+    {
+      "cpu_run": "moe_c1024_l3-22m",
+      "model": "tinymoe4",
+      "cpu_llc": "22 MiB",
+      "cpu_prefetch": "stride",
+      "cpu_context": "1024",
+      "cpu_phase_ids": [
+        1,
+        2
+      ],
+      "gpu_targets": [
+        "g5_tinymoe4_1024_decode"
+      ],
+      "cache_knob_translation": "not applicable: realV100cachegeometry and cacheoperators replace CPU2/22MiBLLC and stride-prefetch choices; duplicate workloads share GPUtargets"
+    },
+    {
+      "cpu_run": "moe_l3-22m_stride",
+      "model": "tinymoe4",
+      "cpu_llc": "22 MiB",
+      "cpu_prefetch": "stride",
+      "cpu_context": "short",
+      "cpu_phase_ids": [
+        1,
+        2
+      ],
+      "gpu_targets": [
+        "g5_tinymoe4_short_decode"
+      ],
+      "cache_knob_translation": "not applicable: realV100cachegeometry and cacheoperators replace CPU2/22MiBLLC and stride-prefetch choices; duplicate workloads share GPUtargets"
+    }
+  ],
+  "gpu_targets": [
+    {
+      "cpu_workload": "g5_s15_short_prefill",
+      "era": "gem5",
+      "source_cpu_run": "s15_l3-22m_stride",
+      "source_cpu_phase_ids": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "selected_phase": "prefill",
+      "cpu_generation_limit": 9,
+      "cpu_source": "/home/adityaseshasai.s/amcas-pro/results/traces/s15_l3-22m_stride",
+      "gpu_devices": 1,
+      "input_present": true,
+      "environment": {
+        "AMCAS_MODEL": "/home/adityaseshasai.s/amcas-pro/tracing/models/stories15M.gguf",
+        "AMCAS_B": "1",
+        "AMCAS_P": "512",
+        "AMCAS_THREADS": "1",
+        "AMCAS_NGEN": "8",
+        "AMCAS_SKIP_STEPS": "0",
+        "AMCAS_TRACE_STEPS": "1",
+        "AMCAS_GPU_LAYERS": "99",
+        "AMCAS_FA": "-1",
+        "AMCAS_CORPUS": "/home/adityaseshasai.s/amcas-pro/results/sessions/corpus.txt",
+        "AMCAS_CACHE_DIR": "",
+        "AMCAS_UBATCH": "512",
+        "AMCAS_N_BATCH": "512",
+        "AMCAS_CTX": "512",
+        "AMCAS_CAPTURE_SECONDS": "9000",
+        "AMCAS_PROMPT_TEXT": "Once upon a time there was a little girl named Lily. She loved to play outside in the sunshine with her friends.",
+        "AMCAS_PREFILL": "1"
+      },
+      "scope": "GPU workload translation; original CPUcache/prefetch parameters not GPUhardware settings; split prefill/decode windows cold-modeled independently",
+      "prompt_sha256": "4bd11df3c54152012dbec1fc59a11900af3d3b9303ed5fbdf644e0e9762e4367"
+    },
+    {
+      "cpu_workload": "g5_s15_short_decode",
+      "era": "gem5",
+      "source_cpu_run": "s15_l3-22m_stride",
+      "source_cpu_phase_ids": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "selected_phase": "decode",
+      "cpu_generation_limit": 9,
+      "cpu_source": "/home/adityaseshasai.s/amcas-pro/results/traces/s15_l3-22m_stride",
+      "gpu_devices": 1,
+      "input_present": true,
+      "environment": {
+        "AMCAS_MODEL": "/home/adityaseshasai.s/amcas-pro/tracing/models/stories15M.gguf",
+        "AMCAS_B": "1",
+        "AMCAS_P": "512",
+        "AMCAS_THREADS": "1",
+        "AMCAS_NGEN": "8",
+        "AMCAS_SKIP_STEPS": "1",
+        "AMCAS_TRACE_STEPS": "8",
+        "AMCAS_GPU_LAYERS": "99",
+        "AMCAS_FA": "-1",
+        "AMCAS_CORPUS": "/home/adityaseshasai.s/amcas-pro/results/sessions/corpus.txt",
+        "AMCAS_CACHE_DIR": "",
+        "AMCAS_UBATCH": "512",
+        "AMCAS_N_BATCH": "512",
+        "AMCAS_CTX": "512",
+        "AMCAS_CAPTURE_SECONDS": "9000",
+        "AMCAS_PROMPT_TEXT": "Once upon a time there was a little girl named Lily. She loved to play outside in the sunshine with her friends."
+      },
+      "scope": "GPU workload translation; original CPUcache/prefetch parameters not GPUhardware settings; split prefill/decode windows cold-modeled independently",
+      "prompt_sha256": "4bd11df3c54152012dbec1fc59a11900af3d3b9303ed5fbdf644e0e9762e4367"
+    },
+    {
+      "cpu_workload": "g5_s15_1024_decode",
+      "era": "gem5",
+      "source_cpu_run": "s15_c1024_l3-2m",
+      "source_cpu_phase_ids": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "selected_phase": "decode",
+      "cpu_generation_limit": 5,
+      "cpu_source": "/home/adityaseshasai.s/amcas-pro/results/traces/s15_c1024_l3-2m",
+      "gpu_devices": 1,
+      "input_present": true,
+      "environment": {
+        "AMCAS_MODEL": "/home/adityaseshasai.s/amcas-pro/tracing/models/stories15M.gguf",
+        "AMCAS_B": "1",
+        "AMCAS_P": "512",
+        "AMCAS_THREADS": "1",
+        "AMCAS_NGEN": "4",
+        "AMCAS_SKIP_STEPS": "1",
+        "AMCAS_TRACE_STEPS": "4",
+        "AMCAS_GPU_LAYERS": "99",
+        "AMCAS_FA": "-1",
+        "AMCAS_CORPUS": "/home/adityaseshasai.s/amcas-pro/results/sessions/corpus.txt",
+        "AMCAS_CACHE_DIR": "",
+        "AMCAS_UBATCH": "512",
+        "AMCAS_N_BATCH": "512",
+        "AMCAS_CTX": "1088",
+        "AMCAS_CAPTURE_SECONDS": "9000",
+        "AMCAS_LITERAL_FILE": "/home/adityaseshasai.s/amcas-pro/results/sessions/stories15M.1024.prompt"
+      },
+      "scope": "GPU workload translation; original CPUcache/prefetch parameters not GPUhardware settings; split prefill/decode windows cold-modeled independently",
+      "prompt_sha256": "aab6fb7ad90cced5d7f0db929e82d771ecccead4d55580d7dd5684a058eff645"
+    },
+    {
+      "cpu_workload": "g5_s15_4096_decode",
+      "era": "gem5",
+      "source_cpu_run": "s15_c4096_l3-2m",
+      "source_cpu_phase_ids": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "selected_phase": "decode",
+      "cpu_generation_limit": 5,
+      "cpu_source": "/home/adityaseshasai.s/amcas-pro/results/traces/s15_c4096_l3-2m",
+      "gpu_devices": 1,
+      "input_present": true,
+      "environment": {
+        "AMCAS_MODEL": "/home/adityaseshasai.s/amcas-pro/tracing/models/stories15M.gguf",
+        "AMCAS_B": "1",
+        "AMCAS_P": "512",
+        "AMCAS_THREADS": "1",
+        "AMCAS_NGEN": "4",
+        "AMCAS_SKIP_STEPS": "1",
+        "AMCAS_TRACE_STEPS": "4",
+        "AMCAS_GPU_LAYERS": "99",
+        "AMCAS_FA": "-1",
+        "AMCAS_CORPUS": "/home/adityaseshasai.s/amcas-pro/results/sessions/corpus.txt",
+        "AMCAS_CACHE_DIR": "",
+        "AMCAS_UBATCH": "512",
+        "AMCAS_N_BATCH": "512",
+        "AMCAS_CTX": "4160",
+        "AMCAS_CAPTURE_SECONDS": "9000",
+        "AMCAS_LITERAL_FILE": "/home/adityaseshasai.s/amcas-pro/results/sessions/stories15M.4096.prompt"
+      },
+      "scope": "GPU workload translation; original CPUcache/prefetch parameters not GPUhardware settings; split prefill/decode windows cold-modeled independently",
+      "prompt_sha256": "70e2381f6d4afe3a1033b075a5deecb2eba74e387e9f56ab57d3e89ac40978b3"
+    },
+    {
+      "cpu_workload": "g5_q05_short_decode",
+      "era": "gem5",
+      "source_cpu_run": "qwen_l3-22m_stride",
+      "source_cpu_phase_ids": [
+        1,
+        2
+      ],
+      "selected_phase": "decode",
+      "cpu_generation_limit": 9,
+      "cpu_source": "/home/adityaseshasai.s/amcas-pro/results/traces/qwen_l3-22m_stride",
+      "gpu_devices": 1,
+      "input_present": true,
+      "environment": {
+        "AMCAS_MODEL": "/home/adityaseshasai.s/amcas-pro/tracing/models/qwen25-05b-q4_0.gguf",
+        "AMCAS_B": "1",
+        "AMCAS_P": "512",
+        "AMCAS_THREADS": "1",
+        "AMCAS_NGEN": "8",
+        "AMCAS_SKIP_STEPS": "1",
+        "AMCAS_TRACE_STEPS": "2",
+        "AMCAS_GPU_LAYERS": "99",
+        "AMCAS_FA": "-1",
+        "AMCAS_CORPUS": "/home/adityaseshasai.s/amcas-pro/results/sessions/corpus.txt",
+        "AMCAS_CACHE_DIR": "",
+        "AMCAS_UBATCH": "512",
+        "AMCAS_N_BATCH": "512",
+        "AMCAS_CTX": "256",
+        "AMCAS_CAPTURE_SECONDS": "9000",
+        "AMCAS_PROMPT_TEXT": "Once upon a time there was a little girl named Lily. She loved to play outside in the sunshine with her friends."
+      },
+      "scope": "GPU workload translation; original CPUcache/prefetch parameters not GPUhardware settings; split prefill/decode windows cold-modeled independently",
+      "prompt_sha256": "4bd11df3c54152012dbec1fc59a11900af3d3b9303ed5fbdf644e0e9762e4367"
+    },
+    {
+      "cpu_workload": "g5_q05_1024_decode",
+      "era": "gem5",
+      "source_cpu_run": "qwen_c1024_l3-22m",
+      "source_cpu_phase_ids": [
+        1,
+        2
+      ],
+      "selected_phase": "decode",
+      "cpu_generation_limit": 3,
+      "cpu_source": "/home/adityaseshasai.s/amcas-pro/results/traces/qwen_c1024_l3-22m",
+      "gpu_devices": 1,
+      "input_present": true,
+      "environment": {
+        "AMCAS_MODEL": "/home/adityaseshasai.s/amcas-pro/tracing/models/qwen25-05b-q4_0.gguf",
+        "AMCAS_B": "1",
+        "AMCAS_P": "512",
+        "AMCAS_THREADS": "1",
+        "AMCAS_NGEN": "2",
+        "AMCAS_SKIP_STEPS": "1",
+        "AMCAS_TRACE_STEPS": "2",
+        "AMCAS_GPU_LAYERS": "99",
+        "AMCAS_FA": "-1",
+        "AMCAS_CORPUS": "/home/adityaseshasai.s/amcas-pro/results/sessions/corpus.txt",
+        "AMCAS_CACHE_DIR": "",
+        "AMCAS_UBATCH": "512",
+        "AMCAS_N_BATCH": "512",
+        "AMCAS_CTX": "1088",
+        "AMCAS_CAPTURE_SECONDS": "9000",
+        "AMCAS_LITERAL_FILE": "/home/adityaseshasai.s/amcas-pro/results/sessions/qwen25-05b-q4_0.1024.prompt"
+      },
+      "scope": "GPU workload translation; original CPUcache/prefetch parameters not GPUhardware settings; split prefill/decode windows cold-modeled independently",
+      "prompt_sha256": "04fec811f4fa70dc2bccaa7eb02190f2417e9c14147efb3b60cf7c7c678589b7"
+    },
+    {
+      "cpu_workload": "g5_tinymoe4_1024_decode",
+      "era": "gem5",
+      "source_cpu_run": "moe_c1024_l3-22m",
+      "source_cpu_phase_ids": [
+        1,
+        2
+      ],
+      "selected_phase": "decode",
+      "cpu_generation_limit": 3,
+      "cpu_source": "/home/adityaseshasai.s/amcas-pro/results/traces/moe_c1024_l3-22m",
+      "gpu_devices": 1,
+      "input_present": true,
+      "environment": {
+        "AMCAS_MODEL": "/home/adityaseshasai.s/amcas-pro/tracing/models/tinymoe4.gguf",
+        "AMCAS_B": "1",
+        "AMCAS_P": "512",
+        "AMCAS_THREADS": "1",
+        "AMCAS_NGEN": "2",
+        "AMCAS_SKIP_STEPS": "1",
+        "AMCAS_TRACE_STEPS": "2",
+        "AMCAS_GPU_LAYERS": "99",
+        "AMCAS_FA": "-1",
+        "AMCAS_CORPUS": "/home/adityaseshasai.s/amcas-pro/results/sessions/corpus.txt",
+        "AMCAS_CACHE_DIR": "",
+        "AMCAS_UBATCH": "512",
+        "AMCAS_N_BATCH": "512",
+        "AMCAS_CTX": "1088",
+        "AMCAS_CAPTURE_SECONDS": "9000",
+        "AMCAS_LITERAL_FILE": "/home/adityaseshasai.s/amcas-pro/results/sessions/tinymoe4.1024.prompt"
+      },
+      "scope": "GPU workload translation; original CPUcache/prefetch parameters not GPUhardware settings; split prefill/decode windows cold-modeled independently",
+      "prompt_sha256": "aab6fb7ad90cced5d7f0db929e82d771ecccead4d55580d7dd5684a058eff645"
+    },
+    {
+      "cpu_workload": "g5_tinymoe4_short_decode",
+      "era": "gem5",
+      "source_cpu_run": "moe_l3-22m_stride",
+      "source_cpu_phase_ids": [
+        1,
+        2
+      ],
+      "selected_phase": "decode",
+      "cpu_generation_limit": 9,
+      "cpu_source": "/home/adityaseshasai.s/amcas-pro/results/traces/moe_l3-22m_stride",
+      "gpu_devices": 1,
+      "input_present": true,
+      "environment": {
+        "AMCAS_MODEL": "/home/adityaseshasai.s/amcas-pro/tracing/models/tinymoe4.gguf",
+        "AMCAS_B": "1",
+        "AMCAS_P": "512",
+        "AMCAS_THREADS": "1",
+        "AMCAS_NGEN": "8",
+        "AMCAS_SKIP_STEPS": "1",
+        "AMCAS_TRACE_STEPS": "2",
+        "AMCAS_GPU_LAYERS": "99",
+        "AMCAS_FA": "-1",
+        "AMCAS_CORPUS": "/home/adityaseshasai.s/amcas-pro/results/sessions/corpus.txt",
+        "AMCAS_CACHE_DIR": "",
+        "AMCAS_UBATCH": "512",
+        "AMCAS_N_BATCH": "512",
+        "AMCAS_CTX": "256",
+        "AMCAS_CAPTURE_SECONDS": "9000",
+        "AMCAS_PROMPT_TEXT": "Once upon a time there was a little girl named Lily. She loved to play outside in the sunshine with her friends."
+      },
+      "scope": "GPU workload translation; original CPUcache/prefetch parameters not GPUhardware settings; split prefill/decode windows cold-modeled independently",
+      "prompt_sha256": "4bd11df3c54152012dbec1fc59a11900af3d3b9303ed5fbdf644e0e9762e4367"
+    }
+  ],
+  "count": 8,
+  "scope": "Earlier gem5era supplement; main20fullscale cases are separate"
+}

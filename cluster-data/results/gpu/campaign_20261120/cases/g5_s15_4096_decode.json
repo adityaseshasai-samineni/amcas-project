@@ -1,0 +1,36 @@
+{
+  "cpu_workload": "g5_s15_4096_decode",
+  "era": "gem5",
+  "source_cpu_run": "s15_c4096_l3-2m",
+  "source_cpu_phase_ids": [
+    1,
+    2,
+    3,
+    4
+  ],
+  "selected_phase": "decode",
+  "cpu_generation_limit": 5,
+  "cpu_source": "/home/adityaseshasai.s/amcas-pro/results/traces/s15_c4096_l3-2m",
+  "gpu_devices": 1,
+  "input_present": true,
+  "environment": {
+    "AMCAS_MODEL": "/home/adityaseshasai.s/amcas-pro/tracing/models/stories15M.gguf",
+    "AMCAS_B": "1",
+    "AMCAS_P": "512",
+    "AMCAS_THREADS": "1",
+    "AMCAS_NGEN": "4",
+    "AMCAS_SKIP_STEPS": "1",
+    "AMCAS_TRACE_STEPS": "4",
+    "AMCAS_GPU_LAYERS": "99",
+    "AMCAS_FA": "-1",
+    "AMCAS_CORPUS": "/home/adityaseshasai.s/amcas-pro/results/sessions/corpus.txt",
+    "AMCAS_CACHE_DIR": "",
+    "AMCAS_UBATCH": "512",
+    "AMCAS_N_BATCH": "512",
+    "AMCAS_CTX": "4160",
+    "AMCAS_CAPTURE_SECONDS": "9000",
+    "AMCAS_LITERAL_FILE": "/home/adityaseshasai.s/amcas-pro/results/sessions/stories15M.4096.prompt"
+  },
+  "scope": "GPU workload translation; original CPUcache/prefetch parameters not GPUhardware settings; split prefill/decode windows cold-modeled independently",
+  "prompt_sha256": "70e2381f6d4afe3a1033b075a5deecb2eba74e387e9f56ab57d3e89ac40978b3"
+}

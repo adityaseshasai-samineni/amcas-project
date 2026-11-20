@@ -26,12 +26,12 @@ def cross(view,intra,channels,st,work,meta):
  work=pathlib.Path(work);work.mkdir(exist_ok=True);b,row,col=view.fields(intra);pc=channels.astype(np.int64)*2+(b&1);bank=b>>1
  addr=(((row.astype(np.uint64)<<np.uint64(6))|pc.astype(np.uint64))<<np.uint64(9))|(bank.astype(np.uint64)<<np.uint64(5))|col.astype(np.uint64);addr<<=np.uint64(5)
  rec=(addr<<np.uint64(1))|st.astype(np.uint64);binary=work/'global.bin';rec.tofile(binary);expected=work/'global.expected';np.column_stack((pc,bank,row,col)).astype('<u4').tofile(expected)
- sd=dict(F.G.SYS['v100']);tasks=[];configuration=None
+ sd=dict(F.G.SYS['v100']);tasks=[];configuration=None;native_configs={}
  for policy,label in [('OPEN_PAGE','Open'),('CLOSE_PAGE','Closed')]:
   cfg=work/(policy+'.ini');config=F.matched_config(cfg,'v100',sd,'matched');s=cfg.read_text()
   for key,value in [('channels',64),('row_buf_policy',policy)]:
    s,n=re.subn(r'(?m)^'+key+r'\s*=.*$',f'{key} = {value}',s);assert n==1,key
-  cfg.write_text(s);configuration=dict(config,channels=64,tx_bytes=32,issue_per_cycle=32)
+  cfg.write_text(s);native_configs[policy]=s;configuration=dict(config,channels=64,tx_bytes=32,issue_per_cycle=32);configuration['ds3_config']=s;configuration['remaining_differences']=[x for x in config['remaining_differences'] if not x.startswith('Global Ramulator feed')]+['Read merging/forwarding and close-page controller implementations differ'];configuration['native_configs']=native_configs
   checked=subprocess.run([str(R/'ds3_decode_check'),str(cfg),str(binary),str(expected)],capture_output=True,text=True,check=True);assert 'DECODE_VALIDATED' in checked.stdout
   tasks.append((cfg,work/policy,binary,label,meta))
  json.dump(configuration,open(work/'configuration.json','w'),indent=2)

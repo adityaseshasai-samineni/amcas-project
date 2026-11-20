@@ -1,0 +1,34 @@
+{
+  "cpu_workload": "g5_tinymoe4_1024_decode",
+  "era": "gem5",
+  "source_cpu_run": "moe_c1024_l3-22m",
+  "source_cpu_phase_ids": [
+    1,
+    2
+  ],
+  "selected_phase": "decode",
+  "cpu_generation_limit": 3,
+  "cpu_source": "/home/adityaseshasai.s/amcas-pro/results/traces/moe_c1024_l3-22m",
+  "gpu_devices": 1,
+  "input_present": true,
+  "environment": {
+    "AMCAS_MODEL": "/home/adityaseshasai.s/amcas-pro/tracing/models/tinymoe4.gguf",
+    "AMCAS_B": "1",
+    "AMCAS_P": "512",
+    "AMCAS_THREADS": "1",
+    "AMCAS_NGEN": "2",
+    "AMCAS_SKIP_STEPS": "1",
+    "AMCAS_TRACE_STEPS": "2",
+    "AMCAS_GPU_LAYERS": "99",
+    "AMCAS_FA": "-1",
+    "AMCAS_CORPUS": "/home/adityaseshasai.s/amcas-pro/results/sessions/corpus.txt",
+    "AMCAS_CACHE_DIR": "",
+    "AMCAS_UBATCH": "512",
+    "AMCAS_N_BATCH": "512",
+    "AMCAS_CTX": "1088",
+    "AMCAS_CAPTURE_SECONDS": "9000",
+    "AMCAS_LITERAL_FILE": "/home/adityaseshasai.s/amcas-pro/results/sessions/tinymoe4.1024.prompt"
+  },
+  "scope": "GPU workload translation; original CPUcache/prefetch parameters not GPUhardware settings; split prefill/decode windows cold-modeled independently",
+  "prompt_sha256": "aab6fb7ad90cced5d7f0db929e82d771ecccead4d55580d7dd5684a058eff645"
+}
