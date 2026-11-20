@@ -12,3 +12,7 @@ SLURM_JOB_GPUS = 0,1
 {"passed": true, "exit_code": 0, "stop_reason": null, "seconds": 50.0038275718689, "scratch": "/scratch/adityaseshasai.s/amcas-campaign20/q30_B4P8192/native", "gpu_devices": 2, "scope": "selected graph windows; native output and official trace are separate executions", "offload_layers": [["49", "49"]], "cuda_visible_devices": "0,1"}
 {"passed": false, "exit_code": -6, "stop_reason": null, "seconds": 15.002821207046509, "scratch": "/scratch/adityaseshasai.s/amcas-campaign20/q30_B4P32768/native", "gpu_devices": 2, "scope": "selected graph windows; native output and official trace are separate executions"}
 {"passed": true, "exit_code": 0, "stop_reason": null, "seconds": 10.002528429031372, "scratch": "/scratch/adityaseshasai.s/amcas-campaign20/q30_pf32/native", "gpu_devices": 2, "scope": "selected graph windows; native output and official trace are separate executions", "offload_layers": [["49", "49"]], "cuda_visible_devices": "0,1"}
+wrote analysis/tables.md and 3 figures; validation failures: none
+wrote analysis/fullscale/headline.md
+wrote analysis/fullscale/tables.md
+publish: pushed a05c48e
