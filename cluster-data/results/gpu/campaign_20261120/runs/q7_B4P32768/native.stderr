@@ -2023,3 +2023,8 @@ sched_reserve:  CUDA_Host compute buffer size =    60.27 MiB
 sched_reserve: graph: nodes = 1017, splits = 2, input objects = 4, input tensors = 9
 sched_reserve: reserve took 32.55 ms, sched copies = 1
 drbatch: seq 0 evaluated
+drbatch: seq 1 evaluated
+drbatch: seq 2 evaluated
+drbatch: seq 3 evaluated
+gpu-batch: selected graph begins at step 1
+gpu-batch: selected graph ends after step 1
