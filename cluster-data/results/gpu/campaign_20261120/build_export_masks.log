@@ -1,0 +1,22 @@
+==========================================
+SLURM_JOB_ID = 131050
+SLURM_NODELIST = node04
+SLURM_JOB_GPUS = 
+==========================================
+[  5%] Built target trace-parser
+[  5%] Built target cuda
+[ 11%] Built target gpgpusim_entrypoint
+[ 13%] Built target gen_ptx_parser_decode
+[ 34%] Built target accelwattch
+[ 34%] Built target gen_instructions_h
+[ 35%] Generating build string file to /home/adityaseshasai.s/amcas-pro/tracing/accel-sim-audit-20261117/gpu-simulator/build-cmake/gpgpu-sim
+[ 36%] Built target trace-driven
+[ 37%] Building CXX object gpgpu-sim/src/gpgpu-sim/CMakeFiles/gpgpusim.dir/dram.cc.o
+[ 74%] Built target intersim
+[ 74%] Built target gen_build_string
+[ 86%] Built target ptxsim
+[ 87%] Linking CXX static library libgpgpusim.a
+[ 98%] Built target gpgpusim
+[ 98%] Built target entrypoint
+[ 98%] Linking CXX executable accel-sim.out
+[100%] Built target accel-sim.out

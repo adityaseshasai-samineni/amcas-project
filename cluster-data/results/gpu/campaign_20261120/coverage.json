@@ -83,10 +83,12 @@
       "sequences": 1,
       "phase": "decode",
       "context_label": "32k",
-      "cpu_threads": 2,
+      "cpu_threads": 4,
       "selected_decode_steps": 1,
       "admission": "native full GPU offload and output match first; CUDA CPU fallback must be reported; no blind memory-capacity assumption",
-      "model_file": "qwen2.5-7b-instruct-q4_k_m-00001-of-00002.gguf"
+      "model_file": "qwen2.5-7b-instruct-q4_k_m-00001-of-00002.gguf",
+      "selected_decode_step": 2,
+      "variant_note": "t2 denotes second token; original source is s2n1t4, not two CPUthreads"
     },
     {
       "cpu_workload": "q05_32k",

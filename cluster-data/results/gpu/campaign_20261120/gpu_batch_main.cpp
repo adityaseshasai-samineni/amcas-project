@@ -134,12 +134,17 @@ int main() {
         sigaction(SIGSEGV, &sa, 0); sigaction(SIGILL, &sa, 0); sigaction(SIGBUS, &sa, 0); sigaction(SIGFPE, &sa, 0);
     }
     dr_app_setup();
+    ggml_backend_load_all();
     llama_backend_init();
     llama_model_params mp = llama_model_default_params(); mp.n_gpu_layers = env_long("AMCAS_GPU_LAYERS", 99);
     llama_model *m = llama_model_load_from_file(model.c_str(), mp);
     if (!m) die("model load failed");
     const llama_vocab *vocab = llama_model_get_vocab(m);
     std::string literal = env_str("AMCAS_PROMPT_TEXT");
+    if(const char *lf=getenv("AMCAS_LITERAL_FILE")) {
+        FILE *f=fopen(lf,"rb"); if(!f) die("literal prompt file"); char b[65536];size_t n;
+        while((n=fread(b,1,sizeof b,f)))literal.append(b,n);fclose(f);
+    }
     if(!literal.empty()) {
         std::vector<llama_token> tmp(literal.size()*2+32);
         int n=llama_tokenize(vocab,literal.data(),literal.size(),tmp.data(),tmp.size(),true,false);
@@ -150,7 +155,8 @@ int main() {
     const int UB = env_long("AMCAS_UBATCH", 512);
     const int cs = ((P + NGEN + 8 + 255) / 256) * 256;
     llama_context_params cp = llama_context_default_params();
-    cp.n_ctx = B * cs; cp.n_batch = 2048; cp.n_ubatch = UB; cp.n_seq_max = B;
+    cp.n_ctx = env_long("AMCAS_CTX", B * cs); cp.n_batch = 2048; cp.n_ubatch = UB; cp.n_seq_max = B;
+    cp.flash_attn_type = (llama_flash_attn_type)env_long("AMCAS_FA", -1);
     cp.n_threads = cp.n_threads_batch = T; cp.no_perf = true; cp.kv_unified = env_long("AMCAS_KVU", 0) != 0;
     llama_context *ctx = llama_init_from_model(m, cp);
     if (!ctx) die("context failed");
