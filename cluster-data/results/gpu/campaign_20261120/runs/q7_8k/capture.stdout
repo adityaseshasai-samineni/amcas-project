@@ -1,0 +1,255 @@
+         INSTR_BEGIN = 0 - Beginning of the instruction interval where to apply instrumentation
+           INSTR_END = 4294967295 - End of the instruction interval where to apply instrumentation
+    EXCLUDE_PRED_OFF = 1 - Exclude predicated off instruction from count
+      TRACE_LINEINFO = 0 - Include source code line info at the start of each traced line. The target binary must be compiled with -lineinfo or --generate-line-info
+DYNAMIC_KERNEL_RANGE =  - Specify kernel IDs or ranges to trace. Format:
+  - Single ID:       "2" traces only kernel 2.
+  - Range:           "5-8" traces kernels 5 through 8 (inclusive).
+  - Open-ended:      "10-" traces from kernel 10 onward.
+  - Multiple ranges: "2 5-8 10-" (space-separated).
+  - With regex:      "5-8@kernel_a.*,kernel_b.*" traces kernels 5–8 with matching names.
+If unset or empty, all kernels will be traced from the beginning.
+   ACTIVE_FROM_START = 0 - Start instruction tracing from start or wait for cuProfilerStart and cuProfilerStop. If set to 0, DYNAMIC_KERNEL_RANGE options have no effect
+        TOOL_VERBOSE = 0 - Enable verbosity inside the tool
+       TOOL_COMPRESS = 1 - Enable traces compression
+     TOOL_TRACE_CORE = 1 - write the core id in the traces
+TERMINATE_UPON_LIMIT = 0 - Stop the process once the current kernel > DYNAMIC_KERNEL_LIMIT_END
+USER_DEFINED_FOLDERS = 0 - Uses the user defined folder TRACES_FOLDER path environment
+ TRACE_FILE_COMPRESS = 1 - Create xz-compressed tracefile
+SPINLOCK_HANDLING_MODE = 0 - Spinlock handling mode: 0=none, 1=fast_forward, 2=mark_region
+SPINLOCK_ITER_TO_KEEP = 1 - Number of iterations to keep for spinlock handling
+     ENABLE_WATCHDOG = 1 - Enable the watchdog to skip instructions between WARPSYNC.COLLECTIVE and its target instruction (inclusive)
+        SKIP_TMA_MEM = 0 - Enable the skipping of TMA memory instructions
+ALLOW_REG_VAL_TRACING = 1 - EXPERIMENTAL: Enable the tracing of register values. Trace format is not stable. Trace version is 6.
+NVBIT_INSTRUMENTATION_ENABLED = 1 - Enable NVBit instrumentation. Can be controlled at runtime using enable_nvbit_instrumentation() and disable_nvbit_instrumentation()
+----------------------------------------------------------------------------------------------------
+AMCAS_GRAPH_BEGIN step=-1 compute=0
+AMCAS_GRAPH_END step=-1 compute=0
+AMCAS_GRAPH_BEGIN step=-1 compute=1
+AMCAS_GRAPH_END step=-1 compute=1
+AMCAS_GRAPH_BEGIN step=-1 compute=2
+AMCAS_GRAPH_END step=-1 compute=2
+AMCAS_GRAPH_BEGIN step=-1 compute=3
+AMCAS_GRAPH_END step=-1 compute=3
+AMCAS_GRAPH_BEGIN step=-1 compute=4
+AMCAS_GRAPH_END step=-1 compute=4
+AMCAS_GRAPH_BEGIN step=-1 compute=5
+AMCAS_GRAPH_END step=-1 compute=5
+AMCAS_GRAPH_BEGIN step=-1 compute=6
+AMCAS_GRAPH_END step=-1 compute=6
+AMCAS_GRAPH_BEGIN step=-1 compute=7
+AMCAS_GRAPH_END step=-1 compute=7
+AMCAS_GRAPH_BEGIN step=-1 compute=8
+AMCAS_GRAPH_END step=-1 compute=8
+AMCAS_GRAPH_BEGIN step=-1 compute=9
+AMCAS_GRAPH_END step=-1 compute=9
+AMCAS_GRAPH_BEGIN step=-1 compute=10
+AMCAS_GRAPH_END step=-1 compute=10
+AMCAS_GRAPH_BEGIN step=-1 compute=11
+AMCAS_GRAPH_END step=-1 compute=11
+AMCAS_GRAPH_BEGIN step=-1 compute=12
+AMCAS_GRAPH_END step=-1 compute=12
+AMCAS_GRAPH_BEGIN step=-1 compute=13
+AMCAS_GRAPH_END step=-1 compute=13
+AMCAS_GRAPH_BEGIN step=-1 compute=14
+AMCAS_GRAPH_END step=-1 compute=14
+AMCAS_GRAPH_BEGIN step=0 compute=15
+AMCAS_GRAPH_END step=0 compute=15
+AMCAS_GRAPH_BEGIN step=1 compute=16
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15464-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15465-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15466-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15467-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15468-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15469-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15470-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15471-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15472-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15473-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15474-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15475-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15476-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15477-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15478-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15479-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15480-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15481-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15482-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15483-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15484-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15485-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15486-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15487-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15488-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15489-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15490-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15491-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15492-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15493-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15494-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15495-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15496-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15497-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15498-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15499-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15500-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15501-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15502-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15503-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15504-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15505-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15506-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15507-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15508-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15509-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15510-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15511-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15512-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15513-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15514-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15515-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15516-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15517-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15518-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15519-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15520-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15521-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15522-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15523-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15524-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15525-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15526-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15527-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15528-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15529-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15530-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15531-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15532-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15533-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15534-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15535-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15536-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15537-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15538-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15539-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15540-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15541-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15542-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15543-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15544-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15545-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15546-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15547-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15548-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15549-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15550-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15551-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15552-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15553-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15554-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15555-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15556-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15557-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15558-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15559-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15560-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15561-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15562-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15563-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15564-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15565-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15566-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15567-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15568-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15569-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15570-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15571-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15572-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15573-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15574-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15575-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15576-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15577-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15578-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15579-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15580-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15581-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15582-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15583-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15584-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15585-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15586-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15587-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15588-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15589-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15590-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15591-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15592-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15593-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15594-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15595-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15596-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15597-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15598-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15599-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15600-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15601-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15602-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15603-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15604-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15605-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15606-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15607-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15608-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15609-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15610-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15611-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15612-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15613-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15614-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15615-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15616-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15617-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15618-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15619-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15620-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15621-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15622-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15623-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15624-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15625-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15626-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15627-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15628-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15629-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15630-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15631-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15632-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15633-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15634-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15635-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15636-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15637-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15638-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15639-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15640-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15641-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15642-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15643-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15644-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15645-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15646-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15647-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15648-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15649-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15650-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15651-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15652-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15653-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15654-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15655-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15656-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15657-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15658-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/traces//kernel-15659-ctx_0x55b7730780e0.trace.xz
+Writing results to /scratch/adityaseshasai.s/amcas-campaign20/q7_8k/capture/
