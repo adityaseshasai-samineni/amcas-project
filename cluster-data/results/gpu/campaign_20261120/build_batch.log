@@ -1,0 +1,18 @@
+==========================================
+SLURM_JOB_ID = 131037
+SLURM_NODELIST = node04
+SLURM_JOB_GPUS = 
+==========================================
+/home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/bin/x86_64-conda-linux-gnu-ld: warning: libcuda.so.1, needed by /home/adityaseshasai.s/amcas-pro/tracing/llama.cpp/build-cuda/bin/libllama.so, not found (try using -rpath or -rpath-link)
+/home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/bin/x86_64-conda-linux-gnu-ld: /home/adityaseshasai.s/amcas-pro/tracing/llama.cpp/build-cuda/bin/libggml-cuda.so: undefined reference to `cuMemCreate'
+/home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/bin/x86_64-conda-linux-gnu-ld: /home/adityaseshasai.s/amcas-pro/tracing/llama.cpp/build-cuda/bin/libggml-cuda.so: undefined reference to `cuMemAddressReserve'
+/home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/bin/x86_64-conda-linux-gnu-ld: /home/adityaseshasai.s/amcas-pro/tracing/llama.cpp/build-cuda/bin/libggml-cuda.so: undefined reference to `cuMemUnmap'
+/home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/bin/x86_64-conda-linux-gnu-ld: /home/adityaseshasai.s/amcas-pro/tracing/llama.cpp/build-cuda/bin/libggml-cuda.so: undefined reference to `cuMemSetAccess'
+/home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/bin/x86_64-conda-linux-gnu-ld: /home/adityaseshasai.s/amcas-pro/tracing/llama.cpp/build-cuda/bin/libggml-cuda.so: undefined reference to `cuDeviceGet'
+/home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/bin/x86_64-conda-linux-gnu-ld: /home/adityaseshasai.s/amcas-pro/tracing/llama.cpp/build-cuda/bin/libggml-cuda.so: undefined reference to `cuMemAddressFree'
+/home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/bin/x86_64-conda-linux-gnu-ld: /home/adityaseshasai.s/amcas-pro/tracing/llama.cpp/build-cuda/bin/libggml-cuda.so: undefined reference to `cuGetErrorString'
+/home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/bin/x86_64-conda-linux-gnu-ld: /home/adityaseshasai.s/amcas-pro/tracing/llama.cpp/build-cuda/bin/libggml-cuda.so: undefined reference to `cuDeviceGetAttribute'
+/home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/bin/x86_64-conda-linux-gnu-ld: /home/adityaseshasai.s/amcas-pro/tracing/llama.cpp/build-cuda/bin/libggml-cuda.so: undefined reference to `cuMemMap'
+/home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/bin/x86_64-conda-linux-gnu-ld: /home/adityaseshasai.s/amcas-pro/tracing/llama.cpp/build-cuda/bin/libggml-cuda.so: undefined reference to `cuMemRelease'
+/home/adityaseshasai.s/amcas-pro/tracing/mamba/envs/gem5/bin/x86_64-conda-linux-gnu-ld: /home/adityaseshasai.s/amcas-pro/tracing/llama.cpp/build-cuda/bin/libggml-cuda.so: undefined reference to `cuMemGetAllocationGranularity'
+collect2: error: ld returned 1 exit status
