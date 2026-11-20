@@ -1,0 +1,10 @@
+==========================================
+SLURM_JOB_ID = 131055
+SLURM_NODELIST = node04
+SLURM_JOB_GPUS = 
+==========================================
+Traceback (most recent call last):
+  File "/home/adityaseshasai.s/amcas-pro/results/gpu/campaign_20261120/simulate_case.py", line 21, in <module>
+    launched=len(re.findall(r'(?m)^launching kernel name:',log));assert launched==n,(launched,n)
+                                                                        ^^^^^^^^^^^
+AssertionError: (0, 462)
