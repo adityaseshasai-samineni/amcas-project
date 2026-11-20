@@ -64,6 +64,18 @@ static std::set<std::pair<long, void *>> seen;
 static long env_long(const char *n, long d) { const char *v = getenv(n); return v && *v ? atol(v) : d; }
 static std::string env_str(const char *n, const char *d = "") { const char *v = getenv(n); return v && *v ? v : d; }
 
+static std::string token_piece(const llama_vocab *vocab, llama_token token) {
+    char b[256]; int n=llama_token_to_piece(vocab,token,b,sizeof b,0,true);
+    if(n>=0)return std::string(b,n);
+    std::vector<char> tmp(-n); n=llama_token_to_piece(vocab,token,tmp.data(),tmp.size(),0,true);
+    if(n<0)abort();return std::string(tmp.data(),n);
+}
+static void save_text(const char *var,int seq,const std::string &text) {
+    const char *base=getenv(var);if(!base)return;
+    std::string path=std::string(base)+"_seq"+std::to_string(seq)+".txt";
+    FILE*f=fopen(path.c_str(),"wb");if(!f)abort();fwrite(text.data(),1,text.size(),f);fclose(f);
+}
+
 static void stamp(char what) {
     if (!out) {
         const char *p = getenv("AMCAS_STEPS");
@@ -93,6 +105,7 @@ extern "C" enum ggml_status ggml_backend_sched_graph_compute_async(ggml_backend_
     // sequences DynamoRIO crashed (SIGSEGV in std::unordered_map<bitset<256>,..>::
     // operator[] after a rehash, inside llama_batch_allocr::init) when started earlier.
     g_comp++;
+    fprintf(stdout,"AMCAS_GRAPH_BEGIN step=%ld compute=%ld\n",step,g_comp);fflush(stdout);
     if (g_prefill && step < 0 && g_comp == g_comp_first) want_trace = true;
     if (g_prefill && step < 0 && g_comp >= g_comp_first + g_comp_n) want_trace = false;
     if (want_trace && !tracing && !finished) { fprintf(stderr, "gpu-batch: selected graph begins at step %ld\n", step); dr_app_start(); tracing = true; }
@@ -112,6 +125,7 @@ extern "C" enum ggml_status ggml_backend_sched_graph_compute_async(ggml_backend_
     }
     if (tracing && g_prefill && step < 0 && g_comp + 1 >= g_comp_first + g_comp_n) { dr_app_stop_and_cleanup(); tracing = false; finished = true; fprintf(stderr, "gpu-batch: selected graph ends after compute %ld\n", g_comp); }
     else if (tracing && !g_prefill && step + 1 >= g_skip + g_ntrace) { dr_app_stop_and_cleanup(); tracing = false; finished = true; fprintf(stderr, "gpu-batch: selected graph ends after step %ld\n", step); }
+    fprintf(stdout,"AMCAS_GRAPH_END step=%ld compute=%ld\n",step,g_comp);fflush(stdout);
     return r;
 }
 
@@ -180,6 +194,7 @@ int main() {
         int n = llama_tokenize(vocab, s.data(), s.size(), prompt[b].data(), prompt[b].size(), true, false);
         if (n < P) die("prompt too short");
         prompt[b].resize(P);
+        std::string prompt_text;for(auto id:prompt[b])prompt_text+=token_piece(vocab,id);save_text("AMCAS_PROMPT_PREFIX",b,prompt_text);
         if (const char *pp = getenv("AMCAS_PROMPT_TOKENS")) {
             FILE *pf=fopen(pp, b ? "a" : "w"); if(!pf) die("prompt token file");
             fprintf(pf,"%d",b); for(auto id:prompt[b]) fprintf(pf," %d",id); fprintf(pf,"\n"); fclose(pf);
@@ -206,10 +221,12 @@ int main() {
         llama_synchronize(ctx);
         fprintf(stderr, "drbatch: prefill done, %ld graph computes\n", g_comp + 1);
         FILE *tk = fopen(env_str("AMCAS_OUT", "/dev/null").c_str(), "w");
+        std::string response_text;
         std::vector<llama_token> cur1(1); int pos1 = P; const int nv1 = llama_vocab_n_tokens(vocab);
         const float *l = llama_get_logits_ith(ctx, -1);
         for (step = 0; step <= NGEN; step++) {
             int best = 0; for (int i = 1; i < nv1; i++) if (l[i] > l[best]) best = i;
+            response_text+=token_piece(vocab,best);
             fprintf(tk, "%d\n", best); fflush(tk);
             if (step == NGEN) break;
             llama_batch_ext_clear(batch);
@@ -218,6 +235,7 @@ int main() {
             if (run(true) != 0) die("decode failed");
             l = llama_get_logits_ith(ctx, 0);
         }
+        save_text("AMCAS_RESPONSE_PREFIX",0,response_text);
         if (tracing) dr_app_stop_and_cleanup(); else if (!finished) dr_app_cleanup();
         return 0;
     }
@@ -253,6 +271,7 @@ int main() {
     std::vector<llama_token> cur(B); std::vector<int> pos(B, P - 1);
     for (int b = 0; b < B; b++) cur[b] = prompt[b][P - 1];
     FILE *tok = fopen(env_str("AMCAS_OUT", "/dev/null").c_str(), "w");
+    std::vector<std::string> response_texts(B);
     for (step = 0; step <= NGEN; step++) {
         llama_batch_ext_clear(batch);
         for (int b = 0; b < B; b++) {
@@ -266,11 +285,13 @@ int main() {
         for (int b = 0; b < B; b++) {
             const float *l = llama_get_logits_ith(ctx, b);
             int best = 0; for (int i = 1; i < nv; i++) if (l[i] > l[best]) best = i;
+            response_texts[b]+=token_piece(vocab,best);
             cur[b] = best; pos[b]++;
             fprintf(tok, "%d%c", best, b == B - 1 ? '\n' : ' ');
         }
         fflush(tok);
     }
+    for(int b=0;b<B;b++)save_text("AMCAS_RESPONSE_PREFIX",b,response_texts[b]);
     if (tracing) dr_app_stop_and_cleanup(); else if (!finished) dr_app_cleanup();
     return 0;
 }

@@ -3,7 +3,7 @@
 import argparse,json,os,pathlib,subprocess,time,signal,shutil,re,hashlib,sys
 p=argparse.ArgumentParser();p.add_argument('case');p.add_argument('--mode',choices=['native','capture'],required=True);a=p.parse_args()
 A=pathlib.Path.home()/'amcas-pro';R=A/'results/gpu/campaign_20261120';case=json.load(open(R/'cases'/f'{a.case}.json'));out=R/'runs'/a.case;out.mkdir(parents=True,exist_ok=True)
-driver=R/('llama-gpu-batch-v2' if (R/'llama-gpu-batch-v2').is_file() else 'llama-gpu-batch');driver_hash=hashlib.sha256(driver.read_bytes()).hexdigest();environment_hash=hashlib.sha256(json.dumps(case['environment'],sort_keys=True).encode()).hexdigest()
+driver=next(R/x for x in ['llama-gpu-batch-v3','llama-gpu-batch-v2','llama-gpu-batch'] if (R/x).is_file());driver_hash=hashlib.sha256(driver.read_bytes()).hexdigest();environment_hash=hashlib.sha256(json.dumps(case['environment'],sort_keys=True).encode()).hexdigest()
 if a.mode=='capture' and case['gpu_devices']==2 and not (R/'capacity_retry.json').is_file():
  subprocess.call([sys.executable,str(R/'repair_capacity.py')])
 if a.mode=='capture':
@@ -24,7 +24,7 @@ if not case['input_present']:raise SystemExit('CPU input missing: '+a.case)
 if a.mode=='capture' and not json.load(open(out/'native.status.json'))['passed']:raise SystemExit('native fit/output gate failed')
 S=pathlib.Path('/scratch')/pathlib.Path.home().name/'amcas-campaign20'/a.case/a.mode
 S.mkdir(parents=True,exist_ok=True);(S/'.amcas_trace_core').touch()
-env.update(AMCAS_OUT=str(out/(a.mode+'.tokens')),AMCAS_STEPS=str(out/(a.mode+'.steps')),AMCAS_TENSORS=str(out/(a.mode+'.tensors.tsv')),AMCAS_PROMPT_TOKENS=str(out/(a.mode+'.prompt_tokens')))
+env.update(AMCAS_OUT=str(out/(a.mode+'.tokens')),AMCAS_STEPS=str(out/(a.mode+'.steps')),AMCAS_TENSORS=str(out/(a.mode+'.tensors.tsv')),AMCAS_PROMPT_TOKENS=str(out/(a.mode+'.prompt_tokens')),AMCAS_PROMPT_PREFIX=str(out/(a.mode+'.prompt')),AMCAS_RESPONSE_PREFIX=str(out/(a.mode+'.response')))
 if a.mode=='capture':
  assert json.load(open(R/'roi_fixture_validation.json'))['pass_roi']
  if shutil.disk_usage(S).free<90*1024**3:raise SystemExit('scratch free below90GiB; old results preserved')
@@ -54,6 +54,21 @@ if rc==0:
  status['offload_layers']=off
  if not off or any(int(x)!=int(y) for x,y in off):status.update(passed=False,stop_reason='full_GPU_offload_not_confirmed')
  status['cuda_visible_devices']=env.get('CUDA_VISIBLE_DEVICES')
+if rc==0:
+ prompts=[x.split() for x in (out/(a.mode+'.prompt_tokens')).read_text().splitlines()]
+ generations=[x.split() for x in (out/(a.mode+'.tokens')).read_text().splitlines()]
+ io=[]
+ for b in range(int(case['environment']['AMCAS_B'])):
+  row=dict(sequence=b,prefill_tokens=len(prompts[b])-1,generated_tokens=sum(len(x)>b for x in generations))
+  for what in ['prompt','response']:
+   p=out/(a.mode+'.'+what+'_seq'+str(b)+'.txt')
+   if p.is_file():
+    raw=p.read_bytes()
+    try:text=raw.decode('utf-8');valid=True
+    except UnicodeDecodeError:text=raw.decode('utf-8',errors='replace');valid=False
+    row['decoded_'+what+'_text']=text;row[what+'_valid_utf8']=valid
+  io.append(row)
+ status['model_io']=io
 if rc==0 and a.mode=='capture':
  for suffix in ['tokens','prompt_tokens']:
   if (out/f'native.{suffix}').read_bytes()!=(out/f'capture.{suffix}').read_bytes():status.update(passed=False,stop_reason='native_capture_'+suffix+'_mismatch')
@@ -65,6 +80,17 @@ if status['passed'] and a.mode=='capture':
  if rc==0:
   lists=list((S/'traces').glob('kernelslist*.g'));status['kernel_lists']={x.name:x.read_text().splitlines() for x in lists}
   status['trace_bytes']=sum(f.stat().st_size for f in (S/'traces').rglob('*') if f.is_file())
+  phases=[];current=None
+  for line in (out/'capture.stdout').read_text(errors='replace').splitlines():
+   m=re.search(r'AMCAS_GRAPH_BEGIN step=(-?\d+) compute=(\d+)',line)
+   if m:current=dict(step=int(m[1]),compute=int(m[2]),kernels=[]);continue
+   m=re.search(r'Writing results to (\S+)',line)
+   if m and current is not None:current['kernels'].append(pathlib.Path(m[1]).name)
+   if 'AMCAS_GRAPH_END' in line and current is not None:
+    if current['kernels']:phases.append(current)
+    current=None
+  if phases:json.dump(phases,open(out/'capture.phase_kernels.json','w'),indent=2);status['phase_kernel_counts']=[dict(step=x['step'],compute=x['compute'],kernels=len(x['kernels'])) for x in phases]
+
 json.dump(status,open(out/(a.mode+'.status.json'),'w'),indent=2)
 print(json.dumps(status),flush=True)
 raise SystemExit(0 if status['passed'] else 1)
