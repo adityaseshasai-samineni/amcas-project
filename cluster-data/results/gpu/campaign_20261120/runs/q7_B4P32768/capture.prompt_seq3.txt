@@ -1,0 +1,2112 @@
+FF \
+  -DOPENCL_HEADERS_BUILD_CXX_TESTS=OFF \
+  -DCMAKE_INSTALL_PREFIX="$HOME/dev/llm/opencl"
+cmake --build . --target install
+
+cd ~/dev/llm
+git clone https://github.com/KhronosGroup/OpenCL-ICD-Loader && cd OpenCL-ICD-Loader
+mkdir build && cd build
+cmake .. -G Ninja \
+  -DCMAKE_BUILD_TYPE=Release \
+  -DCMAKE_PREFIX_PATH="$HOME/dev/llm/opencl" \
+  -DCMAKE_INSTALL_PREFIX="$HOME/dev/llm/opencl"
+cmake --build . --target install
+```
+
+### II. Build llama.cpp
+
+```bash
+mkdir -p ~/dev/llm
+cd ~/dev/llm
+
+git clone https://github.com/ggml-org/llama.cpp && cd llama.cpp
+mkdir build && cd build
+
+cmake .. -G Ninja \
+  -DCMAKE_BUILD_TYPE=Release \
+  -DCMAKE_PREFIX_PATH="$HOME/dev/llm/opencl" \
+  -DBUILD_SHARED_LIBS=OFF \
+  -DGGML_OPENCL=ON
+ninja
+```
+
+## Known Issues
+
+- Flash attention does not always improve performance.
+- Currently OpenCL backend works on A6xx GPUs with recent drivers and compilers (usually found in IoT platforms).
+  However, it does not work on A6xx GPUs found in phones with old drivers and compilers.
+
+## TODO
+
+- Improve flash attention
+- Improve OpenCL C kernels performance
+# OpenVINO Backend for llama.cpp
+
+> [!NOTE]
+> Performance and memory optimizations, accuracy validation, broader quantization coverage, broader operator and model support are work in progress.
+
+[OpenVINO](https://docs.openvino.ai/) is an open-source toolkit for optimizing and deploying high-performance AI inference, specifically designed for Intel hardware, including CPUs, GPUs, and NPUs, in the cloud, on-premises, and on the edge. [OpenVINO backend for llama.cpp](../../ggml/src/ggml-openvino) enables hardware-accelerated inference on **Intel® CPUs, GPUs, and NPUs** while remaining compatible with the existing **GGUF model ecosystem**. The backend translates GGML compute graphs into OpenVINO graphs and leverages graph compilation, kernel fusion, and device-specific optimizations to improve inference performance on supported Intel hardware.
+
+The OpenVINO backend is implemented in `ggml/src/ggml-openvino` and provides a translation layer for core GGML operations. The OpenVINO backend replaces the standard GGML graph execution path with Intel's OpenVINO inference engine. This approach allows the same GGUF model file to run on Intel CPUs, Intel GPUs (integrated and discrete), and Intel NPUs without changes to the model or the rest of the llama.cpp stack. When a `ggml_cgraph` is dispatched to OpenVINO backend, it:
+
+- Walks the GGML graph and identifies inputs, outputs, weights, and KV cache tensors.
+- Translates the GGML operations into an `ov::Model` using OpenVINO's frontend API.
+- Compiles and caches the model for the target device.
+- Binds GGML tensor memory to OpenVINO inference tensors and runs inference.
+
+For guidance on contributing to the OpenVINO backend, see the [OpenVINO Backend Contributing Guide](https://github.com/ravi9/llamacpp-ov-dev-guide/blob/main/contributing-llamacpp-ov.md).
+
+## Contents
+
+- [Supported Devices](#supported-devices)
+- [Supported Model Precisions](#supported-model-precisions)
+- [Supported Llama.cpp Tools](#supported-llamacpp-tools)
+- [Validated Models](#validated-models)
+- [Build Instructions](#build-instructions)
+  - [0. Prerequisites](#0-prerequisites)
+  - [1. Install OpenVINO Runtime](#1-install-openvino-runtime)
+  - [2. Build llama.cpp with OpenVINO Backend](#2-build-llamacpp-with-openvino-backend)
+    - [Ubuntu Build Script](#ubuntu-build-script)
+    - [Windows Build Script](#windows-build-script)
+  - [3. Download Sample Model](#3-download-sample-model)
+  - [4. Run Inference with OpenVINO Backend](#4-run-inference-with-openvino-backend)
+  - [5. Docker Build](#5-docker-build)
+- [GGML OpenVINO Backend Runtime Configurations](#ggml-openvino-backend-runtime-configurations)
+- [Known Limitations](#known-limitations)
+- [Work in Progress](#work-in-progress)
+
+## Supported Devices
+
+OpenVINO backend supports the following hardware:
+
+- Intel CPUs
+- Intel GPUs (integrated and discrete)
+- Intel NPUs
+
+Although OpenVINO supports a wide range of [Intel hardware](https://docs.openvino.ai/2026/about-openvino/release-notes-openvino/system-requirements.html), the llama.cpp OpenVINO backend has been validated specifically on AI PCs such as the Intel® Core™ Ultra Series 1 and Series 2.
+
+## Supported Model Precisions
+
+- `FP16`
+- `BF16` (on Intel Xeon)
+- `Q8_0`
+- `Q4_0`
+- `Q4_1`
+- `Q4_K`
+- `Q4_K_M`
+- `Q5_K` (converted to `Q8_0_C` at runtime by default)
+- `Q6_K` (converted to `Q8_0_C` at runtime by default)
+
+> [!NOTE]
+> Accuracy validation and performance optimizations for quantized models are a work in progress.
+
+**CPU and GPU Quantization Details:**
+- `Q5_K` and `Q6_K` tensors are converted to `Q8_0_C`
+
+**NPU Quantization Details:**
+- Primary supported quantization scheme is `Q4_0`
+- `Q6_K` tensors are requantized to `Q4_0_128` in general. For embedding weights, `Q6_K` tensors are requantized to `Q8_0_C` except for the token embedding matrix which is dequantized to fp16
+
+**Additional Notes:**
+- Both `Q4_0` and `Q4_1` models use `Q6_K` for the token embedding tensor and the final matmul weight tensor (often the same tensor)
+- `Q4_0` models may produce some `Q4_1` tensors if an imatrix is provided during quantization using `llama-quantize`
+- `Q4_K_M` models may include both `Q6_K` and `Q5_K` tensors (observed in Phi-3)
+- `Q5_1` tensors are dequantized natively (weights, scales, and zero-points extracted directly)
+
+## Supported Llama.cpp Tools
+
+The OpenVINO backend integrates with the standard llama.cpp tools listed below.
+However, all the tools coverage across all devices is not uniform and exhaustive validation is work in progress.
+
+- llama-bench
+- llama-cli
+- llama-completion
+- llama-embedding
+- llama-perplexity
+- llama-run
+- llama-server
+- llama-simple
+
+## Validated Models
+
+Although, the validated models below were tested with `llama-cli` using the `Q4_K_M` quantization format on Intel® Core™ Ultra Series 2 (Lunar Lake), the OpenVINO backend is expected to work across a broader range of [Intel hardware](https://docs.openvino.ai/2026/about-openvino/release-notes-openvino/system-requirements.html), [supported model precisions](#supported-model-precisions), [supported llama.cpp tools](#supported-llamacpp-tools) and additional model architectures.
+
+> [!NOTE]
+> Extensive accuracy validation, performance optimizations, and broader architecture coverage are work in progress.
+
+**Legend & Test Configuration:**
+- **Status:** ✓ = Passed | ~ = Accuracy issues | ✗ = Failed or Unsupported
+- **Execution Modes:**
+  - **SL** = Stateless (`GGML_OPENVINO_STATEFUL_EXECUTION=0`)
+  - **SF** = Stateful (`GGML_OPENVINO_STATEFUL_EXECUTION=1`)
+  - Note: The NPU operates in stateless mode only.
+- **Validation system:** Intel® Core™ Ultra 5 238V (Lunar Lake) | 32 GB RAM | Ubuntu 24.04 | Intel Graphics Compiler 2.41.5 | Intel OpenCL GPU Driver 26.35.39758.10-0 | Intel NPU Driver 1.38.0.
+- See [Known Limitations](#known-limitations) for context on observed failures.
+
+| Model | CPU (SL / SF) | GPU (SL / SF) | NPU (SL) |
+| :--- | :---: | :---: | :---: |
+| [bartowski/Llama-3.2-1B-Instruct-Q4_K_M](https://huggingface.co/bartowski/Llama-3.2-1B-Instruct-GGUF) | ✓ / ✓ | ✓ / ✓ | ✓ |
+| [bartowski/Llama-3.2-3B-Instruct-Q4_K_M](https://huggingface.co/bartowski/Llama-3.2-3B-Instruct-GGUF) | ✓ / ✓ | ✓ / ✓ | ✓ |
+| [bartowski/Meta-Llama-3.1-8B-Instruct-Q4_K_M](https://huggingface.co/bartowski/Meta-Llama-3.1-8B-Instruct-GGUF) | ✓ / ✓ | ✓ / ✓ | ✓ |
+|  |  |  |  |
+| [Qwen/qwen2.5-1.5b-instruct-q4_k_m](https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct-GGUF) | ✓ / ✓ | ✓ / ✓ | ✓ |
+| [Qwen/qwen2.5-coder-7b-instruct-q4_k_m](https://huggingface.co/Qwen/Qwen2.5-Coder-7B-Instruct-GGUF) | ✓ / ✓ | ✓ / ✓ | ✓ |
+| [bartowski/Qwen_Qwen3-0.6B-Q4_K_M](https://huggingface.co/bartowski/Qwen_Qwen3-0.6B-GGUF) | ✓ / ✓ | ✓ / ✓ | ✓ |
+| [bartowski/Qwen_Qwen3-1.7B-Q4_K_M](https://huggingface.co/bartowski/Qwen_Qwen3-1.7B-GGUF) | ✓ / ✓ | ✓ / ✓ | ✓ |
+| [Qwen/Qwen3-4B-Q4_K_M](https://huggingface.co/Qwen/Qwen3-4B-GGUF) | ✓ / ✓ | ✓ / ✓ | ✓ |
+| [lm-kit/Qwen3-8B-Q4_K_M](https://huggingface.co/lm-kit/qwen-3-8b-instruct-gguf) | ✓ / ✓ | ✓ / ✓ | ✓ |
+| [bartowski/Qwen_Qwen3.5-0.8B-Q4_K_M](https://huggingface.co/bartowski/Qwen_Qwen3.5-0.8B-GGUF) | ✓ / ✓ | ✓ / ✓ | ✗ |
+| [bartowski/Qwen_Qwen3.5-2B-Q4_K_M](https://huggingface.co/bartowski/Qwen_Qwen3.5-2B-GGUF) | ✓ / ✓ | ✓ / ✓ | ✗ |
+| [bartowski/Qwen_Qwen3.5-4B-Q4_K_M](https://huggingface.co/bartowski/Qwen_Qwen3.5-4B-GGUF) | ✓ / ✓ | ✓ / ✓ | ✗ |
+| [lmstudio-community/Qwen3.5-9B-Q4_K_M](https://huggingface.co/lmstudio-community/Qwen3.5-9B-GGUF) | ✓ / ✓ | ✓ / ✓ | ✗ |
+|  |  |  |  |
+| [unsloth/gemma-3-4b-it-Q4_K_M](https://huggingface.co/unsloth/gemma-3-4b-it-GGUF) | ✓ / ✓ | ✓ / ✓ | ✓ |
+| [bartowski/google_gemma-4-E2B-it-Q4_K_M](https://huggingface.co/bartowski/google_gemma-4-E2B-it-GGUF) | ✓ / ✓ | ✓ / ✓ | ~ |
+| [bartowski/google_gemma-4-E4B-it-Q4_K_M](https://huggingface.co/bartowski/google_gemma-4-E4B-it-GGUF) | ✓ / ✓ | ✗ / ✗ | ✓ |
+| [bartowski/gemma-4-12B-it-Q4_K_M](https://huggingface.co/bartowski/gemma-4-12B-it-GGUF) | ✓ / ✓ | ✓ / ✓ | ✗ |
+|  |  |  |  |
+| [bartowski/Phi-3-mini-4k-instruct-Q4_K_M](https://huggingface.co/bartowski/Phi-3-mini-4k-instruct-GGUF) | ✓ / ✓ | ✓ / ✓ | ✓ |
+| [bartowski/Phi-3.5-mini-instruct-Q4_K_M](https://huggingface.co/bartowski/Phi-3.5-mini-instruct-GGUF) | ✓ / ✓ | ✓ / ✓ | ✓ |
+| [bartowski/microsoft_Phi-4-mini-instruct-Q4_K_M](https://huggingface.co/bartowski/microsoft_Phi-4-mini-instruct-GGUF) | ✓ / ✓ | ✓ / ✓ | ✓ |
+|  |  |  |  |
+| [bartowski/Mistral-7B-Instruct-v0.3-Q4_K_M](https://huggingface.co/bartowski/Mistral-7B-Instruct-v0.3-GGUF) | ✓ / ✓ | ✓ / ✓ | ✓ |
+| [QuantFactory/Ministral-3b-instruct.Q4_K_M](https://huggingface.co/QuantFactory/Ministral-3b-instruct-GGUF) | ✓ / ✓ | ✓ / ✓ | ✓ |
+| [bartowski/Ministral-8B-Instruct-2410-Q4_K_M](https://huggingface.co/bartowski/Ministral-8B-Instruct-2410-GGUF) | ✓ / ✓ | ✓ / ✓ | ✓ |
+|  |  |  |  |
+| [bartowski/DeepSeek-R1-Distill-Llama-8B-Q4_K_M](https://huggingface.co/bartowski/DeepSeek-R1-Distill-Llama-8B-GGUF) | ✓ / ✓ | ✓ / ✓ | ✓ |
+| [bartowski/DeepSeek-R1-Distill-Qwen-7B-Q4_K_M](https://huggingface.co/bartowski/DeepSeek-R1-Distill-Qwen-7B-GGUF) | ✓ / ✓ | ✓ / ✓ | ✓ |
+|  |  |  |  |
+| [ibm-granite/granite-4.0-350m-Q4_K_M](https://huggingface.co/ibm-granite/granite-4.0-350m-GGUF) | ✓ / ✓ | ~ / ~ | ✓ |
+| [ibm-granite/granite-4.0-micro-Q4_K_M](https://huggingface.co/ibm-granite/granite-4.0-micro-GGUF) | ✓ / ✓ | ✓ / ✓ | ✓ |
+| [ibm-granite/granite-4.0-1b-Q4_K_M](https://huggingface.co/ibm-granite/granite-4.0-1b-GGUF) | ✓ / ✓ | ~ / ~ | ~ |
+| [ibm-research/granite-3.2-8b-instruct-Q4_K_M](https://huggingface.co/ibm-research/granite-3.2-8b-instruct-GGUF) | ✓ / ✓ | ✓ / ✓ | ✓ |
+|  |  |  |  |
+| [HuggingFaceTB/smollm2-1.7b-instruct-q4_k_m](https://huggingface.co/HuggingFaceTB/SmolLM2-1.7B-Instruct-GGUF) | ✓ / ✓ | ✓ / ✓ | ✓ |
+| [openbmb/MiniCPM-V-2_6-Q4_K_M](https://huggingface.co/openbmb/MiniCPM-V-2_6-gguf) | ✓ / ✓ | ✓ / ✓ | ✓ |
+| [bartowski/tencent_Hunyuan-7B-Instruct-Q4_K_M](https://huggingface.co/bartowski/tencent_Hunyuan-7B-Instruct-GGUF) | ✓ / ✓ | ✓ / ✓ | ✓ |
+| [LGAI-EXAONE/EXAONE-3.5-7.8B-Instruct-Q4_K_M](https://huggingface.co/LGAI-EXAONE/EXAONE-3.5-7.8B-Instruct-GGUF) | ✓ / ✓ | ✓ / ✓ | ✓ |
+| [bartowski/prism-ml_Bonsai-8B-unpacked-Q4_K_M](https://huggingface.co/bartowski/prism-ml_Bonsai-8B-unpacked-GGUF) | ✓ / ✓ | ✓ / ✓ | ✓ |
+|  |  |  |  |
+| [gpustack/bge-m3-Q4_K_M.gguf](https://huggingface.co/gpustack/bge-m3-GGUF) | ✓ | ✗ | ✗ |
+
+## Build Instructions
+
+### 0. Prerequisites
+
+- Linux or Windows system with Intel hardware (CPU, GPU, or NPU)
+- **For Intel GPU or NPU Usage**: Install the appropriate hardware drivers for your Intel GPU or NPU. For detailed instructions, see: [Additional Configurations for Hardware Acceleration](https://docs.openvino.ai/2026/get-started/install-openvino/configurations.html).
+
+- **Linux:**
+    - Git, CMake, and Ninja software tools are needed for building.
+    ```bash
+      sudo apt-get update
+      sudo apt-get install -y build-essential libcurl4-openssl-dev libtbb12 cmake ninja-build python3-pip curl wget tar
+    ```
+    - OpenCL
+    ```bash
+      sudo apt install ocl-icd-opencl-dev opencl-headers opencl-clhpp-headers intel-opencl-icd
+    ```
+
+- **Windows:**
+  - Download and install [Microsoft Visual Studio 2022 Build Tools](https://aka.ms/vs/17/release/vs_BuildTools.exe). During installation, select the **"Desktop development with C++"** workload.
+
+  - Install required tools:
+    ```powershell
+    # Windows PowerShell
+    winget install Git.Git
+    winget install GNU.Wget
+    winget install Ninja-build.Ninja
+    ```
+
+  - Install **OpenCL** using **vcpkg**:
+    ```powershell
+    # Windows PowerShell
+    cd C:\
+    git clone https://github.com/microsoft/vcpkg
+    cd vcpkg
+    .\bootstrap-vcpkg.bat
+    .\vcpkg install opencl
+    # Optional but recommended: Integrate vcpkg with Visual Studio / CMake:
+    .\vcpkg integrate install
+    ```
+
+### 1. Install OpenVINO Runtime
+
+- Follow the guide to install OpenVINO Runtime from an archive file: [Linux](https://docs.openvino.ai/2026/get-started/install-openvino/install-openvino-archive-linux.html) | [Windows](https://docs.openvino.ai/2026/get-started/install-openvino/install-openvino-archive-windows.html)
+
+- Verify OpenVINO is initialized properly:
+  ```bash
+  echo $OpenVINO_DIR
+  ```
+
+### 2. Build llama.cpp with OpenVINO Backend
+
+Clone llama.cpp repo and build :
+
+```bash
+git clone https://github.com/ggml-org/llama.cpp
+cd llama.cpp
+```
+
+- **Linux:**
+```bash
+source /opt/intel/openvino/setupvars.sh
+cmake -B build/ReleaseOV -G Ninja -DCMAKE_BUILD_TYPE=Release -DGGML_OPENVINO=ON
+cmake --build build/ReleaseOV --parallel
+```
+
+- **Windows:** Open **x64 Native Tools Command Prompt for VS** (so the MSVC toolchain is on `PATH`), then run:
+
+```cmd
+C:\Intel\openvino\setupvars.bat
+cmake -B build\ReleaseOV -G Ninja -DCMAKE_BUILD_TYPE=Release -DGGML_OPENVINO=ON -DCMAKE_TOOLCHAIN_FILE=C:\vcpkg\scripts\buildsystems\vcpkg.cmake
+cmake --build build\ReleaseOV --parallel
+```
+
+> [!NOTE]
+> The Windows install path is `C:\Intel\openvino` (no spaces) to avoid quoting problems some CMake/Ninja toolchains have with `C:\Program Files (x86)\...`. Adjust to wherever you installed OpenVINO Runtime. From `cmd`, run `C:\Intel\openvino\setupvars.bat`; from PowerShell, run `& "C:\Intel\openvino\setupvars.ps1"` instead. Once the build is finished you can launch the binaries from any `cmd` or `PowerShell` window after sourcing the matching `setupvars` script for that shell.
+
+#### Ubuntu Build Script
+
+For Ubuntu24 users, the following shell script automates the prerequisite installs (build tools, OpenCL ICD), the OpenVINO Runtime download/extract/setup, and the Ninja-based llama.cpp build.
+Save the following as `build-llamacpp-ov.sh` next to where you want the `llama.cpp` folder to land, then run it:
+
+```bash
+chmod +x build-llamacpp-ov.sh
+./build-llamacpp-ov.sh
+```
+
+<details>
+<summary>Click to expand <code>build-llamacpp-ov.sh</code></summary>
+
+```bash
+#!/usr/bin/env bash
+# ============================================
+# llama.cpp OpenVINO Build Script (Ninja)
+# ============================================
+set -euo pipefail
+
+OPENVINO_VERSION_MAJOR="2026.4.1"
+OPENVINO_VERSION_FULL="2026.4.1.22982.07f9c262b05"
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+OPENVINO_INSTALL_DIR="/opt/intel/openvino_${OPENVINO_VERSION_MAJOR}"
+OPENVINO_LINK_DIR="/opt/intel/openvino"
+OPENVINO_TGZ="${SCRIPT_DIR}/openvino.tgz"
+OPENVINO_URL="https://storage.openvinotoolkit.org/repositories/openvino/packages/${OPENVINO_VERSION_MAJOR}/linux/openvino_toolkit_ubuntu24_${OPENVINO_VERSION_FULL}_x86_64.tgz"
+
+echo "============================================"
+echo "Installing prerequisites (apt)..."
+echo "============================================"
+sudo apt-get update
+sudo apt-get install -y \
+    build-essential libcurl4-openssl-dev libtbb12 \
+    cmake ninja-build python3-pip \
+    curl wget tar git
+
+echo "============================================"
+echo "Installing OpenCL runtime + headers..."
+echo "============================================"
+sudo apt-get install -y \
+    ocl-icd-opencl-dev opencl-headers opencl-clhpp-headers intel-opencl-icd
+
+cd "${SCRIPT_DIR}"
+
+# ============================================
+# Clone llama.cpp if missing
+# ============================================
+if [[ ! -f "llama.cpp/CMakeLists.txt" ]]; then
+    echo "Cloning llama.cpp..."
+    git clone https://github.com/ggml-org/llama.cpp
+fi
+
+# ============================================
+# Setup OpenVINO: download & extract to /opt/intel/openvino_${OPENVINO_VERSION_MAJOR},
+# then point /opt/intel/openvino at it via symlink so the active version is swappable.
+# ============================================
+if [[ -f "${OPENVINO_INSTALL_DIR}/setupvars.sh" ]]; then
+    echo "OpenVINO ${OPENVINO_VERSION_MAJOR} already installed at ${OPENVINO_INSTALL_DIR}. Skipping download."
+else
+    echo "OpenVINO not found at ${OPENVINO_INSTALL_DIR}. Starting download..."
+    curl -L -o "${OPENVINO_TGZ}" "${OPENVINO_URL}"
+
+    echo "Extracting OpenVINO to ${OPENVINO_INSTALL_DIR}..."
+    sudo mkdir -p "${OPENVINO_INSTALL_DIR}"
+    sudo tar -xzf "${OPENVINO_TGZ}" -C "${OPENVINO_INSTALL_DIR}" --strip-components=1
+    rm -f "${OPENVINO_TGZ}"
+fi
+
+# Refresh symlink: /opt/intel/openvino -> /opt/intel/openvino_${OPENVINO_VERSION_MAJOR}
+sudo ln -sfn "${OPENVINO_INSTALL_DIR}" "${OPENVINO_LINK_DIR}"
+
+OPENVINO_ROOT="${OPENVINO_LINK_DIR}"
+echo "OpenVINO Ready: ${OPENVINO_ROOT} -> ${OPENVINO_INSTALL_DIR}"
+
+# Install OpenVINO's own runtime dependencies (one-time per system).
+if [[ -x "${OPENVINO_ROOT}/install_dependencies/install_openvino_dependencies.sh" ]]; then
+    echo "============================================"
+    echo "Installing OpenVINO runtime dependencies..."
+    echo "============================================"
+    echo "Y" | sudo -E "${OPENVINO_ROOT}/install_dependencies/install_openvino_dependencies.sh"
+fi
+
+# ============================================
+# Clean old build cache
+# ============================================
+cd "${SCRIPT_DIR}/llama.cpp"
+if [[ -d "build/ReleaseOV" ]]; then
+    echo "Removing old build directory..."
+    rm -rf "build/ReleaseOV"
+fi
+
+echo "============================================"
+echo "Configuring with CMake..."
+echo "============================================"
+set +u
+source "${OPENVINO_ROOT}/setupvars.sh"
+set -u
+
+cmake -B build/ReleaseOV -G Ninja \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DGGML_OPENVINO=ON
+
+cmake --build build/ReleaseOV --parallel
+
+echo "============================================"
+echo "Build completed successfully!"
+echo "============================================"
+echo "Binaries: $(pwd)/build/ReleaseOV/bin"
+echo
+echo "NOTE: To run, source setupvars.sh and pick a device:"
+echo "  source /opt/intel/openvino/setupvars.sh"
+echo "  export GGML_OPENVINO_DEVICE=CPU   # or GPU / NPU"
+echo "  ./build/ReleaseOV/bin/llama-cli -m model.gguf"
+```
+
+> [!NOTE]
+> The script pins OpenVINO `2026.4.1` via the `OPENVINO_VERSION_MAJOR` / `OPENVINO_VERSION_FULL` variables at the top — edit them to track a different release.
+
+</details>
+
+#### Windows Build Script
+
+For Windows users, the following `.bat` script automates the prerequisite installs (Git, Ninja, CMake, Visual Studio 2022 Build Tools, vcpkg + OpenCL), the OpenVINO Runtime download/extract, and the Ninja-based llama.cpp build.
+Save the following as `build-llamacpp-ov.bat` next to where you want the `llama.cpp` to land, then run it from either **Command Prompt** or **PowerShell**:
+
+```cmd
+:: Command Prompt
+build-llamacpp-ov.bat
+```
+
+```powershell
+# PowerShell
+.\build-llamacpp-ov.bat
+```
+
+<details>
+<summary>Click to expand <code>build-llamacpp-ov.bat</code></summary>
+
+```bat
+@echo off
+setlocal enabledelayedexpansion
+
+REM ============================================
+REM llama.cpp OpenVINO Build Script (Ninja)
+REM ============================================
+
+set "OPENVINO_VERSION_MAJOR=2026.4.1"
+set "OPENVINO_VERSION_FULL=2026.4.1.22982.07f9c262b05"
+
+set "SCRIPT_DIR=%~dp0"
+set "VCPKG_DIR=C:\vcpkg"
+set "OPENVINO_INSTALL_DIR=C:\Intel\openvino_%OPENVINO_VERSION_MAJOR%"
+set "OPENVINO_LINK_DIR=C:\Intel\openvino"
+set "OPENVINO_ZIP=%SCRIPT_DIR%openvino.zip"
+set "OPENVINO_EXTRACT_TMP=%SCRIPT_DIR%openvino_extract_tmp"
+set "OPENVINO_URL=https://storage.openvinotoolkit.org/repositories/openvino/packages/%OPENVINO_VERSION_MAJOR%/windows/openvino_toolkit_windows_%OPENVINO_VERSION_FULL%_x86_64.zip"
+
+echo ============================================
+echo Installing prerequisites...
+echo ============================================
+winget install --id Git.Git -e --accept-source-agreements --accept-package-agreements 2>nul
+winget install --id Ninja-build.Ninja -e --accept-source-agreements --accept-package-agreements 2>nul
+winget install --id Kitware.CMake -e --accept-source-agreements --accept-package-agreements 2>nul
+
+REM Ensure Visual Studio Build Tools are installed.
+echo Checking for Visual Studio Build Tools...
+set "VSWHERE=%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe"
+set "VS_INSTALLED="
+if exist "%VSWHERE%" (
+    for /f "usebackq tokens=*" %%i in (`"%VSWHERE%" -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath 2^>nul`) do (
+        set "VS_INSTALLED=%%i"
+    )
+)
+if defined VS_INSTALLED (
+    echo Visual Studio with VC++ x86/x64 tools already present at "!VS_INSTALLED!". Skipping winget install.
+) else (
+    winget install --id Microsoft.VisualStudio.2022.BuildTools -e --override "--wait --passive --add Microsoft.VisualStudio.Workload.VCTools --includeRecommended" --accept-source-agreements --accept-package-agreements
+    if errorlevel 1 (
+        echo WARNING: winget could not install Visual Studio Build Tools automatically.
+        echo Install manually from https://aka.ms/vs/17/release/vs_BuildTools.exe ^(select the "Desktop development with C++" workload^)
+        echo and re-run this script from a "Developer Command Prompt for VS 2022".
+    )
+)
+
+echo ============================================
+echo Installing OpenCL via vcpkg...
+echo ============================================
+if not exist "%VCPKG_DIR%" (
+    git clone https://github.com/microsoft/vcpkg "%VCPKG_DIR%"
+    cd /d "%VCPKG_DIR%"
+    call bootstrap-vcpkg.bat
+    call vcpkg integrate install
+)
+cd /d "%VCPKG_DIR%"
+call vcpkg install opencl
+
+cd /d "%SCRIPT_DIR%"
+
+REM ============================================
+REM Clone llama.cpp if missing
+REM ============================================
+if not exist "llama.cpp\CMakeLists.txt" (
+    echo Cloning llama.cpp...
+    git clone https://github.com/ggml-org/llama.cpp
+)
+
+cd /d "llama.cpp"
+set "SCRIPT_DIR=%CD%"
+
+REM ============================================
+REM Setup OpenVINO: download & extract to C:\Intel\openvino_%OPENVINO_VERSION_MAJOR%,
+REM then point C:\Intel\openvino at it via a directory junction (mklink /J).
+REM ============================================
+
+if exist "%OPENVINO_INSTALL_DIR%\setupvars.bat" (
+    echo OpenVINO %OPENVINO_VERSION_MAJOR% already installed at "%OPENVINO_INSTALL_DIR%". Skipping download.
+) else (
+    echo OpenVINO not found at "%OPENVINO_INSTALL_DIR%". Starting download...
+
+    curl -L -o "%OPENVINO_ZIP%" "%OPENVINO_URL%"
+    if errorlevel 1 (
+        echo ERROR: Download failed.
+        exit /b 1
+    )
+
+    echo Extracting OpenVINO...
+    if exist "%OPENVINO_EXTRACT_TMP%" rmdir /s /q "%OPENVINO_EXTRACT_TMP%"
+    mkdir "%OPENVINO_EXTRACT_TMP%"
+    tar -xf "%OPENVINO_ZIP%" -C "%OPENVINO_EXTRACT_TMP%"
+    if errorlevel 1 (
+        echo ERROR: Extraction failed.
+        exit /b 1
+    )
+
+    REM Move the single top-level folder contents into the versioned install dir.
+    set "OPENVINO_EXTRACTED="
+    for /d %%i in ("%OPENVINO_EXTRACT_TMP%\*") do set "OPENVINO_EXTRACTED=%%i"
+    if not defined OPENVINO_EXTRACTED (
+        echo ERROR: Could not locate extracted OpenVINO folder under "%OPENVINO_EXTRACT_TMP%".
+        exit /b 1
+    )
+    if not exist "%OPENVINO_INSTALL_DIR%" mkdir "%OPENVINO_INSTALL_DIR%"
+    xcopy /e /i /y /q "!OPENVINO_EXTRACTED!\*" "%OPENVINO_INSTALL_DIR%\" >nul
+    if errorlevel 1 (
+        echo ERROR: Failed to copy OpenVINO from "!OPENVINO_EXTRACTED!" to "%OPENVINO_INSTALL_DIR%".
+        echo Re-run this script from an elevated Command Prompt ^(Run as administrator^) if access is denied.
+        exit /b 1
+    )
+
+    rmdir /s /q "%OPENVINO_EXTRACT_TMP%"
+    del "%OPENVINO_ZIP%"
+)
+
+REM Refresh junction: C:\Intel\openvino -> C:\Intel\openvino_<version>.
+REM `mklink /J` creates a directory junction (no admin / Developer Mode required).
+if exist "%OPENVINO_LINK_DIR%" rmdir "%OPENVINO_LINK_DIR%"
+mklink /J "%OPENVINO_LINK_DIR%" "%OPENVINO_INSTALL_DIR%" >nul
+if errorlevel 1 (
+    echo ERROR: Failed to create junction "%OPENVINO_LINK_DIR%" -^> "%OPENVINO_INSTALL_DIR%".
+    echo If "%OPENVINO_LINK_DIR%" already exists as a regular non-empty folder, remove it manually and re-run.
+    exit /b 1
+)
+
+set "OPENVINO_ROOT=%OPENVINO_LINK_DIR%"
+echo OpenVINO Ready: %OPENVINO_ROOT% -^> %OPENVINO_INSTALL_DIR%
+
+
+echo ============================================
+echo Setting up compiler environment...
+echo ============================================
+REM Locate Visual Studio Build Tools vcvars64.bat
+set "VSWHERE=%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe"
+if exist "%VSWHERE%" (
+    for /f "usebackq tokens=*" %%i in (`"%VSWHERE%" -latest -products Microsoft.VisualStudio.Product.BuildTools -property installationPath`) do (
+        set "VS_PATH=%%i"
+    )
+)
+if defined VS_PATH (
+    call "%VS_PATH%\VC\Auxiliary\Build\vcvars64.bat" >nul
+) else (
+    echo WARNING: Visual Studio Build Tools not found. Compiler may be missing.
+)
+
+REM ============================================
+REM Clean old build cache
+REM ============================================
+if exist "build\ReleaseOV" (
+    echo Removing old build directory ...
+    rmdir /s /q "build\ReleaseOV"
+)
+
+echo ============================================
+echo Configuring with CMake...
+echo ============================================
+call "%OPENVINO_ROOT%\setupvars.bat" >nul 2>nul
+
+cmake -B build\ReleaseOV -G Ninja ^
+    -DCMAKE_BUILD_TYPE=Release ^
+    -DGGML_OPENVINO=ON ^
+    -DCMAKE_TOOLCHAIN_FILE="%VCPKG_DIR%\scripts\buildsystems\vcpkg.cmake"
+
+if errorlevel 1 (
+    echo If you continue to face CMAKE errors, make sure to install:
+    echo   winget install Microsoft.VisualStudio.2022.BuildTools
+    echo   Then run the "Developer Command Prompt for VS 2022" and launch this script from there.
+    exit /b 1
+)
+
+cmake --build build\ReleaseOV --config Release
+if errorlevel 1 exit /b 1
+
+echo ============================================
+echo Build completed successfully!
+echo ============================================
+echo Binaries: %CD%\build\ReleaseOV\bin
+echo.
+echo NOTE: To run, source setupvars.bat and pick a device:
+echo   call "C:\Intel\openvino\setupvars.bat"
+echo   set GGML_OPENVINO_DEVICE=CPU   ^&^& REM or GPU / NPU
+echo   build\ReleaseOV\bin\llama-cli.exe -m model.gguf
+echo.
+
+endlocal
+```
+
+> [!NOTE]
+> The script pins OpenVINO `2026.4.1` via the `OPENVINO_VERSION_MAJOR` / `OPENVINO_VERSION_FULL` variables at the top — edit them to track a different release. From any new shell, source the matching `setupvars` script via the junction — `call "C:\Intel\openvino\setupvars.bat"` from `cmd`, or `& "C:\Intel\openvino\setupvars.ps1"` from PowerShell. If `winget` cannot register Visual Studio Build Tools on first run, install them once manually and re-run the script from an elevated **Developer Command Prompt for VS 2022**.
+
+</details>
+
+
+### 3. Download Sample Model
+
+Download sample model for testing.
+
+```bash
+# Linux
+mkdir -p ~/models/
+wget https://huggingface.co/bartowski/Llama-3.2-1B-Instruct-GGUF/resolve/main/Llama-3.2-1B-Instruct-Q4_K_M.gguf \
+     -O ~/models/Llama-3.2-1B-Instruct-Q4_K_M.gguf
+
+# Windows PowerShell
+mkdir C:\models
+Invoke-WebRequest -Uri https://huggingface.co/bartowski/Llama-3.2-1B-Instruct-GGUF/resolve/main/Llama-3.2-1B-Instruct-Q4_K_M.gguf -OutFile C:\models\Llama-3.2-1B-Instruct-Q4_K_M.gguf
+
+# Windows Command Line
+mkdir C:\models
+curl -L https://huggingface.co/bartowski/Llama-3.2-1B-Instruct-GGUF/resolve/main/Llama-3.2-1B-Instruct-Q4_K_M.gguf -o C:\models\Llama-3.2-1B-Instruct-Q4_K_M.gguf
+```
+
+### 4. Run Inference with OpenVINO Backend
+
+When using the OpenVINO backend, the first inference token may have slightly higher latency due to on-the-fly conversion to the OpenVINO graph. Subsequent tokens and runs will be faster.
+
+> [!NOTE]
+> Default context size is set to the model training context, which may be very large. For example, 131072 for Llama 3.2 1B, which may result in lower performance, especially on edge/laptop devices. Use `-c` to limit context size in supported llama.cpp tools for better performance. For example, `-c 512`.
+
+```bash
+# If device is unset or unavailable, defaults to CPU.
+# If the system has multiple GPUs, use GPU.0 or GPU.1 to explicitly target a specific GPU.
+
+# Linux
+export GGML_OPENVINO_DEVICE=GPU
+# Optional: enable stateful execution for improved GPU performance (recommended).
+export GGML_OPENVINO_STATEFUL_EXECUTION=1
+# To run llama-simple:
+./build/ReleaseOV/bin/llama-simple -m ~/models/Llama-3.2-1B-Instruct-Q4_K_M.gguf -n 50 "The story of AI is "
+# To run in chat mode:
+./build/ReleaseOV/bin/llama-cli -m ~/models/Llama-3.2-1B-Instruct-Q4_K_M.gguf -c 1024
+# To run llama-bench, -fa 1 is needed
+GGML_OPENVINO_STATEFUL_EXECUTION=1 GGML_OPENVINO_DEVICE=GPU ./build/ReleaseOV/bin/llama-bench -m ~/models/Llama-3.2-1B-Instruct-Q4_K_M.gguf -fa 1
+
+# NPU: keep context small to avoid failures from very large model context windows.
+export GGML_OPENVINO_DEVICE=NPU
+./build/ReleaseOV/bin/llama-cli -m ~/models/Llama-3.2-1B-Instruct-Q4_K_M.gguf -c 512
+
+# Windows Command Line
+set GGML_OPENVINO_DEVICE=GPU
+# Optional: enable stateful execution for improved GPU performance (recommended).
+set GGML_OPENVINO_STATEFUL_EXECUTION=1
+# Windows PowerShell
+$env:GGML_OPENVINO_DEVICE = "GPU"
+$env:GGML_OPENVINO_STATEFUL_EXECUTION = "1"
+
+# To run llama-simple
+build\ReleaseOV\bin\llama-simple.exe -m "C:\models\Llama-3.2-1B-Instruct-Q4_K_M.gguf" -n 50 "The story of AI is "
+# To run in chat mode:
+build\ReleaseOV\bin\llama-cli.exe -m "C:\models\Llama-3.2-1B-Instruct-Q4_K_M.gguf" -c 1024
+# To run llama-bench, -fa 1 is needed
+build\ReleaseOV\bin\llama-bench.exe -m "C:\models\Llama-3.2-1B-Instruct-Q4_K_M.gguf" -fa 1
+
+# NPU: keep context small to avoid failures from very large model context windows.
+# Windows Command Line
+set GGML_OPENVINO_DEVICE=NPU
+# Windows PowerShell
+$env:GGML_OPENVINO_DEVICE = "NPU"
+build\ReleaseOV\bin\llama-cli.exe -m "C:\models\Llama-3.2-1B-Instruct-Q4_K_M.gguf" -c 512
+```
+> [!NOTE]
+> On systems with multiple GPUs, use `GPU.0` or `GPU.1` to explicitly target specific GPU. A device that is not available is an error (no fallback to CPU), and the error message lists the available OpenVINO devices with their names. Run `llama-cli --list-devices` to see the valid values: each OpenVINO device shows the `GGML_OPENVINO_DEVICE=<value>` to set, and `(selected)` marks the active one. Select the OpenVINO device with this variable, not with `-dev`. See [OpenVINO GPU Device](https://docs.openvino.ai/2026/openvino-workflow/running-inference/inference-devices-and-modes/gpu-device.html) for more details.
+
+### 5. Docker Build
+
+You can build and run llama.cpp with OpenVINO backend using Docker.
+
+```bash
+# Build the base runtime image with compiled shared libraries and minimal dependencies.
+docker build -t llama-openvino:base -f .devops/openvino.Dockerfile .
+
+# Build the complete image with all binaries, Python tools, gguf-py library, and model conversion utilities.
+docker build --target=full -t llama-openvino:full -f .devops/openvino.Dockerfile .
+
+# Build a minimal CLI-only image containing just the llama-cli executable.
+docker build --target=light -t llama-openvino:light -f .devops/openvino.Dockerfile .
+
+# Builds a server-only image with llama-server executable, health check endpoint, and REST API support.
+docker build --target=server -t llama-openvino:server -f .devops/openvino.Dockerfile .
+
+# If you are behind a proxy:
+docker build --build-arg http_proxy=$http_proxy --build-arg https_proxy=$https_proxy --target=server -t llama-openvino:server -f .devops/openvino.Dockerfile .
+```
+
+Run llama.cpp with OpenVINO backend Docker container.
+Save sample models in `~/models` as [shown above](#3-download-sample-model). It will be mounted to the container in the examples below.
+
+
+```bash
+#  Run Docker container
+docker run --rm -it -v ~/models:/models llama-openvino:light --no-warmup -c 1024 -m /models/Llama-3.2-1B-Instruct-Q4_K_M.gguf
+
+# With Intel GPU access (iGPU or dGPU)
+docker run --rm -it -v ~/models:/models \
+--device=/dev/dri --group-add=$(stat -c "%g" /dev/dri/render* | head -n 1) -u $(id -u):$(id -g) \
+--env=GGML_OPENVINO_DEVICE=GPU --env=GGML_OPENVINO_STATEFUL_EXECUTION=1 \
+llama-openvino:light --no-warmup -c 1024 -m /models/Llama-3.2-1B-Instruct-Q4_K_M.gguf
+
+# With Intel NPU access
+docker run --rm -it -v ~/models:/models \
+--device=/dev/accel --group-add=$(stat -c "%g" /dev/dri/render* | head -n 1) -u $(id -u):$(id -g) \
+--env=GGML_OPENVINO_DEVICE=NPU \
+llama-openvino:light --no-warmup -c 1024 -m /models/Llama-3.2-1B-Instruct-Q4_K_M.gguf
+```
+
+Run Llama.cpp Server with OpenVINO Backend.
+> [!NOTE]
+> `llama-server` with OpenVINO backend supports only one chat session/thread, when `GGML_OPENVINO_STATEFUL_EXECUTION=1` is enabled.
+
+```bash
+# Run the llama-openvino:server Docker container (CPU)
+docker run --rm -it -p 8080:8080 -v ~/models:/models llama-openvino:server --no-warmup -m /models/Llama-3.2-1B-Instruct-Q4_K_M.gguf -c 1024 --host 0.0.0.0
+
+# Run the llama-openvino:server Docker container with Intel GPU access (iGPU or dGPU)
+docker run --rm -it -v ~/models:/models \
+--device=/dev/dri --group-add=$(stat -c "%g" /dev/dri/render* | head -n 1) -u $(id -u):$(id -g) \
+-p 8080:8080 --env=GGML_OPENVINO_DEVICE=GPU  \
+llama-openvino:server --no-warmup -c 1024 -m /models/Llama-3.2-1B-Instruct-Q4_K_M.gguf --host 0.0.0.0
+
+# Run the llama-openvino:server Docker container with Intel NPU access
+docker run --rm -it -v ~/models:/models \
+--device=/dev/accel --group-add=$(stat -c "%g" /dev/dri/render* | head -n 1) -u $(id -u):$(id -g) \
+-p 8080:8080 --env=GGML_OPENVINO_DEVICE=NPU \
+llama-openvino:server --no-warmup -c 1024 -m /models/Llama-3.2-1B-Instruct-Q4_K_M.gguf --host 0.0.0.0
+
+# Or Using llama-server executable
+./build/ReleaseOV/bin/llama-server -m ~/models/Llama-3.2-1B-Instruct-Q4_K_M.gguf --port 8080 -c 1024
+
+# Option 1: Open your browser to http://localhost:8080 to access the web UI for the llama.cpp server.
+# Option 2: In a NEW terminal, test the server with curl
+
+# If you are behind a proxy, make sure to set NO_PROXY to avoid proxy for localhost
+export NO_PROXY=localhost,127.0.0.1
+
+# Test health endpoint
+curl -f http://localhost:8080/health
+
+# Test with a simple prompt
+curl -X POST "http://localhost:8080/v1/chat/completions" -H "Content-Type: application/json" \
+ -d '{"messages":[{"role":"user","content":"Write a poem about OpenVINO"}],"max_tokens":100}' | jq .
+```
+
+## GGML OpenVINO Backend Runtime Configurations
+
+The OpenVINO backend can be configured using the following environment variables at runtime to control device selection, caching, debugging, and profiling behavior.
+Boolean flags follow a uniform convention: set to a **positive integer** (e.g. `1`) to enable; unset, empty, `0`, negative, or non-numeric values are treated as disabled.
+
+| Variable                          | Type      | Default    | Description                                                                                                 |
+|-----------------------------------|-----------|------------|-------------------------------------------------------------------------------------------------------------|
+| `GGML_OPENVINO_DEVICE`            | String    | `CPU`      | Specify the target device (CPU, GPU, NPU). On systems with multiple GPUs, use `GPU.0` or `GPU.1` to explicitly target specific GPU. A device that is not available is an error (no fallback to CPU), and the error message lists the available OpenVINO devices with their names. See [OpenVINO GPU Device](https://docs.openvino.ai/2026/openvino-workflow/running-inference/inference-devices-and-modes/gpu-device.html). When set to **NPU**, static compilation mode is enabled for optimal performance. |
+| `GGML_OPENVINO_CACHE_DIR`         | String    | `not set`  | Directory for OpenVINO's separate plugin cache. On NPU, this sets `NPUW_CACHE_DIR`. |
+| `GGML_OPENVINO_COMPILED_MODEL_CACHE_DIR` | String | `not set` | Directory for standalone compiled blobs with weights. Dynamic CPU/GPU graphs can import matching blobs on later runs. |
+| `GGML_OPENVINO_COMPILED_MODEL_CACHE_ONLY` | Boolean | `0` | Require an existing compiled blob and skip weight uploads and compilation. Requires Linux or Windows mmap loading and a full dynamic CPU/GPU graph on OpenVINO. |
+| `GGML_OPENVINO_PREFILL_CHUNK_SIZE`| Integer   | `256`      | Token chunk size for **NPU** prefill (NPU-only; ignored on CPU/GPU). Must be a positive integer; otherwise the default is used. |
+| `GGML_OPENVINO_NPU_COMPILE_CONFIG` | String | `not set` | NPU-only compiler mode parameters forwarded to OpenVINO as `NPU_COMPILATION_MODE_PARAMS`, for example `optimization-level=3`. |
+| `GGML_OPENVINO_STATEFUL_EXECUTION`| Boolean   | `0`        | Keep KV and supported recurrent caches inside the model. Single-slot CPU/GPU execution only.               |
+| `GGML_OPENVINO_DISABLE_CACHE`     | Boolean   | `0`        | Disable the in-process compiled-model / decoder cache (cache is on by default). Set to `1` to disable.      |
+| `GGML_OPENVINO_DISABLE_KV_SLICE`  | Boolean   | `0`        | Disable the KV-cache input-tensor slicing optimization (slicing is on by default on CPU/GPU). Set to `1` to disable. |
+| `GGML_OPENVINO_DISABLE_KV_STATE_RELAYOUT` | Boolean | `0`     | Disable the stateful KV-state sequence-axis relayout (relayout is on by default). It moves the KV state sequence axis from dim 1 to dim 2, so the GPU plugin can append new tokens in place instead of copying the whole state every token, and the reader side no longer transposes the whole accumulated state. Set to `1` to disable. |
+| `GGML_OPENVINO_MANUAL_GQA_ATTN`   | Boolean   | device-based | Tri-state. When **unset**, manual GQA attention is enabled by default on `GPU` and disabled on other devices. Set to a positive integer to force-enable, or `0` to force-disable. |
+| `GGML_OPENVINO_MEMORY_OPTIMIZE`   | Boolean   | `0`        | Umbrella switch for compile-time memory reductions. Enables `GGML_OPENVINO_REDUCE_COMPILE_MEM` and, on GPU, `GGML_OPENVINO_RELEASE_WEIGHTS` unless those fine-grained variables are explicitly set. |
+| `GGML_OPENVINO_REDUCE_COMPILE_MEM`| Boolean   | inherits from `GGML_OPENVINO_MEMORY_OPTIMIZE` | Reduce compile-time host memory use by streaming weight requantization and avoiding extra weight-node materialization where possible. Set explicitly to override the umbrella switch. |
+| `GGML_OPENVINO_RELEASE_WEIGHTS`   | Boolean   | inherits from `GGML_OPENVINO_MEMORY_OPTIMIZE` on GPU | GPU-only. Release host weight buffers after the compiled model cache can reuse the device/plugin copy. Requires stable graph shapes; dynamic workloads that need recompilation should leave this disabled. |
+| `GGML_OPENVINO_SPILL_DIR`         | String    | `not set`  | Directory for a disk-backed weight buffer. When set, the repacked weight buffer is mapped from an unlinked file on this path instead of anonymous memory, so its pages are reclaimable under memory pressure instead of staying pinned, cutting the load-time host memory peak. Must point at real storage; a tmpfs mount (e.g. `/tmp` on many systems) backs it with RAM and makes the peak worse. |
+| `GGML_OPENVINO_REQUANT_KQUANT`    | String    | `not set`  | Requantize Q6_K/Q5_K weights (and matching MoE expert weights) to a 4-bit target instead of the default Q8_0_C, trading accuracy for less memory traffic. One of `q4_asym64` (Q6_K/Q5_K only, keeps a real zero point at group 64), `q4_asym64_all` (also requantizes Q4_K), `q4_sym128` (Q6_K/Q5_K only), `q4_sym128_all` (Q4_K too, drops its per-group zero point), or `native` (no requantization). |
+| `GGML_OPENVINO_PROFILING`         | Integer   | `0`        | `1` logs execution timing; `2` or higher also enables OpenVINO and OpenCL profiling.                        |
+| `GGML_OPENVINO_DEBUG_NODE`       | String    | `not set`  | Add the named graph nodes as compiled outputs for debugging. Separate multiple names with commas.          |
+| `GGML_OPENVINO_MOE_OP`           | Boolean   | `1`        | On GPU, set to `0` to keep the unfused GatherMatmul path.                                                  |
+| `GGML_OPENVINO_DUMP_CGRAPH`       | Boolean   | `0`        | Dump the GGML compute graph to `cgraph_ov.txt`.                                                             |
+| `GGML_OPENVINO_DUMP_IR`           | Boolean   | `0`        | Serialize OpenVINO IR files with timestamps.                                                                |
+| `GGML_OPENVINO_DEBUG_INPUT`       | Boolean   | `0`        | Enable input debugging and print input tensor info.                                                         |
+| `GGML_OPENVINO_DEBUG_OUTPUT`      | Boolean   | `0`        | Enable output debugging and print output tensor info.                                                       |
+| `GGML_OPENVINO_PRINT_CGRAPH_TENSOR_ADDRESS` | Boolean | `0` | Print tensor address map once.                                                                           |
+| `GGML_OPENVINO_LOG_UNSUPPORTED_OPS`| Boolean   | `0`        | Log warning messages with tensor details and rejection reasons for any ops not supported by the OpenVINO backend. Emits at `WARN` level (requires `--log-verbosity >= 2`, enabled by default). |
+
+> [!NOTE]
+> - `GGML_OPENVINO_STATEFUL_EXECUTION` is an **Experimental** feature for managing caches internally inside the OpenVINO model on CPUs and GPUs. Use a single slot (`-np 1`). KV caches retain the append-based state layout and sequence-axis optimization. Qwen3.5 adds recurrent cache states in their GGML layouts. Qwen3.5 requires an unsplit graph with model caching enabled and no recurrent rollback. A prompt starting at position 0 resets all states. State save/restore, sequence rewind, context shift, and mid-sequence graph replacement are unsupported. Stateful execution is not effective on NPUs.
+> - `GGML_OPENVINO_LOG_UNSUPPORTED_OPS` emits logs at `WARN` level (`GGML_LOG_WARN`), which requires application log verbosity `--log-verbosity >= 2` (or `-lv 2`).
+> - With `GGML_OPENVINO_COMPILED_MODEL_CACHE_ONLY=1`, use the same compilation settings as the export run. One directory can hold blobs for different models and settings; `GGML_OPENVINO_SPILL_DIR` does not affect the cache key and is ignored in cache-only mode. See [Compiled model cache](../../ggml/src/ggml-openvino/README.md) for the workflow and restrictions.
+
+### Example Usage
+
+#### GPU Inference with Profiling
+
+```bash
+# If the system has multiple GPUs, use GPU.0 or GPU.1 to explicitly target a specific GPU.
+
+# Linux
+export GGML_OPENVINO_CACHE_DIR=/tmp/ov_cache
+export GGML_OPENVINO_PROFILING=1
+export GGML_OPENVINO_DEVICE=GPU
+export GGML_OPENVINO_STATEFUL_EXECUTION=1
+
+./build/ReleaseOV/bin/llama-simple -m ~/models/Llama-3.2-1B-Instruct-Q4_K_M.gguf -n 50 "The story of AI is "
+
+# Windows Command Line
+set GGML_OPENVINO_CACHE_DIR=C:\tmp\ov_cache
+set GGML_OPENVINO_PROFILING=1
+set GGML_OPENVINO_DEVICE=GPU
+set GGML_OPENVINO_STATEFUL_EXECUTION=1
+
+# Windows PowerShell
+$env:GGML_OPENVINO_CACHE_DIR = "C:\tmp\ov_cache"
+$env:GGML_OPENVINO_PROFILING = "1"
+$env:GGML_OPENVINO_DEVICE = "GPU"
+$env:GGML_OPENVINO_STATEFUL_EXECUTION = "1"
+
+build\ReleaseOV\bin\llama-simple.exe -m "C:\models\Llama-3.2-1B-Instruct-Q4_K_M.gguf" -n 50 "The story of AI is "
+
+```
+
+## Known Limitations
+
+**General (all devices)**
+
+- Llama.cpp OpenVINO backend currently supports a subset of GGML ops and text-only models. Unsupported ops or unsupported op shapes/cases fail during OpenVINO translation.
+- Multimodal features (audio/image/video) are a work in progress.
+- Limited Embedding and Reranking model support.
+- Llama.cpp tool coverage across CPU/GPU/NPU is not uniform.
+
+**Tool-specific**
+
+- `llama-bench`: requires `-fa 1` (flash-attention).
+- `llama-cli --context-shift`: stateless only (`GGML_OPENVINO_STATEFUL_EXECUTION=0`). In stateful mode the KV cache is owned by the OpenVINO model and cannot be shifted externally.
+- `llama-server`: only one chat session/thread when `GGML_OPENVINO_STATEFUL_EXECUTION=1`.
+
+**GPU-specific**
+
+- `llama-server -np > 1`: concurrent requests are batched together, which may slightly reduce per-request throughput.
+
+**NPU-specific**
+
+- Default context resolves to the model's training context (e.g. 131072 for Llama 3.2 1B), which can OOM or fail or degrade performance on NPU. Inspect the resolved value with `-lv 3`.
+  - **Workaround:** Pass an explicit `-c <N>`, e.g. `-c 1024`.
+- NPU device uses a static graph with a fixed prefill chunk size (defaults to 256), configurable with `GGML_OPENVINO_PREFILL_CHUNK_SIZE`. Large prefill/batch settings may need tuning.
+- `llama-server -np > 1` (multiple parallel sequences) is not supported.
+- `llama-perplexity`: requires `-b 512` or smaller.
+
+> [!NOTE]
+> The OpenVINO backend is actively under development. Fixes and improvements are underway, and this document will continue to be updated.
+
+## Work in Progress
+
+- Performance and memory optimizations
+- Accuracy validation
+- Broader quantization coverage
+- Support for additional model architectures
+# Hexagon backend developer details
+
+## Backend libraries
+
+The Hexagon backend consists of two parts:
+
+  - `libggml-hexagon`
+    This is the regular CPU-side GGML backend library, either shared or statically linked.
+
+  - `libggml-htp-vNN`
+    This is the NPU-side (HTP stands for Hexagon Tensor Processor) shared library that contains the Op dispatcher and kernels.
+    The correct library is selected automatically at runtime based on the HW version.
+
+Here is an example of the build artifacts:
+
+```
+~/src/llama.cpp$ ls -l pkg-adb/llama.cpp/lib/libggml*
+pkg-adb/llama.cpp/lib/libggml-base.so
+pkg-adb/llama.cpp/lib/libggml-cpu.so
+pkg-adb/llama.cpp/lib/libggml-hexagon.so      <<< CPU library
+pkg-adb/llama.cpp/lib/libggml-htp-v73.so      <<< HTP op/kernels for Hexagon v73
+pkg-adb/llama.cpp/lib/libggml-htp-v75.so
+pkg-adb/llama.cpp/lib/libggml-htp-v79.so
+pkg-adb/llama.cpp/lib/libggml-htp-v81.so
+```
+
+## Memory buffers
+
+The Hexagon NPU backend takes advantage of Snapdragon unified memory where all DDR buffers are accessible by CPU, GPU, and NPU.
+The NPU has dedicated tightly-coupled memory called VTCM (Vector Tightly-Coupled Memory). VTCM is used for intermediate data (such as
+dynamically quantized activations) and streaming buffers (chunks of weight and activation tensors fetched via DMA).
+
+## Large model handling
+
+Hexagon NPU sessions have a 32-bit virtual address space window of around 3.5GB.
+In llama.cpp/GGML, each Hexagon session is mapped to a single GGML backend device (e.g., `HTP0:0`, `HTP0:1`, etc. when using
+`GGML_HEXAGON_DEVICES`, or `HTP0`, `HTP1` in legacy mode).
+
+To support running models larger than 3.5GB on a single device, the Hexagon backend dynamically maps and unmaps buffers:
+- Buffers are allocated in shared DDR (RPCMEM) and mapped through FastRPC file descriptors. Non-pinned buffers use delayed
+  mappings (`FASTRPC_MAP_FD_DELAYED` or `FASTRPC_MAP_FD_DELAYED_EXTENDED`).
+- Pinned buffers (such as KV cache and active compute buffers) remain mapped throughout execution.
+- Inactive weight buffers are dynamically mapped into the NPU session during batch buffer preparation
+  (`prep_op_bufs()` in `htp/main.c`) and unmapped via `htp_iface_munmap()` when no longer needed by the active batch.
+- This dynamic sliding window allows a single NPU session to execute models that exceed the 3.5GB window.
+
+Alternatively, users can partition and split the model across multiple virtual sessions or physical NPUs using layer-splitting,
+tensor-splitting, or row-splitting modes. For user-facing execution modes and examples, see the
+[Snapdragon user guide](README.md#multi-device-execution-modes).
+
+## Tiled Weight Formats
+
+Weight tensors in the Hexagon backend are repacked from flat row-major GGML layouts into 2D tiles in memory.
+Tiling groups 2D matrix blocks contiguously:
+- Eliminates strided row reads when fetching 2D tiles into VTCM via DMA.
+- Matches native HVX vector width (128 bytes) and HMX systolic array dimensions (32x32).
+- Repacking happens on the host during model load (`set_tensor()`) or via runtime repacking (`rt-repack`).
+Implementation: [`htp-repack.cpp`](../../../ggml/src/ggml-hexagon/htp-repack.cpp).
+
+### Tile Dimensions and Grid Layout
+
+Each tile represents a submatrix of `N_rows = 32` rows and `K_cols` columns:
+- Standard types (`Q4_0`, `Q4_1`, `Q8_0`, `IQ4_NL`, `MXFP4`, and K-quants): `K_cols = 32` (`HTP_TENSOR_TILE_N_COLS = 32`).
+- `Q2_0`: `K_cols = 64` (`HTP_TENSOR_TILE_K_Q2_0 = 64`).
+- `Q1_0`: `K_cols = 128` (`HTP_TENSOR_TILE_K_Q1_0 = 128`).
+
+For a weight matrix of logical shape `[ne0, ne1]` (where `ne0 = K`, `ne1 = N`):
+- `n_k_tiles   = ne0 / K_cols`
+- `n_col_tiles = (ne1 + 31) / 32`
+- Tile index for column-tile `kt` and row-tile `ct`: `tile_idx = ct * n_k_tiles + kt`
+- Byte offset in matrix buffer: `tile_offset = tile_idx * tile_size`
+
+### Block-32 Quantized Formats
+
+Block-32 formats use a tile size of 32 rows x 32 columns (`K_cols = 32`):
+
+- **Q4_0** (576 bytes per tile, `HTP_TENSOR_TILE_SIZE_Q4_0`):
+  - **Quants** (bytes 0..511, 512 bytes):
+    Contains 32 rows x 32 columns of 4-bit quants.
+    Divided into 16 column pairs `cp = 0..15` covering columns `2*cp` and `2*cp + 1`.
+    For each column pair `cp`, 32 bytes are stored consecutively for rows `row = 0..31`:
+    `tile[cp * 32 + row]` holds `(quant[row][2*cp + 1] << 4) | quant[row][2*cp]`.
+    Low nibble holds the even column; high nibble holds the odd column.
+  - **Scales** (bytes 512..575, 64 bytes):
+    32 FP16 values (`ggml_half`), storing scale `d` for each row `row = 0..31`.
+
+- **Q8_0** (1088 bytes per tile, `HTP_TENSOR_TILE_SIZE_Q8_0`):
+  - **Quants** (bytes 0..1023, 1024 bytes):
+    Contains 32 rows x 32 columns of signed 8-bit quants (`int8_t`).
+    Divided into 16 column pairs `cp = 0..15` covering columns `col0 = 2*cp` and `col1 = 2*cp + 1`.
+    For each column pair `cp`, 64 bytes store interleaved column elements for each row `row = 0..31`:
+    `tile[cp * 64 + 2 * row + 0] = quant[row][col0]`
+    `tile[cp * 64 + 2 * row + 1] = quant[row][col1]`
+  - **Scales** (bytes 1024..1087, 64 bytes):
+    32 FP16 values (`ggml_half`), storing scale `d` for each row `row = 0..31`.
+
+- **IQ4_NL** (576 bytes per tile, `HTP_TENSOR_TILE_SIZE_IQ4_NL`):
+  - **Quants** (bytes 0..511, 512 bytes):
+    Same nibble transposition and storage layout as `Q4_0`.
+    Contains 32 rows x 32 columns of non-linear 4-bit indices (values 0..15).
+    Divided into 16 column pairs `cp = 0..15`:
+    `tile[cp * 32 + row]` holds `(quant[row][2*cp + 1] << 4) | quant[row][2*cp]`.
+  - **Scales** (bytes 512..575, 64 bytes):
+    32 FP16 values (`ggml_half`), storing scale `d` for each row `row = 0..31`.
+  - **Dequantization**:
+    In HVX/HMX kernels, each 4-bit index is looked up in the 16-entry non-linear table (`iq4_nl_to_fp16_lut`) to produce an FP16 value, then multiplied by the row scale `d`.
+
+- **MXFP4** (544 bytes per tile, `HTP_TENSOR_TILE_SIZE_MXFP4`):
+  - **Quants** (bytes 0..511, 512 bytes):
+    Same nibble transposition and storage layout as `Q4_0`.
+    Contains 32 rows x 32 columns of 4-bit OCP Microscaling FP4 (E2M1) values.
+    Divided into 16 column pairs `cp = 0..15`:
+    `tile[cp * 32 + row]` holds `(quant[row][2*cp + 1] << 4) | quant[row][2*cp]`.
+  - **Scales** (bytes 512..543, 32 bytes):
+    32 unsigned 8-bit values (`uint8_t`), storing one 8-bit biased exponent (E8M0, bias 127) scale `e` per row `row = 0..31`.
+  - **Dequantization**:
+    Kernel converts E8M0 bias to IEEE FP16 bias via `vh = clamp(e - 112, 0, 30) << 10` to form a power-of-two FP16 scale.
+    Each 4-bit FP4 nibble is unpacked via `mxfp4_to_fp16_lut` and multiplied by this scale.
+
+- **Q4_1** (640 bytes per tile, `HTP_TENSOR_TILE_SIZE_Q4_1`):
+  - **Quants** (bytes 0..511, 512 bytes):
+    Same 4-bit nibble transposition and storage layout as `Q4_0`.
+  - **Scales** (bytes 512..639, 128 bytes):
+    32 pairs of FP16 values (`ggml_half`): `scale[2 * row + 0] = d` (scale) and `scale[2 * row + 1] = m` (min) for each row `row = 0..31`.
+
+### Q1_0 Format (1-Bit Quantization)
+
+`Q1_0` packs 128 columns per tile (`K_cols = 128`, `HTP_TENSOR_TILE_K_Q1_0 = 128`):
+
+- **Tile Layout** (576 bytes per tile, `HTP_TENSOR_TILE_SIZE_Q1_0`):
+  - **Quants** (bytes 0..511, 512 bytes):
+    Contains 32 rows x 128 columns of 1-bit quants (-1 or +1).
+    Divided into 4 quarters (`quarter = 0..3`), where each quarter covers 32 columns in K.
+    Each quarter occupies 128 bytes (1 HVX vector) in `vrmpy` byte order.
+    Within a quarter, columns `kq = 0..31` map into 8 groups `g = kq / 4` (0..7) of 4 consecutive columns:
+    `byte_offset = quarter * 128 + 4 * row + (kq % 4)`
+    `bit = g` (0..7)
+  - **Scales** (bytes 512..575, 64 bytes):
+    32 FP16 values (`ggml_half`), storing scale `d` for each row `row = 0..31`.
+    One scale per row applies to all 128 columns (all 4 quarters) of the tile.
+
+- **HMX Mapping (1-to-4 Tile Expansion)**:
+  - HMX hardware operates strictly on 32x32 FP16 tiles (`HTP_TENSOR_TILE_N_ROWS = 32`, `HTP_TENSOR_TILE_N_COLS = 32`).
+  - During kernel execution, HVX dequantization (`dequantize_tiled_weight_to_fp16_task_q1_0`) expands each 32x128 Q1_0 tile (576 bytes) into 4 contiguous 32x32 FP16 HMX tiles (4 x 2048 bytes = 8192 bytes total) in VTCM.
+  - HMX systolic array processes the 4 resulting 32x32 FP16 tiles over 4 compute steps along K.
+
+### Q2_0 Format (2-Bit Quantization)
+
+`Q2_0` packs 64 columns per tile (`K_cols = 64`, `HTP_TENSOR_TILE_K_Q2_0 = 64`):
+
+- **Tile Layout** (576 bytes per tile, `HTP_TENSOR_TILE_SIZE_Q2_0`):
+  - **Quants** (bytes 0..511, 512 bytes):
+    Contains 32 rows x 64 columns of 2-bit quants (codes 0..3 representing signed values -1..2).
+    Divided into 16 column groups `group = 0..15` of 4 columns each.
+    Stored in `vrmpy` byte order across 4 HVX vectors (vec 0..3):
+    Vector `group >> 2` (0..3) holds `group & 3` at bit offset `2 * (group & 3)`.
+    Byte `4 * row + byte` holds row `row = 0..31` and column byte `0..3`.
+    Vec 0..1 holds the first 32 columns (half 0), vec 2..3 holds the next 32 columns (half 1).
+  - **Scales** (bytes 512..575, 64 bytes):
+    32 FP16 values (`ggml_half`), storing scale `d` for each row `row = 0..31` (at offset `512 + 2 * row`).
+    One scale per row applies to all 64 columns of the tile.
+
+- **HMX Mapping (1-to-2 Tile Expansion)**:
+  - HMX hardware operates strictly on 32x32 FP16 tiles (`HTP_TENSOR_TILE_N_ROWS = 32`, `HTP_TENSOR_TILE_N_COLS = 32`).
+  - During kernel execution, HVX dequantization (`dequantize_tiled_weight_to_fp16_task_q2_0`) expands each 32x64 Q2_0 tile (576 bytes) into 2 contiguous 32x32 FP16 HMX tiles (2 x 2048 bytes = 4096 bytes total) in VTCM.
+  - HMX systolic array processes the 2 resulting 32x32 FP16 tiles over 2 compute steps along K.
+
+- **HVX Vector Dot-Product**:
+  - `tiled_vec_dot_q2_0_32x1` and `tiled_vec_dot_q2_0_32x2` unpack 2-bit quants using `unpack_q3_k_low2`, subtract 1, and accumulate against Q8_0 activation tiles using `Q6_Vw_vrmpyacc_VwVbVb`.
+
+### K-Quants Formats
+
+In GGML, K-quants pack 256 elements per super-block.
+On Hexagon, each 256-element super-block splits along K into 8 tiles of 32 columns (`K_cols = 32`).
+
+Byte ordering: `Q2_K`, `Q3_K`, and `Q6_K` use `vrmpy` byte order within each 128B HVX vector:
+`k = 0..31` is split into 8 groups `g = k/4` of 4 `k` each; byte `4*r + (k%4)` holds row `r`.
+
+- **Q2_K** (336 bytes per tile, `HTP_TENSOR_TILE_SIZE_Q2_K`, lossless tiling with same size as `block_q2_K`):
+  - `bytes   0..255` (vec 0..1): unsigned 2-bit quants; vec `m` holds groups `4m..4m+3` at bit offsets 0, 2, 4, 6.
+  - `bytes 256..319`: raw `scales[]` bytes (`min << 4 | sc`): `[0..31]` for k 0..15, `[32..63]` for k 16..31.
+  - `bytes 320..335`: 8 FP16 in tile `j` (0..7) of super-block: `d` (`j < 4`) or `-dmin` (`j >= 4`) for rows `8*(j%4)..8*(j%4)+7`.
+
+- **Q3_K** (512 bytes per tile, `HTP_TENSOR_TILE_SIZE_Q3_K`):
+  - `bytes   0..255` (vec 0..1): low 2 bits; vec `m` holds groups `4m..4m+3` at bit offsets 0, 2, 4, 6.
+  - `bytes 256..383` (vec 2): sign mask, bit `g` set when `hmask` is 0 (quant = `low2 - 4`).
+  - `bytes 384..511` (vec 3): FP16 scales `d * (scales[] - 32)`: `fp16[0..31]` for k 0..15, `fp16[32..63]` for k 16..31.
+
+- **Q4_K** (640 bytes per tile, `HTP_TENSOR_TILE_SIZE_Q4_K`, same layout as Q4_1 tile; each 256-k super-block splits into 8 tiles of 32 k):
+  - `bytes   0..511` (vec 0..3): 4-bit quants; byte `32*cp + r` holds `k = 2*cp` (low nibble) and `2*cp + 1` (high nibble).
+  - `bytes 512..639` (vec 4): 32x2 FP16 per row: `(d * sc, -dmin * m)`.
+
+- **Q5_K** (768 bytes per tile, `HTP_TENSOR_TILE_SIZE_Q5_K`):
+  - `bytes   0..639` (vec 0..4): Q4_K tile (low 4 bits + FP16 scale/min pairs).
+  - `bytes 640..767` (vec 5): 5th-bit plane; byte `l` holds the 8 high bits for lane `l` across vec `i = 0..3` (`bit 2i = lo, 2i+1 = hi`).
+
+- **Q6_K** (896 bytes per tile, `HTP_TENSOR_TILE_SIZE_Q6_K`):
+  - `bytes   0..511` (vec 0..3): low 4 bits; vec `i` holds group `2i` (low nibble) and `2i+1` (high nibble).
+  - `bytes 512..767` (vec 4..5): high 2 bits; vec `4+m` holds groups `4m..4m+3` at bit offsets 0, 2, 4, 6.
+  - `bytes 768..895` (vec 6): FP16 scales `d * scales[]`: `fp16[0..31]` for k 0..15, `fp16[32..63]` for k 16..31.
+
+## Op and Kernel Development Guidelines
+
+Writing high-performance operators for Hexagon requires following specific guidelines.
+
+### DDR -> DMA -> VTCM Execution Pipeline
+
+- Strongly prefer the `DDR -> DMA -> VTCM -> compute (HVX/HMX) -> VTCM -> DMA -> DDR` data flow.
+- Direct HVX reads/writes from/to DDR are less efficient and should only be used as a fallback.
+- Use `dma_addr_t` only for DMA base and final addresses. Form a final address by adding a 32-bit byte offset to a
+  `dma_addr_t` tensor base address. This permits a 64-bit mapped base address on newer platforms while retaining 32-bit
+  relative addressing.
+- The DMA queue is a strict FIFO where operations must be pushed and popped in strict order.
+- Follow the pipelined multi-buffering sequence properly (typically 2x to 16x buffering) so every push has a corresponding pop:
+
+  1. In the prologue, push initial DDR -> VTCM transfers to prime the pipeline.
+  2. In the loop body, wait for buffer N via DMA pop, launch HVX/HMX compute on buffer N, push VTCM -> DDR writeback of result N,
+     and push DDR -> VTCM prefetch of buffer N+2.
+  3. In the epilogue, pop all remaining in-flight transfers to drain the pipeline.
+
+- Because every push must be matched by a pop, `dma_queue_flush()` is not required when the pipeline sequence is followed
+  properly. Flushing is only used in rare exceptions where a batch of operations is pushed without individual pops.
+- Use the DMA queue interface from [`dma-queue.h`](../../../ggml/src/ggml-hexagon/htp/dma-queue.h)
+  (`dma_queue_push()`, `dma_queue_pop()`, and `dma_queue_flush()`).
+  See [`cumsum-ops.c`](../../../ggml/src/ggml-hexagon/htp/cumsum-ops.c) and
+  [`act-ops.c`](../../../ggml/src/ggml-hexagon/htp/act-ops.c) for reference implementations.
+
+### Avoid Scalar Reads and Writes to VTCM
+
+- Access VTCM data using DMA transfers or HVX/HMX vector instructions rather than scalar reads and writes.
+
+### Avoid Scalar Division in Inner Loops
+
+- Hexagon cores do not have hardware division instructions.
+- For recurring divisions across iterations or threads, use `fastdiv` from
+  [`hex-fastdiv.h`](../../../ggml/src/ggml-hexagon/htp/hex-fastdiv.h) with precomputed divisors (such as
+  `octx->ctx->mdev.count_div` or `octx->n_threads_div`).
+- Do not call `init_fastdiv_values()` for single-use divisions; use standard compiler division (`/`) instead.
+
+### Host-Side Precomputation via `kernel_params`
+
+- Precompute tensor shapes, strides, scale conversions, tiling layouts, and validation checks on the host CPU during graph
+  preparation in [`ggml-hexagon.cpp`](../../../ggml/src/ggml-hexagon/ggml-hexagon.cpp).
+- Pack precomputed parameters into the operator's fixed `kernel_params` structure in `htp_op_node` (such as
+  `htp_mm_kernel_params`, `htp_unary_kernel_params`, `htp_fa_kernel_params`, `htp_get_rows_kernel_params`).
+- The NPU executes directly using `octx->kernel_params` without redundant runtime metadata extraction or validation.
+- **Strict Host-Kernel Alignment**:
+  - Verify that parameters calculated by the host CPU are strictly honored by the NPU kernel.
+  - Ensure the kernel does not ignore host-computed fields (for example, falling back to `octx->n_threads` instead of
+    using `kparams->n_threads`, or ignoring precomputed `tasks_per_thread` and chunk counts).
+  - Both human developers and coding agents must audit both sides of the interface: ensure fields populated in `kernel_params`
+    in [`ggml-hexagon.cpp`](../../../ggml/src/ggml-hexagon/ggml-hexagon.cpp) are actively and consistently utilized by the
+    corresponding operator entry point and worker threads in `htp/*-ops.c`.
+
+### Tracing Instrumentation
+
+- All kernels must include trace events for performance profiling and timeline visualization in Perfetto
+  ([`hex-profile.h`](../../../ggml/src/ggml-hexagon/htp/hex-profile.h)).
+- Surround compute sections with `htp_trace_event_start(tr, HTP_TRACE_EVT_HVX_COMP, (uint16_t) info)` and
+  `htp_trace_event_stop(tr, HTP_TRACE_EVT_HVX_COMP, (uint16_t) info)`.
+- Use specific event types for major phases:
+  - `HTP_TRACE_EVT_HVX_COMP`: Vector compute execution.
+  - `HTP_TRACE_EVT_DMA`: DMA transfer wait or poll cycles.
+  - `HTP_TRACE_EVT_FENCE`: Multi-device fence barrier synchronization.
+  - `HTP_TRACE_EVT_L2FLUSH`: L2 cache cleaning operations.
+- Pass meaningful progress metrics (such as row index, chunk index, or token index) in the 16-bit `info` parameter.
+
+### Work Queue and Threading
+
+- Distribute parallel work across NPU worker threads using the thread pool work queue:
+
+  ```c
+  work_queue_run(ctx->work_queue, worker_func, &op_ctx, n_threads);
+  ```
+
+- Keep worker functions independent and re-entrant. Worker threads should only operate on their designated chunk of rows or elements.
+
+### Avoid Redundant Defensive NULL Checks
+
+- Do not add defensive NULL checks or assertions for internal framework pointers or required graph operands and outputs.
+  Internal pointers include `ctx`, `octx`, local context structs like `*ctx`, `kparams`, and worker callback `data`.
+- These pointers are architectural invariants during kernel execution and host-side graph preparation.
+- Do not turn an invariant violation into an unsupported operation or missed fusion.
+  Checks such as `if (!octx || !octx->ctx)` clutter the code, obscure intent, and hide upstream errors.
+- **Distinction**: `octx->src[N]` pointers *can* be NULL by design and must be checked when optional.
+  Examples include attention masks, optional bias or weights in fused kernels, and frequency factors.
+
+### `supports_op` Independence from Buffer and Repack State
+
+- `supports_op` (and op-specific checkers such as `supported_mul_mat()`, `supported_get_rows()`) runs during GGML graph scheduling **before** buffers are allocated and before tensor data is populated.
+- **Never check buffer usage or repacking state in `supports_op`**:
+  - `t->buffer` may be NULL or uninitialized.
+  - `t->data` may be NULL.
+  - `buffer->usage` is unknown at scheduling time.
+  - `is_tiled` or `extra->flags & GGML_HEXAGON_TENSOR_TILED` is not set yet.
+- Operator support decisions must depend strictly on static tensor properties: operand types (`t->type`), shapes (`t->ne`), strides (`t->nb`), and operation parameters.
+- Repacking (converting weights to tiled layout) is an internal optimization applied during `set_tensor()` or rt-repack. Non-weight tensors or test harness tensors with the same type remain in flat layout.
+- Therefore, any supported type (such as BF16, F16, quantized types) must be supported both when repacked into tiles and when stored flat in memory.
+
+### Multiline Macro Formatting
+
+- Keep trailing backslashes in multiline `#define` macros cleanly aligned to a consistent column.
+- Avoid trailing whitespace after macro backslashes.
+- Use [`scripts/snapdragon/ggml-hexagon-align-macros.py`](../../../scripts/snapdragon/ggml-hexagon-align-macros.py) to inspect, diff,
+  or automatically align macro definitions across Hexagon kernel sources:
+
+  ```bash
+  # Check for misaligned macros
+  python3 scripts/snapdragon/ggml-hexagon-align-macros.py ggml/src/ggml-hexagon/htp/
+
+  # Fix misaligned macros in-place
+  python3 scripts/snapdragon/ggml-hexagon-align-macros.py --fix ggml/src/ggml-hexagon/htp/
+  ```
+
+### Binary Inspection and Spill Analysis
+
+Use [`scripts/snapdragon/ggml-hexagon-inspect.py`](../../../scripts/snapdragon/ggml-hexagon-inspect.py) to audit Hexagon binaries for register
+spills, unexpected float promotions, or disassembly:
+
+- Always verify that compute kernels have zero in-loop vector spills (`--spills --strict`) and no float promotions (`--promotions`).
+- Avoid excessive loop unrolling (`#pragma unroll`), which increases register pressure and causes spills.
+
+```bash
+# Check for vector and scalar register spills
+python3 scripts/snapdragon/ggml-hexagon-inspect.py --spills --strict --func "^compute_"
+
+# Check for float promotions
+python3 scripts/snapdragon/ggml-hexagon-inspect.py --promotions --func "^compute_"
+
+# Disassemble with annotated loops and spill markers
+python3 scripts/snapdragon/ggml-hexagon-inspect.py --disasm compute_same_shape_div_f32
+
+# Resolve crash addresses to function symbols and lines
+python3 scripts/snapdragon/ggml-hexagon-inspect.py --addr2line 0x51a30 0x5ba54
+```
+
+## Multi-Device Partitioning (mdev)
+
+Multi-device (mdev) mode enables row-level tensor parallel execution across multiple physical NPU cores or virtual NPU
+sessions.
+
+### 128-Byte Cache Line Alignment
+
+- Shared tensor buffers reside in DDR (RPCMEM) with a 128-byte cache line granularity
+  (`HEX_L2_LINE_SIZE` = 128 bytes, `HTP_TENSOR_MDEV_LINE_SIZE`).
+- **Rule**: Multi-device work partitions that write directly to DDR through HVX/L2 must align destination write regions to
+  128-byte cache line boundaries so distinct devices never share or overwrite the same cache line.
+- DMA writes to DDR are not subject to this cache-line ownership rule. They may use smaller non-overlapping destination
+  ranges when the operator only writes through DMA.
+
+### Partitioning Helpers in `htp-tensor.h`
+
+Common partitioning logic is factored into reusable inline helpers in
+[`htp-tensor.h`](../../../ggml/src/ggml-hexagon/htp/htp-tensor.h):
+
+1. [`htp_tensor_mdev_rows_per_chunk`](../../../ggml/src/ggml-hexagon/htp/htp-tensor.h#L104):
+   Determines the minimum number of rows per chunk so that the chunk byte size is a multiple of 128 bytes:
+
+   ```
+   rows_per_chunk = 128 / hex_gcd_u32(row_size, 128)
+   ```
+
+   If the active row and outer strides are already multiples of 128 bytes, `rows_per_chunk = 1`.
+   Returns `false` if the tensor cannot be safely row-partitioned (such as unaligned base pointer, permuted layout,
+   or non-128-byte aligned outer strides).
+
+2. [`htp_tensor_mdev_partition`](../../../ggml/src/ggml-hexagon/htp/htp-tensor.h#L131):
+   Calculates the per-device work range `struct htp_tensor_mdev_range { uint32_t start; uint32_t count; }` given
+   `total_units`, `units_per_chunk`, `mdev_idx`, `mdev_count`, and the precomputed `mdev_count_div`.
+   Handles chunk distribution across devices, assigns remainder units to the last device, and automatically triggers
+   single-device fallback when partitioning is unsafe.
+
+### Row-Partitioned Operators
+
+For row-wise operators that write directly to DDR
+(such as activations in [`act-ops.c`](../../../ggml/src/ggml-hexagon/htp/act-ops.c),
+binary ops in [`binary-ops.c`](../../../ggml/src/ggml-hexagon/htp/binary-ops.c),
+and unary ops in [`unary-ops.c`](../../../ggml/src/ggml-hexagon/htp/unary-ops.c)):
+
+```c
+const uint32_t total_rows   = ne01 * ne02 * ne03;
+const size_t   dst_row_size = dst->ne[0] * elem_size;
+
+uint32_t row_start = 0;
+uint32_t nrows     = total_rows;
+
+if (octx->ctx->mdev.count > 1) {
+    uint32_t rows_per_chunk = 0;
+    htp_tensor_mdev_rows_per_chunk(dst, elem_size, (uint32_t) dst_row_size, &rows_per_chunk);
+    const struct htp_tensor_mdev_range range = htp_tensor_mdev_partition(
+        total_rows, rows_per_chunk, octx->ctx->mdev.idx, octx->ctx->mdev.count, &octx->ctx->mdev.count_div);
+    row_start = range.start;
+    nrows     = range.count;
+}
+
+if (nrows == 0) {
+    return HTP_STATUS_OK;
+}
+```
+
+### Element-Partitioned Operators
+
+For flat element-wise operations that write directly to DDR:
+- Partition total linear elements N = ne0 * ne1 * ne2 * ne3 in 128-byte cache line chunks (`elems_per_line = (elem_size == 4) ? 32 : 64`).
+- Requires strict 1D contiguity:
+  [`htp_tensor_is_contiguous(dst, elem_size)`](../../../ggml/src/ggml-hexagon/htp/htp-tensor.h#L65)
+  and 128-byte aligned destination pointer
+  [`htp_tensor_mdev_data_aligned(dst)`](../../../ggml/src/ggml-hexagon/htp/htp-tensor.h#L84).
+- If contiguous and aligned, pass `elems_per_line` to
+  [`htp_tensor_mdev_partition`](../../../ggml/src/ggml-hexagon/htp/htp-tensor.h#L131);
+  otherwise pass 0 to trigger Device 0 fallback.
+
+### Single-Device Fallback (Device 0)
+
+- Fallback to Device 0 (`mdev.idx == 0`) when partitioning would cause cache line tearing or there are too few aligned chunks.
+- Triggers:
+  1. Destination tensor cannot be safely partitioned (`rows_per_chunk == 0` or non-contiguous/unaligned buffer).
+  2. Total aligned chunks < `mdev_count`.
+- Device 0 processes the entire tensor `[0, total_units)`.
+- Devices 1 ... N-1 receive `count = 0` and return `HTP_STATUS_OK` immediately.
+
+### Flatten Outer Dimensions Globally
+
+- **Never partition solely on `ne01` (dimension 1).**
+- Partitioning only on `ne01` repeats the device boundary across every 2D slice (`ne02`, `ne03`). If each 2D slice is small,
+  false sharing occurs repeatedly throughout the tensor.
+- Always flatten outer dimensions globally: `total_rows = ne01 * ne02 * ne03` and partition once across the combined row space.
+
+### Stateless Starting Coordinates
+
+- Do not use incremental state variables across slices that assume the thread or device starts at index 0.
+- Precompute starting multidimensional coordinates at `r = row_start` (or `e = elem_start`) once using `fastdiv`.
+- In inner loops, step base pointers directly (`ptr += stride`) or reset/wrap coordinates explicitly (`if (++i01 == ne01) { ... }`).
+
+### Clean Range Encapsulation
+
+- Initialize single-device default ranges at declaration:
+
+  ```c
+  uint32_t row_start = 0;
+  uint32_t nrows     = total_rows;
+  ```
+
+- Encapsulate all multi-device logic inside `if (octx->ctx->mdev.count > 1)`. If the block is omitted or compiled out,
+  the operator runs standard single-device execution untouched.
+- Do not propagate `mdev_` prefixes to worker functions or context structs. Worker threads are device-agnostic and
+  should only receive standard range parameters (`ctx.row_start`, `ctx.nrows`).
+- In worker threads, calculate row intervals using standard arithmetic:
+
+  ```c
+  const uint32_t ir0 = ctx->row_start + dr * ith;
+  const uint32_t ir1 = MIN(ir0 + dr, ctx->row_start + ctx->nrows);
+  ```
+
+  In single-device mode (`row_start == 0`), this naturally simplifies to `dr * ith` and `MIN(ir0 + dr, ctx->nrows)` with zero overhead.
+
+## Multi-Device Synchronization
+
+Multi-device execution synchronizes worker sessions across devices using explicit barriers and tensor cache flushing.
+
+### Synchronization Fence Protocol
+
+Multi-device execution synchronizes worker sessions through atomic fence slots and barriers defined in
+[`htp-fence.h`](../../../ggml/src/ggml-hexagon/htp/htp-fence.h):
+
+```
+[NPU Session 0]                              [NPU Session 1]
+       |                                            |
+  (Input Prep)                                 (Input Prep)
+       |                                            |
+  Pre-Op Barrier ----------------------------- Pre-Op Barrier
+  (htp_mdev_group_barrier)                     (htp_mdev_group_barrier)
+       |                                            |
+  Kernel Execution                             Kernel Execution
+  (Output Slice 0)                             (Output Slice 1)
+       |                                            |
+  Tensor Cache Flush                           Tensor Cache Flush
+  (htp_dcache_flush_dirty_tensors)             (htp_dcache_flush_dirty_tensors)
+       |                                            |
+  Post-Op/Batch Barrier ---------------------- Post-Op/Batch Barrier
+  (htp_mdev_group_barrier)                     (htp_mdev_group_barrier)
+       |                                            |
+  Return Response to Host                      Return Response to Host
+```
+
+### Atomic Fence Slots and Cache Invalidation
+
+- Fence synchronization operates on dedicated RPCMEM shared memory mapped across all participating sessions (`ctx->mdev.fence_base`).
+- Each device owns a dedicated 128-byte cache-line aligned fence slot:
+
+  ```c
+  atomic_uint * my_fence = htp_mdev_fence_slot(fence_base, mdev_idx);
+  ```
+
+- **Writing to fence ([`htp_fence_write`](../../../ggml/src/ggml-hexagon/htp/htp-fence.h#L17))**:
+  Stores `seq` and `status`, issues a `syncht` thread synchronization barrier, and flushes/invalidates the line
+  using `Q6_dccleaninva_A(fence)`.
+- **Reading from peer fence ([`htp_fence_read`](../../../ggml/src/ggml-hexagon/htp/htp-fence.h#L25))**:
+  Executes `Q6_dccleaninva_A(fence)` and `syncht` before reading atomic values to ensure fresh data from DDR.
+
+### Deterministic Monotonic Sequence Numbers
+
+- Barrier fences use monotonically increasing sequence numbers:
+
+  ```c
+  const uint32_t seq = ++ctx->mdev.fence_seq;
+  ```
+
+- Comparing sequence numbers with signed arithmetic `(int32_t)(peer_seq - seq) >= 0` prevents race conditions or
+  misaligned barrier arrivals across iterations.
+- If any peer reports an error status (`peer_status > HTP_STATUS_OK`), the barrier propagates the error and unblocks immediately.
+
+### Tensor Cache Flush and Pipeline Completion
+
+- In the kernel, ensure all pushed DMA operations have been popped in strict FIFO order to drain the queue.
+- Use [`htp_dcache_flush_dirty_tensors()`](../../../ggml/src/ggml-hexagon/htp/htp-dcache.h) to flush specific dirty tensors back to DDR:
+  - [`htp_dcache_flush_dirty_tensors()`](../../../ggml/src/ggml-hexagon/htp/htp-dcache.h) flushes modified tensor address ranges, or the
+    full D-cache when their total size exceeds the flush threshold, ensuring peer devices and the host CPU observe consistent
+    data in DDR.
+- Never signal completion before all DMA transfers are drained and dirty tensor flushes have completed.
+# Snapdragon-based Linux devices
+
+The cross-compilation is performed using the Snapdragon Linux Docker toolchain image (see
+[github.com/snapdragon-toolchain](https://github.com/snapdragon-toolchain)):
+
+* **Linux toolchain**: `ghcr.io/snapdragon-toolchain/arm64-linux:v0.8`
+
+The unified build utility (`scripts/snapdragon/build.py`) automatically pulls
+and orchestrates this container to perform target compilation. You only need to
+ensure that Docker is running on your host machine.
+
+
+## How to Build
+
+### Using build.py script (Recommended)
+
+The easiest way to build llama.cpp is by using the `scripts/snapdragon/build.py` script. It automatically copies the CMake presets,
+launches the correct compilation Docker container, builds the libraries and tools,
+installs them, and optionally pushes them to your target device.
+
+Build and deploy for a Linux target (using SSH deployment alias `lnx` or `linux`):
+```
+$ ./scripts/snapdragon/build.py --target lnx:user@host --push
+```
+
+### Manual CMake Build
+
+Alternatively, you can build llama.cpp manually by entering the cross-compilation Docker container and running the CMake commands:
+
+```bash
+# Start the cross-compilation container manually:
+~/src/llama.cpp$ docker run -it --rm -u $(id -u):$(id -g) --volume $(pwd):/workspace --platform linux/amd64 ghcr.io/snapdragon-toolchain/arm64-linux:v0.8
+
+# Inside the container, build the project using presets:
+[d]/workspace> cp docs/backend/snapdragon/CMakeUserPresets.json .
+
+[d]/workspace> cmake --preset arm64-linux-snapdragon-release -B build-snapdragon
+
+[d]/workspace> cmake --build build-snapdragon -j $(nproc)
+```
+
+To generate an installable "package" simply use cmake --install, then zip it:
+
+```
+[d]/workspace> cmake --install build-snapdragon --prefix pkg-linux
+[d]/workspace> zip -r pkg-linux.zip pkg-linux
+```
+
+## How to Install
+
+For this step, you will deploy the built binaries and libraries to the target
+Linux device. Transfer `pkg-linux.zip` to the target device, then unzip it
+and set up the environment variables:
+
+```
+$ unzip pkg-linux.zip
+$ cd pkg-linux
+$ export LD_LIBRARY_PATH=./lib
+$ export ADSP_LIBRARY_PATH=./lib
+```
+
+At this point, you should also download some models onto the device:
+
+```
+$ wget https://huggingface.co/bartowski/Llama-3.2-3B-Instruct-GGUF/resolve/main/Llama-3.2-3B-Instruct-Q4_0.gguf
+```
+
+## How to Run
+You can run locally on the Snapdragon Linux device:
+```
+$ ./scripts/snapdragon/run.py --devices HTP0 -- llama-cli -m Llama-3.2-3B-Instruct-Q4_0.gguf -ngl 99 -p "what is the most popular cookie in the world?"
+```
+
+Or run remotely from your host development machine using the SSH target option:
+```
+$ ./scripts/snapdragon/run.py --target lnx:user@host --devices HTP0 -- llama-cli -m Llama-3.2-3B-Instruct-Q4_0.gguf -ngl 99 -p "what is the most popular cookie in the world?"
+```
+
+For multi-NPU systems, you can run a tensor split completion command targeting a remote Linux system:
+```
+$ ./scripts/snapdragon/run.py --target ubuntu:maxk@192.168.1.87 --device HTP0:0,HTP1:0 -- llama-completion -m models/gemma-2b-it-Q4_0.gguf -f prompts/sample_prompt_1024.txt --jinja -st --split-mode tensor --ctx-size 8192
+```
+
+This translates to the following command being executed remotely via SSH:
+```
++ ssh maxk@192.168.1.87 "cd ~/llama.cpp && ulimit -c unlimited && LD_LIBRARY_PATH=./lib ADSP_LIBRARY_PATH=./lib GGML_HEXAGON_DEVICES=HTP0:0,HTP1:0 GGML_HEXAGON_OPPOLL=1 ./bin/llama-completion -m models/gemma-2b-it-Q4_0.gguf -f prompts/sample_prompt_1024.txt --jinja -st --split-mode tensor --ctx-size 8192 -v -n 16 --device HTP0:0,HTP1:0 -ngl 99 --ubatch-size 1024 -fa on -t 6"
+```
+
+Alternatively, you can run the binary directly on the device:
+```
+$ ./bin/llama-cli -m Llama-3.2-3B-Instruct-Q4_0.gguf --device HTP0 -ngl 99 -p "what is the most popular cookie in the world?"
+```
+
+# Snapdragon-based devices
+
+## Setup
+
+The cross-compilation toolchain images are provided by the
+[Qualcomm Snapdragon Toolchain registry](https://github.com/snapdragon-toolchain).
+These Docker images include the Android NDK, OpenCL SDK, Hexagon SDK, CMake, and the necessary cross-compilers:
+
+* **Android toolchain**: `ghcr.io/snapdragon-toolchain/arm64-android:v0.8`
+* **Linux toolchain**: `ghcr.io/snapdragon-toolchain/arm64-linux:v0.8`
+
+The unified build utility (`scripts/snapdragon/build.py`) automatically pulls
+and orchestrates these containers to perform target compilation.
+You only need to ensure that Docker (or Docker Desktop on macOS/Windows) is running on your host machine.
+Specific setup, build, and installation details for Linux and Windows on Snapdragon platforms are documented in:
+* [Linux on Snapdragon guide](linux.md)
+* [Windows on Snapdragon guide](windows.md)
+
+## How to Build
+
+### Using build.py script (Recommended)
+
+The easiest way to build llama.cpp is by using the `scripts/snapdragon/build.py` script. It automatically copies the CMake presets,
+launches the correct compilation Docker container, builds the libraries and tools,
+installs them, and optionally pushes them to your ADB device.
+
+Build and deploy for Android target (accepts `android` or `adb` alias):
+```
+$ ./scripts/snapdragon/build.py --target adb --push
+```
+
+Build and deploy for Linux target (accepts `linux` or `lnx` alias):
+```
+$ ./scripts/snapdragon/build.py --target linux:user@host --push
+```
+
+### Manual CMake Build
+
+Alternatively, you can build llama.cpp manually by entering the cross-compilation Docker container and running the CMake commands:
+
+```bash
+# Start the cross-compilation container manually:
+~/src/llama.cpp$ docker run -it --rm -u $(id -u):$(id -g) --volume $(pwd):/workspace --platform linux/amd64 ghcr.io/snapdragon-toolchain/arm64-android:v0.8
+
+# Inside the container, build the project using presets:
+[d]/workspace> cp docs/backend/snapdragon/CMakeUserPresets.json .
+
+[d]/workspace> cmake --preset arm64-android-snapdragon-release -B build-snapdragon
+Preset CMake variables:
+  ANDROID_ABI="arm64-v8a"
+  ...
+  CMAKE_TOOLCHAIN_FILE="/opt/android-ndk-r28b/build/cmake/android.toolchain.cmake"
+  GGML_HEXAGON="ON"
+  GGML_OPENCL="ON"
+  GGML_OPENMP="OFF"
+  HEXAGON_SDK_ROOT="/opt/hexagon/6.7.0.0"
+...
+-- Including OpenCL backend
+-- Including Hexagon backend
+...
+-- Build files have been written to: /workspace/build-snapdragon
+
+[d]/workspace> cmake --build build-snapdragon
+...
+[144/356] Performing build step for 'htp-v73'
+[1/16] Generating htp_iface_skel.c, htp_iface_stub.c, htp_iface.h
+[2/16] Building C object CMakeFiles/ggml-htp-v73.dir/hvx-sigmoid.c.obj
+[3/16] Building C object CMakeFiles/ggml-htp-v73.dir/htp-dma.c.obj
+[4/16] Building C object CMakeFiles/ggml-htp-v73.dir/worker-pool.c.obj
+...
+-- Installing: /workspace/build-snapdragon/ggml/src/ggml-hexagon/libggml-htp-v73.so
+-- Installing: /workspace/build-snapdragon/ggml/src/ggml-hexagon/libggml-htp-v75.so
+...
+```
+
+To generate an installable "package" simply use cmake --install:
+
+```
+[d]/workspace> cmake --install build-snapdragon --prefix pkg-android/llama.cpp
+-- Install configuration: "Release"
+-- Installing: /workspace/pkg-android/llama.cpp/lib/libggml-cpu.so
+-- Installing: /workspace/pkg-android/llama.cpp/lib/libggml-opencl.so
+-- Installing: /workspace/pkg-android/llama.cpp/lib/libggml-hexagon.so
+-- Installing: /workspace/pkg-android/llama.cpp/lib/libggml-htp-v73.so
+-- Installing: /workspace/pkg-android/llama.cpp/lib/libggml-htp-v75.so
+-- Installing: /workspace/pkg-android/llama.cpp/lib/libggml-htp-v79.so
+-- Installing: /workspace/pkg-android/llama.cpp/lib/libggml-htp-v81.so
+-- Installing: /workspace/pkg-android/llama.cpp/lib/libggml.so
+...
+-- Installing: /workspace/pkg-android/llama.cpp/bin/llama-bench
+-- Installing: /workspace/pkg-android/llama.cpp/bin/llama-cli
+...
+```
+
+## How to Install
+
+### Android
+
+For this step, your device needs to be configured for on-device development.
+Please see https://developer.android.com/studio/debug/dev-options for details.
+
+Once ADB is enabled, use `adb push` to install `pkg-android` on the device.
+**Note that the toolchain Docker image doesn't have ADB and doesn't set up the ADB bridge. Please use native ADB on the host.**
+
+```
+~/src/llama.cpp$ adb push pkg-android/llama.cpp /data/local/tmp/
+pkg-android/llama.cpp/bin/: 67 files pushed, 0 skipped. 190.2 MB/s (919095042 bytes in 4.607s)
+pkg-android/llama.cpp/include/: 19 files pushed, 0 skipped. 20.5 MB/s (255173 bytes in 0.012s)
+pkg-android/llama.cpp/lib/: 16 files pushed, 0 skipped. 144.4 MB/s (43801382 bytes in 0.289s)
+102 files pushed, 0 skipped. 186.9 MB/s (963151597 bytes in 4.914s)
+```
+
+At this point, you should also install some models:
+
+```
+~/src/llama.cpp$ wget https://huggingface.co/bartowski/Llama-3.2-1B-Instruct-GGUF/resolve/main/Llama-3.2-1B-Instruct-Q4_0.gguf
+...
+2025-10-11 12:04:52 (10.7 MB/s) - ‘Llama-3.2-1B-Instruct-Q4_0.gguf’ saved [773025920/773025920]
+
+~/src/llama.cpp$ adb push Llama-3.2-1B-Instruct-Q4_0.gguf /data/local/tmp/gguf
+Llama-3.2-1B-Instruct-Q4_0.gguf: 1 file pushed, 0 skipped. 38.3 MB/s (773025920 bytes in 19.250s)
+```
+
+### Windows
+
+All artifacts are already installed in the `pkg-wos` folder.
+To run, you can use the `scripts/snapdragon/run.py` runner script (see details below).
+
+## How to Run
+
+The easiest way to run llama.cpp cli tools is using the provided `scripts/snapdragon/run.py` wrapper script. This script automatically
+maps CLI options to environment variables, resolves executable paths, and runs the command locally, via ADB, or remotely via SSH on the
+target device.
+
+llama.cpp supports three backends on Snapdragon-based devices: CPU, Adreno GPU (GPUOpenCL), and Hexagon NPU.
+You can select which backend(s) to run the model on using the `--device` option of the tool (or `--devices` option in `run.py`).
+
+Hexagon NPU behaves as a "GPU" device when it comes to `-ngl` and other offload-related options.
+
+Here are some examples of running various llama.cpp tools.
+
+Generating a completion with Gemma on Android (relying on default `HTP0:0` device and default thread count `-t 6`):
+
+```
+~/src/llama.cpp$ ./scripts/snapdragon/run.py --target adb -- llama-completion -m models/gemma-2-2b-it-Q4_0.gguf -f prompts/sample_prompt_1024.txt --jinja -st
+...
+ggml-hex: Hexagon backend (experimental) : allocating new registry : ndev 1
+ggml-hex: Hexagon Arch version v79
+ggml-hex: allocating new session: HTP0:0
+...
+load_tensors: offloading output layer to GPU
+load_tensors: offloaded 27/27 layers to GPU
+load_tensors:          CPU model buffer size =   300.00 MiB
+load_tensors:      HTP0:0 model buffer size  =  1400.26 MiB
+...
+llama_perf_context_print: prompt eval time =     320.00 ms /  1024 tokens (    0.31 ms per token,  3200.00 tokens per second)
+llama_perf_context_print:        eval time =     2100.00 ms /   100 runs   (   21.00 ms per token,    47.62 tokens per second)
+```
+
+Simple question for Llama-3.2-1B:
+
+```
+~/src/llama.cpp$ ./scripts/snapdragon/run.py --target android --devices HTP0 -- llama-cli -m Llama-3.2-1B-Instruct-Q4_0.gguf -p "what is the most popular cookie in the world?"
+...
+ggml-hex: Hexagon backend (experimental) : allocating new registry : ndev 1
+ggml-hex: Hexagon Arch version v79
+ggml-hex: allocating new session: HTP0
+ggml-hex: new session: HTP0 : session-id 0 domain-id 3 uri file:///libggml-htp-v79.so?htp_iface_skel_handle_invoke&_modver=1.0&_dom=cdsp&_session=0 handle 0xb4000072c7955e50
+...
+load_tensors: offloading output layer to GPU
+load_tensors: offloaded 17/17 layers to GPU
+load_tensors:          CPU model buffer size =   225.49 MiB
+load_tensors:         HTP0 model buffer size =   504.26 MiB
+...
+I hope this helps you understand the world's most popular cookies! [end of text]
+...
+llama_perf_sampler_print:    sampling time =      30.08 ms /   487 runs   (    0.06 ms per token, 16191.77 tokens per second)
+llama_perf_context_print:        load time =     617.94 ms
+llama_perf_context_print: prompt eval time =      80.76 ms /    11 tokens (    7.34 ms per token,   136.21 tokens per second)
+llama_perf_context_print:        eval time =    9210.59 ms /   475 runs   (   19.39 ms per token,    51.57 tokens per second)
+llama_perf_context_print:       total time =    9454.92 ms /   486 tokens
+llama_perf_context_print:    graphs reused =        473
+llama_memory_breakdown_print: | memory breakdown [MiB] | total   free    self   model   context   compute    unaccounted |
+llama_memory_breakdown_print: |   - HTP0 (Hexagon)     |  2048 = 2048 + (   0 =     0 +       0 +       0) +           0 |
+llama_memory_breakdown_print: |   - Host               |                  439 =   225 +     136 +      77                |
+```
+
+Op test for MUL_MAT:
+
+```
+~/src/llama.cpp$ ./scripts/snapdragon/run.py --target adb --devices HTP0:0 -- test-backend-ops -b HTP0:0 -o MUL_MAT
+...
+Backend 2/3: HTP0:0
+Device description: Hexagon
+Device memory: 2048 MB (2048 MB free)
+MUL_MAT(type_a=q4_0,type_b=f32,m=16,n=1,k=256,bs=[1,1],nr=[1,1],per=[0,1,2,3],v=0,o=1): OK
+MUL_MAT(type_a=q4_0,type_b=f32,m=16,n=2,k=256,bs=[1,1],nr=[1,1],per=[0,1,2,3],v=0,o=1): OK
+MUL_MAT(type_a=q4_0,type_b=f32,m=16,n=3,k=256,bs=[1,1],nr=[1,1],per=[0,1,2,3],v=0,o=1): OK
+```
+
+Llama benchmark:
+
+```
+~/src/llama.cpp$ ./scripts/snapdragon/run.py --target adb --devices HTP0 -- llama-bench -p 128 -n 64 -m Llama-3.2-1B-Instruct-Q4_0.gguf
+...
+ggml-hex: Hexagon backend (experimental) : allocating new registry : ndev 1
+ggml-hex: Hexagon Arch version v79
+ggml-hex: allocating new session: HTP0
+ggml-hex: new session: HTP0 : session-id 0 domain-id 3 uri file:///libggml-htp-v79.so?htp_iface_skel_handle_invoke&_modver=1.0&_dom=cdsp&_session=0 handle 0xb400007d4b231090
+| model          |       size | params | backend    | ngl | threads | n_batch | mmap |  test |           t/s |
+| ---------------| ---------: | -----: | ---------- | --: | ------: | ------: | ---: | ----: | ------------: |
+| llama 1B Q4_0  | 729.75 MiB | 1.24 B | HTP        |  99 |       4 |     128 |    0 | pp128 | 169.42 ± 1.75 |
+| llama 1B Q4_0  | 729.75 MiB | 1.24 B | HTP        |  99 |       4 |     128 |    0 |  tg64 |  51.54 ± 1.13 |
+```
+
+## Multi-Device Execution Modes
+
+The Hexagon backend supports multiple execution and partitioning modes to accommodate different model sizes, memory
+constraints, and single- or multi-NPU hardware topologies:
+
+### 1. Single-Device Mode with Dynamic Buffer Mapping
+
+Runs the model on a single NPU session (e.g. `HTP0` or `HTP0:0`).
+
+A single NPU session provides ~3.5GB of available virtual address space. For models larger than 3.5GB, the backend
+automatically maps and unmaps weight buffers during graph execution. This allows large models to run on a single NPU
+without manual configuration:
+
+```bash
+./scripts/snapdragon/run.py --target adb --devices HTP0:0 -- \
+    llama-cli -m models/Llama-3.2-3B-Instruct-Q4_0.gguf -ngl 99 -p "Hello"
+```
+
+### 2. Layer-Split Mode across Virtual Sessions (`HTP0,HTP1,...` or `HTP0:0,HTP0:1,...`)
+
+Partitions model layers at load time across multiple virtual sessions hosted on a single physical NPU.
+
+Each virtual session acts as an independent backend device from llama.cpp's perspective (similar to multiple GPUs).
+Because layers are permanently distributed across sessions, each session's allocated weights remain within its private 3.5GB
+address space window, eliminating runtime buffer re-mapping overhead.
+
+Here is an example of running the GPT-OSS-20B model on a Snapdragon device using 4 virtual sessions on a single NPU:
+
+```bash
+./scripts/snapdragon/run.py --target adb \
+    --devices HTP0:0,HTP0:1,HTP0:2,HTP0:3 -- \
+    llama-cli --load-mode none -m /data/local/tmp/gguf/gpt-oss-20b-Q4_0.gguf -t 4 \
+    --ctx-size 8192 --batch-size 128 -ctk q8_0 -ctv q8_0 -fa on -ngl 99 -no-cnv -f surfing.txt
+```
+
+Log output snippet:
+
+```
+...
+llama_model_loader: - type  f32:  289 tensors
+llama_model_loader: - type q4_0:   96 tensors
+llama_model_loader: - type q8_0:    2 tensors
+llama_model_loader: - type mxfp4:  72 tensors
+...
+load_tensors: offloaded 25/25 layers to GPU
+load_tensors:          CPU model buffer size =  1182.09 MiB
+load_tensors:       HTP0:1 model buffer size =  2512.58 MiB
+load_tensors:       HTP0:3 model buffer size =  2093.83 MiB
+load_tensors:       HTP0:0 model buffer size =  2931.34 MiB
+load_tensors:       HTP0:2 model buffer size =  2512.58 MiB
+...
+llama_perf_context_print: prompt eval time =    3843.67 ms /   197 tokens ( 19.51 ms per token, 51.25 tokens per second)
+llama_perf_context_print:        eval time =    1686.13 ms /    31 runs   ( 54.39 ms per token, 18.39 tokens per second)
+llama_perf_context_print:       total time =    6266.30 ms /   228 tokens
+llama_memory_breakdown_print: | memory breakdown [MiB] | total   free    self   model   context   compute    unaccounted |
+llama_memory_breakdown_print: |   - HTP0:0 (Hexagon)   |  2048 = 2048 + (   0 =     0 +       0 +       0) +           0 |
+llama_memory_breakdown_print: |   - HTP0:1 (Hexagon)   |  2048 = 2048 + (   0 =     0 +       0 +       0) +           0 |
+llama_memory_breakdown_print: |   - HTP0:2 (Hexagon)   |  2048 = 2048 + (   0 =     0 +       0 +       0) +           0 |
+llama_memory_breakdown_print: |   - HTP0:3 (Hexagon)   |  2048 = 2048 + (   0 =     0 +       0 +       0) +           0 |
+llama_memory_breakdown_print: |   - Host               |                 1476 =  1208 +     105 +     162                |
+```
+
+### 3. Tensor-Split Mode across Physical Devices (`HTP0:0,HTP1:0,...`)
+
+Distributes model tensors across distinct physical NPU hardware cores using llama.cpp's tensor parallelism
+(`--split-mode tensor`).
+
+Tensors are partitioned across physical NPUs for parallel execution (proportions are distributed equally by default without
+needing an explicit `--tensor-split` option):
+
+```bash
+./scripts/snapdragon/run.py --target adb \
+    --devices HTP0:0,HTP1:0 -- \
+    llama-cli -m models/Llama-3.2-3B-Instruct-Q4_0.gguf --split-mode tensor -ngl 99 -p "Hello"
+```
+
+### 4. Row-Split Multi-Device Mode via Device Grouping (`HTP0[0-1]`)
+
+Groups multiple physical NPU cores into a single logical device using bracket notation (`HTP0[0-1]` or `HTP0[0,1]`).
+
+Unlike host-level tensor-splitting, row-splitting is executed entirely inside the Hexagon backend:
+
+```bash
+./scripts/snapdragon/run.py --target adb \
+    --devices 'HTP0[0-1]' -- \
+    llama-cli -m models/Llama-3.2-3B-Instruct-Q4_0.gguf -ngl 99 -p "Hello"
+```
+
+You can also combine row-splitting with layer-splitting across multiple grouped devices (e.g. `--devices 'HTP0[0-1],HTP1[2-3]'`
+on 4 physical NPUs, or `--devices 'HTP0[0-1:0],HTP1[0-1:1]'` on 2 physical NPUs using virtual sessions 0 and 1).
+
+## Environment variables
+
+- `GGML_HEXAGON_DEVICES` (default: not set, defaults to HTP0 session)
+  Controls which NPU devices and sessions to allocate. Configurable via `--devices` in `run.py`:
+  - `N` (single integer): Allocates `N` virtual sessions named `HTP0`, `HTP1`, ..., `HTP<N-1>` on physical NPU 0.
+  - `HTP<phys>:<virt>,...`: Comma-separated list of individual devices specifying physical and virtual index:
+    - `HTP0:0,HTP0:1`: Two virtual sessions on physical NPU 0 (layer-split on single NPU).
+    - `HTP0:0,HTP1:0`: One session on physical NPU 0 and one on physical NPU 1 (tensor-split across physical cores).
+  - `HTP<name>[<phys_spec>]`: Device grouping syntax for row-split multi-device execution:
+    - `HTP0[0-1]`: A single logical device `HTP0` that groups physical cores 0 and 1.
+    - `HTP0[0-1],HTP1[2-3]`: Two layer-split devices across 4 physical NPUs (cores 0-1 and 2-3).
+    - `HTP0[0-1:0],HTP1[0-1:1]`: Two layer-split devices across 2 physical NPUs using virtual sessions 0 and 1.
+
+- `GGML_HEXAGON_NDEV` (deprecated)
+  Replaced by `GGML_HEXAGON_DEVICES`. Controls the number of virtual sessions to allocate on physical NPU `0`.
+  Allocates sessions named `HTP0`, `HTP1`, etc.
+
+- `GGML_HEXAGON_NHVX=0`
+  Controls the number of HVX hardware threads to use. The default is all (actual number varies depending on the hardware version).
+
+- `GGML_HEXAGON_VTCM_SIZE=0`
+  Overrides the VTCM size used by each session. Accepts `K`, `M` and `G` suffixes; a plain number is in MB. The default (0) uses the size the hardware reports. Values above the hardware size will fail to start the session.
+
+- `GGML_HEXAGON_HOSTBUF=1` (default: 0, disabled)
+  Enables allocating host buffers for debugging. By default, host buffers are disabled.
+
+- `GGML_HEXAGON_DMA64=0` (default: enabled on v81+)
+  Disables 64-bit DMA for model weights. Set to `1` to enable it explicitly on a supported architecture.
+
+- `GGML_HEXAGON_POWER_MODE=default`
+  Controls the DCVS/HMX power mode requested from the HTP DSP for the session. Modes are listed
+  from lowest to highest power. All modes except `burst` leave DCVS enabled and keep the HTP awake.
+
+  - `low_power_saver`
+  - `power_saver`
+  - `high_power_saver`
+  - `low_balanced`
+  - `balanced`
+  - `high_performance`
+  - `sustained_high_performance`
+  - `burst` (maximum clocks, disables DCVS; may thermal-throttle on sustained workloads)
+  - `default` (currently aliases to `burst`)
+
+  Unknown values are logged as a warning and fall back to `burst`.
+
+  This must be set in the environment before the process initializes the backend registry, so
+  there is no `llama-*` CLI flag for it. The `run.py` runner exposes it as `--hex-power-mode`.
+
+  Examples:
+
+      `GGML_HEXAGON_POWER_MODE=balanced llama-completion ...`
+      `./scripts/snapdragon/run.py --hex-power-mode sustained_high_performance ...`
+
+
+- `GGML_HEXAGON_VERBOSE=1`
+  Enables verbose logging of Ops from the backend. Example output:
+
+  ```
+  ggml-hex: HTP0 graph-compute n_nodes 2
+  ggml-hex: HTP0 matmul : blk.27.ffn_up.weight x ffn_norm-27 -> ffn_up-27 : 3072:8192 x 3072:1 -> 8192:1 : q4_0 x f32 -> f32 : HTP0 x HTP0 -> HTP0 : flags 0x1
+  ggml-hex: HTP0 matmul : blk.27.ffn_gate.weight x ffn_norm-27 -> ffn_gate-27 : 3072:8192 x 3072:1 -> 8192:1 : q4_0 x f32 -> f32 : HTP0 x HTP0 -> HTP0 : flags 0x3
+  ggml-hex: HTP0 graph-compute n_nodes 1
+  ggml-hex: HTP0 matmul : blk.27.ffn_down.weight x ffn_gate_par-27 -> ffn_out-27 : 8192:3072 x 8192:1 -> 3072:1 : q4_0 x f32 -> f32 : HTP0 x HTP0 -> HTP0 : flags 0x0
+  ggml-hex: HTP0 get-tensor result_output : data 0x7592487000 offset 0 size 513024
+  ```
+
+- `GGML_HEXAGON_PROFILE=1`
+  Enables Op profiling (configurable via `--hex-profile` in `run.py`):
+
+  - `1`: Basic profile with per-op `usecs` and `cycles` counters
+  - `2`: Extended profile with per-op `usecs`, `cycles` and default PMU counter data
+  - `0x1,...,0x8`: Extended profile with per-op `usecs`, `cycles` and custom PMU counter data
+
+  The logging output can be saved to a file or piped directly into the post-processing script:
+
+  ```bash
+  ./scripts/snapdragon/run.py --target adb --hex-profile 1 -- llama-cli ... |& \
+      ./scripts/snapdragon/ggml-hexagon-profile.py -
+  ```
+
+- `GGML_HEXAGON_OPFILTER=regex`
+  Filters (disables) Ops matching the regex pattern (configurable via `--hex-opfilter` in `run.py`):
+
+  ```bash
+  # Disable Flash Attention on Hexagon (falls back to CPU or GPU)
+  ./scripts/snapdragon/run.py --target adb --hex-opfilter "FLASH_ATTN_EXT" -- llama-cli ...
+
+  # Disable ADD and SUB on Hexagon (fall back to CPU or GPU)
+  ./scripts/snapdragon/run.py --target adb --hex-opfilter "ADD|SUB" -- llama-cli ...
+  ```
+# Snapdragon-based Windows devices
+
+## Tool Dependencies
+
+Native Windows 11 arm64 builds have the following tool dependencies:
+- MS Visual Studio 2026 (Community Edition or Pro)
+  - MSVC arm64 standard and runtime libraries
+  - UCRT and Driver Kit
+- LLVM core libraries and Clang compiler (winget)
+- CMake, Git, Python (winget)
+- Hexagon SDK Community Edition 6.7 or later (see below)
+- OpenCL SDK 2.3 or later (see below)
+
+Note: The rest of the **Windows** build process assumes that you're running natively in Powershell.
+
+## Overview
+
+The document covers procedures for installing the latest GPU and NPU drivers, and OpenCL and Hexagon SDKs.
+
+
+In order to use Hexagon NPU on Snapdragon Windows devices the underlying HTP Ops libraries (e.g libggml-htp-v73.so)
+must be included in the .cat file digitally signed with a trusted certificate.
+
+This document covers details on how to generate personal certificate files (.pfx) and how to configure the system
+to allow for test signatures (aka test-signing).
+
+## Install Windows SDKs
+
+The recommended method is `setup-sdk.py`:
+
+```
+> python scripts\snapdragon\setup-sdk.py --list-sdk-releases
+> python scripts\snapdragon\setup-sdk.py --hexagon --opencl
+```
+
+It installs the selected SDKs under `C:\Qualcomm` and sets their corresponding environment variables for the current user. Start a new terminal after it completes; native Windows builds check all SDK paths before CMake runs.
+
+Select the SDKs to install with `--hexagon` and `--opencl`; use both to prepare a dual-backend build. To select a different available version, pass it to the SDK option, for example `--hexagon 6.4.0.2`. SDK versions install side by side, so you can switch versions without deleting an existing installation. Use `--force` to reinstall the selected SDKs. Use a new CMake build directory after each switch because CMake caches the SDK paths.
+
+Either use the trimmed down version (optimized for CI) from
+
+    https://github.com/snapdragon-toolchain/opencl-sdk/releases/download/v2.3.2/adreno-opencl-sdk-v2.3.2-arm64-wos.tar.xz
+
+Or download the complete official version from
+
+    https://softwarecenter.qualcomm.com/catalog/item/Adreno_OpenCL_SDK?version=2.3.2
+
+Unzip/untar the archive into
+```
+c:\Qualcomm\OpenCL_SDK\2.3.2
+```
+
+## Install the latest Hexagon SDK Community Edition
+
+Either use the trimmed down version (optimized for CI) from
+
+    https://github.com/snapdragon-toolchain/hexagon-sdk/releases/download/v6.7.0.0/hexagon-sdk-v6.7.0.0-arm64-wos.tar.xz
+
+Or download the complete official version from
+
+    https://softwarecenter.qualcomm.com/catalog/item/Hexagon_SDK?version=6.7.0.0
+
+Unzip/untar the archive into
+```
+c:\Qualcomm\Hexagon_SDK\6.7.0.0
+```
+
+## Install the latest Adreno GPU driver
+
+Download the driver from
+
+    https://softwarecenter.qualcomm.com/catalog/item/Windows_Graphics_Driver
+
+After the automated installation and reboot please make sure that the GPU device shows up in the `Device Manager` (under 'Display Adapters`)
+
+## Install the latest Qualcomm NPU driver
+
+Download the driver from
+
+    https://softwarecenter.qualcomm.com/catalog/item/Qualcomm_HND
+
+After the automated installation and reboot please make sure that the Hexagon NPU device shows up in the `Device Manager`
+(under `Neural Processors`).
+
+If the device is not available you can try installing all components (`qcnspmcdm8380`, `qcnspmcdm8380_ext`) manually.
+The components are extracted into
+```
+c:\QCDrivers\qcnspmcdm...
+```
+
+## Enable NPU driver test signatures
+
+Please note that the following steps are required only for the Hexagon NPU.
+Adreno GPU backend does not require test signatures.
+
+### Enable testsigning
+
+Use `bcdedit` to enable test-signing
+```
+> bcdedit /set TESTSIGNING ON
+```
+(Secure Boot may need to be disabled for this to work)
+
+Make sure test-signing is enabled after reboot
+```
+> bcdedit /enum
+...
+testsigning             Yes
+...
+```
+For additional details see Microsoft guide at
+
+   https://learn.microsoft.com/en-us/windows-hardware/drivers/install/the-testsigning-boot-configuration-option
+
+### Create personal certificate
+
+The tools required for this procedure are available as part of Windows SDK and Windows Driver Kit which should be
+installed as part of the MS Visual Studio.
+They are typically located at
+```
+c:\Program Files (x86)\Windows Kits\10\bin\10.0.26100.0
+```
+(replace 10.0.26100.0 with correct version).
+
+To create personal self-signed certificate run the following commands (either from cmd or power-shell):
+```
+> cd c:\Users\MyUser
+> mkdir Certs
+> cd Certs
+> makecert -r -pe -ss PrivateCertStore -n CN=GGML.HTP.v1 -eku 1.3.6.1.5.5.7.3.3 -sv ggml-htp-v1.pvk ggml-htp-v1.cer
+> pvk2pfx.exe -pvk ggml-htp-v1.pvk -spc ggml-htp-v1.cer -pfx ggml-htp-v1.pfx
+```
+(replace `MyUser` with your username).
+
+Add this certificate to `Trusted Root Certification Authorities` and `Trusted Publishers` stores.
+This can be done using `certlm` Certificate Manager tool.
+Right click on the certificate store, select `All Tasks -> Import` and follow the prompts to import the certificate from the
+PFX file you created above.
+
+For additional details see Microsoft guide at
+
+    https://learn.microsoft.com/en-us/windows-hardware/drivers/install/introduction-to-test-signing
+
+Make sure to save the PFX file, you will need it for the build procedures.
+Please note that the same certificate can be used for signing any number of builds.
+
+## Build Hexagon backend with signed HTP ops libraries
+
+The overall Hexagon backend build procedure for Windows on Snapdragon is the same as for other platforms.
+However, additional settings are required for generating and signing HTP Ops libraries.
+```
+> $env:OPENCL_SDK_ROOT="C:\Qualcomm\OpenCL_SDK\2.3.2"
+> $env:HEXAGON_SDK_ROOT="C:\Qualcomm\Hexagon_SDK\6.7.0.0"
+> $env:HEXAGON_TOOLS_ROOT="C:\Qualcomm\Hexagon_SDK\6.7.0.0\tools\HEXAGON_Tools\21.0.04"
+> $env:HEXAGON_HTP_CERT="c:\Users\MyUsers\Certs\ggml-htp-v1.pfx"
+> $env:WINDOWS_SDK_BIN="C:\Program Files (x86)\Windows Kits\10\bin\10.0.26100.0"
+
+> cmake --preset arm64-windows-snapdragon-release -B build-wos
+...
+> cmake --install build-wos --prefix pkg-wos
+```
+
+Once the build is complete HTP ops libraries will be installed like this
+```
+> dir pkg-wos/lib
+...
+-a----         1/22/2026   6:01 PM         187656 libggml-htp-v73.so
+-a----         1/22/2026   6:01 PM         191752 libggml-htp-v75.so
+-a----         1/22/2026   6:01 PM         187656 libggml-htp-v79.so
+-a----         1/22/2026   6:01 PM         187656 libggml-htp-v81.so
+-a----         1/22/2026   6:01 PM           4139 libggml-htp.cat
+```
+
+The .cat file, the signature and proper certificate installation can be verified with
+
+```
+> signtool.exe verify /v /pa .\pkg-wos\lib\libggml-htp.cat
+Verifying: .\pkg-wos\lib\libggml-htp.cat
+
+Signature Index: 0 (Primary Signature)
+Hash of file (sha256): 9820C664DA59D5EAE31DBB664127FCDAEF59CDC31502496BC567544EC2F401CF
+
+Signing Certificate Chain:
+        Issued to: GGML.HTP.v1
+...
+Successfully verified: .\pkg-wos\lib\libggml-htp.cat
+...
+```
+# llama.cpp for SYCL
+
+- [Background](#background)
+- [Recommended Release](#recommended-release)
+- [News](#news)
+- [OS](#os)
+- [Hardware](#hardware)
+- [Performance Reference](#performance-reference)
+- [Docker](#docker)
+- [Linux](#linux)
+- [Windows](#windows-1)
+- [Environment Variable](#environment-variable)
+- [Design Rule](#design-rule)
+- [Known Issue](#known-issues)
+- [Q&A](#qa)
+- [TODO](#todo)
+
+## Background
+
+**SYCL** is a high-level parallel programming model designed to improve developers productivity writing code across various hardware accelerators such as CPUs, GPUs, and FPGAs. It is a single-source language designed for heterogeneous computing and based on standard C++17.
+
+**oneAPI** is an open ecosystem and a standard-based specification, supporting multiple architectures including but not limited to Intel CPUs, GPUs and FPGAs. The key components of the oneAPI ecosystem include:
+
+- **DPCPP** *(Data Parallel C++)*: The primary oneAPI SYCL implementation, which includes the icpx/icx Compilers.
+- **oneAPI Libraries**: A set of highly optimized libraries targeting multiple domains *(e.g. Intel oneMKL, oneMath and oneDNN)*.
+- **oneAPI LevelZero**: A high performance low level interface for fine-grained control over Intel iGPUs and dGPUs.
+
+### Llama.cpp + SYCL
+
+The llama.cpp SYCL backend is primarily designed for **Intel GPUs**.
+SYCL cross-platform capabilities enable support for other vendor GPUs as well.
+
+## Recommended Release
+
+### Windows
+
+The following releases are verified and recommended:
+
+|Commit ID|Tag|Release|Verified  Platform| Update date|
+|-|-|-|-|-|
+|24e86cae7219b0f3ede1d5abdf5bf3ad515cccb8|b5377 |[llama-b5377-bin-win-sycl-x64.zip](https://github.com/ggml-org/llama.cpp/releases/download/b5377/llama-b5377-bin-win-sycl-x64.zip) |Arc B580/Linux/oneAPI 2025.1<br>LNL Arc GPU/Windows 11/oneAPI 2025.1.1|2025-05-15|
+|3bcd40b3c593d14261fb2abfabad3c0fb5b9e318|b4040 |[llama-b4040-bin-win-sycl-x64.zip](https://github.com/ggml-org/llama.cpp/releases/download/b4040/llama-b4040-bin-win-sycl-x64.zip) |Arc A770/Linux/oneAPI 2024.1<br>MTL Arc GPU/Windows 11/oneAPI 2024.1| 2024-11-19|
+|fb76ec31a9914b7761c1727303ab30380fd4f05c|b3038 |[llama-b3038-bin-win-sycl-x64.zip](https://github.com/ggml-org/llama.cpp/releases/download/b3038/llama-b3038-bin-win-sycl-x64.zip) |Arc A770/Linux/oneAPI 2024.1<br>MTL Arc GPU/Windows 11/oneAPI 2024.1||
+
+### Ubuntu 24.04
+
+The release packages for Ubuntu 24.04 x64 (FP32/FP16) only include the binary files of the llama.cpp SYCL backend. They require the target machine to have pre-installed Intel GPU drivers and oneAPI packages that are the same version as the build package. To get the version and installation info, refer to [.github/workflows/release.yml#L713](../../.github/workflows/release.yml#L713): ubuntu-24-sycl -> Download & Install oneAPI.
+
+It is recommended to use them with [Intel Docker](https://hub.docker.com/r/intel/deep-learning-essentials).
+
+The packages for FP32 and FP16 would have different accuracy and performance on LLMs. Please choose it according to the test result.
+
+## News
+
+- 2026.09
+  - Update the CI build environment for oneAPI 2026.1 (unified oneAPI Toolkit). oneDNN is removed from the Deep Learning Essentials package in 2026.0, so the CI now uses the oneAPI Toolkit installer which still includes oneDNN.
+  - oneAPI 2026.1 improves the SYCL build performance: measured with the same code on Arc B570, prompt processing 1331 vs 434 t/s (3.1x) vs the 2025.3-based release build.
+
+- 2026.04-05
+  - Optimize mul_mat by reorder feature for data type: Q4_K, Q5_K, Q6_K
