@@ -1641,7 +1641,7 @@ llama_context: constructing llama_context
 llama_context: n_seq_max             = 4
 llama_context: n_ctx                 = 132096
 llama_context: n_ctx_seq             = 33024
-llama_context: n_batch               = 2048
+llama_context: n_batch               = 512
 llama_context: n_ubatch              = 512
 llama_context: causal_attn           = 1
 llama_context: flash_attn            = auto
@@ -1649,7 +1649,7 @@ llama_context: kv_unified            = false
 llama_context: freq_base             = 1000000.0
 llama_context: freq_scale            = 1
 llama_context: n_rs_seq              = 0
-llama_context: n_outputs_max         = 2048
+llama_context: n_outputs_max         = 512
 llama_context: n_outputs_max_per_seq = 1
 llama_context: n_ctx_seq (33024) < n_ctx_train (40960) -- the full capacity of the model will not be utilized
 set_abort_callback: call
@@ -3452,7 +3452,7 @@ sched_reserve:      CUDA0 compute buffer size =   261.05 MiB
 sched_reserve:      CUDA1 compute buffer size =   486.58 MiB
 sched_reserve:  CUDA_Host compute buffer size =   169.08 MiB
 sched_reserve: graph: nodes = 3129, splits = 3, input objects = 4, input tensors = 9
-sched_reserve: reserve took 88.64 ms, sched copies = 4
+sched_reserve: reserve took 91.77 ms, sched copies = 4
 CUDA error: the library was not initialized
   current device: 0, in function cublas_handle at /home/adityaseshasai.s/amcas-pro/tracing/llama.cpp/ggml/src/ggml-cuda/../ggml-cuda/common.cuh:1543
   cublasCreate_v2(&cublas_handles[device][curr_stream_no])
