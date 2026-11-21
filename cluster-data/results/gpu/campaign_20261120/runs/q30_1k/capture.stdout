@@ -1,0 +1,32 @@
+         INSTR_BEGIN = 0 - Beginning of the instruction interval where to apply instrumentation
+           INSTR_END = 4294967295 - End of the instruction interval where to apply instrumentation
+    EXCLUDE_PRED_OFF = 1 - Exclude predicated off instruction from count
+      TRACE_LINEINFO = 0 - Include source code line info at the start of each traced line. The target binary must be compiled with -lineinfo or --generate-line-info
+DYNAMIC_KERNEL_RANGE =  - Specify kernel IDs or ranges to trace. Format:
+  - Single ID:       "2" traces only kernel 2.
+  - Range:           "5-8" traces kernels 5 through 8 (inclusive).
+  - Open-ended:      "10-" traces from kernel 10 onward.
+  - Multiple ranges: "2 5-8 10-" (space-separated).
+  - With regex:      "5-8@kernel_a.*,kernel_b.*" traces kernels 5–8 with matching names.
+If unset or empty, all kernels will be traced from the beginning.
+   ACTIVE_FROM_START = 0 - Start instruction tracing from start or wait for cuProfilerStart and cuProfilerStop. If set to 0, DYNAMIC_KERNEL_RANGE options have no effect
+        TOOL_VERBOSE = 0 - Enable verbosity inside the tool
+       TOOL_COMPRESS = 1 - Enable traces compression
+     TOOL_TRACE_CORE = 1 - write the core id in the traces
+TERMINATE_UPON_LIMIT = 0 - Stop the process once the current kernel > DYNAMIC_KERNEL_LIMIT_END
+USER_DEFINED_FOLDERS = 0 - Uses the user defined folder TRACES_FOLDER path environment
+ TRACE_FILE_COMPRESS = 1 - Create xz-compressed tracefile
+SPINLOCK_HANDLING_MODE = 0 - Spinlock handling mode: 0=none, 1=fast_forward, 2=mark_region
+SPINLOCK_ITER_TO_KEEP = 1 - Number of iterations to keep for spinlock handling
+     ENABLE_WATCHDOG = 1 - Enable the watchdog to skip instructions between WARPSYNC.COLLECTIVE and its target instruction (inclusive)
+        SKIP_TMA_MEM = 0 - Enable the skipping of TMA memory instructions
+ALLOW_REG_VAL_TRACING = 1 - EXPERIMENTAL: Enable the tracing of register values. Trace format is not stable. Trace version is 6.
+NVBIT_INSTRUMENTATION_ENABLED = 1 - Enable NVBit instrumentation. Can be controlled at runtime using enable_nvbit_instrumentation() and disable_nvbit_instrumentation()
+----------------------------------------------------------------------------------------------------
+AMCAS_GRAPH_BEGIN step=-1 compute=0
+AMCAS_GRAPH_END step=-1 compute=0
+AMCAS_GRAPH_BEGIN step=-1 compute=1
+AMCAS_GRAPH_END step=-1 compute=1
+AMCAS_GRAPH_BEGIN step=0 compute=2
+AMCAS_GRAPH_END step=0 compute=2
+AMCAS_GRAPH_BEGIN step=1 compute=3
