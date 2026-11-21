@@ -1,0 +1,59 @@
+with the context length. With `auto`, llama.cpp currently turns Flash Attention off, because the operation runs on a different device than the layer. zDNN runs it when the KV cache is F16 (the default), the model uses no attention sinks, ALiBi or logit softcapping, and there is one KV cache stream (one sequence, or `--kv-unified`). Otherwise it falls back to the CPU.
+
+## 1. Install zDNN Library
+
+Note: A minimum of libzdnn 1.1.2 is required for the IBM zDNN backend to link correctly.
+
+### Install using apt
+
+```sh
+sudo apt update
+sudo apt install -y libzdnn-dev
+```
+
+### Install using yum
+
+```sh
+sudo yum update
+sudo yum install -y libzdnn-devel
+```
+
+### Install from source
+
+```sh
+git clone --recurse-submodules https://github.com/IBM/zDNN
+cd zDNN
+
+autoreconf .
+./configure --prefix=/opt/zdnn-libs
+
+make build
+sudo make install
+```
+
+## 2. Build llama.cpp
+
+```sh
+git clone https://github.com/ggml-org/llama.cpp
+cd llama.cpp
+
+cmake -S . -G Ninja -B build \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DGGML_ZDNN=ON \
+    -DZDNN_ROOT=/opt/zdnn-libs
+cmake --build build --config Release -j$(nproc)
+```
+
+## 3. Run a model
+
+```sh
+build/bin/llama-server -hf taronaeo/Granite-3.3-2B-Instruct-BE-GGUF:Q4_K_M -fa on
+```
+
+Note: FlashAttention (`-fa on`) is strongly recommended as it forces attention to run on the IBM zAIU accelerator instead of the CPU ([see PR](https://github.com/ggml-org/llama.cpp/pull/30512)). By default, FlashAttention is turned off.
+# llama.cpp for AMD ZenDNN
+
+> [!WARNING]
+> **Note:** ZenDNN is **not** the same as zDNN.
+> - **ZenDNN** (this page): AMD's deep learning library for AMD EPYC CPUs
+> - **zDNN**: IBM's Deep Neural Network acceleration library for IBM Z & LinuxONE Mainframes

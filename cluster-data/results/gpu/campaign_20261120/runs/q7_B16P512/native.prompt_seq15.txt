@@ -1,0 +1,44 @@
+-org/ultravox-v0_5-llama-3_1-8b-GGUF
+
+# Qwen2-Audio and SeaLLM-Audio
+# note: no pre-quantized GGUF this model, as they have very poor result
+# ref: https://github.com/ggml-org/llama.cpp/pull/13760
+
+# Mistral's Voxtral
+(tool_name) -hf ggml-org/Voxtral-Mini-3B-2507-GGUF
+
+# Qwen3-ASR
+(tool_name) -hf ggml-org/Qwen3-ASR-0.6B-GGUF
+(tool_name) -hf ggml-org/Qwen3-ASR-1.7B-GGUF
+```
+
+**Mixed modalities**:
+
+```sh
+# Qwen2.5 Omni
+# Capabilities: audio input, vision input
+(tool_name) -hf ggml-org/Qwen2.5-Omni-3B-GGUF
+(tool_name) -hf ggml-org/Qwen2.5-Omni-7B-GGUF
+
+# Qwen3 Omni
+# Capabilities: audio input, vision input
+(tool_name) -hf ggml-org/Qwen3-Omni-30B-A3B-Instruct-GGUF
+(tool_name) -hf ggml-org/Qwen3-Omni-30B-A3B-Thinking-GGUF
+
+# Gemma 4
+# Capabilities: audio input, vision input
+(tool_name) -hf ggml-org/gemma-4-E2B-it-GGUF
+(tool_name) -hf ggml-org/gemma-4-E4B-it-GGUF
+```
+
+## Finding more models:
+
+GGUF models on Huggingface with vision capabilities can be found here: https://huggingface.co/models?pipeline_tag=image-text-to-text&sort=trending&search=gguf
+## MiniCPM-o 2.6
+Currently, this readme only supports minicpm-omni's image capabilities, and we will update the full-mode support as soon as possible.
+
+### Prepare models and code
+
+Download [MiniCPM-o-2_6](https://huggingface.co/openbmb/MiniCPM-o-2_6) PyTorch model from huggingface to "MiniCPM-o-2_6" folder.
+
+

@@ -1,0 +1,28 @@
+GGML_SYCL_USM_SYSTEM | 0 (default) or 1 | Enable experimental support for [USM system allocations](https://github.khronos.org/SYCL_Reference/iface/usm_basic_concept.html#system-allocations) for large GPU buffers. This requires enough host memory for model weights and caches, an Intel Xe2+ GPU such as BMG or newer and supported on Linux only, with CONFIG_DRM_XE_GPUSVM enabled. |
+
+1. <a id="sycl-graph-footnote"></a>SYCL Graph support (`GGML_SYCL_ENABLE_GRAPH=1`) is limited to single-GPU workloads and may also depend on the model architecture and kernels in use.
+   Performance depends on how often a recorded graph can be reused, which will vary by workload.
+   For this reason, it is recommended to measure performance both with and without graphs enabled on your workloads.
+
+   To check whether graphs are supported for your workload, enable INFO logging (`-lv 4`) and look for `enabling SYCL graphs` or `disabling SYCL graphs`.
+   Support may differ between prefill and decode, so check the status for the phases that matter to you.
+   DEBUG logging (`-lv 5`) reports why graphs are disabled.
+
+   Then benchmark with your preferred tool, such as `llama-bench`.
+   For graph activity details (including reuse), set `GGML_SYCL_DEBUG=1` and look for `[SYCL-GRAPH]` messages.
+
+### Flash-attention kernels
+
+Attention dispatches on shape and hardware.
+
+DPAS is the quantized path. q4_0 or q8_0 KV cache, decode and batches up to 31 tokens, Xe2 and newer only. It issues dpas straight on the quantized blocks and never materialises an f16 copy. vISA gets used here because joint_matrix has no s4 type.
+
+oneDNN does XMX through SDPA but converts KV to f16 first, so it ends up on prefill: 32+ tokens and 1K+ keys. MKL is the prompt processing equivalent through oneMKL GEMM, also f16.
+
+VEC/TILE are plain kernels with no XMX in them. They run when DPAS is off or the hardware doesn't support it.
+
+joint_matrix belongs to the matmul GEMMs. Attention doesn't use it.
+
+## Compile-time Flags
+
+Pass these via `CXXFLAGS

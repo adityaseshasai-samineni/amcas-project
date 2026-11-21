@@ -1,0 +1,33 @@
+r closing: uses `function.close` if present; otherwise uses `peek(per_call_end)` to avoid premature close during partial streaming; falls back to `tool_close(space())` to trigger mapper callbacks.
+
+All three tool parsers return:
+
+```text
+reasoning + optional(content(until(trigger_marker))) + tool_calls + end()
+```
+
+Each returned parser is wrapped by `wrap_for_generation_prompt()`, which prepends a literal for any boilerplate prefix of the generation prompt (the portion before the reasoning start marker).
+
+## Mapper
+
+`common_chat_peg_mapper` maps PEG parse results (AST nodes) into `common_chat_msg` structures. Key design:
+
+- **Buffered arguments**: Before `tool_name` is known, argument text goes to `args_buffer`; once the name is set, the buffer is flushed to `current_tool->arguments`
+- **`args_target()`**: Returns a reference to whichever destination is currently active (buffer or tool args), eliminating branching
+- **`closing_quote_pending`**: Tracks whether a closing `"` needs to be appended when a string argument value is finalized (for schema-declared string types in tagged format)
+- **Whitespace-only reasoning**: Reasoning content that consists entirely of whitespace (e.g. from a `<think></think>` prefill) is cleared so the message shows no reasoning
+- **Brace auto-closing**: At tool close, unclosed `{` braces are closed automatically
+
+## Files
+
+| File                                      | Purpose                                                                         |
+|-------------------------------------------|---------------------------------------------------------------------------------|
+| `common/chat-auto-parser.h`               | All analysis structs, enums, `autoparser`, `peg_generator`, `generation_params` |
+| `common/chat-auto-parser-generator.cpp`   | Parser generator: `generate_parser()` and `build_parser()` methods              |
+| `common/chat-diff-analyzer.cpp`           | Differential analysis implementation and workarounds                            |
+| `common/chat-auto-parser-helpers.h/cpp`   | `calculate_diff_split()`, `segmentize_markers()`, `compare_variants()`,         |
+|                                           | `wrap_for_generation_prompt()`, string helpers                                  |
+| `common/chat-peg-parser.h/cpp`            | `common_chat_peg_builder`, `common_chat_peg_mapper`, and helpers                |
+| `common/chat.cpp`                         | Entry point: `common_chat_templates_apply_jinja()`                              |
+| `tests/test-chat-auto-parser.cpp`         | Auto-parser unit tests; also a debug tool when given a template path            |
+| `

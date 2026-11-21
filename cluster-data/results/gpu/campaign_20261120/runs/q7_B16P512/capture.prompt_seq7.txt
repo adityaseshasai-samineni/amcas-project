@@ -1,0 +1,34 @@
+n be circumvented by setting the environment variable `SYCL_PROGRAM_COMPILE_OPTIONS`
+as `-cl-fp32-correctly-rounded-divide-sqrt`
+
+### III. Run the inference
+
+#### Retrieve and prepare model
+
+You can refer to the general [*Obtaining and quantizing models*](../../README.md#obtaining-and-quantizing-models) guide for model preparation, or download an already quantized model like [llama-2-7b.Q4_0.gguf](https://huggingface.co/TheBloke/Llama-2-7B-GGUF/resolve/main/llama-2-7b.Q4_0.gguf?download=true) or [Meta-Llama-3-8B-Instruct-Q4_0.gguf](https://huggingface.co/aptha/Meta-Llama-3-8B-Instruct-Q4_0-GGUF/resolve/main/Meta-Llama-3-8B-Instruct-Q4_0.gguf).
+
+##### Check device
+
+1. Enable oneAPI running environment
+
+```sh
+source /opt/intel/oneapi/setvars.sh
+```
+
+2. List devices information
+
+Similar to the native `sycl-ls`, available SYCL devices can be queried as follow:
+
+```sh
+./build/bin/llama-ls-sycl-device
+```
+
+This command will only display the selected backend that is supported by SYCL. The default backend is level_zero. For example, in a system with 2 *Intel GPU* it would look like the following:
+```
+found 2 SYCL devices:
+
+|  |                  |                                             |Compute   |Max compute|Max work|Max sub|               |
+|ID|       Device Type|                                         Name|capability|units      |group   |group  |Global mem size|
+|--|------------------|---------------------------------------------|----------|-----------|--------|-------|---------------|
+| 0|[level_zero:gpu:0]|               Intel(R) Arc(TM) A770 Graphics|       1.3|        512|    1024|     32|    16225243136|
+| 1|[level_zero:gpu:1]|                    Intel(R) UHD Graphics 770|       1.3|         32|     512|     32|    5365184
