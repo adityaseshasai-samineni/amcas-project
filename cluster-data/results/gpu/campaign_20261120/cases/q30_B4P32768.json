@@ -26,7 +26,7 @@
     "AMCAS_FA": "-1",
     "AMCAS_CORPUS": "/home/adityaseshasai.s/amcas-pro/results/sessions/corpus.txt",
     "AMCAS_CACHE_DIR": "",
-    "AMCAS_UBATCH": "512",
+    "AMCAS_UBATCH": "128",
     "AMCAS_N_BATCH": "512"
   },
   "cpu_source": "/home/adityaseshasai.s/amcas-pro/results/fullscale/drbatch",
@@ -36,7 +36,7 @@
   "gpu_adaptation": {
     "reason": "original2048/512 max-context invocation failed atcuBLASinitialization",
     "prefill_batch": 512,
-    "prefill_ubatch": 512,
+    "prefill_ubatch": 128,
     "selected_decode_sequences": 4,
     "prompt_tokens_per_sequence": 32768,
     "full_GPU_offload_required": true
