@@ -38,7 +38,7 @@ llama_model_loader: - type q6_K:   29 tensors
 print_info: file format = GGUF V3 (latest)
 print_info: file type   = Q4_K - Medium
 print_info: file size   = 4.36 GiB (4.91 BPW) 
-llama_prepare_model_devices: using device CUDA0 (Tesla V100-PCIE-16GB) (0000:3b:00.0) - 15694 MiB free
+llama_prepare_model_devices: using device CUDA0 (Tesla V100-PCIE-16GB) (0000:d8:00.0) - 15694 MiB free
 init_tokenizer: initializing tokenizer for type 2
 load: 0 unused tokens
 load: control token: 151660 '<|fim_middle|>' is not marked as EOG
@@ -2021,7 +2021,7 @@ llama_graph_n_input_tensors: input tensor '                      inp_tokens' [i3
 sched_reserve:      CUDA0 compute buffer size =   357.02 MiB
 sched_reserve:  CUDA_Host compute buffer size =    60.02 MiB
 sched_reserve: graph: nodes = 961, splits = 2, input objects = 4, input tensors = 9
-sched_reserve: reserve took 30.17 ms, sched copies = 1
+sched_reserve: reserve took 30.87 ms, sched copies = 1
 drbatch: seq 0 evaluated
 gpu-batch: selected graph begins at step 2
 gpu-batch: selected graph ends after step 2
