@@ -191,6 +191,12 @@ def combo(args):
     # checks
     ob, orow, oc = L.fields(intra)
     nuniq = np.unique(pw).size
+    if True:  # region: per-granule class XOR is a bijection only if granules are closed under the channel map; with
+        # channel = (addr>>8) mod 6 they are not, so a collision can occur -> drop the region stream for this combo
+        lay, arr, c_ = S["region"]
+        if np.unique(L.from_intra(arr, c_.astype(U))).size != nuniq:
+            print(f"  [{pk}/{dk}] region not injective: skipped", flush=True)
+            del S["region"]; info["region"] = "not injective: skipped"
     for sk, (lay, arr, c_) in S.items():
         if sk == "bitrev":
             assert np.unique(L.from_intra(arr, c_.astype(U))).size == nuniq, f"{sk} not injective"

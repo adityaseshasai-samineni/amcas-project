@@ -3,6 +3,7 @@
 //   one pass over PREFIX.bin evaluates every variant (own L1s + L2); per-launch counters go to OUT.perk.tsv:
 //   launch <TAB> then for each variant: l2rd, l2miss(=DRAM rd sectors), dram wr sectors
 //   --emit NAME also writes OUT.dram / OUT.dramlaunch (same formats as gpu_filter.c) for that variant.
+// dev=K: only records of launches whose CTX (device) is the K-th distinct CTX in PREFIX.launch.txt (multi-GPU runs).
 // keys (defaults): sm=80 l1kb=128 l1w=4 l2mb=6 ways=16 hash=0 pol=lru reorder=0 l2fetch=32 smmap=lin
 //   hash: 0 line%sets, 1 xor-fold (line^line>>11^line>>22)%sets, 2 pow2 sets xor-fold (sets rounded down to 2^n)
 //   pol : lru | rand | srrip | fifo      reorder: 0 trace order, 1 per-(cta,warp) round robin within a batch,
@@ -17,13 +18,13 @@ typedef struct { uint64_t tag; uint8_t valid, dirty, rrpv; uint32_t lru; } Line;
 typedef struct { Line* l; uint32_t sets, ways; uint64_t clk; int hash, pol; uint64_t rng; } Cache;
 typedef struct {
   char name[64]; int nsm, l1kb, l1w, reorder, smmap, fetch64; double l2mb; int ways, hash, pol;
-  Cache L2; Cache* L1; int emit;
+  Cache L2; Cache* L1; int emit; int dev;
   uint64_t l2rd, l2wr, l1rd, nrd, nwr;           // totals
   uint64_t *p_l2rd, *p_miss, *p_wr;               // per launch
   uint64_t *lastuse; // dyn smmap
 } Model;
 #define MAXL (1<<20)
-static uint32_t gx[MAXL], gy[MAXL];
+static uint32_t gx[MAXL], gy[MAXL]; static uint8_t devof[MAXL]; static uint64_t ctxlist[16]; static int nctx=0;
 static void cinit(Cache*c, uint64_t bytes, uint32_t ways, int hash, int pol){
   c->ways=ways; c->hash=hash; c->pol=pol; c->rng=88172645463325252ull;
   uint64_t sets=bytes/128/ways; if(hash==2){ uint64_t p=1; while(p*2<=sets)p*=2; sets=p; }
@@ -64,12 +65,12 @@ static void l1access(Model*m,int sm,uint64_t sec,int st){
 typedef struct { uint32_t launch, cta; uint16_t warp; uint8_t st, k; uint32_t off; uint32_t seq; } Rec;
 static Model M[16]; static int nm=0;
 static void parse_var(const char*spec){
-  Model*m=&M[nm++]; memset(m,0,sizeof *m); m->nsm=80; m->l1kb=128; m->l1w=4; m->l2mb=6; m->ways=16; m->hash=0; m->pol=0; m->reorder=0; m->smmap=0; m->fetch64=0;
+  Model*m=&M[nm++]; memset(m,0,sizeof *m); m->nsm=80; m->l1kb=128; m->l1w=4; m->l2mb=6; m->ways=16; m->hash=0; m->pol=0; m->reorder=0; m->smmap=0; m->fetch64=0; m->dev=-1;
   char buf[512]; strncpy(buf,spec,511); char*col=strchr(buf,':'); if(col){*col=0; strncpy(m->name,buf,63); col++;} else {strncpy(m->name,buf,63); col=buf+strlen(buf);}
   for(char*tok=strtok(col,",");tok;tok=strtok(NULL,",")){ char*e=strchr(tok,'='); if(!e)continue; *e=0; const char*k=tok,*v=e+1;
     if(!strcmp(k,"sm"))m->nsm=atoi(v); else if(!strcmp(k,"l1kb"))m->l1kb=atoi(v); else if(!strcmp(k,"l1w"))m->l1w=atoi(v); else if(!strcmp(k,"l2mb"))m->l2mb=atof(v);
     else if(!strcmp(k,"ways"))m->ways=atoi(v); else if(!strcmp(k,"hash"))m->hash=atoi(v); else if(!strcmp(k,"reorder"))m->reorder=atoi(v);
-    else if(!strcmp(k,"l2fetch"))m->fetch64=(atoi(v)==64); else if(!strcmp(k,"smmap"))m->smmap=!strcmp(v,"dyn");
+    else if(!strcmp(k,"dev"))m->dev=atoi(v); else if(!strcmp(k,"l2fetch"))m->fetch64=(atoi(v)==64); else if(!strcmp(k,"smmap"))m->smmap=!strcmp(v,"dyn");
     else if(!strcmp(k,"pol")) m->pol=!strcmp(v,"lru")?0:!strcmp(v,"rand")?1:!strcmp(v,"srrip")?2:3; else { fprintf(stderr,"bad key %s\n",k); exit(1);} }
   cinit(&m->L2,(uint64_t)(m->l2mb*1048576),m->ways,m->hash,m->pol); m->L1=malloc(sizeof(Cache)*m->nsm); for(int i=0;i<m->nsm;i++)cinit(&m->L1[i],(uint64_t)(m->l1kb?m->l1kb:1)*1024,m->l1w,0,0);
   m->p_l2rd=calloc(MAXL,8); m->p_miss=calloc(MAXL,8); m->p_wr=calloc(MAXL,8); m->lastuse=calloc(m->nsm,8);
@@ -91,7 +92,7 @@ static void flush(void){
     uint32_t mx=0; for(uint32_t i=0;i<nb;i++) if(B[i].seq>mx)mx=B[i].seq; uint32_t*c=calloc(mx+2,4); for(uint32_t i=0;i<nb;i++)c[B[i].seq+1]++; for(uint32_t i=0;i<=mx;i++)c[i+1]+=c[i];
     ord[r]=malloc(4*nb); for(uint32_t i=0;i<nb;i++) ord[r][c[B[i].seq]++]=i; free(c); }
   for(int v=0;v<nm;v++){ Model*m=&M[v]; int r=m->reorder;
-    for(uint32_t q=0;q<nb;q++){ Rec*x=&B[r?ord[r][q]:q]; curlaunch=x->launch; int sm;
+    for(uint32_t q=0;q<nb;q++){ Rec*x=&B[r?ord[r][q]:q]; curlaunch=x->launch; int sm; if(m->dev>=0 && devof[x->launch]!=m->dev) continue;
       if(m->smmap){ // dynamic: a CTA is bound to an SM on first sight (least recently used SM at that time)
         sm=x->cta%m->nsm; } else sm=x->cta%m->nsm;
       cursm=sm; for(int j=0;j<x->k;j++) l1access(m,sm,S[x->off+j],x->st); } }
@@ -108,7 +109,7 @@ int main(int argc,char**argv){
   while(fo&&fscanf(fo,"%d %255s",&id,nm_)==2){ isst[id]=(nm_[0]=='S'||nm_[0]=='R'||strncmp(nm_,"ATOM",4)==0);
     int w=4; if(strstr(nm_,".128"))w=16; else if(strstr(nm_,".64"))w=8; else if(strstr(nm_,".U8")||strstr(nm_,".S8"))w=1; else if(strstr(nm_,".U16")||strstr(nm_,".S16"))w=2; width[id]=w; }
   snprintf(p,512,"%s.launch.txt",pre); FILE*fg=fopen(p,"r"); char *ln=malloc(1<<16);
-  while(fg&&fgets(ln,1<<16,fg)){ char*a=strstr(ln,"grid launch id "); char*b=strstr(ln,"grid size "); if(!a||!b)continue; long l=atol(a+15); unsigned x,y,z; if(sscanf(b+10,"%u,%u,%u",&x,&y,&z)==3&&l<MAXL){gx[l]=x;gy[l]=y;} }
+  while(fg&&fgets(ln,1<<16,fg)){ char*a=strstr(ln,"grid launch id "); char*b=strstr(ln,"grid size "); if(!a||!b)continue; long l=atol(a+15); unsigned x,y,z; { char*c=strstr(ln,"CTX 0x"); if(c&&l<MAXL){ uint64_t cv=strtoull(c+4,0,16); int k=0; while(k<nctx&&ctxlist[k]!=cv)k++; if(k==nctx&&nctx<16)ctxlist[nctx++]=cv; devof[l]=k; } } if(sscanf(b+10,"%u,%u,%u",&x,&y,&z)==3&&l<MAXL){gx[l]=x;gy[l]=y;} }
   snprintf(p,512,"%s.bin",pre); FILE*f=fopen(p,"rb"); setvbuf(f,0,_IOFBF,1<<24);
   if(emitn){ snprintf(p,512,"%s.dram",outp); fd=fopen(p,"wb"); snprintf(p,512,"%s.dramlaunch",outp); fl=fopen(p,"wb"); }
   uint64_t a[32]; uint32_t lastl=~0u;
@@ -128,6 +129,6 @@ int main(int argc,char**argv){
   for(uint32_t l=0;l<MAXL;l++){ int any=0; for(int v=0;v<nm;v++) if(M[v].p_l2rd[l]||M[v].p_miss[l]||M[v].p_wr[l]) any=1; if(!any)continue;
     fprintf(fp,"%u",l); for(int v=0;v<nm;v++) fprintf(fp,"\t%lu\t%lu\t%lu",M[v].p_l2rd[l],M[v].p_miss[l],M[v].p_wr[l]); fprintf(fp,"\n"); }
   fclose(fp);
-  fprintf(stderr,"warp instrs %lu; mean same-CTA run length %.2f\n",nwarp,nruns?(double)nwarp/nruns:0);
+  fprintf(stderr,"contexts seen %d; warp instrs %lu; mean same-CTA run length %.2f\n",nctx,nwarp,nruns?(double)nwarp/nruns:0);
   for(int v=0;v<nm;v++) fprintf(stderr,"%-14s L1 ld sectors %lu; L2 reads %lu; DRAM reads %lu (%.1f MB) writes %lu (%.1f MB)\n",M[v].name,M[v].l1rd,M[v].l2rd,M[v].nrd,M[v].nrd*32/1e6,M[v].nwr,M[v].nwr*32/1e6);
   return 0; }

@@ -1,0 +1,297 @@
+// Batched-decode burst driver: B sequences, each with its own prompt, decoded together;
+// DynamoRIO is attached only for chosen decode steps (one llama_process call with B
+// tokens). Own main() on libllama.so (no llama-completion), so there is no prompt-batch
+// step counting: "decode step k" is the k-th batched call after all prompts are in.
+//
+// Prompt k = tokens of corpus slice k (distinct slices, offset k*AMCAS_STRIDE chars).
+// Prompt cache: the first P-1 prompt tokens of each sequence are saved with
+// llama_state_seq_save_file (AMCAS_CACHE_DIR) and restored on later runs, so a long
+// prompt is evaluated once. The last prompt token is always run live, batched over all
+// sequences (decode step 0, untraced), which also yields the logits for token 1.
+//
+// Env: AMCAS_MODEL AMCAS_B AMCAS_P(512) AMCAS_THREADS AMCAS_CORPUS AMCAS_STRIDE
+//   AMCAS_CACHE_DIR AMCAS_NGEN(4 decode steps after step 0) AMCAS_SKIP_STEPS(1)
+//   AMCAS_TRACE_STEPS(1) AMCAS_KVU(0: per-sequence KV streams) AMCAS_OUT (token ids)
+//   AMCAS_STEPS (B/E timestamps) AMCAS_TENSORS (tensor dump of traced graphs)
+//   DYNAMORIO_OPTIONS as drburst.
+#include <dlfcn.h>
+#include <execinfo.h>
+#include <signal.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/time.h>
+#include <algorithm>
+#include <string>
+#include <vector>
+#include <set>
+#include <utility>
+
+// GPU counterpart: official NVBit ACTIVE_FROM_START=0 honors cuProfilerStart/Stop.
+#include <cuda_runtime_api.h>
+#include <cuda_profiler_api.h>
+static void dr_app_setup() {}
+static void dr_app_cleanup() {}
+static void dr_app_start() {
+    int old=0,n=0; if(cudaGetDevice(&old)!=cudaSuccess || cudaGetDeviceCount(&n)!=cudaSuccess) abort();
+    for(int i=0;i<n;i++) if(cudaSetDevice(i)!=cudaSuccess || cudaDeviceSynchronize()!=cudaSuccess || cudaProfilerStart()!=cudaSuccess) abort();
+    if(cudaSetDevice(old)!=cudaSuccess) abort();
+}
+static void dr_app_stop_and_cleanup() {
+    int old=0,n=0; if(cudaGetDevice(&old)!=cudaSuccess || cudaGetDeviceCount(&n)!=cudaSuccess) abort();
+    for(int i=0;i<n;i++) if(cudaSetDevice(i)!=cudaSuccess || cudaDeviceSynchronize()!=cudaSuccess) abort();
+    for(int i=0;i<n;i++) if(cudaSetDevice(i)!=cudaSuccess || cudaProfilerStop()!=cudaSuccess) abort();
+    if(cudaSetDevice(old)!=cudaSuccess) abort();
+}
+
+#include "llama.h"
+#include "ggml.h"
+#include "ggml-backend.h"
+
+static long step = -1;
+static bool want_trace, finished;
+static long g_skip, g_ntrace;
+// Prefill-window mode (AMCAS_PREFILL=1): the P-token prompt of sequence 0 runs as one
+// llama_process call split by n_ubatch (AMCAS_UBATCH) into graph computes; DynamoRIO is
+// attached for the graph computes [AMCAS_TRACE_COMPUTE, +AMCAS_TRACE_COMPUTES) only.
+static bool g_prefill;
+static long g_comp = -1, g_comp_first = 0, g_comp_n = 1;
+static bool tracing;
+static FILE *out, *tsv;
+static std::set<std::pair<long, void *>> seen;
+
+static long env_long(const char *n, long d) { const char *v = getenv(n); return v && *v ? atol(v) : d; }
+static std::string env_str(const char *n, const char *d = "") { const char *v = getenv(n); return v && *v ? v : d; }
+
+static std::string token_piece(const llama_vocab *vocab, llama_token token) {
+    char b[256]; int n=llama_token_to_piece(vocab,token,b,sizeof b,0,true);
+    if(n>=0)return std::string(b,n);
+    std::vector<char> tmp(-n); n=llama_token_to_piece(vocab,token,tmp.data(),tmp.size(),0,true);
+    if(n<0)abort();return std::string(tmp.data(),n);
+}
+static void save_text(const char *var,int seq,const std::string &text) {
+    const char *base=getenv(var);if(!base)return;
+    std::string path=std::string(base)+"_seq"+std::to_string(seq)+".txt";
+    FILE*f=fopen(path.c_str(),"wb");if(!f)abort();fwrite(text.data(),1,text.size(),f);fclose(f);
+}
+
+static void stamp(char what) {
+    if (!out) {
+        const char *p = getenv("AMCAS_STEPS");
+        if (!p || !(out = fopen(p, "w"))) return;
+        setvbuf(out, NULL, _IOLBF, 0);
+    }
+    struct timeval tv; gettimeofday(&tv, NULL);
+    unsigned long long us = (unsigned long long)tv.tv_sec * 1000000ULL + tv.tv_usec;
+    fprintf(out, "%c %ld %llu\n", what, step, us + 11644473600ULL * 1000000ULL);
+}
+
+static void dump_tensor(const struct ggml_tensor *t) {
+    if (!t) return;
+    while (t->view_src) t = t->view_src;
+    if (!t->data || !seen.insert({step, t->data}).second) return;
+    fprintf(tsv, "%ld\t%s\t0x%llx\t%zu\t%s\t%s\t%ld\t%ld\t%ld\t%ld\n", step, t->name,
+            (unsigned long long)(uintptr_t)t->data, ggml_nbytes(t), ggml_type_name(t->type),
+            ggml_op_name(t->op), (long)t->ne[0], (long)t->ne[1], (long)t->ne[2], (long)t->ne[3]);
+}
+
+// Same interposition as drattr_main.cpp: dump after the real call (data pointers are
+// assigned inside it), only while tracing.
+extern "C" enum ggml_status ggml_backend_sched_graph_compute_async(ggml_backend_sched_t sched, struct ggml_cgraph *g) {
+    typedef enum ggml_status (*fn_t)(ggml_backend_sched_t, struct ggml_cgraph *);
+    static fn_t real = (fn_t)dlsym(RTLD_NEXT, "ggml_backend_sched_graph_compute_async");
+    // Attach just before the graph compute, not in llama_process: with B >= 13
+    // sequences DynamoRIO crashed (SIGSEGV in std::unordered_map<bitset<256>,..>::
+    // operator[] after a rehash, inside llama_batch_allocr::init) when started earlier.
+    g_comp++;
+    fprintf(stdout,"AMCAS_GRAPH_BEGIN step=%ld compute=%ld\n",step,g_comp);fflush(stdout);
+    if (g_prefill && step < 0 && g_comp == g_comp_first) want_trace = true;
+    if (g_prefill && step < 0 && g_comp >= g_comp_first + g_comp_n) want_trace = false;
+    if (want_trace && !tracing && !finished) { fprintf(stderr, "gpu-batch: selected graph begins at step %ld\n", step); dr_app_start(); tracing = true; }
+    enum ggml_status r = real(sched, g);
+    if (tracing && !tsv) {
+        const char *p = getenv("AMCAS_TENSORS");
+        if (p) tsv = fopen(p, "w");
+        if (tsv) fprintf(tsv, "step\tname\tdata\tnbytes\ttype\top\tne0\tne1\tne2\tne3\n");
+    }
+    if (tracing && tsv) {
+        for (int i = 0; i < ggml_graph_n_nodes(g); i++) {
+            struct ggml_tensor *n = ggml_graph_node(g, i);
+            dump_tensor(n);
+            for (int k = 0; k < GGML_MAX_SRC; k++) dump_tensor(n->src[k]);
+        }
+        fflush(tsv);
+    }
+    if (tracing && g_prefill && step < 0 && g_comp + 1 >= g_comp_first + g_comp_n) { dr_app_stop_and_cleanup(); tracing = false; finished = true; fprintf(stderr, "gpu-batch: selected graph ends after compute %ld\n", g_comp); }
+    else if (tracing && !g_prefill && step + 1 >= g_skip + g_ntrace) { dr_app_stop_and_cleanup(); tracing = false; finished = true; fprintf(stderr, "gpu-batch: selected graph ends after step %ld\n", step); }
+    fprintf(stdout,"AMCAS_GRAPH_END step=%ld compute=%ld\n",step,g_comp);fflush(stdout);
+    return r;
+}
+
+static void on_sig(int sig, siginfo_t *si, void *) {
+    fprintf(stderr, "drbatch: signal %d at %p (si_code %d)\n", sig, si->si_addr, si->si_code);
+    void *bt[30]; int n = backtrace(bt, 30); backtrace_symbols_fd(bt, n, 2); _exit(99);
+}
+// Same shape as drburst's wrapper: attach and detach happen inside llama_process.
+extern "C" int32_t llama_process(struct llama_context *ctx, enum llama_process_type type, struct llama_batch_ext *batch) {
+    typedef int32_t (*fn_t)(struct llama_context *, enum llama_process_type, struct llama_batch_ext *);
+    static fn_t real = (fn_t)dlsym(RTLD_NEXT, "llama_process");
+    if (step >= 0) stamp('B');
+    int32_t r = real(ctx, type, batch);
+    if (step >= 0) stamp('E');
+    return r;
+}
+static void die(const char *m) { fprintf(stderr, "drbatch: %s\n", m); exit(1); }
+
+int main() {
+    const int B = env_long("AMCAS_B", 1), T = env_long("AMCAS_THREADS", 4);
+    int P = env_long("AMCAS_P", 512);
+    const int NGEN = env_long("AMCAS_NGEN", 4);
+    const long skip = g_skip = env_long("AMCAS_SKIP_STEPS", 1), ntrace = g_ntrace = env_long("AMCAS_TRACE_STEPS", 1);
+    std::string model = env_str("AMCAS_MODEL"), corpus_path = env_str("AMCAS_CORPUS"), cdir = env_str("AMCAS_CACHE_DIR");
+    long stride = env_long("AMCAS_STRIDE", 30000);
+    if (model.empty() || corpus_path.empty()) die("AMCAS_MODEL and AMCAS_CORPUS required");
+    if (getenv("AMCAS_SIGDBG")) {
+        struct sigaction sa; memset(&sa, 0, sizeof sa); sa.sa_sigaction = on_sig; sa.sa_flags = SA_SIGINFO;
+        sigaction(SIGSEGV, &sa, 0); sigaction(SIGILL, &sa, 0); sigaction(SIGBUS, &sa, 0); sigaction(SIGFPE, &sa, 0);
+    }
+    dr_app_setup();
+    ggml_backend_load_all();
+    llama_backend_init();
+    llama_model_params mp = llama_model_default_params(); mp.n_gpu_layers = env_long("AMCAS_GPU_LAYERS", 99);
+    llama_model *m = llama_model_load_from_file(model.c_str(), mp);
+    if (!m) die("model load failed");
+    const llama_vocab *vocab = llama_model_get_vocab(m);
+    std::string literal = env_str("AMCAS_PROMPT_TEXT");
+    if(const char *lf=getenv("AMCAS_LITERAL_FILE")) {
+        FILE *f=fopen(lf,"rb"); if(!f) die("literal prompt file"); char b[65536];size_t n;
+        while((n=fread(b,1,sizeof b,f)))literal.append(b,n);fclose(f);
+    }
+    if(!literal.empty()) {
+        std::vector<llama_token> tmp(literal.size()*2+32);
+        int n=llama_tokenize(vocab,literal.data(),literal.size(),tmp.data(),tmp.size(),true,false);
+        if(n<=0) die("literal tokenization failed"); P=n;
+    }
+    fprintf(stderr,"gpu-batch: actual prompt tokens per sequence=%d sequences=%d\n",P,B);
+    g_prefill = env_long("AMCAS_PREFILL", 0) != 0;
+    const int UB = env_long("AMCAS_UBATCH", 512);
+    const int cs = ((P + NGEN + 8 + 255) / 256) * 256;
+    llama_context_params cp = llama_context_default_params();
+    cp.n_ctx = env_long("AMCAS_CTX", B * cs); cp.n_batch = env_long("AMCAS_N_BATCH", 2048); cp.n_ubatch = UB; cp.n_seq_max = B;
+    cp.flash_attn_type = (llama_flash_attn_type)env_long("AMCAS_FA", -1);
+    cp.n_threads = cp.n_threads_batch = T; cp.no_perf = true; cp.kv_unified = env_long("AMCAS_KVU", 0) != 0;
+    llama_context *ctx = llama_init_from_model(m, cp);
+    if (!ctx) die("context failed");
+
+    FILE *cf = fopen(corpus_path.c_str(), "rb"); if (!cf) die("corpus");
+    std::string corpus; { char buf[65536]; size_t n; while ((n = fread(buf, 1, sizeof buf, cf)) > 0) corpus.append(buf, n); fclose(cf); }
+    std::vector<std::vector<llama_token>> prompt(B);
+    for (int b = 0; b < B; b++) {
+        size_t off = (size_t)b * stride % (corpus.size() > 8u * P ? corpus.size() - 8u * P : 1);
+        std::string s = literal.empty() ? corpus.substr(off, (size_t)P * 8) : literal;
+        prompt[b].resize(P * 8);
+        int n = llama_tokenize(vocab, s.data(), s.size(), prompt[b].data(), prompt[b].size(), true, false);
+        if (n < P) die("prompt too short");
+        prompt[b].resize(P);
+        std::string prompt_text;for(auto id:prompt[b])prompt_text+=token_piece(vocab,id);save_text("AMCAS_PROMPT_PREFIX",b,prompt_text);
+        if (const char *pp = getenv("AMCAS_PROMPT_TOKENS")) {
+            FILE *pf=fopen(pp, b ? "a" : "w"); if(!pf) die("prompt token file");
+            fprintf(pf,"%d",b); for(auto id:prompt[b]) fprintf(pf," %d",id); fprintf(pf,"\n"); fclose(pf);
+        }
+    }
+    llama_batch_ext *batch = llama_batch_ext_init(ctx);
+    auto run = [&](bool logits_last_each) {
+        int32_t r = llama_process(ctx, LLAMA_PROCESS_TYPE_DECODE, batch);
+        (void)logits_last_each; return r;
+    };
+    if (g_prefill) {
+        // Whole prompt (all P tokens, logits of the last) in one llama_process call = ceil(P/UB) graph computes.
+        long ncomp = (P + UB - 1) / UB;
+        g_comp_first = env_long("AMCAS_TRACE_COMPUTE", ncomp - 1); g_comp_n = env_long("AMCAS_TRACE_COMPUTES", 1);
+        if (P > (int)cp.n_batch) die("prefill mode needs P <= n_batch (2048)");
+        llama_batch_ext_clear(batch);
+        for (int j = 0; j < P; j++) {
+            int idx = llama_batch_ext_add_token(batch, 0, prompt[0][j]);
+            llama_pos p = j; llama_batch_ext_set_pos(batch, idx, &p);
+            llama_batch_ext_set_output_logits(batch, idx, j == P - 1);
+        }
+        fprintf(stderr, "drbatch: prefill P=%d ubatch=%d computes=%ld trace from %ld count %ld\n", P, UB, ncomp, g_comp_first, g_comp_n);
+        if (run(true) != 0) die("prefill failed");
+        llama_synchronize(ctx);
+        fprintf(stderr, "drbatch: prefill done, %ld graph computes\n", g_comp + 1);
+        FILE *tk = fopen(env_str("AMCAS_OUT", "/dev/null").c_str(), "w");
+        std::string response_text;
+        std::vector<llama_token> cur1(1); int pos1 = P; const int nv1 = llama_vocab_n_tokens(vocab);
+        const float *l = llama_get_logits_ith(ctx, -1);
+        for (step = 0; step <= NGEN; step++) {
+            int best = 0; for (int i = 1; i < nv1; i++) if (l[i] > l[best]) best = i;
+            response_text+=token_piece(vocab,best);
+            fprintf(tk, "%d\n", best); fflush(tk);
+            if (step == NGEN) break;
+            llama_batch_ext_clear(batch);
+            int idx = llama_batch_ext_add_token(batch, 0, best); llama_pos p = pos1++;
+            llama_batch_ext_set_pos(batch, idx, &p); llama_batch_ext_set_output_logits(batch, idx, true);
+            if (run(true) != 0) die("decode failed");
+            l = llama_get_logits_ith(ctx, 0);
+        }
+        save_text("AMCAS_RESPONSE_PREFIX",0,response_text);
+        if (tracing) dr_app_stop_and_cleanup(); else if (!finished) dr_app_cleanup();
+        return 0;
+    }
+    // 1. prompt part (P-1 tokens), cached per sequence
+    size_t slash = model.find_last_of('/'); std::string mb = model.substr(slash == std::string::npos ? 0 : slash + 1);
+    for (int b = 0; b < B; b++) {
+        std::string f = cdir.empty() ? "" : cdir + "/" + mb + "_P" + std::to_string(P) + "_s" + std::to_string(stride) + "_b" + std::to_string(b) + ".seq";
+        bool ok = false;
+        if (!f.empty()) {
+            std::vector<llama_token> tk(P); size_t nt = 0;
+            size_t r = llama_state_seq_load_file(ctx, f.c_str(), b, tk.data(), tk.size(), &nt);
+            if (r > 0 && nt == (size_t)P - 1 && memcmp(tk.data(), prompt[b].data(), nt * sizeof(llama_token)) == 0) {
+                ok = true; fprintf(stderr, "drbatch: seq %d restored from %s\n", b, f.c_str());
+            }
+        }
+        if (!ok) {
+            for (int i = 0; i < P - 1; i += cp.n_batch) {
+                int n = std::min(int(cp.n_batch), P - 1 - i);
+                llama_batch_ext_clear(batch);
+                for (int j = 0; j < n; j++) {
+                    int idx = llama_batch_ext_add_token(batch, b, prompt[b][i + j]);
+                    llama_pos p = i + j; llama_batch_ext_set_pos(batch, idx, &p);
+                }
+                if (run(false) != 0) die("prompt eval failed");
+            }
+            llama_synchronize(ctx);
+            if (!f.empty()) { llama_state_seq_save_file(ctx, f.c_str(), b, prompt[b].data(), P - 1); fprintf(stderr, "drbatch: seq %d evaluated and saved\n", b); }
+            else fprintf(stderr, "drbatch: seq %d evaluated\n", b);
+        }
+    }
+    // 2. decode steps: step 0 = last prompt token of every sequence; then greedy tokens
+    const int nv = llama_vocab_n_tokens(vocab);
+    std::vector<llama_token> cur(B); std::vector<int> pos(B, P - 1);
+    for (int b = 0; b < B; b++) cur[b] = prompt[b][P - 1];
+    FILE *tok = fopen(env_str("AMCAS_OUT", "/dev/null").c_str(), "w");
+    std::vector<std::string> response_texts(B);
+    for (step = 0; step <= NGEN; step++) {
+        llama_batch_ext_clear(batch);
+        for (int b = 0; b < B; b++) {
+            int idx = llama_batch_ext_add_token(batch, b, cur[b]);
+            llama_pos p = pos[b]; llama_batch_ext_set_pos(batch, idx, &p);
+            llama_batch_ext_set_output_logits(batch, idx, true);
+        }
+        want_trace = step >= skip && step < skip + ntrace;
+        if (run(true) != 0) die("decode failed");
+        want_trace = false;
+        for (int b = 0; b < B; b++) {
+            const float *l = llama_get_logits_ith(ctx, b);
+            int best = 0; for (int i = 1; i < nv; i++) if (l[i] > l[best]) best = i;
+            response_texts[b]+=token_piece(vocab,best);
+            cur[b] = best; pos[b]++;
+            fprintf(tok, "%d%c", best, b == B - 1 ? '\n' : ' ');
+        }
+        fflush(tok);
+    }
+    for(int b=0;b<B;b++)save_text("AMCAS_RESPONSE_PREFIX",b,response_texts[b]);
+    if (tracing) dr_app_stop_and_cleanup(); else if (!finished) dr_app_cleanup();
+    return 0;
+}

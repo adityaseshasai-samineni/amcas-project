@@ -127,6 +127,37 @@ def main():
                         pr = 1 if what in ("lat",) else 3
                         L.append(f"| {mp} | " + " | ".join(f(c, pr) for c in cells) + " |")
                     L.append("")
+    # DRAMsim3
+    S2M = {"id": "identity", "xg": "xor_global", "region": "region", "chan": "chan", "xgc": "xor_global_chan", "bitrev": "bitrev",
+           "naive": "naive", "eh": "expert_hash", "el": "expert_lin", "mop3": "mop", "mxg3": "mopxor", "chra3": "chra"}
+    DS = {}
+    for t in traces:
+        pth = f"{src}/{t}/ds3.json"
+        if not os.path.exists(pth):
+            continue
+        for r in json.load(open(pth)):
+            pl, _d, st = r["key"].split("_", 2)
+            if st in S2M:
+                DS[(t, pl, S2M[st], r["policy"])] = r
+    if DS:
+        L += ["## DRAMsim3 cross-check (DDR4-2933 6 channels, per-channel instances, saturated, rochrababgco; OPEN_PAGE and CLOSE_PAGE)", "",
+              "MOP4CLXOR and ChRaBaRoCo are expressed as an address transform (their effective bank/row/col placed at the RoBaRaCoCh positions). "
+              "CLOSE_PAGE precharges after every access (hit 0) and is not the same policy as Ramulator's ClosedCAP. Cycles ratio = vs the same trace's identity mapping "
+              "with OPEN_PAGE; geometric mean over the class's traces; hit and latency are arithmetic means.", ""]
+        for cl in CLASS:
+            for pl in PLN:
+                ts = [t for t in CLASS[cl] if (t, pl, "identity", "OPEN_PAGE") in DS]
+                if not ts:
+                    continue
+                L += [f"**{cl} / {PLN[pl]}** (traces: {', '.join(ts)})", "", "| mapping | OPEN cycles ratio | OPEN hit | OPEN latency | CLOSE cycles ratio | CLOSE latency |", "|---|---|---|---|---|---|"]
+                for mp in MAPS:
+                    rr = [(DS.get((t, pl, mp, "OPEN_PAGE")), DS.get((t, pl, mp, "CLOSE_PAGE")), DS[(t, pl, "identity", "OPEN_PAGE")]) for t in ts]
+                    rr = [x for x in rr if x[0] and x[1]]
+                    if not rr:
+                        continue
+                    o = gm([a["cycles"] / c["cycles"] for a, b, c in rr]); cc = gm([b["cycles"] / c["cycles"] for a, b, c in rr])
+                    L.append(f"| {mp} | {f(o)} | {f(sum(a['hit_rate'] for a, b, c in rr) / len(rr))} | {f(sum(a['avg_read_latency'] for a, b, c in rr) / len(rr), 1)} | {f(cc)} | {f(sum(b['avg_read_latency'] for a, b, c in rr) / len(rr), 1)} |")
+                L.append("")
     # oracle headroom per mapping
     L += ["## Oracle headroom over Open, per mapping (geometric mean over all traces)", "",
           "Oracle/Open cycles, Oracle/Open latency, and the offline in-order model of the same stream (hit rate; modelled mean access latency Open vs Oracle, memory cycles; "
