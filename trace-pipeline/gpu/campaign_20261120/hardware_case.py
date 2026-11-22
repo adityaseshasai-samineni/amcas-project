@@ -20,7 +20,7 @@ for x in rows:
  metric=x.get('Metric Name','')
  if metric not in ['dram__bytes_read.sum','dram__bytes_write.sum']:continue
  value=float(x['Metric Value'].replace(',',''))*units[x.get('Metric Unit','byte')];tot[metric]=tot.get(metric,0)+value;ids.add((x.get('Device',''),x.get('Context',''),x['ID']))
-expected=sum(x.startswith('kernel-') for x in cap['kernel_lists']['kernelslist.g'])
+expected=sum(x.startswith('kernel-') for k,v in cap['kernel_lists'].items() if not k.startswith('kernelslist_sim_') for x in v)
 match=all((O/f'hardware.{suffix}').is_file() and (O/f'hardware.{suffix}').read_bytes()==(O/f'native.{suffix}').read_bytes() for suffix in ['tokens','prompt_tokens'])
 info=dict(passed=rc==0 and match and len(ids)==expected and len(tot)==2,exit_code=rc,kernels=len(ids),expected_kernels=expected,native_output_match=match,read_bytes=tot.get('dram__bytes_read.sum'),write_bytes=tot.get('dram__bytes_write.sum'),seconds=time.time()-start,scope='independent hardware application replay; twoDRAMbytecounters; not ordered hardwareDRAMtrace',profile_from_start=False)
 json.dump(info,open(O/'hardware.status.json','w'),indent=2);print(json.dumps(info));raise SystemExit(0 if info['passed'] else 1)

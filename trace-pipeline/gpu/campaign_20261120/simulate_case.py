@@ -2,15 +2,20 @@
 import pathlib,json,re,subprocess,os,gzip,shutil,time
 import sys
 name=sys.argv[1];A=pathlib.Path.home()/'amcas-pro';W=A/'tracing';R=A/'results/gpu/campaign_20261120';O=R/'runs'/name;cap=json.load(open(O/'capture.status.json'));assert cap['passed'];assert json.load(open(R/'mask_fixture/validation.json'))['passed']
-S=pathlib.Path(cap['scratch']);lists=list((S/'traces').glob('kernelslist.g'));assert len(lists)==1
-entries=lists[0].read_text().splitlines();kernels=[x for x in entries if x.startswith('kernel-')];assert kernels,'empty selected GPUwindow'
-contexts=sorted(set(re.search(r'ctx_0x[0-9a-fA-F]+',x).group(0) for x in kernels));results=[]
+S=pathlib.Path(cap['scratch']);lists=sorted(p for p in (S/'traces').glob('kernelslist*.g') if not p.name.startswith('kernelslist_sim_'));assert S/'traces'/'kernelslist.g' in lists
+# AMCAS: one post-processed list per CUDA context (kernelslist.g, kernelslist_ctx_0x*.g).
+ctx_entries={}
+for lp in lists:
+ es=lp.read_text().splitlines()
+ for c in set(re.search(r'ctx_0x[0-9a-fA-F]+',x).group(0) for x in es if x.startswith('kernel-')):assert c not in ctx_entries,c;ctx_entries[c]=es
+entries=[x for es in ctx_entries.values() for x in es];kernels=[x for x in entries if x.startswith('kernel-')];assert kernels,'empty selected GPUwindow'
+contexts=sorted(ctx_entries);results=[]
 E=W/'mamba/envs/gem5';env=os.environ.copy();env.update(PATH=str(E/'bin')+':'+env['PATH'],LD_LIBRARY_PATH=str(E/'lib')+':'+str(W/'accel-build-deps/lib'))
 for ctx in contexts:
  d=S/'simulation'/ctx;d.mkdir(parents=True,exist_ok=True);ro=O/ctx;ro.mkdir(exist_ok=True)
  for pat in ['*.config','*.icnt','*.xml']:
   for p in (A/'results/gpu/cache_audit_20261117/preflight').glob(pat):shutil.copy2(p,d/p.name)
- subset=[x for x in entries if not x.startswith('kernel-') or ctx in x]
+ subset=[x for x in ctx_entries[ctx] if not x.startswith('kernel-') or ctx in x]
  path=S/'traces'/f'kernelslist_sim_{ctx}.g';path.write_text('\n'.join(subset)+'\n')
  n=sum(x.startswith('kernel-') for x in subset);csv=d/'dram.csv';env.update(AMCAS_DRAM_EXPORT=str(csv),AMCAS_DRAM_EXPORT_MASKS='1')
  start=time.time()
