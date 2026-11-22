@@ -45,3 +45,9 @@ SLURM_JOB_GPUS =
 [Ramulator::LoadStoreTrace] [[32minfo[0m] Loading trace file /home/adityaseshasai.s/amcas-pro/results/gpu/campaign_20261120/runs/g5_q05_short_decode/ctx_0x5636291e5120/policy_grid/packed_s8_xor_global.trc ...
 {'mapping': 'xor_global', 'placement': 'packed', 'channel_interleave_bytes': 256, 'ramulator_interleave_bits': 3, 'reads': 3983460, 'writes': 16540, 'mapper': 'RoBaRaCoCh', 'policy': 'Open', 'cycles': 224487, 'time_us': 280.60875, 'row_hit_rate': 0.929591, 'row_conflict_rate': 0.04991725, 'read_forwarded': 0, 'write_coalesced': 0, 'drain_guard_memory_cycles': 128}
 [Ramulator::LoadStoreTrace] [[32minfo[0m] Loaded 4000000 lines.
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loading trace file /home/adityaseshasai.s/amcas-pro/results/gpu/campaign_20261120/runs/g5_q05_short_decode/ctx_0x5636291e5120/policy_grid/packed_s8_xor_global.trc ...
+{'mapping': 'xor_global', 'placement': 'packed', 'channel_interleave_bytes': 256, 'ramulator_interleave_bits': 3, 'reads': 3983460, 'writes': 16540, 'mapper': 'RoBaRaCoCh', 'policy': 'ClosedCAP', 'cycles': 281499, 'time_us': 351.87375000000003, 'row_hit_rate': 0.729672, 'row_conflict_rate': 0.03289225, 'read_forwarded': 0, 'write_coalesced': 0, 'drain_guard_memory_cycles': 128}
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loaded 4000000 lines.
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loading trace file /home/adityaseshasai.s/amcas-pro/results/gpu/campaign_20261120/runs/g5_q05_short_decode/ctx_0x5636291e5120/policy_grid/packed_s8_xor_global.trc ...
+{'mapping': 'xor_global', 'placement': 'packed', 'channel_interleave_bytes': 256, 'ramulator_interleave_bits': 3, 'reads': 3983460, 'writes': 16540, 'mapper': 'RoBaRaCoCh', 'policy': 'Timeout16', 'cycles': 257279, 'time_us': 321.59875, 'row_hit_rate': 0.748302, 'row_conflict_rate': 0.00773975, 'read_forwarded': 0, 'write_coalesced': 0, 'drain_guard_memory_cycles': 128}
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loaded 4000000 lines.
