@@ -4,3 +4,8 @@ SLURM_NODELIST = node03
 SLURM_JOB_GPUS = 
 ==========================================
 trace copy node04 -> node03: src=[1918 48208918224] dst=[1918 48208918224]
+Traceback (most recent call last):
+  File "/home/adityaseshasai.s/amcas-pro/results/gpu/campaign_20261120/simulate_case.py", line 19, in <module>
+    assert rc==0,(name,ctx,rc)
+           ^^^^^
+AssertionError: ('q7_B16P512', 'ctx_0x55b856c67d30', -9)
