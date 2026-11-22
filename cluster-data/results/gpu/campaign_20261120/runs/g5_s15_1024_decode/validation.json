@@ -1,10 +1,16 @@
 {
   "case": "g5_s15_1024_decode",
   "capture_output_validated": true,
-  "model_export_validated": false,
+  "model_export_validated": true,
   "hardware_reference_validated": true,
   "scope": "Model counter/export consistency does not establish exact hardware cache or timing behavior",
+  "model_read_bytes": 88052224,
+  "model_write_bytes": 11796992,
+  "model_kernels": 552,
   "hardware_read_bytes": 88115040,
   "hardware_write_bytes": 14609408,
-  "hardware_kernels": 552
+  "hardware_kernels": 552,
+  "read_relative_error": -0.000712886245072375,
+  "write_relative_error": -0.1925071844115792,
+  "hardware_agreement": "Byte comparison available; report read/write deviations separately. Not an exact physical DRAM trace or native token-time validation."
 }
