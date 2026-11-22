@@ -1,0 +1,11 @@
+==========================================
+SLURM_JOB_ID = 133026
+SLURM_NODELIST = node03
+SLURM_JOB_GPUS = 
+==========================================
+  [global] n=3,841,216 cost 181483 -> 179267; bank bit ^= {0: [], 1: [], 2: ['row2', 'row4'], 3: ['row0'], 4: []}
+  [channel] channel hash cost 181671 -> 181405; chan bit ^= {0: [], 1: [], 2: [], 3: ['row3'], 4: []}
+  [joint] channel hash cost 179455 -> 179455; chan bit ^= {0: [], 1: [], 2: [], 3: [], 4: []}
+  [MOP] n=3,841,216 cost 352765 -> 340379; bank bit ^= {0: [], 1: [], 2: ['row1'], 3: ['row0', 'row4'], 4: ['row0']}
+  [region] n=442,368 cost 98584 -> 96932; bank bit ^= {0: ['row0'], 1: [], 2: [], 3: [], 4: []}
+  [region] n=107,296 cost 19795 -> 18640; bank bit ^= {0: ['row2'], 1: ['row0'], 2: ['row4'], 3: [], 4: []}
