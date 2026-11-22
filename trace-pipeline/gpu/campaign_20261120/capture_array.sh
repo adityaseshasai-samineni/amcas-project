@@ -13,4 +13,4 @@ if ! "$E/bin/python" -c 'import json,sys;assert json.load(open(sys.argv[1]))["pa
  echo "Native feasibility failed; retaining explicit failed case, no invalid capture: $CASE";exit 0
 fi
 "$E/bin/python" "$R/run_case.py" "$CASE" --mode capture
-sbatch -J "sim-$CASE" -o "$R/runs/$CASE/simulation_job.log" "$R/simulate_case.sh" "$CASE" | tee "$R/runs/$CASE/simulation_job.txt"
+sbatch -J "sim-$CASE" -o "$R/runs/$CASE/simulation_job.log" "$R/simulate_case_node03.sh" "$CASE" | tee "$R/runs/$CASE/simulation_job.txt"

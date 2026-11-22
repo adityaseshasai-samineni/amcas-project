@@ -28,7 +28,7 @@ env.update(AMCAS_OUT=str(out/(a.mode+'.tokens')),AMCAS_STEPS=str(out/(a.mode+'.s
 if a.mode=='capture':
  assert json.load(open(R/'roi_fixture_validation.json'))['pass_roi']
  if shutil.disk_usage(S).free<90*1024**3:raise SystemExit('scratch free below90GiB; old results preserved')
- env.update(ACTIVE_FROM_START='0',TOOL_TRACE_CORE='1',TOOL_COMPRESS='1',LD_PRELOAD=str(W/'accel-sim-audit-20261117/util/tracer_nvbit/tracer_tool-amcas20/tracer_tool-amcas20.so'))
+ env.update(ACTIVE_FROM_START='0',TOOL_TRACE_CORE='1',TOOL_COMPRESS='1',LD_PRELOAD=str(W/('accel-sim-audit-20261117/util/tracer_nvbit/tracer_tool-amcas20mgpu/tracer_tool-amcas20mgpu.so' if case['gpu_devices']==2 else 'accel-sim-audit-20261117/util/tracer_nvbit/tracer_tool-amcas20/tracer_tool-amcas20.so')))
 start=time.time();reason=None;peak_rss_kib=0
 with open(out/(a.mode+'.stdout'),'w') as so,open(out/(a.mode+'.stderr'),'w') as se:
  proc=subprocess.Popen([str(driver)],cwd=S,env=env,stdout=so,stderr=se,start_new_session=True)
