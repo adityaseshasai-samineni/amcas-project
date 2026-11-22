@@ -1,0 +1,31 @@
+{
+  "total_bursts": 501289,
+  "window": [
+    0,
+    501289
+  ],
+  "reads": 462785,
+  "writes": 38504,
+  "tensor_coverage": 0.9554528425718498,
+  "expert_accesses": 0,
+  "request_bytes": 32,
+  "tck_ps": 1250,
+  "scope": "cold saturated open-loop DRAM-model characterization; not native GPU token speedup",
+  "training": "learned mappings fit selected evaluation window, as CPU grid; no held-out claim",
+  "placement": "first-touch2MiB packed and seed1 2MiB shuffled across16GiB",
+  "mask_positions": "actual exported sector masks; ascending sector order within each controller packet",
+  "excluded": [
+    "expert mappings: no attributed expert accesses in selected window"
+  ],
+  "source": {
+    "source_controller_context": "ctx_0x559364201100",
+    "source_total_32B_sectors": 501289,
+    "source_window": [
+      0,
+      501289
+    ],
+    "physical_page_ranks": "frozen first-touch over complete source context stream",
+    "source_csv": "/scratch/adityaseshasai.s/amcas-campaign20/g5_s15_short_prefill/capture/simulation/ctx_0x559364201100/dram.csv.gz",
+    "input_sha256": "b57b7b7affa353e58294a9cccbeba25dfdd0516cd15b86ae991dc2fafc09dc80"
+  }
+}
