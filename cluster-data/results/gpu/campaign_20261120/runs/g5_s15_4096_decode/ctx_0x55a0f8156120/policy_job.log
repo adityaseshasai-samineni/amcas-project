@@ -1,0 +1,13 @@
+==========================================
+SLURM_JOB_ID = 133076
+SLURM_NODELIST = node03
+SLURM_JOB_GPUS = 
+==========================================
+  [global] n=4,000,000 cost 411076 -> 408612; bank bit ^= {0: [], 1: [], 2: ['row1'], 3: ['row5'], 4: []}
+  [channel] channel hash cost 412010 -> 408653; chan bit ^= {0: ['row0'], 1: ['row0', 'row5'], 2: [], 3: [], 4: []}
+  [joint] channel hash cost 409546 -> 405421; chan bit ^= {0: ['row0', 'row2'], 1: ['row0'], 2: [], 3: [], 4: []}
+  [MOP] n=4,000,000 cost 1092557 -> 1090825; bank bit ^= {0: [], 1: [], 2: ['row5'], 3: [], 4: []}
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loading trace file /home/adityaseshasai.s/amcas-pro/results/gpu/campaign_20261120/runs/g5_s15_4096_decode/ctx_0x55a0f8156120/policy_grid/packed_s8_identity.trc ...
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loading trace file /home/adityaseshasai.s/amcas-pro/results/gpu/campaign_20261120/runs/g5_s15_4096_decode/ctx_0x55a0f8156120/policy_grid/packed_s8_identity.trc ...
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loaded 4000000 lines.
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loaded 4000000 lines.
