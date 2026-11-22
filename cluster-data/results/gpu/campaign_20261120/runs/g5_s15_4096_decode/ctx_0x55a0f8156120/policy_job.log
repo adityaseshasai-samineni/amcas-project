@@ -991,3 +991,7 @@ Loading trace file /home/adityaseshasai.s/amcas-pro/results/gpu/campaign_2026112
 [Ramulator::LoadStoreTrace] [[32minfo[0m] Loaded 4000000 lines.
 {'mapping': 'naive', 'placement': 'thp', 'channel_interleave_bytes': 2048, 'ramulator_interleave_bits': 6, 'reads': 2233487, 'writes': 1766513, 'mapper': 'RoBaRaCoCh', 'policy': 'HAPPYcnt', 'cycles': 505428, 'time_us': 631.785, 'row_hit_rate': 0.5931892305731788, 'row_conflict_rate': 0.11292030284662913, 'read_forwarded': 5767, 'write_coalesced': 0, 'drain_guard_memory_cycles': 128}
 {'mapping': 'naive', 'placement': 'thp', 'channel_interleave_bytes': 2048, 'ramulator_interleave_bits': 6, 'reads': 2233487, 'writes': 1766513, 'mapper': 'RoBaRaCoCh', 'policy': 'Adaptive7_4', 'cycles': 364775, 'time_us': 455.96875, 'row_hit_rate': 0.7690566500674734, 'row_conflict_rate': 0.16465773865408834, 'read_forwarded': 5830, 'write_coalesced': 0, 'drain_guard_memory_cycles': 128}
+wrote analysis/tables.md and 3 figures; validation failures: none
+wrote analysis/fullscale/headline.md
+wrote analysis/fullscale/tables.md
+publish: pushed 34e5e4a
