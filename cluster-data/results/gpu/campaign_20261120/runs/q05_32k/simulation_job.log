@@ -1,10 +1,6 @@
 ==========================================
-SLURM_JOB_ID = 131762
-SLURM_NODELIST = node04
+SLURM_JOB_ID = 133011
+SLURM_NODELIST = node03
 SLURM_JOB_GPUS = 
 ==========================================
-sbatch: error: Batch job submission failed: Socket timed out on send/recv operation
-wrote analysis/tables.md and 3 figures; validation failures: none
-wrote analysis/fullscale/headline.md
-wrote analysis/fullscale/tables.md
-publish: pushed faa1956
+trace copy node04 -> node03: src=[928 3667156208] dst=[928 3667156208]
