@@ -1,0 +1,21 @@
+{
+  "context": "ctx_0x55920676b4a0",
+  "expected_kernels": 924,
+  "kernels_completed": 924,
+  "seconds": 9878.530886173248,
+  "controller_packets": 22670500,
+  "conversion": {
+    "controller_packets": 22670500,
+    "read_packets": 22624978,
+    "write_packets": 45522,
+    "read_bytes": 723999296,
+    "write_bytes": 5823744,
+    "sectors": 22806970,
+    "last_core_cycle": 8443857,
+    "write_offsets": "exported_dirty_sector_mask_ascending_within_packet",
+    "timestamps": "validated_but_not_in_binary_saturated_replay"
+  },
+  "stream": "/scratch/adityaseshasai.s/amcas-campaign20/g5_q05_1024_decode/capture/simulation/ctx_0x55920676b4a0/masked.dram",
+  "export": "/scratch/adityaseshasai.s/amcas-campaign20/g5_q05_1024_decode/capture/simulation/ctx_0x55920676b4a0/dram.csv.gz",
+  "scope": "independent V100 context model; no interGPU transfer/timing model; cold selectedwindow; source address placement synthetic in downstream replay"
+}
