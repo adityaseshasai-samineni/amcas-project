@@ -5,3 +5,7 @@ SLURM_JOB_GPUS = 0
 ==========================================
 {"passed": true, "exit_code": 0, "kernels": 538, "expected_kernels": 538, "native_output_match": true, "read_bytes": 7526419936.0, "write_bytes": 16222336.0, "seconds": 27.797587871551514, "scope": "independent hardware application replay; twoDRAMbytecounters; not ordered hardwareDRAMtrace", "profile_from_start": false}
 {"case": "q7_32k_t2", "capture_output_validated": true, "model_export_validated": false, "hardware_reference_validated": true, "scope": "Model counter/export consistency does not establish exact hardware cache or timing behavior", "hardware_read_bytes": 7526419936, "hardware_write_bytes": 16222336, "hardware_kernels": 538}
+wrote analysis/tables.md and 3 figures; validation failures: none
+wrote analysis/fullscale/headline.md
+wrote analysis/fullscale/tables.md
+publish: pushed 4d933a8
