@@ -3,7 +3,7 @@
 #SBATCH -w node03
 #SBATCH -c 1
 #SBATCH --mem=4G
-#SBATCH -t 24:00:00
+#SBATCH -t 3-00:00:00
 # Identical to simulate_case.sh except: runs on node03, first copies the capture
 # trace from node04:/scratch to the same path on node03 (verified by file count
 # and byte total), and pins the upload job to node03 where the outputs live.
