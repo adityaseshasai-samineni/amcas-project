@@ -3,7 +3,7 @@
 #SBATCH -w node03
 #SBATCH -c 1
 #SBATCH --mem=4G
-#SBATCH -t 24:00:00
+#SBATCH -t 3-00:00:00
 # Identical to simulate_case.sh except: runs on node03, first copies the capture
 # trace from node04:/scratch to the same path on node03 (verified by file count
 # and byte total), and pins the upload job to node03 where the outputs live.
@@ -16,8 +16,8 @@ export PATH=$E/bin:$PATH OPENBLAS_NUM_THREADS=1
 S=$(python -c 'import json,sys;print(json.load(open(sys.argv[1]))["scratch"])' "$R/runs/$1/capture.status.json")
 mkdir -p "$S"
 rsync -a --partial --exclude=/simulation/ node04:"$S/" "$S/"
-src=$(ssh -o BatchMode=yes node04 "find '$S' -path '$S/simulation' -prune -o -type f ! -name 'kernelslist_sim_*' -printf '%s\n' | awk '{n++;b+=\$1}END{print n,b}'")
-dst=$(find "$S" -path "$S/simulation" -prune -o -type f ! -name 'kernelslist_sim_*' -printf '%s\n' | awk '{n++;b+=$1}END{print n,b}')
+src=$(ssh -o BatchMode=yes node04 "find '$S' -path '$S/simulation' -prune -o -type f -printf '%s\n' | awk '{n++;b+=\$1}END{print n,b}'")
+dst=$(find "$S" -path "$S/simulation" -prune -o -type f -printf '%s\n' | awk '{n++;b+=$1}END{print n,b}')
 echo "trace copy node04 -> node03: src=[$src] dst=[$dst]" | tee "$R/runs/$1/trace_copy_node03.txt"
 [ "$src" = "$dst" ] || { echo "trace copy mismatch"; exit 3; }
 if [ ! -s "$R/runs/$1/hardware_job.txt" ]; then

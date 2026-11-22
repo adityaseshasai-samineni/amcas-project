@@ -2025,3 +2025,5 @@ sched_reserve: graph: nodes = 961, splits = 2, input objects = 4, input tensors 
 sched_reserve: reserve took 13.09 ms, sched copies = 1
 drbatch: prefill P=25 ubatch=512 computes=1 trace from 0 count 1
 gpu-batch: selected graph begins at step -1
+gpu-batch: selected graph ends after compute 0
+drbatch: prefill done, 1 graph computes
