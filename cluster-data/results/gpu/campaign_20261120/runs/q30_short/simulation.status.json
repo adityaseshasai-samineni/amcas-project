@@ -1,0 +1,48 @@
+{
+  "passed": true,
+  "contexts": [
+    {
+      "context": "ctx_0x5598806f5f00",
+      "expected_kernels": 535,
+      "kernels_completed": 535,
+      "seconds": 17892.178958177567,
+      "controller_packets": 33405748,
+      "conversion": {
+        "controller_packets": 33405748,
+        "read_packets": 33358404,
+        "write_packets": 47344,
+        "read_bytes": 1067468928,
+        "write_bytes": 6055616,
+        "sectors": 33547642,
+        "last_core_cycle": 6552874,
+        "write_offsets": "exported_dirty_sector_mask_ascending_within_packet",
+        "timestamps": "validated_but_not_in_binary_saturated_replay"
+      },
+      "stream": "/scratch/adityaseshasai.s/amcas-campaign20/q30_short/capture/simulation/ctx_0x5598806f5f00/masked.dram",
+      "export": "/scratch/adityaseshasai.s/amcas-campaign20/q30_short/capture/simulation/ctx_0x5598806f5f00/dram.csv.gz",
+      "scope": "independent V100 context model; no interGPU transfer/timing model; cold selectedwindow; source address placement synthetic in downstream replay"
+    },
+    {
+      "context": "ctx_0x55988075c100",
+      "expected_kernels": 575,
+      "kernels_completed": 575,
+      "seconds": 15205.91053199768,
+      "controller_packets": 27519409,
+      "conversion": {
+        "controller_packets": 27519409,
+        "read_packets": 27473794,
+        "write_packets": 45615,
+        "read_bytes": 879161408,
+        "write_bytes": 5833920,
+        "sectors": 27656104,
+        "last_core_cycle": 6331589,
+        "write_offsets": "exported_dirty_sector_mask_ascending_within_packet",
+        "timestamps": "validated_but_not_in_binary_saturated_replay"
+      },
+      "stream": "/scratch/adityaseshasai.s/amcas-campaign20/q30_short/capture/simulation/ctx_0x55988075c100/masked.dram",
+      "export": "/scratch/adityaseshasai.s/amcas-campaign20/q30_short/capture/simulation/ctx_0x55988075c100/dram.csv.gz",
+      "scope": "independent V100 context model; no interGPU transfer/timing model; cold selectedwindow; source address placement synthetic in downstream replay"
+    }
+  ],
+  "kernels_total": 1110
+}

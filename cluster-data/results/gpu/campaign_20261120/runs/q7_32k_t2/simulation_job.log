@@ -9,3 +9,8 @@ Traceback (most recent call last):
     assert rc==0,(name,ctx,rc)
            ^^^^^
 AssertionError: ('q7_32k_t2', 'ctx_0x556cbd791060', -9)
+wrote analysis/tables.md and 3 figures; validation failures: none
+wrote analysis/fullscale/headline.md
+wrote analysis/fullscale/tables.md
+publish: pushed 22b92fd
+slurmstepd: error: Detected 1 oom-kill event(s) in StepId=133427.batch. Some of your processes may have been killed by the cgroup out-of-memory handler.
