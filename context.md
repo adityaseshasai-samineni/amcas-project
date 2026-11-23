@@ -1966,3 +1966,24 @@ Cycle ratio vs identity at the same depth:
 - DRAMsim3 command-bus check script kept as `trace-pipeline/gpu/campaign_20261120/ds3_cmdbus.py`.
 
 Also today: node04 /scratch was 99 % full (24 GB free), so all 8 MoE captures 133320 aborted at the 90 GiB check. After re-verifying file count and bytes against node03, deleted node04 capture dirs for q7_32k, q7_32k_t2, q7_pf32, q7_B4P8192, q7_B16P512, q7_B4P32768 (log: runs/../node04_scratch_cleanup_20261123.txt); 291 GB free. Kept q7_1k, q7_8k, q30_short on node04: their node03 copies were pruned after upload, so node04 holds the only full copy. MoE resubmitted as 134627 (1-8%1, gpu:2, 22G, 22 h). q7_ub32 replay 134546 failed when rsync from node04 dropped at 5.2 GB; resubmitted as 134626 (rsync --partial resumes).
+
+## 2026-11-23 — GPU pseudo-channel command-bus test (134672, node07): cause of the mop flip found
+
+`pc_split.py`/`pc_split.sh`: same window, packed, 256 B, identity/xor_global/mopxor, Open. Each request's effective (channel, bank, row, col) from the mapping's view is re-encoded and replayed with RoBaRaCoCh in two Ramulator organisations with identical timings and matched buffer per channel pair D: shared = 32 HBM12 controllers x 2 PCs (grid model; one row + one column command bus per channel, as JEDEC HBM2 pseudo-channel mode); split = 64 controllers x 1 PC (each PC its own command buses and D/2 buffer, as DRAMsim3). Encoding check: shared D32 reproduces the grid exactly (q7_8k 292,187 / 0.954 / 1.169; q30_short 256,464 / 0.990 / 1.049), which also confirms MopView = Ramulator MOP4CLXOR. Results: `cluster-data/results/gpu/campaign_20261120/pc_split/`.
+
+Cycle ratio vs identity, same organisation and depth:
+
+| case | org | D | identity cycles | xor_global | mopxor |
+|---|---|---|---|---|---|
+| q7_8k | shared | 32 | 292,187 | 0.954 | 1.169 |
+| q7_8k | shared | 64 | 214,937 | 0.926 | 1.194 |
+| q7_8k | split | 32 | 387,463 | 0.938 | 0.779 |
+| q7_8k | split | 64 | 261,416 | 0.923 | 0.818 |
+| q30_short | shared | 32 | 256,464 | 0.990 | 1.049 |
+| q30_short | shared | 64 | 189,182 | 0.995 | 1.071 |
+| q30_short | split | 32 | 332,083 | 0.985 | 0.776 |
+| q30_short | split | 64 | 221,900 | 0.997 | 0.862 |
+
+- Splitting the pseudo-channels alone flips mopxor from 5–19 % worse to 14–22 % better inside Ramulator, reproducing DRAMsim3's direction (0.86–0.94). The simulator disagreement is the pseudo-channel model, not the mapping or the simulator: identity streams stay in one PC and suffer when PCs are independent (split identity is 25–33 % slower than shared), and mop's PC/bank spreading pays only when each PC has its own command bus.
+- Real HBM2 pseudo-channel mode shares the channel's row/column command bus between the two PCs, so the shared (Ramulator grid) model is the faithful one for V100. DRAMsim3's HBM2 runs with channels = 64 overstate MOP4CLXOR. mopxor is not proposed for the GPU.
+- xor_global beats identity in all 8 cells (0.92–0.997; 5–8 % on 7B decode, about 0.5–1.5 % on MoE), in both organisations, both depths and both simulators. GPU proposal candidate: xor_global mapping + Open (Ramulator adds a short timeout, Timeout64/256, worth a few % more).
