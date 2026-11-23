@@ -1,0 +1,242 @@
+[
+ {
+  "reads": 3990805,
+  "writes": 9195,
+  "placement": "packed",
+  "channel_interleave_bytes": 256,
+  "policy": "Open",
+  "source": "/home/adityaseshasai.s/amcas-pro/tracing/campaign20-grid-input/q7_8k/ctx_0x55b7730780e0/window.dram",
+  "mapping": "identity",
+  "org": "split",
+  "controllers": 64,
+  "buffer_per_controller": 16,
+  "buffer_per_channel_pair": 32,
+  "cycles": 387463,
+  "row_hit_rate": 0.81588975,
+  "row_conflict_rate": 0.1502985,
+  "reqs_per_controller_min_max": [
+   61275,
+   63739
+  ]
+ },
+ {
+  "reads": 3990805,
+  "writes": 9195,
+  "placement": "packed",
+  "channel_interleave_bytes": 256,
+  "policy": "Open",
+  "source": "/home/adityaseshasai.s/amcas-pro/tracing/campaign20-grid-input/q7_8k/ctx_0x55b7730780e0/window.dram",
+  "mapping": "identity",
+  "org": "shared",
+  "controllers": 32,
+  "buffer_per_controller": 32,
+  "buffer_per_channel_pair": 32,
+  "cycles": 292187,
+  "row_hit_rate": 0.8156800371207981,
+  "row_conflict_rate": 0.15395506003379072,
+  "reqs_per_controller_min_max": [
+   122736,
+   127138
+  ]
+ },
+ {
+  "reads": 3990805,
+  "writes": 9195,
+  "placement": "packed",
+  "channel_interleave_bytes": 256,
+  "policy": "Open",
+  "source": "/home/adityaseshasai.s/amcas-pro/tracing/campaign20-grid-input/q7_8k/ctx_0x55b7730780e0/window.dram",
+  "mapping": "identity",
+  "org": "split",
+  "controllers": 64,
+  "buffer_per_controller": 32,
+  "buffer_per_channel_pair": 64,
+  "cycles": 261416,
+  "row_hit_rate": 0.8145790713040878,
+  "row_conflict_rate": 0.15512082266966637,
+  "reqs_per_controller_min_max": [
+   61275,
+   63739
+  ]
+ },
+ {
+  "reads": 3990805,
+  "writes": 9195,
+  "placement": "packed",
+  "channel_interleave_bytes": 256,
+  "policy": "Open",
+  "source": "/home/adityaseshasai.s/amcas-pro/tracing/campaign20-grid-input/q7_8k/ctx_0x55b7730780e0/window.dram",
+  "mapping": "identity",
+  "org": "shared",
+  "controllers": 32,
+  "buffer_per_controller": 64,
+  "buffer_per_channel_pair": 64,
+  "cycles": 214937,
+  "row_hit_rate": 0.8046157970791945,
+  "row_conflict_rate": 0.1580035543453197,
+  "reqs_per_controller_min_max": [
+   122736,
+   127138
+  ]
+ },
+ {
+  "reads": 3990805,
+  "writes": 9195,
+  "placement": "packed",
+  "channel_interleave_bytes": 256,
+  "policy": "Open",
+  "source": "/home/adityaseshasai.s/amcas-pro/tracing/campaign20-grid-input/q7_8k/ctx_0x55b7730780e0/window.dram",
+  "mapping": "xor_global",
+  "org": "shared",
+  "controllers": 32,
+  "buffer_per_controller": 64,
+  "buffer_per_channel_pair": 64,
+  "cycles": 199099,
+  "row_hit_rate": 0.808724165838833,
+  "row_conflict_rate": 0.15660010984426723,
+  "reqs_per_controller_min_max": [
+   122736,
+   127138
+  ]
+ },
+ {
+  "reads": 3990805,
+  "writes": 9195,
+  "placement": "packed",
+  "channel_interleave_bytes": 256,
+  "policy": "Open",
+  "source": "/home/adityaseshasai.s/amcas-pro/tracing/campaign20-grid-input/q7_8k/ctx_0x55b7730780e0/window.dram",
+  "mapping": "xor_global",
+  "org": "shared",
+  "controllers": 32,
+  "buffer_per_controller": 32,
+  "buffer_per_channel_pair": 32,
+  "cycles": 278783,
+  "row_hit_rate": 0.8185581897219841,
+  "row_conflict_rate": 0.15260945479855076,
+  "reqs_per_controller_min_max": [
+   122736,
+   127138
+  ]
+ },
+ {
+  "reads": 3990805,
+  "writes": 9195,
+  "placement": "packed",
+  "channel_interleave_bytes": 256,
+  "policy": "Open",
+  "source": "/home/adityaseshasai.s/amcas-pro/tracing/campaign20-grid-input/q7_8k/ctx_0x55b7730780e0/window.dram",
+  "mapping": "xor_global",
+  "org": "split",
+  "controllers": 64,
+  "buffer_per_controller": 16,
+  "buffer_per_channel_pair": 32,
+  "cycles": 363403,
+  "row_hit_rate": 0.8189763642322732,
+  "row_conflict_rate": 0.14909311181983387,
+  "reqs_per_controller_min_max": [
+   61347,
+   63594
+  ]
+ },
+ {
+  "reads": 3990805,
+  "writes": 9195,
+  "placement": "packed",
+  "channel_interleave_bytes": 256,
+  "policy": "Open",
+  "source": "/home/adityaseshasai.s/amcas-pro/tracing/campaign20-grid-input/q7_8k/ctx_0x55b7730780e0/window.dram",
+  "mapping": "xor_global",
+  "org": "split",
+  "controllers": 64,
+  "buffer_per_controller": 32,
+  "buffer_per_channel_pair": 64,
+  "cycles": 241193,
+  "row_hit_rate": 0.8171942606296927,
+  "row_conflict_rate": 0.15404963710805458,
+  "reqs_per_controller_min_max": [
+   61347,
+   63594
+  ]
+ },
+ {
+  "reads": 3990805,
+  "writes": 9195,
+  "placement": "packed",
+  "channel_interleave_bytes": 256,
+  "policy": "Open",
+  "source": "/home/adityaseshasai.s/amcas-pro/tracing/campaign20-grid-input/q7_8k/ctx_0x55b7730780e0/window.dram",
+  "mapping": "mopxor",
+  "org": "shared",
+  "controllers": 32,
+  "buffer_per_controller": 32,
+  "buffer_per_channel_pair": 32,
+  "cycles": 341534,
+  "row_hit_rate": 0.40961760819809223,
+  "row_conflict_rate": 0.5629395830703096,
+  "reqs_per_controller_min_max": [
+   122736,
+   127138
+  ]
+ },
+ {
+  "reads": 3990805,
+  "writes": 9195,
+  "placement": "packed",
+  "channel_interleave_bytes": 256,
+  "policy": "Open",
+  "source": "/home/adityaseshasai.s/amcas-pro/tracing/campaign20-grid-input/q7_8k/ctx_0x55b7730780e0/window.dram",
+  "mapping": "mopxor",
+  "org": "split",
+  "controllers": 64,
+  "buffer_per_controller": 16,
+  "buffer_per_channel_pair": 32,
+  "cycles": 301971,
+  "row_hit_rate": 0.4052624855217773,
+  "row_conflict_rate": 0.5688818399524197,
+  "reqs_per_controller_min_max": [
+   61368,
+   63569
+  ]
+ },
+ {
+  "reads": 3990805,
+  "writes": 9195,
+  "placement": "packed",
+  "channel_interleave_bytes": 256,
+  "policy": "Open",
+  "source": "/home/adityaseshasai.s/amcas-pro/tracing/campaign20-grid-input/q7_8k/ctx_0x55b7730780e0/window.dram",
+  "mapping": "mopxor",
+  "org": "shared",
+  "controllers": 32,
+  "buffer_per_controller": 64,
+  "buffer_per_channel_pair": 64,
+  "cycles": 256636,
+  "row_hit_rate": 0.439395405628901,
+  "row_conflict_rate": 0.5387554884072985,
+  "reqs_per_controller_min_max": [
+   122736,
+   127138
+  ]
+ },
+ {
+  "reads": 3990805,
+  "writes": 9195,
+  "placement": "packed",
+  "channel_interleave_bytes": 256,
+  "policy": "Open",
+  "source": "/home/adityaseshasai.s/amcas-pro/tracing/campaign20-grid-input/q7_8k/ctx_0x55b7730780e0/window.dram",
+  "mapping": "mopxor",
+  "org": "split",
+  "controllers": 64,
+  "buffer_per_controller": 32,
+  "buffer_per_channel_pair": 64,
+  "cycles": 213857,
+  "row_hit_rate": 0.4171665899861975,
+  "row_conflict_rate": 0.5569615030705527,
+  "reqs_per_controller_min_max": [
+   61368,
+   63569
+  ]
+ }
+]
