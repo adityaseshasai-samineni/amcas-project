@@ -1,0 +1,50 @@
+FF \
+  -DOPENCL_HEADERS_BUILD_CXX_TESTS=OFF \
+  -DCMAKE_INSTALL_PREFIX="$HOME/dev/llm/opencl"
+cmake --build . --target install
+
+cd ~/dev/llm
+git clone https://github.com/KhronosGroup/OpenCL-ICD-Loader && cd OpenCL-ICD-Loader
+mkdir build && cd build
+cmake .. -G Ninja \
+  -DCMAKE_BUILD_TYPE=Release \
+  -DCMAKE_PREFIX_PATH="$HOME/dev/llm/opencl" \
+  -DCMAKE_INSTALL_PREFIX="$HOME/dev/llm/opencl"
+cmake --build . --target install
+```
+
+### II. Build llama.cpp
+
+```bash
+mkdir -p ~/dev/llm
+cd ~/dev/llm
+
+git clone https://github.com/ggml-org/llama.cpp && cd llama.cpp
+mkdir build && cd build
+
+cmake .. -G Ninja \
+  -DCMAKE_BUILD_TYPE=Release \
+  -DCMAKE_PREFIX_PATH="$HOME/dev/llm/opencl" \
+  -DBUILD_SHARED_LIBS=OFF \
+  -DGGML_OPENCL=ON
+ninja
+```
+
+## Known Issues
+
+- Flash attention does not always improve performance.
+- Currently OpenCL backend works on A6xx GPUs with recent drivers and compilers (usually found in IoT platforms).
+  However, it does not work on A6xx GPUs found in phones with old drivers and compilers.
+
+## TODO
+
+- Improve flash attention
+- Improve OpenCL C kernels performance
+# OpenVINO Backend for llama.cpp
+
+> [!NOTE]
+> Performance and memory optimizations, accuracy validation, broader quantization coverage, broader operator and model support are work in progress.
+
+[OpenVINO](https://docs.openvino.ai/) is an open-source toolkit for optimizing and deploying high-performance AI inference, specifically designed for Intel hardware, including CPUs, GPUs, and NPUs, in the cloud, on-premises, and on the edge. [OpenVINO backend for llama.cpp](../../ggml/src/ggml-openvino) enables hardware-accelerated inference on **Intel® CPUs, GPUs, and NPUs** while remaining compatible with the existing **GGUF model ecosystem**. The backend translates GGML compute graphs into OpenVINO graphs and leverages graph compilation, kernel fusion, and device-specific optimizations to improve inference performance on supported Intel hardware.
+
+The OpenVINO backend is implemented in `ggml/src/g
