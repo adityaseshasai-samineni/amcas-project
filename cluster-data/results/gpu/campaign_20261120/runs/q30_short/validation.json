@@ -2,9 +2,15 @@
   "case": "q30_short",
   "capture_output_validated": true,
   "model_export_validated": true,
-  "hardware_reference_validated": false,
+  "hardware_reference_validated": true,
   "scope": "Model counter/export consistency does not establish exact hardware cache or timing behavior",
   "model_read_bytes": 1946630336,
   "model_write_bytes": 11889536,
-  "model_kernels": 1110
+  "model_kernels": 1110,
+  "hardware_read_bytes": 1947138208,
+  "hardware_write_bytes": 15822912,
+  "hardware_kernels": 1110,
+  "read_relative_error": -0.00026082996980558715,
+  "write_relative_error": -0.24858736495532552,
+  "hardware_agreement": "Byte comparison available; report read/write deviations separately. Not an exact physical DRAM trace or native token-time validation."
 }
