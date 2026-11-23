@@ -1,8 +1,12 @@
 {
+  "environment_sha256": "3ad7636ce89bf450816d2a161e9bc07a2cdb435401962b07085251915232918d",
+  "peak_rss_kib": 19273016,
+  "driver": "/home/adityaseshasai.s/amcas-pro/results/gpu/campaign_20261120/llama-gpu-batch-v3",
+  "driver_sha256": "1e0ab7bacb778c4d098193502c71882d0fcd4efa6dc497e6f9203dc26ce9ec7e",
   "passed": true,
   "exit_code": 0,
   "stop_reason": null,
-  "seconds": 10.002528429031372,
+  "seconds": 10.01406192779541,
   "scratch": "/scratch/adityaseshasai.s/amcas-campaign20/q30_pf32/native",
   "gpu_devices": 2,
   "scope": "selected graph windows; native output and official trace are separate executions",
@@ -12,5 +16,16 @@
       "49"
     ]
   ],
-  "cuda_visible_devices": "0,1"
+  "cuda_visible_devices": "0,1",
+  "model_io": [
+    {
+      "sequence": 0,
+      "prefill_tokens": 25,
+      "generated_tokens": 4,
+      "decoded_prompt_text": "\n# Android\n\n## Build GUI binding using Android Studio\n\nImport the `examples/llama.android` directory into Android Studio",
+      "prompt_valid_utf8": true,
+      "decoded_response_text": ". Then, build",
+      "response_valid_utf8": true
+    }
+  ]
 }
