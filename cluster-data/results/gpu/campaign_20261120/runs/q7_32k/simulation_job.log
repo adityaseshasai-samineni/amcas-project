@@ -1,17 +1,6 @@
 ==========================================
-SLURM_JOB_ID = 133426
+SLURM_JOB_ID = 134196
 SLURM_NODELIST = node03
 SLURM_JOB_GPUS = 
 ==========================================
 trace copy node04 -> node03: src=[1080 25020836773] dst=[1080 25020836773]
-Traceback (most recent call last):
-  File "/home/adityaseshasai.s/amcas-pro/results/gpu/campaign_20261120/simulate_case.py", line 24, in <module>
-    assert rc==0,(name,ctx,rc)
-           ^^^^^
-AssertionError: ('q7_32k', 'ctx_0x5607d28030e0', -9)
-publish: removed stale lock
-wrote analysis/tables.md and 3 figures; validation failures: none
-wrote analysis/fullscale/headline.md
-wrote analysis/fullscale/tables.md
-publish: pushed 0de784f
-slurmstepd: error: Detected 1 oom-kill event(s) in StepId=133426.batch. Some of your processes may have been killed by the cgroup out-of-memory handler.
