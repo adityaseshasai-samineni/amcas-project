@@ -1944,3 +1944,25 @@ Data: q7_8k and q30_short policy grids (packed, 256 B and 2 KiB interleave, Open
 - Secondary: under JEDEC HBM2 a 2-cycle ACT on a row bus shared by both PCs, DS3's mop schedule on q7_8k would need 1.13–1.15 row-bus cycles per cycle per PC pair (infeasible; lower bound 0.98x of identity at 256 B, 1.08x at 2 KiB). Ramulator counts ACT as one row slot, so this is not what slows Ramulator, but DS3's 64 independent command buses also overstate MOP.
 - Calibration point: Accel-Sim's own SM7_QV100 config (the replay model) uses 32 channels with `-gpgpu_frfcfs_dram_sched_queue_size 64` per channel. Ramulator (32) is below it; DRAMsim3 (~100 in flight) is above it.
 - Consequence: the mapping verdict depends on assumed controller queue depth; neither grid as run is calibrated to V100. Confirming run proposed (not submitted): Ramulator read_buffer_size 32/64/128 on q7_8k and q30_short, packed 256 B, identity/xor_global/mopxor, Open.
+
+## 2026-11-23 — GPU queue-depth test (134623, node07): hypothesis refuted
+
+`queue_depth.py`/`queue_depth.sh` rebuild the policy_grid traces (packed, 256 B, identity/xor_global/mopxor, Open) and replay Ramulator HBM12 with read_buffer_size 32/64/128. Depth 32 reproduces the published grid exactly (q30_short identity 256,464 cycles; q7_8k 292,187). Results in `cluster-data/results/gpu/campaign_20261120/queue_depth/`.
+
+Cycle ratio vs identity at the same depth:
+
+| case | depth | identity cycles | xor_global | mopxor (hit) |
+|---|---|---|---|---|
+| q7_8k | 32 | 292,187 | 0.954 | 1.169 (0.41) |
+| q7_8k | 64 | 215,407 | 0.930 | 1.192 (0.44) |
+| q7_8k | 128 | 176,709 | 0.916 | 1.177 (0.50) |
+| q30_short | 32 | 256,464 | 0.990 | 1.049 (0.59) |
+| q30_short | 64 | 191,281 | 0.991 | 1.059 (0.61) |
+| q30_short | 128 | 159,761 | 1.002 | 1.047 (0.64) |
+
+- Queue depth explains the absolute gap between the simulators (Ramulator identity at depth 128 is 176.7k cycles vs DRAMsim3 194.3k on q7_8k), not the mop/mopxor flip. mopxor stays 5–19 % worse than identity in Ramulator at every depth, including 64 (Accel-Sim V100 queue size). The previous section's "Cause: controller queue depth" is wrong for the ranking; keep it only as the explanation of absolute throughput.
+- xor_global's gain over identity holds or grows with depth on q7_8k (0.954 -> 0.916); on q30_short it is about 1 % and vanishes at 128.
+- Remaining candidate for the flip: DRAMsim3 models 64 independent pseudo-channels, each with its own row and column command bus; Ramulator HBM12 (and JEDEC HBM2) share one row and one column bus per channel across both PCs. DS3's mop schedule uses 0.75 row commands per cycle per PC pair (ACT counted once; 1.13 with the JEDEC two-cycle ACT). Not yet tested; the direct test is Ramulator with 64 single-PC controllers.
+- DRAMsim3 command-bus check script kept as `trace-pipeline/gpu/campaign_20261120/ds3_cmdbus.py`.
+
+Also today: node04 /scratch was 99 % full (24 GB free), so all 8 MoE captures 133320 aborted at the 90 GiB check. After re-verifying file count and bytes against node03, deleted node04 capture dirs for q7_32k, q7_32k_t2, q7_pf32, q7_B4P8192, q7_B16P512, q7_B4P32768 (log: runs/../node04_scratch_cleanup_20261123.txt); 291 GB free. Kept q7_1k, q7_8k, q30_short on node04: their node03 copies were pruned after upload, so node04 holds the only full copy. MoE resubmitted as 134627 (1-8%1, gpu:2, 22G, 22 h). q7_ub32 replay 134546 failed when rsync from node04 dropped at 5.2 GB; resubmitted as 134626 (rsync --partial resumes).
