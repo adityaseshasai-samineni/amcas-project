@@ -6628,5 +6628,39 @@
   "read_forwarded": 8,
   "write_coalesced": 0,
   "drain_guard_memory_cycles": 128
+ },
+ {
+  "mapping": "region",
+  "placement": "thp",
+  "channel_interleave_bytes": 2048,
+  "ramulator_interleave_bits": 6,
+  "reads": 3990805,
+  "writes": 9195,
+  "mapper": "RoBaRaCoCh",
+  "policy": "Open",
+  "cycles": 295415,
+  "time_us": 369.26875,
+  "row_hit_rate": 0.8483187191155169,
+  "row_conflict_rate": 0.12270767947687818,
+  "read_forwarded": 14,
+  "write_coalesced": 0,
+  "drain_guard_memory_cycles": 128
+ },
+ {
+  "mapping": "region",
+  "placement": "thp",
+  "channel_interleave_bytes": 2048,
+  "ramulator_interleave_bits": 6,
+  "reads": 3990805,
+  "writes": 9195,
+  "mapper": "RoBaRaCoCh",
+  "policy": "ClosedCAP",
+  "cycles": 353133,
+  "time_us": 441.41625,
+  "row_hit_rate": 0.683391087803211,
+  "row_conflict_rate": 0.09471474725242307,
+  "read_forwarded": 21,
+  "write_coalesced": 0,
+  "drain_guard_memory_cycles": 128
  }
 ]
