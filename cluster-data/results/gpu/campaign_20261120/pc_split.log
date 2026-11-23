@@ -79,3 +79,7 @@ SLURM_JOB_GPUS =
 [Ramulator::LoadStoreTrace] [[32minfo[0m] Loaded 4000000 lines.
 {'reads': 3973332, 'writes': 26668, 'placement': 'packed', 'channel_interleave_bytes': 256, 'policy': 'Open', 'source': '/home/adityaseshasai.s/amcas-pro/tracing/campaign20-grid-input/q30_short/ctx_0x5598806f5f00/window.dram', 'mapping': 'mopxor', 'org': 'shared', 'controllers': 32, 'buffer_per_controller': 64, 'buffer_per_channel_pair': 64, 'cycles': 202616, 'row_hit_rate': 0.6122693565204169, 'row_conflict_rate': 0.3635299128433564, 'reqs_per_controller_min_max': [124874, 125165]}
 {'reads': 3973332, 'writes': 26668, 'placement': 'packed', 'channel_interleave_bytes': 256, 'policy': 'Open', 'source': '/home/adityaseshasai.s/amcas-pro/tracing/campaign20-grid-input/q30_short/ctx_0x5598806f5f00/window.dram', 'mapping': 'mopxor', 'org': 'split', 'controllers': 64, 'buffer_per_controller': 32, 'buffer_per_channel_pair': 64, 'cycles': 191218, 'row_hit_rate': 0.590150414483802, 'row_conflict_rate': 0.37832881131296964, 'reqs_per_controller_min_max': [62435, 62586]}
+wrote analysis/tables.md and 3 figures; validation failures: none
+wrote analysis/fullscale/headline.md
+wrote analysis/fullscale/tables.md
+publish: pushed 83b78b7
