@@ -8,3 +8,7 @@ trace copy node04 -> node03: src=[1080 20198125947] dst=[1080 20198125947]
 {"case": "q7_8k", "capture_output_validated": true, "model_export_validated": true, "hardware_reference_validated": true, "scope": "Model counter/export consistency does not establish exact hardware cache or timing behavior", "model_read_bytes": 4821400544, "model_write_bytes": 13521216, "model_kernels": 538, "hardware_read_bytes": 4821935232, "hardware_write_bytes": 16128160, "hardware_kernels": 538, "read_relative_error": -0.00011088659931635103, "write_relative_error": -0.16163926945169194, "hardware_agreement": "Byte comparison available; report read/write deviations separately. Not an exact physical DRAM trace or native token-time validation."}
 q7_8k ctx_0x55b7730780e0 policy_job 134146
 Submitted batch job 134147
+wrote analysis/tables.md and 3 figures; validation failures: none
+wrote analysis/fullscale/headline.md
+wrote analysis/fullscale/tables.md
+publish: pushed cdcf296
