@@ -2854,5 +2854,39 @@
   "read_forwarded": 534,
   "write_coalesced": 0,
   "drain_guard_memory_cycles": 128
+ },
+ {
+  "mapping": "chra",
+  "placement": "packed",
+  "channel_interleave_bytes": 2048,
+  "ramulator_interleave_bits": 6,
+  "reads": 3808552,
+  "writes": 191448,
+  "mapper": "ChRaBaRoCo",
+  "policy": "Adaptive",
+  "cycles": 4489773,
+  "time_us": 5612.21625,
+  "row_hit_rate": 0.2620365848871246,
+  "row_conflict_rate": 0.1256344996800779,
+  "read_forwarded": 589,
+  "write_coalesced": 0,
+  "drain_guard_memory_cycles": 128
+ },
+ {
+  "mapping": "chra",
+  "placement": "packed",
+  "channel_interleave_bytes": 2048,
+  "ramulator_interleave_bits": 6,
+  "reads": 3808552,
+  "writes": 191448,
+  "mapper": "ChRaBaRoCo",
+  "policy": "Adaptive7_4",
+  "cycles": 4981914,
+  "time_us": 6227.3925,
+  "row_hit_rate": 0.18815340070909573,
+  "row_conflict_rate": 0.09064998774834603,
+  "read_forwarded": 540,
+  "write_coalesced": 0,
+  "drain_guard_memory_cycles": 128
  }
 ]
