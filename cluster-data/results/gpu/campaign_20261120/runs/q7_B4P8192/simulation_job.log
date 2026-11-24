@@ -4,3 +4,7 @@ SLURM_NODELIST = node03
 SLURM_JOB_GPUS = 
 ==========================================
 trace copy node04 -> node03: src=[1638 46087240455] dst=[1638 46087240455]
+{"case": "q7_B4P8192", "capture_output_validated": true, "model_export_validated": true, "hardware_reference_validated": true, "scope": "Model counter/export consistency does not establish exact hardware cache or timing behavior", "model_read_bytes": 6900374848, "model_write_bytes": 69645760, "model_kernels": 817, "hardware_read_bytes": 7573820576, "hardware_write_bytes": 73571904, "hardware_kernels": 817, "read_relative_error": -0.08891757089335095, "write_relative_error": -0.053364719227600776, "hardware_agreement": "Byte comparison available; report read/write deviations separately. Not an exact physical DRAM trace or native token-time validation."}
+{"case": "q7_B4P8192", "capture_output_validated": true, "model_export_validated": true, "hardware_reference_validated": true, "scope": "Model counter/export consistency does not establish exact hardware cache or timing behavior", "model_read_bytes": 6900374848, "model_write_bytes": 69645760, "model_kernels": 817, "hardware_read_bytes": 7573820576, "hardware_write_bytes": 73571904, "hardware_kernels": 817, "read_relative_error": -0.08891757089335095, "write_relative_error": -0.053364719227600776, "hardware_agreement": "Byte comparison available; report read/write deviations separately. Not an exact physical DRAM trace or native token-time validation."}
+q7_B4P8192 ctx_0x55fbb6988cf0 policy_job 137100
+Submitted batch job 137101
