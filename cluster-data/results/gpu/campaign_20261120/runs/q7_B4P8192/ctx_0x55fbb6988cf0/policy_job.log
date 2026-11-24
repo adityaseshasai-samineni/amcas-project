@@ -1,0 +1,27 @@
+==========================================
+SLURM_JOB_ID = 137100
+SLURM_NODELIST = node03
+SLURM_JOB_GPUS = 
+==========================================
+  [global] n=4,000,000 cost 293190 -> 280032; bank bit ^= {0: ['row0', 'row1'], 1: ['row0', 'row2', 'row3'], 2: ['row0'], 3: ['row4', 'row6', 'row5'], 4: []}
+  [channel] channel hash cost 309522 -> 269129; chan bit ^= {0: ['row0'], 1: ['row0'], 2: ['row4'], 3: ['row6'], 4: []}
+  [joint] channel hash cost 296364 -> 267374; chan bit ^= {0: ['row0'], 1: ['row0'], 2: ['row1', 'row4'], 3: [], 4: ['row3']}
+  [MOP] n=4,000,000 cost 764996 -> 760881; bank bit ^= {0: ['row2'], 1: [], 2: ['row0'], 3: ['row2'], 4: []}
+  [region] n=2,764,824 cost 301758 -> 278243; bank bit ^= {0: ['row0', 'row5'], 1: ['row4', 'row5'], 2: [], 3: ['row4', 'row5'], 4: []}
+  [region] n=76,056 cost 21098 -> 15008; bank bit ^= {0: ['row3', 'row4'], 1: ['row1'], 2: ['row2'], 3: ['row0', 'row3'], 4: ['row4']}
+[[Ramulator::LoadStoreTrace] [[32minfo[0m] Ramulator::LoadStoreTraceLoading trace file /home/adityaseshasai.s/amcas-pro/results/gpu/campaign_20261120/runs/q7_B4P8192/ctx_0x55fbb6988cf0/policy_grid/packed_s8_identity.trc ...] [[32minfo[0m] 
+Loading trace file /home/adityaseshasai.s/amcas-pro/results/gpu/campaign_20261120/runs/q7_B4P8192/ctx_0x55fbb6988cf0/policy_grid/packed_s8_identity.trc ...
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loaded 4000000 lines.
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loaded 4000000 lines.
+{'mapping': 'identity', 'placement': 'packed', 'channel_interleave_bytes': 256, 'ramulator_interleave_bits': 3, 'reads': 3960932, 'writes': 39068, 'mapper': 'RoBaRaCoCh', 'policy': 'Open', 'cycles': 453888, 'time_us': 567.36, 'row_hit_rate': 0.9155677559520684, 'row_conflict_rate': 0.05676934500371262, 'read_forwarded': 130, 'write_coalesced': 0, 'drain_guard_memory_cycles': 128}
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loading trace file /home/adityaseshasai.s/amcas-pro/results/gpu/campaign_20261120/runs/q7_B4P8192/ctx_0x55fbb6988cf0/policy_grid/packed_s8_identity.trc ...
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loaded 4000000 lines.
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loading trace file /home/adityaseshasai.s/amcas-pro/results/gpu/campaign_20261120/runs/q7_B4P8192/ctx_0x55fbb6988cf0/policy_grid/packed_s8_identity.trc ...
+{'mapping': 'identity', 'placement': 'packed', 'channel_interleave_bytes': 256, 'ramulator_interleave_bits': 3, 'reads': 3960932, 'writes': 39068, 'mapper': 'RoBaRaCoCh', 'policy': 'ClosedCAP', 'cycles': 609548, 'time_us': 761.9350000000001, 'row_hit_rate': 0.7289280802507887, 'row_conflict_rate': 0.033582666997678166, 'read_forwarded': 139, 'write_coalesced': 0, 'drain_guard_memory_cycles': 128}
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loaded 4000000 lines.
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loading trace file /home/adityaseshasai.s/amcas-pro/results/gpu/campaign_20261120/runs/q7_B4P8192/ctx_0x55fbb6988cf0/policy_grid/packed_s8_identity.trc ...
+{'mapping': 'identity', 'placement': 'packed', 'channel_interleave_bytes': 256, 'ramulator_interleave_bits': 3, 'reads': 3960932, 'writes': 39068, 'mapper': 'RoBaRaCoCh', 'policy': 'Timeout16', 'cycles': 493001, 'time_us': 616.25125, 'row_hit_rate': 0.7396005994158845, 'row_conflict_rate': 0.02161207271992708, 'read_forwarded': 106, 'write_coalesced': 0, 'drain_guard_memory_cycles': 128}
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loaded 4000000 lines.
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loading trace file /home/adityaseshasai.s/amcas-pro/results/gpu/campaign_20261120/runs/q7_B4P8192/ctx_0x55fbb6988cf0/policy_grid/packed_s8_identity.trc ...
+{'mapping': 'identity', 'placement': 'packed', 'channel_interleave_bytes': 256, 'ramulator_interleave_bits': 3, 'reads': 3960932, 'writes': 39068, 'mapper': 'RoBaRaCoCh', 'policy': 'Timeout64', 'cycles': 457958, 'time_us': 572.4475, 'row_hit_rate': 0.8651574406976997, 'row_conflict_rate': 0.031300134228791965, 'read_forwarded': 113, 'write_coalesced': 0, 'drain_guard_memory_cycles': 128}
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loaded 4000000 lines.
