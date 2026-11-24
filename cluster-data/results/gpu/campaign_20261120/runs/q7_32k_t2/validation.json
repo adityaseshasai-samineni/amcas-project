@@ -1,10 +1,16 @@
 {
   "case": "q7_32k_t2",
   "capture_output_validated": true,
-  "model_export_validated": false,
+  "model_export_validated": true,
   "hardware_reference_validated": true,
   "scope": "Model counter/export consistency does not establish exact hardware cache or timing behavior",
+  "model_read_bytes": 6348682848,
+  "model_write_bytes": 13531360,
+  "model_kernels": 538,
   "hardware_read_bytes": 7526419936,
   "hardware_write_bytes": 16222336,
-  "hardware_kernels": 538
+  "hardware_kernels": 538,
+  "read_relative_error": -0.1564803848329942,
+  "write_relative_error": -0.16588091875300814,
+  "hardware_agreement": "Byte comparison available; report read/write deviations separately. Not an exact physical DRAM trace or native token-time validation."
 }
