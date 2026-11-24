@@ -921,3 +921,16 @@ Loading trace file /home/adityaseshasai.s/amcas-pro/results/gpu/campaign_2026112
 [Ramulator::LoadStoreTrace] [[32minfo[0m] Loaded 4000000 lines.
 {'mapping': 'region', 'placement': 'thp', 'channel_interleave_bytes': 256, 'ramulator_interleave_bits': 3, 'reads': 3987941, 'writes': 12059, 'mapper': 'RoBaRaCoCh', 'policy': 'Adaptive', 'cycles': 453032, 'time_us': 566.29, 'row_hit_rate': 0.8832325568720747, 'row_conflict_rate': 0.08815902830591044, 'read_forwarded': 58, 'write_coalesced': 0, 'drain_guard_memory_cycles': 128}
 {'mapping': 'region', 'placement': 'thp', 'channel_interleave_bytes': 256, 'ramulator_interleave_bits': 3, 'reads': 3987941, 'writes': 12059, 'mapper': 'RoBaRaCoCh', 'policy': 'Adaptive7_4', 'cycles': 458282, 'time_us': 572.8525, 'row_hit_rate': 0.8823469557910758, 'row_conflict_rate': 0.08809234340823698, 'read_forwarded': 61, 'write_coalesced': 0, 'drain_guard_memory_cycles': 128}
+  [global] n=4,000,000 cost 424035 -> 404429; bank bit ^= {0: ['row0'], 1: [], 2: ['row11'], 3: ['row13', 'row4'], 4: ['row0']}
+  [channel] channel hash cost 425081 -> 410188; chan bit ^= {0: ['row0', 'row1'], 1: ['row4'], 2: [], 3: [], 4: []}
+  [joint] channel hash cost 405475 -> 403429; chan bit ^= {0: [], 1: ['row2', 'row5'], 2: [], 3: [], 4: []}
+  [MOP] n=4,000,000 cost 1020195 -> 1016619; bank bit ^= {0: ['row11'], 1: [], 2: [], 3: ['row9'], 4: []}
+  [region] n=2,173,584 cost 447954 -> 416703; bank bit ^= {0: ['row0', 'row1', 'row5'], 1: ['row0', 'row7'], 2: ['row3', 'row12'], 3: ['row2'], 4: []}
+  [region] n=21,804 cost 6891 -> 4290; bank bit ^= {0: ['row1'], 1: ['row9'], 2: ['row0'], 3: ['row8'], 4: []}
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loading trace file /home/adityaseshasai.s/amcas-pro/results/gpu/campaign_20261120/runs/q7_32k/ctx_0x5607d28030e0/policy_grid/thp_s11_identity.trc ...
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loading trace file /home/adityaseshasai.s/amcas-pro/results/gpu/campaign_20261120/runs/q7_32k/ctx_0x5607d28030e0/policy_grid/thp_s11_identity.trc ...
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loaded 4000000 lines.
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loaded 4000000 lines.
+{'mapping': 'identity', 'placement': 'thp', 'channel_interleave_bytes': 2048, 'ramulator_interleave_bits': 6, 'reads': 3987941, 'writes': 12059, 'mapper': 'RoBaRaCoCh', 'policy': 'Open', 'cycles': 291165, 'time_us': 363.95625, 'row_hit_rate': 0.8512935, 'row_conflict_rate': 0.1199575, 'read_forwarded': 0, 'write_coalesced': 0, 'drain_guard_memory_cycles': 128}
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loading trace file /home/adityaseshasai.s/amcas-pro/results/gpu/campaign_20261120/runs/q7_32k/ctx_0x5607d28030e0/policy_grid/thp_s11_identity.trc ...
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loaded 4000000 lines.

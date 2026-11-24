@@ -5098,5 +5098,22 @@
   "read_forwarded": 61,
   "write_coalesced": 0,
   "drain_guard_memory_cycles": 128
+ },
+ {
+  "mapping": "identity",
+  "placement": "thp",
+  "channel_interleave_bytes": 2048,
+  "ramulator_interleave_bits": 6,
+  "reads": 3987941,
+  "writes": 12059,
+  "mapper": "RoBaRaCoCh",
+  "policy": "Open",
+  "cycles": 291165,
+  "time_us": 363.95625,
+  "row_hit_rate": 0.8512935,
+  "row_conflict_rate": 0.1199575,
+  "read_forwarded": 0,
+  "write_coalesced": 0,
+  "drain_guard_memory_cycles": 128
  }
 ]

@@ -1,0 +1,14 @@
+==========================================
+SLURM_JOB_ID = 138111
+SLURM_NODELIST = node03
+SLURM_JOB_GPUS = 
+==========================================
+  [global] n=4,000,000 cost 638326 -> 615616; bank bit ^= {0: ['row0'], 1: ['row0', 'row8'], 2: ['row0'], 3: ['row0'], 4: ['row4']}
+  [channel] channel hash cost 638810 -> 621267; chan bit ^= {0: ['row0'], 1: ['row0'], 2: ['row0'], 3: ['row0'], 4: ['row0', 'row6']}
+  [joint] channel hash cost 616100 -> 613118; chan bit ^= {0: [], 1: ['row0'], 2: ['row0'], 3: ['row2'], 4: []}
+  [MOP] n=4,000,000 cost 1378134 -> 1378134; bank bit ^= {0: [], 1: [], 2: [], 3: [], 4: []}
+  [region] n=448,795 cost 142430 -> 131698; bank bit ^= {0: ['row0', 'row2', 'row7'], 1: ['row4', 'row1'], 2: ['row2'], 3: ['row2'], 4: ['row2', 'row3', 'row5']}
+[[Ramulator::LoadStoreTrace] [[32minfo[0m] Ramulator::LoadStoreTraceLoading trace file /home/adityaseshasai.s/amcas-pro/results/gpu/campaign_20261120/runs/q7_pf32/ctx_0x5645e7c574c0/policy_grid/packed_s8_identity.trc ...] [[32minfo[0m] 
+Loading trace file /home/adityaseshasai.s/amcas-pro/results/gpu/campaign_20261120/runs/q7_pf32/ctx_0x5645e7c574c0/policy_grid/packed_s8_identity.trc ...
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loaded 4000000 lines.
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loaded 4000000 lines.
