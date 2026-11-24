@@ -40,6 +40,10 @@ HBM2 model, tCK 1.25 ns, 4M-sector window per case, saturated replay. Cycle rati
 | q05_short | packed | 2048 | 0.937 | 13.2 | mopxor + Timeout256 | 0.861 | 0.705 | 18.2 | 0.862 / 18.3 | 1.010 / 13.2 | 1.429 / 15.5 |
 | q05_short | thp | 256 | 0.930 | 13.4 | mop + Region | 0.936 | 0.700 | 18.9 | 0.937 / 18.9 | 0.993 / 13.4 | 1.338 / 15.6 |
 | q05_short | thp | 2048 | 0.937 | 13.2 | mop + Timeout256 | 0.861 | 0.703 | 18.3 | 0.864 / 18.3 | 1.010 / 13.2 | 1.429 / 15.5 |
+| q30_1k | packed | 256 | 0.883 | 14.5 | expert_lin + Timeout256 | 0.970 | 0.869 | 14.3 | 1.051 / 21.5 | 0.982 / 14.4 | 1.238 / 16.2 |
+| q30_1k | packed | 2048 | 0.899 | 14.1 | region + Timeout256 | 0.976 | 0.883 | 14.0 | 1.020 / 20.9 | 0.991 / 14.1 | 1.319 / 16.1 |
+| q30_1k | packed | 256 | 0.885 | 14.5 | xor_global + Timeout256 | 0.971 | 0.871 | 14.3 | 1.027 / 21.1 | 0.977 / 14.3 | 1.240 / 16.2 |
+| q30_1k | packed | 2048 | 0.904 | 14.0 | region + Timeout256 | 0.979 | 0.886 | 13.9 | 1.010 / 20.5 | 0.995 / 14.0 | 1.332 / 16.1 |
 | q30_short | packed | 256 | 0.883 | 14.5 | expert_lin + Timeout256 | 0.970 | 0.870 | 14.3 | 1.049 / 21.6 | 0.990 / 14.5 | 1.241 / 16.2 |
 | q30_short | packed | 2048 | 0.901 | 14.1 | region + Timeout256 | 0.971 | 0.885 | 13.9 | 0.993 / 20.8 | 0.993 / 14.0 | 1.335 / 16.1 |
 | q30_short | thp | 256 | 0.883 | 14.5 | xor_global + Timeout256 | 0.966 | 0.869 | 14.3 | 1.036 / 21.4 | 0.969 / 14.4 | 1.241 / 16.2 |
@@ -56,6 +60,10 @@ HBM2 model, tCK 1.25 ns, 4M-sector window per case, saturated replay. Cycle rati
 | q7_8k | packed | 2048 | 0.848 | 15.3 | xor_global_chan + Timeout64 | 0.951 | 0.820 | 14.7 | 1.178 / 24.8 | 0.996 / 15.3 | 1.195 / 16.9 |
 | q7_8k | thp | 256 | 0.816 | 16.1 | xor_global + Timeout64 | 0.940 | 0.779 | 15.4 | 1.170 / 25.8 | 0.960 / 16.0 | 1.134 / 17.2 |
 | q7_8k | thp | 2048 | 0.848 | 15.3 | chan + Timeout64 | 0.954 | 0.820 | 14.7 | 1.178 / 24.8 | 1.003 / 15.3 | 1.195 / 16.9 |
+| q7_B16P512 | packed | 256 | 0.741 | 17.8 | chan + Timeout64 | 0.944 | 0.710 | 16.9 | 1.255 / 28.7 | 0.988 / 17.8 | 1.183 / 18.3 |
+| q7_B16P512 | packed | 2048 | 0.708 | 18.6 | xor_global + Timeout64 | 0.942 | 0.679 | 17.4 | 1.355 / 30.1 | 0.988 / 18.6 | 1.080 / 18.4 |
+| q7_B16P512 | thp | 256 | 0.741 | 17.8 | chan + Timeout64 | 0.949 | 0.710 | 16.9 | 1.255 / 28.7 | 0.985 / 17.8 | 1.183 / 18.3 |
+| q7_B16P512 | thp | 2048 | 0.708 | 18.6 | xor_global_chan + Timeout64 | 0.943 | 0.680 | 17.4 | 1.355 / 30.1 | 0.992 / 18.6 | 1.080 / 18.4 |
 
 ## DRAMsim3: measured read latency (memory cycles) and agreement with Ramulator
 
@@ -95,6 +103,10 @@ rho = Spearman rank correlation of cycles across mappings under Open page (bitre
 | q05_short | packed | 2048 | 74.1 | 0.838 / 93.9 | 1.012 / 74.1 | 2.780 / 302.6 | 0.88 | mopxor / mop |
 | q05_short | thp | 256 | 76.2 | 0.915 / 96.7 | 0.995 / 74.9 | 2.527 / 293.1 | 0.86 | mopxor / mop |
 | q05_short | thp | 2048 | 74.1 | 0.841 / 92.6 | 1.001 / 75.3 | 2.780 / 302.6 | 0.76 | mopxor / mop |
+| q30_1k | packed | 256 | 77.6 | 0.922 / 103.4 | 0.999 / 77.1 | 2.540 / 276.2 | -0.12 | chan / mopxor |
+| q30_1k | packed | 2048 | 76.4 | 0.909 / 98.2 | 0.994 / 77.6 | 2.664 / 273.4 | -0.14 | region / mopxor |
+| q30_1k | packed | 256 | 77.1 | 0.919 / 102.3 | 0.994 / 76.9 | 2.545 / 275.1 | -0.15 | xor_global / mopxor |
+| q30_1k | packed | 2048 | 77.1 | 0.902 / 96.3 | 0.997 / 76.3 | 2.696 / 273.9 | -0.13 | xor_global_chan / mopxor |
 | q30_short | packed | 256 | 77.2 | 0.938 / 100.7 | 1.002 / 77.3 | 2.635 / 278.7 | -0.24 | expert_lin / mopxor |
 | q30_short | packed | 2048 | 75.9 | 0.894 / 96.8 | 0.996 / 74.8 | 2.759 / 275.7 | 0.37 | naive / mopxor |
 | q30_short | thp | 256 | 77.2 | 0.929 / 102.5 | 0.995 / 76.3 | 2.635 / 278.7 | -0.35 | xor_global / mopxor |
@@ -111,3 +123,7 @@ rho = Spearman rank correlation of cycles across mappings under Open page (bitre
 | q7_8k | packed | 2048 | 88.0 | 0.957 / 122.7 | 1.006 / 87.0 | 2.248 / 262.7 | -0.24 | xor_global_chan / mopxor |
 | q7_8k | thp | 256 | 82.2 | 0.861 / 135.6 | 0.910 / 84.1 | 2.198 / 247.1 | -0.14 | xor_global / mop |
 | q7_8k | thp | 2048 | 88.0 | 0.950 / 125.9 | 1.010 / 86.5 | 2.248 / 262.7 | -0.21 | chan / mopxor |
+| q7_B16P512 | packed | 256 | 93.8 | 1.088 / 167.2 | 0.971 / 93.9 | 2.529 / 266.8 | 0.98 | chan / chan |
+| q7_B16P512 | packed | 2048 | 100.0 | 1.347 / 188.8 | 0.989 / 100.4 | 2.168 / 250.5 | 0.98 | xor_global / xor_global |
+| q7_B16P512 | thp | 256 | 93.8 | 1.088 / 167.2 | 0.977 / 91.4 | 2.529 / 266.8 | 0.90 | chan / xor_global |
+| q7_B16P512 | thp | 2048 | 100.0 | 1.347 / 188.8 | 0.991 / 99.1 | 2.168 / 250.5 | 0.90 | region / xor_global |
