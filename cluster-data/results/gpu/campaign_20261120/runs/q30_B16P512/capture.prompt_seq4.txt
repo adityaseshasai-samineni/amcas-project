@@ -1,0 +1,28 @@
+large model context windows.
+export GGML_OPENVINO_DEVICE=NPU
+./build/ReleaseOV/bin/llama-cli -m ~/models/Llama-3.2-1B-Instruct-Q4_K_M.gguf -c 512
+
+# Windows Command Line
+set GGML_OPENVINO_DEVICE=GPU
+# Optional: enable stateful execution for improved GPU performance (recommended).
+set GGML_OPENVINO_STATEFUL_EXECUTION=1
+# Windows PowerShell
+$env:GGML_OPENVINO_DEVICE = "GPU"
+$env:GGML_OPENVINO_STATEFUL_EXECUTION = "1"
+
+# To run llama-simple
+build\ReleaseOV\bin\llama-simple.exe -m "C:\models\Llama-3.2-1B-Instruct-Q4_K_M.gguf" -n 50 "The story of AI is "
+# To run in chat mode:
+build\ReleaseOV\bin\llama-cli.exe -m "C:\models\Llama-3.2-1B-Instruct-Q4_K_M.gguf" -c 1024
+# To run llama-bench, -fa 1 is needed
+build\ReleaseOV\bin\llama-bench.exe -m "C:\models\Llama-3.2-1B-Instruct-Q4_K_M.gguf" -fa 1
+
+# NPU: keep context small to avoid failures from very large model context windows.
+# Windows Command Line
+set GGML_OPENVINO_DEVICE=NPU
+# Windows PowerShell
+$env:GGML_OPENVINO_DEVICE = "NPU"
+build\ReleaseOV\bin\llama-cli.exe -m "C:\models\Llama-3.2-1B-Instruct-Q4_K_M.gguf" -c 512
+```
+> [!NOTE]
+> On systems with multiple GPUs, use `GPU.0` or `GPU.1` to explicitly target specific GPU. A device that is not available is an error (no fallback to CPU), and the error message lists the available OpenVINO devices with their names. Run `llama-cli --list-devices` to see the valid values: each OpenVINO device shows the `GGML_OPENVINO_DEVICE=<value>` to set, and `(selected)` marks the active one. Select the OpenVINO device with this variable, not with `-dev`. See [OpenVINO GPU Device](https://docs.open

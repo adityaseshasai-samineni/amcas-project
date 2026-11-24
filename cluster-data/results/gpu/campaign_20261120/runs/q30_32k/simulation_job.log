@@ -5,3 +5,8 @@ SLURM_JOB_GPUS =
 ==========================================
 trace copy node04 -> node03: src=[2227 25062741265] dst=[2227 25062741265]
 Submitted batch job 136494
+{"case": "q30_32k", "capture_output_validated": true, "model_export_validated": true, "hardware_reference_validated": false, "scope": "Model counter/export consistency does not establish exact hardware cache or timing behavior", "model_read_bytes": 5000010016, "model_write_bytes": 41150912, "model_kernels": 1110}
+{"case": "q30_32k", "capture_output_validated": true, "model_export_validated": true, "hardware_reference_validated": false, "scope": "Model counter/export consistency does not establish exact hardware cache or timing behavior", "model_read_bytes": 5000010016, "model_write_bytes": 41150912, "model_kernels": 1110}
+q30_32k ctx_0x55f33f54e520 policy_job 138063
+q30_32k ctx_0x55f33f576900 policy_job 138064
+Submitted batch job 138065
