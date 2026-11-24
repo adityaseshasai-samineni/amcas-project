@@ -1,10 +1,16 @@
 {
   "case": "q7_pf32",
   "capture_output_validated": true,
-  "model_export_validated": false,
+  "model_export_validated": true,
   "hardware_reference_validated": true,
   "scope": "Model counter/export consistency does not establish exact hardware cache or timing behavior",
+  "model_read_bytes": 4607621472,
+  "model_write_bytes": 397384896,
+  "model_kernels": 896,
   "hardware_read_bytes": 4669092640,
   "hardware_write_bytes": 408525472,
-  "hardware_kernels": 896
+  "hardware_kernels": 896,
+  "read_relative_error": -0.013165549013394617,
+  "write_relative_error": -0.027270211439838987,
+  "hardware_agreement": "Byte comparison available; report read/write deviations separately. Not an exact physical DRAM trace or native token-time validation."
 }
