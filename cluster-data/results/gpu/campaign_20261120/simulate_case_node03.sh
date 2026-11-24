@@ -15,7 +15,8 @@ trap 'bash "$A/tools/publish.sh" "GPU campaign simulation $1"' EXIT
 export PATH=$E/bin:$PATH OPENBLAS_NUM_THREADS=1
 S=$(python -c 'import json,sys;print(json.load(open(sys.argv[1]))["scratch"])' "$R/runs/$1/capture.status.json")
 mkdir -p "$S"
-rsync -a --partial --exclude=/simulation/ node04:"$S/" "$S/"
+# The node04 ssh link drops on long copies (broken pipe); --partial resumes, so retry.
+for t in 1 2 3 4 5 6; do rsync -a --partial --timeout=600 -e 'ssh -o ServerAliveInterval=30 -o ServerAliveCountMax=10' --exclude=/simulation/ node04:"$S/" "$S/" && break; echo "rsync retry $t"; [ $t = 6 ] && exit 2; sleep 60; done
 src=$(ssh -o BatchMode=yes node04 "find '$S' -path '$S/simulation' -prune -o -type f ! -name 'kernelslist_sim_*' -printf '%s\n' | awk '{n++;b+=\$1}END{print n,b}'")
 dst=$(find "$S" -path "$S/simulation" -prune -o -type f ! -name 'kernelslist_sim_*' -printf '%s\n' | awk '{n++;b+=$1}END{print n,b}')
 echo "trace copy node04 -> node03: src=[$src] dst=[$dst]" | tee "$R/runs/$1/trace_copy_node03.txt"
