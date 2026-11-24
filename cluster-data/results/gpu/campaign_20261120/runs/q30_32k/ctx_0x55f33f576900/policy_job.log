@@ -1,0 +1,15 @@
+==========================================
+SLURM_JOB_ID = 138064
+SLURM_NODELIST = node03
+SLURM_JOB_GPUS = 
+==========================================
+  [global] n=4,000,000 cost 348225 -> 332479; bank bit ^= {0: ['row0'], 1: [], 2: [], 3: [], 4: []}
+  [channel] channel hash cost 348825 -> 320993; chan bit ^= {0: ['row7'], 1: ['row0', 'row1'], 2: ['row5', 'row1', 'row7'], 3: ['row0', 'row1', 'row2'], 4: ['row1', 'row4']}
+  [joint] channel hash cost 333079 -> 321037; chan bit ^= {0: [], 1: ['row0', 'row3', 'row5'], 2: [], 3: ['row0', 'row2'], 4: ['row1', 'row7', 'row5']}
+  [MOP] n=4,000,000 cost 901377 -> 882218; bank bit ^= {0: ['row1'], 1: [], 2: ['row1'], 3: ['row0', 'row2'], 4: ['row2']}
+  [region] n=1,998,912 cost 367368 -> 348574; bank bit ^= {0: ['row0'], 1: [], 2: [], 3: [], 4: ['row4']}
+  [region] n=53,263 cost 12046 -> 11764; bank bit ^= {0: ['row4'], 1: ['row4', 'row0'], 2: [], 3: [], 4: []}
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loading trace file /home/adityaseshasai.s/amcas-pro/results/gpu/campaign_20261120/runs/q30_32k/ctx_0x55f33f576900/policy_grid/packed_s8_identity.trc ...
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loading trace file /home/adityaseshasai.s/amcas-pro/results/gpu/campaign_20261120/runs/q30_32k/ctx_0x55f33f576900/policy_grid/packed_s8_identity.trc ...
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loaded 4000000 lines.
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loaded 4000000 lines.
