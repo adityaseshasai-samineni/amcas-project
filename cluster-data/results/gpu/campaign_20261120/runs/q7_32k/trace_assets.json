@@ -1,0 +1,29 @@
+{
+  "validated_simulation": true,
+  "assets": [
+    {
+      "context": "ctx_0x5607d28030e0",
+      "source_file": "/scratch/adityaseshasai.s/amcas-campaign20/q7_32k/capture/simulation/ctx_0x5607d28030e0/dram.csv.gz",
+      "bytes": 2040141362,
+      "sha256": "03e0b7cab559ce61ba7e7f5b95f348944927f5ef708e266a8f66e2c173b4b337",
+      "parts": [
+        {
+          "name": "accelsim20-q7_32k-ctx_0x5607d28030e0-03e0b7cab559.csv.gz.part001of002",
+          "url": "https://github.com/adityaseshasai-samineni/amcas-project/releases/download/traces-2026-11-03/accelsim20-q7_32k-ctx_0x5607d28030e0-03e0b7cab559.csv.gz.part001of002",
+          "offset": 0,
+          "bytes": 1900000000,
+          "sha256": "33ccdc724261f9191beaddb548b7d7d1867ee40b8d5ded648774cfaa4ed93c33"
+        },
+        {
+          "name": "accelsim20-q7_32k-ctx_0x5607d28030e0-03e0b7cab559.csv.gz.part002of002",
+          "url": "https://github.com/adityaseshasai-samineni/amcas-project/releases/download/traces-2026-11-03/accelsim20-q7_32k-ctx_0x5607d28030e0-03e0b7cab559.csv.gz.part002of002",
+          "offset": 1900000000,
+          "bytes": 140141362,
+          "sha256": "ede0f82dc1628755aef05ab36729467583347da2130c45d8145c0c40d579c0c3"
+        }
+      ],
+      "schema": "sequence,core_cycle,partition,address_hex,write,bytes,access_type,sector_mask",
+      "scope": "simulated controller admissions, not measured hardwareDRAMcommands"
+    }
+  ]
+}
