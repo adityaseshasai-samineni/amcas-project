@@ -1,0 +1,20 @@
+==========================================
+SLURM_JOB_ID = 139376
+SLURM_NODELIST = node03
+SLURM_JOB_GPUS = 
+==========================================
+  [global] n=4,000,000 cost 632368 -> 602062; bank bit ^= {0: ['row0'], 1: ['row0', 'row6'], 2: ['row0'], 3: ['row0', 'row10'], 4: ['row4']}
+  [channel] channel hash cost 633888 -> 614142; chan bit ^= {0: ['row0'], 1: ['row0'], 2: ['row6'], 3: ['row0'], 4: []}
+  [joint] channel hash cost 603582 -> 601029; chan bit ^= {0: [], 1: ['row0'], 2: [], 3: [], 4: []}
+  [MOP] n=4,000,000 cost 1399925 -> 1399925; bank bit ^= {0: [], 1: [], 2: [], 3: [], 4: []}
+  [region] n=648,434 cost 233598 -> 219123; bank bit ^= {0: ['row0', 'row1', 'row6'], 1: ['row7', 'row5'], 2: ['row6', 'row1'], 3: ['row1', 'row4'], 4: ['row3']}
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loading trace file /home/adityaseshasai.s/amcas-pro/results/gpu/campaign_20261120/runs/q7_ub32/ctx_0x55dbddec94c0/policy_grid/packed_s8_identity.trc ...
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loading trace file /home/adityaseshasai.s/amcas-pro/results/gpu/campaign_20261120/runs/q7_ub32/ctx_0x55dbddec94c0/policy_grid/packed_s8_identity.trc ...
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loaded 4000000 lines.
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loaded 4000000 lines.
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loading trace file /home/adityaseshasai.s/amcas-pro/results/gpu/campaign_20261120/runs/q7_ub32/ctx_0x55dbddec94c0/policy_grid/packed_s8_identity.trc ...
+{'mapping': 'identity', 'placement': 'packed', 'channel_interleave_bytes': 256, 'ramulator_interleave_bits': 3, 'reads': 3569396, 'writes': 430604, 'mapper': 'RoBaRaCoCh', 'policy': 'Open', 'cycles': 303640, 'time_us': 379.55, 'row_hit_rate': 0.7207792695061255, 'row_conflict_rate': 0.24560131349023911, 'read_forwarded': 2102, 'write_coalesced': 0, 'drain_guard_memory_cycles': 128}
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loaded 4000000 lines.
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loading trace file /home/adityaseshasai.s/amcas-pro/results/gpu/campaign_20261120/runs/q7_ub32/ctx_0x55dbddec94c0/policy_grid/packed_s8_identity.trc ...
+{'mapping': 'identity', 'placement': 'packed', 'channel_interleave_bytes': 256, 'ramulator_interleave_bits': 3, 'reads': 3569396, 'writes': 430604, 'mapper': 'RoBaRaCoCh', 'policy': 'ClosedCAP', 'cycles': 323312, 'time_us': 404.14, 'row_hit_rate': 0.6415013165559886, 'row_conflict_rate': 0.1766266101140815, 'read_forwarded': 2069, 'write_coalesced': 0, 'drain_guard_memory_cycles': 128}
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loaded 4000000 lines.
