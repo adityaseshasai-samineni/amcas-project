@@ -1,0 +1,27 @@
+==========================================
+SLURM_JOB_ID = 140533
+SLURM_NODELIST = node03
+SLURM_JOB_GPUS = 
+==========================================
+  [global] n=4,000,000 cost 446676 -> 431041; bank bit ^= {0: ['row0', 'row2'], 1: ['row6'], 2: ['row3'], 3: ['row2'], 4: []}
+  [channel] channel hash cost 447652 -> 441040; chan bit ^= {0: ['row3'], 1: ['row0'], 2: [], 3: [], 4: []}
+  [joint] channel hash cost 432017 -> 427233; chan bit ^= {0: ['row3', 'row4'], 1: ['row4'], 2: ['row1', 'row4'], 3: [], 4: ['row7']}
+  [MOP] n=4,000,000 cost 1097660 -> 1092755; bank bit ^= {0: [], 1: [], 2: ['row2'], 3: [], 4: ['row2']}
+  [region] n=362,874 cost 207799 -> 162019; bank bit ^= {0: ['row0'], 1: [], 2: ['row1', 'row3'], 3: ['row0', 'row3'], 4: ['row2']}
+  [region] n=88,540 cost 22724 -> 19064; bank bit ^= {0: ['row3', 'row6'], 1: ['row3'], 2: ['row3', 'row4'], 3: ['row6'], 4: ['row0']}
+[[Ramulator::LoadStoreTrace] [[32minfo[0m] Ramulator::LoadStoreTraceLoading trace file /home/adityaseshasai.s/amcas-pro/results/gpu/campaign_20261120/runs/q30_B4P512/ctx_0x559aa79ef070/policy_grid/packed_s8_identity.trc ...] [[32minfo[0m] 
+Loading trace file /home/adityaseshasai.s/amcas-pro/results/gpu/campaign_20261120/runs/q30_B4P512/ctx_0x559aa79ef070/policy_grid/packed_s8_identity.trc ...
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loaded 4000000 lines.
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loaded 4000000 lines.
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loading trace file /home/adityaseshasai.s/amcas-pro/results/gpu/campaign_20261120/runs/q30_B4P512/ctx_0x559aa79ef070/policy_grid/packed_s8_identity.trc ...
+{'mapping': 'identity', 'placement': 'packed', 'channel_interleave_bytes': 256, 'ramulator_interleave_bits': 3, 'reads': 3923902, 'writes': 76098, 'mapper': 'RoBaRaCoCh', 'policy': 'Open', 'cycles': 302581, 'time_us': 378.22625, 'row_hit_rate': 0.8188032820492307, 'row_conflict_rate': 0.15150702260533908, 'read_forwarded': 60, 'write_coalesced': 0, 'drain_guard_memory_cycles': 128}
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loaded 4000000 lines.
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loading trace file /home/adityaseshasai.s/amcas-pro/results/gpu/campaign_20261120/runs/q30_B4P512/ctx_0x559aa79ef070/policy_grid/packed_s8_identity.trc ...
+{'mapping': 'identity', 'placement': 'packed', 'channel_interleave_bytes': 256, 'ramulator_interleave_bits': 3, 'reads': 3923902, 'writes': 76098, 'mapper': 'RoBaRaCoCh', 'policy': 'ClosedCAP', 'cycles': 360798, 'time_us': 450.9975, 'row_hit_rate': 0.6847749590804009, 'row_conflict_rate': 0.11083204976503262, 'read_forwarded': 83, 'write_coalesced': 0, 'drain_guard_memory_cycles': 128}
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loaded 4000000 lines.
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loading trace file /home/adityaseshasai.s/amcas-pro/results/gpu/campaign_20261120/runs/q30_B4P512/ctx_0x559aa79ef070/policy_grid/packed_s8_identity.trc ...
+{'mapping': 'identity', 'placement': 'packed', 'channel_interleave_bytes': 256, 'ramulator_interleave_bits': 3, 'reads': 3923902, 'writes': 76098, 'mapper': 'RoBaRaCoCh', 'policy': 'Timeout16', 'cycles': 312023, 'time_us': 390.02875, 'row_hit_rate': 0.7039812518734502, 'row_conflict_rate': 0.03752675330558481, 'read_forwarded': 27, 'write_coalesced': 0, 'drain_guard_memory_cycles': 128}
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loaded 4000000 lines.
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loading trace file /home/adityaseshasai.s/amcas-pro/results/gpu/campaign_20261120/runs/q30_B4P512/ctx_0x559aa79ef070/policy_grid/packed_s8_identity.trc ...
+{'mapping': 'identity', 'placement': 'packed', 'channel_interleave_bytes': 256, 'ramulator_interleave_bits': 3, 'reads': 3923902, 'writes': 76098, 'mapper': 'RoBaRaCoCh', 'policy': 'Timeout64', 'cycles': 298158, 'time_us': 372.6975, 'row_hit_rate': 0.770519606786756, 'row_conflict_rate': 0.06984482621981632, 'read_forwarded': 33, 'write_coalesced': 0, 'drain_guard_memory_cycles': 128}
+[Ramulator::LoadStoreTrace] [[32minfo[0m] Loaded 4000000 lines.
