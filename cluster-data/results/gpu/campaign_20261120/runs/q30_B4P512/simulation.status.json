@@ -1,0 +1,48 @@
+{
+  "passed": true,
+  "contexts": [
+    {
+      "context": "ctx_0x559aa79ef070",
+      "expected_kernels": 675,
+      "kernels_completed": 675,
+      "seconds": 44471.6378698349,
+      "controller_packets": 79534400,
+      "conversion": {
+        "controller_packets": 79534400,
+        "read_packets": 79256497,
+        "write_packets": 277903,
+        "read_bytes": 2536207904,
+        "write_bytes": 35537856,
+        "sectors": 80367055,
+        "last_core_cycle": 11868393,
+        "write_offsets": "exported_dirty_sector_mask_ascending_within_packet",
+        "timestamps": "validated_but_not_in_binary_saturated_replay"
+      },
+      "stream": "/scratch/adityaseshasai.s/amcas-campaign20/q30_B4P512/capture/simulation/ctx_0x559aa79ef070/masked.dram",
+      "export": "/scratch/adityaseshasai.s/amcas-campaign20/q30_B4P512/capture/simulation/ctx_0x559aa79ef070/dram.csv.gz",
+      "scope": "independent V100 context model; no interGPU transfer/timing model; cold selectedwindow; source address placement synthetic in downstream replay"
+    },
+    {
+      "context": "ctx_0x559aa7a17450",
+      "expected_kernels": 626,
+      "kernels_completed": 626,
+      "seconds": 46861.71328854561,
+      "controller_packets": 81489135,
+      "conversion": {
+        "controller_packets": 81489135,
+        "read_packets": 81214085,
+        "write_packets": 275050,
+        "read_bytes": 2598850720,
+        "write_bytes": 35178368,
+        "sectors": 82313409,
+        "last_core_cycle": 12050181,
+        "write_offsets": "exported_dirty_sector_mask_ascending_within_packet",
+        "timestamps": "validated_but_not_in_binary_saturated_replay"
+      },
+      "stream": "/scratch/adityaseshasai.s/amcas-campaign20/q30_B4P512/capture/simulation/ctx_0x559aa7a17450/masked.dram",
+      "export": "/scratch/adityaseshasai.s/amcas-campaign20/q30_B4P512/capture/simulation/ctx_0x559aa7a17450/dram.csv.gz",
+      "scope": "independent V100 context model; no interGPU transfer/timing model; cold selectedwindow; source address placement synthetic in downstream replay"
+    }
+  ],
+  "kernels_total": 1301
+}

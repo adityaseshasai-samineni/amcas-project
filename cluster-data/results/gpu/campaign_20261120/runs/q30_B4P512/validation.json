@@ -1,10 +1,16 @@
 {
   "case": "q30_B4P512",
   "capture_output_validated": true,
-  "model_export_validated": false,
+  "model_export_validated": true,
   "hardware_reference_validated": true,
   "scope": "Model counter/export consistency does not establish exact hardware cache or timing behavior",
+  "model_read_bytes": 5135058624,
+  "model_write_bytes": 70716224,
+  "model_kernels": 1301,
   "hardware_read_bytes": 5139630752,
   "hardware_write_bytes": 76890496,
-  "hardware_kernels": 1301
+  "hardware_kernels": 1301,
+  "read_relative_error": -0.0008895829721270454,
+  "write_relative_error": -0.0802995470337452,
+  "hardware_agreement": "Byte comparison available; report read/write deviations separately. Not an exact physical DRAM trace or native token-time validation."
 }
