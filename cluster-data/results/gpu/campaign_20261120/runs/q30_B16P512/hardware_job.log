@@ -1,0 +1,7 @@
+==========================================
+SLURM_JOB_ID = 139992
+SLURM_NODELIST = node04
+SLURM_JOB_GPUS = 0,1
+==========================================
+{"passed": true, "exit_code": 0, "kernels": 1781, "expected_kernels": 1781, "native_output_match": true, "read_bytes": 10569921504.0, "write_bytes": 338395872.0, "seconds": 121.05434703826904, "scope": "independent hardware application replay; twoDRAMbytecounters; not ordered hardwareDRAMtrace", "profile_from_start": false}
+{"case": "q30_B16P512", "capture_output_validated": true, "model_export_validated": false, "hardware_reference_validated": true, "scope": "Model counter/export consistency does not establish exact hardware cache or timing behavior", "hardware_read_bytes": 10569921504, "hardware_write_bytes": 338395872, "hardware_kernels": 1781}
