@@ -1994,3 +1994,16 @@ Cycle ratio vs identity, same organisation and depth:
 - With user approval, deleted node04 capture dirs of q7_1k, q7_8k, q30_short, q7_ub32, q30_32k, q30_B4P512 after a per-file check: every node04 file is identical on node03 or listed in retention.json as a regenerable .tracez (original trace kept on node03), and trace_assets.json validated_simulation is true. Log appended to node04_scratch_cleanup_20261123.txt. node04 free: 244 GB.
 - Resubmitted as 140984 (--array=6-8%1, gpu:2, 22G, 22 h, AMCAS_CAPTURE_SECONDS=72000).
 - Since 2026-11-24: completed replay + grid + upload for q7_B4P8192, q7_32k, q7_32k_t2, q7_pf32, q7_ub32, q30_32k, q30_B4P512; q30_n4 replay done (grids 140851/140852 queued); all Nsight jobs completed. 134150 q7_B4P32768 TIMEOUT at 3 days (about 520/817 kernels; trace kept on node03). q30_B16P512 replay 139898 running.
+
+## 2026-11-26 — GPU: long-context decode is channel-interleave bound (new grids)
+
+Report regenerated (eac5198) with q7_32k, q7_32k_t2, q7_B4P8192, q7_pf32, q7_ub32, q30_32k, q30_B4P512. Ramulator cycles vs identity + Open, packed, 256 B interleave unless stated:
+- q7_32k / q7_32k_t2 (7B, 32k context): chan + Open 0.743–0.745, xor_global_chan + Open 0.742–0.744, DS3 chan 0.687–0.689 (both simulators agree; chan is a RoBaRaCoCh channel hash, not affected by the pseudo-channel artifact). 2 KiB interleave with identity: 0.640; 2 KiB xor_global_chan + Timeout256: 0.609. xor_global (bank hash only) 0.96–0.97.
+- q7_B4P8192 (4 x 8k): chan 0.85–0.86 (DS3 0.83–0.84); 2 KiB identity 0.686; 2 KiB xor_global_chan + Timeout256 0.664.
+- q7_8k: 2 KiB identity 1.013 (slightly worse than 256 B); 256 B xor_global + Timeout64 0.932 stays best. So the gain is specific to long-context KV streaming, where 256 B channel interleave concentrates traffic on few channels.
+- Policy alone (identity + Timeout256) 0.99 on long contexts; the long-context gain is channel mapping, not page policy. Closed page 1.06–1.34 in every case.
+- MoE (q30_1k, q30_32k, q30_B4P512): xor_global_chan / chan + Timeout256 best, 0.935–0.982; expert-aware mapping no gain beyond XOR hashes.
+- Batched/prefill (q7_B16P512, q7_pf32, q7_ub32): DRAMsim3 mopxor 1.09–1.35 (worse); simulators agree on ranking.
+- Proposal direction for GPU: channel-bit XOR hash (or coarser 2 KiB channel interleave) + bank XOR hash, Open page with Timeout256. To confirm: whether 2 KiB interleave hurts short-context cases (q7_8k 1.013, q05_short) enough to prefer the 256 B + chan hash.
+
+Also: 140851/140852 (q30_n4 grids) moved to node01 (node03 memory fully reserved by other users); node04 memory is also fully reserved by other users, so MoE captures 140984 wait though both V100s are idle.
