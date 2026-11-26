@@ -50,6 +50,9 @@ def spearman(a, b):
 rows, summary = [], []
 for grid in sorted(glob.glob(f"{ROOT}/*/ctx_*/policy_grid")):
     case = grid.split("/")[-3]
+    # Two-GPU cases have one CUDA context (one grid) per device: label each by its context id.
+    if len(glob.glob(f"{ROOT}/{case}/ctx_*/policy_grid/results.json")) > 1:
+        case += "/" + grid.split("/")[-2][-4:]
     if not os.path.exists(f"{grid}/results.json"):
         continue
     ram = json.load(open(f"{grid}/results.json")); ram = ram if isinstance(ram, list) else ram["results"]

@@ -2007,3 +2007,9 @@ Report regenerated (eac5198) with q7_32k, q7_32k_t2, q7_B4P8192, q7_pf32, q7_ub3
 - Proposal direction for GPU: channel-bit XOR hash (or coarser 2 KiB channel interleave) + bank XOR hash, Open page with Timeout256. To confirm: whether 2 KiB interleave hurts short-context cases (q7_8k 1.013, q05_short) enough to prefer the 256 B + chan hash.
 
 Also: 140851/140852 (q30_n4 grids) moved to node01 (node03 memory fully reserved by other users); node04 memory is also fully reserved by other users, so MoE captures 140984 wait though both V100s are idle.
+
+## 2026-11-26 evening: q30_n4 grids done; queue state
+- 140851/140852 (q30_n4 policy grids, node01) and 140853 (upload) COMPLETED. Ramulator, vs identity+Open: best 0.962-0.977 (xor_global / xor_global_chan / expert_lin + Timeout256), hit 0.88-0.91, ClosedCAP 1.24-1.35. DS3 closed 2.6-2.8x. Same picture as the other MoE cases.
+- gpu_latency_report.py now labels two-context (two-GPU) cases as case/<last 4 hex of ctx id>; latency.md regenerated (104 cells).
+- 139898 q30_B16P512 replay: ctx_..a070 at 626 kernels after 22.3 h (~28/h); second context not started. Projected total ~64-73 h vs 72 h limit. Fallback: grid on the first context only.
+- 140984 [6-8] MoE captures still PENDING (node04 memory reserved by others).
