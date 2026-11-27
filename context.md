@@ -2052,3 +2052,14 @@ Also: 140851/140852 (q30_n4 grids) moved to node01 (node03 memory fully reserved
   - q30_B4P512 7450: 0.979 vs 0.979; f070: 0.982 vs 0.979.
 - Conclusion: masks fitted on one window keep within about 1 percentage point of the refitted mask at other points in the same decode stream. The in-sample window choice does not inflate the GPU gains. The cross-workload test (142132) is still running: 41 of 104 window×placement×interleave groups done at 21:02.
 - 139898 (q30_B16P512) ctx 2: kernel 847 of 856 at 21:10. Mask export, reconcile, prepare and upload follow automatically.
+
+## 2026-11-28 01:30 — GPU cross-workload fixed-mask result (job 142132, 2684/2704 replays)
+
+- Masks fitted once on one trainer, applied unchanged to all 26 policy windows (packed/thp × s8/s11 × Open/Timeout256 = 206 complete cells). Metric: Ramulator HBM2 cycles / identity cycles on the same window (lower is better). "oracle" = refit on the eval window itself (what the grid reports).
+- One fixed map (deployable form), mean / max over 206 cells:
+  - chan: oracle 0.981 / 1.033; pooled 0.984 / 1.031; q7_32k 0.985 / 1.040; q30_32k 0.989 / 1.028.
+  - xor_global_chan: oracle 0.976; pooled 0.987 (max 1.033); q7_32k 0.986; q30_32k 0.995.
+  - xor_global: oracle 0.990; pooled 0.996; q30_32k 1.002 (no gain).
+- Per case, best of 3 maps, oracle vs pooled: q7_32k 0.864 vs 0.869; q7_32k_t2 0.863 vs 0.867; q7_B4P8192 0.924 vs 0.929; q30_B4P512 0.964 vs 0.974; q7_8k 0.974 vs 0.978; small models (q05, gem5 s15/q05) 0.99–1.00 under both.
+- Conclusion: a single pooled mask keeps almost all of the refit gain on the cases that benefit (long-context 7B: −13% cycles). The q30-only trainer transfers worse to dense 7B (0.924 on q7_32k). Fixed masks are worse than identity on about 30% of cells, but by at most 3–5%, mostly small-model or short-context cells where no mapping helps.
+- Recommended proposal form: the channel-XOR (chan) mask fitted on the pooled set, applied to every workload.
