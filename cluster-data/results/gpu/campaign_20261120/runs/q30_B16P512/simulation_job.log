@@ -5,3 +5,8 @@ SLURM_JOB_GPUS =
 ==========================================
 trace copy node04 -> node03: src=[3569 97715055207] dst=[3569 97715055207]
 Submitted batch job 139992
+{"case": "q30_B16P512", "capture_output_validated": true, "model_export_validated": true, "hardware_reference_validated": true, "scope": "Model counter/export consistency does not establish exact hardware cache or timing behavior", "model_read_bytes": 10271019936, "model_write_bytes": 321011072, "model_kernels": 1781, "hardware_read_bytes": 10569921504, "hardware_write_bytes": 338395872, "hardware_kernels": 1781, "read_relative_error": -0.028278504044413788, "write_relative_error": -0.0513741491503773, "hardware_agreement": "Byte comparison available; report read/write deviations separately. Not an exact physical DRAM trace or native token-time validation."}
+{"case": "q30_B16P512", "capture_output_validated": true, "model_export_validated": true, "hardware_reference_validated": true, "scope": "Model counter/export consistency does not establish exact hardware cache or timing behavior", "model_read_bytes": 10271019936, "model_write_bytes": 321011072, "model_kernels": 1781, "hardware_read_bytes": 10569921504, "hardware_write_bytes": 338395872, "hardware_kernels": 1781, "read_relative_error": -0.028278504044413788, "write_relative_error": -0.0513741491503773, "hardware_agreement": "Byte comparison available; report read/write deviations separately. Not an exact physical DRAM trace or native token-time validation."}
+q30_B16P512 ctx_0x5559a4a7a070 policy_job 142450
+q30_B16P512 ctx_0x5559a4aa2450 policy_job 142451
+Submitted batch job 142452
