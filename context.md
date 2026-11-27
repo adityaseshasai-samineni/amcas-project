@@ -2032,3 +2032,11 @@ Also: 140851/140852 (q30_n4 grids) moved to node01 (node03 memory fully reserved
 - **q7_32k -15.5% read gap explained** (`kernel_read_gap.py`, per-kernel Nsight vs Accel-Sim): it is all in flash_attn_ext_vec, 3125 MB on hardware vs 1963 MB simulated. Every other kernel is within 0.2% (mul_mat_vec_q 3118 vs 3116 MB). The KV cache at 32k is 1.88 GB, so Accel-Sim reads it about once while the V100 reads it about 1.66x (GQA heads re-fetch after L2 eviction). This is the same 1.6-1.9x KV amplification the CPU study found with a 22 MB LLC. GPU attention share is 31% of DRAM reads in simulation vs 42% on hardware.
 - **Held-out window job 141862** (holdout.py/holdout.sh, node03): q7_32k, q30_32k, q30_B4P512, q7_8k. Masks fitted on the 30% window are evaluated at 10% and 70% (transfer vs oracle refit); identity/xor_global/chan/xor_global_chan, Open/Timeout256, 256 B and 2 KiB interleave. Output: results/gpu/campaign_20261120/holdout/<case>_<ctx4>.json. Smoke-tested at 100k-sector windows on q7_8k.
 - **PIPELINE_WALKTHROUGH.md:** step-by-step CPU and GPU pipeline, what is compared, problem-statement mapping, gaps. Main open gap: the proposal mask is fitted per trace; a cross-workload fixed-mask test is still needed.
+
+## 2026-11-27 evening: cross-workload fixed-mask test submitted
+- `xworkload.py`/`xworkload.sh` (node01, 6 cores, resumable): XOR masks (xor_global, chan, xor_global_chan) are fitted once on a trainer and applied unchanged to all 26 GPU policy windows.
+  - Trainers: q7_32k, q30_32k/e520, and pooled (q7_32k + q30_32k/e520 + q05_32k).
+  - Compared against identity and the per-window oracle refit.
+  - Grid: packed/thp, 256 B / 2 KiB interleave, Open/Timeout256. 104 replays per window, 2704 in total.
+  - Output: results/gpu/campaign_20261120/xworkload/results.json.
+  - Smoke test (XW_SMOKE=100000, 2 windows, 208 replays) passed.
