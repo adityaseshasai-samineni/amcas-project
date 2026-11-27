@@ -2013,3 +2013,7 @@ Also: 140851/140852 (q30_n4 grids) moved to node01 (node03 memory fully reserved
 - gpu_latency_report.py now labels two-context (two-GPU) cases as case/<last 4 hex of ctx id>; latency.md regenerated (104 cells).
 - 139898 q30_B16P512 replay: ctx_..a070 at 626 kernels after 22.3 h (~28/h); second context not started. Projected total ~64-73 h vs 72 h limit. Fallback: grid on the first context only.
 - 140984 [6-8] MoE captures still PENDING (node04 memory reserved by others).
+
+## 2026-11-27 11:50: MoE captures restarted with 3-day limits
+- 140984_6 (q30_B4P8192) was still in NVBit prefill after 13.9 h, with no decode tokens captured. Slurm refuses user time extensions on a running job, and run_case.py's own stop (AMCAS_CAPTURE_SECONDS=72000) was fixed at submission. With the user's OK it was cancelled. Its partial scratch trace was renamed (not deleted) to node04:/scratch/.../q30_B4P8192/capture.partial_140984_6.
+- Resubmitted with -t 3-00:00:00 and AMCAS_CAPTURE_SECONDS=255000: 141277_6 (q30_B4P8192, running on node04 since 11:50) and 141272_7/_8 (q30_B4P32768, q30_pf32). At the user's request 7/8 have no dependency or throttle and are scheduled independently. In practice they still run one at a time, because each needs both node04 V100s.
