@@ -2017,3 +2017,13 @@ Also: 140851/140852 (q30_n4 grids) moved to node01 (node03 memory fully reserved
 ## 2026-11-27 11:50: MoE captures restarted with 3-day limits
 - 140984_6 (q30_B4P8192) was still in NVBit prefill after 13.9 h, with no decode tokens captured. Slurm refuses user time extensions on a running job, and run_case.py's own stop (AMCAS_CAPTURE_SECONDS=72000) was fixed at submission. With the user's OK it was cancelled. Its partial scratch trace was renamed (not deleted) to node04:/scratch/.../q30_B4P8192/capture.partial_140984_6.
 - Resubmitted with -t 3-00:00:00 and AMCAS_CAPTURE_SECONDS=255000: 141277_6 (q30_B4P8192, running on node04 since 11:50) and 141272_7/_8 (q30_B4P32768, q30_pf32). At the user's request 7/8 have no dependency or throttle and are scheduled independently. In practice they still run one at a time, because each needs both node04 V100s.
+
+## 2026-11-27 17:40: GPU pipeline audit (why captures are slow, plus validity checks)
+- **Capture slowness, measured:** the running q30_B4P8192 capture issues about 3110 kernel launches/min (~19 ms each). Its main thread and the NVBit receiver thread are each at 100% CPU, and both GPUs show 0% utilisation. That makes 841k launches in 5.5 h, about 44k per prefill graph (MoE plus quantize/convert kernels).
+  - Cause: tracer_tool.cu enter/leave_kernel_launch does the full per-launch work even when active_region is false: cudaDeviceSynchronize before and after, the flush_channel<<<1,1>>> launch and sync, a pthread_yield spin on recv_thread_receiving, and two fopen/fclose of the stats file.
+  - Across all finished cases, capture takes 430-2700x native time (e.g. q30_32k 65141 s vs 55 s native).
+  - ptrace is blocked on node04 (yama ptrace_scope=3), so no stack samples were possible.
+  - Proposed fix, not applied: early-return on inactive kernels (keep only the kernel-id increment). Validate by recapturing a finished case and checking that the traced kernel files and kernel lists are byte-identical.
+- **Window coverage:** prepare_policy takes one 4M-sector (128 MB) window at 30% of each context's stream. That is 2-5% of the stream for 7B and 30B (q7_32k 2.0%, q30_n4 3.0%), i.e. roughly half of one 7B layer at 32k. The XOR/channel masks are fitted and evaluated on that same window (in-sample, as policy_grid.py's docstring says). Held-out and multi-window checks have not been run on GPU.
+- **Hardware agreement (validation.json):** Accel-Sim reads match Nsight within 0-3% for most cases, except q7_32k/q7_32k_t2 at -15.5% and q7_B4P8192 at -8.9%. Writes are undercounted 8-56%, but writes are <2% of the decode windows (up to 10.8% for q7_ub32).
+- The core scripts on the laptop match the cluster copies (md5).
