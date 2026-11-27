@@ -2040,3 +2040,15 @@ Also: 140851/140852 (q30_n4 grids) moved to node01 (node03 memory fully reserved
   - Grid: packed/thp, 256 B / 2 KiB interleave, Open/Timeout256. 104 replays per window, 2704 in total.
   - Output: results/gpu/campaign_20261120/xworkload/results.json.
   - Smoke test (XW_SMOKE=100000, 2 windows, 208 replays) passed.
+
+## 2026-11-27 ~21:15 — GPU held-out window check done (job 141862)
+
+- 141862 COMPLETED (1h44m, node03). 6 contexts × 72 replays: q7_32k, q7_8k, q30_32k (2 ctx), q30_B4P512 (2 ctx). Output: `results/gpu/campaign_20261120/holdout/*.json`.
+- Setup: masks fitted on the grid's 30% window, applied unchanged to 4M-sector windows at 10% and 70% of the same stream ("transfer"); compared with masks refitted on those windows ("oracle") and identity. Packed placement, s=8/11, Open/Timeout256. Metric: Ramulator HBM2 saturated cycles / identity cycles on the same window (lower is better).
+- Best-of-3 maps (xor_global, chan, xor_global_chan), 8 held-out cells per context, mean transfer vs oracle:
+  - q7_32k: 0.894 vs 0.885 (best 0.738 vs 0.740); 2 of 8 cells slightly worse than identity (max 1.010).
+  - q7_8k: 0.947 vs 0.945 (best 0.900 vs 0.901).
+  - q30_32k e520: 0.995 vs 0.994; 6900: 0.978 vs 0.988.
+  - q30_B4P512 7450: 0.979 vs 0.979; f070: 0.982 vs 0.979.
+- Conclusion: masks fitted on one window keep within about 1 percentage point of the refitted mask at other points in the same decode stream. The in-sample window choice does not inflate the GPU gains. The cross-workload test (142132) is still running: 41 of 104 window×placement×interleave groups done at 21:02.
+- 139898 (q30_B16P512) ctx 2: kernel 847 of 856 at 21:10. Mask export, reconcile, prepare and upload follow automatically.
