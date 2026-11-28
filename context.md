@@ -2098,3 +2098,17 @@ Also: 140851/140852 (q30_n4 grids) moved to node01 (node03 memory fully reserved
   - node03 holds every non-regenerable capture file: 1788 files with an identical name+size list (md5 c9402013…).
   - The rest of node04's 3569 files are `.tracez` that the retention step removed on node03, since they regenerate from the `.trace.xz` originals.
 - Deleted node04:/scratch/.../q30_B16P512/capture (3569 files, 97.7 GB). node04 /scratch is now 254 GB free (86%). Logged in node04_scratch_cleanup_20261123.txt.
+
+## 2026-11-28 18:10 — q30_pf32 capture near the 80 GiB trace budget; lossless recompression (job 142845)
+
+- 141272_8 q30_pf32, 17:57:
+  - GPU0 context finished: 875 kernels, 45.7 GB.
+  - GPU1 context at 140 kernels, about 51 MB per kernel.
+  - Projected from q30_B16P512's per-GPU kernel split (925/856), GPU1 needs about 810 kernels, so the total is about 87 GB. run_case.py kills a capture whose scratch dir passes 80 GiB (85.9 GB), and that check is fixed inside the running process.
+- The tracer writes xz with a 1 MiB dictionary (preset ~1). On one file, recompressing to -9e saved 42% with an identical decompressed md5.
+- `recompress_traces.sh CASE` (node04, -c 16, no GPU):
+  - Recompresses finished kernel traces (not modified for 15 min) with xz -6, largest first.
+  - Replaces a file by atomic rename, and only when the decompressed md5 is unchanged. Temp files sit outside the capture dir.
+  - Repeats passes until the case's capture.status.json is rewritten.
+  - Log: runs/q30_pf32/recompress_142845.tsv (file, old bytes, new bytes, replaced/kept, md5 of content).
+- First file: kernel-29 (GPU0) 822 → 476 MB, about 7 min per 800 MB file, roughly 50 MB saved per minute. The trace content seen by post-processing and Accel-Sim is unchanged; only the xz container differs.
