@@ -2091,3 +2091,10 @@ Also: 140851/140852 (q30_n4 grids) moved to node01 (node03 memory fully reserved
 - Deviation if a partial rung wins: the trace lacks the CPU-resident leading layers (1–5 of 48 transformer layers). Report it as such.
 - 142756 is PENDING behind 141272_8 (q30_pf32 holds both node04 GPUs; 716 kernels / 37 GB traced at 15:30).
 - node04 /scratch is 91% full (165 GB free). q30_B16P512 (92 GB) is already copied to node03 and uploaded; it is a cleanup candidate, pending user OK.
+
+## 2026-11-28 16:05 — node04 scratch cleanup: q30_B16P512 (user OK: "if it's done clear it")
+
+- Verified first: the validation gates (capture, export, hardware) passed; Nsight passed; both policy grids are done; the upload pushed.
+  - node03 holds every non-regenerable capture file: 1788 files with an identical name+size list (md5 c9402013…).
+  - The rest of node04's 3569 files are `.tracez` that the retention step removed on node03, since they regenerate from the `.trace.xz` originals.
+- Deleted node04:/scratch/.../q30_B16P512/capture (3569 files, 97.7 GB). node04 /scratch is now 254 GB free (86%). Logged in node04_scratch_cleanup_20261123.txt.
