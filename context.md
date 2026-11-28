@@ -2070,3 +2070,24 @@ Also: 140851/140852 (q30_n4 grids) moved to node01 (node03 memory fully reserved
 - 141277_6 q30_B4P8192 capture COMPLETED (21h43). Replay 142711 is RUNNING on node03 (started ~09:33). Its Nsight job 142713 is PENDING on node04 GPUs.
 - 141272_7 (q30_B4P32768, raw job 142712) FAILED after 32 s. Native gate passed. The NVBit capture died with `ERROR file nvbit_imp.cpp line 1963: CUDA_ERROR_OUT_OF_MEMORY` right after `AMCAS_GRAPH_BEGIN step=-1`. With 4 × 32k KV across two V100s, there is no headroom left for NVBit's buffers. Not retried. It would need a smaller context (e.g. B4P16384) and multi-day capture, which would not finish by Dec 2.
 - 141272_8 (q30_pf32) RUNNING on node04 since ~09:34.
+
+## 2026-11-28 15:50 — q30_B4P32768 OOM retry ladder (job 142756), per user: "dont drop it, retry as much as possible"
+
+- Memory budget (from native.stderr plus nvidia-smi on the running q30_pf32 NVBit capture):
+  - GPU0: weights 8976 + KV 6450 + compute 65 MiB.
+  - GPU1: weights 8549 + KV 5934 + compute 122 MiB.
+  - NVBit/CUDA overhead measured on q30_pf32: about 1710 MiB on GPU0 and 575 MiB on GPU1.
+  - Estimated need: GPU0 ~17.2 GB, GPU1 ~15.2 GB, against ~16.25 GB usable per V100-16GB. Total need ~32.4 GB vs ~32.5 GB usable, so even a perfect split is marginal with all 48 layers.
+- Changes (all backward compatible; other cases unaffected):
+  - `gpu_batch_main.cpp`: optional `AMCAS_TENSOR_SPLIT` (llama.cpp tensor_split). Built as `llama-gpu-batch-v4`; v3 is untouched.
+    - Smoke on node04 (CPU-only, 0.5B, B=2 P=40): v3 and v4 tokens identical; KV state save then restore gives identical tokens.
+    - Both binaries abort at cudaProfilerStart without a GPU (expected; pre-existing).
+  - `run_case.py`: per-case driver override `environment.AMCAS_DRIVER_BIN`. The case-level `allowed_offload` ("N/49") replaces the full-offload gate only when set, and is recorded in status.
+  - `retry_oom.sh CASE` (node04, 2 GPUs, 3 days):
+    - Each rung uses the driver's existing KV state cache (`AMCAS_CACHE_DIR=/scratch/.../q30_B4P32768/kvcache`). The native gate prefills and saves 4 × ~3.1 GB; the NVBit capture restores it, so the traced prefill (estimated >3 days under NVBit) is skipped.
+    - Rungs (GPU_LAYERS:TENSOR_SPLIT): 99:default, 99:24,25, 99:23,26 (exact workload); 48:23,25, 48:22,26 (layer 0 on CPU); 47:22,25; 46:22,24; 45:21,24; 44:21,23.
+    - An OOM moves to the next rung; any other failure stops. On a pass it submits simulate_case_node03.sh.
+    - Original case JSON saved as cases/q30_B4P32768.json.orig_142756. Rung log: runs/q30_B4P32768/oom_retry_142756.jsonl.
+- Deviation if a partial rung wins: the trace lacks the CPU-resident leading layers (1–5 of 48 transformer layers). Report it as such.
+- 142756 is PENDING behind 141272_8 (q30_pf32 holds both node04 GPUs; 716 kernels / 37 GB traced at 15:30).
+- node04 /scratch is 91% full (165 GB free). q30_B16P512 (92 GB) is already copied to node03 and uploaded; it is a cleanup candidate, pending user OK.

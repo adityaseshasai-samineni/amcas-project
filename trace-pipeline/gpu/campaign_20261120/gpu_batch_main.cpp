@@ -160,6 +160,12 @@ int main() {
     ggml_backend_load_all();
     llama_backend_init();
     llama_model_params mp = llama_model_default_params(); mp.n_gpu_layers = env_long("AMCAS_GPU_LAYERS", 99);
+    // Optional per-device layer proportions, e.g. "24,25" (llama.cpp tensor_split); unset = llama.cpp default.
+    static float tsplit[16] = {0};
+    if (const char *ts = getenv("AMCAS_TENSOR_SPLIT")) {
+        int n = 0; for (const char *q = ts; *q && n < 16; n++) { tsplit[n] = strtof(q, (char **)&q); if (*q == ',') q++; }
+        mp.tensor_split = tsplit; fprintf(stderr, "gpu-batch: tensor_split=%s\n", ts);
+    }
     llama_model *m = llama_model_load_from_file(model.c_str(), mp);
     if (!m) die("model load failed");
     const llama_vocab *vocab = llama_model_get_vocab(m);

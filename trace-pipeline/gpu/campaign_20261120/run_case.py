@@ -3,7 +3,7 @@
 import argparse,json,os,pathlib,subprocess,time,signal,shutil,re,hashlib,sys
 p=argparse.ArgumentParser();p.add_argument('case');p.add_argument('--mode',choices=['native','capture'],required=True);a=p.parse_args()
 A=pathlib.Path.home()/'amcas-pro';R=A/'results/gpu/campaign_20261120';case=json.load(open(R/'cases'/f'{a.case}.json'));out=R/'runs'/a.case;out.mkdir(parents=True,exist_ok=True)
-driver=next(R/x for x in ['llama-gpu-batch-v3','llama-gpu-batch-v2','llama-gpu-batch'] if (R/x).is_file());driver_hash=hashlib.sha256(driver.read_bytes()).hexdigest();environment_hash=hashlib.sha256(json.dumps(case['environment'],sort_keys=True).encode()).hexdigest()
+driver=R/case['environment']['AMCAS_DRIVER_BIN'] if case['environment'].get('AMCAS_DRIVER_BIN') else next(R/x for x in ['llama-gpu-batch-v3','llama-gpu-batch-v2','llama-gpu-batch'] if (R/x).is_file());driver_hash=hashlib.sha256(driver.read_bytes()).hexdigest();environment_hash=hashlib.sha256(json.dumps(case['environment'],sort_keys=True).encode()).hexdigest()
 if a.mode=='capture' and case['gpu_devices']==2 and not (R/'capacity_retry.json').is_file():
  subprocess.call([sys.executable,str(R/'repair_capacity.py')])
 if a.mode=='capture':
@@ -52,7 +52,9 @@ if rc==0:
  log=(out/(a.mode+'.stderr')).read_text(errors='replace')
  off=re.findall(r'offloaded (\d+)/(\d+) layers to GPU',log)
  status['offload_layers']=off
- if not off or any(int(x)!=int(y) for x,y in off):status.update(passed=False,stop_reason='full_GPU_offload_not_confirmed')
+ allowed=case.get('allowed_offload')  # e.g. '47/49': explicit, recorded partial-offload deviation (memory retry ladder only)
+ if allowed:status['allowed_offload']=allowed
+ if not off or any((f'{x}/{y}'!=allowed) if allowed else int(x)!=int(y) for x,y in off):status.update(passed=False,stop_reason='full_GPU_offload_not_confirmed')
  status['cuda_visible_devices']=env.get('CUDA_VISIBLE_DEVICES')
 if rc==0:
  prompts=[x.split() for x in (out/(a.mode+'.prompt_tokens')).read_text().splitlines()]
