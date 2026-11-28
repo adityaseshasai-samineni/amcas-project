@@ -2063,3 +2063,10 @@ Also: 140851/140852 (q30_n4 grids) moved to node01 (node03 memory fully reserved
 - Per case, best of 3 maps, oracle vs pooled: q7_32k 0.864 vs 0.869; q7_32k_t2 0.863 vs 0.867; q7_B4P8192 0.924 vs 0.929; q30_B4P512 0.964 vs 0.974; q7_8k 0.974 vs 0.978; small models (q05, gem5 s15/q05) 0.99–1.00 under both.
 - Conclusion: a single pooled mask keeps almost all of the refit gain on the cases that benefit (long-context 7B: −13% cycles). The q30-only trainer transfers worse to dense 7B (0.924 on q7_32k). Fixed masks are worse than identity on about 30% of cells, but by at most 3–5%, mostly small-model or short-context cells where no mapping helps.
 - Recommended proposal form: the channel-XOR (chan) mask fitted on the pooled set, applied to every workload.
+
+## 2026-11-28 15:30 — job status; q30_B4P32768 capture OOM; q30_B16P512 grid done
+
+- 142132 xworkload COMPLETED (7h00, 2704/2704 replays). 142450/142451 q30_B16P512 policy grids COMPLETED (3h52/3h47). Hardware agreement for q30_B16P512: reads −2.8%, writes −5.1% vs Nsight. analysis/gpu/latency.md regenerated (112 cells, 14508 replays). q30_B16P512 Ramulator best vs id+Open: ctx a070 0.914–0.925 (chan / xor_global_chan + Timeout64), ctx 2450 0.934–0.969 (region / xor_global_chan).
+- 141277_6 q30_B4P8192 capture COMPLETED (21h43). Replay 142711 is RUNNING on node03 (started ~09:33). Its Nsight job 142713 is PENDING on node04 GPUs.
+- 141272_7 (q30_B4P32768, raw job 142712) FAILED after 32 s. Native gate passed. The NVBit capture died with `ERROR file nvbit_imp.cpp line 1963: CUDA_ERROR_OUT_OF_MEMORY` right after `AMCAS_GRAPH_BEGIN step=-1`. With 4 × 32k KV across two V100s, there is no headroom left for NVBit's buffers. Not retried. It would need a smaller context (e.g. B4P16384) and multi-day capture, which would not finish by Dec 2.
+- 141272_8 (q30_pf32) RUNNING on node04 since ~09:34.
